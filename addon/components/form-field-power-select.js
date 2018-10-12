@@ -1,6 +1,6 @@
 import Component from '@ember/component';
 import $ from 'jquery';
-import layout from '../../templates/components/svg/form-field-power-select';
+import layout from '../templates/components/form-field-power-select';
 
 export default Component.extend({
   layout,
