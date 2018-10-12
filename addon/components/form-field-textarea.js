@@ -1,5 +1,5 @@
 import Component from '@ember/component';
-import layout from '../../templates/components/svg/form-field-textarea';
+import layout from '../templates/components/form-field-textarea';
 
 export default Component.extend({
   layout,

@@ -1,7 +1,7 @@
 import Component from '@ember/component';
 import { computed } from '@ember/object';
 import EmberObject from '@ember/object';
-import layout from '../../templates/components/svg/form-field-checkbox-group';
+import layout from '../templates/components/form-field-checkbox-group';
 
 export default Component.extend({
   layout,
