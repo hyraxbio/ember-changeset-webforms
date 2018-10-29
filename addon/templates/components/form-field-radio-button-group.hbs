@@ -1,8 +1,8 @@
 <div class="radio-button-group-container field-controls validation-area">
-  {{extensible/form-field-legend formField=formField}}
+  {{form-field-legend formField=formField}}
   {{component inputIcon class="form-field-icon"}}
   {{#each formField.options as |option|}}
-    {{custom-elements/labelled-radio-button
+    {{labelled-radio-button
       data-test-id=(concat "radio-button-option-" option.value)
       value=option.value
       groupValue=groupValue
@@ -14,4 +14,4 @@
     }}
   {{/each}}
 </div>
-{{extensible/form-field-error formField=formField}}
+{{form-field-error formField=formField}}
