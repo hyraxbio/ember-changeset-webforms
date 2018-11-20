@@ -6,6 +6,7 @@ import layout from '../templates/components/form-field-checkbox-group';
 export default Component.extend({
   layout,
   classNames: ['checkbox-group'],
+
   didInsertElement: function() {
     var checkedItems = this.get('formField.value') || [];
     var options = this.get('formField.options');
@@ -22,9 +23,14 @@ export default Component.extend({
     checkboxToggled: function(key, value) {
       var checkedItems = this.get('formField.value') || [];
       if (value === true) {
-        checkedItems.pushObject(key);
+        checkedItems.push(key);
       } else {
-        checkedItems.removeObject(key);
+        checkedItems = checkedItems.filter(item => {
+          return item != key;
+        })
+      }
+      if (checkedItems.length === 0) {
+        checkedItems = null;
       }
       this.onUserInteraction(checkedItems);
     }

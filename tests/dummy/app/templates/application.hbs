@@ -1,48 +1,6 @@
-<h2 id="title">Welcome to Ember</h2>
-
+<h2 id="title">POJO Validating Forms</h2>
+{{forms/signup-form
+  submitAction=(route-action "saveNewRecord")
+  setProperty=(action "setProperty")
+}}
 {{outlet}}
-
-{{validating-form-field
-  fieldSchema=inputTextField
-
-}}
-
-{{validating-form-field
-  fieldSchema=inputEmailField
-
-}}
-
-{{validating-form-field
-  fieldSchema=textareaField
-
-}}
-
-{{validating-form-field
-  fieldSchema=textSeparatorField
-
-}}
-
-{{validating-form-field
-  fieldSchema=singleCheckboxField
-
-}}
-
-{{validating-form-field
-  fieldSchema=checkboxGroupField
-
-}}
-
-{{validating-form-field
-  fieldSchema=radioButtonGroupField
-
-}}
-
-{{validating-form-field
-  fieldSchema=powerDatePickerField
-
-}}
-
-{{validating-form-field
-  fieldSchema=powerSelectField
-
-}}

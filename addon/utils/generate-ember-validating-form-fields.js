@@ -28,7 +28,7 @@ export default function generateEmberValidatingFormFields(formSchema, existing) 
     var formFields = [];
     schemaFields.forEach(function(field, index) {
       var fieldObject = generateEmberValidatingFormField(field, index, formSchema, existing);
-      formFields.pushObject(fieldObject);
+      formFields.push(fieldObject);
     });
     return formFields;
   }

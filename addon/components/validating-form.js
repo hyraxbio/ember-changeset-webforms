@@ -1,7 +1,7 @@
 import Component from '@ember/component';
 import { computed } from '@ember/object';
 import generateEmberValidatingFormFields from '../utils/generate-ember-validating-form-fields';
-import validateField from 'sanger-frontend-version-three/utils/validate-field';
+import validateField from '../utils/validate-field';
 import layout from '../templates/components/validating-form';
 
 export default Component.extend({
@@ -143,10 +143,10 @@ export default Component.extend({
         if (formField.get('error')) {
           return;
         }
-        // if (self.customValidations) {
-        //   self.customValidations(formField, self.get('formFields'));
-        // }
-        if (self.customValidations && formField.get('validationRules').findBy('validationMethod', 'custom')) {
+        var customValidationRule = formField.get('validationRules').find(rule => {
+          return rule.validationMethod = 'custom';
+        })
+        if (self.customValidations && customValidationRule) {
           self.customValidations(formField, self.get('formFields'));
         }
       });
@@ -156,13 +156,19 @@ export default Component.extend({
       window.scrollTo(0, 0);
       this.set('formObject', generateEmberValidatingFormFields(this.get('formSchema')));
     },
-
-
   },
 
   formValidates: function() {
-    var validationFields = this.get("formFields").rejectBy("validationRules", undefined).rejectBy("validationRules", null);
-    if (validationFields.isEvery("error", false)) {
+    var validationFields = this.get('formFields').filter(field => {
+      field.set('validationRules', field.get('validationRules') || []);
+      return field.validationRules.length > 0;
+    })
+
+    var allPassed = validationFields.every(field => {
+      return field.get('error') === false;
+    });
+
+    if (allPassed) {
       return true;
     }
     return false;
@@ -196,4 +202,6 @@ export default Component.extend({
     }
     return readablevalidationRule;
   },
+
+
 });
