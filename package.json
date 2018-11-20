@@ -1,6 +1,6 @@
 {
   "name": "ember-pojo-validating-fields",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "The default blueprint for ember-cli addons.",
   "keywords": [
     "ember-addon"
@@ -22,9 +22,9 @@
   "dependencies": {
     "ember-cli-babel": "^6.6.0",
     "ember-cli-htmlbars": "^2.0.1",
-    "ember-power-select": "^2.0.9",
     "ember-cli-less": "^1.5.3",
     "ember-extended-fields": "git+ssh://git@github.com/andrew-paterson/ember-extended-fields.git",
+    "ember-power-select": "^2.0.9",
     "svg-repo": "git+ssh://git@github.com/andrew-paterson/svg-repo.git#master"
   },
   "devDependencies": {
