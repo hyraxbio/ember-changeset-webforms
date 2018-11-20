@@ -1,9 +1,11 @@
 import Component from '@ember/component';
 import { computed } from '@ember/object';
-import generateEmberValidatingFormFields from 'sanger-frontend-version-three/utils/generate-ember-validating-form-fields';
+import generateEmberValidatingFormFields from '../utils/generate-ember-validating-form-fields';
 import validateField from 'sanger-frontend-version-three/utils/validate-field';
+import layout from '../templates/components/validating-form';
 
 export default Component.extend({
+  layout,
   classNameBindings: ['class', 'validationFailed:validation-failed'],
   attributeBindings: ["data-test-id"],
 
