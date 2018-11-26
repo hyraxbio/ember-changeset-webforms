@@ -67,7 +67,9 @@ export default Component.extend({
 
   actions: {
     customValidations: function(formField) {
-      this.customValidations(formField, this.get('formFields'));
+      if (this.customValidations) {
+        this.customValidations(formField, this.get('formFields'));
+      }
     },
 
     setFormFieldValue: function(formField, value) {
@@ -86,7 +88,9 @@ export default Component.extend({
       var self = this;
       this.send('validateAllFields');
       if (this.formValidates()) {
-        this.formValidationPassed();
+        if (this.this.formValidationPassed) {
+          this.formValidationPassed();
+        }
         var formSchema = this.get('formSchema');
         var formFields = this.get('formFields');
         var formMetaData = this.get('formMetaData');
@@ -114,7 +118,6 @@ export default Component.extend({
             self.saveFail(error, formFields);
           });
         } else {
-
           this.submitAction(values, formMetaData.modelName).then((response) => {
             self.saveSuccess(response, formFields, formMetaData);
             self.set("requestInFlight", false);
@@ -129,14 +132,15 @@ export default Component.extend({
       } else {
         this.set('formMetaData.formStatus', 'validationFailed');
         this.set('formMetaData.submitButtonFeedback', 'Some fields have errors which must be fixed before continuing.');
-        this.formValidationFailed(this.get('formFields'), this.get('formMetaData'));
+        if (this.formValidationFailed) {
+          this.formValidationFailed(this.get('formFields'), this.get('formMetaData'));
+        }
       }
     },
 
     validateAllFields: function() {
-      var self = this;
       var formFields = this.get('formFields');
-      formFields.forEach(function(formField) {
+      formFields.forEach(formField => {
         if (!formField.get('validationRules')) { return; }
         formField.set('error', validateField(formField));
         if (formField.get('error')) {
@@ -145,8 +149,8 @@ export default Component.extend({
         var customValidationRule = formField.get('validationRules').find(rule => {
           return rule.validationMethod = 'custom';
         })
-        if (self.customValidations && customValidationRule) {
-          self.customValidations(formField, self.get('formFields'));
+        if (this.customValidations && customValidationRule) {
+          this.customValidations(formField, this.get('formFields'));
         }
       });
     },
