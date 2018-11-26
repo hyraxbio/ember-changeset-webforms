@@ -88,7 +88,7 @@ export default Component.extend({
       var self = this;
       this.send('validateAllFields');
       if (this.formValidates()) {
-        if (this.this.formValidationPassed) {
+        if (this.formValidationPassed) {
           this.formValidationPassed();
         }
         var formSchema = this.get('formSchema');

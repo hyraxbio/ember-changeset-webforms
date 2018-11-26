@@ -13,7 +13,6 @@
     }}
   {{/each}}
   {{form-submit-button value=submitButtonText requestInFlight=requestInFlight data-test-id="evf-submit-form-button"}}
-  {{form-submit-feedback formMetaData=formMetaData}}
   {{#if formMetaData.showResetButton}}
     <button type="button" data-test-id="evf-reset-form-button" onclick={{action "resetForm"}}>{{resetButtonText}}</button>
   {{/if}}
