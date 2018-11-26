@@ -6,6 +6,6 @@ export default Component.extend({
   tagName: 'button',
   classNames: ['submit-input-container', 'spinner-container', 'large'],
   classNameBindings: ['requestInFlight:spin', 'classes'],
-  attributeBindings: ['customType:type'],
+  attributeBindings: ['customType:type', 'data-test-id'],
   customType: 'submit'
 });

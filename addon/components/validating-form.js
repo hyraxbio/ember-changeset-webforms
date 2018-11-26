@@ -7,7 +7,6 @@ import layout from '../templates/components/validating-form';
 export default Component.extend({
   layout,
   classNameBindings: ['class', 'validationFailed:validation-failed'],
-  attributeBindings: ["data-test-id"],
 
   formObject: computed('formSchema', 'processedFormSchema', function() {
     if (this.get('processedFormSchema')) {

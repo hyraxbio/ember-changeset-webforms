@@ -1,0 +1,6 @@
+{
+  "name": "sanger-frontend-version-three",
+  "dependencies": {
+    "validator-js": "^7.0.0"
+  }
+}

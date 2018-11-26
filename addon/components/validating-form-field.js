@@ -147,7 +147,7 @@ export default Component.extend({
       if (error) { return; }
       // TODO throw error if custom is passed as a validation rule, but the 'customValidations' action is not passed in. Do this on didInsert.
       var customRule = validationRules.find(function(rule) {
-        return rule.validationMethod === 'required';
+        return rule.validationMethod === 'custom';
       });
       if (this.customValidations && customRule) {
         this.customValidations(formField, this.get('formFields'));

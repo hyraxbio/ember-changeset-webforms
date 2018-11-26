@@ -19,7 +19,6 @@ export default function validateField(formField) {
         }
       // Validate all other types of fields
       } else if (validator[validationMethod]) {
-
         if (!validator[validationMethod](stringValue, validationArgs)) {
           errorMessage = customErrorMessage || `This is not a valid  value. Please try again.`;
         } else {
