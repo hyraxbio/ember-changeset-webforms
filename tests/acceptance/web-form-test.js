@@ -32,7 +32,7 @@ module('Acceptance | Validating form', function(hooks) {
     await click(document.querySelector('[data-test-id="validating-field-settings.mailing_list"] input'));
     await click(document.querySelector('[data-test-id="evf-submit-form-button"]'));
     await isSettled();
-    await this.pauseTest();
+
     assert.equal(document.querySelector('[data-test-id="system-message"] .message-content').textContent.trim(), 'Success', 'Default success message displays on successful form submission, if "submitSuccessMessage" is null.');
 
     await visit('/users');
