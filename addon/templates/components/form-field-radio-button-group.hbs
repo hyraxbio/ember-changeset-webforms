@@ -2,7 +2,7 @@
   {{form-field-legend formField=formField}}
   {{component inputIcon class="form-field-icon"}}
   {{#each formField.options as |option|}}
-    {{labelled-radio-button
+    {{ember-extended-elements/labelled-radio-button
       data-test-id=(concat "radio-button-option-" option.value)
       value=option.value
       groupValue=groupValue

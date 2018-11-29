@@ -2,7 +2,7 @@
   {{form-field-legend formField=formField}}
   {{component inputIcon class="form-field-icon"}}
   {{#each formField.options as |option|}}
-    {{labelled-checkbox
+    {{ember-extended-elements/labelled-checkbox
       value=(readonly option.value)
       label=option.label
       changedAction=(action "checkboxToggled" option.key)

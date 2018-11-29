@@ -12,8 +12,8 @@
       data-test-id=(concat "validating-field-" formField.fieldId)
     }}
   {{/each}}
-  {{form-submit-button value=submitButtonText requestInFlight=requestInFlight data-test-id="evf-submit-form-button"}}
+  {{form-submit-button value=submitButtonText requestInFlight=requestInFlight data-test-id="evf-submit-form-button" class=formMetaData.submitButtonClasses}}
   {{#if formMetaData.showResetButton}}
-    <button type="button" data-test-id="evf-reset-form-button" onclick={{action "resetForm"}}>{{resetButtonText}}</button>
+    <button class="{{formMetaData.resetButtonClasses}}" type="button" data-test-id="evf-reset-form-button" onclick={{action "resetForm"}}>{{resetButtonText}}</button>
   {{/if}}
 </form>
