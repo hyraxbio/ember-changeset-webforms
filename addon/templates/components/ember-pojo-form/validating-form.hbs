@@ -12,7 +12,7 @@
       data-test-id=(concat "validating-field-" formField.fieldId)
     }}
   {{/each}}
-  {{ember-pojo-form/form-submit-button value=submitButtonText requestInFlight=requestInFlight data-test-id="evf-submit-form-button" class=formMetaData.submitButtonClasses}}
+  {{ember-pojo-form/form-submit-button click=(action "submit") value=submitButtonText requestInFlight=requestInFlight data-test-id="evf-submit-form-button" class=formMetaData.submitButtonClasses}}
   {{#if formMetaData.showResetButton}}
     <button class="{{formMetaData.resetButtonClasses}}" type="button" data-test-id="evf-reset-form-button" onclick={{action "resetForm"}}>{{resetButtonText}}</button>
   {{/if}}

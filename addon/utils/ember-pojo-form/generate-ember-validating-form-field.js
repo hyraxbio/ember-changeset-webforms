@@ -1,7 +1,7 @@
 import EmberObject from '@ember/object';
 
 export default function generateEmberValidatingFormField(field, index, formSchema, existing) {
-  // if (!field) { return; }
+  console.log(field);
   var fieldElementComponents = {
     "input":            "ember-pojo-form/form-field-input",
     "textarea":         "ember-pojo-form/form-field-textarea",
@@ -11,17 +11,11 @@ export default function generateEmberValidatingFormField(field, index, formSchem
     "radioButtonGroup": "ember-pojo-form/form-field-radio-button-group",
     "checkboxGroup":    "ember-pojo-form/form-field-checkbox-group",
     "textSeparator":    "ember-pojo-form/form-field-text-separator",
-    // "datePikaday":      "custom-elements/form-field-date-pikaday",
-    // "date":             "custom-elements/form-field-date-bootstrap"
   };
 
   if (!field.fieldId) {
     throw Error(`[Ember validating field] fieldId is a required field for validating form. This is missing in item ${index}.`);
   }
-
-  // if (field.fieldType === 'radioButtonGroup' && !field.name) {
-  //   console.warn(`[Ember validating field] You have not provided a name attribute for the radioButtonsGroup with id ${field.fieldId}. This will prevent arrow navigation between options.`);
-  // }
 
   // TODO this must go many levels deep and be it's own util.
   var checkKeyExists = (object, searchKey) => {
@@ -65,17 +59,6 @@ export default function generateEmberValidatingFormField(field, index, formSchem
     }
   }
 
-  // var name = field.name || field.fieldId.replace(/\./g, '-');
-
-  // var placeholder;
-  // if (checkKeyExists(field, 'name')) {
-  //   name = field.name;
-  // } else {
-  //   if (field.fieldId) {
-  //     name = field.fieldId.replace(/\./g, '-');
-  //   }
-  // }
-
   // Inherit form form if not set on field.
   var hideSuccessValidation = false;
   if (checkKeyExists(field, 'hideSuccessValidation')) {
@@ -103,7 +86,10 @@ export default function generateEmberValidatingFormField(field, index, formSchem
     fieldObject.set('options', options);
   }
 
-  // fieldObject.set('error', null);
+  if (field.fieldType === 'input' && !field.inputType) {
+    fieldObject.set('inputType', 'text');
+  }
+
   fieldObject.set('value', value);
   fieldObject.set('hideSuccessValidation', hideSuccessValidation);
   fieldObject.set('hideLabel', hideLabel);

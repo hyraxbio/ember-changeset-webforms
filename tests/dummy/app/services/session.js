@@ -19,8 +19,7 @@ export default Service.extend({
           fieldLabel: 'Name',
           fieldType: 'input',
           validationRules: [{ 'validationMethod': 'required' }],
-          validationEvents: ['focusOut', 'keyUp'],
-          inputType: 'text'
+          validationEvents: ['focusOut', 'keyUp']
         },
         {
           fieldId: 'email',

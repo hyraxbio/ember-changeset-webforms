@@ -15,15 +15,14 @@
 
 .ember-application {
   .btn.submit-input-container {
-    justify-content: space-between;
-    svg {
+    svg.spinner {
       display: none;
     }
-  }
-  &.spin {
-    justify-content: space-between;
-    svg {
-      display: block;
+    &.request-in-flight {
+      justify-content: space-between;
+      svg.spinner {
+        display: block;
+      }
     }
   }
 }

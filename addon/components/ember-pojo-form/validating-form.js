@@ -147,7 +147,7 @@ export default Component.extend({
           return;
         }
         var customValidationRule = formField.get('validationRules').find(rule => {
-          return rule.validationMethod = 'custom';
+          return rule.validationMethod === 'custom';
         })
         if (this.customValidations && customValidationRule) {
           this.customValidations(formField, this.get('formFields'));
