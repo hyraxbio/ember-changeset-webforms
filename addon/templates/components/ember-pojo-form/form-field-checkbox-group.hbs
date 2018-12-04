@@ -1,0 +1,13 @@
+<div class="checkbox-group-container field-controls validation-area">
+  {{ember-pojo-form/form-field-legend formField=formField}}
+  {{component inputIcon class="form-field-icon"}}
+  {{#each formField.options as |option|}}
+    {{ember-extended-elements/labelled-checkbox
+      value=(readonly option.value)
+      label=option.label
+      changedAction=(action "checkboxToggled" option.key)
+      name=formField.name
+    }}
+  {{/each}}
+</div>
+{{ember-pojo-form/form-field-error formField=formField}}

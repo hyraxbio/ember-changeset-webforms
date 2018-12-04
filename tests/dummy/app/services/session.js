@@ -26,7 +26,7 @@ export default Service.extend({
           fieldId: 'email',
           fieldLabel: 'Email',
           fieldType: 'input',
-          validationRules: [{ 'validationMethod': 'isEmail' }],
+          validationRules: [{ 'validationMethod': 'required' }, { 'validationMethod': 'isEmail' }],
           inputType: 'email',
         },
         {

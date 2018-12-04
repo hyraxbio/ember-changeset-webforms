@@ -1,0 +1,11 @@
+<div class="field-controls">
+  {{ember-extended-elements/labelled-checkbox
+    value=(readonly formField.value)
+    label=formField.label
+    labelComponent=formField.labelComponent
+    changedAction=(action onUserInteraction)
+    name=formField.name
+  }}
+  {{component inputIcon class="form-field-icon"}}
+</div>
+{{ember-pojo-form/form-field-error formField=formField}}

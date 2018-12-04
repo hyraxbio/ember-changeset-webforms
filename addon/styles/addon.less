@@ -13,6 +13,17 @@
 
 @import "power-datetime-picker";
 
-h2 {
-  color: purple;
+.ember-application {
+  .btn.submit-input-container {
+    justify-content: space-between;
+    svg {
+      display: none;
+    }
+  }
+  &.spin {
+    justify-content: space-between;
+    svg {
+      display: block;
+    }
+  }
 }
