@@ -1,6 +1,6 @@
 {{#unless formField.hideLabel}}
   {{#if formField.labelComponent}}
-    <label for={{formField.name}}>{{component labelComponent}}</label>
+    <label for={{formField.name}}>{{component formField.labelComponent}}</label>
   {{else if formField.fieldLabel}}
     <label for={{formField.name}}>{{formField.fieldLabel}}</label>
   {{/if}}
