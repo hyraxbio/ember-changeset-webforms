@@ -1,12 +1,14 @@
 // $power-datetime-picker
-
+.form-field.field-type-power-date-picker .validation-area {
+  border: $power-datetime-picker-border-width solid $power-datetime-picker-border-color;
+  border-radius: $power-datetime-picker-border-radius;
+  background: $power-datetime-picker-background-color;
+  padding: 10px;
+}
 .ember-power-datetime-picker {
   display: flex;
   flex-wrap: wrap;
-  border: $input-border-width solid $input-border-color;
-  border-radius: $input-border-radius;
-  background: $input-background-color;
-  padding: 10px;
+
 
   input {
     border-width: 0;
@@ -22,11 +24,10 @@
 .time-select {
   display: flex;
   flex-wrap: wrap;
-  background: $button-background-color;
-  border-radius: $button-border-radius;
-  padding-left: $button-padding-x;
-
-  div.svg,
+  background: $power-datetime-picker-time-select-background-color;
+  border-radius: $power-datetime-picker-time-select-border-radius;
+  display: flex;
+  align-items: center;
   svg {
     margin-top: 5px;
     display: inline-block;
@@ -41,8 +42,9 @@
     width: 40px;
     border-width: 0;
     background: transparent;
-    color: $button-color;
-
+    color: $power-datetime-picker-time-select-trigger-color;
+    display: flex;
+    align-items: center;
     .ember-power-select-selected-item {
       margin-top: 2px;
       margin-left: 4px;
@@ -72,9 +74,7 @@
   }
 
   .time-divider {
-    color: $button-color;
-    font-weight: $button-font-weight;
-    line-height: 37px;
+    color: $power-datetime-picker-time-select-trigger-color;
   }
 }
 
@@ -83,7 +83,7 @@
 // }
 
 .time-select.disabled {
-  background: $button-disabled-background-color;
+  background: $power-datetime-picker-time-select-disabled-background-color;
 }
 
 .ember-power-select-dropdown.form-field-time-select {

@@ -1,24 +1,35 @@
-$pojo-form-field-margin-bottom: $input-margin-bottom;
+$pojo-form-field-max-width: 500px !default;
 
-$pojo-form-field-required-icon-color: $app-colour-shade-two;
+$pojo-form-field-margin-bottom: 30px !default !default;
+$pojo-form-field-required-icon-color: #999 !default;
 
-$pojo-form-field-valid-border-color: $input-valid-border-color;
-$pojo-form-field-valid-background-color: $input-valid-background-color;
-$pojo-form-field-valid-icon-fill: $input-valid-border-color;
+$pojo-form-field-valid-border-color: green !default;
+$pojo-form-field-valid-background-color: lighten(green, 50%) !default;
+$pojo-form-field-valid-icon-fill: $pojo-form-field-valid-border-color !default;
 
-$pojo-form-field-invalid-border-color: $input-invalid-border-color;
-$pojo-form-field-invalid-background-color: $input-invalid-background-color;
-$pojo-form-field-invalid-icon-fill: $input-invalid-border-color;
+$pojo-form-field-invalid-border-color: maroon !default;
+$pojo-form-field-invalid-background-color: lighten(maroon, 50%) !default;
+$pojo-form-field-invalid-icon-fill: $pojo-form-field-invalid-border-color !default;
 
-$pojo-form-field-error-text-color: $pojo-form-field-invalid-border-color;
-$pojo-form-field-error-text-icon-fill: $pojo-form-field-error-text-color;
+$pojo-form-field-error-text-color: $pojo-form-field-invalid-border-color !default;
+$pojo-form-field-error-text-icon-fill: $pojo-form-field-error-text-color !default;
 
-$pojo-form-field-radio-checkbox-group-border-color: $input-border-color;
-$pojo-form-field-radio-checkbox-group-border-width: $input-border-width;
-$pojo-form-field-radio-checkbox-group-background-color: #fff;
+$pojo-form-field-radio-checkbox-group-border-color: #ccc !default;
+$pojo-form-field-radio-checkbox-group-border-width: 1px !default;
+$pojo-form-field-radio-checkbox-group-background-color: #fff !default;
+$pojo-form-field-radio-checkbox-group-border-radius: 3px !default;
+$pojo-form-field-radio-checkbox-group-padding-y: 8px !default;
+$pojo-form-field-radio-checkbox-group-padding-x: 5px !default;
 
-$pojo-form-field-radio-checkbox-group-border-radius: 3px;
-$pojo-form-field-radio-checkbox-group-padding-y: 8px;
-$pojo-form-field-radio-checkbox-group-padding-x: 5px;
+$pojo-form-field-legend-margin-bottom: 15px !default;
 
- $pojo-form-field-legend-margin-bottom: 15px;
+$power-datetime-picker-border-width: 1px !default;
+$power-datetime-picker-border-color: #ccc !default;
+$power-datetime-picker-border-radius: 3px;
+$power-datetime-picker-background-color: #fff;
+
+$power-datetime-picker-time-select-background-color: #999 !default;
+$power-datetime-picker-time-select-border-radius: 3px !default;
+$power-datetime-picker-time-select-padding-x: 10px !default;
+$power-datetime-picker-time-select-trigger-color: #fff;
+$power-datetime-picker-time-select-disabled-background-color: #ccc;

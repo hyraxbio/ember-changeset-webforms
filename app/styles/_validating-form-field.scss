@@ -1,3 +1,11 @@
+div.form-field {
+  max-width: $pojo-form-field-max-width;
+  width: 100%;
+  &.field-type-input input, textarea {
+    width: 100%;
+    box-sizing: border-box;
+  }
+}
 div.field-controls {
   margin-bottom: $pojo-form-field-margin-bottom;
   position: relative;
@@ -21,7 +29,7 @@ div.form-field svg.form-field-icon {
 }
 
 div.form-field.required {
-  div.svg.form-field-icon svg {
+  svg.form-field-icon {
     fill: $pojo-form-field-required-icon-color;
     margin-top: 9px;
   }
@@ -32,7 +40,7 @@ div.form-field.valid {
     border-color: $pojo-form-field-valid-border-color;
     background: $pojo-form-field-valid-background-color;
   }
-  div.svg.form-field-icon svg {
+  svg.form-field-icon {
     fill: $pojo-form-field-valid-icon-fill;
     margin-top: 13px;
   }
@@ -43,7 +51,7 @@ div.form-field.invalid {
     border-color: $pojo-form-field-invalid-border-color;
     background: $pojo-form-field-invalid-background-color
   }
-  div.svg.form-field-icon svg {
+  svg.form-field-icon {
     fill: $pojo-form-field-invalid-border-color;
     margin-top: 10px;
   }
@@ -52,7 +60,7 @@ div.form-field.invalid {
     color: $pojo-form-field-error-text-color;
     font-weight: 700;
     margin-left: 10px;
-    div.svg {
+    svg {
       height: 100%;
       width: 20px;
       float: left;
@@ -68,7 +76,7 @@ div.form-field.power-select {
   max-width: 300px;
 }
 
-div.form-field.power-select div.field-container>div.svg {
+div.form-field.power-select div.field-container > svg {
   right: -24px;
 }
 

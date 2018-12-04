@@ -50,22 +50,22 @@ export default Component.extend({
   inputIcon: computed('formField.error', function() {
     var formField = this.get('formField');
     if (formField.get("error")) {
-      return "svg/icon-alert";
+      return "svg-repo/icons/icon-alert";
     }
     if (formField.get("error") === false) {
       if (!this.get("formField.hideSuccessValidation")) {
-        return "svg/icon-tick";
+        return "svg-repo/icons/icon-tick";
       }
     }
     if (formField.get("error") === null || this.get("formField.error") === undefined) {
       if (formField.get("required")) {
-        return "svg/icon-asterisk";
+        return "svg-repo/icons/icon-asterisk";
       } else {
         return this.get("defaultInputIcon");
       }
     }
     if (formField.get("required")) {
-      return "svg/icon-asterisk";
+      return "svg-repo/icons/icon-asterisk";
     }
   }),
 
