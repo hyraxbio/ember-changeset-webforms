@@ -101,6 +101,10 @@ div.form-field.field-type-checkbox-group {
   }
 }
 
+div.form-field.field-type-static-content {
+  margin-bottom: $pojo-form-field-margin-bottom;
+}
+
 @media (max-width: 979px) {
   div.form-field.field-type-radio-button-group,
   div.form-field.field-type-checkbox-group {

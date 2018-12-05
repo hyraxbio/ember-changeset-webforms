@@ -1,7 +1,6 @@
 import EmberObject from '@ember/object';
 
 export default function generateEmberValidatingFormField(field, index, formSchema, existing) {
-  console.log(field);
   var fieldElementComponents = {
     "input":            "ember-pojo-form/form-field-input",
     "textarea":         "ember-pojo-form/form-field-textarea",
@@ -10,7 +9,7 @@ export default function generateEmberValidatingFormField(field, index, formSchem
     "singleCheckbox":   "ember-pojo-form/form-field-checkbox",
     "radioButtonGroup": "ember-pojo-form/form-field-radio-button-group",
     "checkboxGroup":    "ember-pojo-form/form-field-checkbox-group",
-    "textSeparator":    "ember-pojo-form/form-field-text-separator",
+    "staticContent":    "ember-pojo-form/form-field-static-content",
   };
 
   if (!field.fieldId) {

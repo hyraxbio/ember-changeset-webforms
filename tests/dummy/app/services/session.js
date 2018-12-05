@@ -134,7 +134,19 @@ export default Service.extend({
           fieldType: "singleCheckbox",
           validationRules: [{ 'validationMethod': 'required' }],
           label: 'Do you agree join the mailing list?'
-        }
+        },
+        {
+          fieldId: 'account_status_text',
+          fieldType: 'staticContent',
+          fieldLabel: 'Account Status',
+          text: 'active',
+          hidden: true,
+          textElement: 'div',
+          textElementClass: 'badge',
+          contentComponent: 'static-content-field',
+          contentComponentClass: 'test-class',
+          fieldClass: 'account-status'
+        },
       ]
     };
   }
