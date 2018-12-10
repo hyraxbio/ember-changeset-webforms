@@ -139,7 +139,10 @@ export default Component.extend({
     })
 
     var allPassed = validationFields.every(field => {
-      return field.get('error') === false || (!field.validationRules.findBy('validationMethod', 'required') && !field.value);
+      var fieldRequired = field.validationRules.find(rule => {
+        return rule.validationMethod === 'required';
+      })
+      return field.get('error') === false || (!fieldRequired && !field.value);
     });
 
     if (allPassed) {
