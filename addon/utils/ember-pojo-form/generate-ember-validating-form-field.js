@@ -10,6 +10,7 @@ export default function generateEmberValidatingFormField(field, index, formSchem
     "radioButtonGroup": "ember-pojo-form/form-field-radio-button-group",
     "checkboxGroup":    "ember-pojo-form/form-field-checkbox-group",
     "staticContent":    "ember-pojo-form/form-field-static-content",
+    "dateRange":        "ember-pojo-form/form-field-date-range"
   };
 
   if (!field.fieldId) {

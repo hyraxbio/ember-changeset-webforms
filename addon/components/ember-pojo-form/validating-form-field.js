@@ -102,6 +102,15 @@ export default Component.extend({
       this.send('setFieldValue', value);
     },
 
+    setFieldProperty(prop, value) {
+      var formField = this.get('formField');
+      if (this.setFormFieldProperty) {
+        this.setFormFieldProperty(formField, prop, value);
+      } else {
+        formField.set(prop, value);
+      }
+    },
+
     onFocusOut: function(value) {
       var formField = this.get('formField');
       formField.set('focussed', false);
@@ -158,10 +167,11 @@ export default Component.extend({
       var formField = this.get('formField');
       if (this.setFormFieldValue) {
         this.setFormFieldValue(formField, value);
+        validateField(formField);
       } else {
         value = value || '';
-        var formField = this.get('formField');
         formField.set('value', value);
+
         if (this.customTransforms) {
           this.customTransforms(this.get('formFields'), fieldId, this.get('formMetaData'));
         }

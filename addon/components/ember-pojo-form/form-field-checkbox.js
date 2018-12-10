@@ -3,4 +3,5 @@ import layout from '../../templates/components/ember-pojo-form/form-field-checkb
 
 export default Component.extend({
   layout,
+  tagName: ''
 });

@@ -121,7 +121,7 @@ export default Service.extend({
           maxDate: moment("2019-12-05").toDate(),
           allowNavigationOutOfRange: false,
           calendarStartMonth: '09/2018',
-          // defaultDate: moment("2018-08-28").toDate(),
+          defaultDate: moment("2018-08-28").toDate(),
           // dateFormat:'YYYY/MM/DD',
           // defaultTime: '12:07',
           timeSelect: true,
@@ -146,6 +146,31 @@ export default Service.extend({
           contentComponent: 'static-content-field',
           contentComponentClass: 'test-class',
           fieldClass: 'account-status'
+        },
+        {
+          fieldLabel: "Test",
+          fieldId: "test",
+          fieldType: "dateRange",
+          validationRules: [{ 'validationMethod': 'required' }, { 'validationMethod': 'isDateRange' }],
+          validationEvents: ['insert'],
+          triggerClasses: 'btn btn-primary',
+          calendarContainerClasses: 'pop-up-box box-arrow',
+          minDate: moment("2016-11-05").toDate(),
+          maxDate: moment("2019-12-05").toDate(),
+          calendarStartMonth: '09/2018', // Not implemented
+          dateButtonText: 'Test',
+          allowNavigationOutOfRange: false, //Not implemented
+          dateFormat:'YYYY/MM/DD',
+          startTime: '00:01',
+          endTime: '23:59',
+          // defaultStartDate: moment("2015-08-28").toDate(),
+          // defaultEndDate: moment("2023-08-28").toDate(),
+          // startDate: {
+          //   defaultDate: moment("2018-08-28").toDate(),
+          // },
+          // endDate: {
+          //   defaultDate: moment("2017-08-28").toDate(),
+          // }
         },
       ]
     };

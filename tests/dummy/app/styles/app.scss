@@ -26,4 +26,17 @@ button {
   border-width: 0;
   border-radius: 3px;
 }
+
+.form-submit-button {
+  display: flex;
+  align-items: center;
+}
+
+.form-submit-button svg {
+  width: 20px;
+  height: 20px;
+  fill: #fff;
+  margin-left: 10px
+}
+
 @import "ember-pojo-form";

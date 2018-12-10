@@ -4,6 +4,7 @@ import layout from '../../templates/components/ember-pojo-form/form-field-power-
 
 export default Component.extend({
   layout,
+
   didInsertElement() {
     this._super(...arguments);
     var labelElement = this.$('label[for]');

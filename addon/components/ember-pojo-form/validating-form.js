@@ -84,6 +84,10 @@ export default Component.extend({
       formField.set('error', error);
     },
 
+    setFormFieldProperty: function(formField, prop, value) {
+      formField.set(prop, value);
+    },
+
     submit: function() {
       var self = this;
       this.send('validateAllFields');
@@ -99,10 +103,10 @@ export default Component.extend({
         if (this.get('formMetaData.recordToUpdate')) {
           var record = this.get('formMetaData.recordToUpdate');
           formFields.forEach(function(formField) {
-            if (formField.fieldId) {
-              if (record.get(formField.fieldId)) {
+            if (formField.fieldId && formField.fieldType !== 'staticContent') {
+              // if (record.get(formField.fieldId)) { TODO replace with search for key in object.
                 record.set(formField.fieldId, formField.value);
-              }
+              // }
             }
           });
           this.submitAction(record).then((response) => {
