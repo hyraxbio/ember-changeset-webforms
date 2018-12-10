@@ -11,6 +11,10 @@ export default function validateField(formField) {
     }
   }
 
+  if (!formField.value && !formField.validationRules.findBy('validationMethod', 'required')) {
+    return null;
+  }
+
   var errorMessage;
   var value = formField.value || '';
   var stringValue = value.toString();

@@ -99,40 +99,7 @@ export default Component.extend({
         var formFields = this.get('formFields');
         var formMetaData = this.get('formMetaData');
         var values = this.generateFormValues(formFields);
-        this.set("requestInFlight", true);
-        if (this.get('formMetaData.recordToUpdate')) {
-          var record = this.get('formMetaData.recordToUpdate');
-          formFields.forEach(function(formField) {
-            if (formField.fieldId && formField.fieldType !== 'staticContent') {
-              // if (record.get(formField.fieldId)) { TODO replace with search for key in object.
-                record.set(formField.fieldId, formField.value);
-              // }
-            }
-          });
-          this.submitAction(record).then((response) => {
-            self.saveSuccess(response, formFields, formMetaData);
-            self.set("requestInFlight", false);
-            if (formMetaData.resetAfterSubmit === true) {
-              self.resetForm(formSchema);
-            }
-          }).catch(error => {
-            self.set("requestInFlight", false);
-            //TODO test that this actually works.
-            record.rollbackAttributes();
-            self.saveFail(error, formFields);
-          });
-        } else {
-          this.submitAction(values, formMetaData.modelName).then((response) => {
-            self.saveSuccess(response, formFields, formMetaData);
-            self.set("requestInFlight", false);
-            if (formMetaData.resetAfterSubmit === true) {
-              this.send('resetForm');
-            }
-          }).catch(error => {
-            self.set("requestInFlight", false);
-            self.saveFail(error, formFields);
-          });
-        }
+        this.submitAction(values);
       } else {
         this.set('formMetaData.formStatus', 'validationFailed');
         this.set('formMetaData.submitButtonFeedback', 'Some fields have errors which must be fixed before continuing.');
@@ -172,7 +139,7 @@ export default Component.extend({
     })
 
     var allPassed = validationFields.every(field => {
-      return field.get('error') === false;
+      return field.get('error') === false || (!field.validationRules.findBy('validationMethod', 'required') && !field.value);
     });
 
     if (allPassed) {
