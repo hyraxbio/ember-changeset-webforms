@@ -8,6 +8,14 @@ export default Component.extend({
   classNames: ['checkbox-group'],
 
   didInsertElement: function() {
+    var defaults = this.get('formField.value');
+    if (typeof defaults === 'string') {
+     var defaultsArray = defaults.split(',');
+     var trimmedDefaultsArray = defaultsArray.map(item => {
+      return item.trim();
+     });
+     this.set('formField.value', trimmedDefaultsArray)
+    }
     var checkedItems = this.get('formField.value') || [];
     var options = this.get('formField.options');
     options.forEach(function(option) {

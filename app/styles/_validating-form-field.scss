@@ -1,5 +1,5 @@
 div.form-field {
-  max-width: $pojo-form-field-max-width;
+  // max-width: $pojo-form-field-max-width;
   width: 100%;
   &.field-type-input input, textarea {
     width: 100%;
@@ -91,9 +91,6 @@ div.form-field .radio-button-group-container {
 
 div.form-field.field-type-radio-button-group,
 div.form-field.field-type-checkbox-group {
-  legend {
-    margin-bottom: $pojo-form-field-legend-margin-bottom;
-  }
   position: relative;
   .labelled-radio-button,
   .labelled-checkbox {

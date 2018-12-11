@@ -167,11 +167,9 @@ export default Component.extend({
       var formField = this.get('formField');
       if (this.setFormFieldValue) {
         this.setFormFieldValue(formField, value);
-        validateField(formField);
       } else {
         value = value || '';
         formField.set('value', value);
-
         if (this.customTransforms) {
           this.customTransforms(this.get('formFields'), fieldId, this.get('formMetaData'));
         }

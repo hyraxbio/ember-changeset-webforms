@@ -127,8 +127,13 @@ export default Component.extend({
     },
 
     resetForm() {
-      window.scrollTo(0, 0);
-      this.set('formObject', generateEmberValidatingFormFields(this.get('formSchema')));
+      this.set('formObject', generateEmberValidatingFormFields(this.get('formSchema'), 'reset'));
+      if (this.afterReset) {
+        var formFields = this.get('formFields');
+        var formMetaData = this.get('formMetaData');
+        var values = this.generateFormValues(formFields);
+        this.afterReset(values, formFields, formMetaData);
+      }
     },
   },
 
@@ -179,6 +184,4 @@ export default Component.extend({
     }
     return readablevalidationRule;
   },
-
-
 });
