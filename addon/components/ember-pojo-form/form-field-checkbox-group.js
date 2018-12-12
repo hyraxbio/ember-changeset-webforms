@@ -39,6 +39,8 @@ export default Component.extend({
       }
       if (checkedItems.length === 0) {
         checkedItems = null;
+      } else {
+        checkedItems = checkedItems.sort();
       }
       this.onUserInteraction(checkedItems);
     }

@@ -3,6 +3,7 @@
 @import "ember-extended-elements";
 @import "_validating-form";
 @import "_validating-form-field";
+@import "_checkbox-radio-button-group";
 
 // TODO
 // Test that fieldClass gets added.
@@ -12,3 +13,4 @@
 // Implement warning thrown if a default in the array of list for checkbox group or radio button group does not correspond to one of the keys.
 // Test for not required but other validation rule present and field empty.
 // Horizontal layout for checkbox and radio- no margin-bottom.
+// Better names of actions for fields when user interacts. after validation, after validation success and failure

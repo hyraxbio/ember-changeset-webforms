@@ -1,0 +1,12 @@
+.field-type-checkbox-group,
+.field-type-radio-buttons-group {
+  &.row-layout {
+    .field-controls {
+      display: flex;
+      .labelled-checkbox,
+      .labelled-radio-button {
+        margin: 0 20px 0 0;
+      }
+    }
+  }
+}

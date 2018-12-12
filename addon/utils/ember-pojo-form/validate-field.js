@@ -11,6 +11,8 @@ export default function validateField(formField) {
     }
   }
 
+  if (!formField.validationRules) { return null; }
+
   if (!formField.value && !formField.validationRules.findBy('validationMethod', 'required')) {
     return null;
   }
