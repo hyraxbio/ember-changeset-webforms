@@ -69,19 +69,6 @@ export default Component.extend({
     }
   }),
 
-  sendValidateOnValueUpdate: observer('formField.value', 'formField.value.@each', function() {
-    var formField = this.get('formField');
-    formField.validationEvents = formField.validationEvents || [];
-    // If a field validates on keyUp, don't show a validation error if the backspace all chars in the field.
-    if (formField.validationEvents.indexOf('keyUp') > -1 && formField.focussed && formField.value === '') {
-      formField.set("error", null);
-      return;
-    }
-    if (!formField.focussed || formField.validationEvents.indexOf('keyUp') > -1) {
-      this.send('validateField');
-    }
-  }),
-
   formField: computed('fieldSchema', 'processedFieldSchema', function() {
     if (this.get('processedFieldSchema')) {
       return this.get('processedFieldSchema');
@@ -167,9 +154,11 @@ export default Component.extend({
       var formField = this.get('formField');
       if (this.setFormFieldValue) {
         this.setFormFieldValue(formField, value);
+        this.send('sendValidateOnValueUpdate');
       } else {
         value = value || '';
         formField.set('value', value);
+        this.send('sendValidateOnValueUpdate');
         if (this.customTransforms) {
           this.customTransforms(this.get('formFields'), fieldId, this.get('formMetaData'));
         }
@@ -182,6 +171,19 @@ export default Component.extend({
         this.setFormFieldError(formField, error);
       } else {
         formField.set('error', error);
+      }
+    },
+
+    sendValidateOnValueUpdate() {
+      var formField = this.get('formField');
+      formField.validationEvents = formField.validationEvents || [];
+      // If a field validates on keyUp, don't show a validation error if the backspace all chars in the field.
+      if (formField.validationEvents.indexOf('keyUp') > -1 && formField.focussed && formField.value === '') {
+        formField.set("error", null);
+        return;
+      }
+      if (!formField.focussed || formField.validationEvents.indexOf('keyUp') > -1) {
+        this.send('validateField');
       }
     },
   },

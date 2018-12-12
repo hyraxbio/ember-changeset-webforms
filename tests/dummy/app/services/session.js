@@ -6,6 +6,7 @@ export default Service.extend({
   hideContent: null,
   placeholdersSupported: '',
   fileAPISupported: '',
+  testDynamic: 'bar',
   init() {
     this._super(...arguments);
     this.userUiState = {};
@@ -19,7 +20,9 @@ export default Service.extend({
           fieldLabel: 'Name',
           fieldType: 'input',
           validationRules: [{ 'validationMethod': 'required' }],
-          validationEvents: ['focusOut', 'keyUp']
+          validationEvents: ['focusOut', 'keyUp'],
+          defaultValue: 'Foo',
+          dynamicValue: this.get('testDynamic'),
         },
         {
           fieldId: 'email',
@@ -158,11 +161,14 @@ export default Service.extend({
           minDate: moment("2016-11-05").toDate(),
           maxDate: moment("2019-12-05").toDate(),
           calendarStartMonth: '09/2018', // Not implemented
-          dateButtonText: 'Test',
           allowNavigationOutOfRange: false, //Not implemented
           dateFormat:'YYYY/MM/DD',
           startTime: '00:01',
           endTime: '23:59',
+          // defaultValue: {
+          //   start: moment("2015-08-28").toDate(),
+          //   end: moment("2023-08-28").toDate()
+          // }
           // defaultStartDate: moment("2015-08-28").toDate(),
           // defaultEndDate: moment("2023-08-28").toDate(),
           // startDate: {
