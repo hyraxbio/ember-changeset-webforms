@@ -99,7 +99,13 @@ export default Component.extend({
         var formFields = this.get('formFields');
         var formMetaData = this.get('formMetaData');
         var values = this.generateFormValues(formFields);
-        this.submitAction(values);
+
+        if (formMetaData.submitAsync === false) {
+          this.send('submitSync', values, formFields, formMetaData);
+        } else {
+          this.send('submitAsync', values, formFields, formMetaData);
+        }
+
       } else {
         this.set('formMetaData.formStatus', 'validationFailed');
         this.set('formMetaData.submitButtonFeedback', 'Some fields have errors which must be fixed before continuing.');
@@ -135,6 +141,50 @@ export default Component.extend({
         this.afterReset(values, formFields, formMetaData);
       }
     },
+
+    submitSync(values, formFields, formMetaData) {
+      this.submitAction(values, formFields, formMetaData);
+      if (formMetaData.resetAfterSubmit === true) {
+        this.resetForm(formSchema);
+      }
+    },
+
+    submitAsync(values, formFields, formMetaData) {
+      this.set("requestInFlight", true);
+      if (this.get('formMetaData.recordToUpdate')) {
+        var record = this.get('formMetaData.recordToUpdate');
+        formFields.forEach(function(formField) {
+          if (formField.fieldId && formField.fieldType !== 'staticContent') {
+            // if (record.get(formField.fieldId)) { TODO replace with search for key in object.
+              record.set(formField.fieldId, formField.value);
+            // }
+          }
+        });
+        this.submitAction(record).then((response) => {
+          this.saveSuccess(response, formFields, formMetaData);
+          this.set("requestInFlight", false);
+          if (formMetaData.resetAfterSubmit === true) {
+            this.resetForm(formSchema);
+          }
+        }).catch(error => {
+          this.set("requestInFlight", false);
+          //TODO test that this actually works.
+          record.rollbackAttributes();
+          this.saveFail(error, formFields);
+        });
+      } else {
+        this.submitAction(values, formMetaData.modelName).then((response) => {
+          this.saveSuccess(response, formFields, formMetaData);
+          this.set("requestInFlight", false);
+          if (formMetaData.resetAfterSubmit === true) {
+            this.send('resetForm');
+          }
+        }).catch(error => {
+          this.set("requestInFlight", false);
+          this.saveFail(error, formFields);
+        });
+      }
+    }
   },
 
   formValidates: function() {

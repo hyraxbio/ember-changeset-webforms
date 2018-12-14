@@ -18,6 +18,11 @@ export default function generateEmberValidatingFormFields(formSchema, mode) {
     if (formMetaData.resetAfterSubmit === null || formMetaData.resetAfterSubmit === undefined) {
       formMetaData.resetAfterSubmit = true;
     }
+
+    if (formMetaData.submitAsync === null || formMetaData.submitAsync === undefined) {
+      formMetaData.submitAsync = true;
+    }
+
     return formMetaData;
   };
 
