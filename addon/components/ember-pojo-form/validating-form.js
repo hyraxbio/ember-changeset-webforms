@@ -145,7 +145,7 @@ export default Component.extend({
     submitSync(values, formFields, formMetaData) {
       this.submitAction(values, formFields, formMetaData);
       if (formMetaData.resetAfterSubmit === true) {
-        this.resetForm(formSchema);
+        this.send('resetForm');
       }
     },
 
