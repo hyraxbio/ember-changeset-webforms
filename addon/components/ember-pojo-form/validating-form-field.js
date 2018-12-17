@@ -27,7 +27,7 @@ export default Component.extend({
           var validateOnInsert = true;
         }
       }
-      if (validateOnInsert && formField.default) {
+      if (validateOnInsert && formField.defaultValue) {
         this.send('validateField');
       }
     });
@@ -105,8 +105,9 @@ export default Component.extend({
         value = value.trim();
       }
       this.send('setFieldValue', value);
-      this.send('validateField');
-
+      if (this.focusOutAction) {
+        this.focusOutAction(formField.get('fieldId'), value);
+      }
     },
 
     onFocusIn: function(value) {
@@ -124,6 +125,11 @@ export default Component.extend({
     onKeyUp: function(value, event) {
       this.send('setFieldValue', value);
       var formField = this.get('formField');
+      if (formField.get('validationKeyCodes')) {
+        if (formField.get('validationKeyCodes').indexOf(event.keyCode) > -1) {
+          this.send('validateField');
+        }
+      }
       if (this.afterKeyUpAction) {
         this.afterKeyUpAction(value, event, formField);
       }
