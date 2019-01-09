@@ -1,6 +1,5 @@
 import Component from '@ember/component';
 import { computed } from '@ember/object';
-import { observer } from '@ember/object';
 import { once } from '@ember/runloop';
 import validateField from '../../utils/ember-pojo-form/validate-field';
 import generateEmberValidatingFormField from '../../utils/ember-pojo-form/generate-ember-validating-form-field';
@@ -14,7 +13,6 @@ export default Component.extend({
 
 
   didInsertElement: function() {
-    var self = this;
     //Code below will maintain validation colours when component is re-rendered.
     once(this, function() {
       var formField = this.get('formField');
@@ -110,7 +108,7 @@ export default Component.extend({
       }
     },
 
-    onFocusIn: function(value) {
+    onFocusIn: function() {
       var formField = this.get('formField');
       formField.set('focussed', true);
       var fieldValidationEvents = formField.get('validationEvents') || [];
@@ -137,7 +135,6 @@ export default Component.extend({
 
     validateField: function() {
       // Todo error must be updated by sending updateForm action if it is supplied.
-      var self = this;
       var formField = this.get('formField');
       var validationRules = formField.get('validationRules') || [];
       this.send('setFieldError', null); // To ensure the error message updates, if the field has been updated but now fails a different validation rule to the previous validation attempt.
@@ -165,11 +162,14 @@ export default Component.extend({
         this.setFormFieldValue(formField, value);
         this.send('sendValidateOnValueUpdate');
       } else {
+        if (formField.get('value')) {
+          formField.set('previousValue', formField.get('value'));
+        }
         value = value || '';
         formField.set('value', value);
         this.send('sendValidateOnValueUpdate');
         if (this.customTransforms) {
-          this.customTransforms(this.get('formFields'), fieldId, this.get('formMetaData'));
+          this.customTransforms(this.get('formFields'), formField.get('fieldId'), this.get('formMetaData'));
         }
       }
     },

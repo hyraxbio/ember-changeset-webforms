@@ -73,6 +73,9 @@ export default Component.extend({
     },
 
     setFormFieldValue: function(formField, value) {
+      if (formField.get('value')) {
+        formField.set('previousValue', formField.get('value'));
+      }
       value = value || '';
       formField.set('value', value);
       if (this.customTransforms) {
@@ -89,13 +92,11 @@ export default Component.extend({
     },
 
     submit: function() {
-      var self = this;
       this.send('validateAllFields');
       if (this.formValidates()) {
         if (this.formValidationPassed) {
           this.formValidationPassed();
         }
-        var formSchema = this.get('formSchema');
         var formFields = this.get('formFields');
         var formMetaData = this.get('formMetaData');
         var values = this.generateFormValues(formFields);
@@ -164,7 +165,7 @@ export default Component.extend({
           this.saveSuccess(response, formFields, formMetaData);
           this.set("requestInFlight", false);
           if (formMetaData.resetAfterSubmit === true) {
-            this.resetForm(formSchema);
+            this.resetForm();
           }
         }).catch(error => {
           this.set("requestInFlight", false);

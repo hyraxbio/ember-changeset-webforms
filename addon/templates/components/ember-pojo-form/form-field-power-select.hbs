@@ -7,13 +7,14 @@
       selected=(readonly formField.value)
       searchPlaceholder=formField.searchPlaceholder
       allowClear=allowClear
+      searchEnabled=formField.searchEnabled
       placeholder=formField.placeholder
       onchange=(action onUserInteraction)
       onclose=onclose
       triggerId=formField.name
       as |option|
       }}
-      {{option}}
+      <span class="power-select-item {{sanitise-classname option}}">{{option}}</span>
     {{/power-select}}
   </div>
   {{component inputIcon class="form-field-icon"}}
