@@ -17,4 +17,12 @@
 
 // Custom validations must be saved somewhere and run in the validate-field util, otherwise you have to remember to call the afterValidation function in the customValidations action.
 
-// afterKeyUpAction(value, event, formField) { becomes afterKeyUpAction(value, formField, event) {
+// afterKeyUpAction(value, event, formField) { becomes afterKeyUpAction(formField, event) {
+
+  // AfterValidation implemented after custom validation is called as well - que: what is custom validation involves async operation?
+
+  // All actions sent from validating-form-field must only use formField as the argument.
+
+// DONE
+// Changed this.focusOutAction(formField.get('fieldId'), value); to this.focusOutAction(formField);
+// Changed this.focusInAction(formField.get('fieldId'), value); to this.focusInAction(formField);

@@ -7,6 +7,7 @@ div.form-field {
   }
 }
 div.field-controls {
+  margin-top: $pojo-form-field-controls-margin-top;
   margin-bottom: $pojo-form-field-margin-bottom;
   position: relative;
 }

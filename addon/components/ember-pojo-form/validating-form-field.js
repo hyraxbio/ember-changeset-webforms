@@ -106,7 +106,7 @@ export default Component.extend({
       }
       this.send('setFieldValue', value);
       if (this.focusOutAction) {
-        this.focusOutAction(formField.get('fieldId'), value);
+        this.focusOutAction(formField);
       }
     },
 
@@ -118,7 +118,7 @@ export default Component.extend({
         formField.set('error', null);
       }
       if (this.focusInAction) {
-        this.focusInAction(formField.get('fieldId'), value);
+        this.focusInAction(formField);
       }
     },
 
@@ -153,6 +153,9 @@ export default Component.extend({
       });
       if (this.customValidations && customRule) {
         this.customValidations(formField, this.get('formFields'));
+        if (this.afterValidation) {
+          this.afterValidation(formField);
+        }
       }
     },
 
