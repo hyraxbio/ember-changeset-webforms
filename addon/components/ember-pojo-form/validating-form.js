@@ -1,6 +1,7 @@
 import Component from '@ember/component';
 import { computed } from '@ember/object';
 import generateEmberValidatingFormFields from '../../utils/ember-pojo-form/generate-ember-validating-form-fields';
+import generateFormValues from '../../utils/generate-form-values';
 import validateField from '../../utils/ember-pojo-form/validate-field';
 import layout from '../../templates/components/ember-pojo-form/validating-form';
 
@@ -99,7 +100,7 @@ export default Component.extend({
         }
         var formFields = this.get('formFields');
         var formMetaData = this.get('formMetaData');
-        var values = this.generateFormValues(formFields);
+        var values = generateFormValues(formFields);
 
         if (formMetaData.submitAsync === false) {
           this.send('submitSync', values, formFields, formMetaData);
@@ -207,23 +208,23 @@ export default Component.extend({
     return false;
   },
 
-  generateFormValues: function(formFields) {
-    var values = {};
-    formFields.forEach(function(field) {
-      if (!field.fieldId) {return;}
-      var levels = field.fieldId.split(".");
-      var acc = values;
-      levels.forEach(function(level, index) {
-        if (index === levels.length-1) {
-          acc[level] = field.value;
-        } else {
-          acc[level] = acc[level] || {};
-          acc = acc[level];
-        }
-      });
-    });
-    return values;
-  },
+  // generateFormValues: function(formFields) {
+  //   var values = {};
+  //   formFields.forEach(function(field) {
+  //     if (!field.fieldId) {return;}
+  //     var levels = field.fieldId.split(".");
+  //     var acc = values;
+  //     levels.forEach(function(level, index) {
+  //       if (index === levels.length-1) {
+  //         acc[level] = field.value;
+  //       } else {
+  //         acc[level] = acc[level] || {};
+  //         acc = acc[level];
+  //       }
+  //     });
+  //   });
+  //   return values;
+  // },
 
   generateValidationErrorMessage: function(validationRule) {
     // Todo remove
