@@ -107,7 +107,6 @@ export default Component.extend({
         } else {
           this.send('submitAsync', values, formFields, formMetaData);
         }
-
       } else {
         this.set('formMetaData.formStatus', 'validationFailed');
         this.set('formMetaData.submitButtonFeedback', 'Some fields have errors which must be fixed before continuing.');
@@ -193,15 +192,13 @@ export default Component.extend({
     var validationFields = this.get('formFields').filter(field => {
       field.set('validationRules', field.get('validationRules') || []);
       return field.validationRules.length > 0;
-    })
-
+    });
     var allPassed = validationFields.every(field => {
       var fieldRequired = field.validationRules.find(rule => {
         return rule.validationMethod === 'required';
       })
-      return field.get('error') === false || (!fieldRequired && !field.value);
+      return field.get('error') === false || (!fieldRequired && !field.value) || field.get('hidden');
     });
-
     if (allPassed) {
       return true;
     }

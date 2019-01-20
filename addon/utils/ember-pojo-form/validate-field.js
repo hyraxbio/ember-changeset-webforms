@@ -7,11 +7,11 @@ export default function validateField(formField) {
     }
     if (formField.get('active')) { return null; }
     if (!validator.toDate(startDate) || !validator.toDate(endDate)) {
-      return false
+      return false;
     }
   }
 
-  if (!formField.validationRules) { return null; }
+  if (!formField.validationRules || formField.hidden) { return null; }
 
   if (!formField.value && !formField.validationRules.findBy('validationMethod', 'required')) {
     return null;

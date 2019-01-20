@@ -22,6 +22,8 @@
   // AfterValidation implemented after custom validation is called as well - que: what is custom validation involves async operation?
 
   // All actions sent from validating-form-field must only use formField as the argument.
+// Docs for use of includeLabelOnSubmit
+// Test that hidden fields not included in data, not ignored by validator and ignored by check all fields validated.
 
 // DONE
 // Changed this.focusOutAction(formField.get('fieldId'), value); to this.focusOutAction(formField);
