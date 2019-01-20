@@ -6,7 +6,7 @@ export default function generateFormValues(formFields) {
       var acc = values;
       levels.forEach(function(level, index) {
         if (index === levels.length-1) {
-          if (field.includeLabel) {
+          if (field.includeLabelOnSubmit) {
             acc[level] = {
               label: field.fieldLabel,
               value: field.value

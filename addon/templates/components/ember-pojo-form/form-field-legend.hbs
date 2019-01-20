@@ -1,7 +1,7 @@
 {{#unless formField.hideLabel}}
   {{#if formField.legendComponent}}
-    <legend>{{component formField.legendComponent}}</legend>
-  {{else if formField.fieldLegend}}
-    <legend>{{formField.fieldLegend}}</legend>
+    <legend>{{component formField.labelComponent}}</legend>
+  {{else if formField.fieldLabel}}
+    <legend>{{formField.fieldLabel}}</legend>
   {{/if}}
 {{/unless}}
