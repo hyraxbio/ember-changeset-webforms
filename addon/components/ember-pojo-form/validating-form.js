@@ -162,11 +162,11 @@ export default Component.extend({
           }
         });
         this.submitAction(record).then((response) => {
-          this.saveSuccess(response, formFields, formMetaData);
           this.set("requestInFlight", false);
           if (formMetaData.resetAfterSubmit === true) {
             this.resetForm();
           }
+          this.saveSuccess(response, formFields, formMetaData);
         }).catch(error => {
           this.set("requestInFlight", false);
           //TODO test that this actually works.
@@ -175,11 +175,11 @@ export default Component.extend({
         });
       } else {
         this.submitAction(values, formMetaData.modelName).then((response) => {
-          this.saveSuccess(response, formFields, formMetaData);
           this.set("requestInFlight", false);
           if (formMetaData.resetAfterSubmit === true) {
             this.send('resetForm');
           }
+          this.saveSuccess(response, formFields, formMetaData);
         }).catch(error => {
           this.set("requestInFlight", false);
           this.saveFail(error, formFields);

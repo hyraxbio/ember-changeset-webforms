@@ -14,6 +14,7 @@
 // Test for not required but other validation rule present and field empty.
 // Horizontal layout for checkbox and radio- no margin-bottom.
 // Better names of actions for fields when user interacts. after validation, after validation success and failure
+// If you generate the formObject outside the component, resetAfterSubmit throws an error- formSchema must have a formName property,
 
 // Custom validations must be saved somewhere and run in the validate-field util, otherwise you have to remember to call the afterValidation function in the customValidations action.
 
