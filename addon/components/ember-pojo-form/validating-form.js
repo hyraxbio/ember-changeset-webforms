@@ -164,7 +164,7 @@ export default Component.extend({
         this.submitAction(record).then((response) => {
           this.set("requestInFlight", false);
           if (formMetaData.resetAfterSubmit === true) {
-            this.resetForm();
+            this.send('resetForm');
           }
           this.saveSuccess(response, formFields, formMetaData);
         }).catch(error => {
