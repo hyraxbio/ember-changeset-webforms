@@ -10,7 +10,7 @@ export default function generateFormValues(formFields) {
             acc[level] = {
               label: field.fieldLabel,
               value: field.value
-            }
+            };
           } else {
             acc[level] = field.value;
           }
