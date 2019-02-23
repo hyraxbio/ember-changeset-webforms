@@ -138,7 +138,7 @@ export default Component.extend({
       if (this.afterReset) {
         var formFields = this.get('formFields');
         var formMetaData = this.get('formMetaData');
-        var values = this.generateFormValues(formFields);
+        var values = generateFormValues(formFields);
         this.afterReset(values, formFields, formMetaData);
       }
     },
