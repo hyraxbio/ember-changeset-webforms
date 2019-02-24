@@ -156,7 +156,7 @@ export default Service.extend({
           fieldType: "dateRange",
           validationRules: [{ 'validationMethod': 'required' }, { 'validationMethod': 'isDateRange' }],
           validationEvents: ['insert'],
-          triggerClasses: 'btn btn-primary',
+          triggerClasses: 'btn btn-warning',
           calendarContainerClasses: 'pop-up-box box-arrow',
           minDate: moment("2016-11-05").toDate(),
           maxDate: moment("2019-12-05").toDate(),

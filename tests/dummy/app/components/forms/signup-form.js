@@ -20,10 +20,32 @@ export default FormContainer.extend({
       validationEvents: ['focusOut', 'keyUp', 'insert'],
       inputType: 'text',
       trim: true,
-    }
+    };
+
+    this.dateRangeElement = {
+      fieldLabel: "Date Range",
+      fieldId: "test",
+      fieldType: "dateRange",
+      validationRules: [{ 'validationMethod': 'required' }, { 'validationMethod': 'isDateRange' }],
+      validationEvents: ['insert'],
+      triggerClasses: 'btn btn-warning',
+      calendarContainerClasses: 'pop-up-box box-arrow',
+      minDate: moment("2016-11-05").toDate(),
+      maxDate: moment("2019-12-05").toDate(),
+      // calendarStartMonth: '09/2018', // Not implemented
+      // allowNavigationOutOfRange: false, //Not implemented
+      // dateFormat:'YYYY/MM/DD',
+      startTime: '00:01',
+      endTime: '23:59',
+      // center: new Date('2016-05-17'),
+    };
   },
 
   actions: {
+    test(...args) {
+      console.log(...args);
+    },
+
     customValidations: function(fieldObject, formFields) {
       var error;
       if (fieldObject.fieldId === 'password' || fieldObject.fieldId === 'password_confirmation') {
