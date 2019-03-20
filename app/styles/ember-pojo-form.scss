@@ -6,6 +6,7 @@
 @import "_checkbox-radio-button-group";
 
 // TODO
+// All label and content components must become objects with a path, allowing for props and class.
 // GLARING BUG - THE ACTION IN YOUR COMPONENT AFTER YOU UPDATE A CHECKBOX FOR EG DOES NOT EXISTS, ONLY "AFTERVALIDATION"
 
 // Test that fieldClass gets added.
