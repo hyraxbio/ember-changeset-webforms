@@ -6,6 +6,8 @@
 @import "_checkbox-radio-button-group";
 
 // TODO
+// GLARING BUG - THE ACTION IN YOUR COMPONENT AFTER YOU UPDATE A CHECKBOX FOR EG DOES NOT EXISTS, ONLY "AFTERVALIDATION"
+
 // Test that fieldClass gets added.
 // Test new features for hidden and text separator.
 // Docs- array or comma separated list can be passed to checkbox group as defaults.
@@ -25,6 +27,8 @@
   // All actions sent from validating-form-field must only use formField as the argument.
 // Docs for use of includeLabelOnSubmit
 // Test that hidden fields not included in data, not ignored by validator and ignored by check all fields validated.
+
+// BUG Single checkbox must have fieldLabel not label
 
 // DONE
 // Changed this.focusOutAction(formField.get('fieldId'), value); to this.focusOutAction(formField);

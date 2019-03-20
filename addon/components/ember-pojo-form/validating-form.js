@@ -138,7 +138,7 @@ export default Component.extend({
       if (this.afterReset) {
         var formFields = this.get('formFields');
         var formMetaData = this.get('formMetaData');
-        var values = generateFormValues(formFields);
+        var values = this.generateFormValues(formFields);
         this.afterReset(values, formFields, formMetaData);
       }
     },
@@ -156,6 +156,16 @@ export default Component.extend({
         var record = this.get('formMetaData.recordToUpdate');
         formFields.forEach(function(formField) {
           if (formField.fieldId && formField.fieldType !== 'staticContent') {
+            var property = formField.fieldId;
+            if (property.split('.').length > 1) {
+              var levels = property.split('.');
+              levels.forEach((_, index) => {
+                var thisLevelProp = levels.slice(0, index + 1).join('.');
+                if (!record.get(thisLevelProp)) {
+                  record.set(thisLevelProp, {});
+                }
+              });
+            }
             // if (record.get(formField.fieldId)) { TODO replace with search for key in object.
               record.set(formField.fieldId, formField.value);
             // }
@@ -171,7 +181,10 @@ export default Component.extend({
           this.set("requestInFlight", false);
           //TODO test that this actually works.
           record.rollbackAttributes();
-          this.saveFail(error, formFields);
+          if (this.get('saveFail')) {
+            this.saveFail(error, formFields);
+          }
+          
         });
       } else {
         this.submitAction(values, formMetaData.modelName).then((response) => {
@@ -182,7 +195,9 @@ export default Component.extend({
           this.saveSuccess(response, formFields, formMetaData);
         }).catch(error => {
           this.set("requestInFlight", false);
-          this.saveFail(error, formFields);
+          if (this.get('saveFail')) {
+            this.saveFail(error, formFields);
+          }
         });
       }
     }
