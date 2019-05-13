@@ -126,7 +126,7 @@ export default Component.extend({
         }
         var customValidationRule = formField.get('validationRules').find(rule => {
           return rule.validationMethod === 'custom';
-        })
+        });
         if (this.customValidations && customValidationRule) {
           this.customValidations(formField, this.get('formFields'));
         }
@@ -138,7 +138,7 @@ export default Component.extend({
       if (this.afterReset) {
         var formFields = this.get('formFields');
         var formMetaData = this.get('formMetaData');
-        var values = this.generateFormValues(formFields);
+        var values = generateFormValues(formFields);
         this.afterReset(values, formFields, formMetaData);
       }
     },

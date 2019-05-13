@@ -56,10 +56,6 @@ export default function generateEmberValidatingFormField(field, index, formSchem
     // Trim the value if "trim" is set to true on the field.
     value = field.trim ? field[valueType].trim() : field[valueType];
   }
-  if (field.fieldId === 'user_name') {
-    console.log('setValue');
-  }
-
 
   var required;
   if (field.validationRules) {
@@ -109,6 +105,5 @@ export default function generateEmberValidatingFormField(field, index, formSchem
   fieldObject.set('name', field.name || field.fieldId.replace(/\./g, '-'));
   fieldObject.set('placeholder', field.placeholder || field.fieldLabel);
   fieldObject.set('component', fieldElementComponents[field.fieldType]);
-  // console.log(fieldObject);
   return fieldObject;
 }
