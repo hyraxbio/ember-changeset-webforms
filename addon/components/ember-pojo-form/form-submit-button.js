@@ -5,7 +5,7 @@ import { inject as service } from '@ember/service';
 export default Component.extend({
   layout,
   tagName: 'button',
-  emberPojoForms: service(),
+  emberPojoFormsService: service(),
   classNames: ['form-submit-button'],
   classNameBindings: ['requestInFlight:request-in-flight', 'classes'],
   attributeBindings: ['customType:type', 'data-test-id'],
