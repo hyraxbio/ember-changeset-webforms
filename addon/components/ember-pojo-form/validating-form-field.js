@@ -20,12 +20,13 @@ export default Component.extend({
       if (formField.get("autoFocus") && !value) {
         this.$("input").focus();
       }
+      var validateOnInsert;
       if (formField.validationEvents) {
         if (formField.validationEvents.indexOf('insert') > -1) {
-          var validateOnInsert = true;
+          validateOnInsert = true;
         }
       }
-      if (validateOnInsert && formField.defaultValue) {
+      if (validateOnInsert && (formField.defaultValue || formField.dynamicValue)) {
         this.send('validateField');
       }
     });

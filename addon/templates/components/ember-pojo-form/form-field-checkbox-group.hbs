@@ -7,6 +7,7 @@
       label=option.label
       changedAction=(action "checkboxToggled" option.key)
       name=formField.name
+      disabled=(if formField.disabled true option.disabled)
     }}
   {{/each}}
 </div>

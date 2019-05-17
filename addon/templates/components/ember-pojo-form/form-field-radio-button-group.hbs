@@ -8,7 +8,7 @@
       groupValue=groupValue
       required=false
       name=name
-      disabled=disabled
+      disabled=(if formField.disabled true option.disabled)
       label=option.label
       changedAction=(action onUserInteraction groupValue)
     }}
