@@ -3,6 +3,7 @@
   {{component inputIcon class="form-field-icon"}}
   {{#each formField.options as |option|}}
     {{ember-extended-elements/labelled-checkbox
+      dataTestId=(concat "checkbox-option-" formField.fieldId "-" option.value)
       value=(readonly option.value)
       label=option.label
       changedAction=(action "checkboxToggled" option.key)

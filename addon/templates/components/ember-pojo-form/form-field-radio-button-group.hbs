@@ -3,11 +3,11 @@
   {{component inputIcon class="form-field-icon"}}
   {{#each formField.options as |option|}}
     {{ember-extended-elements/labelled-radio-button
-      data-test-id=(concat "radio-button-option-" option.value)
+      dataTestId=(concat "radio-option-" formField.fieldId "-" option.value)
       value=option.value
       groupValue=groupValue
       required=false
-      name=name
+      name=(or name option.value)
       disabled=(if formField.disabled true option.disabled)
       label=option.label
       changedAction=(action onUserInteraction groupValue)
