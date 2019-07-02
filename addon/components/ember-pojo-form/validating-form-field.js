@@ -100,7 +100,7 @@ export default Component.extend({
     onFocusOut: function(value) {
       var formField = this.get('formField');
       formField.set('focussed', false);
-      if (value && formField.get("trim")) {
+      if (value && formField.get("trim") !== false) {
         value = value.trim();
       }
       this.send('setFieldValue', value);
