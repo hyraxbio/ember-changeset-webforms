@@ -28,6 +28,7 @@
   // All actions sent from validating-form-field must only use formField as the argument.
 // Docs for use of includeLabelOnSubmit
 // Test that hidden fields not included in data, not ignored by validator and ignored by check all fields validated.
+// Check that name prop for radio button groups is unique qithin the form.
 
 // BUG Single checkbox must have fieldLabel not label
 
