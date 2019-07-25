@@ -1,6 +1,4 @@
 import Component from '@ember/component';
-import { computed } from '@ember/object';
-import EmberObject from '@ember/object';
 import layout from '../../templates/components/ember-pojo-form/form-field-checkbox-group';
 
 export default Component.extend({
@@ -14,7 +12,7 @@ export default Component.extend({
      var trimmedDefaultsArray = defaultsArray.map(item => {
       return item.trim();
      });
-     this.set('formField.value', trimmedDefaultsArray)
+     this.set('formField.value', trimmedDefaultsArray);
     }
     var checkedItems = this.get('formField.value') || [];
     var options = this.get('formField.options');
@@ -24,7 +22,8 @@ export default Component.extend({
       } else {
         option.set('value', false);
       }
-    })
+    });
+    this.send('checkLastRemaining', this.get('formField'), checkedItems);
   },
 
   actions: {
@@ -35,14 +34,23 @@ export default Component.extend({
       } else {
         checkedItems = checkedItems.filter(item => {
           return item != key;
-        })
+        });
       }
       if (checkedItems.length === 0) {
         checkedItems = null;
       } else {
         checkedItems = checkedItems.sort();
       }
+      this.send('checkLastRemaining', this.get('formField'), checkedItems);
       this.onUserInteraction(checkedItems);
+    },
+
+    checkLastRemaining(formField, checkedItems) {
+      formField.get('options').setEach('lastRemaining', false);
+      checkedItems = checkedItems || [];
+      if (checkedItems.length === 1) {
+        formField.get('options').findBy('key', checkedItems[0]).set('lastRemaining', true);
+      } 
     }
   }
 });
