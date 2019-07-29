@@ -9,12 +9,21 @@ export default Component.extend({
   layout,
   classNameBindings: ['class', 'validationFailed:validation-failed'],
 
-  formObject: computed('formSchema', 'processedFormSchema', function() {
-    if (this.get('processedFormSchema')) {
-      return this.get('processedFormSchema');
-    } else {
-      return generateEmberValidatingFormFields(this.get('formSchema'));
+  processedFormSchema: computed('formSchema', function() {
+    return generateEmberValidatingFormFields(this.get('formSchema'));
+  }),  
+
+  formObject: computed('processedFormSchema', 'props', function() {
+    var formObject = this.get('processedFormSchema');
+    for (var key in this.get('props')) {
+      var field = formObject.formFields.find(field => {
+        return field.fieldId === key;
+      });
+      if (field) {
+        field.set('value', this.get('props')[key]);
+      }
     }
+    return formObject;
   }),
 
   formName: computed('formObject', function() {

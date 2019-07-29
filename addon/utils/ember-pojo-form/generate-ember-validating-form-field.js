@@ -2,6 +2,7 @@ import EmberObject from '@ember/object';
 
 export default function generateEmberValidatingFormField(field, index, formSchema, mode) {
   var fieldElementComponents = {
+    "button":           "ember-pojo-form/form-field-button",
     "input":            "ember-pojo-form/form-field-input",
     "textarea":         "ember-pojo-form/form-field-textarea",
     "powerSelect":      "ember-pojo-form/form-field-power-select",

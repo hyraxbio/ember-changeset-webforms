@@ -8,7 +8,7 @@ import layout from '../../templates/components/ember-pojo-form/validating-form-f
 export default Component.extend({
   layout,
   classNames: ["form-field"],
-  classNameBindings: ["formField.error:invalid", "valid:valid", "formField.required:required", "disabled:disabled", "readonly:readonly", "formField.fieldClass", 'hideSuccessValidation:hide-success-validation', 'validates:validates', 'typeClass'],
+  classNameBindings: ["formField.error:invalid", "valid:valid", "formField.required:required", "disabled:disabled", "readonly:readonly", "formField.fieldClass", 'hideSuccessValidation:hide-success-validation', 'validates:validates', 'typeClass', 'formField.hidden:hidden'],
   attributeBindings: ["data-test-id", "data-test-validation-field"],
 
 
