@@ -8,7 +8,7 @@
     dateButtonText=formField.dateButtonText
     minDate=formField.minDate
     maxDate=formField.maxDate
-    timeSelect=formField.timeSelect
+    showTimeSelector=formField.showTimeSelector
     name=formField.name
     timeButtonText=formField.timeButtonText
     dateFormat=formField.dateFormat
@@ -19,6 +19,9 @@
     onSelectDateTime=(action onUserInteraction)
     triggerClasses=formField.triggerClasses
     calendarContainerClasses=formField.calendarContainerClasses
+    timeSelectorTriggerClasses=(or formField.timeSelectorTriggerClasses emberPojoForms.settings.powerDatePicker.timeSelectorTriggerClasses)
+    dateSelectComponent=(or formField.dateSelectComponent emberPojoForms.settings.powerDatePicker.dateSelectComponent)
+    timeSelectComponent=(or formField.timeSelectComponent emberPojoForms.settings.powerDatePicker.timeSelectComponent)
   }}
   {{component inputIcon class="form-field-icon"}}
 </div>

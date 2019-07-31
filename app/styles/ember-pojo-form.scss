@@ -10,6 +10,8 @@
 // GLARING BUG - THE ACTION IN YOUR COMPONENT AFTER YOU UPDATE A CHECKBOX FOR EG DOES NOT EXISTS, ONLY "AFTERVALIDATION"
 // customTransforms must send formField, not fieldId.
 //  Remove distinction between fields that are part of a form and those that aren't in the action 'setFieldValue' in validating form field.
+// Site wide defaults for button classes
+
 
 // Test that fieldClass gets added.
 // Test new features for hidden and text separator.
@@ -37,3 +39,9 @@
 // DONE
 // Changed this.focusOutAction(formField.get('fieldId'), value); to this.focusOutAction(formField);
 // Changed this.focusInAction(formField.get('fieldId'), value); to this.focusInAction(formField);
+
+// TESTS
+
+// customTransofrms runs after field validation
+
+// 
