@@ -82,15 +82,21 @@ export default Component.extend({
       }
     },
 
+    customTransforms(fieldId) {
+       if (this.customTransforms) {
+        this.customTransforms(this.get('formFields'), fieldId, this.get('formMetaData'));
+      }
+    },
+
     setFormFieldValue: function(formField, value) {
       if (formField.get('value')) {
         formField.set('previousValue', formField.get('value'));
       }
       value = value || '';
       formField.set('value', value);
-      if (this.customTransforms) {
-        this.customTransforms(this.get('formFields'), formField.get('fieldId'), this.get('formMetaData'));
-      }
+      // if (this.customTransforms) {
+      //   this.customTransforms(this.get('formFields'), formField.get('fieldId'), this.get('formMetaData'));
+      // }
     },
 
     setFormFieldError: function(formField, error) {

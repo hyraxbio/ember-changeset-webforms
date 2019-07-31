@@ -8,6 +8,8 @@
 // TODO
 // All label and content components must become objects with a path, allowing for props and class.
 // GLARING BUG - THE ACTION IN YOUR COMPONENT AFTER YOU UPDATE A CHECKBOX FOR EG DOES NOT EXISTS, ONLY "AFTERVALIDATION"
+// customTransforms must send formField, not fieldId.
+//  Remove distinction between fields that are part of a form and those that aren't in the action 'setFieldValue' in validating form field.
 
 // Test that fieldClass gets added.
 // Test new features for hidden and text separator.

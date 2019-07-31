@@ -15,7 +15,11 @@
       disbaled=formField.disabled
       as |option|
       }}
-      <span class="power-select-item {{ember-extended-elements/sanitise-classname option}}">{{option}}</span>
+      {{#if formField.optionComponent}}
+        {{component formField.optionComponent option=option}}
+      {{else}}
+        {{background/power-select-option option=option optionKeyPath=formField.optionKeyPath fieldId=formField.fieldId}}
+      {{/if}}
     {{/power-select}}
   </div>
   {{component inputIcon class="form-field-icon"}}

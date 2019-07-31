@@ -159,10 +159,11 @@ export default Component.extend({
 
     setFieldValue: function(value) {
       var formField = this.get('formField');
-      if (this.setFormFieldValue) {
+      if (this.setFormFieldValue) { // Field is part of a form.
         this.setFormFieldValue(formField, value);
         this.send('sendValidateOnValueUpdate');
-      } else {
+        this.customTransforms(formField.get('fieldId'));
+      } else { // Field is used on its own.
         if (formField.get('value')) {
           formField.set('previousValue', formField.get('value'));
         }
@@ -170,7 +171,7 @@ export default Component.extend({
         formField.set('value', value);
         this.send('sendValidateOnValueUpdate');
         if (this.customTransforms) {
-          this.customTransforms(this.get('formFields'), formField.get('fieldId'), this.get('formMetaData'));
+          this.customTransforms(formField);
         }
       }
     },
