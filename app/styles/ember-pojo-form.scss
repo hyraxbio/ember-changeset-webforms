@@ -35,6 +35,8 @@
 // Check that name prop for radio button groups is unique qithin the form.
 
 // BUG Single checkbox must have fieldLabel not label
+// BUG tags selector- if you hit enter to make a new tag, but your text matched an existing one, it selects the existing one, ratrher than creating the new one.
+
 
 // DONE
 // Changed this.focusOutAction(formField.get('fieldId'), value); to this.focusOutAction(formField);
@@ -45,3 +47,9 @@
 // customTransofrms runs after field validation
 
 // 
+
+// DOCS
+
+// tag selector and power select
+// When a custom component is passed to display the tags/ selected item, you must also pass optionKeyPath, so that is the user free tags (Types inb the search box and hits enter) the component knows whether the thing it needs to add to the array that repsents the field's value should be an object, or a string.
+

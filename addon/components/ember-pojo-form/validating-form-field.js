@@ -85,6 +85,7 @@ export default Component.extend({
 
   actions: {
     onUserInteraction: function(value) {
+      console.log(value);
       this.send('setFieldValue', value);
     },
 
