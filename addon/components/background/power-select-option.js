@@ -6,19 +6,19 @@ export default Component.extend({
   layout,
   tagName: '',
 
-  optionName: computed('optionKeyPath', 'option', function() {
+  optionName: computed('optionDisplayProp', 'option', function() {
     var option = this.get('option');
-    var optionKeyPath = this.get('optionKeyPath');
+    var optionDisplayProp = this.get('optionDisplayProp');
     if (typeof option === 'string') {
       return option;
     } else {
-      if (!optionKeyPath) {
+      if (!optionDisplayProp) {
         throw(`Ember fire forms: you passed an array of objects as your options for the field with ID ${this.get('fieldId')}, but you did not specify the option key path, which which tells the field which key to display as the option name.`);
       }
-      if (!(optionKeyPath in option)) {
-        throw(`Ember fire forms: you passed ${optionKeyPath} as the optionKeyPath for the field with ID ${this.get('fieldId')}, but the key ${optionKeyPath} was not found in the object that was passed as the option for this field.`);
+      if (!(optionDisplayProp in option)) {
+        throw(`Ember fire forms: you passed ${optionDisplayProp} as the optionDisplayProp for the field with ID ${this.get('fieldId')}, but the key ${optionDisplayProp} was not found in the object that was passed as the option for this field.`);
       }
-      return option[optionKeyPath];
+      return option[optionDisplayProp];
     }
   })
 });

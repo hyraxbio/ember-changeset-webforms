@@ -29,9 +29,9 @@ export default Component.extend({
       if (e.keyCode === 13) {
         var value = this.get('formField.value') || [];
         var newItem;
-        if (this.get('formField.optionKeyPath')) {
+        if (this.get('formField.optionDisplayProp')) {
           newItem = {};
-          newItem[this.get('formField.optionKeyPath')] = e.target.value;
+          newItem[this.get('formField.optionDisplayProp')] = e.target.value;
         } else {
           newItem = e.target.value;
         }

@@ -1,4 +1,6 @@
 {{ember-pojo-form/form-field-label formField=formField}}
+{{ember-pojo-form/form-field-description formField=formField}}
+
 <div class="field-controls">
   <div data-test-type="form-field-power-select">
     {{#power-select
@@ -6,19 +8,20 @@
       options=formField.options
       selected=(readonly formField.value)
       searchPlaceholder=formField.searchPlaceholder
+      searchField=formField.optionDisplayProp
       allowClear=allowClear
       searchEnabled=formField.searchEnabled
       placeholder=formField.placeholder
       onchange=(action onUserInteraction)
       onclose=onclose
       triggerId=formField.name
-      disbaled=formField.disabled
+      disabled=formField.disabled
       as |option|
       }}
       {{#if formField.optionComponent}}
         {{component formField.optionComponent option=option}}
       {{else}}
-        {{background/power-select-option option=option optionKeyPath=formField.optionKeyPath fieldId=formField.fieldId}}
+        {{background/power-select-option option=option optionDisplayProp=formField.optionDisplayProp fieldId=formField.fieldId}}
       {{/if}}
     {{/power-select}}
   </div>

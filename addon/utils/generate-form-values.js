@@ -1,6 +1,9 @@
 export default function generateFormValues(formFields) {
   var final = {};
-  formFields.forEach(function(field) {
+  formFields.forEach(function(field) {    
+    if (field.fieldValueProp) {
+      field.value = field.value[field.fieldValueProp];
+    }
     function processField(levels, final, value) {
       var acc = final;
       levels.forEach(function(level, index) {

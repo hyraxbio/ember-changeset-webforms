@@ -29,6 +29,8 @@
 
   // AfterValidation implemented after custom validation is called as well - que: what is custom validation involves async operation?
 
+// Required pairs, trips etc- where one of x fields is required (But could be any one).
+
   // All actions sent from validating-form-field must only use formField as the argument.
 // Docs for use of includeLabelOnSubmit
 // Test that hidden fields not included in data, not ignored by validator and ignored by check all fields validated.
