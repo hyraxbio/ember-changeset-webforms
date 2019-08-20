@@ -28,7 +28,13 @@ export default Component.extend({
 
   actions: {
     checkboxToggled: function(key, value) {
-      var checkedItems = this.get('formField.value') || [];
+      var checkedItems;
+      var fieldValue = this.get('formField.value') || [];
+      if (typeof fieldValue === 'string') {
+        checkedItems = fieldValue.split(',');
+      } else {
+        checkedItems = fieldValue;
+      }
       if (value === true) {
         checkedItems.push(key);
       } else {
