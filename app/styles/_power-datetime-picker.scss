@@ -1,0 +1,8 @@
+// $power-datetime-picker
+.form-field.field-type-power-date-picker .validation-area {
+  border: $power-datetime-picker-border-width solid $power-datetime-picker-border-color;
+  border-radius: $power-datetime-picker-border-radius;
+  background: $power-datetime-picker-background-color;
+  padding: 10px;
+}
+

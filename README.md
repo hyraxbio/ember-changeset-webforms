@@ -10,41 +10,45 @@ Installation
 ember install ember-pojo-validating-fields
 ```
 
+## Importing styles
 
-Usage
-------------------------------------------------------------------------------
+The addon tries to remain as agnostic as possible about styling, however, there are a few styles which aere required. Import them into your `app.scss` file with the following line:
 
-[Longer description of how to use the addon in apps.]
+`@import ember-pojo-forms;`
 
+## Required addons
 
-Contributing
-------------------------------------------------------------------------------
+There are some supporting addons which need to be installed, fpor various components/fieldTypes to work.
 
-### Installation
+**ember-pojo-form/form-field-checkbox-group (fieldType=checkboxGroup)**
+**ember-pojo-form/form-field-checkbox (fieldType=singleCheckbox)**
 
-* `git clone <repository-url>`
-* `cd ember-pojo-validating-fields`
-* `npm install`
+`ember install ember-extended-elements`
 
-### Linting
+Add the following line to your app.scss file, before `@import ember-pojo-forms`
 
-* `npm run lint:js`
-* `npm run lint:js -- --fix`
+`@import ember-extended-elements;`
 
-### Running tests
+**ember-pojo-form/form-field-date-range (fieldType=dateRange)**
+**ember-pojo-form/form-field-power-datepicker (fieldType=powerDatePicker)**
 
-* `ember test` – Runs the test suite on the current Ember version
-* `ember test --server` – Runs the test suite in "watch mode"
-* `ember try:each` – Runs the test suite against multiple Ember versions
+`ember install ember-power-calendar`
 
-### Running the dummy application
+If the installation does not automatically add this line to your `app.scss` file, then add it, before the line `@import ember-extended-elements`.
 
-* `ember serve`
-* Visit the dummy application at [http://localhost:4200](http://localhost:4200).
+`@import "ember-power-calendar";`
 
-For more information on using ember-cli, visit [https://ember-cli.com/](https://ember-cli.com/).
+**ember-pojo-form/form-field-power-select (fieldType=powerSelect)**
+**ember-pojo-form/form-field-tag-selector (fieldType=tagSelector)**
 
-License
-------------------------------------------------------------------------------
+`ember install ember-power-select`
 
-This project is licensed under the [MIT License](LICENSE.md).
+If the installation does not automatically add these line to your `app.scss` file, then add them, before the line `@import ember-extended-elements`.
+
+`@import "ember-basic-dropdown";`
+
+`@import "ember-power-select";`
+
+**ember-pojo-form/form-field-radio-button-group (fieldType=radioButtonGroup)**
+
+`ember install ember-radio-button`

@@ -1,0 +1,45 @@
+$body-content-text-font-size: 1em;
+$spacer-md: 16px;
+
+body {
+  font-family: Arial;
+  font-size: 62.5%;
+}
+div.wrapper {
+  font-size: 1.4em;
+  input, textarea, select, button {
+    font-size: 1em;
+  }
+}
+
+input:not([type=radio]):not([type=checkbox]), textarea {
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  height: 40px;
+}
+
+textarea {
+  min-height: 100px;
+}
+
+button {
+  height: 40px;
+  background: #999;
+  color: #fff;
+  border-width: 0;
+  border-radius: 3px;
+}
+
+.form-submit-button {
+  display: flex;
+  align-items: center;
+}
+
+.form-submit-button svg {
+  width: 20px;
+  height: 20px;
+  fill: #fff;
+  margin-left: 10px
+}
+
+@import "ember-pojo-form";

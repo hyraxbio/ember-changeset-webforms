@@ -1,0 +1,16 @@
+{{ember-pojo-form/form-field-label formField=formField}}
+{{#if formField.contentComponent}}
+  {{component formField.contentComponent.path class=formField.contentComponent.class props=formField.contentComponent.props}}
+{{else}}
+  {{#if (eq formField.textElement "h2")}}
+    <h2 class="{{formField.textElementClass}}">{{formField.text}}</h2>
+  {{else if (eq formField.textElement "h3")}}
+    <h3 class="{{formField.textElementClass}}">{{formField.text}}</h3>
+  {{else if (eq formField.textElement "h4")}}
+    <h4 class="{{formField.textElementClass}}">{{formField.text}}</h4>
+  {{else if (eq formField.textElement "p")}}
+    <p class="{{formField.textElementClass}}">{{formField.text}}</p>
+  {{else}}
+    <span class="{{formField.textElementClass}}">{{formField.text}}</span>
+  {{/if}}
+{{/if}}

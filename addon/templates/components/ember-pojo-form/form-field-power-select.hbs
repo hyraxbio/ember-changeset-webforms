@@ -1,0 +1,30 @@
+{{ember-pojo-form/form-field-label formField=formField}}
+{{ember-pojo-form/form-field-description formField=formField}}
+
+<div class="field-controls">
+  <div data-test-type="form-field-power-select">
+    {{#power-select
+      triggerClass="validation-area"
+      options=formField.options
+      selected=(readonly formField.value)
+      searchPlaceholder=formField.searchPlaceholder
+      searchField=formField.optionDisplayProp
+      allowClear=allowClear
+      searchEnabled=formField.searchEnabled
+      placeholder=formField.placeholder
+      onchange=(action onUserInteraction)
+      onclose=onclose
+      triggerId=formField.name
+      disabled=formField.disabled
+      as |option|
+      }}
+      {{#if formField.optionComponent}}
+        {{component formField.optionComponent option=option}}
+      {{else}}
+        {{background/power-select-option option=option optionDisplayProp=formField.optionDisplayProp fieldId=formField.fieldId}}
+      {{/if}}
+    {{/power-select}}
+  </div>
+  {{component inputIcon class="form-field-icon"}}
+</div>
+{{ember-pojo-form/form-field-error formField=formField}}

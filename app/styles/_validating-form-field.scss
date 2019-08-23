@@ -1,0 +1,114 @@
+div.form-field {
+  // max-width: $pojo-form-field-max-width;
+  width: 100%;
+  &.field-type-input input, textarea {
+    width: 100%;
+    box-sizing: border-box;
+  }
+}
+div.field-controls {
+  margin-top: $pojo-form-field-controls-margin-top;
+  margin-bottom: $pojo-form-field-margin-bottom;
+  position: relative;
+}
+
+div.form-field svg.form-field-icon {
+  position: absolute;
+  width: 20px;
+  right: 10px;
+  top: 1px;
+}
+
+.form-field.readonly input,
+.form-field.disabled input {
+  background-color: #e9e9e9;
+  cursor: not-allowed;
+}
+
+.validates input {
+  padding-right: 36px;
+}
+
+div.form-field.required {
+  svg.form-field-icon {
+    fill: $pojo-form-field-required-icon-color;
+    margin-top: 9px;
+  }
+}
+
+div.form-field.valid {
+  .validation-area {
+    border-color: $pojo-form-field-valid-border-color;
+    background: $pojo-form-field-valid-background-color;
+  }
+  svg.form-field-icon {
+    fill: $pojo-form-field-valid-icon-fill;
+    margin-top: 13px;
+  }
+}
+
+div.form-field.invalid {
+  .validation-area {
+    border-color: $pojo-form-field-invalid-border-color;
+    background: $pojo-form-field-invalid-background-color
+  }
+  svg.form-field-icon {
+    fill: $pojo-form-field-invalid-border-color;
+    margin-top: 10px;
+  }
+  div.field-error {
+    min-height: $pojo-form-field-margin-bottom;
+    color: $pojo-form-field-error-text-color;
+    font-weight: 700;
+    margin-left: 10px;
+    svg {
+      height: 100%;
+      width: 20px;
+      float: left;
+      fill: $pojo-form-field-error-text-icon-fill;
+    }
+  }
+  div.field-controls+div.field-error {
+    margin-top: -1*$pojo-form-field-margin-bottom;
+  }
+}
+
+div.form-field.power-select {
+  max-width: 300px;
+}
+
+div.form-field.power-select div.field-container > svg {
+  right: -24px;
+}
+
+div.form-field .checkbox-group-container,
+div.form-field .radio-button-group-container {
+  position: relative;
+  padding: $pojo-form-field-radio-checkbox-group-padding-y $pojo-form-field-radio-checkbox-group-padding-x;
+  border: $pojo-form-field-radio-checkbox-group-border-width solid $pojo-form-field-radio-checkbox-group-border-color;
+  background: $pojo-form-field-radio-checkbox-group-background-color;
+  border-radius: $pojo-form-field-radio-checkbox-group-border-radius;
+}
+
+div.form-field.field-type-radio-button-group,
+div.form-field.field-type-checkbox-group {
+  position: relative;
+  .labelled-radio-button,
+  .labelled-checkbox {
+    margin: 0 0 5px 10px;
+  }
+}
+
+div.form-field.field-type-static-content {
+  margin-bottom: $pojo-form-field-margin-bottom;
+}
+
+@media (max-width: 979px) {
+  div.form-field.field-type-radio-button-group,
+  div.form-field.field-type-checkbox-group {
+    .labelled-radio-button,
+    .labelled-checkbox {
+      margin-bottom: 15px;
+    }
+  }
+}

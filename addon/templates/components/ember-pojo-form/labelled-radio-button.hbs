@@ -1,0 +1,10 @@
+{{#radio-button
+  value=value
+  groupValue=groupValue
+  name=name
+  changed=changedAction
+  radioId=(concat elementId "-" value)
+  disabled=disabled
+}}
+  {{#if labelComponent}}{{component labelComponent}}{{else if label}}{{label}}{{/if}}
+{{/radio-button}}

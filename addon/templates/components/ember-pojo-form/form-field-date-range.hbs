@@ -1,0 +1,26 @@
+{{ember-pojo-form/form-field-label formField=formField}}
+<div class="field-controls validation-area">
+  {{ember-extended-elements/power-daterange-picker
+    formField=formField
+    value=formField.value
+    dateButtonComponent=formField.dateButtonComponent
+    dateButtonText=formField.dateButtonText
+    minDate=formField.minDate
+    maxDate=formField.maxDate
+    name=formField.name
+    dateFormat=formField.dateFormat
+    defaultStartDate=formField.defaultStartDate
+    defaultEndDate=formField.defaultEndDate
+    startTime=formField.startTime
+    endTime=formField.endTime
+    onSelectDateRange=(action onUserInteraction)
+    triggerClasses=formField.triggerClasses
+    calendarContainerClasses=formField.calendarContainerClasses
+    onClose=(action "onClose")
+    onOpen=(action "onOpen")
+    validateField=(action validateField)
+  }}
+  {{component inputIcon class="form-field-icon"}}
+</div>
+{{ember-pojo-form/form-field-error formField=formField}}
+   

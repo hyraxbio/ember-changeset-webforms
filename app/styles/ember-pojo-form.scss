@@ -1,0 +1,57 @@
+@import "_variables";
+
+@import "ember-extended-elements";
+@import "_validating-form";
+@import "_validating-form-field";
+@import "_checkbox-radio-button-group";
+
+// TODO
+// All label and content components must become objects with a path, allowing for props and class.
+// GLARING BUG - THE ACTION IN YOUR COMPONENT AFTER YOU UPDATE A CHECKBOX FOR EG DOES NOT EXISTS, ONLY "AFTERVALIDATION"
+// customTransforms must send formField, not fieldId.
+//  Remove distinction between fields that are part of a form and those that aren't in the action 'setFieldValue' in validating form field.
+// Site wide defaults for button classes
+
+
+// Test that fieldClass gets added.
+// Test new features for hidden and text separator.
+// Docs- array or comma separated list can be passed to checkbox group as defaults.
+// Implement array of comma separated list as default for radio button group.
+// Implement warning thrown if a default in the array of list for checkbox group or radio button group does not correspond to one of the keys.
+// Test for not required but other validation rule present and field empty.
+// Horizontal layout for checkbox and radio- no margin-bottom.
+// Better names of actions for fields when user interacts. after validation, after validation success and failure
+// If you generate the formObject outside the component, resetAfterSubmit throws an error- formSchema must have a formName property,
+
+// Custom validations must be saved somewhere and run in the validate-field util, otherwise you have to remember to call the afterValidation function in the customValidations action.
+
+// afterKeyUpAction(value, event, formField) { becomes afterKeyUpAction(formField, event) {
+
+  // AfterValidation implemented after custom validation is called as well - que: what is custom validation involves async operation?
+
+// Required pairs, trips etc- where one of x fields is required (But could be any one).
+
+  // All actions sent from validating-form-field must only use formField as the argument.
+// Docs for use of includeLabelOnSubmit
+// Test that hidden fields not included in data, not ignored by validator and ignored by check all fields validated.
+// Check that name prop for radio button groups is unique qithin the form.
+
+// BUG Single checkbox must have fieldLabel not label
+// BUG tags selector- if you hit enter to make a new tag, but your text matched an existing one, it selects the existing one, ratrher than creating the new one.
+
+
+// DONE
+// Changed this.focusOutAction(formField.get('fieldId'), value); to this.focusOutAction(formField);
+// Changed this.focusInAction(formField.get('fieldId'), value); to this.focusInAction(formField);
+
+// TESTS
+
+// customTransofrms runs after field validation
+
+// 
+
+// DOCS
+
+// tag selector and power select
+// When a custom component is passed to display the tags/ selected item, you must also pass optionKeyPath, so that is the user free tags (Types inb the search box and hits enter) the component knows whether the thing it needs to add to the array that repsents the field's value should be an object, or a string.
+

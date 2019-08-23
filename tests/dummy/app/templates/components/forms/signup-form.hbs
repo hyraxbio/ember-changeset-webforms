@@ -1,0 +1,17 @@
+{{!-- {{ember-pojo-form/validating-form
+  formSchema=signUpFormSchema
+  submitAction=(action submitAction)
+  saveSuccess=(action "saveSuccess")
+  saveFail=(action "saveFail")
+  formValidationFailed=(action "formValidationFailed")
+  formValidationPassed=(action "formValidationPassed")
+  customValidations=(action "customValidations")
+  afterKeyUpAction=(action "afterKeyUpAction")
+  resetForm=(action "resetForm")
+  setProperty=(action setProperty)
+}} --}}
+
+{{ember-pojo-form/validating-form-field 
+  onUserInteraction=(action "test")
+  fieldSchema=dateRangeElement
+}}
