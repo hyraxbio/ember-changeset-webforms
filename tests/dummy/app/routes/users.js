@@ -1,7 +1,12 @@
 import Route from '@ember/routing/route';
+import $ from 'jquery';
 
 export default Route.extend({
   model() {
-    return this.store.findAll('user');
+    return $.ajax({
+      url: '/api/users'
+    }).then(response => {
+      return response.data;
+    });
   },
 });

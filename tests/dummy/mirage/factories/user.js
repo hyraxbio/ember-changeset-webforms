@@ -14,17 +14,20 @@ export default Factory.extend({
     return faker.lorem.sentence();
   },
 
-  acceptTerms() {
+  accept_terms() {
     return 'true';
   },
 
-  personal_details() {
+  gender() {
+    return faker.list.cycle('male', 'female', 'other');
+  },
+
+  info() {
     return {
       favourite_colours: ['red', 'green'],
       birth_date: faker.date.past(),
       phone_number: faker.phone.phoneNumber(),
       address: {
-        address_line1: faker.address.streetAddress(),
         country:  faker.address.country()
       }
     };

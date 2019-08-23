@@ -2,7 +2,7 @@
   {{ember-extended-elements/labelled-checkbox
     dataTestId=(concat "checkbox-option-" formField.fieldId "-" option.value)
     value=(readonly formField.value)
-    label=formField.label
+    label=formField.fieldLabel
     labelComponent=formField.labelComponent
     changedAction=(action onUserInteraction)
     name=formField.name

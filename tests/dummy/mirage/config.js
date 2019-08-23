@@ -31,6 +31,10 @@ export default function() {
     return schema.all('user');
   });
 
+  this.get('/users/:id', function(schema, request) {
+    return schema.find('user', request.params.id);
+  });
+
   this.post('/users', ({ users }, request) => {
     let attrs = JSON.parse(request.requestBody).data.attributes;
     if (attrs.email === 'alreadytaken@yahoo.com') {

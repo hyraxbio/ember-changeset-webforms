@@ -1,6 +1,7 @@
 <div class="wrapper">
-  {{forms/signup-form
+  {{signup-form
     submitAction=(route-action "saveNewRecord")
     setProperty=(action "setProperty")
   }}
+  {{log model}}
 </div>
