@@ -1,0 +1,21 @@
+{{! dummy-form/template.hbs}}
+<form>
+  {{validated-input propertyName="firstName" changeset=changeset}}
+  <hr>
+  {{validated-input propertyName="level" changeset=changeset}}
+
+  <button {{action submit changeset}}>Submit</button>
+  <button {{action rollback changeset}}>Cancel</button>
+</form>
+
+  {{!-- <ul>
+    {{#each changeset.errors as |error|}}
+      <li>{{error.key}}: {{error.validation}}</li>
+    {{/each}}
+  </ul> --}}
+
+{{!-- <ul>
+  {{#each changeset.changes as |change|}}
+    <li>{{change.key}}: {{change.value}}</li>
+  {{/each}}
+</ul> --}}

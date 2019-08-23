@@ -2,11 +2,25 @@ import Controller from '@ember/controller';
 import EmberObject from '@ember/object';
 import { get }   from '@ember/object';
 import Changeset from 'ember-changeset';
-import UserValidations from '../validations/user';
+// import UserValidations from '../validations/user';
+// import { validatePresence, validateNumber } from 'ember-changeset-validations/validators';
+import validators from 'ember-changeset-validations/validators';
+import incrementValidator from '../validators/increment';
 export default Controller.extend({
-  UserValidations,
+  // UserValidations,
+  validators,
   init() {
     this._super(...arguments);
+    console.log(this.get('validators'));
+    this.UserValidations = {
+      firstName: this.get('validators').validatePresence(true),
+      level: [
+        this.get('validators').validatePresence(true),
+        this.get('validators').validateNumber({gte: 1, lte: 99}),
+        this.get('validators').validateNumber({integer: true}),
+        incrementValidator(2)
+      ]
+    };
     this.model = EmberObject.create({
       firstName: null,
       level: 78
