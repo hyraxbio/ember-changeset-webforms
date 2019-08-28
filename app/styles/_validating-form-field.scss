@@ -29,44 +29,42 @@ div.form-field svg.form-field-icon {
   padding-right: 36px;
 }
 
+div.form-field {
+  .validation-area {
+    background-size: 20px;
+    background-repeat: no-repeat;
+    background-position: $pojo-form-field-icon-position;
+  }
+}
+
 div.form-field.required {
-  svg.form-field-icon {
-    fill: $pojo-form-field-required-icon-color;
-    margin-top: 9px;
+  .validation-area {
+    background-image: $pojo-form-field-required-icon;
   }
 }
 
 div.form-field.valid {
   .validation-area {
     border-color: $pojo-form-field-valid-border-color;
-    background: $pojo-form-field-valid-background-color;
-  }
-  svg.form-field-icon {
-    fill: $pojo-form-field-valid-icon-fill;
-    margin-top: 13px;
+    background-color: $pojo-form-field-valid-background-color;
+    background-image: $pojo-form-field-valid-icon;
+    background-size: $pojo-form-field-valid-icon-size;
   }
 }
 
 div.form-field.invalid {
   .validation-area {
     border-color: $pojo-form-field-invalid-border-color;
-    background: $pojo-form-field-invalid-background-color
-  }
-  svg.form-field-icon {
-    fill: $pojo-form-field-invalid-border-color;
-    margin-top: 10px;
+    background-color: $pojo-form-field-invalid-background-color;
+    background-image: $pojo-form-field-invalid-icon;
+    background-size: $pojo-form-field-invalid-icon-size;
+
   }
   div.field-error {
     min-height: $pojo-form-field-margin-bottom;
     color: $pojo-form-field-error-text-color;
     font-weight: 700;
     margin-left: 10px;
-    svg {
-      height: 100%;
-      width: 20px;
-      float: left;
-      fill: $pojo-form-field-error-text-icon-fill;
-    }
   }
   div.field-controls+div.field-error {
     margin-top: -1*$pojo-form-field-margin-bottom;
@@ -86,7 +84,7 @@ div.form-field .radio-button-group-container {
   position: relative;
   padding: $pojo-form-field-radio-checkbox-group-padding-y $pojo-form-field-radio-checkbox-group-padding-x;
   border: $pojo-form-field-radio-checkbox-group-border-width solid $pojo-form-field-radio-checkbox-group-border-color;
-  background: $pojo-form-field-radio-checkbox-group-background-color;
+  background-color: $pojo-form-field-radio-checkbox-group-background-color;
   border-radius: $pojo-form-field-radio-checkbox-group-border-radius;
 }
 

@@ -26,7 +26,7 @@ export default Component.extend({
           validateOnInsert = true;
         }
       }
-      if (validateOnInsert && (formField.defaultValue || formField.dynamicValue)) {
+      if (validateOnInsert && (formField.defaultValue)) {
         this.send('validateField');
       }
     });

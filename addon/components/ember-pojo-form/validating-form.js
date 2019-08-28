@@ -27,7 +27,9 @@ export default Component.extend({
   formObject: computed('processedFormSchema', 'props', 'propsHash', function() {
     var formObject = this.get('processedFormSchema');
     formObject.formFields.forEach(field => {
-      field.set('value', this.get(`props.${field.fieldId}`));
+      if (this.get(`props.${field.fieldId}`)) {
+        field.set('value', this.get(`props.${field.fieldId}`));
+      }
     });
     return formObject;
   }),

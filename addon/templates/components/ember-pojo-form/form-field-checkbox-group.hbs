@@ -1,6 +1,5 @@
 {{ember-pojo-form/form-field-legend formField=formField}}
 <div class="checkbox-group-container field-controls validation-area">
-  {{component inputIcon class="form-field-icon"}}
   {{#each formField.options as |option|}}
     {{background/labelled-checkbox
       dataTestId=(concat "checkbox-option-" formField.fieldId "-" option.value)

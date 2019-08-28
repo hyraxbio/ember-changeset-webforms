@@ -24,7 +24,8 @@ export default Component.extend({
           fieldId: 'name',
           fieldType: 'input',
           validationRules: [{'validationMethod': 'required'}],
-          inputType: 'text'
+          inputType: 'text',
+          
         },
         {
           fieldLabel: 'Email',
@@ -38,7 +39,8 @@ export default Component.extend({
           fieldId: 'info.phone_number',
           fieldType: 'input',
           validationRules: [{'validationMethod': 'required'}],
-          inputType: 'number'
+          inputType: 'number',
+          defaultValue: 555
         },
         {
           fieldLabel: 'Country',
@@ -166,9 +168,9 @@ export default Component.extend({
       ]
     };
     this.model = {
-      name: 'test',
+      name: 'Paddy',
       info: {
-        phone_number: '32423454352',
+        // phone_number: '32423454352',
         address: {
           country: 'South Africa'
         }

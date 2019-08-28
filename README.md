@@ -197,3 +197,14 @@ Note that `propsHash` can accept nested hashes.
     }}
 
 In this case `this.set('model.info.phone_number', '555')` will update the value of the field with a fieldId of `info.phone_number` to _**555**_.
+
+## Field properties - all fields
+
+`autoFocus` Auto focusses the input on insertion when `true`. Default `false`.
+`defaultValue` Set the value of the field to this when rendering it. Note that this will be overriden by the value of a `props` object where relevant.
+
+## Field properties - specific fields
+
+### input
+
+`notrim` Input fields are trimmed by default, unless they are type `password`, or you set `notrim` to true. 

@@ -2,69 +2,67 @@ import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render, fillIn, focus, blur, triggerKeyEvent } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
+import nameInputRequired from './fixtures/form-fields/required/name-input';
 
 module('Integration | Component | validating-form-field', function(hooks) {
   setupRenderingTest(hooks);
 
   test('Basic rendering', async function(assert) {
-    var fieldSchema = {
-      fieldId: 'testInput',
-      fieldLabel: 'Test Input',
-      fieldType: 'input',
-    }
-    // var formSchema = {
-    //   hideLabels: true,
-    // }
+    var fieldSchema = nameInputRequired;
     this.set('fieldSchema', fieldSchema);
+    
     await render(hbs`{{ember-pojo-form/validating-form-field fieldSchema=fieldSchema}}`);
-    assert.ok(this.element.querySelector('label').textContent.trim() === 'Test Input', 'Label renders correctly.');
-    assert.ok(this.element.querySelector('input').placeholder === 'Test Input', 'Placeholder uses label value by default.');
+    assert.ok(this.element.querySelector('label').textContent.trim() === 'Name', 'Label renders correctly.');
+    assert.ok(this.element.querySelector('input').placeholder === 'Name', 'Placeholder uses label value by default.');
     assert.ok(this.element.querySelector('input'), 'Input is rendered');
     assert.ok(this.element.querySelector('input').type === 'text', 'Input renders as type text if inputType is not specified.');
-
+    
     this.set('fieldSchema.autoFocus', true);
-    this.set('fieldSchema.placeholder', 'Test Placeholder');
+    this.set('fieldSchema.placeholder', 'Enter your name');
+    
     await render(hbs`{{ember-pojo-form/validating-form-field fieldSchema=fieldSchema}}`);
-    assert.ok(this.element.querySelector('input:focus'), '[Autofocus] Input is correctly auto focussed when the "autoFocus" property is true.');
-    assert.ok(this.element.querySelector('input').placeholder === 'Test Placeholder' && this.element.querySelector('label').textContent.trim() === 'Test Input', 'Custom placeholder renders correctly.');
+    assert.ok(this.element.querySelector('input:focus'), '[Autofocus] Input is correctly auto focused when the "autoFocus" property is true.');
+
+    assert.ok(this.element.querySelector('input').placeholder === 'Enter your name' && this.element.querySelector('label').textContent.trim() === 'Name', 'Custom placeholder renders correctly.');
+
+    this.set('fieldSchema.defaultValue', ' Little Sebastian ');
+    
+    await render(hbs`{{ember-pojo-form/validating-form-field fieldSchema=fieldSchema}}`);
+    await blur(this.element.querySelector('input'));
+    assert.ok(this.element.querySelector('input').value === 'Little Sebastian', 'Default value renders in input, is trimmed by default.');
+
+    this.set('fieldSchema.hideLabel', true);
+   
+    await render(hbs`{{ember-pojo-form/validating-form-field fieldSchema=fieldSchema}}`);
+    assert.ok(this.element.querySelector('input').value === 'Little Sebastian', 'Values are trimmed by default.');
+    assert.notOk(this.element.querySelector('label'), 'Label does not render if "hideLabel" is true.');
+    await fillIn(this.element.querySelector('input'), ' Little Sebastian ');
+    await triggerKeyEvent(this.element.querySelector('input'), "keyup", 1);
+    assert.ok(this.element.querySelector('input').value === ' Little Sebastian ', 'Trimming does not happen on "keyUp".');
+    await blur(this.element.querySelector('input'));
+    assert.ok(this.element.querySelector('input').value === 'Little Sebastian', 'Value is trimmed on blur by default.');
+
+    this.set('fieldSchema.notrim', true);
+    await render(hbs`{{ember-pojo-form/validating-form-field fieldSchema=fieldSchema}}`);
+    assert.deepEqual(this.element.querySelector('input').value, ' Little Sebastian ', 'Values are not trimmed on insert when notrim is set to true.');
+    
+    await focus(this.element.querySelector('input'));
+    await blur(this.element.querySelector('input'));
+    assert.deepEqual(this.element.querySelector('input').value, ' Little Sebastian ', 'Values are not trimmed on blur when notrim is set to true.');
+    assert.ok(this.element.querySelector('div').classList.contains('required'), 'Required class added to fields with "required" as a validationMenthod.');
 
     this.set('fieldSchema.inputType', 'number');
     await render(hbs`{{ember-pojo-form/validating-form-field fieldSchema=fieldSchema}}`);
     assert.ok(this.element.querySelector('input').type === 'number', 'Input renders as type number if inputType is "number".');
 
-    this.set('fieldSchema.inputType', 'text');
-    this.set('fieldSchema.default', ' Default text ');
+    this.set('fieldSchema.inputType', 'email');
     await render(hbs`{{ember-pojo-form/validating-form-field fieldSchema=fieldSchema}}`);
-    await blur(this.element.querySelector('input'));
-    assert.ok(this.element.querySelector('input').value === ' Default text ', 'Default value renders in input, is not trimmed by default.');
+    assert.ok(this.element.querySelector('input').type === 'email', 'Input renders as type email if inputType is "email".');
 
-    this.set('fieldSchema.trim', true);
-    this.set('fieldSchema.hideLabel', true);
+    this.set('fieldSchema.inputType', 'password');
     await render(hbs`{{ember-pojo-form/validating-form-field fieldSchema=fieldSchema}}`);
-    assert.ok(this.element.querySelector('input').value === 'Default text', 'When trim is true, default values are trimmed when field is inserted.');
-    assert.notOk(this.element.querySelector('label'), 'Label does not render if "hideLabel" is true.');
-
-    await fillIn(this.element.querySelector('input'), ' Default text ');
-    await triggerKeyEvent(this.element.querySelector('input'), "keyup", 1);
-    assert.ok(this.element.querySelector('input').value === ' Default text ', 'Trimming does not happen on "keyUp", even if trim is set to true.');
-
-    await blur(this.element.querySelector('input'));
-    assert.ok(this.element.querySelector('input').value === 'Default text', 'When trim is true, value is trimmed on blur.');
-
-    this.set('fieldSchema.validationRules', [{'validationMethod': 'required'}]);
-    await render(hbs`{{ember-pojo-form/validating-form-field fieldSchema=fieldSchema}}`);
-    assert.ok(this.element.querySelector('[data-test-id="svg-icon-asterisk"]'), 'Required icon displays if required is passed as a validation rule.');
-    assert.ok(this.element.querySelector('div').classList.contains('required'), 'Required class added to fields with "required" as a validationMenthod.');
-
-
-    // Template block usage:
-    // await render(hbs`
-    //   {{#validating-form-field}}
-    //     template block text
-    //   {{/validating-form-field}}
-    // `);
-
-    // assert.equal(this.element.textContent.trim(), 'template block text');
+    assert.ok(this.element.querySelector('input').type === 'password', 'Input renders as type password if inputType is "password".');
+   
   });
 
   test('General validation', async function(assert) {
@@ -81,7 +79,6 @@ module('Integration | Component | validating-form-field', function(hooks) {
     await render(hbs`{{ember-pojo-form/validating-form-field fieldSchema=fieldSchema}}`);
     await focus(this.element.querySelector('input'));
     await blur(this.element.querySelector('input'));
-    assert.ok(this.element.querySelector('[data-test-id="svg-icon-alert"]'), 'Alert icon displays if validation is failed.');
     assert.equal(this.element.querySelector('[data-test-id="field-error"]').textContent.trim(), 'This field is required.', 'Correct error message shows on focus out of a required field which is empty.');
     assert.notOk(this.element.querySelector('div').classList.contains('valid'), "Valid class does not display on invalid field.");
     assert.ok(this.element.querySelector('div').classList.contains('invalid'), "Invalid class displays on invalid field.");
@@ -135,9 +132,10 @@ module('Integration | Component | validating-form-field', function(hooks) {
     await render(hbs`{{ember-pojo-form/validating-form-field fieldSchema=fieldSchema}}`);
     assert.notOk(this.element.querySelector('[data-test-id="field-error"]'), 'Validation does not occur on insert if default value is null, even if "insert" is passed as a validation event.');
 
-    this.set('fieldSchema.default', 'Test');
+    this.set('fieldSchema.defaultValue', 'Test');
     await render(hbs`{{ember-pojo-form/validating-form-field fieldSchema=fieldSchema}}`);
     assert.ok(this.element.querySelector('[data-test-id="field-error"]'), 'Field with "insert" as a validation event validates when inserted with a default value.');
+
     await fillIn(this.element.querySelector('input'), 'test');
     await triggerKeyEvent(this.element.querySelector('input'), "keyup", 1);
     assert.notOk(this.element.querySelector('[data-test-id="field-error"]'), 'Validation error does not show on keyUp, when keyUp not given as validation event for input, and input value is invalid.');

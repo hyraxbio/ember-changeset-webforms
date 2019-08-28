@@ -37,25 +37,12 @@ export default function generateEmberValidatingFormField(field, index, formSchem
   }
 
   var value;
-  if (formSchema) {
-    var fieldIdParts = field.fieldId.split('.');
-    var thisPart = formSchema.recordToUpdate;
-    fieldIdParts.forEach(function(part) {
-      if (thisPart) {
-        thisPart = thisPart[part];
-      }
-    });
-    value = thisPart;
+  if (field.defaultValue) {
+    value = field.defaultValue;
   }
-
-  var valueType = 'defaultValue';
-  if (mode !== 'reset' && field.dynamicValue) {
-    valueType = 'dynamicValue';
-  }
-
-  if (field[valueType] && (value === undefined || value === null)) {
-    // Trim the value if "trim" is set to true on the field.
-    value = field.trim ? field[valueType].trim() : field[valueType];
+  // Trim non password input fields by default.
+  if (value && !field.notrim && field.fieldType === 'input' && field.inputType !== 'password') {
+    value = value.trim();
   }
 
   var required;
@@ -98,7 +85,6 @@ export default function generateEmberValidatingFormField(field, index, formSchem
   if (field.fieldType === 'input' && !field.inputType) {
     fieldObject.set('inputType', 'text');
   }
-
   fieldObject.set('value', value);
   fieldObject.set('hideSuccessValidation', hideSuccessValidation);
   fieldObject.set('hideLabel', hideLabel);

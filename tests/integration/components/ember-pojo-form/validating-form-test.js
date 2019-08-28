@@ -359,5 +359,33 @@ module('Integration | Component | validating-form', function(hooks) {
     this.set('model.info.address.country', 'Brazil');
     assert.deepEqual(this.element.querySelector('[data-test-id="validating-field-info.address.country"] .ember-power-select-selected-item').textContent.trim(), 'Brazil', 'Props hash causes form rerender when third level model prop is updated.');
 
+    nameInputRequired.defaultValue = 'April Ludgate'
+    this.set('formSchema', {
+      settings: {
+        formName: 'signupForm',
+      },
+      fields: [nameInputRequired, countrySelectRequired]
+    });
+    await render(hbs`
+      {{ember-pojo-form/validating-form 
+        formSchema=formSchema 
+        props=model
+      }}`
+    );
+    assert.deepEqual(this.element.querySelector('[data-test-id="validating-field-name"] input').value, 'Lesley Knope', 'value from props hash is used as form field value instead of defaultValue of field, where both are present.');
+    this.set('model', {
+      info: {
+        address: {
+          country: 'South Africa'
+        }
+      }
+    });
+    await render(hbs`
+      {{ember-pojo-form/validating-form 
+        formSchema=formSchema 
+        props=model
+      }}`
+    );
+    assert.deepEqual(this.element.querySelector('[data-test-id="validating-field-name"] input').value, 'April Ludgate', 'The defaultValue from a field definition is applied when not overriden by a property in the props hash.');
   });
 });
