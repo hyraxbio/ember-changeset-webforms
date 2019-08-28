@@ -182,6 +182,8 @@ Initially, the the form will render with the value _**Little Sebastian**_ in the
 
 The value of the name field will now be _**Ron Swanson**_.
 
+Note that the keys and values of `propsHash` should correspond to `props`. 
+
 Note that `propsHash` can accept nested hashes.
 
     {{ember-pojo-form/validating-form

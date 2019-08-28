@@ -2,7 +2,8 @@
 <div class="field-controls">
   {{input
     class="validation-area"
-    value=(readonly formField.value)
+    
+    value=(get changeset formField.fieldId)
     focusOut=(action onFocusOut value="target.value")
     focusIn=(action onFocusIn value="target.value")
     placeholder=formField.placeholder
@@ -14,3 +15,5 @@
   }}
 </div>
 {{ember-pojo-form/form-field-error formField=formField}}
+{{log changeset}}
+ {{!-- value=(readonly formField.value) --}}

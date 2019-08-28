@@ -353,6 +353,7 @@ module('Integration | Component | validating-form', function(hooks) {
     }}
     `);
     assert.deepEqual(this.element.querySelector('[data-test-id="validating-field-name"] input').value, 'Ron Swanson', 'Top level props are correclty applied to form fields on initial render.');
+    await this.pauseTest();
     assert.deepEqual(this.element.querySelector('[data-test-id="validating-field-info.address.country"] .ember-power-select-selected-item').textContent.trim(), 'South Africa', 'Third level props are correclty applied to form fields on initial render.');
     this.set('model.name', 'Lesley Knope');
     assert.deepEqual(this.element.querySelector('[data-test-id="validating-field-name"] input').value, 'Lesley Knope', 'Props hash causes form rerender when top level model prop is updated.');

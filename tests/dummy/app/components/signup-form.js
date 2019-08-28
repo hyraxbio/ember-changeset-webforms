@@ -3,12 +3,19 @@ import layout from '../templates/components/signup-form';
 import { inject as service } from '@ember/service';
 import Changeset from 'ember-changeset';
 import EmberObject from '@ember/object';
+import validators from 'ember-changeset-validations/validators';
 
 export default Component.extend({
   layout,
   globalVariables: service(),
+  validators,
+
   init() {
     this._super(...arguments);
+    this.UserValidations = {
+      name: this.get('validators').validatePresence(true),
+     
+    };
     this.formSchema = {
       settings: {
         title: 'Sign Up',
@@ -166,16 +173,6 @@ export default Component.extend({
           defaultValue: true
         },
       ]
-    };
-    this.model = {
-      name: 'Paddy',
-      info: {
-        // phone_number: '32423454352',
-        address: {
-          country: 'South Africa'
-        }
-      },
-      bio: 'test'
     };
   },
 

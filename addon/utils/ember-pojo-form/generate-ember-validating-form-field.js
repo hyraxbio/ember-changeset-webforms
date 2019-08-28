@@ -41,7 +41,8 @@ export default function generateEmberValidatingFormField(field, index, formSchem
     value = field.defaultValue;
   }
   // Trim non password input fields by default.
-  if (value && !field.notrim && field.fieldType === 'input' && field.inputType !== 'password') {
+  if (value && !field.notrim && typeof value === 'string' && field.inputType !== 'password') {
+    console.log(value);
     value = value.trim();
   }
 

@@ -10,8 +10,7 @@ export default Component.extend({
   classNames: ["form-field"],
   classNameBindings: ["formField.error:invalid", "valid:valid", "formField.required:required", "disabled:disabled", "readonly:readonly", "formField.fieldClass", 'hideSuccessValidation:hide-success-validation', 'validates:validates', 'typeClass', 'formField.hidden:hidden'],
   attributeBindings: ["data-test-id", "data-test-validation-field"],
-
-
+ 
   didInsertElement: function() {
     //Code below will maintain validation colours when component is re-rendered.
     once(this, function() {
@@ -68,7 +67,7 @@ export default Component.extend({
     }
   }),
 
-  formField: computed('fieldSchema', 'processedFieldSchema', function() {
+  formField: computed('fieldSchema', 'processedFieldSchema', 'prop', function() {
     if (this.get('processedFieldSchema')) {
       return this.get('processedFieldSchema');
     } else {
@@ -84,6 +83,12 @@ export default Component.extend({
   }),
 
   actions: {
+    validateProperty(changeset, property){
+      console.log(changeset);
+      console.log(property);
+      return changeset.validate(property);
+    },
+
     onUserInteraction: function(value) {
       this.send('setFieldValue', value);
     },
@@ -98,6 +103,7 @@ export default Component.extend({
     },
 
     onFocusOut: function(value) {
+      this.send('validateProperty', this.get('changeset'), this.get('formField.fieldId'));
       var formField = this.get('formField');
       formField.set('focussed', false);
       if (value && !formField.get("notrim") && formField.get('inputType') !== 'password') {
@@ -161,7 +167,7 @@ export default Component.extend({
       var formField = this.get('formField');
       if (this.setFormFieldValue) { // Field is part of a form.
         this.setFormFieldValue(formField, value);
-        this.send('sendValidateOnValueUpdate');
+        // this.send('sendValidateOnValueUpdate');
         this.customTransforms(formField.get('fieldId'));
       } else { // Field is used on its own.
         if (formField.get('value')) {
@@ -169,7 +175,7 @@ export default Component.extend({
         }
         value = value || '';
         formField.set('value', value);
-        this.send('sendValidateOnValueUpdate');
+        // this.send('sendValidateOnValueUpdate');
         if (this.customTransforms) {
           this.customTransforms(formField);
         }

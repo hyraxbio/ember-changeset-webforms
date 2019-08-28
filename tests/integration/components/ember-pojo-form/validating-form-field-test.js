@@ -52,9 +52,10 @@ module('Integration | Component | validating-form-field', function(hooks) {
     assert.ok(this.element.querySelector('div').classList.contains('required'), 'Required class added to fields with "required" as a validationMenthod.');
 
     this.set('fieldSchema.inputType', 'number');
+    this.set('fieldSchema.defaultValue', 555);
     await render(hbs`{{ember-pojo-form/validating-form-field fieldSchema=fieldSchema}}`);
     assert.ok(this.element.querySelector('input').type === 'number', 'Input renders as type number if inputType is "number".');
-
+    assert.ok(this.element.querySelector('input').value === 555, 'Numbers are not trimmed');
     this.set('fieldSchema.inputType', 'email');
     await render(hbs`{{ember-pojo-form/validating-form-field fieldSchema=fieldSchema}}`);
     assert.ok(this.element.querySelector('input').type === 'email', 'Input renders as type email if inputType is "email".');
@@ -159,4 +160,8 @@ module('Integration | Component | validating-form-field', function(hooks) {
     assert.ok(this.element.querySelector('[data-test-id="field-error"]'), 'Validation error on focus out of a field that has keyUp as a validation method, and fails validation.');
 
   });
+
+  test('Field prop', async function(assert) {
+    this.set('fieldSchema', nameInputRequired)
+  })  
 });
