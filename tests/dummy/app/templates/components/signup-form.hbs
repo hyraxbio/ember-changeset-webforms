@@ -1,4 +1,11 @@
+<button onclick={{action "ChangeProp"}}>Test</button>
 {{ember-pojo-form/validating-form
   formSchema=formSchema
   submitAction=(action submitAction)
+  props=model
+  propsHash=(hash
+    info=(hash 
+      phone_number=model.info.phone_number
+    )
+  )
 }}

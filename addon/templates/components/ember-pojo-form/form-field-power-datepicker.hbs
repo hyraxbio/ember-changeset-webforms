@@ -1,7 +1,7 @@
 {{ember-pojo-form/form-field-label formField=formField}}
 <div class="clr"></div>
 <div class="field-controls validation-area">
-  {{ember-extended-elements/power-datetime-picker
+  {{background/power-datetime-picker
     formField=formField
     value=formField.value
     dateButtonComponent=formField.dateButtonComponent
@@ -18,7 +18,7 @@
     defaultDate=formField.defaultDate
     onSelectDateTime=(action onUserInteraction)
     triggerClasses=formField.triggerClasses
-    calendarContainerClasses=formField.calendarContainerClasses
+    calendarClass=formField.calendarClass
     timeSelectorTriggerClasses=(or formField.timeSelectorTriggerClasses emberPojoForms.settings.powerDatePicker.timeSelectorTriggerClasses)
     dateSelectComponent=(or formField.dateSelectComponent emberPojoForms.settings.powerDatePicker.dateSelectComponent)
     timeSelectComponent=(or formField.timeSelectComponent emberPojoForms.settings.powerDatePicker.timeSelectComponent)
@@ -26,3 +26,16 @@
   {{component inputIcon class="form-field-icon"}}
 </div>
 {{ember-pojo-form/form-field-error formField=formField}}
+{{!-- {{#power-calendar
+    minDate=minDate
+    maxDate=maxDate
+    selected=value 
+    onSelect=(action (mut value) value="date") 
+    closeOnSelect=false 
+    onCenterChange=(action (mut center) value="date") 
+    center=center 
+    class="foo"
+  as |calendar|}}
+    {{background/power-calendar-nav calendar-calendar moveCenter=(action calendar.actions.moveCenter)}}
+    {{calendar.days minDate=minDate maxDate=maxDate}}
+  {{/power-calendar}} --}}

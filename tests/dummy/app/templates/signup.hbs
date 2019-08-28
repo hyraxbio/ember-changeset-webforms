@@ -1,7 +1,4 @@
-<div class="wrapper">
-  {{signup-form
-    submitAction=(route-action "saveNewRecord")
-    setProperty=(action "setProperty")
-  }}
-  {{log model}}
-</div>
+{{signup-form
+  submitAction=(route-action "saveNewRecord")
+  props=props
+}}

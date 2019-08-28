@@ -1,6 +1,6 @@
-<h2 id="title">POJO Validating Forms</h2>
-
-{{outlet}}
+<div class="wrapper">
+  {{outlet}}
+</div>
 {{!-- {{#with (changeset model (action "validate")) as |changesetObj|}}
   {{dummy-form
     changeset=changesetObj
@@ -14,14 +14,9 @@
   submit=(action "submit")
   rollback=(action "rollback")
 }} --}}
-{{log UserValidations}}
+
 {{dummy-form
   changeset=(changeset model UserValidations)
   submit=(action "submit")
   rollback=(action "rollback")
 }}
-
-
-{{model.firstName}}
-{{model.lastName}}
-

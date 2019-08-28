@@ -13,7 +13,11 @@ export default function validateField(formField) {
 
   if (!formField.validationRules || formField.hidden) { return null; }
 
-  if (!formField.value && !formField.validationRules.findBy('validationMethod', 'required')) {
+  var requiredRule = formField.validationRules.find(rule => {
+    return rule.validationMethod === 'required';
+  });
+
+  if (!formField.value && !requiredRule) {
     return null;
   }
 

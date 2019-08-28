@@ -1,26 +1,25 @@
-{{#if formMetaData.title}}<h3>{{formMetaData.title}}</h3>{{/if}}
-<form {{action "submit" on="submit"}} data-test-id="validating-form">
+<form {{action "submit" on="submit"}} data-test-id="validating-form" class={{formValidationClass}} novalidate={{emberPojoForms.settings.novalidate}}>
   <div class="form-section form-fields">
-  {{#each formFields as |formField index|}}
-    {{ember-pojo-form/validating-form-field
-      data-test-validating-field
-      formField=formField
-      setFormFieldValue=(action "setFormFieldValue")
-      setFormFieldError=(action "setFormFieldError")
-      setFormFieldProperty=(action "setFormFieldProperty")
-      customValidations=(action "customValidations")
-      customTransforms=(action "customTransforms")
-      afterKeyUpAction=afterKeyUpAction
-      afterValidationAction=afterValidationAction
-      data-test-id=(concat "validating-field-" formField.fieldId)
-    }}
-  {{/each}}
+    {{#each formFields as |formField|}}
+      {{ember-pojo-form/validating-form-field
+        data-test-validating-field
+        formField=formField
+        setFormFieldValue=(action "setFormFieldValue")
+        setFormFieldError=(action "setFormFieldError")
+        setFormFieldProperty=(action "setFormFieldProperty")
+        customValidations=(action "customValidations")
+        customTransforms=(action "customTransforms")
+        afterKeyUpAction=afterKeyUpAction
+        afterValidationAction=afterValidationAction
+        data-test-id=(concat "validating-field-" formField.fieldId)
+      }}
+    {{/each}}
   </div>
   {{yield}}
   <div class="form-section form-submit">
-    {{ember-pojo-form/form-submit-button click=(action "submit") value=submitButtonText requestInFlight=requestInFlight data-test-id="evf-submit-form-button" class=formMetaData.submitButtonClasses disabled=submitDisabled}}
+    {{ember-pojo-form/form-submit-button click=(action "submit") value=submitButtonText requestInFlight=requestInFlight data-test-id="evf-submit-form-button" class=formMetaData.submitButtonClasses disabled=formMetaData.submitDisabled}}
     {{#if formMetaData.showResetButton}}
-      <button class="{{formMetaData.resetButtonClasses}}" type="button" data-test-id="evf-reset-form-button" onclick={{action "resetForm"}}>{{resetButtonText}}</button>
+      <button class={{formMetaData.resetButtonClasses}} type="button" data-test-id="evf-reset-form-button" onclick={{action "resetForm"}}>{{resetButtonText}}</button>
     {{/if}}
   </div>
 </form>

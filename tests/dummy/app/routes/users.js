@@ -6,7 +6,7 @@ export default Route.extend({
     return $.ajax({
       url: '/api/users'
     }).then(response => {
-      return response.data;
+      return response;
     });
   },
 });

@@ -11,7 +11,6 @@ export default Controller.extend({
   validators,
   init() {
     this._super(...arguments);
-    console.log(this.get('validators'));
     this.UserValidations = {
       firstName: this.get('validators').validatePresence(true),
       level: [
@@ -30,17 +29,17 @@ export default Controller.extend({
   },
   
   actions: {
-    setProperty: function(property, value) {
-      this.set(property, value);
-    },
+    // setProperty: function(property, value) {
+    //   this.set(property, value);
+    // },
 
-    toggleProperty: function(property) {
-      this.toggleProperty(property);
-    },
+    // toggleProperty: function(property) {
+    //   this.toggleProperty(property);
+    // },
 
-    onUserInteraction(value) {
-      this.set('formField.value', value);
-    },
+    // onUserInteraction(value) {
+    //   this.set('formField.value', value);
+    // },
 
     submit(changeset) {
       changeset.validate().then(()=>{

@@ -1,4 +1,7 @@
-import ApplicationController from './application';
+import Controller from '@ember/controller';
 
-export default ApplicationController.extend({
+export default Controller.extend({
+  init() {
+    this._super(...arguments);
+  }
 });

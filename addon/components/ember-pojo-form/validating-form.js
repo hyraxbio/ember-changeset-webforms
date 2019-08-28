@@ -4,25 +4,31 @@ import generateEmberValidatingFormFields from '../../utils/ember-pojo-form/gener
 import generateFormValues from '../../utils/generate-form-values';
 import validateField from '../../utils/ember-pojo-form/validate-field';
 import layout from '../../templates/components/ember-pojo-form/validating-form';
+import { inject as service } from '@ember/service';
 
 export default Component.extend({
   layout,
+  emberPojoForms: service(),
   classNameBindings: ['class', 'validationFailed:validation-failed'],
 
-  processedFormSchema: computed('formSchema', function() {
-    return generateEmberValidatingFormFields(this.get('formSchema'));
+  processedFormSchema: computed('formSchema', 'settings', 'fields', function() {
+    var formSchema;
+    if (this.get('formSchema')) {
+      formSchema = this.get('formSchema');
+    } else if (this.get('settings')) {
+      formSchema = {
+        settings: this.get('settings'),
+        fields: this.get('fields')
+      };
+    }
+    return generateEmberValidatingFormFields(formSchema);
   }),  
 
-  formObject: computed('processedFormSchema', 'props', function() {
+  formObject: computed('processedFormSchema', 'props', 'propsHash', function() {
     var formObject = this.get('processedFormSchema');
-    for (var key in this.get('props')) {
-      var field = formObject.formFields.find(field => {
-        return field.fieldId === key;
-      });
-      if (field) {
-        field.set('value', this.get('props')[key]);
-      }
-    }
+    formObject.formFields.forEach(field => {
+      field.set('value', this.get(`props.${field.fieldId}`));
+    });
     return formObject;
   }),
 
@@ -63,8 +69,30 @@ export default Component.extend({
     return this.get('formMetaData.resetButtonText') ? this.get('formMetaData.resetButtonText') : "Reset";
   }),
 
-  validationFailed: computed('formMetaData.formStatus', function() {
-    return this.get('formMetaData.formStatus') === 'validationFailed';
+  validationFailed: computed('formMetaData.validationStatus', function() {
+    return this.get('formMetaData.validationStatus') === 'failed';
+  }),
+
+  validationPassed: computed('formMetaData.validationStatus', function() {
+    return this.get('formMetaData.validationStatus') === 'passed';
+  }),
+
+  needsValidation: computed('formFields', 'formFields.@each', function() {
+    var formFields = this.get('formFields') || [];
+    return formFields.find(field => {
+      field.set('validationRules', field.validationRules || []);
+      return field.validationRules.length > 0;
+    });
+  }),
+
+  formValidationClass: computed('needsValidation', 'formMetaData.validationStatus', function() {
+    if (!this.get('needsValidation')) {
+      return;
+    }
+    if (!this.get('formMetaData.validationStatus')) {
+      return 'needs-validation';
+    }
+    return 'was-validated';
   }),
 
   willDestroyElement: function() {
@@ -109,12 +137,14 @@ export default Component.extend({
 
     submit: function() {
       this.send('validateAllFields');
+      var formMetaData = this.get('formMetaData');
       if (this.formValidates()) {
         if (this.formValidationPassed) {
           this.formValidationPassed();
+          formMetaData.set('validationStatus', 'passed');
         }
         var formFields = this.get('formFields');
-        var formMetaData = this.get('formMetaData');
+        
         var values = generateFormValues(formFields);
 
         if (formMetaData.submitAsync === false) {
@@ -123,6 +153,7 @@ export default Component.extend({
           this.send('submitAsync', values, formFields, formMetaData);
         }
       } else {
+        formMetaData.set('validationStatus', 'failed');
         this.set('formMetaData.formStatus', 'validationFailed');
         this.set('formMetaData.submitButtonFeedback', 'Some fields have errors which must be fixed before continuing.');
         if (this.formValidationFailed) {

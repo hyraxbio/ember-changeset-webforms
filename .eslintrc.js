@@ -1,6 +1,8 @@
 module.exports = {
   globals: {
     server: true,
+    moment: true,
+    validator: true
   },
   root: true,
   parserOptions: {
@@ -10,6 +12,7 @@ module.exports = {
   plugins: [
     'ember'
   ],
+
   extends: [
     'eslint:recommended',
     'plugin:ember/recommended'

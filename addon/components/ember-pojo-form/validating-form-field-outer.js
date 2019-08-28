@@ -3,5 +3,5 @@ import layout from '../../templates/components/ember-pojo-form/validating-form-f
 
 export default Component.extend({
   layout,
-  classNames: ['field-container'],
+  classNames: ['field-container', 'was-validated'],
 });

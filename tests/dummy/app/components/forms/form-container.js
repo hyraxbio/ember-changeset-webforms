@@ -15,7 +15,6 @@ export default Component.extend({
     },
 
     saveFail: function(errorResponse) {
-      var error = errorResponse.errors[0];
       var errorDetail = "test";
       var errorMessage = {
         'name': 'errorErrors',

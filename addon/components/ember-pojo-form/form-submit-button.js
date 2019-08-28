@@ -8,6 +8,6 @@ export default Component.extend({
   emberPojoForms: service(),
   classNames: ['form-submit-button'],
   classNameBindings: ['requestInFlight:request-in-flight', 'classes'],
-  attributeBindings: ['customType:type', 'data-test-id'],
+  attributeBindings: ['customType:type', 'data-test-id', 'disabled:disabled'],
   customType: 'button'
 });

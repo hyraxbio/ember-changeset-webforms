@@ -1,0 +1,21 @@
+{{#basic-dropdown as |dropdown|}}
+  {{#dropdown.trigger}}
+    <input type="text" value={{displayValue}} placeholder={{placeholder}} readonly>
+  {{/dropdown.trigger}}
+  {{#dropdown.content}}
+    <div class={{calendarContainerClasses}}>
+      {{#power-calendar-range
+        center=center
+        selected=value
+        minDate=minDate
+        maxDate=maxDate
+        startTime=startTime
+        endTime=endTime
+        onCenterChange=(action (mut center) value="date")
+        onSelect=(action "rangeSelected" value="date") as |calendar|}}
+        {{background/power-calendar-nav calendar-calendar moveCenter=(action calendar.actions.moveCenter)}}
+        {{calendar.days minDate=minDate maxDate=maxDate}}
+      {{/power-calendar-range}}
+    </div>
+  {{/dropdown.content}}
+{{/basic-dropdown}}

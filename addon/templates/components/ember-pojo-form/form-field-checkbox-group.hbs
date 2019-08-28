@@ -2,7 +2,7 @@
 <div class="checkbox-group-container field-controls validation-area">
   {{component inputIcon class="form-field-icon"}}
   {{#each formField.options as |option|}}
-    {{ember-extended-elements/labelled-checkbox
+    {{background/labelled-checkbox
       dataTestId=(concat "checkbox-option-" formField.fieldId "-" option.value)
       value=(readonly option.value)
       label=option.label

@@ -13,6 +13,20 @@
     <link rel="stylesheet" href="{{rootURL}}assets/vendor.css">
     <link rel="stylesheet" href="{{rootURL}}assets/dummy.css">
     <link rel="stylesheet" href="{{rootURL}}assets/test-support.css">
+    <style>
+      .ember-application {
+        position: relative;
+      }
+      #ember-testing {
+        transform: scale(1);
+        width: 100%;
+      }
+
+      #qunit-modulefilter-search,
+      #qunit-modulefilter-dropdown {
+        width: 600px;
+      }
+    </style>
 
     {{content-for "head-footer"}}
     {{content-for "test-head-footer"}}

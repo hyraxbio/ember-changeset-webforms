@@ -82,8 +82,8 @@ export default function generateEmberValidatingFormField(field, index, formSchem
   if (checkKeyExists(field, 'hideLabel')) {
     hideLabel = field.hideLabel;
   } else if (formSchema) {
-    if (formSchema.hideLabels) {
-      hideLabel = formSchema.hideLabels;
+    if (formSchema.settings.hideLabels) {
+      hideLabel = formSchema.settings.hideLabels;
     }
   }
 

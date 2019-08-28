@@ -27,7 +27,7 @@ export default function() {
 
   this.namespace = 'api';
 
-  this.get('/users', (schema, request) => {
+  this.get('/users', (schema) => {
     return schema.all('user');
   });
 

@@ -1,0 +1,77 @@
+{{#basic-dropdown renderInPlace=true as |dropdown|}}
+  {{#dropdown.trigger}}
+    <input type="text" value={{displayValue}} placeholder={{displayPlaceholder}} readonly>
+  {{/dropdown.trigger}}
+  {{#dropdown.content}}
+    <div class={{calendarContainerClasses}}>
+      {{#power-calendar
+        minDate=minDate
+        maxDate=maxDate
+        selected=selectedDate 
+        onSelect=(action "setDate" value="date") 
+        closeOnSelect=false 
+        onCenterChange=(action (mut center) value="date") 
+        center=center 
+        class=calendarClass
+      as |calendar|}}
+        {{background/power-calendar-nav calendar=calendar moveCenter=(action calendar.actions.moveCenter)}}
+        {{calendar.days minDate=minDate maxDate=maxDate}}
+      {{/power-calendar}}
+    </div>
+  {{/dropdown.content}}
+{{/basic-dropdown}}
+{{#if (and showTimeSelector value)}}
+  <div data-test-type="time-selector" class="time-select {{timeSelectorTriggerClasses}} {{unless value "disabled"}}">
+    {{#power-select
+      triggerClass="time-select-trigger hour"
+      dropdownClass="form-field-time-select"
+      matchTriggerWidth=false
+      options=hours
+      selected=(moment-format value "HH")
+      placeholder="hh"
+      searchEnabled=false
+      onchange=(action "setTime" "hour")
+      onclose=onclose
+      triggerId=(concat (if name (concat name "-" )) "hours")
+      as |option|
+      }}
+      {{option}}
+    {{/power-select}}
+    <div class="time-divider">:</div>
+    {{#power-select
+      triggerClass="time-select-trigger minute"
+      dropdownClass="form-field-time-select"
+      matchTriggerWidth=false
+      options=minutesSeconds
+      selected=(moment-format value "mm")
+      placeholder="mm"
+      searchEnabled=false
+      onchange=(action "setTime" "minute")
+      onclose=onclose
+      triggerId=(concat (if name (concat name "-" )) "minutes")
+      as |option|
+      }}
+      {{option}}
+    {{/power-select}}
+    <div class="time-divider">:</div>
+    {{#power-select
+      triggerClass="time-select-trigger second"
+      dropdownClass="form-field-time-select"
+      matchTriggerWidth=false
+      options=minutesSeconds
+      selected=(moment-format value "ss")
+      placeholder="mm"
+      searchEnabled=false
+      onchange=(action "setTime" "second")
+      onclose=onclose
+      triggerId=(concat (if name (concat name "-" )) "seconds")
+      as |option|
+      }}
+      {{option}}
+    {{/power-select}}
+  </div>
+  {{component timeSelectComponent}}
+{{/if}}
+{{#if value}}
+  <button class="clear-date-time-button {{dynamicClassClearDateTime}}" data-test-id="datetime-picker-clear-datetime" onclick={{action "clearDateTime"}}>×</button>
+{{/if}}

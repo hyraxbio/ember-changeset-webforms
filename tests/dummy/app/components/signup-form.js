@@ -10,13 +10,15 @@ export default Component.extend({
   init() {
     this._super(...arguments);
     this.formSchema = {
-      title: 'Sign Up',
-      formName: 'signup',
-      submitButtonClasses: 'btn btn-primary btn-lg btn-block',
-      submitSuccessMessage: 'You have successfully signed up.',
-      submitButtonText: 'Signup',
-      modelName: 'user',
-      resetAfterSubmit: true,
+      settings: {
+        title: 'Sign Up',
+        formName: 'signup',
+        submitButtonClasses: 'btn btn-primary btn-lg btn-block',
+        submitSuccessMessage: 'You have successfully signed up.',
+        submitButtonText: 'Signup',
+        modelName: 'user',
+        resetAfterSubmit: true,
+      },     
       fields: [{
           fieldLabel: 'Name',
           fieldId: 'name',
@@ -82,19 +84,19 @@ export default Component.extend({
           inputType: 'password'
         },
         {
-          fieldLabel: 'Description',
-          fieldId: 'description',
+          fieldLabel: 'Bio',
+          fieldId: 'bio',
           fieldType: 'textarea',
         },
         {
           fieldLabel: 'Birth date',
           fieldId: 'info.birth_date',
           fieldType: 'powerDatePicker',
-          defaultValue: moment().toDate(),
           validationRules: [{'validationMethod': 'required'}, {'validationMethod': 'isDate'}],
           triggerClasses: 'btn btn-gray-medium'
         },
         {
+          fieldId: 'inserted',
           fieldLabel: 'Date range',
           fieldType: 'dateRange',
           fieldSubIds: [{
@@ -109,7 +111,7 @@ export default Component.extend({
           maxDate: '2019-08-23T08:50:10.900Z',
           startTime: '00:01',
           endTime: '23:59',
-          fieldId: 'inserted'
+          placeholder: 'Select date range'
         },
         {
           fieldLabel: "favourite colours",
@@ -163,6 +165,16 @@ export default Component.extend({
         },
       ]
     };
+    this.model = {
+      name: 'test',
+      info: {
+        phone_number: '32423454352',
+        address: {
+          country: 'South Africa'
+        }
+      },
+      bio: 'test'
+    };
   },
 
   didInsertElement() {
@@ -189,5 +201,17 @@ export default Component.extend({
     user.get('firstName'); // "Jim"
     user.get('lastName'); // "Bob"
     console.log(user);
+  }, 
+
+  actions: {
+    ChangeProp() {
+      // this.set('model', {name: '2'});
+      this.set('model.info.phone_number', '666');
+      // console.log(model);
+      // this.set('model', null);
+      // this.set('model', model);
+      // this.set('model.name', '2');
+      console.log('test');
+    }
   }
 });

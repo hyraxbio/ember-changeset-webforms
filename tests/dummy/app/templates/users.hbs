@@ -1,3 +1,4 @@
+<h1>Users</h1>
 <table data-test-id="users-table">
   <thead>
     <tr>
@@ -5,10 +6,13 @@
       <th>Name</th>
       <th>Email</th>
       <th>Birth Date</th>
-      <th>Address</th>
+      <th>Gender</th>
       <th>Country</th>
       <th>Phone Number</th>
       <th>Bio</th>
+      <th>Favourite Colours</th>
+      <th>Password</th>
+      <th>Password confirmation</th>
     </tr>
   </thead>
   <tbody>
@@ -17,13 +21,15 @@
         <td>{{user.id}}</td>
         <td data-test-id="name">{{user.name}}</td>
         <td>{{user.email}}</td>
-        <td>{{moment-format user.personal_details.birth_date "YYYY-MM-DD"}}</td>
-        <td>{{user.personal_details.address.address_line1}}</td>
-        <td>{{user.personal_details.address.country}}</td>
-        <td>{{user.personal_details.phone_number}}</td>
+        <td>{{moment-format user.info.birth_date "YYYY-MM-DD"}}</td>
+        <td>{{user.gender}}</td>
+        <td>{{user.info.address.country}}</td>
+        <td>{{user.info.phone_number}}</td>
         <td>{{user.bio}}</td>
+        <td>{{user.favoutite_colours}}</td>
+        <td>{{user.password}}</td>
+        <td>{{user.password_confirmation}}</td>
       </tr>
     {{/each}}
   </tbody>
 </table>
-{{log model}}
