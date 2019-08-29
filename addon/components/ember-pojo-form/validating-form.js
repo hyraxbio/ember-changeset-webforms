@@ -7,6 +7,7 @@ import layout from '../../templates/components/ember-pojo-form/validating-form';
 import { inject as service } from '@ember/service';
 import Changeset from 'ember-changeset';
 import validators from 'ember-changeset-validations/validators';
+import lookupValidator from 'ember-changeset-validations';
 
 export default Component.extend({
   layout,
@@ -19,8 +20,7 @@ export default Component.extend({
     var UserValidations = {
       name: this.get('validators').validatePresence(true),
     };
-    this.changeset = new Changeset(this.get('model'), UserValidations);
-    console.log(this.get('changeset'))
+    this.changeset = new Changeset(this.get('model'), lookupValidator(UserValidations), UserValidations);
   },
 
   processedFormSchema: computed('formSchema', 'settings', 'fields', function() {
