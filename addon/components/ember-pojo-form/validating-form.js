@@ -26,12 +26,12 @@ export default Component.extend({
     var props = this.get('props');
     var changesetObj;
     if (props) {
-      changesetObj = props; // TODO This must still add any paths from fielldIds that are not in the pops obj
+      changesetObj = props; // TODO This must still add any paths from fieldIds that are not in the pops obj
     } else {
       changesetObj = changesetFromFormSchema(this.get('formSchema'));
     }
 
-    var validationsCustom = changesetValidationsFromFormSchema(this.get('formSchema'));
+    var validationsCustom = changesetValidationsFromFormSchema(this.get('formSchema'), this.get('customValidators'));
     this.changeset = new Changeset(changesetObj, lookupValidator(validationsCustom), validationsCustom);
   },
 

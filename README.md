@@ -53,7 +53,13 @@ If the installation does not automatically add these line to your `app.scss` fil
 
 `ember install ember-radio-button`
 
+### Ember changeset validations
 
+`https://github.com/poteto/ember-changeset-validations`
+
+### Ember validations
+
+https://offirgolan.github.io/ember-validators/docs/modules/Validators.html
 
 ---------------
 

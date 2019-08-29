@@ -1,21 +1,15 @@
 import Component from '@ember/component';
 import layout from '../templates/components/signup-form';
 import { inject as service } from '@ember/service';
-// import Changeset from 'ember-changeset';
-// import EmberObject from '@ember/object';
-// import validators from 'ember-changeset-validations/validators';
+import customValidators from '../validators';
 
 export default Component.extend({
   layout,
   globalVariables: service(),
-  // validators,
 
   init() {
     this._super(...arguments);
-    // var UserValidations = {
-    //   name: this.get('validators').validatePresence(true),
-    // };
-    // this.changeset = new Changeset(this.get('model'), UserValidations);
+    this.customValidators = customValidators;
     this.formSchema = {
       settings: {
         title: 'Sign Up',
@@ -33,6 +27,8 @@ export default Component.extend({
           validationRules: [{
             validationMethod: 'validatePresence',
             arguments: true
+          }, {
+            validationMethod: 'validateDate',
           }],
           inputType: 'text',
           
@@ -111,7 +107,12 @@ export default Component.extend({
           fieldLabel: 'Birth date',
           fieldId: 'info.birth_date',
           fieldType: 'powerDatePicker',
-          // validationRules: [{'validationMethod': 'required'}, {'validationMethod': 'isDate'}],
+          validationRules: [{
+            validationMethod: 'validatePresence',
+            arguments: true
+          }, {
+            validationMethod: 'validateDate',
+          }],
           triggerClasses: 'btn btn-gray-medium'
         },
         {
