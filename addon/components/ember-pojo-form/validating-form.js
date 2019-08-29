@@ -6,20 +6,22 @@ import validateField from '../../utils/ember-pojo-form/validate-field';
 import layout from '../../templates/components/ember-pojo-form/validating-form';
 import { inject as service } from '@ember/service';
 import Changeset from 'ember-changeset';
-// import validators from 'ember-changeset-validations/validators';
+import validators from 'ember-changeset-validations/validators';
 
 export default Component.extend({
   layout,
   emberPojoForms: service(),
   classNameBindings: ['class', 'validationFailed:validation-failed'],
 
-  // validators,
-  // init() {
-  //   this._super(...arguments);
-  //   this.UserValidations = {
-  //     name: this.get('validators').validatePresence(true),
-  //   };
-  // },
+  validators,
+  init() {
+    this._super(...arguments);
+    var UserValidations = {
+      name: this.get('validators').validatePresence(true),
+    };
+    this.changeset = new Changeset(this.get('model'), UserValidations);
+    console.log(this.get('changeset'))
+  },
 
   processedFormSchema: computed('formSchema', 'settings', 'fields', function() {
     var formSchema;
@@ -35,8 +37,11 @@ export default Component.extend({
   }),  
 
   formObject: computed('processedFormSchema', 'props', 'propsHash', function() {
-    // let changeset = new Changeset(this.get('props'), this.get('UserValidations'));
-    // console.log(changeset);
+    // var UserValidations = {
+    //   name: this.get('validators').validatePresence(true),
+    // };
+    // let changeset = new Changeset(this.get('model'), UserValidations);
+    // // console.log(changeset);
     // this.set('changeset', changeset);
     var formObject = this.get('processedFormSchema');
     formObject.formFields.forEach(field => {

@@ -1,21 +1,21 @@
 import Component from '@ember/component';
 import layout from '../templates/components/signup-form';
 import { inject as service } from '@ember/service';
-import Changeset from 'ember-changeset';
-import EmberObject from '@ember/object';
-import validators from 'ember-changeset-validations/validators';
+// import Changeset from 'ember-changeset';
+// import EmberObject from '@ember/object';
+// import validators from 'ember-changeset-validations/validators';
 
 export default Component.extend({
   layout,
   globalVariables: service(),
-  validators,
+  // validators,
 
   init() {
     this._super(...arguments);
-    var UserValidations = {
-      name: this.get('validators').validatePresence(true),
-    };
-    this.changeset = new Changeset(this.get('model'), UserValidations);
+    // var UserValidations = {
+    //   name: this.get('validators').validatePresence(true),
+    // };
+    // this.changeset = new Changeset(this.get('model'), UserValidations);
     this.formSchema = {
       settings: {
         title: 'Sign Up',
@@ -177,29 +177,29 @@ export default Component.extend({
   },
 
   didInsertElement() {
-    var user = EmberObject.create({
-      firstName: 'Michael',
-      lastName: 'Bolton'
-    });
-    let changeset = new Changeset(user);
-    console.log(changeset);
-    user.get('firstName'); // "Michael"
-    user.get('lastName'); // "Bolton"
+    // var user = EmberObject.create({
+    //   firstName: 'Michael',
+    //   lastName: 'Bolton'
+    // });
+    // let changeset = new Changeset(user);
+    // console.log(changeset);
+    // user.get('firstName'); // "Michael"
+    // user.get('lastName'); // "Bolton"
     
-    changeset.set('firstName', 'Jim');
-    changeset.set('lastName', 'B');
-    changeset.get('isInvalid'); // true
-    changeset.get('errors'); // [{ key: 'lastName', validation: 'too short', value: 'B' }]
-    changeset.set('lastName', 'Bob');
-    changeset.get('isValid'); // true
+    // changeset.set('firstName', 'Jim');
+    // changeset.set('lastName', 'B');
+    // changeset.get('isInvalid'); // true
+    // changeset.get('errors'); // [{ key: 'lastName', validation: 'too short', value: 'B' }]
+    // changeset.set('lastName', 'Bob');
+    // changeset.get('isValid'); // true
     
-    user.get('firstName'); // "Michael"
-    user.get('lastName'); // "Bolton"
-    console.log(user);
-    changeset.save(); // sets and saves valid changes on the user
-    user.get('firstName'); // "Jim"
-    user.get('lastName'); // "Bob"
-    console.log(user);
+    // user.get('firstName'); // "Michael"
+    // user.get('lastName'); // "Bolton"
+    // console.log(user);
+    // changeset.save(); // sets and saves valid changes on the user
+    // user.get('firstName'); // "Jim"
+    // user.get('lastName'); // "Bob"
+    // console.log(user);
   }, 
 
   actions: {
