@@ -1,7 +1,6 @@
-<button onclick={{action "ChangeProp"}}>Test</button>
 {{ember-pojo-form/validating-form
   formSchema=formSchema
-  submitAction=(action submitAction)
+  submitAction=(action "submit")
   props=model
   customValidators=customValidators
 }}

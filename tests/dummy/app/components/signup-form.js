@@ -17,22 +17,24 @@ export default Component.extend({
         submitButtonClasses: 'btn btn-primary btn-lg btn-block',
         submitSuccessMessage: 'You have successfully signed up.',
         submitButtonText: 'Signup',
+        showResetButton: true,
         modelName: 'user',
         resetAfterSubmit: true,
       },     
-      fields: [{
-          fieldLabel: 'Name',
-          fieldId: 'name',
-          fieldType: 'input',
-          validationRules: [{
-            validationMethod: 'validatePresence',
-            arguments: true
-          }, {
-            validationMethod: 'validateDate',
-          }],
-          inputType: 'text',
+      fields: [
+        // {
+        //   fieldLabel: 'Name',
+        //   fieldId: 'name',
+        //   fieldType: 'input',
+        //   validationRules: [{
+        //     validationMethod: 'validatePresence',
+        //     arguments: true
+        //   }, {
+        //     validationMethod: 'validateDate',
+        //   }],
+        //   inputType: 'text',
           
-        },
+        // },
         {
           fieldLabel: 'Email',
           fieldId: 'email',
@@ -67,54 +69,54 @@ export default Component.extend({
           }],
           options: this.get('globalVariables.countries')
         },
-        {
-          fieldId: 'password',
-          fieldLabel: 'Password (Minimum 8 characters)',
-          fieldType: 'input',
-          showfieldLabel: false,
-          validationRules: [{
-            validationMethod: 'validatePresence',
-            arguments: true
-          }, {
-            validationMethod: 'validateLength',
-            arguments: { min: 8, max: 72 }
-          }],
-          inputType: 'password'
-        },
-        {
-          fieldId: 'password_confirmation',
-          fieldLabel: 'Confirm password',
-          fieldType: 'input',
-          showfieldLabel: false,
-          validationRules: [{
-            validationMethod: 'validatePresence',
-            arguments: true
-          }, {
-            validationMethod: 'validateLength',
-            arguments: { min: 8, max: 72 }
-          }, {
-            validationMethod: 'validateConfirmation',
-            arguments: { on: 'password'}
-          }],
-          inputType: 'password'
-        },
+        // {
+        //   fieldId: 'password',
+        //   fieldLabel: 'Password (Minimum 8 characters)',
+        //   fieldType: 'input',
+        //   showfieldLabel: false,
+        //   validationRules: [{
+        //     validationMethod: 'validatePresence',
+        //     arguments: true
+        //   }, {
+        //     validationMethod: 'validateLength',
+        //     arguments: { min: 8, max: 72 }
+        //   }],
+        //   inputType: 'password'
+        // },
+        // {
+        //   fieldId: 'password_confirmation',
+        //   fieldLabel: 'Confirm password',
+        //   fieldType: 'input',
+        //   showfieldLabel: false,
+        //   validationRules: [{
+        //     validationMethod: 'validatePresence',
+        //     arguments: true
+        //   }, {
+        //     validationMethod: 'validateLength',
+        //     arguments: { min: 8, max: 72 }
+        //   }, {
+        //     validationMethod: 'validateConfirmation',
+        //     arguments: { on: 'password'}
+        //   }],
+        //   inputType: 'password'
+        // },
         {
           fieldLabel: 'Bio',
           fieldId: 'bio',
           fieldType: 'textarea',
         },
-        {
-          fieldLabel: 'Birth date',
-          fieldId: 'info.birth_date',
-          fieldType: 'powerDatePicker',
-          validationRules: [{
-            validationMethod: 'validatePresence',
-            arguments: true
-          }, {
-            validationMethod: 'validateDate',
-          }],
-          triggerClasses: 'btn btn-gray-medium'
-        },
+        // {
+        //   fieldLabel: 'Birth date',
+        //   fieldId: 'info.birth_date',
+        //   fieldType: 'powerDatePicker',
+        //   validationRules: [{
+        //     validationMethod: 'validatePresence',
+        //     arguments: true
+        //   }, {
+        //     validationMethod: 'validateDate',
+        //   }],
+        //   triggerClasses: 'btn btn-gray-medium'
+        // },
         {
           fieldId: 'inserted',
           fieldLabel: 'Date range',
@@ -214,14 +216,14 @@ export default Component.extend({
   }, 
 
   actions: {
-    ChangeProp() {
-      // this.set('model', {name: '2'});
-      this.set('model.info.phone_number', '666');
-      // console.log(model);
-      // this.set('model', null);
-      // this.set('model', model);
-      // this.set('model.name', '2');
-      console.log('test');
+    submit(changeset) {
+      console.log(changeset);
+      if (changeset.isInValid) {
+        alert('no')
+      } else {
+        this.submitAction(changeset.data, 'user');
+      }
+
     }
   }
 });

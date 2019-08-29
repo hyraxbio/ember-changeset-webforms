@@ -36,7 +36,8 @@ export default function() {
   });
 
   this.post('/users', ({ users }, request) => {
-    let attrs = JSON.parse(request.requestBody).data.attributes;
+    let attrs = JSON.parse(request.requestBody);
+    // let attrs = JSON.parse(request.requestBody).data.attributes;
     if (attrs.email === 'alreadytaken@yahoo.com') {
       return new Response(400, {some: 'header'}, {errors: ['Email already taken.']});
     } else {

@@ -1,4 +1,9 @@
 <div class="wrapper">
+  <header>
+    <li>{{#link-to 'users'}}Users{{/link-to}}</li>
+    <li>{{#link-to 'signup'}}Signup{{/link-to}}</li>
+    <li>{{#link-to 'edit-account'}}Edit Account{{/link-to}}</li>
+  </header>
   {{outlet}}
 </div>
 {{!-- {{#with (changeset model (action "validate")) as |changesetObj|}}
@@ -15,8 +20,8 @@
   rollback=(action "rollback")
 }} --}}
 
-{{dummy-form
+{{!-- {{dummy-form
   changeset=(changeset model UserValidations)
   submit=(action "submit")
   rollback=(action "rollback")
-}}
+}} --}}

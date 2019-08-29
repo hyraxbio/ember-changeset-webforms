@@ -18,9 +18,9 @@
   </div>
   {{yield}}
   <div class="form-section form-submit">
-    {{ember-pojo-form/form-submit-button click=(action "submit") value=submitButtonText requestInFlight=requestInFlight data-test-id="evf-submit-form-button" class=formMetaData.submitButtonClasses disabled=formMetaData.submitDisabled}}
+    {{ember-pojo-form/form-submit-button click=(action "submit" changeset) value=submitButtonText requestInFlight=requestInFlight data-test-id="evf-submit-form-button" class=formMetaData.submitButtonClasses disabled=formMetaData.submitDisabled}}
     {{#if formMetaData.showResetButton}}
-      <button class={{formMetaData.resetButtonClasses}} type="button" data-test-id="evf-reset-form-button" onclick={{action "resetForm"}}>{{resetButtonText}}</button>
+      <button class={{formMetaData.resetButtonClasses}} type="button" data-test-id="evf-reset-form-button" onclick={{action "rollback" changeset}}>{{resetButtonText}}</button>
     {{/if}}
   </div>
 </form>

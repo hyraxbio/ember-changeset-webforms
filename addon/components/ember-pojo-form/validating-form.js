@@ -2,8 +2,8 @@ import Component from '@ember/component';
 import { computed } from '@ember/object';
 import generateEmberValidatingFormFields from '../../utils/ember-pojo-form/generate-ember-validating-form-fields';
 import generateFormValues from '../../utils/generate-form-values';
-import changesetFromFormSchema from '../../utils/changeset-from-form-schema';
-import changesetValidationsFromFormSchema from '../../utils/changeset-validations-from-form-schema';
+import createChangeset from '../../utils/create-changeset';
+import createValidations from '../../utils/create-validations';
 import validateField from '../../utils/ember-pojo-form/validate-field';
 import layout from '../../templates/components/ember-pojo-form/validating-form';
 import { inject as service } from '@ember/service';
@@ -19,19 +19,14 @@ export default Component.extend({
   validators,
   init() {
     this._super(...arguments);
-    // console.log(this.get('validators'));
-    // var UserValidations = {
-    //   name: this.get('validators').validatePresence(true),
-    // };
     var props = this.get('props');
     var changesetObj;
     if (props) {
       changesetObj = props; // TODO This must still add any paths from fieldIds that are not in the pops obj
     } else {
-      changesetObj = changesetFromFormSchema(this.get('formSchema'));
+      changesetObj = createChangeset(this.get('formSchema'));
     }
-
-    var validationsCustom = changesetValidationsFromFormSchema(this.get('formSchema'), this.get('customValidators'));
+    var validationsCustom = createValidations(this.get('formSchema'), this.get('customValidators'));
     this.changeset = new Changeset(changesetObj, lookupValidator(validationsCustom), validationsCustom);
   },
 
@@ -162,31 +157,48 @@ export default Component.extend({
       formField.set(prop, value);
     },
 
-    submit: function() {
-      this.send('validateAllFields');
-      var formMetaData = this.get('formMetaData');
-      if (this.formValidates()) {
-        if (this.formValidationPassed) {
-          this.formValidationPassed();
-          formMetaData.set('validationStatus', 'passed');
-        }
-        var formFields = this.get('formFields');
+    // submit: function() {
+    //   this.send('validateAllFields');
+    //   var formMetaData = this.get('formMetaData');
+    //   if (this.formValidates()) {
+    //     if (this.formValidationPassed) {
+    //       this.formValidationPassed();
+    //       formMetaData.set('validationStatus', 'passed');
+    //     }
+    //     var formFields = this.get('formFields');
         
-        var values = generateFormValues(formFields);
+    //     var values = generateFormValues(formFields);
 
-        if (formMetaData.submitAsync === false) {
-          this.send('submitSync', values, formFields, formMetaData);
-        } else {
-          this.send('submitAsync', values, formFields, formMetaData);
-        }
-      } else {
-        formMetaData.set('validationStatus', 'failed');
-        this.set('formMetaData.formStatus', 'validationFailed');
-        this.set('formMetaData.submitButtonFeedback', 'Some fields have errors which must be fixed before continuing.');
-        if (this.formValidationFailed) {
-          this.formValidationFailed(this.get('formFields'), this.get('formMetaData'));
-        }
-      }
+    //     if (formMetaData.submitAsync === false) {
+    //       this.send('submitSync', values, formFields, formMetaData);
+    //     } else {
+    //       this.send('submitAsync', values, formFields, formMetaData);
+    //     }
+    //   } else {
+    //     formMetaData.set('validationStatus', 'failed');
+    //     this.set('formMetaData.formStatus', 'validationFailed');
+    //     this.set('formMetaData.submitButtonFeedback', 'Some fields have errors which must be fixed before continuing.');
+    //     if (this.formValidationFailed) {
+    //       this.formValidationFailed(this.get('formFields'), this.get('formMetaData'));
+    //     }
+    //   }
+    // },
+
+    submit(changeset) {
+      changeset.validate().then(()=>{
+        this.submitAction(changeset);
+        // if(changeset.get("isValid")){
+        //   changeset.save().then(()=>{
+        //     // this.transitionToRoute('monsters.monster.show', this.get("model"));
+        //     // alert('Saved')
+            
+        //   });
+        // } else {
+        //   alert('Fix errors before saving')
+        //   this.submitAction(changeset);
+        // }
+      })
+      // return changeset.save();
     },
 
     validateAllFields: function() {
@@ -206,14 +218,15 @@ export default Component.extend({
       });
     },
 
-    resetForm() {
-      this.set('formObject', generateEmberValidatingFormFields(this.get('formSchema'), 'reset'));
-      if (this.afterReset) {
+    rollback(changeset) {
+      console.log(changeset.data);
+      changeset.rollback();
+      if (this.afterReset) { 
         var formFields = this.get('formFields');
         var formMetaData = this.get('formMetaData');
         var values = generateFormValues(formFields);
-        this.afterReset(values, formFields, formMetaData);
-      }
+        this.afterReset(values, formFields, formMetaData); // TODO this must send the changeset
+      } 
     },
 
     submitSync(values, formFields, formMetaData) {
