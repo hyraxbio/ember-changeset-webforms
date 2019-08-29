@@ -12,10 +12,10 @@ export default Component.extend({
 
   init() {
     this._super(...arguments);
-    this.UserValidations = {
+    var UserValidations = {
       name: this.get('validators').validatePresence(true),
-     
     };
+    this.changeset = new Changeset(this.get('model'), UserValidations);
     this.formSchema = {
       settings: {
         title: 'Sign Up',
