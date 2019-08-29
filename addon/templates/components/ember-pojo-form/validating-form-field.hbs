@@ -20,8 +20,6 @@
 {{/unless}}
   {{#if (get changeset.error formField.fieldId)}}
     {{#each (get (get changeset.error formField.fieldId) 'validation') as |error|}}
-      <br>
-      {{error}}
+      <div class="ember-pojo-form-field-error">{{error}}</div>
     {{/each}}
   {{/if}}
-  {{log changeset.error}}

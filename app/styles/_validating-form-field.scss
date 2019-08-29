@@ -71,6 +71,13 @@ div.form-field.invalid {
   }
 }
 
+.ember-pojo-form-field-error {
+  min-height: $pojo-form-field-margin-bottom;
+  color: $pojo-form-field-error-text-color;
+  font-weight: 700;
+  margin-left: 10px;
+}
+
 div.form-field.power-select {
   max-width: 300px;
 }

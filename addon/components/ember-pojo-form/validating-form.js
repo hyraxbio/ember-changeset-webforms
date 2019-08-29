@@ -2,6 +2,8 @@ import Component from '@ember/component';
 import { computed } from '@ember/object';
 import generateEmberValidatingFormFields from '../../utils/ember-pojo-form/generate-ember-validating-form-fields';
 import generateFormValues from '../../utils/generate-form-values';
+import changesetFromFormSchema from '../../utils/changeset-from-form-schema';
+import changesetValidationsFromFormSchema from '../../utils/changeset-validations-from-form-schema';
 import validateField from '../../utils/ember-pojo-form/validate-field';
 import layout from '../../templates/components/ember-pojo-form/validating-form';
 import { inject as service } from '@ember/service';
@@ -17,14 +19,25 @@ export default Component.extend({
   validators,
   init() {
     this._super(...arguments);
-    var UserValidations = {
-      name: this.get('validators').validatePresence(true),
-    };
-    this.changeset = new Changeset(this.get('model'), lookupValidator(UserValidations), UserValidations);
+    // console.log(this.get('validators'));
+    // var UserValidations = {
+    //   name: this.get('validators').validatePresence(true),
+    // };
+    var props = this.get('props');
+    var changesetObj;
+    if (props) {
+      changesetObj = props; // TODO This must still add any paths from fielldIds that are not in the pops obj
+    } else {
+      changesetObj = changesetFromFormSchema(this.get('formSchema'));
+    }
+
+    var validationsCustom = changesetValidationsFromFormSchema(this.get('formSchema'));
+    this.changeset = new Changeset(changesetObj, lookupValidator(validationsCustom), validationsCustom);
   },
 
   processedFormSchema: computed('formSchema', 'settings', 'fields', function() {
     var formSchema;
+    
     if (this.get('formSchema')) {
       formSchema = this.get('formSchema');
     } else if (this.get('settings')) {
@@ -37,12 +50,6 @@ export default Component.extend({
   }),  
 
   formObject: computed('processedFormSchema', 'props', 'propsHash', function() {
-    // var UserValidations = {
-    //   name: this.get('validators').validatePresence(true),
-    // };
-    // let changeset = new Changeset(this.get('model'), UserValidations);
-    // // console.log(changeset);
-    // this.set('changeset', changeset);
     var formObject = this.get('processedFormSchema');
     formObject.formFields.forEach(field => {
       if (this.get(`props.${field.fieldId}`)) {

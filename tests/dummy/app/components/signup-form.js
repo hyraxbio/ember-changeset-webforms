@@ -30,7 +30,10 @@ export default Component.extend({
           fieldLabel: 'Name',
           fieldId: 'name',
           fieldType: 'input',
-          validationRules: [{'validationMethod': 'required'}],
+          validationRules: [{
+            validationMethod: 'validatePresence',
+            arguments: true
+          }],
           inputType: 'text',
           
         },
@@ -38,14 +41,23 @@ export default Component.extend({
           fieldLabel: 'Email',
           fieldId: 'email',
           fieldType: 'input',
-          validationRules: [{'validationMethod': 'required'}, {'validationMethod': 'isEmail'}],
+          validationRules: [{
+            validationMethod: 'validatePresence',
+            arguments: true
+          }, {
+            validationMethod: 'validateFormat',
+            arguments: { type: 'email' }
+          }],
           inputType: 'text'
         },
         {
           fieldLabel: 'Phone number',
           fieldId: 'info.phone_number',
           fieldType: 'input',
-          validationRules: [{'validationMethod': 'required'}],
+          validationRules: [{
+            validationMethod: 'validatePresence',
+            arguments: true
+          }],
           inputType: 'number',
           defaultValue: 555
         },
@@ -53,7 +65,10 @@ export default Component.extend({
           fieldLabel: 'Country',
           fieldId: 'info.address.country',
           fieldType: 'powerSelect',
-          validationRules: [{'validationMethod': 'required'}],
+          validationRules: [{
+            validationMethod: 'validatePresence',
+            arguments: true
+          }],
           options: this.get('globalVariables.countries')
         },
         {
@@ -62,15 +77,11 @@ export default Component.extend({
           fieldType: 'input',
           showfieldLabel: false,
           validationRules: [{
-            'validationMethod': 'required'
+            validationMethod: 'validatePresence',
+            arguments: true
           }, {
-            'validationMethod': 'isLength',
-            'arguments': {
-              min: 8,
-              max: 72
-            }
-          }, {
-            'validationMethod': 'custom'
+            validationMethod: 'validateLength',
+            arguments: { min: 8, max: 72 }
           }],
           inputType: 'password'
         },
@@ -80,15 +91,14 @@ export default Component.extend({
           fieldType: 'input',
           showfieldLabel: false,
           validationRules: [{
-            'validationMethod': 'required'
+            validationMethod: 'validatePresence',
+            arguments: true
           }, {
-            'validationMethod': 'isLength',
-            'arguments': {
-              min: 8,
-              max: 72
-            }
+            validationMethod: 'validateLength',
+            arguments: { min: 8, max: 72 }
           }, {
-            'validationMethod': 'custom'
+            validationMethod: 'validateConfirmation',
+            arguments: { on: 'password'}
           }],
           inputType: 'password'
         },
@@ -101,7 +111,7 @@ export default Component.extend({
           fieldLabel: 'Birth date',
           fieldId: 'info.birth_date',
           fieldType: 'powerDatePicker',
-          validationRules: [{'validationMethod': 'required'}, {'validationMethod': 'isDate'}],
+          // validationRules: [{'validationMethod': 'required'}, {'validationMethod': 'isDate'}],
           triggerClasses: 'btn btn-gray-medium'
         },
         {
@@ -145,9 +155,9 @@ export default Component.extend({
           fieldId: 'gender',
           fieldType: 'radioButtonGroup',
           fieldLabel: 'Gender',
-          validationRules: [{
-            'validationMethod': 'required'
-          }],
+          // validationRules: [{
+          //   'validationMethod': 'required'
+          // }],
           options: [{
             'label': 'Male',
             'value': 'male'
