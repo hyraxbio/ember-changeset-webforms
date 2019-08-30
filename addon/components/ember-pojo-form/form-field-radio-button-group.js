@@ -6,7 +6,7 @@ export default Component.extend({
   layout,
   classNames: ['radio-button-group'],
 
-  groupValue: computed('formField.value', function() {
-    return this.get('formField.value');
+  groupValue: computed('displayValue', function() {
+    return this.get('displayValue');
   }),
 });

@@ -1,26 +1,10 @@
-div.form-field {
-  // max-width: $pojo-form-field-max-width;
-  width: 100%;
-  &.field-type-input input, textarea {
-    width: 100%;
-    box-sizing: border-box;
-  }
-}
-div.field-controls {
+.ember-pojo-form-field {
   margin-top: $pojo-form-field-controls-margin-top;
   margin-bottom: $pojo-form-field-margin-bottom;
-  position: relative;
 }
 
-div.form-field svg.form-field-icon {
-  position: absolute;
-  width: 20px;
-  right: 10px;
-  top: 1px;
-}
-
-.form-field.readonly input,
-.form-field.disabled input {
+.ember-pojo-form-field.readonly input,
+.ember-pojo-form-field.disabled input {
   background-color: #e9e9e9;
   cursor: not-allowed;
 }
@@ -29,7 +13,7 @@ div.form-field svg.form-field-icon {
   padding-right: 36px;
 }
 
-div.form-field {
+.ember-pojo-form-field {
   .validation-area {
     background-size: 20px;
     background-repeat: no-repeat;
@@ -37,13 +21,14 @@ div.form-field {
   }
 }
 
-div.form-field.required {
+.ember-pojo-form-field.required {
   .validation-area {
     background-image: $pojo-form-field-required-icon;
+    background-size: $pojo-form-field-required-icon-size;
   }
 }
 
-div.form-field.valid {
+.ember-pojo-form-field.valid {
   .validation-area {
     border-color: $pojo-form-field-valid-border-color;
     background-color: $pojo-form-field-valid-background-color;
@@ -52,7 +37,7 @@ div.form-field.valid {
   }
 }
 
-div.form-field.invalid {
+.ember-pojo-form-field.invalid {
   .validation-area {
     border-color: $pojo-form-field-invalid-border-color;
     background-color: $pojo-form-field-invalid-background-color;
@@ -60,34 +45,23 @@ div.form-field.invalid {
     background-size: $pojo-form-field-invalid-icon-size;
 
   }
-  div.field-error {
-    min-height: $pojo-form-field-margin-bottom;
-    color: $pojo-form-field-error-text-color;
-    font-weight: 700;
-    margin-left: 10px;
-  }
-  div.field-controls+div.field-error {
-    margin-top: -1*$pojo-form-field-margin-bottom;
-  }
 }
 
 .ember-pojo-form-field-error {
-  min-height: $pojo-form-field-margin-bottom;
   color: $pojo-form-field-error-text-color;
-  font-weight: 700;
-  margin-left: 10px;
+  margin-top: $pojo-form-field-error-margin-top;
 }
 
-div.form-field.power-select {
+.ember-pojo-form-field.power-select {
   max-width: 300px;
 }
 
-div.form-field.power-select div.field-container > svg {
+.ember-pojo-form-field.power-select div.field-container > svg {
   right: -24px;
 }
 
-div.form-field .checkbox-group-container,
-div.form-field .radio-button-group-container {
+.ember-pojo-form-field .checkbox-group-container,
+.ember-pojo-form-field .radio-button-group-container {
   position: relative;
   padding: $pojo-form-field-radio-checkbox-group-padding-y $pojo-form-field-radio-checkbox-group-padding-x;
   border: $pojo-form-field-radio-checkbox-group-border-width solid $pojo-form-field-radio-checkbox-group-border-color;
@@ -95,8 +69,8 @@ div.form-field .radio-button-group-container {
   border-radius: $pojo-form-field-radio-checkbox-group-border-radius;
 }
 
-div.form-field.field-type-radio-button-group,
-div.form-field.field-type-checkbox-group {
+.ember-pojo-form-field.field-type-radio-button-group,
+.ember-pojo-form-field.field-type-checkbox-group {
   position: relative;
   .labelled-radio-button,
   .labelled-checkbox {
@@ -104,13 +78,13 @@ div.form-field.field-type-checkbox-group {
   }
 }
 
-div.form-field.field-type-static-content {
+.ember-pojo-form-field.field-type-static-content {
   margin-bottom: $pojo-form-field-margin-bottom;
 }
 
 @media (max-width: 979px) {
-  div.form-field.field-type-radio-button-group,
-  div.form-field.field-type-checkbox-group {
+  .ember-pojo-form-field.field-type-radio-button-group,
+  .ember-pojo-form-field.field-type-checkbox-group {
     .labelled-radio-button,
     .labelled-checkbox {
       margin-bottom: 15px;

@@ -12,6 +12,7 @@ $pojo-form-field-max-width: 500px !default;
 $pojo-form-field-margin-bottom: 30px !default;
 $pojo-form-field-controls-margin-top: 4px !default;
 $pojo-form-field-required-icon-fill: #999 !default;
+$pojo-form-field-required-icon-size: 16px !default;
 
 $pojo-form-field-valid-border-color: green !default;
 $pojo-form-field-valid-background-color: lighten(green, 50%) !default;
@@ -24,7 +25,7 @@ $pojo-form-field-invalid-icon-fill: $pojo-form-field-invalid-border-color !defau
 $pojo-form-field-invalid-icon-size: 16px !default;
 
 $pojo-form-field-error-text-color: $pojo-form-field-invalid-border-color !default;
-$pojo-form-field-error-text-icon-fill: $pojo-form-field-error-text-color !default;
+$pojo-form-field-error-margin-top: 3px !default;
 
 $pojo-form-field-radio-checkbox-group-border-color: #ccc !default;
 $pojo-form-field-radio-checkbox-group-border-width: 1px !default;

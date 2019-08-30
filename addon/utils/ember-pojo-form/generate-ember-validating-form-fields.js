@@ -31,13 +31,6 @@ export default function generateEmberValidatingFormFields(formSchema, mode) {
     return formFields;
   };
 
-  var generateChangeset = function(formFields) {
-    formFields.forEach(formField => {
-
-    });
-    return formFields;
-  };
-
   return {
     formFields: generateformFields(formSchema, mode),
     formMetaData: generateFormMetaData(formSchema),

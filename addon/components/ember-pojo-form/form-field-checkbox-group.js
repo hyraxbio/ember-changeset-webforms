@@ -1,20 +1,13 @@
 import Component from '@ember/component';
 import layout from '../../templates/components/ember-pojo-form/form-field-checkbox-group';
+import { computed } from '@ember/object';
 
 export default Component.extend({
   layout,
   classNames: ['checkbox-group'],
 
-  didInsertElement: function() {
-    var defaults = this.get('formField.value');
-    if (typeof defaults === 'string') {
-     var defaultsArray = defaults.split(',');
-     var trimmedDefaultsArray = defaultsArray.map(item => {
-      return item.trim();
-     });
-     this.set('formField.value', trimmedDefaultsArray);
-    }
-    var checkedItems = this.get('formField.value') || [];
+  options: computed('displayValue', function() {
+    var checkedItems = this.stringToArray(this.get('displayValue'));
     var options = this.get('formField.options');
     options.forEach(function(option) {
       if (checkedItems.indexOf(option.key) > -1) {
@@ -23,20 +16,19 @@ export default Component.extend({
         option.set('value', false);
       }
     });
-    this.send('checkLastRemaining', this.get('formField'), checkedItems);
-  },
+    options.setEach('onlyCheckedOption', false);
+    checkedItems = checkedItems || [];
+    if (checkedItems.length === 1) {
+      options.findBy('key', checkedItems[0]).set('onlyCheckedOption', true);
+    }
+    return options;
+  }),
 
   actions: {
     checkboxToggled: function(key, value) {
-      var checkedItems;
-      var fieldValue = this.get('formField.value') || [];
-      if (typeof fieldValue === 'string') {
-        checkedItems = fieldValue.split(',');
-      } else {
-        checkedItems = fieldValue;
-      }
+      var checkedItems = this.stringToArray(this.get('displayValue'));
       if (value === true) {
-        checkedItems.push(key);
+        checkedItems = checkedItems.concat([key]); // Use concat not push so that the computed property above can recognide whne a new item is checked.
       } else {
         checkedItems = checkedItems.filter(item => {
           return item != key;
@@ -47,16 +39,20 @@ export default Component.extend({
       } else {
         checkedItems = checkedItems.sort();
       }
-      this.send('checkLastRemaining', this.get('formField'), checkedItems);
       this.onUserInteraction(checkedItems);
     },
+  },
 
-    checkLastRemaining(formField, checkedItems) {
-      formField.get('options').setEach('lastRemaining', false);
-      checkedItems = checkedItems || [];
-      if (checkedItems.length === 1) {
-        formField.get('options').findBy('key', checkedItems[0]).set('lastRemaining', true);
-      } 
+  stringToArray(value) {
+    var array;
+    if (typeof value === 'string') {
+      array = value.split(',');
+    } else {
+      array = this.get('displayValue') || [];
     }
+    array = array.map(item => {
+      return item.trim();
+    });
+    return array;
   }
 });

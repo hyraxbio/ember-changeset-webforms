@@ -57,5 +57,17 @@ $spacer-md: 16px;
     display: none;
   }
   @import "ember-pojo-form";
+
+  // Custom pojo form styles
+
+  // div.field-controls+div.field-error {
+  //   margin-top: -1*$pojo-form-field-margin-bottom;
+  // }
+
+  // .ember-pojo-form-field-error {
+  //   min-height: $pojo-form-field-margin-bottom;
+  //   font-weight: 700;
+  //   margin-left: 10px;
+  // }
 }
 

@@ -6,6 +6,7 @@ import customValidators from '../validators';
 export default Component.extend({
   layout,
   globalVariables: service(),
+  store: service(),
 
   init() {
     this._super(...arguments);
@@ -22,19 +23,17 @@ export default Component.extend({
         resetAfterSubmit: true,
       },     
       fields: [
-        // {
-        //   fieldLabel: 'Name',
-        //   fieldId: 'name',
-        //   fieldType: 'input',
-        //   validationRules: [{
-        //     validationMethod: 'validatePresence',
-        //     arguments: true
-        //   }, {
-        //     validationMethod: 'validateDate',
-        //   }],
-        //   inputType: 'text',
-          
-        // },
+        {
+          fieldLabel: 'Name',
+          fieldId: 'name',
+          fieldType: 'input',
+          validationRules: [{
+            validationMethod: 'validatePresence',
+            arguments: true
+          }],
+          inputType: 'text',
+          defaultValue: 'Test'
+        },
         {
           fieldLabel: 'Email',
           fieldId: 'email',
@@ -69,54 +68,54 @@ export default Component.extend({
           }],
           options: this.get('globalVariables.countries')
         },
-        // {
-        //   fieldId: 'password',
-        //   fieldLabel: 'Password (Minimum 8 characters)',
-        //   fieldType: 'input',
-        //   showfieldLabel: false,
-        //   validationRules: [{
-        //     validationMethod: 'validatePresence',
-        //     arguments: true
-        //   }, {
-        //     validationMethod: 'validateLength',
-        //     arguments: { min: 8, max: 72 }
-        //   }],
-        //   inputType: 'password'
-        // },
-        // {
-        //   fieldId: 'password_confirmation',
-        //   fieldLabel: 'Confirm password',
-        //   fieldType: 'input',
-        //   showfieldLabel: false,
-        //   validationRules: [{
-        //     validationMethod: 'validatePresence',
-        //     arguments: true
-        //   }, {
-        //     validationMethod: 'validateLength',
-        //     arguments: { min: 8, max: 72 }
-        //   }, {
-        //     validationMethod: 'validateConfirmation',
-        //     arguments: { on: 'password'}
-        //   }],
-        //   inputType: 'password'
-        // },
+        {
+          fieldId: 'password',
+          fieldLabel: 'Password (Minimum 8 characters)',
+          fieldType: 'input',
+          showfieldLabel: false,
+          validationRules: [{
+            validationMethod: 'validatePresence',
+            arguments: true
+          }, {
+            validationMethod: 'validateLength',
+            arguments: { min: 8, max: 72 }
+          }],
+          inputType: 'password'
+        },
+        {
+          fieldId: 'password_confirmation',
+          fieldLabel: 'Confirm password',
+          fieldType: 'input',
+          showfieldLabel: false,
+          validationRules: [{
+            validationMethod: 'validatePresence',
+            arguments: true
+          }, {
+            validationMethod: 'validateLength',
+            arguments: { min: 8, max: 72 }
+          }, {
+            validationMethod: 'validateConfirmation',
+            arguments: { on: 'password'}
+          }],
+          inputType: 'password'
+        },
         {
           fieldLabel: 'Bio',
           fieldId: 'bio',
           fieldType: 'textarea',
         },
-        // {
-        //   fieldLabel: 'Birth date',
-        //   fieldId: 'info.birth_date',
-        //   fieldType: 'powerDatePicker',
-        //   validationRules: [{
-        //     validationMethod: 'validatePresence',
-        //     arguments: true
-        //   }, {
-        //     validationMethod: 'validateDate',
-        //   }],
-        //   triggerClasses: 'btn btn-gray-medium'
-        // },
+        {
+          fieldLabel: 'Birth date',
+          fieldId: 'info.birth_date',
+          fieldType: 'powerDatePicker',
+          validationRules: [{
+            validationMethod: 'validatePresence',
+            arguments: true
+          }, {
+            validationMethod: 'validateDate',
+          }],
+          triggerClasses: 'btn btn-gray-medium'
+        },
         {
           fieldId: 'inserted',
           fieldLabel: 'Date range',
@@ -158,9 +157,10 @@ export default Component.extend({
           fieldId: 'gender',
           fieldType: 'radioButtonGroup',
           fieldLabel: 'Gender',
-          // validationRules: [{
-          //   'validationMethod': 'required'
-          // }],
+          validationRules: [{
+            validationMethod: 'validatePresence',
+            arguments: true
+          }],
           options: [{
             'label': 'Male',
             'value': 'male'
@@ -171,6 +171,35 @@ export default Component.extend({
             'label': 'Other',
             'value': 'other'
           }],
+          defaultValue: 'male'
+        },
+        {
+          fieldLabel: 'Type your gender',
+          fieldId: 'other_gender',
+          fieldType: 'input',
+          inputType: 'text',
+          hidden: true
+        },
+        {
+          fieldId: 'diet',
+          fieldType: 'checkboxGroup',
+          fieldLabel: 'Diet',
+          validationRules: [{
+            validationMethod: 'validatePresence',
+            arguments: true
+          }],
+          options: [{
+            'label': 'Vegetables',
+            'key': 'vegetables'
+          }, {
+            'label': 'Meat',
+            'key': 'meat'
+          }, {
+            'label': 'Dairy',
+            'key': 'dairy'
+          }],
+          defaultValue: ['dairy'],
+          preventEmpty: true,
         },
         {
           fieldLabel: 'Type your gender',
@@ -189,41 +218,22 @@ export default Component.extend({
     };
   },
 
-  didInsertElement() {
-    // var user = EmberObject.create({
-    //   firstName: 'Michael',
-    //   lastName: 'Bolton'
-    // });
-    // let changeset = new Changeset(user);
-    // console.log(changeset);
-    // user.get('firstName'); // "Michael"
-    // user.get('lastName'); // "Bolton"
-    
-    // changeset.set('firstName', 'Jim');
-    // changeset.set('lastName', 'B');
-    // changeset.get('isInvalid'); // true
-    // changeset.get('errors'); // [{ key: 'lastName', validation: 'too short', value: 'B' }]
-    // changeset.set('lastName', 'Bob');
-    // changeset.get('isValid'); // true
-    
-    // user.get('firstName'); // "Michael"
-    // user.get('lastName'); // "Bolton"
-    // console.log(user);
-    // changeset.save(); // sets and saves valid changes on the user
-    // user.get('firstName'); // "Jim"
-    // user.get('lastName'); // "Bob"
-    // console.log(user);
-  }, 
-
   actions: {
     submit(changeset) {
-      console.log(changeset);
-      if (changeset.isInValid) {
+      if (changeset.isInvalid) {
         alert('no')
       } else {
-        this.submitAction(changeset.data, 'user');
+        if (changeset.data.save) {
+          changeset.save().then(response => {
+            alert("Updated");
+          });
+        } else {
+          var record = this.store.createRecord(this.get('modelName'), changeset.data);
+          record.save().then(response => {
+            alert("Saved");
+          });
+        }
       }
-
     }
   }
 });

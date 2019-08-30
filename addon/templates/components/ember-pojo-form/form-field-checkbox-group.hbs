@@ -1,14 +1,15 @@
+{{oneChecked}}
 {{ember-pojo-form/form-field-legend formField=formField}}
 <div class="checkbox-group-container field-controls validation-area">
-  {{#each formField.options as |option|}}
+  {{#each options as |option|}}
     {{background/labelled-checkbox
       dataTestId=(concat "checkbox-option-" formField.fieldId "-" option.value)
       value=(readonly option.value)
       label=option.label
       changedAction=(action "checkboxToggled" option.key)
       name=formField.name
-      disabled=(or option.disabled formField.disabled (and formField.preventEmpty option.lastRemaining))
+      disabled=(or option.disabled formField.disabled (and formField.preventEmpty option.onlyCheckedOption))
     }}
   {{/each}}
 </div>
-{{ember-pojo-form/form-field-error formField=formField}}
+{{ember-pojo-form/form-field-error changeset=changeset formField=formField displayValidation=displayValidation}}

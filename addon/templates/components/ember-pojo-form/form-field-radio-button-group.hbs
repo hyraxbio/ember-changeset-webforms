@@ -4,7 +4,7 @@
     {{ember-pojo-form/labelled-radio-button
       dataTestId=(concat "radio-option-" formField.fieldId "-" option.value)
       value=option.value
-      groupValue=groupValue
+      groupValue=displayValue
       required=false
       name=(or formField.name formField.fieldId)
       disabled=(if formField.disabled true option.disabled)
@@ -13,4 +13,4 @@
     }}
   {{/each}}
 </div>
-{{ember-pojo-form/form-field-error formField=formField}}
+{{ember-pojo-form/form-field-error changeset=changeset formField=formField displayValidation=displayValidation}}

@@ -6,7 +6,7 @@
     {{#power-select
       triggerClass="validation-area"
       options=formField.options
-      selected=(readonly formField.value)
+      selected=displayValue
       searchPlaceholder=formField.searchPlaceholder
       searchField=formField.optionDisplayProp
       allowClear=allowClear
@@ -26,4 +26,4 @@
     {{/power-select}}
   </div>
 </div>
-{{ember-pojo-form/form-field-error formField=formField}}
+{{ember-pojo-form/form-field-error changeset=changeset formField=formField displayValidation=displayValidation}}

@@ -25,7 +25,7 @@ export default function() {
     http://www.ember-cli-mirage.com/docs/v0.3.x/shorthands/
   */
 
-  this.namespace = 'api';
+  // this.namespace = 'api';
 
   this.get('/users', (schema) => {
     return schema.all('user');

@@ -48,7 +48,7 @@ export default function generateEmberValidatingFormField(field, index, formSchem
   var required;
   if (field.validationRules) {
     var requiredRule = field.validationRules.find(function(rule) {
-      return rule.validationMethod === 'required';
+      return rule.validationMethod === 'validatePresence' && rule.arguments === true;
     });
     if (requiredRule) {
       required = true;
@@ -85,7 +85,7 @@ export default function generateEmberValidatingFormField(field, index, formSchem
   if (field.fieldType === 'input' && !field.inputType) {
     fieldObject.set('inputType', 'text');
   }
-  fieldObject.set('value', value);
+
   fieldObject.set('hideSuccessValidation', hideSuccessValidation);
   fieldObject.set('hideLabel', hideLabel);
   fieldObject.set('required', required);

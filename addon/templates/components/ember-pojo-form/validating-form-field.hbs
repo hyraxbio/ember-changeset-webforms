@@ -7,6 +7,8 @@
       onFocusIn=(action "onFocusIn")
       onKeyUp=(action "onKeyUp")
       changeset=changeset
+      displayValidation=displayValidation
+      displayValue=displayValue
     }}
   {{else}}
     {{component formField.component
@@ -15,11 +17,10 @@
       onUserInteraction=(action "onUserInteraction")
       setFieldProperty=(action "setFieldProperty")
       validateField=(action "validateField")
+      changeset=changeset
+      displayValidation=displayValidation
+      displayValue=displayValue
     }}
   {{/if}}
 {{/unless}}
-  {{#if (get changeset.error formField.fieldId)}}
-    {{#each (get (get changeset.error formField.fieldId) 'validation') as |error|}}
-      <div class="ember-pojo-form-field-error">{{error}}</div>
-    {{/each}}
-  {{/if}}
+  

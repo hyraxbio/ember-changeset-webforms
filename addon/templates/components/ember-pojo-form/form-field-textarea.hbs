@@ -2,7 +2,7 @@
 <div class="field-controls">
   {{textarea
     class="validation-area"
-    value=(readonly formField.value)
+    value=(readonly displayValue)
     focusOut=(action onFocusOut value="target.value")
     focusIn=(action onFocusIn value="target.value")
     keyUp=(action onKeyUp value="target.value")
@@ -12,4 +12,4 @@
     disabled=formField.disabled
   }}
 </div>
-{{ember-pojo-form/form-field-error formField=formField}}
+{{ember-pojo-form/form-field-error changeset=changeset formField=formField displayValidation=displayValidation}}
