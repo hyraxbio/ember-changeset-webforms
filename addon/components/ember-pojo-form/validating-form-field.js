@@ -149,6 +149,7 @@ export default Component.extend({
     },
 
     setFieldValue: function(value) {
+      console.log(value);
       var changeset = this.get('changeset');
       var prop = this.get('formField.fieldId');
       changeset.set(prop, value);
@@ -179,7 +180,6 @@ export default Component.extend({
       var changeset = this.get('changeset');
       var prop = this.get('formField.fieldId');
       this.set('displayValue', null);
-      console.log('run');
       console.log(changeset.get(prop));
       this.set('displayValue', changeset.get(prop));
     },

@@ -26,7 +26,7 @@ export default Component.extend({
   actions: {
     onkeydown(dropdown, e) {
       if (e.keyCode === 13) {
-        var value = this.get('formField.value') || [];
+        var value = this.get('displayValue') || [];
         var newItem;
         if (this.get('formField.optionDisplayProp')) {
           newItem = {};

@@ -198,7 +198,7 @@ export default Component.extend({
             'label': 'Dairy',
             'key': 'dairy'
           }],
-          defaultValue: ['dairy'],
+          defaultValue: ['dairy   '],
           preventEmpty: true,
         },
         {
