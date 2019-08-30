@@ -28,7 +28,7 @@ export default Component.extend({
         }
       }
       if (validateOnInsert && (formField.defaultValue)) {
-        this.send('validateField');
+        this.send('validateProperty', this.get('changeset'), this.get('formField.fieldId'));
       }
     });
   },
@@ -63,7 +63,8 @@ export default Component.extend({
   }),
 
   validates: computed('formField.validationRules', function() {
-    if (this.get('formField.validationRules')) {
+    var validationRules = this.get('formField.validationRules') || [];
+    if (validationRules.length > 0) {
       return true;
     }
     return false;
@@ -71,9 +72,8 @@ export default Component.extend({
 
   actions: {
     validateProperty(changeset, property){
+      if (!this.get('validates')) { return; }
       this.set('wasValidated', true);
-      // console.log(changeset);
-      // console.log(property);
       return changeset.validate(property);
     },
 

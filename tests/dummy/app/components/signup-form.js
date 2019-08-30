@@ -31,6 +31,7 @@ export default Component.extend({
             validationMethod: 'validatePresence',
             arguments: true
           }],
+          validationEvents: ['insert'],
           inputType: 'text',
           defaultValue: 'Test'
         },
@@ -45,6 +46,7 @@ export default Component.extend({
             validationMethod: 'validateFormat',
             arguments: { type: 'email' }
           }],
+          validationEvents: ['keyUp'],
           inputType: 'text'
         },
         {
@@ -136,9 +138,13 @@ export default Component.extend({
         },
         {
           fieldLabel: "favourite colours",
-          fieldId: "favoutite_colours",
+          fieldId: "favourite_colours",
           fieldType: "tagSelector",
           options: ['red', 'orange'],
+          // validationRules: [{
+          //   validationMethod: 'validatePresence',
+          //   arguments: true
+          // }],
         },
         {
           fieldId: 'toggleAdvanced',

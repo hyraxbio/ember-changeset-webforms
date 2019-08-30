@@ -24,6 +24,14 @@ export default Component.extend({
   }),
 
   actions: {
+    onchange(value) {
+      value = value || [];
+      if (value.length === 0) {
+        value = null;
+      }
+      this.onUserInteraction(value);
+    },
+
     onkeydown(dropdown, e) {
       if (e.keyCode === 13) {
         var value = this.get('displayValue') || [];
