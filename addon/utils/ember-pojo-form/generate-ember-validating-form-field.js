@@ -86,11 +86,16 @@ export default function generateEmberValidatingFormField(field, index, formSchem
     fieldObject.set('inputType', 'text');
   }
 
+  var validationRules = field.validationRules || [];
+  var validates = validationRules.length > 0 ? true : false;
+
   fieldObject.set('hideSuccessValidation', hideSuccessValidation);
   fieldObject.set('hideLabel', hideLabel);
   fieldObject.set('required', required);
   fieldObject.set('name', field.name || field.fieldId.replace(/\./g, '-'));
   fieldObject.set('placeholder', field.placeholder || field.fieldLabel);
   fieldObject.set('component', fieldElementComponents[field.fieldType]);
+  fieldObject.set('validates', validates);
+  
   return fieldObject;
 }

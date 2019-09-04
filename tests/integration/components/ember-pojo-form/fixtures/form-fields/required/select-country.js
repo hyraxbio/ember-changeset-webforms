@@ -2,7 +2,10 @@ export default {
   fieldLabel: 'Country',
   fieldId: 'info.address.country',
   fieldType: 'powerSelect',
-  validationRules: [{'validationMethod': 'required'}],
+  validationRules: [{
+    validationMethod: 'validatePresence',
+    arguments: true
+  }],
   options: [
     "Afghanistan",
     "Åland Islands",

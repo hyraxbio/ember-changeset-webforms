@@ -1,4 +1,4 @@
-{{#unless formField.hidden}}
+{{#if (and changeset (not formField.hidden))}}
   {{#if (or (eq formField.fieldType "input") (eq formField.fieldType "textarea")) }}
     {{component formField.component
       formField=formField
@@ -8,19 +8,16 @@
       onKeyUp=(action "onKeyUp")
       changeset=changeset
       displayValidation=displayValidation
-      displayValue=displayValue
+      displayValue=(changeset-get changeset formField.fieldId)
     }}
   {{else}}
     {{component formField.component
       formField=formField
       inputIcon=inputIcon
       onUserInteraction=(action "onUserInteraction")
-      setFieldProperty=(action "setFieldProperty")
-      validateField=(action "validateField")
       changeset=changeset
       displayValidation=displayValidation
-      displayValue=displayValue
+      displayValue=(changeset-get changeset formField.fieldId)
     }}
   {{/if}}
-{{/unless}}
-  
+{{/if}}

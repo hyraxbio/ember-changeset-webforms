@@ -6,7 +6,7 @@
     {{#power-select
       triggerClass="validation-area"
       options=formField.options
-      selected=displayValue
+      selected=(changeset-get changeset formField.fieldId)
       searchPlaceholder=formField.searchPlaceholder
       searchField=formField.optionDisplayProp
       allowClear=allowClear

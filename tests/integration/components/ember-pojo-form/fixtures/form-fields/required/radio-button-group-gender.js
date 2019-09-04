@@ -3,7 +3,8 @@ export default {
   fieldType: 'radioButtonGroup',
   fieldLabel: 'Gender',
   validationRules: [{
-    'validationMethod': 'required'
+    validationMethod: 'validatePresence',
+    arguments: true
   }],
   options: [{
     'label': 'Male',

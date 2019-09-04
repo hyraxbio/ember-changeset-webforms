@@ -28,7 +28,7 @@
   }
 }
 
-.ember-pojo-form-field.valid {
+.ember-pojo-form-field.valid:not(.hide-success-validation) {
   .validation-area {
     border-color: $pojo-form-field-valid-border-color;
     background-color: $pojo-form-field-valid-background-color;

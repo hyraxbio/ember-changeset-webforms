@@ -4,15 +4,14 @@ export default {
   fieldType: 'input',
   showfieldLabel: false,
   validationRules: [{
-    'validationMethod': 'required'
+    validationMethod: 'validatePresence',
+    arguments: true
   }, {
-    'validationMethod': 'isLength',
-    'arguments': {
-      min: 8,
-      max: 72
-    }
+    validationMethod: 'validateLength',
+    arguments: { min: 8, max: 72 }
   }, {
-    'validationMethod': 'custom'
+    validationMethod: 'validateConfirmation',
+    arguments: { on: 'password'}
   }],
   inputType: 'password'
 };

@@ -111,6 +111,7 @@ module('Acceptance | Validating form', function(hooks) {
     setupMirage(hooks);
     server.createList('user', 1);
     await visit('/users');
+    await this.pauseTest();
     // TODO test all fields
     var firstUsersName = document.querySelector('[data-test-id="users-table"] tbody tr:first-child [data-test-id="name"]').textContent.trim();
     await visit('/edit-account');

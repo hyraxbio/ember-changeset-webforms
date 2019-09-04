@@ -1,8 +1,9 @@
 import defaultValidators from 'ember-changeset-validations/validators';
 
-export default function createValidations(formSchema, customValidators = {}) {
+export default function createValidations(fields, customValidators = {}) {
   var validations = {};
-  formSchema.fields.forEach(field => {
+  if (!fields) { return validations; }
+  fields.forEach(field => {
     if (!field.validationRules) { return; }
     var fieldValidations = [];
     field.validationRules.forEach(rule => {

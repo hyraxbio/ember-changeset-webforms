@@ -41,6 +41,7 @@ module('Integration | Component | validating-form', function(hooks) {
     await render(hbs`{{ember-pojo-form/validating-form formSchema=formSchema}}`);
     assert.ok(this.element.querySelector('[data-test-id="evf-submit-form-button"]').textContent.trim() === 'Request account', 'Custom text renders on the submit button if specified in form schema.');
     assert.notOk(this.element.querySelector('[data-test-id="evf-reset-form-button"]'), 'Reset button does not show by default.');
+    
     this.set('formSchema', {
       settings: {
         formName: 'signupForm',
@@ -107,24 +108,27 @@ module('Integration | Component | validating-form', function(hooks) {
 
     this.set('formSchema', {
       settings: {
-        formName: 'signup',
+        formName: 'signupForm',
         hideSuccessValidation: true,
       },
       fields: [nameInputRequired]
     });
+
     await render(hbs`{{ember-pojo-form/validating-form formSchema=formSchema}}`);
+
     await fillIn(this.element.querySelector('[data-test-id="validating-field-name"] input'), 'Little Sebastian');
     await triggerKeyEvent(this.element.querySelector('input'), "keyup", 1);
-    assert.notOk(this.element.querySelector('[data-test-id="validating-field-name"]').classList.contains('valid'), 'Success validation hidden in all fields, if formSchema has "hideSuccessValidation:true".');
+    assert.notOk(this.element.querySelector('[data-test-id="validating-field-name"]').classList.contains('valid', 'invalid'), 'Success validation hidden in all fields, if formSchema has "hideSuccessValidation:true".');
 
-    this.set('formSchema', {
+    this.set('formSchema2', {
       settings: {
         formName: 'signup',
         hideSuccessValidation: true,
       },
       fields: [fieldOverridesFormSettings]
     });
-    await render(hbs`{{ember-pojo-form/validating-form formSchema=formSchema}}`);
+
+    await render(hbs`{{ember-pojo-form/validating-form formSchema=formSchema2}}`);
 
     await fillIn(this.element.querySelector('[data-test-id="validating-field-name"] input'), 'lsebastian@pawneegov.org');
     await triggerKeyEvent(this.element.querySelector('input'), "keyup", 1);
@@ -175,10 +179,11 @@ module('Integration | Component | validating-form', function(hooks) {
     await fillIn(this.element.querySelector('[data-test-id="validating-field-name"] input'), 'Little Sebastian');
     await triggerKeyEvent(this.element.querySelector('input'), "keyup", 1);
     assert.deepEqual(this.get('afterKeyUpActionValue'), 'Little Sebastian', '"value" object passed to afterKeyUpAction action when user types.');
-    
     await click(this.element.querySelector('[data-test-id="evf-reset-form-button"]'));
-    assert.deepEqual(this.element.querySelector('[data-test-id="validating-field-name"] input').value, '', 'Form resets when reset button is clicked');
-
+    
+    assert.deepEqual(this.element.querySelector('[data-test-id="validating-field-name"] input').value, '', 'Form values reset in template when reset button is clicked');
+    assert.notOk(this.element.querySelector('[data-test-id="validating-field-name"]').classList.contains('valid', 'invalid'), 'Form validation class resets in template when reset button is clicked');
+    // await this.pauseTest();
     await render(hbs`
       {{ember-pojo-form/validating-form
         formSchema=formSchema
@@ -197,13 +202,8 @@ module('Integration | Component | validating-form', function(hooks) {
       assert.deepEqual(formMetaData.submitButtonFeedback, 'Some fields have errors which must be fixed before continuing.', 'Follow up action is sent when form validation fails, with formFields and formMetaData as arguments.');
     });
 
-    this.set('dummyAction_submitAction', (...args) => {
-      return new Ember.RSVP.Promise((resolve, reject) => {
-        Ember.run(() => {
-          this.set('submitActionArgs', args);
-          resolve();
-        });
-      });
+    this.set('dummyAction_submitAction', (changeset) => {
+      this.set('submittedChangeset', changeset);
     });
 
     this.set('dummyAction_saveFail', (response, formFields, formMetaData) => {
@@ -216,7 +216,6 @@ module('Integration | Component | validating-form', function(hooks) {
     this.set('formSchema', {
       settings: {
         formName: 'signupForm',
-        modelName: 'user'
       },
       fields: [nameInputRequired, emailInputRequired, countrySelectRequired, colourSelect, textAreaBio, inputPhoneNumber, dateBirthDate, radioButtonGroupGender, singleCheckboxSelectTerms]
     });
@@ -231,34 +230,35 @@ module('Integration | Component | validating-form', function(hooks) {
     }}`);
     await click(this.element.querySelector('[data-test-id="evf-submit-form-button"]'));
     await isSettled();
-    assert.deepEqual(this.element.querySelectorAll('[data-test-id="field-error"]').length, this.element.querySelectorAll('.required').length, 'All required but empty fields get errors, when submit is clicked with no other interaction.');
+    assert.deepEqual(this.element.querySelectorAll('[data-test-class="ember-pojo-form-field-errors"]').length, this.element.querySelectorAll('.required').length, 'All required but empty fields get errors, when submit is clicked with no other interaction.');
 
 
-    assert.ok(this.element.querySelector('div').classList.contains('validation-failed'), 'Form gets class "validation-failed" when validation fails.');
+    assert.ok(this.element.querySelector('form').classList.contains('validation-failed'), 'Form gets class "validation-failed" when validation fails.');
     // TODO find a way to test Enter key press to submit form.
     await fillIn(this.element.querySelector('[data-test-id="validating-field-name"] input'), 'Little Sebastian');
     await triggerKeyEvent(this.element.querySelector('input'), "keyup", 1);
   
     await fillIn(this.element.querySelector('[data-test-id="validating-field-email"] input'), 'lsebastian@pawneegov.org');
     await triggerKeyEvent(this.element.querySelector('input'), "keyup", 1);
+
     await fillIn(this.element.querySelector('[data-test-id="validating-field-bio"] textarea'), 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente exercitationem, architecto maiores delectus optio id similique eveniet repellat distinctio perspiciatis, iusto eligendi consequatur hic ipsam ut atque! A, quod porro.');
     await triggerKeyEvent(this.element.querySelector('input'), "keyup", 1);
     await fillIn(this.element.querySelector('[data-test-id="validating-field-info.phone_number"] input'), '354674234');
     await triggerKeyEvent(this.element.querySelector('input'), "keyup", 1);
     await selectChoose('[data-test-id="validating-field-info.address.country"]', 'South Africa');
+
     await click(this.element.querySelector('[data-test-id="validating-field-gender"] [data-test-id="radio-option-gender-male"] input'));
     await clickTriggerBasicDropdown('[data-test-id="validating-field-info.birth_date"]');
     await calendarCenter('.power-calendar-select-birth-date', new Date(2016, 9, 27));
     await calendarSelect('.power-calendar-select-birth-date', new Date(2016, 9, 24));
     await click('[data-test-id="validating-field-accept_terms"] input');
+
     await click(this.element.querySelector('[data-test-id="evf-submit-form-button"]'));
     await isSettled();
-    var values = this.get('submitActionArgs')[0];
-    var modelName = this.get('submitActionArgs')[1];
-    assert.deepEqual(modelName, 'user', 'The "submitAction" is fired when user clicks submit and the form passes validation.');
-    assert.deepEqual(values.email, 'lsebastian@pawneegov.org', 'Top level form values are included in the top level of the values object sent to "submitAction".');
-    assert.deepEqual(values.info.phone_number, '354674234', 'Second level form values are included in the second level of the values object sent to "submitAction".');
-    assert.deepEqual(values.info.address.country, 'South Africa', 'Third level form values are included in the third level of the values object sent to "submitAction".');
+    var changeset = this.get('submittedChangeset');
+    assert.deepEqual(changeset.get('email'), 'lsebastian@pawneegov.org', 'Top level form values are included in the top level of the values object sent to "submitAction".');
+    assert.deepEqual(changeset.get('info.phone_number'), '354674234', 'Second level form values are included in the second level of the values object sent to "submitAction".');
+    assert.deepEqual(changeset.get('info.address.country'), 'South Africa', 'Third level form values are included in the third level of the values object sent to "submitAction".');
 
     this.set('formSchema', {
       settings: {
@@ -353,7 +353,7 @@ module('Integration | Component | validating-form', function(hooks) {
     }}
     `);
     assert.deepEqual(this.element.querySelector('[data-test-id="validating-field-name"] input').value, 'Ron Swanson', 'Top level props are correclty applied to form fields on initial render.');
-    await this.pauseTest();
+    // await this.pauseTest();
     assert.deepEqual(this.element.querySelector('[data-test-id="validating-field-info.address.country"] .ember-power-select-selected-item').textContent.trim(), 'South Africa', 'Third level props are correclty applied to form fields on initial render.');
     this.set('model.name', 'Lesley Knope');
     assert.deepEqual(this.element.querySelector('[data-test-id="validating-field-name"] input').value, 'Lesley Knope', 'Props hash causes form rerender when top level model prop is updated.');

@@ -10,12 +10,13 @@ export default Component.extend({
     },
 
     onOpen() {
-      this.setFieldProperty('active', true);
+      var formField = this.get('formField');
+      formField.set('active', true);
     },
 
     onClose() {
-      this.setFieldProperty('active', false);
-      this.validateField();
+      var formField = this.get('formField');
+      formField.set('active', false);
     }
   }
 });
