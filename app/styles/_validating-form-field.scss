@@ -25,7 +25,8 @@ div.form-field svg.form-field-icon {
   cursor: not-allowed;
 }
 
-.validates input {
+.validates input,
+.validates.field-type-single-checkbox .field-controls {
   padding-right: 36px;
 }
 
