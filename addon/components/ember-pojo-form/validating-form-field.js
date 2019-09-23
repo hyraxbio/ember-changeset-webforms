@@ -137,6 +137,9 @@ export default Component.extend({
     validateField: function() {
       // Todo error must be updated by sending updateForm action if it is supplied.
       var formField = this.get('formField');
+      if (this.beforeValidation) {
+        this.beforeValidation(formField);
+      }
       var validationRules = formField.get('validationRules') || [];
       this.send('setFieldError', null); // To ensure the error message updates, if the field has been updated but now fails a different validation rule to the previous validation attempt.
       var error = validateField(formField);
