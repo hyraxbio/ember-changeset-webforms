@@ -1,9 +1,6 @@
 export default function generateFormValues(formFields) {
   var final = {};
   formFields.forEach(function(field) {    
-    if (field.fieldValueProp) {
-      field.value = field.value[field.fieldValueProp];
-    }
     function processField(levels, final, value) {
       var acc = final;
       levels.forEach(function(level, index) {
@@ -30,8 +27,15 @@ export default function generateFormValues(formFields) {
       });
     } else {
       var levels = field.fieldId.split(".");
-      processField(levels, final, field.value);
+      processField(levels, final, getValue(field));
     }
   });
   return final;
+}
+
+function getValue(field) {
+  if (field.fieldValueProp) {
+    return field.value[field.fieldValueProp];
+  }
+  return field.value;
 }
