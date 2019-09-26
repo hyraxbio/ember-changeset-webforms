@@ -15,6 +15,17 @@ export default Component.extend({
     });
   },
 
+  options: computed('formField.{value,formField.options,formField.excludeCurrentValueFromOptions}', function() {
+    var formField = this.get('formField');
+    if (formField.excludeCurrentValueFromOptions) {
+      return formField.options.filter(option => {
+        return option !== formField.value;
+      });
+    } else {
+      return formField.options;
+    }
+  }),
+
   allowClear: computed('formField.allowClear', function() {
     if (this.get('formField.allowClear') === false) {
       return false;
