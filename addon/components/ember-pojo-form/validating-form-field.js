@@ -9,8 +9,8 @@ export default Component.extend({
   layout,
   classNames: ["form-field"],
   classNameBindings: ["formField.error:invalid", "valid:valid", "formField.required:required", "disabled:disabled", "readonly:readonly", "formField.fieldClass", 'hideSuccessValidation:hide-success-validation', 'validates:validates', 'typeClass', 'formField.hidden:hidden'],
-  attributeBindings: ["data-test-id", "data-test-validation-field"],
-
+  attributeBindings: ["dataTestClass:data-test-class", "dataTestId:data-test-id", "data-test-validation-field"],
+  dataTestClass: "ember-fire-form-field",
 
   didInsertElement: function() {
     //Code below will maintain validation colours when component is re-rendered.
@@ -26,7 +26,7 @@ export default Component.extend({
           validateOnInsert = true;
         }
       }
-      if (validateOnInsert && (formField.defaultValue || formField.dynamicValue)) {
+      if (validateOnInsert && formField.value) {
         this.send('validateField');
       }
     });
@@ -137,6 +137,9 @@ export default Component.extend({
     validateField: function() {
       // Todo error must be updated by sending updateForm action if it is supplied.
       var formField = this.get('formField');
+      if (this.beforeValidation) {
+        this.beforeValidation(formField);
+      }
       var validationRules = formField.get('validationRules') || [];
       this.send('setFieldError', null); // To ensure the error message updates, if the field has been updated but now fails a different validation rule to the previous validation attempt.
       var error = validateField(formField);

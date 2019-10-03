@@ -15,14 +15,36 @@ export default Component.extend({
 
   formObject: computed('processedFormSchema', 'props', function() {
     var formObject = this.get('processedFormSchema');
-    for (var key in this.get('props')) {
-      var field = formObject.formFields.find(field => {
-        return field.fieldId === key;
-      });
-      if (field) {
-        field.set('value', this.get('props')[key]);
-      }
+    var props = this.get('props');
+    if (!props) {
+      return formObject;
     }
+    formObject.formFields.forEach(field => {
+      var levels = field.fieldId.split('.');
+      var acc = props;
+      levels.forEach((level, index) => {
+        if (index === levels.length-1) {
+          if (acc[level]) {
+            field.set('value', acc[level]);
+          } else if (field.defaultValue) {
+            field.set('value', field.defaultValue);
+          } else {
+            field.set('value', null);
+          }
+        } else {
+          acc[level] = acc[level] || {};
+          acc = acc[level];
+        }
+      });
+    });
+    // for (var key in this.get('props')) {
+    //   var field = formObject.formFields.find(field => {
+    //     return field.fieldId === key;
+    //   });
+    //   if (field && this.get('props')[key]) {
+    //     field.set('value', this.get('props')[key]);
+    //   }
+    // }
     return formObject;
   }),
 
