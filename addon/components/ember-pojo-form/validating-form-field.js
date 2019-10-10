@@ -144,19 +144,17 @@ export default Component.extend({
       this.send('setFieldError', null); // To ensure the error message updates, if the field has been updated but now fails a different validation rule to the previous validation attempt.
       var error = validateField(formField);
       this.send('setFieldError', error);
-      if (!this.customValidations && this.afterValidation) {
-        this.afterValidation(formField);
-      }
-      if (error) { return; }
-      // TODO throw error if custom is passed as a validation rule, but the 'customValidations' action is not passed in. Do this on didInsert.
-      var customRule = validationRules.find(function(rule) {
-        return rule.validationMethod === 'custom';
-      });
-      if (this.customValidations && customRule) {
-        this.customValidations(formField, this.get('formFields'));
-        if (this.afterValidation) {
-          this.afterValidation(formField);
+      if (!error) { 
+        // TODO throw error if custom is passed as a validation rule, but the 'customValidations' action is not passed in. Do this on didInsert.
+        var customRule = validationRules.find(function(rule) {
+          return rule.validationMethod === 'custom';
+        });
+        if (this.customValidations && customRule) {
+          this.customValidations(formField, this.get('formFields'));
         }
+      }
+      if (this.afterValidation) {
+        this.afterValidation(formField);
       }
     },
 
