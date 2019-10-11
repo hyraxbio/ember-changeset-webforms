@@ -12,6 +12,12 @@ Router.map(function() {
   this.route('users');
   this.route('edit-account');
   this.route('user');
+
+  this.route('public-pages', { path: '' }, function() {
+    this.route('docs', function() {
+      this.route('introduction');
+    });
+  });
 });
 
 export default Router;

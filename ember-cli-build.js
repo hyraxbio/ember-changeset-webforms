@@ -5,8 +5,10 @@ const EmberAddon = require('ember-cli/lib/broccoli/ember-addon');
 module.exports = function(defaults) {
   let app = new EmberAddon(defaults, {
     // Add options here
+    snippetPaths: ['tests/dummy/app/templates/snippets']
   });
   app.import('bower_components/validator-js/validator.js');
+
   /*
     This build file specifies the options for the dummy test app of this
     addon, located in `/tests/dummy`
