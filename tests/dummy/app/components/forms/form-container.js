@@ -1,5 +1,4 @@
 import Component from '@ember/component';
-// import generateEmberValidatingFormFields from 'ember-pojo-validating-forms/utils/generate-ember-validating-form-fields';
 
 export default Component.extend({
   classNames: ['form-container'],

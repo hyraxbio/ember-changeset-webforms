@@ -1,6 +1,6 @@
 import Component from '@ember/component';
 import { computed } from '@ember/object';
-import generateEmberValidatingFormFields from '../../utils/ember-pojo-form/generate-ember-validating-form-fields';
+import generateEmberValidatingFormFields from '../../utils/generate-ember-validating-form-fields';
 import createChangeset from '../../utils/create-changeset';
 import createValidations from '../../utils/create-validations';
 import layout from '../../templates/components/ember-pojo-form/validating-form';
@@ -119,9 +119,9 @@ export default Component.extend({
     //   }
     // },
 
-    customTransforms(fieldId) {
+    customTransforms(fieldId, changeset) {
        if (this.customTransforms) {
-        this.customTransforms(this.get('formFields'), fieldId, this.get('formMetaData'));
+        this.customTransforms(this.get('formFields'), fieldId, this.get('formMetaData'), changeset);
       }
     },
 

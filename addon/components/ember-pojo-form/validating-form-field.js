@@ -1,6 +1,6 @@
 import Component from '@ember/component';
 import { computed } from '@ember/object';
-import generateEmberValidatingFormField from '../../utils/ember-pojo-form/generate-ember-validating-form-field';
+import generateEmberValidatingFormField from '../../utils/generate-ember-validating-form-field';
 import layout from '../../templates/components/ember-pojo-form/validating-form-field';
 import Changeset from 'ember-changeset';
 import lookupValidator from 'ember-changeset-validations';
@@ -115,7 +115,7 @@ export default Component.extend({
       changeset.set(prop, value);
       this.send('validateProperty', changeset, prop, eventType);
       if (this.customTransforms) {
-        this.customTransforms(prop);
+        this.customTransforms(prop, changeset);
       }
     }
   }

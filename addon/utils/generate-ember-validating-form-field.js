@@ -36,15 +36,6 @@ export default function generateEmberValidatingFormField(field, index, formSchem
     return fieldObject;
   }
 
-  var value;
-  if (field.defaultValue) {
-    value = field.defaultValue;
-  }
-  // Trim non password input fields by default.
-  if (value && !field.notrim && typeof value === 'string' && field.inputType !== 'password') {
-    value = value.trim();
-  }
-
   var required;
   if (field.validationRules) {
     var requiredRule = field.validationRules.find(function(rule) {
@@ -96,6 +87,5 @@ export default function generateEmberValidatingFormField(field, index, formSchem
   fieldObject.set('placeholder', field.placeholder || field.fieldLabel);
   fieldObject.set('component', fieldElementComponents[field.fieldType]);
   fieldObject.set('validates', validates);
-  
   return fieldObject;
 }

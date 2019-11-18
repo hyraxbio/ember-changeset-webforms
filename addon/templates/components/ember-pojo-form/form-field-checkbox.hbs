@@ -1,7 +1,7 @@
 <div class="field-controls">
   {{background/labelled-checkbox
     dataTestId=(concat "checkbox-option-" formField.fieldId "-" option.value)
-    value=(readonly formField.value)
+    value=(readonly displayValue)
     label=formField.fieldLabel
     labelComponent=formField.labelComponent
     changedAction=(action onUserInteraction)
@@ -9,4 +9,5 @@
     disabled=formField.disabled
   }}
 </div>
+{{log formField}}
 {{ember-pojo-form/form-field-error changeset=changeset formField=formField displayValidation=displayValidation}}
