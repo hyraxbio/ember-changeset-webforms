@@ -51,8 +51,8 @@ export default function generateEmberValidatingFormField(field, index, formSchem
   if (checkKeyExists(field, 'hideSuccessValidation')) {
     hideSuccessValidation = field.hideSuccessValidation;
   } else if (formSchema) {
-    if (formSchema.hideSuccessValidation) {
-      hideSuccessValidation = formSchema.hideSuccessValidation;
+    if (formSchema.settings.hideSuccessValidation) {
+      hideSuccessValidation = formSchema.settings.hideSuccessValidation;
     }
   }
 

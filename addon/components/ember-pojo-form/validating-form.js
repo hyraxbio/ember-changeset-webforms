@@ -11,22 +11,37 @@ import lookupValidator from 'ember-changeset-validations';
 export default Component.extend({
   layout,
   emberPojoForms: service(),
-  classNameBindings: ['class', 'validationFailed:validation-failed'],
+  classNameBindings: ['validationFailed:validation-failed'],
+  classNames: ['ember-pojo-form'],
 
-  init() {
-    this._super(...arguments);
-    if (!this.get('changeset')) {
-      var props = this.get('props');
-      var changesetObj;
-      if (props) {
-        changesetObj = props; // TODO This must still add any paths from fieldIds that are not in the props obj
-      } else {
-        changesetObj = createChangeset(this.get('formSchema.fields'));
-      }
-      var validationsMap = createValidations(this.get('formSchema.fields'), this.get('customValidators'));
-      this.changeset = new Changeset(changesetObj, lookupValidator(validationsMap), validationsMap, { skipValidate: true });
+  // init() {
+  //   this._super(...arguments);
+  //   if (!this.get('changeset')) {
+  //     var props = this.get('props');
+  //     console.log(props);
+  //     var changesetObj;
+  //     if (props) {
+  //       changesetObj = props; // TODO This must still add any paths from fieldIds that are not in the props obj
+  //     } else {
+  //       changesetObj = createChangeset(this.get('formSchema.fields'));
+  //     }
+  //     var validationsMap = createValidations(this.get('formSchema.fields'), this.get('customValidators'));
+  //     this.changeset = new Changeset(changesetObj, lookupValidator(validationsMap), validationsMap, { skipValidate: true });
+  //   }
+  // },
+
+  changeset: computed('props', function() {
+    var props = this.get('props');
+    console.log(props);
+    var changesetObj;
+    if (props) {
+      changesetObj = props; // TODO This must still add any paths from fieldIds that are not in the props obj
+    } else {
+      changesetObj = createChangeset(this.get('formSchema.fields'));
     }
-  },
+    var validationsMap = createValidations(this.get('formSchema.fields'), this.get('customValidators'));
+    return new Changeset(changesetObj, lookupValidator(validationsMap), validationsMap, { skipValidate: true });
+  }),
 
   formObject: computed('formSchema', 'settings', 'fields', function() {
     var formSchema;
@@ -113,109 +128,57 @@ export default Component.extend({
   },
 
   actions: {
-    // customValidations: function(formField) {
-    //   if (this.customValidations) {
-    //     this.customValidations(formField, this.get('formFields'));
-    //   }
-    // },
-
     customTransforms(fieldId, changeset) {
        if (this.customTransforms) {
         this.customTransforms(this.get('formFields'), fieldId, this.get('formMetaData'), changeset);
       }
     },
 
-    // setFormFieldValue: function(formField, value) {
-    //   if (formField.get('value')) {
-    //     formField.set('previousValue', formField.get('value'));
-    //   }
-    //   value = value || '';
-    //   formField.set('value', value);
-      // if (this.customTransforms) {
-      //   this.customTransforms(this.get('formFields'), formField.get('fieldId'), this.get('formMetaData'));
-      // }
-    // },
-
-    // setFormFieldError: function(formField, error) {
-    //   formField.set('error', error);
-    // },
-
-    // setFormFieldProperty: function(formField, prop, value) {
-    //   formField.set(prop, value);
-    // },
-
-    // submit: function() {
-    //   this.send('validateAllFields');
-    //   var formMetaData = this.get('formMetaData');
-    //   if (this.formValidates()) {
-    //     if (this.formValidationPassed) {
-    //       this.formValidationPassed();
-    //       formMetaData.set('validationStatus', 'passed');
-    //     }
-    //     var formFields = this.get('formFields');
-        
-    //     var values = generateFormValues(formFields);
-
-    //     if (formMetaData.submitAsync === false) {
-    //       this.send('submitSync', values, formFields, formMetaData);
-    //     } else {
-    //       this.send('submitAsync', values, formFields, formMetaData);
-    //     }
-    //   } else {
-    //     formMetaData.set('validationStatus', 'failed');
-    //     this.set('formMetaData.formStatus', 'validationFailed');
-    //     this.set('formMetaData.submitButtonFeedback', 'Some fields have errors which must be fixed before continuing.');
-    //     if (this.formValidationFailed) {
-    //       this.formValidationFailed(this.get('formFields'), this.get('formMetaData'));
-    //     }
-    //   }
-    // },
-    // validateProperty(changeset, property, formField){
-    //   if (!this.get('validates')) { return; }
-    //   formField.set('wasValidated', true);
-    //   console.log(formField);
-    //   return changeset.validate(property);
-    // },
-
     submit(changeset) {
-      // this.send('validateAllFields');
-      var formFields = this.get('formFields');
-      formFields.forEach(formField => {
-        if (formField.validates) {
-          formField.set('wasValidated', true);
+      changeset.validate().then(validateResponse => {
+        if (changeset.isValid) {
+          this.set("requestInFlight", true);
+          changeset.save().then(saveChangesetResponse => {
+            if (this.get('formValidationPassed')) {
+              this.formValidationPassed(changeset);
+            }
+            if (!changeset.data.save) {
+              // Login
+              if (this.get('submitAction')) {
+                this.submitAction(changeset.data, 'authorisation', changeset).then(submitActionResponse => {
+                  // Login success
+                  this.set("requestInFlight", false);
+                  if (this.get('saveSuccess')) {
+                    this.saveSuccess(submitActionResponse);
+                  }
+                }).catch(error => {
+                  // Login failed (incorrect creds)
+                  this.set("requestInFlight", false);
+                  if (this.get('saveFailed')) {
+                    this.saveFailed(error);
+                  }
+                });
+              }
+            } else {
+              // Edit account
+              this.set("requestInFlight", false);
+              if (this.get('saveSuccess')) {
+                this.saveSuccess(saveChangesetResponse);
+              }
+            }
+          }).catch(error => {
+            console.log('Edit account failed - 400');
+            changeset.rollback();
+            if (this.get('saveFailed')) {
+              this.saveFailed(error);
+            }
+            this.set("requestInFlight", false);
+          });
+        } else {
+          if (this.get('formValidationFailed')) {
+            this.formValidationFailed(validateResponse, changeset);
+          }
         }
-      });
-      changeset.validate().then(()=>{
-        this.submitAction(changeset);
-        // if(changeset.get("isValid")){
-        //   changeset.save().then(()=>{
-        //     // this.transitionToRoute('monsters.monster.show', this.get("model"));
-        //     // alert('Saved')
-            
-        //   });
-        // } else {
-        //   alert('Fix errors before saving')
-        //   this.submitAction(changeset);
-        // }
-      });
-      // return changeset.save();
-    },
-
-    validateAllFields: function() {
-      var formFields = this.get('formFields');
-      formFields.forEach(formField => {
-        this.send('validateProperty', this.get('changeset'), formField.fieldId, formField);
-        // if (!formField.get('validationRules')) { return; }
-        // // formField.set('error', validateField(formField));
-        // if (formField.get('error')) {
-        //   return;
-        // }
-        // var customValidationRule = formField.get('validationRules').find(rule => {
-        //   return rule.validationMethod === 'custom';
-        // });
-        // if (this.customValidations && customValidationRule) {
-        //   this.customValidations(formField, this.get('formFields'));
-        // }
       });
     },
 
@@ -289,33 +252,5 @@ export default Component.extend({
         });
       }
     }
-  },
-
-  // formValidates: function() {
-  //   var validationFields = this.get('formFields').filter(field => {
-  //     field.set('validationRules', field.get('validationRules') || []);
-  //     return field.validationRules.length > 0;
-  //   });
-  //   var allPassed = validationFields.every(field => {
-  //     var fieldRequired = field.validationRules.find(rule => {
-  //       return rule.validationMethod === 'required';
-  //     })
-  //     return field.get('error') === false || (!fieldRequired && !field.value) || field.get('hidden');
-  //   });
-  //   if (allPassed) {
-  //     return true;
-  //   }
-  //   return false;
-  // },
-
-  // generateValidationErrorMessage: function(validationRule) {
-  //   // Todo remove
-  //   var readablevalidationRule = validationRule.substring(2).replace(/([A-Z])/g, function(match) {
-  //      return "" + match;
-  //   });
-  //   if (readablevalidationRule !== readablevalidationRule.toUpperCase()) {
-  //     readablevalidationRule = readablevalidationRule.toLowerCase();
-  //   }
-  //   return readablevalidationRule;
-  // },
+  }
 });
