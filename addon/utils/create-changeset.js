@@ -1,6 +1,6 @@
 import objectFromPath from './object-from-path';
 
-export default function createChangeset(fields) {
+export default function createChangesetData(fields) {
   var changeset = {};
   if (!fields) { return changeset; }
   fields.forEach(field => {

@@ -63,6 +63,10 @@ export default Component.extend({
     }
   }),
 
+  validates: computed('fieldSchema', function() {
+    return (this.get('fieldSchema.validationRules') || []).length > 0;
+  }),
+
   actions: {
     validateProperty(changeset, property) {
       var formField = this.get('formField');

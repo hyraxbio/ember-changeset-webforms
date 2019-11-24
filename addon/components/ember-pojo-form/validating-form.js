@@ -1,7 +1,7 @@
 import Component from '@ember/component';
 import { computed } from '@ember/object';
 import generateEmberValidatingFormFields from '../../utils/generate-ember-validating-form-fields';
-import createChangeset from '../../utils/create-changeset';
+import createChangesetData from '../../utils/create-changeset';
 import createValidations from '../../utils/create-validations';
 import layout from '../../templates/components/ember-pojo-form/validating-form';
 import { inject as service } from '@ember/service';
@@ -13,34 +13,18 @@ export default Component.extend({
   emberPojoForms: service(),
   classNameBindings: ['validationFailed:validation-failed'],
   classNames: ['ember-pojo-form'],
-
-  // init() {
-  //   this._super(...arguments);
-  //   if (!this.get('changeset')) {
-  //     var props = this.get('props');
-  //     console.log(props);
-  //     var changesetObj;
-  //     if (props) {
-  //       changesetObj = props; // TODO This must still add any paths from fieldIds that are not in the props obj
-  //     } else {
-  //       changesetObj = createChangeset(this.get('formSchema.fields'));
-  //     }
-  //     var validationsMap = createValidations(this.get('formSchema.fields'), this.get('customValidators'));
-  //     this.changeset = new Changeset(changesetObj, lookupValidator(validationsMap), validationsMap, { skipValidate: true });
-  //   }
-  // },
-
-  changeset: computed('props', function() {
-    var props = this.get('props');
-    console.log(props);
-    var changesetObj;
-    if (props) {
-      changesetObj = props; // TODO This must still add any paths from fieldIds that are not in the props obj
+ 
+  changeset: computed('formSchema', function() {
+    var data = this.get('data');
+    var changesetData;
+    if (data) {
+      changesetData = data;
     } else {
-      changesetObj = createChangeset(this.get('formSchema.fields'));
+      changesetData = createChangesetData(this.get('formSchema.fields'));
     }
     var validationsMap = createValidations(this.get('formSchema.fields'), this.get('customValidators'));
-    return new Changeset(changesetObj, lookupValidator(validationsMap), validationsMap, { skipValidate: true });
+    var changeset = new Changeset(changesetData, lookupValidator(validationsMap), validationsMap, { skipValidate: true });
+    return changeset;
   }),
 
   formObject: computed('formSchema', 'settings', 'fields', function() {
@@ -129,56 +113,61 @@ export default Component.extend({
 
   actions: {
     customTransforms(fieldId, changeset) {
-       if (this.customTransforms) {
+       if (this.get('customTransforms')) {
         this.customTransforms(this.get('formFields'), fieldId, this.get('formMetaData'), changeset);
       }
     },
 
-    submit(changeset) {
-      changeset.validate().then(validateResponse => {
+    submit(changeset, modelName) {
+      var allowedFields = this.get('formFields').filter(field => {
+        return !field.hidden && field.fieldType;
+      }).map(allowedField => {
+        return allowedField.fieldId;
+      });
+      var validatePromises = allowedFields.map(allowedField => {
+        return changeset.validate(allowedField);
+      });
+      Promise.all(validatePromises).then(validateResponse => {
         if (changeset.isValid) {
+          changeset.cast(allowedFields);
           this.set("requestInFlight", true);
-          changeset.save().then(saveChangesetResponse => {
-            if (this.get('formValidationPassed')) {
-              this.formValidationPassed(changeset);
-            }
-            if (!changeset.data.save) {
-              // Login
-              if (this.get('submitAction')) {
-                this.submitAction(changeset.data, 'authorisation', changeset).then(submitActionResponse => {
-                  // Login success
-                  this.set("requestInFlight", false);
-                  if (this.get('saveSuccess')) {
-                    this.saveSuccess(submitActionResponse);
-                  }
-                }).catch(error => {
-                  // Login failed (incorrect creds)
-                  this.set("requestInFlight", false);
-                  if (this.get('saveFailed')) {
-                    this.saveFailed(error);
-                  }
-                });
-              }
-            } else {
-              // Edit account
+          if (this.get('submitAction')) {
+            // TODO this must first save the changeset.
+            this.submitAction(changeset.data, modelName, changeset).then(submitActionResponse => {
               this.set("requestInFlight", false);
               if (this.get('saveSuccess')) {
-                this.saveSuccess(saveChangesetResponse);
+                this.saveSuccess(submitActionResponse, this.get('formFields'), this.get('formMetaData'), changeset);
               }
-            }
-          }).catch(error => {
-            console.log('Edit account failed - 400');
-            changeset.rollback();
-            if (this.get('saveFailed')) {
-              this.saveFailed(error);
-            }
-            this.set("requestInFlight", false);
-          });
+              if (this.get('formMetaData.resetAfterSubmit')) {
+                changeset.rollback();
+              }
+            }).catch(error => {
+              this.set("requestInFlight", false);
+              if (this.get('saveFail')) {
+                this.saveFail(error, this.get('formFields'), this.get('formMetaData'), changeset);
+              }
+            });
+          } else {
+            changeset.save().then(saveChangesetResponse => {
+              this.set("requestInFlight", false);
+              if (this.get('saveSuccess')) {
+                this.saveSuccess(saveChangesetResponse, this.get('formFields'), this.get('formMetaData'), changeset);
+              }
+            }).catch(error => {
+              changeset.rollback();
+              if (this.get('saveFail')) {
+                this.saveFail(error, this.get('formFields'), this.get('formMetaData'), changeset);
+              }
+              this.set("requestInFlight", false);
+            });
+          }
         } else {
           if (this.get('formValidationFailed')) {
             this.formValidationFailed(validateResponse, changeset);
           }
         }
+      }).catch(err => {
+        console.log(err);
       });
     },
 
@@ -193,64 +182,5 @@ export default Component.extend({
         // this.afterReset(values, formFields, formMetaData); // TODO this must send the changeset
       } 
     },
-
-    submitSync(values, formFields, formMetaData) {
-      this.submitAction(values, formFields, formMetaData);
-      if (formMetaData.resetAfterSubmit === true) {
-        this.send('resetForm');
-      }
-    },
-
-    submitAsync(values, formFields, formMetaData) {
-      this.set("requestInFlight", true);
-      if (this.get('formMetaData.recordToUpdate')) {
-        var record = this.get('formMetaData.recordToUpdate');
-        formFields.forEach(function(formField) {
-          if (formField.fieldId && formField.fieldType !== 'staticContent') {
-            var property = formField.fieldId;
-            if (property.split('.').length > 1) {
-              var levels = property.split('.');
-              levels.forEach((_, index) => {
-                var thisLevelProp = levels.slice(0, index + 1).join('.');
-                if (!record.get(thisLevelProp)) {
-                  record.set(thisLevelProp, {});
-                }
-              });
-            }
-            // if (record.get(formField.fieldId)) { TODO replace with search for key in object.
-              record.set(formField.fieldId, formField.value);
-            // }
-          }
-        });
-        this.submitAction(record).then((response) => {
-          this.set("requestInFlight", false);
-          if (formMetaData.resetAfterSubmit === true) {
-            this.send('resetForm');
-          }
-          this.saveSuccess(response, formFields, formMetaData);
-        }).catch(error => {
-          this.set("requestInFlight", false);
-          //TODO test that this actually works.
-          record.rollbackAttributes();
-          if (this.get('saveFail')) {
-            this.saveFail(error, formFields);
-          }
-          
-        });
-      } else {
-        this.submitAction(values, formMetaData.modelName).then((response) => {
-          this.set("requestInFlight", false);
-          if (formMetaData.resetAfterSubmit === true) {
-            this.send('resetForm');
-          }
-          this.saveSuccess(response, formFields, formMetaData);
-        }).catch(error => {
-          this.set("requestInFlight", false);
-          if (this.get('saveFail')) {
-            this.saveFail(error, formFields);
-          }
-        });
-      }
-    }
   }
 });

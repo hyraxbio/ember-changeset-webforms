@@ -341,7 +341,7 @@ module('Integration | Component | validating-form', function(hooks) {
     await render(hbs`
     {{ember-pojo-form/validating-form 
       formSchema=formSchema 
-      props=model
+      data=model
       propsHash=(hash
         name=model.name
         info=(hash
@@ -370,7 +370,7 @@ module('Integration | Component | validating-form', function(hooks) {
     await render(hbs`
       {{ember-pojo-form/validating-form 
         formSchema=formSchema 
-        props=model
+        data=model
       }}`
     );
     assert.deepEqual(this.element.querySelector('[data-test-id="validating-field-name"] input').value, 'Lesley Knope', 'value from props hash is used as form field value instead of defaultValue of field, where both are present.');
@@ -384,7 +384,7 @@ module('Integration | Component | validating-form', function(hooks) {
     await render(hbs`
       {{ember-pojo-form/validating-form 
         formSchema=formSchema 
-        props=model
+        data=model
       }}`
     );
     assert.deepEqual(this.element.querySelector('[data-test-id="validating-field-name"] input').value, 'April Ludgate', 'The defaultValue from a field definition is applied when not overriden by a property in the props hash.');

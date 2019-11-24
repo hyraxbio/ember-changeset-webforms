@@ -9,8 +9,10 @@
   cursor: not-allowed;
 }
 
-.validates input {
-  padding-right: 36px;
+.validates {
+  input, .ember-power-select-trigger {
+    padding-right: 36px;
+  }
 }
 
 .ember-pojo-form-field {

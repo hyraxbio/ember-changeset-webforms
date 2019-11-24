@@ -112,7 +112,7 @@ This is how you would create something like an edit account form, where the user
     {{ember-pojo-form/validating-form
       formSchema=formSchema
       submitAction=(action submitAction)
-      props=model
+      data=model
     }}
 
 In the above case, the form will render with the value _**Little Sebastian**_ in the name field.
@@ -146,7 +146,7 @@ The `propsHash` property exists for the edge case in which you need to update a 
     {{ember-pojo-form/validating-form
       formSchema=formSchema
       submitAction=(action submitAction)
-      props=model
+      data=model
     }}
 
 If an action outside of the form replaces the `model` object entirely, the form will update accordingly. For example, the code below would update the value of the name field to _**Ron Swanson**_.
@@ -176,7 +176,7 @@ If you need to be able to update individual properties from outside the form, yo
     {{ember-pojo-form/validating-form
       formSchema=formSchema
       submitAction=(action submitAction)
-      props=model
+      data=model
       propHash=(
         name=model.name
       )
@@ -195,7 +195,7 @@ Note that `propsHash` can accept nested hashes.
     {{ember-pojo-form/validating-form
       formSchema=formSchema
       submitAction=(action submitAction)
-      props=model
+      data=model
       propHash=(
         name=model.name
         info=(hash 
