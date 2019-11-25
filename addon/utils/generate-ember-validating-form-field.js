@@ -2,17 +2,41 @@ import EmberObject from '@ember/object';
 
 export default function generateEmberValidatingFormField(field, index, formSchema, mode) {
   var fieldElementComponents = {
-    "button":           "ember-pojo-form/form-field-button",
-    "input":            "ember-pojo-form/form-field-input",
-    "textarea":         "ember-pojo-form/form-field-textarea",
-    "powerSelect":      "ember-pojo-form/form-field-power-select",
-    "powerDatePicker":  "ember-pojo-form/form-field-power-datepicker",
-    "singleCheckbox":   "ember-pojo-form/form-field-checkbox",
-    "radioButtonGroup": "ember-pojo-form/form-field-radio-button-group",
-    "checkboxGroup":    "ember-pojo-form/form-field-checkbox-group",
-    "staticContent":    "ember-pojo-form/form-field-static-content",
-    "dateRange":        "ember-pojo-form/form-field-date-range",
-    "tagSelector":      "ember-pojo-form/form-field-tag-selector",
+    input:            {
+      componentPath: 'ember-pojo-form/form-field-input'
+    },
+    textarea:         {
+      componentPath: 'ember-pojo-form/form-field-textarea'
+    },
+    powerSelect:      {
+      componentPath: 'ember-pojo-form/form-field-power-select'
+    },
+    powerDatePicker:  {
+      componentPath: 'ember-pojo-form/form-field-power-datepicker'
+    },
+    singleCheckbox:   {
+      componentPath: 'ember-pojo-form/form-field-checkbox'
+    },
+    radioButtonGroup: {
+      componentPath: 'ember-pojo-form/form-field-radio-button-group'
+    },
+    checkboxGroup:    {
+      componentPath: 'ember-pojo-form/form-field-checkbox-group',
+    },
+    dateRange:        {
+      componentPath: 'ember-pojo-form/form-field-date-range'
+    },
+    tagSelector:      {
+      componentPath: 'ember-pojo-form/form-field-tag-selector'
+    },
+    button:           {
+      componentPath: 'ember-pojo-form/form-field-button',
+      castOut: true
+    },
+    staticContent:    {
+      componentPath: 'ember-pojo-form/form-field-static-content',
+      castOut: true
+    }
   };
 
   if (!field.fieldId) {
@@ -31,10 +55,10 @@ export default function generateEmberValidatingFormField(field, index, formSchem
 
   var fieldObject = EmberObject.create(field);
 
-  if (field.fieldType === 'customComponent') {
-    fieldObject.component = field.componentPath;
-    return fieldObject;
-  }
+  // if (field.fieldType === 'customComponent') {
+  //   fieldObject.component = field.componentPath;
+  //   return fieldObject;
+  // }
 
   var required;
   if (field.validationRules) {
@@ -85,7 +109,8 @@ export default function generateEmberValidatingFormField(field, index, formSchem
   fieldObject.set('required', required);
   fieldObject.set('name', field.name || field.fieldId.replace(/\./g, '-'));
   fieldObject.set('placeholder', field.placeholder || field.fieldLabel);
-  fieldObject.set('component', fieldElementComponents[field.fieldType]);
+  fieldObject.set('component', field.componentPath || fieldElementComponents[field.fieldType].componentPath);
+  fieldObject.set('castOut', field.castOut || fieldElementComponents[field.fieldType].castOut);
   fieldObject.set('validates', validates);
   return fieldObject;
 }

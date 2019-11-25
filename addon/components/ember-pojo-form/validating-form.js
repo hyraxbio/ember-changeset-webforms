@@ -1,31 +1,17 @@
 import Component from '@ember/component';
 import { computed } from '@ember/object';
 import generateEmberValidatingFormFields from '../../utils/generate-ember-validating-form-fields';
-import createChangesetData from '../../utils/create-changeset';
-import createValidations from '../../utils/create-validations';
 import layout from '../../templates/components/ember-pojo-form/validating-form';
 import { inject as service } from '@ember/service';
-import Changeset from 'ember-changeset';
-import lookupValidator from 'ember-changeset-validations';
+import validateFields from '../../utils/validate-fields';
+import castAllowedFields from '../../utils/cast-allowed-fields';
+import createChangeset from '../../utils/create-changeset';
 
 export default Component.extend({
   layout,
   emberPojoForms: service(),
   classNameBindings: ['validationFailed:validation-failed'],
   classNames: ['ember-pojo-form'],
- 
-  changeset: computed('formSchema', function() {
-    var data = this.get('data');
-    var changesetData;
-    if (data) {
-      changesetData = data;
-    } else {
-      changesetData = createChangesetData(this.get('formSchema.fields'));
-    }
-    var validationsMap = createValidations(this.get('formSchema.fields'), this.get('customValidators'));
-    var changeset = new Changeset(changesetData, lookupValidator(validationsMap), validationsMap, { skipValidate: true });
-    return changeset;
-  }),
 
   formObject: computed('formSchema', 'settings', 'fields', function() {
     var formSchema;
@@ -39,6 +25,10 @@ export default Component.extend({
     }
     return generateEmberValidatingFormFields(formSchema);
   }),  
+
+  changeset: computed('formObject.formFields', function() {
+    return createChangeset(this.get('formObject.formFields'), this.get('data'), this.get('customValidators'));
+  }),
 
   formName: computed('formObject', function() {
     var formName = this.get('formObject.formMetaData.formName');
@@ -119,17 +109,9 @@ export default Component.extend({
     },
 
     submit(changeset, modelName) {
-      var allowedFields = this.get('formFields').filter(field => {
-        return !field.hidden && field.fieldType;
-      }).map(allowedField => {
-        return allowedField.fieldId;
-      });
-      var validatePromises = allowedFields.map(allowedField => {
-        return changeset.validate(allowedField);
-      });
-      Promise.all(validatePromises).then(validateResponse => {
+      validateFields(this.get('formFields'), changeset).then(validateResponse => {
         if (changeset.isValid) {
-          changeset.cast(allowedFields);
+          castAllowedFields(this.get('formFields'), changeset);
           this.set("requestInFlight", true);
           if (this.get('submitAction')) {
             // TODO this must first save the changeset.
@@ -139,7 +121,7 @@ export default Component.extend({
                 this.saveSuccess(submitActionResponse, this.get('formFields'), this.get('formMetaData'), changeset);
               }
               if (this.get('formMetaData.resetAfterSubmit')) {
-                changeset.rollback();
+                this.send('resetForm');
               }
             }).catch(error => {
               this.set("requestInFlight", false);
@@ -153,8 +135,10 @@ export default Component.extend({
               if (this.get('saveSuccess')) {
                 this.saveSuccess(saveChangesetResponse, this.get('formFields'), this.get('formMetaData'), changeset);
               }
+              if (this.get('formMetaData.resetAfterSubmit')) {
+                this.send('resetForm');
+              }
             }).catch(error => {
-              changeset.rollback();
               if (this.get('saveFail')) {
                 this.saveFail(error, this.get('formFields'), this.get('formMetaData'), changeset);
               }
@@ -171,16 +155,12 @@ export default Component.extend({
       });
     },
 
-    rollback(changeset) {
-      changeset.rollback();
-      var formFields = this.get('formFields');
-      formFields.setEach('wasValidated', null);
+    resetForm() {
+      this.set('formObject', generateEmberValidatingFormFields(this.get('formSchema')));
       if (this.afterReset) { 
-        // var formFields = this.get('formFields');
-        // var formMetaData = this.get('formMetaData');
-        // var values = generateFormValues(formFields);
-        // this.afterReset(values, formFields, formMetaData); // TODO this must send the changeset
+        this.afterReset(); // TODO this must send the changeset
       } 
-    },
+    }
+    
   }
 });

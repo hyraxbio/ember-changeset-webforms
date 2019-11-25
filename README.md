@@ -216,3 +216,17 @@ In this case `this.set('model.info.phone_number', '555')` will update the value 
 ### input
 
 `notrim` Input fields are trimmed by default, unless they are type `password`, or you set `notrim` to true. 
+
+## Additional
+
+Note `skipValidation` will skip validation even if rules are present. You would opnly use this to turn off validation based on some other state of the form- otherwise you would just not include any validation rules for the field.
+
+`castOut` invokes `changeset.cast`. Note that this will revert any changes in your form to the value that was first given to the changeset. Note the implications for pre loaded models, eg in an edit account form- castOut will not remove the field altogether, it will just revert the value to what was originally loaded. This is technically correct, because not submitting that field should leave it alone, rather than overwrite it with null.
+
+`validateFields` and `castAllowedFields` are utils that user can incoke for special cases.
+
+Note exactly how `customValidators` work.
+
+Test that resetting form works and allows subsequent form submission correctly.
+
+Note `notrim` in docs.
