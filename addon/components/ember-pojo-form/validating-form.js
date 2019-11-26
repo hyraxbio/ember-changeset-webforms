@@ -35,7 +35,8 @@ export default Component.extend({
     if (!formName) {
       throw Error(`Your form schema must have a formName property.`);
     }
-    if (!validator.isAlphanumeric(formName)) {
+
+    if (formName.match(/[^a-z0-9]/gi,'')) {
       throw Error(`The formName property in your form schema may only contain alphanumeric characters.`);
     }
     return formName;
