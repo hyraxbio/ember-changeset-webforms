@@ -1,23 +1,32 @@
 {{#if (and changeset (not formField.hidden))}}
-  {{#if (or (eq formField.fieldType "input") (eq formField.fieldType "textarea")) }}
-    {{component formField.component
-      formField=formField
-      inputIcon=inputIcon
-      onFocusOut=(action "onFocusOut")
-      onFocusIn=(action "onFocusIn")
-      onKeyUp=(action "onKeyUp")
-      changeset=changeset
-      displayValidation=displayValidation
-      displayValue=(changeset-get changeset formField.fieldId)
-    }}
-  {{else}}
-    {{component formField.component
-      formField=formField
-      inputIcon=inputIcon
-      onUserInteraction=(action "onUserInteraction")
-      changeset=changeset
-      displayValidation=displayValidation
-      displayValue=(changeset-get changeset formField.fieldId)
-    }}
-  {{/if}}
+  {{#ember-pojo-form/validating-form-field-wrapper 
+    formField=formField
+    displayValidation=displayValidation
+    readonly=readonly
+    validates=validates
+    typeClass=typeClass
+    parsedDataTestId=parsedDataTestId
+  }}
+    {{#if (or (eq formField.fieldType "input") (eq formField.fieldType "textarea")) }}
+      {{component formField.component
+        formField=formField
+        inputIcon=inputIcon
+        onFocusOut=(action "onFocusOut")
+        onFocusIn=(action "onFocusIn")
+        onKeyUp=(action "onKeyUp")
+        changeset=changeset
+        displayValidation=displayValidation
+        displayValue=(changeset-get changeset formField.fieldId)
+      }}
+    {{else}}
+      {{component formField.component
+        formField=formField
+        inputIcon=inputIcon
+        onUserInteraction=(action "onUserInteraction")
+        changeset=changeset
+        displayValidation=displayValidation
+        displayValue=(changeset-get changeset formField.fieldId)
+      }}
+    {{/if}}
+  {{/ember-pojo-form/validating-form-field-wrapper}}
 {{/if}}

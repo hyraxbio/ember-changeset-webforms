@@ -230,3 +230,5 @@ Note exactly how `customValidators` work.
 Test that resetting form works and allows subsequent form submission correctly.
 
 Note `notrim` in docs.
+
+Note `dataTestId` for form fields. First takes `dataTestId` in template, then `formField.dataTestId`, then combines `validating-form-` with `formField,fieldId`.

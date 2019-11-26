@@ -9,10 +9,25 @@ import createValidations from '../../utils/create-validations';
 
 export default Component.extend({
   layout,
-  classNames: ["ember-pojo-form-field"],
-  classNameBindings: ["displayValidation", "formField.required:required", "disabled:disabled", "readonly:readonly", "formField.fieldClass", 'formField.hideSuccessValidation:hide-success-validation', 'validates:validates', 'typeClass', 'formField.focussed:focussed'],
-  attributeBindings: ["data-test-id", "data-test-validation-field"],
+  tagName: '',
+  // classNames: ['ember-pojo-form-field'],
+  // classNameBindings: ['displayValidation', 'formField.required:required', 'disabled:disabled', 'readonly:readonly', 'formField.fieldClass', 'formField.hideSuccessValidation:hide-success-validation', 'validates:validates', 'typeClass', 'formField.focussed:focussed'],
+  // attributeBindings: ['parsedDataTestId:data-test-id', 'data-test-validation-field'],
  
+  // dynamicClasses: computed('displayValidation', 'disabled:disabled', 'readonly:readonly', 'validates:validates', 'typeClass', 'formField.{required:required,fieldClass,hideSuccessValidation:hide-success-validation,focussed:focussed}', function() {
+  //   var classesArray = [
+  //     'displayValidation',
+  //     'formField.required:required',
+  //     'disabled:disabled',
+  //     'readonly:readonly',
+  //     'formField.fieldClass',
+  //     'formField.hideSuccessValidation:hide-success-validation',
+  //     'validates:validates',
+  //     'typeClass',
+  //     'formField.focussed:focussed'
+  //   ];
+  // }),
+
   didInsertElement: function() {
     //Code below will maintain validation colours when component is re-rendered.
     var formField = this.get('formField');
@@ -33,6 +48,10 @@ export default Component.extend({
     }
   },
 
+  parsedDataTestId: computed('dataTestId', function() {
+    return this.get('dataTestId') || this.get('formField.dataTestId') || `validating-field-${this.get('formField.fieldId')}`;
+  }),
+
   typeClass: computed('formField.fieldType', function() {
     var myStr = this.get('formField.fieldType');
     myStr = myStr.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
@@ -41,6 +60,7 @@ export default Component.extend({
 
   displayValidation: computed('changeset.error', 'formField.{focussed,wasValidated}', function() {
     var formField = this.get('formField');
+    if (!formField) { return; }
     var fieldValidationEvents = formField.get('validationEvents') || [];
     if (fieldValidationEvents.indexOf('keyUp') < 0 && formField.get('focussed')) {
       return;
@@ -70,9 +90,12 @@ export default Component.extend({
   actions: {
     validateProperty(changeset, property) {
       var formField = this.get('formField');
-      if (!formField.validates) { return; }
+      // if (!formField.validates) { return; }
+      changeset.validate(property);
       this.set('formField.wasValidated', true);
-      return changeset.validate(property);
+      if (this.get('afterValidation')) {
+        this.afterValidation(formField, changeset);
+      }
     },
 
     onUserInteraction: function(value) {
@@ -83,7 +106,7 @@ export default Component.extend({
       this.send('validateProperty', this.get('changeset'), this.get('formField.fieldId'));
       var formField = this.get('formField');
       formField.set('focussed', false);
-      if (value && !formField.get("notrim") && formField.get('inputType') !== 'password') {
+      if (value && !formField.get('notrim') && formField.get('inputType') !== 'password') {
         value = value.trim();
       }
       this.send('setFieldValue', value);
