@@ -7,7 +7,6 @@ module.exports = function(defaults) {
     // Add options here
     snippetPaths: ['tests/dummy/app/templates/snippets']
   });
-  app.import('bower_components/validator-js/validator.js');
 
   /*
     This build file specifies the options for the dummy test app of this

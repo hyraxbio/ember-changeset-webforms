@@ -1,8 +1,7 @@
 module.exports = {
   globals: {
     server: true,
-    moment: true,
-    validator: true
+    moment: true
   },
   root: true,
   parserOptions: {
