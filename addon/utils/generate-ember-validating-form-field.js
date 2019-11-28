@@ -101,6 +101,11 @@ export default function generateEmberValidatingFormField(field, index, formSchem
     fieldObject.set('inputType', 'text');
   }
 
+  if (field.clonable) {
+    fieldObject.set('cloneGroupName', field.fieldId);
+    fieldObject.set('cloneGroupNumber', 0);
+  }
+
   var validationRules = field.validationRules || [];
   var validates = validationRules.length > 0 ? true : false;
 
@@ -112,5 +117,6 @@ export default function generateEmberValidatingFormField(field, index, formSchem
   fieldObject.set('component', field.componentPath || fieldElementComponents[field.fieldType].componentPath);
   fieldObject.set('castOut', field.castOut || fieldElementComponents[field.fieldType].castOut);
   fieldObject.set('validates', validates);
+  
   return fieldObject;
 }

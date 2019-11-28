@@ -6,6 +6,7 @@ import { inject as service } from '@ember/service';
 import validateFields from '../../utils/validate-fields';
 import castAllowedFields from '../../utils/cast-allowed-fields';
 import createChangeset from '../../utils/create-changeset';
+import generateEmberValidatingFormField from '../../utils/generate-ember-validating-form-field';
 
 export default Component.extend({
   layout,
@@ -26,7 +27,8 @@ export default Component.extend({
     return generateEmberValidatingFormFields(formSchema);
   }),  
 
-  changeset: computed('formObject.formFields', function() {
+  changeset: computed('formObject.{formFields}', function() {
+    console.log('changeset');
     return createChangeset(this.get('formObject.formFields'), this.get('data'), this.get('customValidators'));
   }),
 
@@ -51,7 +53,8 @@ export default Component.extend({
     }
   }),
 
-  formFields: computed('formObject', 'formName', function() {
+  formFields: computed('formObject', 'formObject.formFields', 'formName', function() {
+    console.log('formFields');
     var storedformObject = this.get(`storageService.${this.get('formName')}`);
     if (storedformObject) {
       return storedformObject.formFields;
@@ -103,6 +106,52 @@ export default Component.extend({
   },
 
   actions: {
+    cloneField(cloneGroupName) {
+      var fieldObjects = this.get('formObject.formFields');
+      var previouslyValidated = fieldObjects.filter(field => {
+        return field.wasValidated;
+      }).map(item => {
+        return item.fieldId;
+      });
+      var originalField = this.get('formSchema.fields').find((field, index) => {
+        return field.fieldId === cloneGroupName;
+      });
+
+      var newField = generateEmberValidatingFormField(originalField);
+      var cloneGroup = fieldObjects.filter(fieldObject => {
+        return fieldObject.cloneGroupName === newField.cloneGroupName;
+      });
+      cloneGroup.setEach('lastClone', false);
+      var lastCloneInView = cloneGroup[cloneGroup.length - 1];
+      var lastCloneInViewIndex = this.get('formObject.formFields').indexOf(lastCloneInView);
+      var sortedCloneGroup = cloneGroup.sort((a, b) => {
+        return b.cloneGroupNumber - a.cloneGroupNumber;
+      });
+      
+
+      newField.set('cloneGroupNumber', sortedCloneGroup[0].cloneGroupNumber + 1);
+      newField.set('fieldId', `${newField.fieldId}-${newField.cloneGroupNumber}`);
+
+      this.get('changeset').save().then(result => {
+        this.set('data', result.data);
+        // this.get('formObject.formFields').pushObject(newField);
+        var test = [
+          // part of the array before the specified index
+          ...this.get('formObject.formFields').slice(0, lastCloneInViewIndex),
+          // inserted items
+          newField,
+          // part of the array after the specified index
+          ...this.get('formObject.formFields').slice(lastCloneInViewIndex)
+        ];
+        console.log(test);
+        this.set('formObject.formFields', test);
+        // console.log(this.get('formObject.formFields'));
+        previouslyValidated.forEach(item => {
+          this.get('changeset').validate(item);
+        });
+      });
+    },
+
     customTransforms(fieldId, changeset) {
        if (this.get('customTransforms')) {
         this.customTransforms(this.get('formFields'), fieldId, this.get('formMetaData'), changeset);
@@ -121,8 +170,9 @@ export default Component.extend({
               if (this.get('saveSuccess')) {
                 this.saveSuccess(submitActionResponse, this.get('formFields'), this.get('formMetaData'), changeset);
               }
+              console.log(this.get('formMetaData'));
               if (this.get('formMetaData.resetAfterSubmit')) {
-                this.send('resetForm');
+                // this.send('resetForm');
               }
             }).catch(error => {
               this.set("requestInFlight", false);

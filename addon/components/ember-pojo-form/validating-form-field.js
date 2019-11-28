@@ -2,39 +2,17 @@ import Component from '@ember/component';
 import { computed } from '@ember/object';
 import generateEmberValidatingFormField from '../../utils/generate-ember-validating-form-field';
 import layout from '../../templates/components/ember-pojo-form/validating-form-field';
-import Changeset from 'ember-changeset';
-import lookupValidator from 'ember-changeset-validations';
 import createChangeset from '../../utils/create-changeset';
-import createValidations from '../../utils/create-validations';
 
 export default Component.extend({
   layout,
   tagName: '',
-  // classNames: ['ember-pojo-form-field'],
-  // classNameBindings: ['displayValidation', 'formField.required:required', 'disabled:disabled', 'readonly:readonly', 'formField.fieldClass', 'formField.hideSuccessValidation:hide-success-validation', 'validates:validates', 'typeClass', 'formField.focussed:focussed'],
-  // attributeBindings: ['parsedDataTestId:data-test-id', 'data-test-validation-field'],
- 
-  // dynamicClasses: computed('displayValidation', 'disabled:disabled', 'readonly:readonly', 'validates:validates', 'typeClass', 'formField.{required:required,fieldClass,hideSuccessValidation:hide-success-validation,focussed:focussed}', function() {
-  //   var classesArray = [
-  //     'displayValidation',
-  //     'formField.required:required',
-  //     'disabled:disabled',
-  //     'readonly:readonly',
-  //     'formField.fieldClass',
-  //     'formField.hideSuccessValidation:hide-success-validation',
-  //     'validates:validates',
-  //     'typeClass',
-  //     'formField.focussed:focussed'
-  //   ];
-  // }),
 
   didInsertElement: function() {
     //Code below will maintain validation colours when component is re-rendered.
     var formField = this.get('formField');
     if (!this.get('changeset')) {
-      var changesetObj = createChangeset([formField]);
-      var validationsMap = createValidations([formField], this.get('customValidators'));
-      this.set('changeset', new Changeset(changesetObj, lookupValidator(validationsMap), validationsMap, { skipValidate: true }));
+      this.set('changeset', createChangeset([this.get('formField')], this.get('data'), this.get('customValidators')));
     }
 
     var validateOnInsert;
@@ -132,7 +110,7 @@ export default Component.extend({
         }
       }
       if (this.afterKeyUpAction) {
-        this.afterKeyUpAction(value, event, formField);
+        this.afterKeyUpAction(value, event, formField, this.get('changeset'));
       }
     },
 

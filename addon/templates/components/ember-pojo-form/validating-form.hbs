@@ -1,6 +1,7 @@
 <form {{action "submit" on="submit"}} data-test-id="validating-form" class={{formValidationClass}} novalidate={{emberPojoForms.settings.novalidate}}>
   <div class="form-section form-fields">
     {{#each formFields as |formField|}}
+    {{formField.fieldId}}
       {{ember-pojo-form/validating-form-field
         data-test-validating-field
         formField=formField
@@ -10,6 +11,9 @@
         data-test-id=(concat "validating-field-" formField.fieldId)
         changeset=changeset
       }}
+      {{#if (and formField.clonable)}}
+        <button class="btn btn-outline-primary margin-bottom-lg" {{action "cloneField" formField.cloneGroupName}} data-test-id="add-invitation">{{svg-repo/icons/icon-plus}}{{or formField.cloneButtonText (concat "New " formField.fieldId " field")}}</button>
+      {{/if}}
     {{/each}}
   </div>
   {{yield}}
@@ -22,3 +26,7 @@
     {{/if}}
   </div>
 </form>
+{{changeset.invitation}}
+{{changeset.invitation-1}}
+{{changeset.invitation-2}}
+{{changeset.invitation-3}}
