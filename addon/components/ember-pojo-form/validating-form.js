@@ -134,7 +134,6 @@ export default Component.extend({
       var cloneGroup = fieldObjects.filter(fieldObject => {
         return fieldObject.cloneGroupName === newField.cloneGroupName;
       });
-      cloneGroup.setEach('lastClone', false);
       var lastCloneInView = cloneGroup[cloneGroup.length - 1];
       var lastCloneInViewIndex = this.get('formObject.formFields').indexOf(lastCloneInView);
       var sortedCloneGroup = cloneGroup.sort((a, b) => {
@@ -142,7 +141,32 @@ export default Component.extend({
       });
       newField.set('cloneGroupNumber', sortedCloneGroup[0].cloneGroupNumber + 1);
       newField.set('fieldId', `${newField.fieldId}-${newField.cloneGroupNumber + 1}`);
-      this.set('formObject.formFields', [ ...this.get('formObject.formFields').slice(0, lastCloneInViewIndex), newField, ...this.get('formObject.formFields').slice(lastCloneInViewIndex)]);
+      newField.set('isClone', true);
+      this.set('formObject.formFields', [ ...this.get('formObject.formFields').slice(0, lastCloneInViewIndex +1), newField, ...this.get('formObject.formFields').slice(lastCloneInViewIndex+1)]);
+      this.send('checkCloneMax', cloneGroupName);
+    },
+
+    removeClone(formField, changeset, formFields) {
+      formFields.removeObject(formField);
+      this.send('checkCloneMax', formField.cloneGroupName);
+    },
+
+    checkCloneMax(cloneGroupName) {
+      console.log(cloneGroupName);
+      var fieldObjects = this.get('formObject.formFields');
+      var maxClones = this.get('formSchema.fields').find((field, index) => {
+        return field.fieldId === cloneGroupName;
+      }).maxClones;
+      var cloneGroup = fieldObjects.filter(fieldObject => {
+        return fieldObject.cloneGroupName === cloneGroupName;
+      });
+      cloneGroup.setEach('lastClone', false);
+      cloneGroup[cloneGroup.length - 1].set('lastClone', true);
+      if (cloneGroup.length - 1 === maxClones) {
+        cloneGroup.setEach('maxClonesPresent', true);
+      } else {
+        cloneGroup.setEach('maxClonesPresent', false);
+      }
     },
 
     customTransforms(fieldId, changeset) {
@@ -163,9 +187,8 @@ export default Component.extend({
               if (this.get('saveSuccess')) {
                 this.saveSuccess(submitActionResponse, this.get('formFields'), this.get('formMetaData'), changeset);
               }
-              console.log(this.get('formMetaData'));
               if (this.get('formMetaData.resetAfterSubmit')) {
-                // this.send('resetForm');
+                // this.send('resetForm'); //TODO does this need to be uncommented?
               }
             }).catch(error => {
               this.set("requestInFlight", false);
