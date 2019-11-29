@@ -1,27 +1,17 @@
 <form {{action "submit" on="submit"}} data-test-id="validating-form" class={{formValidationClass}} novalidate={{emberPojoForms.settings.novalidate}}>
   <div class="form-section form-fields">
     {{#each formFields as |formField|}}
-    <p>{{formField.fieldId}}</p>
       {{ember-pojo-form/validating-form-field
         data-test-validating-field
         formField=formField
         customTransforms=(action "customTransforms")
+        cloneField=(action "cloneField")
+        removeClone=(action "removeClone")
         afterKeyUpAction=afterKeyUpAction
         afterValidationAction=afterValidationAction
         data-test-id=(concat "validating-field-" formField.fieldId)
         changeset=changeset
       }}
-      {{#if formField.isClone}}
-        <button class="btn-content" type="button" onclick={{action "removeClone" formField changeset formFields}} data-test-class="remove-clone">{{svg-repo/icons/icon-trash class="fill-danger"}}Remove Clone</button>
-      {{/if}}
-      {{#if formField.lastClone}}
-        {{#if formField.maxClonesPresent}}
-            Max clones reached.
-        {{else}}
-           <button class="btn btn-outline-primary margin-bottom-lg" type="button" onclick={{action "cloneField" formField.cloneGroupName}} data-test-id="add-invitation">{{svg-repo/icons/icon-plus}}{{or formField.cloneButtonText (concat "New " formField.fieldId " field")}}</button>
-        {{/if}}
-       
-      {{/if}}
     {{/each}}
   </div>
   {{yield}}
@@ -34,9 +24,3 @@
     {{/if}}
   </div>
 </form>
-{{emberPojoForms.settings.novalidate}}
-{{changeset.foo}}<br>
-{{changeset.invitation}}<br>
-{{changeset.invitation-1}}<br>
-{{changeset.invitation-2}}<br>
-{{changeset.invitation-3}}

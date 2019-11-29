@@ -10,7 +10,7 @@ export default function createValidations(fields, customValidators = {}) {
   clonableFields.forEach(clonableField => {
     clonableField.maxClones = clonableField.maxClones || 100; // TODO global max setting in the service.
     var array = [];
-    for (var i = 1; i <= clonableField.maxClones; i++) {
+    for (var i = 0; i <= clonableField.maxClones; i++) {
       array.push(i);
     }
     clonedFields = clonedFields.concat(array.map(item => {

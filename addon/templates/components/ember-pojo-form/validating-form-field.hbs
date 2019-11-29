@@ -7,6 +7,11 @@
     typeClass=typeClass
     parsedDataTestId=parsedDataTestId
   }}
+    {{#if formField.isClone}}
+    {{formField.fieldId}}<br>
+
+      <button class="btn-danger" type="button" onclick={{action removeClone formField changeset formFields}} data-test-class="remove-clone">{{svg-repo/icons/icon-trash class="fill-danger"}}Remove {{formField.fieldId}}</button>
+    {{/if}}
     {{#if (or (eq formField.fieldType "input") (eq formField.fieldType "textarea")) }}
       {{component formField.component
         formField=formField
@@ -27,6 +32,13 @@
         displayValidation=displayValidation
         displayValue=(changeset-get changeset formField.fieldId)
       }}
+    {{/if}}
+    {{#if formField.lastClone}}
+      {{#if formField.maxClonesPresent}}
+          Max clones reached.
+      {{else}}
+        <button class="btn btn-outline-primary margin-bottom-lg" type="button" onclick={{action cloneField formField.cloneGroupName}} data-test-id="add-invitation">{{svg-repo/icons/icon-plus}}{{or formField.cloneButtonText (concat "New " formField.fieldId " field")}}</button>
+      {{/if}}
     {{/if}}
   {{/ember-pojo-form/validating-form-field-wrapper}}
 {{/if}}

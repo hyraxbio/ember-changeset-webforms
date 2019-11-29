@@ -15,22 +15,7 @@ export default Component.extend({
   classNames: ['ember-pojo-form'],
 
   
-  didInsertElement() {
-    var formSchema;
-    console.log(this.get('formSchema'));
-    if (this.get('formSchema')) {
-      formSchema = this.get('formSchema');
-    } else if (this.get('settings')) {
-      formSchema = {
-        settings: this.get('settings'),
-        fields: this.get('fields')
-      };
-    }
-    this.set('formObject', generateEmberValidatingFormFields(formSchema));
-    this.set('changeset', createChangeset(this.get('formObject.formFields'), this.get('data'), this.get('customValidators')));
-  },
-
-  // formObject: computed('formSchema', 'settings', 'fields', function() {
+  // didInsertElement() {
   //   var formSchema;
   //   if (this.get('formSchema')) {
   //     formSchema = this.get('formSchema');
@@ -40,12 +25,26 @@ export default Component.extend({
   //       fields: this.get('fields')
   //     };
   //   }
-  //   return generateEmberValidatingFormFields(formSchema);
-  // }),  
+  //   this.set('formObject', generateEmberValidatingFormFields(formSchema));
+  //   // this.set('changeset', createChangeset(this.get('formObject.formFields'), this.get('data'), this.get('customValidators')));
+  // },
 
-  // changeset: computed('formObject.{formFields}', function() {
-  //   return createChangeset(this.get('formObject.formFields'), this.get('data'), this.get('customValidators'));
-  // }),
+  formObject: computed('formSchema', 'settings', 'fields', function() {
+    var formSchema;
+    if (this.get('formSchema')) {
+      formSchema = this.get('formSchema');
+    } else if (this.get('settings')) {
+      formSchema = {
+        settings: this.get('settings'),
+        fields: this.get('fields')
+      };
+    }
+    return generateEmberValidatingFormFields(formSchema);
+  }),  
+
+  changeset: computed('formSchema.fields', function() {
+    return createChangeset(this.get('formSchema.fields'), this.get('data'), this.get('customValidators'));
+  }),
 
   // formName: computed('formObject', function() {
   //   var formName = this.get('formObject.formMetaData.formName');
@@ -126,46 +125,44 @@ export default Component.extend({
 
   actions: {
     cloneField(cloneGroupName) {
-      var fieldObjects = this.get('formObject.formFields');
+      if (this.cloneGroupVisible(cloneGroupName).length >= this.maxAllowedClones(cloneGroupName)) { return; }
       var originalField = this.get('formSchema.fields').find((field, index) => {
         return field.fieldId === cloneGroupName;
       });
       var newField = generateEmberValidatingFormField(originalField);
-      var cloneGroup = fieldObjects.filter(fieldObject => {
-        return fieldObject.cloneGroupName === newField.cloneGroupName;
-      });
-      var lastCloneInView = cloneGroup[cloneGroup.length - 1];
+      var lastCloneInView = this.cloneGroup(cloneGroupName)[this.cloneGroup(cloneGroupName).length - 1];
       var lastCloneInViewIndex = this.get('formObject.formFields').indexOf(lastCloneInView);
-      var sortedCloneGroup = cloneGroup.sort((a, b) => {
-        return b.cloneGroupNumber - a.cloneGroupNumber;
-      });
-      newField.set('cloneGroupNumber', sortedCloneGroup[0].cloneGroupNumber + 1);
-      newField.set('fieldId', `${newField.fieldId}-${newField.cloneGroupNumber + 1}`);
-      newField.set('isClone', true);
-      this.set('formObject.formFields', [ ...this.get('formObject.formFields').slice(0, lastCloneInViewIndex +1), newField, ...this.get('formObject.formFields').slice(lastCloneInViewIndex+1)]);
+      if (this.cloneGroupHidden(cloneGroupName).length > 0) {
+        var firstHiddenField = this.cloneGroupHidden(cloneGroupName)[0];
+        firstHiddenField.set('hidden', false);
+        var firstHiddenFieldIndex = this.get('formObject.formFields').indexOf(firstHiddenField);
+        // Reconstruct formFields with the field that has just been un-hidden moved to the end of this clone group.
+        this.set('formObject.formFields', [ ...this.get('formObject.formFields').slice(0, firstHiddenFieldIndex), ...this.get('formObject.formFields').slice(firstHiddenFieldIndex + 1, lastCloneInViewIndex +1), firstHiddenField, ...this.get('formObject.formFields').slice(lastCloneInViewIndex+1)]);
+      } else {
+        var newFieldCloneNumber = this.cloneGroup(cloneGroupName).sort((a, b) => {
+          return b.cloneGroupNumber - a.cloneGroupNumber;
+        })[0].cloneGroupNumber + 1;
+        newField.set('cloneGroupNumber', newFieldCloneNumber);
+        newField.set('fieldId', `${originalField.fieldId}-${newFieldCloneNumber}`);
+        newField.set('isClone', true);
+        // Reconstruct formFields with the newly geerated field at the end of this clone group.
+        this.set('formObject.formFields', [ ...this.get('formObject.formFields').slice(0, lastCloneInViewIndex +1), newField, ...this.get('formObject.formFields').slice(lastCloneInViewIndex+1)]);
+      } 
       this.send('checkCloneMax', cloneGroupName);
     },
 
     removeClone(formField, changeset, formFields) {
-      formFields.removeObject(formField);
+      formField.set('hidden', true);
       this.send('checkCloneMax', formField.cloneGroupName);
     },
 
     checkCloneMax(cloneGroupName) {
-      console.log(cloneGroupName);
-      var fieldObjects = this.get('formObject.formFields');
-      var maxClones = this.get('formSchema.fields').find((field, index) => {
-        return field.fieldId === cloneGroupName;
-      }).maxClones;
-      var cloneGroup = fieldObjects.filter(fieldObject => {
-        return fieldObject.cloneGroupName === cloneGroupName;
-      });
-      cloneGroup.setEach('lastClone', false);
-      cloneGroup[cloneGroup.length - 1].set('lastClone', true);
-      if (cloneGroup.length - 1 === maxClones) {
-        cloneGroup.setEach('maxClonesPresent', true);
+      this.cloneGroup(cloneGroupName).setEach('lastClone', false);
+      this.cloneGroupVisible(cloneGroupName)[this.cloneGroupVisible(cloneGroupName).length - 1].set('lastClone', true);
+      if (this.cloneGroupVisible(cloneGroupName).length >= this.maxAllowedClones(cloneGroupName)) {
+        this.cloneGroup(cloneGroupName).setEach('maxClonesPresent', true);
       } else {
-        cloneGroup.setEach('maxClonesPresent', false);
+        this.cloneGroup(cloneGroupName).setEach('maxClonesPresent', false);
       }
     },
 
@@ -229,5 +226,34 @@ export default Component.extend({
       } 
     }
     
+  },
+
+  cloneGroup(cloneGroupName) {
+    var fieldObjects = this.get('formObject.formFields');
+    return fieldObjects.filter(fieldObject => {
+      return fieldObject.cloneGroupName === cloneGroupName;
+    });
+  },
+
+  cloneGroupVisible(cloneGroupName) {
+    return this.cloneGroup(cloneGroupName).filter(field => {
+      return !field.hidden;
+    });
+  },
+
+  cloneGroupLength(cloneGroupName) {
+    return this.cloneGroup(cloneGroupName).length;
+  },
+
+  cloneGroupHidden(cloneGroupName) {
+    return this.cloneGroup(cloneGroupName).filter(field => {
+      return field.hidden;
+    });
+  },
+
+  maxAllowedClones(cloneGroupName) {
+    return this.get('formSchema.fields').find((field) => {
+      return field.fieldId === cloneGroupName;
+    }).maxClones;
   }
 });
