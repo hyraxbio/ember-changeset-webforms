@@ -14,8 +14,10 @@ export default Component.extend({
   classNameBindings: ['validationFailed:validation-failed'],
   classNames: ['ember-pojo-form'],
 
-  formObject: computed('formSchema', 'settings', 'fields', function() {
+  
+  didInsertElement() {
     var formSchema;
+    console.log(this.get('formSchema'));
     if (this.get('formSchema')) {
       formSchema = this.get('formSchema');
     } else if (this.get('settings')) {
@@ -24,37 +26,54 @@ export default Component.extend({
         fields: this.get('fields')
       };
     }
-    return generateEmberValidatingFormFields(formSchema);
-  }),  
+    this.set('formObject', generateEmberValidatingFormFields(formSchema));
+    this.set('changeset', createChangeset(this.get('formObject.formFields'), this.get('data'), this.get('customValidators')));
+  },
 
-  changeset: computed('formObject.{formFields}', function() {
-    console.log('changeset');
-    return createChangeset(this.get('formObject.formFields'), this.get('data'), this.get('customValidators'));
+  // formObject: computed('formSchema', 'settings', 'fields', function() {
+  //   var formSchema;
+  //   if (this.get('formSchema')) {
+  //     formSchema = this.get('formSchema');
+  //   } else if (this.get('settings')) {
+  //     formSchema = {
+  //       settings: this.get('settings'),
+  //       fields: this.get('fields')
+  //     };
+  //   }
+  //   return generateEmberValidatingFormFields(formSchema);
+  // }),  
+
+  // changeset: computed('formObject.{formFields}', function() {
+  //   return createChangeset(this.get('formObject.formFields'), this.get('data'), this.get('customValidators'));
+  // }),
+
+  // formName: computed('formObject', function() {
+  //   var formName = this.get('formObject.formMetaData.formName');
+  //   if (!formName) {
+  //     throw Error(`Your form schema must have a formName property.`);
+  //   }
+
+  //   if (formName.match(/[^a-z0-9]/gi,'')) {
+  //     throw Error(`The formName property in your form schema may only contain alphanumeric characters.`);
+  //   }
+  //   return formName;
+  // }),
+
+  // formMetaData: computed('formObject', 'formName', function() {
+  //   var storedformObject = this.get(`storageService.${this.get('formName')}`);
+  //   if (storedformObject) {
+  //     return storedformObject.formMetaData;
+  //   } else {
+  //     return this.get('formObject.formMetaData');
+  //   }
+  // }),
+
+  formMetaData: computed('formObject', function() {
+    return this.get('formObject.formMetaData');
+
   }),
-
-  formName: computed('formObject', function() {
-    var formName = this.get('formObject.formMetaData.formName');
-    if (!formName) {
-      throw Error(`Your form schema must have a formName property.`);
-    }
-
-    if (formName.match(/[^a-z0-9]/gi,'')) {
-      throw Error(`The formName property in your form schema may only contain alphanumeric characters.`);
-    }
-    return formName;
-  }),
-
-  formMetaData: computed('formObject', 'formName', function() {
-    var storedformObject = this.get(`storageService.${this.get('formName')}`);
-    if (storedformObject) {
-      return storedformObject.formMetaData;
-    } else {
-      return this.get('formObject.formMetaData');
-    }
-  }),
-
+  
   formFields: computed('formObject', 'formObject.formFields', 'formName', function() {
-    console.log('formFields');
     var storedformObject = this.get(`storageService.${this.get('formName')}`);
     if (storedformObject) {
       return storedformObject.formFields;
@@ -108,15 +127,9 @@ export default Component.extend({
   actions: {
     cloneField(cloneGroupName) {
       var fieldObjects = this.get('formObject.formFields');
-      var previouslyValidated = fieldObjects.filter(field => {
-        return field.wasValidated;
-      }).map(item => {
-        return item.fieldId;
-      });
       var originalField = this.get('formSchema.fields').find((field, index) => {
         return field.fieldId === cloneGroupName;
       });
-
       var newField = generateEmberValidatingFormField(originalField);
       var cloneGroup = fieldObjects.filter(fieldObject => {
         return fieldObject.cloneGroupName === newField.cloneGroupName;
@@ -127,29 +140,9 @@ export default Component.extend({
       var sortedCloneGroup = cloneGroup.sort((a, b) => {
         return b.cloneGroupNumber - a.cloneGroupNumber;
       });
-      
-
       newField.set('cloneGroupNumber', sortedCloneGroup[0].cloneGroupNumber + 1);
-      newField.set('fieldId', `${newField.fieldId}-${newField.cloneGroupNumber}`);
-
-      this.get('changeset').save().then(result => {
-        this.set('data', result.data);
-        // this.get('formObject.formFields').pushObject(newField);
-        var test = [
-          // part of the array before the specified index
-          ...this.get('formObject.formFields').slice(0, lastCloneInViewIndex),
-          // inserted items
-          newField,
-          // part of the array after the specified index
-          ...this.get('formObject.formFields').slice(lastCloneInViewIndex)
-        ];
-        console.log(test);
-        this.set('formObject.formFields', test);
-        // console.log(this.get('formObject.formFields'));
-        previouslyValidated.forEach(item => {
-          this.get('changeset').validate(item);
-        });
-      });
+      newField.set('fieldId', `${newField.fieldId}-${newField.cloneGroupNumber + 1}`);
+      this.set('formObject.formFields', [ ...this.get('formObject.formFields').slice(0, lastCloneInViewIndex), newField, ...this.get('formObject.formFields').slice(lastCloneInViewIndex)]);
     },
 
     customTransforms(fieldId, changeset) {
