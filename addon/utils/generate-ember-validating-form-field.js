@@ -1,48 +1,9 @@
 import EmberObject from '@ember/object';
 
-export default function generateEmberValidatingFormField(field, index, formSchema, mode) {
-  var fieldElementComponents = {
-    input:            {
-      componentPath: 'ember-pojo-form/form-field-input'
-    },
-    textarea:         {
-      componentPath: 'ember-pojo-form/form-field-textarea'
-    },
-    powerSelect:      {
-      componentPath: 'ember-pojo-form/form-field-power-select'
-    },
-    powerDatePicker:  {
-      componentPath: 'ember-pojo-form/form-field-power-datepicker'
-    },
-    singleCheckbox:   {
-      componentPath: 'ember-pojo-form/form-field-checkbox'
-    },
-    radioButtonGroup: {
-      componentPath: 'ember-pojo-form/form-field-radio-button-group'
-    },
-    checkboxGroup:    {
-      componentPath: 'ember-pojo-form/form-field-checkbox-group',
-    },
-    dateRange:        {
-      componentPath: 'ember-pojo-form/form-field-date-range'
-    },
-    tagSelector:      {
-      componentPath: 'ember-pojo-form/form-field-tag-selector'
-    },
-    button:           {
-      componentPath: 'ember-pojo-form/form-field-button',
-      castOut: true
-    },
-    staticContent:    {
-      componentPath: 'ember-pojo-form/form-field-static-content',
-      castOut: true
-    }
-  };
-
+export default function generateEmberValidatingFormField(field, fieldComponentsMap, formSchema) {
   if (!field.fieldId) {
-    throw Error(`[Ember validating field] fieldId is a required field for validating form. This is missing in item ${index}.`);
+    throw Error(`[Ember validating field] fieldId is a required field for each field in a validating form.`);
   }
-
   // TODO this must go many levels deep and be it's own util.
   var checkKeyExists = (object, searchKey) => {
     for (var key in object) {
@@ -105,6 +66,7 @@ export default function generateEmberValidatingFormField(field, index, formSchem
     fieldObject.set('cloneGroupName', field.fieldId);
     fieldObject.set('cloneGroupNumber', 0);
     fieldObject.set('lastClone', true);
+    fieldObject.set('onlyClone', true);
   }
 
   var validationRules = field.validationRules || [];
@@ -115,8 +77,8 @@ export default function generateEmberValidatingFormField(field, index, formSchem
   fieldObject.set('required', required);
   fieldObject.set('name', field.name || field.fieldId.replace(/\./g, '-'));
   fieldObject.set('placeholder', field.placeholder || field.fieldLabel);
-  fieldObject.set('component', field.componentPath || fieldElementComponents[field.fieldType].componentPath);
-  fieldObject.set('castOut', field.castOut || fieldElementComponents[field.fieldType].castOut);
+  fieldObject.set('component', field.componentPath || fieldComponentsMap[field.fieldType].componentPath);
+  fieldObject.set('castOut', field.castOut || fieldComponentsMap[field.fieldType].castOut);
   fieldObject.set('validates', validates);
   
   return fieldObject;

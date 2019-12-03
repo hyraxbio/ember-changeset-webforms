@@ -7,38 +7,43 @@
     typeClass=typeClass
     parsedDataTestId=parsedDataTestId
   }}
-    {{#if formField.isClone}}
-    {{formField.fieldId}}<br>
-
-      <button class="btn-danger" type="button" onclick={{action removeClone formField changeset formFields}} data-test-class="remove-clone">{{svg-repo/icons/icon-trash class="fill-danger"}}Remove {{formField.fieldId}}</button>
+    {{#if formField.cloneGroupName}}
+      <div class="clone-actions">
+        {{#if formField.onlyClone}}
+          <div role="button" class="hover-pointer add-clone" title="{{or formField.cloneButtonText (concat "New " formField.fieldId " field")}}" type="button" onclick={{action cloneField formField.cloneGroupName}} data-test-id="add-clone">{{svg-repo/icons/icon-plus class="fill-primary"}}</div>
+        {{else}}
+          <div role="button" class="hover-pointer remove-clone" type="button" onclick={{action removeClone formField changeset formFields}} data-test-class="remove-clone" title="Remove {{formField.fieldId}}">{{svg-repo/icons/icon-trash}}</div>
+        {{/if}}
+      </div>
     {{/if}}
-    {{#if (or (eq formField.fieldType "input") (eq formField.fieldType "textarea")) }}
+    {{!-- {{#if (or (eq formField.fieldType "input") (eq formField.fieldType "textarea")) }} --}}
       {{component formField.component
         formField=formField
-        inputIcon=inputIcon
         onFocusOut=(action "onFocusOut")
         onFocusIn=(action "onFocusIn")
         onKeyUp=(action "onKeyUp")
-        changeset=changeset
-        displayValidation=displayValidation
-        displayValue=(changeset-get changeset formField.fieldId)
-      }}
-    {{else}}
-      {{component formField.component
-        formField=formField
-        inputIcon=inputIcon
         onUserInteraction=(action "onUserInteraction")
         changeset=changeset
         displayValidation=displayValidation
         displayValue=(changeset-get changeset formField.fieldId)
       }}
-    {{/if}}
+    {{!-- {{else}} --}}
+      {{!-- {{component formField.component
+        formField=formField
+        onUserInteraction=(action "onUserInteraction")
+        changeset=changeset
+        displayValidation=displayValidation
+        displayValue=(changeset-get changeset formField.fieldId)
+      }} --}}
+    {{!-- {{/if}} --}}
     {{#if formField.lastClone}}
-      {{#if formField.maxClonesPresent}}
-          Max clones reached.
-      {{else}}
-        <button class="btn btn-outline-primary margin-bottom-lg" type="button" onclick={{action cloneField formField.cloneGroupName}} data-test-id="add-invitation">{{svg-repo/icons/icon-plus}}{{or formField.cloneButtonText (concat "New " formField.fieldId " field")}}</button>
-      {{/if}}
+      <div class="clone-group-actions">
+        {{#if formField.maxClonesPresent}}
+            Max clones reached.
+        {{else}}
+          {{component settings.addCloneButtonComponent cloneField=(action cloneField) formField=formField}}
+        {{/if}}
+      </div>
     {{/if}}
   {{/ember-pojo-form/validating-form-field-wrapper}}
 {{/if}}

@@ -3,10 +3,18 @@ import { computed } from '@ember/object';
 import generateEmberValidatingFormField from '../../utils/generate-ember-validating-form-field';
 import layout from '../../templates/components/ember-pojo-form/validating-form-field';
 import createChangeset from '../../utils/create-changeset';
+import { inject as service } from '@ember/service';
+import { assign } from '@ember/polyfills';
 
 export default Component.extend({
   layout,
   tagName: '',
+  emberPojoForms: service(),
+
+  init() {
+    this._super(...arguments);
+    this.fieldComponentsMap = assign(this.get('emberPojoForms.defaultFieldElementComponents'), this.get('emberPojoForms.customFieldElementComponents'));
+  },
 
   didInsertElement: function() {
     //Code below will maintain validation colours when component is re-rendered.
@@ -57,7 +65,7 @@ export default Component.extend({
     if (this.get('processedFieldSchema')) {
       return this.get('processedFieldSchema');
     } else {
-      return generateEmberValidatingFormField(this.get('fieldSchema'));
+      return generateEmberValidatingFormField(this.get('fieldSchema'), this.get('fieldComponentsMap'));
     }
   }),
 

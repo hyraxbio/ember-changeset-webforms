@@ -7,6 +7,7 @@ import validateFields from '../../utils/validate-fields';
 import castAllowedFields from '../../utils/cast-allowed-fields';
 import createChangeset from '../../utils/create-changeset';
 import generateEmberValidatingFormField from '../../utils/generate-ember-validating-form-field';
+import { assign } from '@ember/polyfills';
 
 export default Component.extend({
   layout,
@@ -14,20 +15,11 @@ export default Component.extend({
   classNameBindings: ['validationFailed:validation-failed'],
   classNames: ['ember-pojo-form'],
 
-  
-  // didInsertElement() {
-  //   var formSchema;
-  //   if (this.get('formSchema')) {
-  //     formSchema = this.get('formSchema');
-  //   } else if (this.get('settings')) {
-  //     formSchema = {
-  //       settings: this.get('settings'),
-  //       fields: this.get('fields')
-  //     };
-  //   }
-  //   this.set('formObject', generateEmberValidatingFormFields(formSchema));
-  //   // this.set('changeset', createChangeset(this.get('formObject.formFields'), this.get('data'), this.get('customValidators')));
-  // },
+  init() {
+    this._super(...arguments);
+    this.fieldComponentsMap = assign(this.get('emberPojoForms.defaultFieldElementComponents'), this.get('emberPojoForms.customFieldElementComponents'));
+    this.formSettings = assign(this.get('emberPojoForms.defaultSettings'), this.get('emberPojoForms.settings'));
+  },
 
   formObject: computed('formSchema', 'settings', 'fields', function() {
     var formSchema;
@@ -39,37 +31,15 @@ export default Component.extend({
         fields: this.get('fields')
       };
     }
-    return generateEmberValidatingFormFields(formSchema);
+    return generateEmberValidatingFormFields(formSchema, this.get('fieldComponentsMap'));
   }),  
 
   changeset: computed('formSchema.fields', function() {
     return createChangeset(this.get('formSchema.fields'), this.get('data'), this.get('customValidators'));
   }),
 
-  // formName: computed('formObject', function() {
-  //   var formName = this.get('formObject.formMetaData.formName');
-  //   if (!formName) {
-  //     throw Error(`Your form schema must have a formName property.`);
-  //   }
-
-  //   if (formName.match(/[^a-z0-9]/gi,'')) {
-  //     throw Error(`The formName property in your form schema may only contain alphanumeric characters.`);
-  //   }
-  //   return formName;
-  // }),
-
-  // formMetaData: computed('formObject', 'formName', function() {
-  //   var storedformObject = this.get(`storageService.${this.get('formName')}`);
-  //   if (storedformObject) {
-  //     return storedformObject.formMetaData;
-  //   } else {
-  //     return this.get('formObject.formMetaData');
-  //   }
-  // }),
-
   formMetaData: computed('formObject', function() {
     return this.get('formObject.formMetaData');
-
   }),
   
   formFields: computed('formObject', 'formObject.formFields', 'formName', function() {
@@ -129,7 +99,7 @@ export default Component.extend({
       var originalField = this.get('formSchema.fields').find((field, index) => {
         return field.fieldId === cloneGroupName;
       });
-      var newField = generateEmberValidatingFormField(originalField);
+      var newField = generateEmberValidatingFormField(originalField, this.get('fieldComponentsMap'));
       var lastCloneInView = this.cloneGroup(cloneGroupName)[this.cloneGroup(cloneGroupName).length - 1];
       var lastCloneInViewIndex = this.get('formObject.formFields').indexOf(lastCloneInView);
       if (this.cloneGroupHidden(cloneGroupName).length > 0) {
@@ -145,7 +115,7 @@ export default Component.extend({
         newField.set('cloneGroupNumber', newFieldCloneNumber);
         newField.set('fieldId', `${originalField.fieldId}-${newFieldCloneNumber}`);
         newField.set('isClone', true);
-        // Reconstruct formFields with the newly geerated field at the end of this clone group.
+        // Reconstruct formFields with the newly generated field at the end of this clone group.
         this.set('formObject.formFields', [ ...this.get('formObject.formFields').slice(0, lastCloneInViewIndex +1), newField, ...this.get('formObject.formFields').slice(lastCloneInViewIndex+1)]);
       } 
       this.send('checkCloneMax', cloneGroupName);
@@ -153,6 +123,10 @@ export default Component.extend({
 
     removeClone(formField, changeset, formFields) {
       formField.set('hidden', true);
+      changeset.rollbackProperty(formField.fieldId);
+      changeset.validate(formField.fieldId);
+      changeset.set('error.invitation', null);
+      console.log(changeset.get('error'));
       this.send('checkCloneMax', formField.cloneGroupName);
     },
 
@@ -163,6 +137,11 @@ export default Component.extend({
         this.cloneGroup(cloneGroupName).setEach('maxClonesPresent', true);
       } else {
         this.cloneGroup(cloneGroupName).setEach('maxClonesPresent', false);
+      }
+      if (this.cloneGroupVisible(cloneGroupName).length === 1) {
+        this.cloneGroupVisible(cloneGroupName).setEach('onlyClone', true);
+      } else {
+        this.cloneGroupVisible(cloneGroupName).setEach('onlyClone', false);
       }
     },
 
