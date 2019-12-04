@@ -3,10 +3,8 @@
     {{#each formFields as |formField|}}
       {{ember-pojo-form/validating-form-field
         data-test-validating-field
-        formField=formField
+        processedFieldSchema=formField
         customTransforms=(action "customTransforms")
-        cloneField=(action "cloneField")
-        removeClone=(action "removeClone")
         afterKeyUpAction=afterKeyUpAction
         afterValidationAction=afterValidationAction
         data-test-id=(concat "validating-field-" formField.fieldId)

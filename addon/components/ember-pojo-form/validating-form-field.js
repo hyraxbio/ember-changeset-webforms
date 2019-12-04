@@ -51,7 +51,6 @@ export default Component.extend({
     if (fieldValidationEvents.indexOf('keyUp') < 0 && formField.get('focussed')) {
       return;
     }
-
     var validationErrors = (this.get(`changeset.error.${this.get('formField.fieldId')}.validation`)) || [];
     if (validationErrors.length === 0) {
       if (!this.get('formField.wasValidated')) { return; }
@@ -92,7 +91,8 @@ export default Component.extend({
       this.send('validateProperty', this.get('changeset'), this.get('formField.fieldId'));
       var formField = this.get('formField');
       formField.set('focussed', false);
-      if (value && !formField.get('notrim') && formField.get('inputType') !== 'password') {
+      if (value && !formField.get('notrim') && formField.get('inputType') !== 'password' && typeof value === 'string') {
+        console.log(value);
         value = value.trim();
       }
       this.send('setFieldValue', value);
@@ -102,6 +102,7 @@ export default Component.extend({
     },
 
     onFocusIn: function() {
+      console.log('onFocusIn');
       var formField = this.get('formField');
       formField.set('focussed', true);
       if (this.focusInAction) {

@@ -95,6 +95,8 @@ export default Component.extend({
 
   actions: {
     cloneField(cloneGroupName) {
+      this.send('cloneField2', cloneGroupName);
+      return;
       if (this.cloneGroupVisible(cloneGroupName).length >= this.maxAllowedClones(cloneGroupName)) { return; }
       var originalField = this.get('formSchema.fields').find((field, index) => {
         return field.fieldId === cloneGroupName;
@@ -121,29 +123,7 @@ export default Component.extend({
       this.send('checkCloneMax', cloneGroupName);
     },
 
-    removeClone(formField, changeset, formFields) {
-      formField.set('hidden', true);
-      changeset.rollbackProperty(formField.fieldId);
-      changeset.validate(formField.fieldId);
-      changeset.set('error.invitation', null);
-      console.log(changeset.get('error'));
-      this.send('checkCloneMax', formField.cloneGroupName);
-    },
-
-    checkCloneMax(cloneGroupName) {
-      this.cloneGroup(cloneGroupName).setEach('lastClone', false);
-      this.cloneGroupVisible(cloneGroupName)[this.cloneGroupVisible(cloneGroupName).length - 1].set('lastClone', true);
-      if (this.cloneGroupVisible(cloneGroupName).length >= this.maxAllowedClones(cloneGroupName)) {
-        this.cloneGroup(cloneGroupName).setEach('maxClonesPresent', true);
-      } else {
-        this.cloneGroup(cloneGroupName).setEach('maxClonesPresent', false);
-      }
-      if (this.cloneGroupVisible(cloneGroupName).length === 1) {
-        this.cloneGroupVisible(cloneGroupName).setEach('onlyClone', true);
-      } else {
-        this.cloneGroupVisible(cloneGroupName).setEach('onlyClone', false);
-      }
-    },
+    
 
     customTransforms(fieldId, changeset) {
        if (this.get('customTransforms')) {

@@ -6,27 +6,21 @@
     validates=validates
     typeClass=typeClass
     parsedDataTestId=parsedDataTestId
+    changeset=changeset
   }}
-    {{#if formField.cloneGroupName}}
-      <div class="clone-actions">
-        {{#if formField.onlyClone}}
-          <div role="button" class="hover-pointer add-clone" title="{{or formField.cloneButtonText (concat "New " formField.fieldId " field")}}" type="button" onclick={{action cloneField formField.cloneGroupName}} data-test-id="add-clone">{{svg-repo/icons/icon-plus class="fill-primary"}}</div>
-        {{else}}
-          <div role="button" class="hover-pointer remove-clone" type="button" onclick={{action removeClone formField changeset formFields}} data-test-class="remove-clone" title="Remove {{formField.fieldId}}">{{svg-repo/icons/icon-trash}}</div>
-        {{/if}}
-      </div>
-    {{/if}}
     {{!-- {{#if (or (eq formField.fieldType "input") (eq formField.fieldType "textarea")) }} --}}
-      {{component formField.component
-        formField=formField
-        onFocusOut=(action "onFocusOut")
-        onFocusIn=(action "onFocusIn")
-        onKeyUp=(action "onKeyUp")
-        onUserInteraction=(action "onUserInteraction")
-        changeset=changeset
-        displayValidation=displayValidation
-        displayValue=(changeset-get changeset formField.fieldId)
-      }}
+    {{component formField.component
+      formField=formField
+      onFocusOut=(action "onFocusOut")
+      onFocusIn=(action "onFocusIn")
+      onKeyUp=(action "onKeyUp")
+      onUserInteraction=(action "onUserInteraction")
+      changeset=changeset
+      displayValidation=displayValidation
+      displayValue=(changeset-get changeset formField.fieldId)
+    }}
+    {{changeset-get changeset formField.fieldId}}
+  {{/ember-pojo-form/validating-form-field-wrapper}}
     {{!-- {{else}} --}}
       {{!-- {{component formField.component
         formField=formField
@@ -36,14 +30,21 @@
         displayValue=(changeset-get changeset formField.fieldId)
       }} --}}
     {{!-- {{/if}} --}}
-    {{#if formField.lastClone}}
-      <div class="clone-group-actions">
-        {{#if formField.maxClonesPresent}}
-            Max clones reached.
-        {{else}}
-          {{component settings.addCloneButtonComponent cloneField=(action cloneField) formField=formField}}
-        {{/if}}
-      </div>
+    chnageset valid 
+    {{changeset.isValid}}
+    {{#if formField.cloneGroupName}}
+      {{ember-pojo-form/validating-form-field-clone-group
+        masterFormField=formField 
+        changeset=changeset 
+        setFieldValue=(action "setFieldValue")
+        onFocusOut=(action "onFocusOut")
+        onFocusIn=(action "onFocusIn")
+        onKeyUp=(action "onKeyUp")
+        onUserInteraction=(action "onUserInteraction")
+        groupValue=(changeset-get changeset formField.fieldId)
+        settings=settings
+        masterfieldDisplayValidation=displayValidation
+      }}
     {{/if}}
-  {{/ember-pojo-form/validating-form-field-wrapper}}
+  
 {{/if}}

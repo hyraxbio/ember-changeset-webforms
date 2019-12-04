@@ -1,1 +1,5 @@
-{{yield}}
+{{ember-pojo-form/form-field-label formField=formField}}
+<div class="field-controls">
+  {{yield}}
+</div>
+{{ember-pojo-form/form-field-error changeset=changeset formField=formField displayValidation=displayValidation}}

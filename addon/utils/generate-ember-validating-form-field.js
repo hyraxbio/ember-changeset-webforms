@@ -80,6 +80,7 @@ export default function generateEmberValidatingFormField(field, fieldComponentsM
   fieldObject.set('component', field.componentPath || fieldComponentsMap[field.fieldType].componentPath);
   fieldObject.set('castOut', field.castOut || fieldComponentsMap[field.fieldType].castOut);
   fieldObject.set('validates', validates);
+  fieldObject.set('schema', field);
   
   return fieldObject;
 }
