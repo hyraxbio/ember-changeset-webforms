@@ -1,9 +1,10 @@
+{{groupValue}}
 {{#each masterFormField.clonedFields as |clonedFormField index| }}
   {{ember-pojo-form/validating-form-field-clone
-    onFocusOutClone=(action "onFocusOutClone")
-    onFocusInClone=(action "onFocusInClone")
-    onKeyUpClone=(action "onKeyUpClone")
-    onUserInteractionClone=(action "onUserInteractionClone")
+    onFocusOut=(action onFocusOut)
+    onFocusIn=(action onFocusIn)
+    onKeyUp=(action onKeyUp)
+    onUserInteraction=(action onUserInteraction)
     cloneField=(action "cloneField")
     removeClone=(action "removeClone")
     changeset=changeset
@@ -16,9 +17,9 @@
   }}
 {{/each}}
 <div class="clone-group-actions">
-  {{#if masterFormField.maxClonesPresent}}
+  {{#if (eq masterFormField.cloneCountStatus "max")}}
       Max clones reached.
   {{else}}
-    {{!-- {{component settings.addCloneButtonComponent onclick=(action "cloneField") masterFormField=masterFormField}} --}}
+    {{component settings.addCloneButtonComponent cloneField=(action "cloneField") masterFormField=masterFormField}}
   {{/if}}
 </div>

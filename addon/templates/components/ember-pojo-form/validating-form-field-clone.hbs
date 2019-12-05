@@ -1,36 +1,37 @@
-<div class="clone-actions">
-  {{#if formField.onlyClone}}
-    <div role="button" class="hover-pointer add-clone" title="{{or formField.cloneButtonText (concat "New " formField.fieldId " field")}}" type="button" onclick={{action cloneField formField.cloneGroupName}} data-test-id="add-clone">{{svg-repo/icons/icon-plus class="fill-primary"}}</div>
-  {{else}}
-    <div role="button" class="hover-pointer remove-clone" type="button" onclick={{action removeClone formField changeset formFields}} data-test-class="remove-clone" title="Remove {{formField.fieldId}}">{{svg-repo/icons/icon-trash}}</div>
-  {{/if}}
-</div>
-{{#ember-pojo-form/validating-form-field-wrapper 
-  formField=clonedFormField
-  displayValidation=displayValidation
-  readonly=readonly
-  validates=validates
-  typeClass=typeClass
-  parsedDataTestId=parsedDataTestId
-}}
-  {{component clonedFormField.component
-    formField=clonedFormField
-    onFocusOut=(action onFocusOutClone index)
-    onFocusIn=(action onFocusInClone index)
-    onKeyUp=(action onKeyUpClone index)
-    onUserInteraction=(action onUserInteractionClone index)
-    changeset=changeset
-    displayValidation=displayValidation
-    displayValue=(cloned-form-field-display-value groupValue index)
-  }}
-  {{#if (eq displayValidation "invalid")}}
-    {{#if (get (get changeset.error masterFormField.fieldId) 'validation')}}
-      <div class="ember-pojo-form-field-errors" data-test-class="ember-pojo-form-field-errors">
-        {{#each cloneErrors as |error|}}
-          <div class="ember-pojo-form-field-error" data-test-class="ember-pojo-form-field-error">{{error}}</div>
-        {{/each}}
-      </div>
+<div class="form-field-clone">
+  <div class="clone-actions">
+    {{#if (eq masterFormField.cloneCountStatus "min")}}
+      <div role="button" class="hover-pointer add-clone" title="{{or formField.cloneButtonText (concat "New " formField.fieldId " field")}}" type="button" onclick={{action cloneField formField.cloneGroupName}} data-test-id="add-clone">{{svg-repo/icons/icon-plus class="fill-primary"}}</div>
+    {{else}}
+      <div role="button" class="hover-pointer remove-clone" type="button" onclick={{action removeClone clonedFormField}} data-test-class="remove-clone" title="Remove {{formField.fieldId}}">{{svg-repo/icons/icon-trash}}</div>
     {{/if}}
-  {{/if}}
-{{/ember-pojo-form/validating-form-field-wrapper}}
-{{displayValidation}}
+  </div>
+  {{#ember-pojo-form/validating-form-field-wrapper 
+    formField=clonedFormField
+    displayValidation=displayValidation
+    readonly=readonly
+    validates=validates
+    typeClass=typeClass
+    parsedDataTestId=parsedDataTestId
+  }}
+    {{component clonedFormField.component
+      formField=clonedFormField
+      onFocusOut=(action "onFocusOutClone" index)
+      onFocusIn=(action "onFocusInClone" index)
+      onKeyUp=(action "onKeyUpClone" index)
+      onUserInteraction=(action "onUserInteractionClone" index)
+      changeset=changeset
+      displayValidation=displayValidation
+      displayValue=(cloned-form-field-display-value groupValue index)
+    }}
+    {{#if (eq displayValidation "invalid")}}
+      {{#if (get (get changeset.error masterFormField.fieldId) 'validation')}}
+        <div class="ember-pojo-form-field-errors" data-test-class="ember-pojo-form-field-errors">
+          {{#each cloneErrors as |error|}}
+            <div class="ember-pojo-form-field-error" data-test-class="ember-pojo-form-field-error">{{error}}</div>
+          {{/each}}
+        </div>
+      {{/if}}
+    {{/if}}
+  {{/ember-pojo-form/validating-form-field-wrapper}}
+</div>

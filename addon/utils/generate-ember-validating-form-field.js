@@ -1,6 +1,8 @@
 import EmberObject from '@ember/object';
 
 export default function generateEmberValidatingFormField(field, fieldComponentsMap, formSchema) {
+  var defaultValidationEvents = ['focusOut'];
+  if (!field) { return; }
   if (!field.fieldId) {
     throw Error(`[Ember validating field] fieldId is a required field for each field in a validating form.`);
   }
@@ -72,6 +74,14 @@ export default function generateEmberValidatingFormField(field, fieldComponentsM
   var validationRules = field.validationRules || [];
   var validates = validationRules.length > 0 ? true : false;
 
+  var parsedValidationEvents = (field.validationEvents || []).concat(defaultValidationEvents).map(item => {
+    if (typeof item === 'string') {
+      return {event: item};
+    } else {
+      return item;
+    }
+  });
+
   fieldObject.set('hideSuccessValidation', hideSuccessValidation);
   fieldObject.set('hideLabel', hideLabel);
   fieldObject.set('required', required);
@@ -80,7 +90,6 @@ export default function generateEmberValidatingFormField(field, fieldComponentsM
   fieldObject.set('component', field.componentPath || fieldComponentsMap[field.fieldType].componentPath);
   fieldObject.set('castOut', field.castOut || fieldComponentsMap[field.fieldType].castOut);
   fieldObject.set('validates', validates);
-  fieldObject.set('schema', field);
-  
+  fieldObject.set('validationEvents', parsedValidationEvents);
   return fieldObject;
 }

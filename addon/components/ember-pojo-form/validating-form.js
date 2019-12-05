@@ -185,34 +185,5 @@ export default Component.extend({
       } 
     }
     
-  },
-
-  cloneGroup(cloneGroupName) {
-    var fieldObjects = this.get('formObject.formFields');
-    return fieldObjects.filter(fieldObject => {
-      return fieldObject.cloneGroupName === cloneGroupName;
-    });
-  },
-
-  cloneGroupVisible(cloneGroupName) {
-    return this.cloneGroup(cloneGroupName).filter(field => {
-      return !field.hidden;
-    });
-  },
-
-  cloneGroupLength(cloneGroupName) {
-    return this.cloneGroup(cloneGroupName).length;
-  },
-
-  cloneGroupHidden(cloneGroupName) {
-    return this.cloneGroup(cloneGroupName).filter(field => {
-      return field.hidden;
-    });
-  },
-
-  maxAllowedClones(cloneGroupName) {
-    return this.get('formSchema.fields').find((field) => {
-      return field.fieldId === cloneGroupName;
-    }).maxClones;
   }
 });

@@ -1,35 +1,4 @@
 {{#if (and changeset (not formField.hidden))}}
-  {{#ember-pojo-form/validating-form-field-wrapper 
-    formField=formField
-    displayValidation=displayValidation
-    readonly=readonly
-    validates=validates
-    typeClass=typeClass
-    parsedDataTestId=parsedDataTestId
-    changeset=changeset
-  }}
-    {{!-- {{#if (or (eq formField.fieldType "input") (eq formField.fieldType "textarea")) }} --}}
-    {{component formField.component
-      formField=formField
-      onFocusOut=(action "onFocusOut")
-      onFocusIn=(action "onFocusIn")
-      onKeyUp=(action "onKeyUp")
-      onUserInteraction=(action "onUserInteraction")
-      changeset=changeset
-      displayValidation=displayValidation
-      displayValue=(changeset-get changeset formField.fieldId)
-    }}
-    {{changeset-get changeset formField.fieldId}}
-  {{/ember-pojo-form/validating-form-field-wrapper}}
-    {{!-- {{else}} --}}
-      {{!-- {{component formField.component
-        formField=formField
-        onUserInteraction=(action "onUserInteraction")
-        changeset=changeset
-        displayValidation=displayValidation
-        displayValue=(changeset-get changeset formField.fieldId)
-      }} --}}
-    {{!-- {{/if}} --}}
     chnageset valid 
     {{changeset.isValid}}
     {{#if formField.cloneGroupName}}
@@ -45,6 +14,29 @@
         settings=settings
         masterfieldDisplayValidation=displayValidation
       }}
+    {{else}}
+        {{#ember-pojo-form/validating-form-field-wrapper 
+        formField=formField
+        displayValidation=displayValidation
+        readonly=readonly
+        validates=validates
+        typeClass=typeClass
+        parsedDataTestId=parsedDataTestId
+        changeset=changeset
+      }}
+      wasValidated {{formField.wasValidated}}
+        {{component formField.component
+          formField=formField
+          onFocusOut=(action "onFocusOut")
+          onFocusIn=(action "onFocusIn")
+          onKeyUp=(action "onKeyUp")
+          onUserInteraction=(action "onUserInteraction")
+          changeset=changeset
+          displayValidation=displayValidation
+          displayValue=(changeset-get changeset formField.fieldId)
+        }}
+        {{changeset-get changeset formField.fieldId}}
+      {{/ember-pojo-form/validating-form-field-wrapper}}
     {{/if}}
   
 {{/if}}

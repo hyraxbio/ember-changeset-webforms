@@ -21,112 +21,49 @@ export default Component.extend({
     var masterFormField = this.get('masterFormField');
     var minLength = Math.max((this.get('groupValue') || []).length, masterFormField.minClones,  1);
     for (var i = 0; i < minLength; i++) {
-      this.send('cloneField');
+      var value = this.get('groupValue')[i] || null;
+      this.send('cloneField', value);
     } 
-    var masterFieldValue = masterFormField.clonedFields.map((clonedField, index) => {
-      return this.get('groupValue')[index] || clonedField.cloneDefaultValue;
-    });
-
-    this.setFieldValue(masterFieldValue);
   },
 
   cloneGroupNameClass: computed('masterFormField.cloneGroupName', function() {
     return `clone-group-${this.get('masterFormField.cloneGroupName')}`;
   }),
 
-  // groupValue: computed('changeset', function() {
-  //   console.log('group value cp')
-  //   var changeset = this.get('changeset');
-  //   return changeset.get(this.get('masterFormField.fieldId'));
-  // }),
-
   actions: {
-    cloneField() {
+    cloneField(defaultValue) {
       var masterFormField = this.get('masterFormField');
-
-      // var masterFieldSchema = this.get('formSchema.fields').find((field) => {
-      //   return field.fieldId === cloneGroupName;
-      // });
-      // var masterFieldObject = this.get('formFields').find(field => {
-      //   return field.fieldId === cloneGroupName;
-      // });
-
-      var newField = generateEmberValidatingFormField(this.get('masterFormField.schema'), this.get('fieldComponentsMap'));
-      // var newFieldCloneNumber;
-      // if (!masterFieldObject.clonedFields) {
-      //   newFieldCloneNumber = 1;
-      // } else {
-      //   newFieldCloneNumber = parseInt(masterFieldObject.clonedFields.map(item => {
-      //     return item.cloneGroupNumber;
-      //   }).sort((a, b) => { return b - a; })) + 1;
-      // }
-      
-      // newField.set('cloneGroupNumber', newFieldCloneNumber);
-      newField.set('fieldId', `${newField.fieldId}-clone`);
+      var newFieldSchema = assign(this.get('masterFormField.cloneFieldSchema'), { fieldId: `${masterFormField.fieldId}-clone`});
+      var newField = generateEmberValidatingFormField(newFieldSchema, this.get('fieldComponentsMap'));
       newField.set('isClone', true);
-      newField.set('placeholder', newField.fieldId);
-
       masterFormField.set('clonedFields', masterFormField.clonedFields || []);
-      
       masterFormField.clonedFields.pushObject(newField);
-      
-      
+      var groupValue = this.get('groupValue') || [];
+      var lastIndex = masterFormField.clonedFields.length -1;
+      groupValue[lastIndex] = defaultValue;
+      this.setFieldValue(groupValue);
+      this.send('checkMinMaxClones', masterFormField);
     },
 
-    removeClone(masterFormField, changeset, formFields) {
-      masterFormField.set('hidden', true);
-      changeset.rollbackProperty(masterFormField.fieldId);
-      changeset.validate(masterFormField.fieldId);
-      changeset.set('error.invitation', null);
-      // console.log(changeset.get('error'));
-      this.send('checkCloneMax', masterFormField.cloneGroupName);
+    removeClone(clone) {
+      var masterFormField = this.get('masterFormField');
+      var index = masterFormField.clonedFields.indexOf(clone);
+      masterFormField.clonedFields.removeObject(clone);
+      this.send('checkMinMaxClones', masterFormField);
+      var groupValue = this.get('groupValue') || [];
+      groupValue.splice(index, 1);
+      this.setFieldValue(groupValue);
+
     },
 
-    checkCloneMax(cloneGroupName) {
-      this.cloneGroup(cloneGroupName).setEach('lastClone', false);
-      this.cloneGroupVisible(cloneGroupName)[this.cloneGroupVisible(cloneGroupName).length - 1].set('lastClone', true);
-      if (this.cloneGroupVisible(cloneGroupName).length >= this.maxAllowedClones(cloneGroupName)) {
-        this.cloneGroup(cloneGroupName).setEach('maxClonesPresent', true);
+    checkMinMaxClones(masterFormField) {
+      if (masterFormField.clonedFields.length === masterFormField.maxClones) {
+        masterFormField.set('cloneCountStatus', 'max');
+      } else if (masterFormField.clonedFields.length === masterFormField.minClones) {
+        masterFormField.set('cloneCountStatus', 'min');
       } else {
-        this.cloneGroup(cloneGroupName).setEach('maxClonesPresent', false);
-      }
-      if (this.cloneGroupVisible(cloneGroupName).length === 1) {
-        this.cloneGroupVisible(cloneGroupName).setEach('onlyClone', true);
-      } else {
-        this.cloneGroupVisible(cloneGroupName).setEach('onlyClone', false);
+        masterFormField.set('cloneCountStatus', null); // TODO install ember truth helpers as a dep.
       }
     },
-
-    onFocusOutClone(index, value) {
-      this.onFocusOut(this.updatedGroupValue(value, index));
-      // this.send('setGroupValue', value, index);
-    },
-
-    onFocusInClone(index, value) {
-      this.onFocusIn(this.updatedGroupValue(value, index));
-      // this.send('setGroupValue', value);
-    },
-    onKeyUpClone(index, value) {
-      this.onKeyUp(this.updatedGroupValue(value, index));
-      // this.send('setGroupValue', value, index);
-    },
-
-    onUserInteractionClone(index, value) {
-      this.onUserInteraction(this.updatedGroupValue(value, index));
-      // this.send('setGroupValue', value, index);
-    },
-
-    // setGroupValue(value, index) {
-    //   var groupValue = this.get('groupValue') || [];
-    //   groupValue[index] = value;
-    //   this.setFieldValue(groupValue);
-    // }
-  },
-
-  updatedGroupValue(value, index) {
-    var groupValue = this.get('groupValue') || [];
-    console.log(groupValue);
-    groupValue[index] = value;
-    return groupValue;
   }
 });

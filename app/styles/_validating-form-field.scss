@@ -105,6 +105,12 @@
 }
 
 .clone-group {
+  .form-field-clone {
+    display: flex;
+    .ember-pojo-form-field {
+      flex-grow: 1;
+    }
+  }
   .clone-actions {
     padding-top: $spacer-md;
     padding-right: $spacer-md;

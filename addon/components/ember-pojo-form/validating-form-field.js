@@ -22,15 +22,9 @@ export default Component.extend({
     if (!this.get('changeset')) {
       this.set('changeset', createChangeset([this.get('formField')], this.get('data'), this.get('customValidators')));
     }
-
-    var validateOnInsert;
-    if (formField.validationEvents) {
-      if (formField.validationEvents.indexOf('insert') > -1) {
-        validateOnInsert = true;
-      }
-    }
-    if (validateOnInsert && (formField.defaultValue)) {
-      this.send('validateProperty', this.get('changeset'), this.get('formField.fieldId'));
+    var changeset = this.get('changeset');
+    if (changeset.get(formField.fieldId)) {
+      this.send('validateProperty', changeset, formField.fieldId, 'insert');
     }
   },
 
@@ -47,8 +41,7 @@ export default Component.extend({
   displayValidation: computed('changeset.error', 'formField.{focussed,wasValidated}', function() {
     var formField = this.get('formField');
     if (!formField) { return; }
-    var fieldValidationEvents = formField.get('validationEvents') || [];
-    if (fieldValidationEvents.indexOf('keyUp') < 0 && formField.get('focussed')) {
+    if (!this.validationEventObj(formField.validationEvents, 'keyUp') && formField.get('focussed')) {
       return;
     }
     var validationErrors = (this.get(`changeset.error.${this.get('formField.fieldId')}.validation`)) || [];
@@ -73,10 +66,22 @@ export default Component.extend({
   }),
 
   actions: {
-    validateProperty(changeset, property) {
+    validateProperty(changeset, property, eventType, event) {
       var formField = this.get('formField');
-      // if (!formField.validates) { return; }
+      if (eventType && !this.validationEventObj(formField.validationEvents, eventType)) {
+        return;
+      }
+      var keyUpValidationMethod = this.validationEventObj(formField.validationEvents, 'keyUp');
+      if (keyUpValidationMethod) {
+        if ((keyUpValidationMethod.includeKeyCodes || []).indexOf(event.keyCode) < 0) {
+          return;
+        }
+        if ((keyUpValidationMethod.excludeKeyCodes || []).indexOf(event.keyCode) > -1) {
+          return;
+        }
+      }      
       changeset.validate(property);
+
       this.set('formField.wasValidated', true);
       if (this.get('afterValidation')) {
         this.afterValidation(formField, changeset);
@@ -84,25 +89,24 @@ export default Component.extend({
     },
 
     onUserInteraction: function(value) {
-      this.send('setFieldValue', value);
+      this.send('setFieldValue', value, 'allUpdates');
+      this.send('validateProperty', this.get('changeset'), this.get('fieldId'));
     },
 
     onFocusOut: function(value) {
-      this.send('validateProperty', this.get('changeset'), this.get('formField.fieldId'));
       var formField = this.get('formField');
       formField.set('focussed', false);
       if (value && !formField.get('notrim') && formField.get('inputType') !== 'password' && typeof value === 'string') {
-        console.log(value);
         value = value.trim();
       }
-      this.send('setFieldValue', value);
+      this.send('setFieldValue', value, 'focusOut');
+      this.send('validateProperty', this.get('changeset'), this.get('fieldId'), 'focusOut', event);
       if (this.focusOutAction) {
         this.focusOutAction(formField);
       }
     },
 
     onFocusIn: function() {
-      console.log('onFocusIn');
       var formField = this.get('formField');
       formField.set('focussed', true);
       if (this.focusInAction) {
@@ -111,13 +115,9 @@ export default Component.extend({
     },
 
     onKeyUp: function(value) {
-      this.send('setFieldValue', value);
+      this.send('setFieldValue', value, 'keyUp');
       var formField = this.get('formField');
-      if (formField.get('validationKeyCodes')) {
-        if (formField.get('validationKeyCodes').indexOf(event.keyCode) > -1) {
-          this.send('validateProperty', this.get('changeset'), this.get('formField.fieldId'));
-        }
-      }
+      this.send('validateProperty', this.get('changeset'), formField.get('fieldId'), 'keyUp', event);
       if (this.afterKeyUpAction) {
         this.afterKeyUpAction(value, event, formField, this.get('changeset'));
       }
@@ -125,12 +125,16 @@ export default Component.extend({
 
     setFieldValue: function(value, eventType) {
       var changeset = this.get('changeset');
-      var prop = this.get('formField.fieldId');
-      changeset.set(prop, value);
-      this.send('validateProperty', changeset, prop, eventType);
+      changeset.set(this.get('formField.fieldId'), value);
       if (this.customTransforms) {
-        this.customTransforms(prop, changeset);
+        this.customTransforms(this.get('formField.fieldId'), changeset);
       }
     }
+  },
+
+  validationEventObj(validationEvents, eventType) {
+    return validationEvents.find(validationEvent => {
+      return validationEvent.event === eventType;
+    });
   }
 });

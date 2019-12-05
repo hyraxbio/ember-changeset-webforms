@@ -18,6 +18,9 @@ export default Service.extend({
       input:            {
         componentPath: 'ember-pojo-form/form-field-input'
       },
+      clonable:         {
+        componentPath: 'ember-pojo-form/validating-form-field-clone-group'
+      },
       textarea:         {
         componentPath: 'ember-pojo-form/form-field-textarea'
       },
