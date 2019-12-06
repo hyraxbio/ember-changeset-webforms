@@ -13,7 +13,7 @@ export default Component.extend({
     var masterFormField = this.get('masterFormField');
     var clonedFormField = this.get('clonedFormField');
     var changeset = this.get('changeset');
-    if (changeset.get(masterFormField.fieldId)) {
+    if (changeset.get(masterFormField.fieldId)[index]) {
       this.validateProperty(changeset, clonedFormField, 'insert');
     }
   },
@@ -33,13 +33,16 @@ export default Component.extend({
     var fieldValidationEvents = clonedFormField.get('validationEvents') || [];
     if (fieldValidationEvents.indexOf('keyUp') < 0 && clonedFormField.get('focussed')) {
       return;
-    }
-    if (this.get('masterfieldDisplayValidation') === 'valid') { return 'valid'; }
-    var validationErrors = ((this.get(`changeset.error.${this.get('masterFormField.fieldId')}.validation`)) || [])[0];
-    if (!validationErrors) { return; }
-    if (!validationErrors[index]) { return; }
+    }    
+    var masterFieldvalidationErrors = ((this.get(`changeset.error.${this.get('masterFormField.fieldId')}.validation`)) || []);
+    var clonedFieldValidationErrors = masterFieldvalidationErrors[0];
+
     if (!this.get('clonedFormField.wasValidated')) { return; }
-    if (validationErrors[index].length === 0) {
+    if (!masterFieldvalidationErrors) { return; }
+    if (masterFieldvalidationErrors.length === 0) { return 'valid'; }
+    if (!clonedFieldValidationErrors[index]) { return; }
+    
+    if (clonedFieldValidationErrors[index].length === 0) {
       return 'valid';
     } else {
       return 'invalid';
@@ -54,7 +57,7 @@ export default Component.extend({
     onFocusInClone(index, formField) {
       this.onFocusIn(formField);
     },
-    
+
     onKeyUpClone(index, formField, value, event) {
       this.onKeyUp(formField, this.updatedGroupValue(value, index), event);
     },
