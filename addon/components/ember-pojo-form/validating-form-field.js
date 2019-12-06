@@ -38,6 +38,7 @@ export default Component.extend({
     return `field-type-${myStr}`;
   }),
 
+  // TODO should a formField not be a class of it's own?
   displayValidation: computed('changeset.error', 'formField.{focussed,wasValidated}', function() {
     var formField = this.get('formField');
     if (!formField) { return; }
