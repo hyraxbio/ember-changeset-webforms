@@ -54,8 +54,9 @@ export default Component.extend({
     onFocusInClone(index, formField) {
       this.onFocusIn(formField);
     },
+    
     onKeyUpClone(index, formField, value, event) {
-      this.onKeyUp(formField, this.updatedGroupValue(value, index));
+      this.onKeyUp(formField, this.updatedGroupValue(value, index), event);
     },
 
     onUserInteractionClone(index, formField, value) {

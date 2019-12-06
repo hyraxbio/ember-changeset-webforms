@@ -91,7 +91,7 @@ export default Component.extend({
     },
 
     onUserInteraction: function(formField, value) {
-      this.send('setFieldValue', value, 'allUpdates');
+      this.send('setFieldValue', value, formField.fieldId);
       this.send('validateProperty', this.get('changeset'), this.get('formField'));
     },
 
@@ -100,7 +100,7 @@ export default Component.extend({
       if (value && !formField.get('notrim') && formField.get('inputType') !== 'password' && typeof value === 'string') {
         value = value.trim();
       }
-      this.send('setFieldValue', value, 'focusOut');
+      this.send('setFieldValue', value, formField.fieldId);
       this.send('validateProperty', this.get('changeset'), formField, 'focusOut', event);
       if (this.focusOutAction) {
         this.focusOutAction(formField);
@@ -115,18 +115,18 @@ export default Component.extend({
     },
 
     onKeyUp: function(formField, value, event) {
-      this.send('setFieldValue', value, 'keyUp');
+      this.send('setFieldValue', value, formField.fieldId);
       this.send('validateProperty', this.get('changeset'), formField, 'keyUp', event);
       if (this.afterKeyUpAction) {
         this.afterKeyUpAction(value, event, formField, this.get('changeset'));
       }
     },
 
-    setFieldValue: function(value, eventType) {
+    setFieldValue: function(value, propertyName) {
       var changeset = this.get('changeset');
-      changeset.set(this.get('formField.fieldId'), value);
+      changeset.set(propertyName, value);
       if (this.customTransforms) {
-        this.customTransforms(this.get('formField.fieldId'), changeset);
+        this.customTransforms(propertyName, changeset);
       }
     }
   },
