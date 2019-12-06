@@ -12,7 +12,15 @@ export default Component.extend({
 
   actions: {
     handleKeyUp(e) {
-      this.onKeyUp(e.target.value, e);
+      this.onKeyUp(this.get('formField'), e.target.value, e);
     },
+
+    focusIn() {
+      this.onFocusIn(this.get('formField'));
+    },
+
+    focusOut(value) {
+      this.onFocusOut(this.get('formField'), value);
+    }
   }
 });

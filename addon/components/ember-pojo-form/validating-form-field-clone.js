@@ -7,9 +7,22 @@ export default Component.extend({
   layout,
   emberPojoForms: service(),
 
+  didInsertElement: function() {
+    //Code below will maintain validation colours when component is re-rendered.
+    var index = this.get('index');
+    var masterFormField = this.get('masterFormField');
+    var clonedFormField = this.get('clonedFormField');
+    var changeset = this.get('changeset');
+    if (changeset.get(masterFormField.fieldId)) {
+      this.validateProperty(changeset, clonedFormField, 'insert');
+    }
+  },
+
   cloneErrors: computed('changeset.error', function() {
+    // console.log('cloneErrors');
     var index = this.get('index');
     var validationErrors = ((this.get(`changeset.error.${this.get('masterFormField.fieldId')}.validation`)) || [])[0];
+    // console.log(validationErrors[index]);
     return validationErrors[index];
   }),
 
@@ -34,20 +47,19 @@ export default Component.extend({
   }),
 
   actions: {
-    onFocusOutClone(index, value) {
-      this.onFocusOut(this.updatedGroupValue(value, index));
-      this.set('clonedFormField.wasValidated', true);
+    onFocusOutClone(index, formField, value) {
+      this.onFocusOut(formField, this.updatedGroupValue(value, index));
     },
 
-    onFocusInClone(index, value) {
-      this.onFocusIn(this.updatedGroupValue(value, index));
+    onFocusInClone(index, formField) {
+      this.onFocusIn(formField);
     },
-    onKeyUpClone(index, value) {
-      this.onKeyUp(this.updatedGroupValue(value, index));
+    onKeyUpClone(index, formField, value, event) {
+      this.onKeyUp(formField, this.updatedGroupValue(value, index));
     },
 
-    onUserInteractionClone(index, value) {
-      this.onUserInteraction(this.updatedGroupValue(value, index));
+    onUserInteractionClone(index, formField, value) {
+      this.onUserInteraction(formField, this.updatedGroupValue(value, index));
     },
   },
 

@@ -94,37 +94,6 @@ export default Component.extend({
   },
 
   actions: {
-    cloneField(cloneGroupName) {
-      this.send('cloneField2', cloneGroupName);
-      return;
-      if (this.cloneGroupVisible(cloneGroupName).length >= this.maxAllowedClones(cloneGroupName)) { return; }
-      var originalField = this.get('formSchema.fields').find((field, index) => {
-        return field.fieldId === cloneGroupName;
-      });
-      var newField = generateEmberValidatingFormField(originalField, this.get('fieldComponentsMap'));
-      var lastCloneInView = this.cloneGroup(cloneGroupName)[this.cloneGroup(cloneGroupName).length - 1];
-      var lastCloneInViewIndex = this.get('formObject.formFields').indexOf(lastCloneInView);
-      if (this.cloneGroupHidden(cloneGroupName).length > 0) {
-        var firstHiddenField = this.cloneGroupHidden(cloneGroupName)[0];
-        firstHiddenField.set('hidden', false);
-        var firstHiddenFieldIndex = this.get('formObject.formFields').indexOf(firstHiddenField);
-        // Reconstruct formFields with the field that has just been un-hidden moved to the end of this clone group.
-        this.set('formObject.formFields', [ ...this.get('formObject.formFields').slice(0, firstHiddenFieldIndex), ...this.get('formObject.formFields').slice(firstHiddenFieldIndex + 1, lastCloneInViewIndex +1), firstHiddenField, ...this.get('formObject.formFields').slice(lastCloneInViewIndex+1)]);
-      } else {
-        var newFieldCloneNumber = this.cloneGroup(cloneGroupName).sort((a, b) => {
-          return b.cloneGroupNumber - a.cloneGroupNumber;
-        })[0].cloneGroupNumber + 1;
-        newField.set('cloneGroupNumber', newFieldCloneNumber);
-        newField.set('fieldId', `${originalField.fieldId}-${newFieldCloneNumber}`);
-        newField.set('isClone', true);
-        // Reconstruct formFields with the newly generated field at the end of this clone group.
-        this.set('formObject.formFields', [ ...this.get('formObject.formFields').slice(0, lastCloneInViewIndex +1), newField, ...this.get('formObject.formFields').slice(lastCloneInViewIndex+1)]);
-      } 
-      this.send('checkCloneMax', cloneGroupName);
-    },
-
-    
-
     customTransforms(fieldId, changeset) {
        if (this.get('customTransforms')) {
         this.customTransforms(this.get('formFields'), fieldId, this.get('formMetaData'), changeset);

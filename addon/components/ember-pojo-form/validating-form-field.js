@@ -24,7 +24,7 @@ export default Component.extend({
     }
     var changeset = this.get('changeset');
     if (changeset.get(formField.fieldId)) {
-      this.send('validateProperty', changeset, formField.fieldId, 'insert');
+      this.send('validateProperty', changeset, formField, 'insert');
     }
   },
 
@@ -66,58 +66,57 @@ export default Component.extend({
   }),
 
   actions: {
-    validateProperty(changeset, property, eventType, event) {
-      var formField = this.get('formField');
+    validateProperty(changeset, formField, eventType, event) {
+      // console.log(formField)
       if (eventType && !this.validationEventObj(formField.validationEvents, eventType)) {
         return;
       }
       var keyUpValidationMethod = this.validationEventObj(formField.validationEvents, 'keyUp');
-      if (keyUpValidationMethod) {
-        if ((keyUpValidationMethod.includeKeyCodes || []).indexOf(event.keyCode) < 0) {
+      if (eventType === 'keyUp' && keyUpValidationMethod.includeKeyCodes && event) {
+        if (keyUpValidationMethod.includeKeyCodes.indexOf(event.keyCode) < 0) {
           return;
         }
-        if ((keyUpValidationMethod.excludeKeyCodes || []).indexOf(event.keyCode) > -1) {
+        if (keyUpValidationMethod.excludeKeyCodes.indexOf(event.keyCode) > -1) {
           return;
         }
-      }      
-      changeset.validate(property);
+      }   
+      // console.log('validates');
 
-      this.set('formField.wasValidated', true);
+      changeset.validate(formField.fieldId);
+
+      formField.set('wasValidated', true);
       if (this.get('afterValidation')) {
         this.afterValidation(formField, changeset);
       }
     },
 
-    onUserInteraction: function(value) {
+    onUserInteraction: function(formField, value) {
       this.send('setFieldValue', value, 'allUpdates');
-      this.send('validateProperty', this.get('changeset'), this.get('fieldId'));
+      this.send('validateProperty', this.get('changeset'), this.get('formField'));
     },
 
-    onFocusOut: function(value) {
-      var formField = this.get('formField');
+    onFocusOut: function(formField, value) {
       formField.set('focussed', false);
       if (value && !formField.get('notrim') && formField.get('inputType') !== 'password' && typeof value === 'string') {
         value = value.trim();
       }
       this.send('setFieldValue', value, 'focusOut');
-      this.send('validateProperty', this.get('changeset'), this.get('fieldId'), 'focusOut', event);
+      this.send('validateProperty', this.get('changeset'), formField, 'focusOut', event);
       if (this.focusOutAction) {
         this.focusOutAction(formField);
       }
     },
 
-    onFocusIn: function() {
-      var formField = this.get('formField');
+    onFocusIn: function(formField) {
       formField.set('focussed', true);
       if (this.focusInAction) {
         this.focusInAction(formField);
       }
     },
 
-    onKeyUp: function(value) {
+    onKeyUp: function(formField, value, event) {
       this.send('setFieldValue', value, 'keyUp');
-      var formField = this.get('formField');
-      this.send('validateProperty', this.get('changeset'), formField.get('fieldId'), 'keyUp', event);
+      this.send('validateProperty', this.get('changeset'), formField, 'keyUp', event);
       if (this.afterKeyUpAction) {
         this.afterKeyUpAction(value, event, formField, this.get('changeset'));
       }

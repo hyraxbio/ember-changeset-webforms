@@ -33,10 +33,10 @@ export default Component.extend({
   actions: {
     cloneField(defaultValue) {
       var masterFormField = this.get('masterFormField');
-      var newFieldSchema = assign(this.get('masterFormField.cloneFieldSchema'), { fieldId: `${masterFormField.fieldId}-clone`});
+      masterFormField.set('clonedFields', masterFormField.clonedFields || []);
+      var newFieldSchema = assign(this.get('masterFormField.cloneFieldSchema'), { fieldId: masterFormField.fieldId, cloneIndex: masterFormField.clonedFields.length });
       var newField = generateEmberValidatingFormField(newFieldSchema, this.get('fieldComponentsMap'));
       newField.set('isClone', true);
-      masterFormField.set('clonedFields', masterFormField.clonedFields || []);
       masterFormField.clonedFields.pushObject(newField);
       var groupValue = this.get('groupValue') || [];
       var lastIndex = masterFormField.clonedFields.length -1;
