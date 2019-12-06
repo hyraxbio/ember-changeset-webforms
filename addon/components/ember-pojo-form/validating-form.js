@@ -18,7 +18,18 @@ export default Component.extend({
   init() {
     this._super(...arguments);
     this.fieldComponentsMap = assign(this.get('emberPojoForms.defaultFieldElementComponents'), this.get('emberPojoForms.customFieldElementComponents'));
-    this.formSettings = assign(this.get('emberPojoForms.defaultSettings'), this.get('emberPojoForms.settings'));
+    // this.defaultSettings = {
+    //   novalidate: true,
+    //   submitButtonIcon: 'ember-pojo-form/submit-button-icon',
+    //   submitButtonIconClassNames: 'button-right spinner',
+    //   addCloneButtonComponent: 'ember-pojo-form/add-clone-button',
+    //   submitButtonIconRequestInFlightClassNames: 'on',
+    //   powerDatePicker: {
+    //     dateSelectComponent: null
+    //   }
+    // };
+    this.formSettings = this.get('emberPojoForms.defaultSettings');
+
   },
 
   formObject: computed('formSchema', 'settings', 'fields', function() {

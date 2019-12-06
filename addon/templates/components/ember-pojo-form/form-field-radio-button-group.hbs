@@ -1,4 +1,3 @@
-{{ember-pojo-form/form-field-legend formField=formField}}
 <div class="radio-button-group-container field-controls validation-area">
   {{#each formField.options as |option|}}
     {{ember-pojo-form/labelled-radio-button
@@ -9,8 +8,7 @@
       name=(or formField.name formField.fieldId)
       disabled=(if formField.disabled true option.disabled)
       label=option.label
-      changedAction=(action onUserInteraction groupValue)
+      changedAction=(action onUserInteraction formField groupValue)
     }}
   {{/each}}
 </div>
-{{ember-pojo-form/form-field-error changeset=changeset formField=formField displayValidation=displayValidation}}
