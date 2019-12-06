@@ -19,10 +19,8 @@ export default Component.extend({
   },
 
   cloneErrors: computed('changeset.error', function() {
-    // console.log('cloneErrors');
     var index = this.get('index');
     var validationErrors = ((this.get(`changeset.error.${this.get('masterFormField.fieldId')}.validation`)) || [])[0];
-    // console.log(validationErrors[index]);
     return validationErrors[index];
   }),
 
@@ -30,18 +28,15 @@ export default Component.extend({
     var index = this.get('index');
     var clonedFormField = this.get('clonedFormField');
     if (!clonedFormField) { return; }
-    var fieldValidationEvents = clonedFormField.get('validationEvents') || [];
-    if (fieldValidationEvents.indexOf('keyUp') < 0 && clonedFormField.get('focussed')) {
+    if (!this.validationEventObj(clonedFormField.validationEvents, 'keyUp') && clonedFormField.get('focussed')) {
       return;
-    }    
+    }   
     var masterFieldvalidationErrors = ((this.get(`changeset.error.${this.get('masterFormField.fieldId')}.validation`)) || []);
     var clonedFieldValidationErrors = masterFieldvalidationErrors[0];
-
     if (!this.get('clonedFormField.wasValidated')) { return; }
     if (!masterFieldvalidationErrors) { return; }
     if (masterFieldvalidationErrors.length === 0) { return 'valid'; }
     if (!clonedFieldValidationErrors[index]) { return; }
-    
     if (clonedFieldValidationErrors[index].length === 0) {
       return 'valid';
     } else {
@@ -71,5 +66,11 @@ export default Component.extend({
     var groupValue = this.get('groupValue') || [];
     groupValue[index] = value;
     return groupValue;
+  },
+
+  validationEventObj(validationEvents, eventType) { // TODO this is duplicated in validating form field.
+    return validationEvents.find(validationEvent => {
+      return validationEvent.event === eventType;
+    });
   }
 });
