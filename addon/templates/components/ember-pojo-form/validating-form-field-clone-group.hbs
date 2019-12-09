@@ -1,10 +1,9 @@
-{{groupValue}}
 {{#each masterFormField.clonedFields as |clonedFormField index| }}
   {{ember-pojo-form/validating-form-field-clone
     onFocusOut=(action onFocusOut)
     onFocusIn=(action onFocusIn)
     onKeyUp=(action onKeyUp)
-    onUserInteraction=(action onUserInteraction formField)
+    onUserInteraction=(action onUserInteraction)
     validateProperty=(action validateProperty)
     cloneField=(action "cloneField")
     removeClone=(action "removeClone")

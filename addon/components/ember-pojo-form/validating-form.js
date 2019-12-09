@@ -118,7 +118,8 @@ export default Component.extend({
           this.set("requestInFlight", true);
           if (this.get('submitAction')) {
             // TODO this must first save the changeset.
-            this.submitAction(changeset.data, modelName, changeset).then(submitActionResponse => {
+            this.submitAction(changeset.data, modelName, changeset, this.get('formFields')).then(submitActionResponse => {
+              console.log(submitActionResponse);
               this.set("requestInFlight", false);
               if (this.get('saveSuccess')) {
                 this.saveSuccess(submitActionResponse, this.get('formFields'), this.get('formMetaData'), changeset);
@@ -127,6 +128,7 @@ export default Component.extend({
                 // this.send('resetForm'); //TODO does this need to be uncommented?
               }
             }).catch(error => {
+              console.log(error);
               this.set("requestInFlight", false);
               if (this.get('saveFail')) {
                 this.saveFail(error, this.get('formFields'), this.get('formMetaData'), changeset);

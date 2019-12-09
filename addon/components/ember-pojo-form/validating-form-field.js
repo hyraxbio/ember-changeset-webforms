@@ -79,18 +79,21 @@ export default Component.extend({
         if (keyUpValidationMethod.excludeKeyCodes.indexOf(event.keyCode) > -1) {
           return;
         }
-      }   
-      changeset.validate(formField.fieldId);
-
-      formField.set('wasValidated', true);
-      if (this.get('afterValidation')) {
-        this.afterValidation(formField, changeset);
-      }
+      }  
+      changeset.validate(formField.fieldId).then(validationResponse => {
+        formField.set('wasValidated', true);
+        if (this.get('afterValidation')) {
+          this.afterValidation(formField, changeset);
+        }
+        if (this.get('afterFieldValidation')) {
+          this.afterFieldValidation(validationResponse, formField, changeset);
+        }
+      });
     },
 
     onUserInteraction: function(formField, value) {
       this.send('setFieldValue', value, formField.fieldId);
-      this.send('validateProperty', this.get('changeset'), this.get('formField'));
+      this.send('validateProperty', this.get('changeset'), formField);
     },
 
     onFocusOut: function(formField, value) {

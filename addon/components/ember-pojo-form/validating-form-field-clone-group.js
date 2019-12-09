@@ -10,6 +10,11 @@ export default Component.extend({
   emberPojoForms: service(),
   classNames: ['clone-group'],
   classNameBindings: ['cloneGroupNameClass'],
+  attributeBindings: ['dataTestId:data-test-id'],
+
+  dataTestId: computed('masterFormField', function() {
+    return `clone-group-${this.get('masterFormField.fieldId')}`;
+  }),
 
   init() {
     this._super(...arguments);
@@ -19,9 +24,9 @@ export default Component.extend({
 
   didInsertElement() {
     var masterFormField = this.get('masterFormField');
-    var minLength = Math.max((this.get('groupValue') || []).length, masterFormField.minClones,  1);
+    var minLength = Math.max((this.get('groupValue') || []).length, masterFormField.minClones);
     for (var i = 0; i < minLength; i++) {
-      var value = this.get('groupValue')[i] || null;
+      var value = this.get('groupValue') ? this.get('groupValue')[i] : null;
       this.send('cloneField', value);
     } 
   },

@@ -1,4 +1,3 @@
-<p>wasValidated: {{clonedFormField.wasValidated}}</p>
 <div class="form-field-clone">
   <div class="clone-actions">
     {{#if (eq masterFormField.cloneCountStatus "min")}}
@@ -16,23 +15,29 @@
     parsedDataTestId=parsedDataTestId
   }}
     {{component clonedFormField.component
-      formField=clonedFormField
+      clonedFormField=clonedFormField
+      masterFormField=masterFormField
       onFocusOut=(action "onFocusOutClone" index)
       onFocusIn=(action "onFocusInClone" index)
-      onKeyUp=(action "onKeyUpClone" index)
-      onUserInteraction=(action "onUserInteractionClone" index)
+      onKeyUpClone=(action "onKeyUpClone" index)
+      onUserInteractionClone=(action "onUserInteractionClone" index)
+      cloneField=(action cloneField)
+      removeClone=(action removeClone)
       changeset=changeset
       displayValidation=displayValidation
       displayValue=(cloned-form-field-display-value groupValue index)
     }}
     {{#if (eq displayValidation "invalid")}}
-      {{#if (get (get changeset.error masterFormField.fieldId) 'validation')}}
+      {{#if (or clonedFormField.fieldErrors (get (get changeset.error masterFormField.fieldId) 'validation'))}}
         <div class="ember-pojo-form-field-errors" data-test-class="ember-pojo-form-field-errors">
           {{#each cloneErrors as |error|}}
             <div class="ember-pojo-form-field-error" data-test-class="ember-pojo-form-field-error">{{error}}</div>
           {{/each}}
+          {{#each clonedFormField.fieldErrors as |error|}}
+            <div class="ember-pojo-form-field-error" data-test-class="ember-pojo-form-field-error">{{error}}</div>
+          {{/each}}
         </div>
       {{/if}}
-    {{/if}}
+    {{/if}}      
   {{/ember-pojo-form/validating-form-field-wrapper}}
 </div>

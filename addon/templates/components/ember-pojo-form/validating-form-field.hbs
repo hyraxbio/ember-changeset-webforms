@@ -1,6 +1,4 @@
 {{#if (and changeset (not formField.hidden))}}
-    chnageset valid 
-    {{changeset.isValid}}
     {{#if formField.cloneGroupName}}
       {{ember-pojo-form/validating-form-field-clone-group
         masterFormField=formField 
@@ -25,7 +23,6 @@
         parsedDataTestId=parsedDataTestId
         changeset=changeset
       }}
-      wasValidated {{formField.wasValidated}}
         {{component formField.component
           formField=formField
           onFocusOut=(action "onFocusOut")
@@ -36,7 +33,6 @@
           displayValidation=displayValidation
           displayValue=(changeset-get changeset formField.fieldId)
         }}
-        {{changeset-get changeset formField.fieldId}}
       {{/ember-pojo-form/validating-form-field-wrapper}}
     {{/if}}
   

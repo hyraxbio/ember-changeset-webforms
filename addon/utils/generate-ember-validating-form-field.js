@@ -67,8 +67,7 @@ export default function generateEmberValidatingFormField(field, fieldComponentsM
   if (field.clonable) {
     fieldObject.set('cloneGroupName', field.fieldId);
     fieldObject.set('cloneGroupNumber', 0);
-    fieldObject.set('lastClone', true);
-    fieldObject.set('onlyClone', true);
+    fieldObject.set('minClones', field.minClones || 1);
   }
 
   var validationRules = field.validationRules || [];

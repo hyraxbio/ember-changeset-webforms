@@ -6,6 +6,9 @@ import { computed } from '@ember/object';
 export default Component.extend({
   layout,
   emberPojoForms: service(),
+  classNames: ['ember-pojo-form-field-clone'],
+  attributeBindings: ['dataTestClass:data-test-class'],
+  dataTestClass: 'cloned-field',
 
   didInsertElement: function() {
     //Code below will maintain validation colours when component is re-rendered.
@@ -21,10 +24,11 @@ export default Component.extend({
   cloneErrors: computed('changeset.error', function() {
     var index = this.get('index');
     var validationErrors = ((this.get(`changeset.error.${this.get('masterFormField.fieldId')}.validation`)) || [])[0];
+    if (!validationErrors) { return; }
     return validationErrors[index];
   }),
 
-  displayValidation: computed('changeset.error', 'clonedFormField.{focussed,wasValidated}', function() {
+  displayValidation: computed('changeset.error', 'clonedFormField.{focussed,wasValidated,fieldErrors,fieldErrors.@each}', function() {
     var index = this.get('index');
     var clonedFormField = this.get('clonedFormField');
     if (!clonedFormField) { return; }
@@ -34,6 +38,9 @@ export default Component.extend({
     var masterFieldvalidationErrors = ((this.get(`changeset.error.${this.get('masterFormField.fieldId')}.validation`)) || []);
     var clonedFieldValidationErrors = masterFieldvalidationErrors[0];
     if (!this.get('clonedFormField.wasValidated')) { return; }
+    if ((clonedFormField.fieldErrors || []).length > 0) {
+      return 'invalid';
+    }
     if (!masterFieldvalidationErrors) { return; }
     if (masterFieldvalidationErrors.length === 0) { return 'valid'; }
     if (!clonedFieldValidationErrors[index]) { return; }
@@ -45,21 +52,23 @@ export default Component.extend({
   }),
 
   actions: {
-    onFocusOutClone(index, formField, value) {
-      this.onFocusOut(formField, this.updatedGroupValue(value, index));
+    onFocusOutClone(index, clonedFormField, value) {
+      this.onFocusOut(clonedFormField, this.updatedGroupValue(value, index));
     },
 
-    onFocusInClone(index, formField) {
-      this.onFocusIn(formField);
+    onFocusInClone(index, clonedFormField) {
+      this.onFocusIn(clonedFormField);
     },
 
-    onKeyUpClone(index, formField, value, event) {
-      this.onKeyUp(formField, this.updatedGroupValue(value, index), event);
+    onKeyUpClone(index, clonedFormField, value, event) {
+      this.onKeyUp(clonedFormField, this.updatedGroupValue(value, index), event);
+      // Must always validate on keyUp because when changeset prop is updated, the validation errors for that prop are removed until validated again- this is dude to skipValidation.
+      this.validateProperty(this.get('changeset'), clonedFormField);
     },
 
-    onUserInteractionClone(index, formField, value) {
-      this.onUserInteraction(formField, this.updatedGroupValue(value, index));
-    },
+    onUserInteractionClone(index, clonedFormField, value) {
+      this.onUserInteraction(clonedFormField, this.updatedGroupValue(value, index));
+    }
   },
 
   updatedGroupValue(value, index) {
