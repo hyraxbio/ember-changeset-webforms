@@ -24,4 +24,7 @@
 // Docs for form that needs asynchronously loaded data
 // Can you use pushObject if disablePrototype extensions is installed?
 
-// Dics - excludekeys winds over Include Keys for keyup args.
+// includeLabelOnSubmit must now update the changeset, which could cause validation and display issues, as a string becomes an object. Need to test on a field which does not reset after submit, and has validation as well as includeLabelOnSubmit.
+      // FIX
+      // All fields must have option of preper
+// Docs - excludekeys wins over Include Keys for keyup args.

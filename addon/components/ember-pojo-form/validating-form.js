@@ -18,21 +18,10 @@ export default Component.extend({
   init() {
     this._super(...arguments);
     this.fieldComponentsMap = assign(this.get('emberPojoForms.defaultFieldElementComponents'), this.get('emberPojoForms.customFieldElementComponents'));
-    // this.defaultSettings = {
-    //   novalidate: true,
-    //   submitButtonIcon: 'ember-pojo-form/submit-button-icon',
-    //   submitButtonIconClassNames: 'button-right spinner',
-    //   addCloneButtonComponent: 'ember-pojo-form/add-clone-button',
-    //   submitButtonIconRequestInFlightClassNames: 'on',
-    //   powerDatePicker: {
-    //     dateSelectComponent: null
-    //   }
-    // };
     this.formSettings = this.get('emberPojoForms.defaultSettings');
-
   },
 
-  formObject: computed('formSchema', 'settings', 'fields', function() {
+  initial: computed('formSchema', 'settings', 'fields', function() {
     var formSchema;
     if (this.get('formSchema')) {
       formSchema = this.get('formSchema');
@@ -42,11 +31,19 @@ export default Component.extend({
         fields: this.get('fields')
       };
     }
-    return generateEmberValidatingFormFields(formSchema, this.get('fieldComponentsMap'));
+    var formObject = generateEmberValidatingFormFields(formSchema, this.get('fieldComponentsMap'));
+    return {
+      formObject: formObject,
+      changeset: createChangeset(formObject.formFields, this.get('data'), this.get('customValidators'))
+    };
   }),  
 
-  changeset: computed('formSchema.fields', function() {
-    return createChangeset(this.get('formSchema.fields'), this.get('data'), this.get('customValidators'));
+  formObject: computed('initial.formObject', function() {
+    return this.get('initial.formObject');
+  }),
+
+  changeset: computed('initial.changset', function() {
+    return this.get('initial.changeset');
   }),
 
   formMetaData: computed('formObject', function() {
@@ -117,22 +114,21 @@ export default Component.extend({
           castAllowedFields(this.get('formFields'), changeset);
           this.set("requestInFlight", true);
           if (this.get('submitAction')) {
-            // TODO this must first save the changeset.
-            this.submitAction(changeset.data, modelName, changeset, this.get('formFields')).then(submitActionResponse => {
-              console.log(submitActionResponse);
-              this.set("requestInFlight", false);
-              if (this.get('saveSuccess')) {
-                this.saveSuccess(submitActionResponse, this.get('formFields'), this.get('formMetaData'), changeset);
-              }
-              if (this.get('formMetaData.resetAfterSubmit')) {
-                // this.send('resetForm'); //TODO does this need to be uncommented?
-              }
-            }).catch(error => {
-              console.log(error);
-              this.set("requestInFlight", false);
-              if (this.get('saveFail')) {
-                this.saveFail(error, this.get('formFields'), this.get('formMetaData'), changeset);
-              }
+            changeset.save().then(savedChangeset => {
+              this.submitAction(savedChangeset.data, modelName, changeset, this.get('formFields')).then(submitActionResponse => {
+                this.set("requestInFlight", false);
+                if (this.get('saveSuccess')) {
+                  this.saveSuccess(submitActionResponse, this.get('formFields'), this.get('formMetaData'), changeset);
+                }
+                if (this.get('formMetaData.resetAfterSubmit')) {
+                  // this.send('resetForm'); //TODO does this need to be uncommented?
+                }
+              }).catch(error => {
+                this.set("requestInFlight", false);
+                if (this.get('saveFail')) {
+                  this.saveFail(error, this.get('formFields'), this.get('formMetaData'), changeset);
+                }
+              });
             });
           } else {
             changeset.save().then(saveChangesetResponse => {
@@ -161,7 +157,7 @@ export default Component.extend({
     },
 
     resetForm() {
-      this.set('formObject', generateEmberValidatingFormFields(this.get('formSchema')));
+      this.set('initial.formObject', generateEmberValidatingFormFields(this.get('formSchema')));
       if (this.afterReset) { 
         this.afterReset(); // TODO this must send the changeset
       } 

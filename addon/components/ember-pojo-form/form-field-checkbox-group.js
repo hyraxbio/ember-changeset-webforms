@@ -39,7 +39,7 @@ export default Component.extend({
       } else {
         checkedItems = checkedItems.sort();
       }
-      this.onUserInteraction(checkedItems);
+      this.onUserInteraction(this.get('formField'), checkedItems);
     },
   },
 

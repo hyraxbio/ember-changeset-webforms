@@ -18,11 +18,6 @@ export default function generateEmberValidatingFormField(field, fieldComponentsM
 
   var fieldObject = EmberObject.create(field);
 
-  // if (field.fieldType === 'customComponent') {
-  //   fieldObject.component = field.componentPath;
-  //   return fieldObject;
-  // }
-
   var required;
   if (field.validationRules) {
     var requiredRule = field.validationRules.find(function(rule) {
@@ -81,14 +76,33 @@ export default function generateEmberValidatingFormField(field, fieldComponentsM
     }
   });
 
+  var componentPath;
+  if (field.componentPath) {
+    componentPath = field.componentPath;
+  } else if (fieldComponentsMap[field.fieldType]) {
+    componentPath = fieldComponentsMap[field.fieldType].componentPath;
+  } else {
+    componentPath = null;
+  }
+
+  var castOut;
+  if (field.castOut) {
+    castOut = field.castOut;
+  } else if (fieldComponentsMap[field.fieldType]) {
+    castOut = fieldComponentsMap[field.fieldType].castOut;
+  } else {
+    castOut = null;
+  }
+
   fieldObject.set('hideSuccessValidation', hideSuccessValidation);
   fieldObject.set('hideLabel', hideLabel);
   fieldObject.set('required', required);
   fieldObject.set('name', field.name || field.fieldId.replace(/\./g, '-'));
   fieldObject.set('placeholder', field.placeholder || field.fieldLabel);
-  fieldObject.set('component', field.componentPath || fieldComponentsMap[field.fieldType].componentPath);
-  fieldObject.set('castOut', field.castOut || fieldComponentsMap[field.fieldType].castOut);
+  fieldObject.set('component', componentPath);
+  fieldObject.set('castOut', castOut);
   fieldObject.set('validates', validates);
   fieldObject.set('validationEvents', parsedValidationEvents);
+  fieldObject.set('propertyName', field.propertyName || field.fieldId);
   return fieldObject;
 }

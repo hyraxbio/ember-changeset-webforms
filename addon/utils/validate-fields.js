@@ -7,7 +7,7 @@ export default function validateAllowedFields(formFields, changeset) {
         clonedField.set('wasValidated', true);
       });
     }
-    return allowedField.fieldId;
+    return allowedField.propertyName;
   });
   var validatePromises = allowedFields.map(allowedField => {
     return changeset.validate(allowedField);

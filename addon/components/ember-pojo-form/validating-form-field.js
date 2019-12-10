@@ -23,7 +23,7 @@ export default Component.extend({
       this.set('changeset', createChangeset([this.get('formField')], this.get('data'), this.get('customValidators')));
     }
     var changeset = this.get('changeset');
-    if (changeset.get(formField.fieldId)) {
+    if (changeset.get(formField.propertyName)) {
       this.send('validateProperty', changeset, formField, 'insert');
     }
   },
@@ -45,7 +45,7 @@ export default Component.extend({
     if (!this.validationEventObj(formField.validationEvents, 'keyUp') && formField.get('focussed')) {
       return;
     }
-    var validationErrors = (this.get(`changeset.error.${this.get('formField.fieldId')}.validation`)) || [];
+    var validationErrors = (this.get(`changeset.error.${this.get('formField.propertyName')}.validation`)) || [];
     if (validationErrors.length === 0) {
       if (!this.get('formField.wasValidated')) { return; }
       return 'valid';
@@ -80,7 +80,7 @@ export default Component.extend({
           return;
         }
       }  
-      changeset.validate(formField.fieldId).then(validationResponse => {
+      changeset.validate(formField.propertyName).then(validationResponse => {
         formField.set('wasValidated', true);
         if (this.get('afterValidation')) {
           this.afterValidation(formField, changeset);
@@ -92,7 +92,7 @@ export default Component.extend({
     },
 
     onUserInteraction: function(formField, value) {
-      this.send('setFieldValue', value, formField.fieldId);
+      this.send('setFieldValue', value, formField);
       this.send('validateProperty', this.get('changeset'), formField);
     },
 
@@ -101,7 +101,7 @@ export default Component.extend({
       if (value && !formField.get('notrim') && formField.get('inputType') !== 'password' && typeof value === 'string') {
         value = value.trim();
       }
-      this.send('setFieldValue', value, formField.fieldId);
+      this.send('setFieldValue', value, formField);
       this.send('validateProperty', this.get('changeset'), formField, 'focusOut', event);
       if (this.focusOutAction) {
         this.focusOutAction(formField);
@@ -116,18 +116,18 @@ export default Component.extend({
     },
 
     onKeyUp: function(formField, value, event) {
-      this.send('setFieldValue', value, formField.fieldId);
+      this.send('setFieldValue', value, formField);
       this.send('validateProperty', this.get('changeset'), formField, 'keyUp', event);
       if (this.afterKeyUpAction) {
         this.afterKeyUpAction(value, event, formField, this.get('changeset'));
       }
     },
 
-    setFieldValue: function(value, propertyName) {
+    setFieldValue: function(value, formField) {
       var changeset = this.get('changeset');
-      changeset.set(propertyName, value);
+      changeset.set(formField.propertyName, value);
       if (this.customTransforms) {
-        this.customTransforms(propertyName, changeset);
+        this.customTransforms(formField.fieldId, changeset);
       }
     }
   },

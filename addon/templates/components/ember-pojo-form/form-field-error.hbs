@@ -1,7 +1,7 @@
 {{#if (eq displayValidation "invalid")}}
-  {{#if (get (get changeset.error formField.fieldId) 'validation')}}
+  {{#if (get (get changeset.error formField.propertyName) 'validation')}}
     <div class="ember-pojo-form-field-errors" data-test-class="ember-pojo-form-field-errors">
-      {{#each (get (get changeset.error formField.fieldId) 'validation') as |error|}}
+      {{#each (get (get changeset.error formField.propertyName) 'validation') as |error|}}
         <div class="ember-pojo-form-field-error" data-test-class="ember-pojo-form-field-error">{{error}}</div>
       {{/each}}
     </div>

@@ -25,8 +25,20 @@ export default function generateEmberValidatingFormFields(formSchema, fieldCompo
     var formFields = [];
     if (!schemaFields) {return formFields;}
     schemaFields.forEach(function(field) {
-      var fieldObject = generateEmberValidatingFormField(field, fieldComponentsMap, formSchema);
-      formFields.push(fieldObject);
+      var fieldObject;
+      if (!field.includeLabelOnSubmit) {
+        fieldObject = generateEmberValidatingFormField(field, fieldComponentsMap, formSchema);
+        formFields.push(fieldObject);
+      } else {
+        var labelField = {
+          fieldId: `${field.fieldId}.label`,
+          defaultValue: field.fieldLabel,
+          fieldType: 'noDisplay'
+        };
+        formFields.push(generateEmberValidatingFormField(labelField, fieldComponentsMap, formSchema));
+        field.propertyName = `${field.fieldId}.values`;
+        formFields.push(generateEmberValidatingFormField(field, fieldComponentsMap, formSchema));
+      }
     });
     return formFields;
   };
