@@ -1,39 +1,38 @@
 {{#if (and changeset (not formField.hidden))}}
-    {{#if formField.cloneGroupName}}
-      {{ember-pojo-form/validating-form-field-clone-group
-        masterFormField=formField 
-        changeset=changeset 
-        setFieldValue=(action "setFieldValue")
+  {{#if formField.cloneGroupName}}
+    {{ember-pojo-form/validating-form-field-clone-group
+      masterFormField=formField 
+      changeset=changeset 
+      setFieldValue=(action "setFieldValue")
+      onFocusOut=(action "onFocusOut")
+      onFocusIn=(action "onFocusIn")
+      onKeyUp=(action "onKeyUp")
+      onUserInteraction=(action "onUserInteraction")
+      validateProperty=(action "validateProperty")
+      groupValue=(changeset-get changeset formField.fieldId)
+      settings=settings
+      masterfieldDisplayValidation=displayValidation
+    }}
+  {{else}}
+    {{#ember-pojo-form/validating-form-field-wrapper 
+      formField=formField
+      displayValidation=displayValidation
+      readonly=readonly
+      validates=validates
+      typeClass=typeClass
+      parsedDataTestId=parsedDataTestId
+      changeset=changeset
+    }}
+      {{component formField.component
+        formField=formField
         onFocusOut=(action "onFocusOut")
         onFocusIn=(action "onFocusIn")
         onKeyUp=(action "onKeyUp")
         onUserInteraction=(action "onUserInteraction")
-        validateProperty=(action "validateProperty")
-        groupValue=(changeset-get changeset formField.fieldId)
-        settings=settings
-        masterfieldDisplayValidation=displayValidation
-      }}
-    {{else}}
-        {{#ember-pojo-form/validating-form-field-wrapper 
-        formField=formField
-        displayValidation=displayValidation
-        readonly=readonly
-        validates=validates
-        typeClass=typeClass
-        parsedDataTestId=parsedDataTestId
         changeset=changeset
+        displayValidation=displayValidation
+        displayValue=(changeset-get changeset formField.fieldId)
       }}
-        {{component formField.component
-          formField=formField
-          onFocusOut=(action "onFocusOut")
-          onFocusIn=(action "onFocusIn")
-          onKeyUp=(action "onKeyUp")
-          onUserInteraction=(action "onUserInteraction")
-          changeset=changeset
-          displayValidation=displayValidation
-          displayValue=(changeset-get changeset formField.fieldId)
-        }}
-      {{/ember-pojo-form/validating-form-field-wrapper}}
-    {{/if}}
-  
+    {{/ember-pojo-form/validating-form-field-wrapper}}
+  {{/if}}
 {{/if}}

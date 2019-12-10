@@ -46,8 +46,8 @@ export default Component.extend({
       return;
     }
     var validationErrors = (this.get(`changeset.error.${this.get('formField.propertyName')}.validation`)) || [];
+    if (!this.get('formField.wasValidated')) { return; }
     if (validationErrors.length === 0) {
-      if (!this.get('formField.wasValidated')) { return; }
       return 'valid';
     } else {
       return 'invalid';
@@ -68,6 +68,7 @@ export default Component.extend({
 
   actions: {
     validateProperty(changeset, formField, eventType, event) {
+      if (!formField.validates) { return; }
       if (eventType && !this.validationEventObj(formField.validationEvents, eventType)) {
         return;
       }
@@ -97,6 +98,7 @@ export default Component.extend({
     },
 
     onFocusOut: function(formField, value) {
+      console.log('focusOut');
       formField.set('focussed', false);
       if (value && !formField.get('notrim') && formField.get('inputType') !== 'password' && typeof value === 'string') {
         value = value.trim();

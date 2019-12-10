@@ -1,7 +1,8 @@
 export default function validateAllowedFields(formFields, changeset) {
   var allowedFields = formFields.filter(field => {
-    return !field.hidden && !field.skipValidation;
+    return !field.hidden && !field.skipValidation && field.validates;
   }).map(allowedField => {
+    allowedField.set('wasValidated', true);
     if (allowedField.clonedFields) { // TODO does this really belong in a util.
       allowedField.clonedFields.forEach(clonedField => {
         clonedField.set('wasValidated', true);
