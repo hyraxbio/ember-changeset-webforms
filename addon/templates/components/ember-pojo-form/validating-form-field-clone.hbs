@@ -1,11 +1,9 @@
 <div class="form-field-clone">
-  <div class="clone-actions">
-    {{#if (eq masterFormField.cloneCountStatus "min")}}
-      <div role="button" class="hover-pointer add-clone" title="{{or formField.cloneButtonText (concat "New " formField.fieldId " field")}}" type="button" onclick={{action cloneField formField.cloneGroupName}} data-test-id="add-clone">{{svg-repo/icons/icon-plus class="fill-primary"}}</div>
-    {{else}}
-      <div role="button" class="hover-pointer remove-clone" type="button" onclick={{action removeClone clonedFormField}} data-test-class="remove-clone" title="Remove {{formField.fieldId}}">{{svg-repo/icons/icon-trash}}</div>
-    {{/if}}
-  </div>
+  {{#if (eq masterFormField.cloneCountStatus "min")}}
+    <div role="button" class="hover-pointer add-clone clone-actions" title="{{or formField.cloneButtonText (concat "New " formField.fieldId " field")}}" type="button" onclick={{action cloneField formField.cloneGroupName}} data-test-id="add-clone">{{svg-repo/icons/icon-plus class="fill-primary"}}</div>
+  {{else}}
+    <div role="button" class="hover-pointer remove-clone clone-actions" type="button" onclick={{action removeClone clonedFormField}} data-test-class="remove-clone" title="Remove {{formField.fieldId}}">{{svg-repo/icons/icon-trash}}</div>
+  {{/if}}
   {{#ember-pojo-form/validating-form-field-wrapper 
     formField=clonedFormField
     displayValidation=displayValidation
@@ -19,8 +17,8 @@
       masterFormField=masterFormField
       onFocusOut=(action "onFocusOutClone" index)
       onFocusIn=(action "onFocusInClone" index)
-      onKeyUpClone=(action "onKeyUpClone" index)
-      onUserInteractionClone=(action "onUserInteractionClone" index)
+      onKeyUp=(action "onKeyUpClone" index)
+      onUserInteraction=(action "onUserInteractionClone" index)
       cloneField=(action cloneField)
       removeClone=(action removeClone)
       changeset=changeset

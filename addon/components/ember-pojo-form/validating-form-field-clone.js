@@ -71,15 +71,15 @@ export default Component.extend({
     }
   },
 
-  updatedGroupValue(value, index) {
-    var groupValue = this.get('groupValue') || [];
-    groupValue[index] = value;
-    return groupValue;
-  },
-
   validationEventObj(validationEvents, eventType) { // TODO this is duplicated in validating form field.
     return validationEvents.find(validationEvent => {
       return validationEvent.event === eventType;
     });
-  }
+  },
+
+  updatedGroupValue(value, index) {
+    var groupValue = [...this.get('groupValue')] || []; // Must use spread to copy the array and avoid mutating the original below, which would break the groupValue CP.
+    groupValue[index] = value;
+    return groupValue;
+  },
 });

@@ -84,7 +84,7 @@ export default Component.extend({
       changeset.validate(formField.propertyName).then(validationResponse => {
         formField.set('wasValidated', true);
         if (this.get('afterValidation')) {
-          this.afterValidation(formField, changeset);
+          this.afterValidation(validationResponse, formField, changeset);
         }
         if (this.get('afterFieldValidation')) {
           this.afterFieldValidation(validationResponse, formField, changeset);
@@ -126,10 +126,13 @@ export default Component.extend({
     },
 
     setFieldValue: function(value, formField) {
+      // console.log('setFieldValue');
+      // console.log(value);
+      // console.log(formField);
       var changeset = this.get('changeset');
       changeset.set(formField.propertyName, value);
       if (this.customTransforms) {
-        this.customTransforms(formField.fieldId, changeset);
+        this.customTransforms(formField.fieldId, changeset, formField); // TODO sort out the mess of these args- no more fieldId.
       }
     }
   },

@@ -46,7 +46,7 @@ export default Component.extend({
       var groupValue = this.get('groupValue') || [];
       var lastIndex = masterFormField.clonedFields.length -1;
       groupValue[lastIndex] = defaultValue;
-      this.setFieldValue(groupValue, masterFormField.fieldId);
+      this.setFieldValue(groupValue, masterFormField);
       this.send('checkMinMaxClones', masterFormField);
     },
 
@@ -57,7 +57,7 @@ export default Component.extend({
       this.send('checkMinMaxClones', masterFormField);
       var groupValue = this.get('groupValue') || [];
       groupValue.splice(index, 1);
-      this.setFieldValue(groupValue, masterFormField.fieldId);
+      this.setFieldValue(groupValue, masterFormField);
 
     },
 
@@ -70,5 +70,7 @@ export default Component.extend({
         masterFormField.set('cloneCountStatus', null); // TODO install ember truth helpers as a dep.
       }
     },
+
+   
   }
 });
