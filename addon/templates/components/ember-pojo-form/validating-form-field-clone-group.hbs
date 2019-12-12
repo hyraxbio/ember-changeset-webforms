@@ -1,3 +1,4 @@
+<div class="cloned-fields">
 {{#each masterFormField.clonedFields as |clonedFormField index| }}
   {{ember-pojo-form/validating-form-field-clone
     onFocusOut=(action onFocusOut)
@@ -16,6 +17,7 @@
     masterfieldDisplayValidation=masterfieldDisplayValidation
   }}
 {{/each}}
+</div>
 <div class="clone-group-actions">
   {{#if (eq masterFormField.cloneCountStatus "max")}}
       Max clones reached.

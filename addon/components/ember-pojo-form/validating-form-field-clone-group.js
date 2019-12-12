@@ -45,9 +45,12 @@ export default Component.extend({
       masterFormField.clonedFields.pushObject(newField);
       var groupValue = this.get('groupValue') || [];
       var lastIndex = masterFormField.clonedFields.length -1;
-      groupValue[lastIndex] = defaultValue;
+      groupValue[lastIndex] = defaultValue || newField.defaultValue;
       this.setFieldValue(groupValue, masterFormField);
       this.send('checkMinMaxClones', masterFormField);
+      if (this.get('afterAddClone')) {
+        this.afterAddClone(newField, masterFormField, this.get('changeset'));
+      } 
     },
 
     removeClone(clone) {
@@ -58,7 +61,9 @@ export default Component.extend({
       var groupValue = this.get('groupValue') || [];
       groupValue.splice(index, 1);
       this.setFieldValue(groupValue, masterFormField);
-
+      if (this.get('afterRemoveClone')) {
+        this.afterRemoveClone(clone, masterFormField, this.get('changeset'));
+      } 
     },
 
     checkMinMaxClones(masterFormField) {
