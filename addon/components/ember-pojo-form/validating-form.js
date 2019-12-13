@@ -8,6 +8,7 @@ import castAllowedFields from '../../utils/cast-allowed-fields';
 import createChangeset from '../../utils/create-changeset';
 import generateEmberValidatingFormField from '../../utils/generate-ember-validating-form-field';
 import { assign } from '@ember/polyfills';
+import isPromise from 'ember-changeset/utils/is-promise';
 
 export default Component.extend({
   layout,
@@ -111,25 +112,36 @@ export default Component.extend({
     submit(changeset, modelName) {
       validateFields(this.get('formFields'), changeset).then(validateResponse => {
         if (changeset.isValid) {
+          if (this.get('beforeSubmitAction')) {
+            this.beforeSubmitAction(changeset, this.get('formFields'));
+          }
           castAllowedFields(this.get('formFields'), changeset);
           this.set("requestInFlight", true);
           if (this.get('submitAction')) {
-            changeset.save().then(savedChangeset => {
-              this.submitAction(savedChangeset.data, modelName, changeset, this.get('formFields')).then(submitActionResponse => {
-                this.set("requestInFlight", false);
-                if (this.get('saveSuccess')) {
-                  this.saveSuccess(submitActionResponse, this.get('formFields'), this.get('formMetaData'), changeset);
-                }
-                if (this.get('formMetaData.resetAfterSubmit')) {
-                  // this.send('resetForm'); //TODO does this need to be uncommented?
-                }
-              }).catch(error => {
-                this.set("requestInFlight", false);
-                if (this.get('saveFail')) {
-                  this.saveFail(error, this.get('formFields'), this.get('formMetaData'), changeset);
+              changeset.save().then(savedChangeset => {
+                var submitAction = this.submitAction(savedChangeset.data, modelName, changeset, this.get('formFields'));
+                if (isPromise(submitAction)) {
+                  submitAction.then(submitActionResponse => {
+                    this.set("requestInFlight", false);
+                    if (this.get('saveSuccess')) {
+                      this.saveSuccess(submitActionResponse, this.get('formFields'), this.get('formMetaData'), changeset);
+                    }
+                    if (this.get('formMetaData.resetAfterSubmit')) {
+                      // this.send('resetForm'); //TODO does this need to be uncommented?
+                    }
+                  }).catch(error => {
+                    this.set("requestInFlight", false);
+                    if (this.get('saveFail')) {
+                      this.saveFail(error, this.get('formFields'), this.get('formMetaData'), changeset);
+                    }
+                  });
+                } else {
+                  var submitActionResponse = submitAction;
+                  if (this.get('saveSuccess')) {
+                    this.saveSuccess(submitActionResponse, this.get('formFields'), this.get('formMetaData'), changeset);
+                  }
                 }
               });
-            });
           } else {
             changeset.save().then(saveChangesetResponse => {
               this.set("requestInFlight", false);
