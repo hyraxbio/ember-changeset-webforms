@@ -19,9 +19,9 @@
     onSelectDateTime=(action onUserInteraction formField)
     triggerClasses=formField.triggerClasses
     calendarClass=formField.calendarClass
-    timeSelectorTriggerClasses=(or formField.timeSelectorTriggerClasses emberPojoForms.settings.powerDatePicker.timeSelectorTriggerClasses)
-    dateSelectComponent=(or formField.dateSelectComponent emberPojoForms.settings.powerDatePicker.dateSelectComponent)
-    timeSelectComponent=(or formField.timeSelectComponent emberPojoForms.settings.powerDatePicker.timeSelectComponent)
+    timeSelectorTriggerClasses=settings.timeSelectorTriggerClasses
+    dateSelectComponent=settings.powerDatePicker.dateSelectComponent
+    timeSelectComponent=settings.powerDatePicker.timeSelectComponent
   }}
 </div>
 {{ember-pojo-form/form-field-error changeset=changeset formField=formField displayValidation=displayValidation}}

@@ -1,5 +1,5 @@
-{{value}}
-{{component settings.submitButtonIcon 
+{{formSettings.submitButtonText}}
+{{component formSettings.submitButtonIcon 
   requestInFlight=requestInFlight 
-  class=(concat (if requestInFlight settings.submitButtonIconRequestInFlightClassNames) " " settings.submitButtonIconClassNames)
+  class=(concat (if requestInFlight formSettings.submitButtonIconRequestInFlightClassNames) " " formSettings.submitButtonIconClassNames)
 }}

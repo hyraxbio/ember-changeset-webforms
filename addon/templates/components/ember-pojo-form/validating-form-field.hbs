@@ -12,7 +12,7 @@
       afterAddClone=afterAddClone
       afterRemoveClone=afterRemoveClone
       groupValue=(changeset-get changeset formField.fieldId)
-      settings=settings
+      templateSettings=templateSettings
       masterfieldDisplayValidation=displayValidation
     }}
   {{else}}
@@ -25,6 +25,7 @@
       parsedDataTestId=parsedDataTestId
       changeset=changeset
       dataTestClass=dataTestClass
+      templateSettings=templateSettings
     }}
       {{component formField.component
         formField=formField
@@ -35,6 +36,7 @@
         changeset=changeset
         displayValidation=displayValidation
         displayValue=(changeset-get changeset formField.fieldId)
+        templateSettings=templateSettings
       }}
     {{/ember-pojo-form/validating-form-field-wrapper}}
   {{/if}}

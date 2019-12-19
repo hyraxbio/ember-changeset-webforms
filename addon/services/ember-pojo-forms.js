@@ -9,6 +9,7 @@ export default Service.extend({
       submitButtonIconClassNames: 'button-right spinner',
       addCloneButtonComponent: 'ember-pojo-form/add-clone-button',
       submitButtonIconRequestInFlightClassNames: 'on',
+      removeCloneIcon: 'svg-repo/icons-icons-trash',
       powerDatePicker: {
         dateSelectComponent: null
       }

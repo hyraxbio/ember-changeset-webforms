@@ -15,6 +15,7 @@
     masterFormField=masterFormField
     processedFieldSchema=clonedFormField
     masterfieldDisplayValidation=masterfieldDisplayValidation
+    templateSettings=templateSettings
   }}
 {{/each}}
 </div>
@@ -22,6 +23,6 @@
   {{#if (eq masterFormField.cloneCountStatus "max")}}
       Max clones reached.
   {{else}}
-    {{component settings.addCloneButtonComponent cloneField=(action "cloneField") masterFormField=masterFormField}}
+    {{component templateSettings.addCloneButtonComponent cloneField=(action "cloneField") masterFormField=masterFormField templateSettings=templateSettings}}
   {{/if}}
 </div>

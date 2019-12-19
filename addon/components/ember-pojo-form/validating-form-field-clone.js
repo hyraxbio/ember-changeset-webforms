@@ -50,6 +50,8 @@ export default Component.extend({
       return 'invalid';
     }
   }),
+  removeIconComponent: computed('emberPojoForms.removeCloneIcon', 'formField.removeButtonIcon', function() {
+  }),
 
   actions: {
     onFocusOutClone(index, clonedFormField, value) {

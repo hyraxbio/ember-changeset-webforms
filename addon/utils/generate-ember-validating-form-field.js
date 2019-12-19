@@ -94,6 +94,21 @@ export default function generateEmberValidatingFormField(field, fieldComponentsM
     castOut = null;
   }
 
+  // if (field.fieldLabelClassNames) {
+  //   fieldObject.set('fieldLabelClassNames', field.fieldLabelClassNames.join(' '));
+  // }
+  // if (field.fieldClassNames) {
+  //   fieldObject.set('fieldClasses', field.fieldClassNames.join(' '));
+  // }
+
+  // if (field.fieldErrorClassNames) {
+  //   fieldObject.set('fieldErrorClasses', field.fieldErrorClassNames.join(' '));
+  // }
+
+  // if (field.fieldControlsClassNames) {
+  //   fieldObject.set('fieldControlsClasses', field.fieldControlsClassNames.join(' '));
+  // }
+  
   fieldObject.set('hideSuccessValidation', hideSuccessValidation);
   fieldObject.set('hideLabel', hideLabel);
   fieldObject.set('required', required);

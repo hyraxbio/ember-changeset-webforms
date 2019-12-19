@@ -6,9 +6,9 @@ import { inject as service } from '@ember/service';
 import validateFields from '../../utils/validate-fields';
 import castAllowedFields from '../../utils/cast-allowed-fields';
 import createChangeset from '../../utils/create-changeset';
-import generateEmberValidatingFormField from '../../utils/generate-ember-validating-form-field';
 import { assign } from '@ember/polyfills';
 import isPromise from 'ember-changeset/utils/is-promise';
+import EmberObject from '@ember/object';
 
 export default Component.extend({
   layout,
@@ -19,7 +19,6 @@ export default Component.extend({
   init() {
     this._super(...arguments);
     this.fieldComponentsMap = assign(this.get('emberPojoForms.defaultFieldElementComponents'), this.get('emberPojoForms.customFieldElementComponents'));
-    this.formSettings = this.get('emberPojoForms.defaultSettings');
   },
 
   initial: computed('formSchema', 'settings', 'fields', function() {
@@ -38,6 +37,16 @@ export default Component.extend({
       changeset: createChangeset(formObject.formFields, this.get('data'), this.get('customValidators'))
     };
   }),  
+
+  formSettings: computed('formSchema', 'settings', function() {
+    var formSettings;
+    if (this.get('formSchema')) {
+      formSettings = this.get('formSchema.settings');
+    } else if (this.get('settings')) {
+      formSettings = this.get('settings');
+    }
+    return assign(EmberObject.create(this.get('emberPojoForms.defaultSettings')), EmberObject.create(this.get('emberPojoForms.settings'), EmberObject.create(formSettings)));
+  }),
 
   formObject: computed('initial.formObject', function() {
     return this.get('initial.formObject');

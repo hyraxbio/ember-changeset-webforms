@@ -1,9 +1,7 @@
 <div class="form-field-clone">
-  {{#if (eq masterFormField.cloneCountStatus "min")}}
-    <div role="button" class="hover-pointer add-clone clone-actions" title="{{or formField.cloneButtonText (concat "New " formField.fieldId " field")}}" type="button" onclick={{action cloneField formField.cloneGroupName}} data-test-id="add-clone">{{svg-repo/icons/icon-plus class="fill-primary"}}</div>
-  {{else}}
-    <div role="button" class="hover-pointer remove-clone clone-actions" type="button" onclick={{action removeClone clonedFormField}} data-test-class="remove-clone" title="Remove {{formField.fieldId}}">{{svg-repo/icons/icon-trash}}</div>
-  {{/if}}
+  {{#unless (eq masterFormField.cloneCountStatus "min")}}
+    <div role="button" class="hover-pointer remove-clone clone-actions" type="button" onclick={{action removeClone clonedFormField}} data-test-class="remove-clone" title="Remove {{formField.fieldId}}">{{component templateSettings.removeCloneIcon}}</div>
+  {{/unless}}
   {{#ember-pojo-form/validating-form-field-wrapper 
     formField=clonedFormField
     displayValidation=displayValidation
@@ -24,6 +22,7 @@
       changeset=changeset
       displayValidation=displayValidation
       displayValue=(cloned-form-field-display-value groupValue index)
+      templateSettings=templateSettings
     }}
     {{#if (eq displayValidation "invalid")}}
       {{#if (or clonedFormField.fieldErrors (get (get changeset.error masterFormField.fieldId) 'validation'))}}

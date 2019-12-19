@@ -5,6 +5,7 @@ import layout from '../../templates/components/ember-pojo-form/validating-form-f
 import createChangeset from '../../utils/create-changeset';
 import { inject as service } from '@ember/service';
 import { assign } from '@ember/polyfills';
+import EmberObject from '@ember/object';
 
 export default Component.extend({
   layout,
@@ -14,6 +15,7 @@ export default Component.extend({
   init() {
     this._super(...arguments);
     this.fieldComponentsMap = assign(this.get('emberPojoForms.defaultFieldElementComponents'), this.get('emberPojoForms.customFieldElementComponents'));
+    this.templateSettings = assign(EmberObject.create(this.get('formSettings')), EmberObject.create(this.get('formField.templateSettings')));
   },
 
   didInsertElement: function() {
