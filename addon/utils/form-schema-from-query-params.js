@@ -1,0 +1,72 @@
+export default function formSchemaFromQueryParams(queryParamsObject) {
+  var formSchema = {
+    formName: `${queryParamsObject.name}Filters`,
+    submitButtonClasses: 'btn btn-primary',
+    submitButtonText: 'Apply Filters',
+    showResetButton: true,
+    resetAfterSubmit: false,
+    submitAsync: false,
+    resetButtonClasses: 'btn btn-outline-gray-medium',
+    fields: []
+  };
+
+  var dateRangeFieldLabels = [];
+  queryParamsObject.items.forEach(item => {
+    if (item.parent !== 'filter') { return; }
+    if (item.filtersForm.fieldType === 'dateRange') {
+      dateRangeFieldLabels.push(item.filtersForm.fieldLabel);
+      return;
+    } 
+    var field = {
+      fieldId: item.key,
+      defaultValue: item.defaultValue
+    };
+    for (var key in item.filtersForm) {
+      field[key] = item.filtersForm[key];
+    }
+    formSchema.fields.push(field);
+  });
+  dateRangeFieldLabels.uniq().forEach(label => {
+    var objects = queryParamsObject.items.filter(item => {
+      if (item.parent !== 'filter') { return; }
+      return item.filtersForm.fieldLabel === label;
+    });
+    var field = {
+      fieldLabel: label,
+      fieldType: "dateRange",
+      fieldSubIds: [{
+        id: "_from",
+        valueKey: "start"
+      }, {
+        id: "_to",
+        valueKey: "end"
+      }],
+      triggerClasses: 'btn btn-primary',
+      calendarContainerClasses: 'pop-up-box box-arrow',
+      maxDate: moment().toDate(),
+      startTime: '00:01',
+      endTime: '23:59',
+    };
+    var start = objects.find(object => {
+      return object.key.endsWith('_from');
+    });
+    var end = objects.find(object => {
+      return object.key.endsWith('_to');
+    });
+    var startSharedKey = start.key.slice(0, start.key.lastIndexOf('_from'));
+    var endSharedKey = end.key.slice(0, end.key.lastIndexOf('_to'));
+
+    if (startSharedKey === endSharedKey) {
+      field.fieldId = startSharedKey;
+    } else {
+      throw(`Your queryParams definition for ${queryParamsObject.name} has two fields set to form field type dateRange, and both have the fieldLabel ${label}. However, their keys do not correspond. They respective keys must start with the same string, followed by '_from' for the start date, and followed by '_to' for the end date.`);
+    }
+
+    field.defaultValue = {
+      start: start.defaultvalue,
+      end: end.defaultvalue,
+    };
+    formSchema.fields.push(field);
+  });
+  return formSchema;
+}

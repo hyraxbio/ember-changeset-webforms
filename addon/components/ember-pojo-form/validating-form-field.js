@@ -95,12 +95,14 @@ export default Component.extend({
     },
 
     onUserInteraction: function(formField, value) {
+      console.log('onUserInteraction');
+      console.log(formField);
+      console.log(value);
       this.send('setFieldValue', value, formField);
       this.send('validateProperty', this.get('changeset'), formField);
     },
 
     onFocusOut: function(formField, value) {
-      console.log('focusOut');
       formField.set('focussed', false);
       if (value && !formField.get('notrim') && formField.get('inputType') !== 'password' && typeof value === 'string') {
         value = value.trim();
@@ -128,9 +130,9 @@ export default Component.extend({
     },
 
     setFieldValue: function(value, formField) {
-      // console.log('setFieldValue');
-      // console.log(value);
-      // console.log(formField);
+      console.log('setFieldValue');
+      console.log(value);
+      console.log(formField);
       var changeset = this.get('changeset');
       changeset.set(formField.propertyName, value);
       if (this.customTransforms) {

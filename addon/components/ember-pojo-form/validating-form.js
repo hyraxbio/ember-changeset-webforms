@@ -45,7 +45,7 @@ export default Component.extend({
     } else if (this.get('settings')) {
       formSettings = this.get('settings');
     }
-    return assign(EmberObject.create(this.get('emberPojoForms.defaultSettings')), EmberObject.create(this.get('emberPojoForms.settings'), EmberObject.create(formSettings)));
+    return assign(EmberObject.create(this.get('emberPojoForms.defaultSettings') || {}), EmberObject.create(this.get('emberPojoForms.settings') || {}), EmberObject.create(formSettings || {}));
   }),
 
   formObject: computed('initial.formObject', function() {

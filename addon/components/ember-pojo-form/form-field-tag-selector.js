@@ -24,12 +24,12 @@ export default Component.extend({
   }),
 
   actions: {
-    onchange(value) {
+    onchange(formField, value) {
       value = value || [];
       if (value.length === 0) {
         value = null;
       }
-      this.onUserInteraction(value);
+      this.onUserInteraction(formField, value);
     },
 
     onkeydown(dropdown, e) {
