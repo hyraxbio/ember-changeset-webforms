@@ -1,12 +1,14 @@
 export default function formSchemaFromQueryParams(queryParamsObject) {
   var formSchema = {
-    formName: `${queryParamsObject.name}Filters`,
-    submitButtonClasses: 'btn btn-primary',
-    submitButtonText: 'Apply Filters',
-    showResetButton: true,
-    resetAfterSubmit: false,
-    submitAsync: false,
-    resetButtonClasses: 'btn btn-outline-gray-medium',
+    settings: {
+      formName: `${queryParamsObject.name}Filters`,
+      submitButtonClasses: 'btn btn-primary',
+      submitButtonText: 'Apply Filters',
+      showResetButton: true,
+      resetAfterSubmit: false,
+      submitAsync: false,
+      resetButtonClasses: 'btn btn-outline-gray-medium',
+    },
     fields: []
   };
 
