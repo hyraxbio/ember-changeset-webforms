@@ -1,4 +1,4 @@
-<form {{action "submit" on="submit"}} data-test-id="{{data-test-id}}" class={{formValidationClass}} novalidate={{formObject.formMetaData.novalidate}}>
+<form {{action "submit" on="submit"}} class={{formValidationClass}} novalidate={{formObject.formMetaData.novalidate}}>
   <div class="form-section form-fields">
     {{#each formFields as |formField|}}
       {{ember-pojo-form/validating-form-field
@@ -10,7 +10,7 @@
         afterKeyUpAction=afterKeyUpAction
         afterValidation=afterValidation
         afterFieldValidation=afterFieldValidation
-        data-test-id=(concat "validating-field-" formField.fieldId)
+        dataTestId=(concat "validating-field-" formField.fieldId)
         changeset=changeset
         formSettings=formSettings
       }}
@@ -29,7 +29,7 @@
       }}
     {{/unless}}
     {{#if formSettings.showResetButton}}
-      <button class={{formSettings.resetButtonClasses}} type="button" data-test-id="evf-reset-form-button" onclick={{action "resetForm" changeset formFields}}>{{formSettings.resetButtonText}}</button>
+      <button class={{formSettings.resetButtonClasses}} type="button" data-test-id="evf-reset-form-button" onclick={{action "clearForm" changeset formFields formMetaData.modelName}}>{{formSettings.resetButtonText}}</button>
     {{/if}}
   </div>
 </form>

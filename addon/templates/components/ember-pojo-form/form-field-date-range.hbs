@@ -1,25 +1,20 @@
-{{ember-pojo-form/form-field-label formField=formField}}
-<div class="field-controls validation-area">
-  {{background/power-date-range-picker
-    formField=formField
-    value=displayValue
-    dateButtonComponent=formField.dateButtonComponent
-    dateButtonText=formField.dateButtonText
-    placeholder=formField.placeholder
-    minDate=formField.minDate
-    maxDate=formField.maxDate
-    name=formField.name
-    dateFormat=formField.dateFormat
-    defaultStartDate=formField.defaultStartDate
-    defaultEndDate=formField.defaultEndDate
-    startTime=formField.startTime
-    endTime=formField.endTime
-    onSelectDateRange=(action onUserInteraction formField)
-    triggerClasses=formField.triggerClasses
-    calendarContainerClasses=formField.calendarContainerClasses
-    onClose=(action "onClose")
-    onOpen=(action "onOpen")
-  }}
-</div>
-{{ember-pojo-form/form-field-error changeset=changeset formField=formField displayValidation=displayValidation}}
-   
+{{background/power-date-range-picker
+  formField=formField
+  value=displayValue
+  dateButtonComponent=formField.dateButtonComponent
+  dateButtonText=formField.dateButtonText
+  placeholder=formField.placeholder
+  minDate=formField.minDate
+  maxDate=formField.maxDate
+  name=formField.name
+  dateFormat=formField.dateFormat
+  defaultStartDate=formField.defaultStartDate
+  defaultEndDate=formField.defaultEndDate
+  startTime=formField.startTime
+  endTime=formField.endTime
+  onSelectDateRange=(action onUserInteraction formField)
+  triggerClasses=formField.triggerClasses
+  calendarContainerClasses=formField.calendarContainerClasses
+  onClose=(action "onClose")
+  onOpen=(action "onOpen")
+}}

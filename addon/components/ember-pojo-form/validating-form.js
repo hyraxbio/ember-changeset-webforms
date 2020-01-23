@@ -32,9 +32,10 @@ export default Component.extend({
       };
     }
     var formObject = generateEmberValidatingFormFields(formSchema, this.get('fieldComponentsMap'));
+    var initialChangeset = createChangeset(formObject.formFields, this.get('data'), this.get('customValidators'));
     return {
       formObject: formObject,
-      changeset: createChangeset(formObject.formFields, this.get('data'), this.get('customValidators'))
+      changeset: initialChangeset
     };
   }),  
 
@@ -177,11 +178,22 @@ export default Component.extend({
       });
     },
 
-    resetForm() {
-      this.set('initial.formObject', generateEmberValidatingFormFields(this.get('formSchema')));
-      if (this.afterReset) { 
-        this.afterReset(); // TODO this must send the changeset
-      } 
+    clearForm(changeset, formFields, modelName) {
+      formFields.forEach(field => {
+        changeset.set(field.propertyName, null);
+      });
+      this.send('submit', changeset, modelName)
+      // if (this.beforeReset) { 
+      //   this.beforeReset(); // TODO this must send the changeset
+      // } 
+      // var formObject = generateEmberValidatingFormFields(this.get('formSchema'), this.get('fieldComponentsMap'));
+      // this.set('initial', {
+      //   formObject: formObject,
+      //   changeset: createChangeset(formObject.formFields, this.get('data'), this.get('customValidators'))
+      // });
+      // if (this.afterReset) { 
+      //   this.afterReset(changeset, formFields); // TODO this must send the changeset
+      // } 
     }
     
   }
