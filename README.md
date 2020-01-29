@@ -3,6 +3,15 @@ ember-pojo-validating-fields
 
 [Short description of the addon.]
 
+
+Compatibility
+------------------------------------------------------------------------------
+
+* Ember.js v3.4 or above
+* Ember CLI v2.13 or above
+* Node.js v8 or above
+
+
 Installation
 ------------------------------------------------------------------------------
 
@@ -20,26 +29,8 @@ The addon tries to remain as agnostic as possible about styling, however, there 
 
 There are some supporting addons which need to be installed, fpor various components/fieldTypes to work.
 
-**ember-pojo-form/form-field-checkbox-group (fieldType=checkboxGroup)**
-**ember-pojo-form/form-field-checkbox (fieldType=singleCheckbox)**
+See the [Contributing](CONTRIBUTING.md) guide for details.
 
-`ember install ember-extended-elements`
-
-Add the following line to your app.scss file, before `@import ember-pojo-forms`
-
-`@import ember-extended-elements;`
-
-**ember-pojo-form/form-field-date-range (fieldType=dateRange)**
-**ember-pojo-form/form-field-power-datepicker (fieldType=powerDatePicker)**
-
-`ember install ember-power-calendar`
-
-If the installation does not automatically add this line to your `app.scss` file, then add it, before the line `@import ember-extended-elements`.
-
-`@import "ember-power-calendar";`
-
-**ember-pojo-form/form-field-power-select (fieldType=powerSelect)**
-**ember-pojo-form/form-field-tag-selector (fieldType=tagSelector)**
 
 `ember install ember-power-select`
 
