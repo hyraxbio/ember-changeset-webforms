@@ -1,6 +1,13 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render, fillIn, focus, blur, triggerKeyEvent, clearRender } from '@ember/test-helpers';
+import {
+  render,
+  fillIn,
+  focus,
+  blur,
+  triggerKeyEvent,
+  clearRender
+} from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import nameInputRequired from './fixtures/form-fields/required/name-input';
 import emailInputRequired from './fixtures/form-fields/required/email-input';
@@ -132,13 +139,16 @@ module('Integration | Component | validating-form-field', function(hooks) {
     await focus(this.element.querySelector('input'));
     await blur(this.element.querySelector('input'));
 
-    assert.ok(this.element.querySelector('div').classList.contains('required'), 'Required class added to fields with "required" as a validationMenthod.');
+    assert.dom(this.element.querySelector('div')).hasClass(
+      'required',
+      'Required class added to fields with "required" as a validationMenthod.'
+    );
     assert.ok(this.element.querySelector('[data-test-class="ember-pojo-form-field-errors"]'), 'Error block shows on focus out of a required field which is empty.');
     assert.deepEqual(this.element.querySelectorAll('[data-test-class="ember-pojo-form-field-error"]').length, 2, 'Multiple error messages show where field fails validation for multiple reasons.');
   
 
-    assert.notOk(this.element.querySelector('div').classList.contains('valid'), "Valid class does not display on invalid field.");
-    assert.ok(this.element.querySelector('div').classList.contains('invalid'), "Invalid class displays on invalid field.");
+    assert.dom(this.element.querySelector('div')).hasNoClass('valid', "Valid class does not display on invalid field.");
+    assert.dom(this.element.querySelector('div')).hasClass('invalid', "Invalid class displays on invalid field.");
 
 
     await focus(this.element.querySelector('input'));
@@ -163,7 +173,10 @@ module('Integration | Component | validating-form-field', function(hooks) {
     await fillIn(this.element.querySelector('input'), 'lil-s@pawnee-gov.com');
     await triggerKeyEvent(this.element.querySelector('input'), "keyup", 1);
     await blur(this.element.querySelector('input'));
-    assert.ok(this.element.querySelector('div').classList.contains('hide-success-validation'), '"hide-success-validation" class is added to field where "hideSuccessValidation" is true.');
+    assert.dom(this.element.querySelector('div')).hasClass(
+      'hide-success-validation',
+      '"hide-success-validation" class is added to field where "hideSuccessValidation" is true.'
+    );
 
     await fillIn(this.element.querySelector('input'), 'lil-s');
     await triggerKeyEvent(this.element.querySelector('input'), "keyup", 1);
@@ -185,7 +198,12 @@ module('Integration | Component | validating-form-field', function(hooks) {
     await focus(this.element.querySelector('input'));
     await blur(this.element.querySelector('input'));
 
-    assert.equal(this.element.querySelector('[data-test-class="ember-pojo-form-field-error"]').textContent.trim(), 'Email should be present.', 'Custom validation error message displays if passed.');
+    assert.dom(
+      this.element.querySelector('[data-test-class="ember-pojo-form-field-error"]')
+    ).hasText(
+      'Email should be present.',
+      'Custom validation error message displays if passed.'
+    );
   });
 
   test('Custom Validation Events', async function(assert) {
@@ -272,7 +290,7 @@ module('Integration | Component | validating-form-field', function(hooks) {
     assert.ok(this.element.querySelector('[data-test-class="ember-pojo-form-field-errors"]'), 'Validation error shows on keyUp, when keyUp given as validation event for input, and input value is invalid.');
     await fillIn(this.element.querySelector('input'), 'lil-s@pawnee-gov.com');
     await triggerKeyEvent(this.element.querySelector('input'), "keyup", 1);
-    assert.ok(this.element.querySelector('div').classList.contains('valid'), "Success validation works on key up.");
+    assert.dom(this.element.querySelector('div')).hasClass('valid', "Success validation works on key up.");
 
     await fillIn(this.element.querySelector('input'), 'test');
     await blur(this.element.querySelector('input'));

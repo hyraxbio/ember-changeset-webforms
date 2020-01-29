@@ -12,6 +12,6 @@ module('Integration | Helper | cloned-form-field-display-value', function(hooks)
 
     await render(hbs`{{cloned-form-field-display-value inputValue}}`);
 
-    assert.equal(this.element.textContent.trim(), '1234');
+    assert.dom(this.element).hasText('1234');
   });
 });

@@ -12,7 +12,7 @@ module('Integration | Component | ember-pojo-form/validating-form-field-wrapper'
 
     await render(hbs`{{ember-pojo-form/validating-form-field-wrapper}}`);
 
-    assert.equal(this.element.textContent.trim(), '');
+    assert.dom(this.element).hasText('');
 
     // Template block usage:
     await render(hbs`
@@ -21,6 +21,6 @@ module('Integration | Component | ember-pojo-form/validating-form-field-wrapper'
       {{/ember-pojo-form/validating-form-field-wrapper}}
     `);
 
-    assert.equal(this.element.textContent.trim(), 'template block text');
+    assert.dom(this.element).hasText('template block text');
   });
 });

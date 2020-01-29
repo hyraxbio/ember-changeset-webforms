@@ -1,5 +1,5 @@
 import { module, test } from 'qunit';
-import { visit, fillIn, click, isSettled} from '@ember/test-helpers';
+import { visit, fillIn, click, isSettled } from '@ember/test-helpers';
 import { setupApplicationTest } from 'ember-qunit';
 import setupMirage from 'ember-cli-mirage/test-support/setup-mirage';
 
@@ -33,11 +33,16 @@ module('Acceptance | Validating form', function(hooks) {
     await click(document.querySelector('[data-test-id="evf-submit-form-button"]'));
     await isSettled();
 
-    assert.equal(document.querySelector('[data-test-id="system-message"] .message-content').textContent.trim(), 'Success', 'Default success message displays on successful form submission, if "submitSuccessMessage" is null.');
+    assert.dom(document.querySelector('[data-test-id="system-message"] .message-content')).hasText(
+      'Success',
+      'Default success message displays on successful form submission, if "submitSuccessMessage" is null.'
+    );
 
     await visit('/users');
     assert.equal(document.querySelectorAll('[data-test-id="users-table"] tbody tr').length, 1, 'Submitting creates a new record.');
-    assert.equal(document.querySelector('[data-test-id="users-table"] tr:first-child [data-test-id="name"]').textContent.trim(), 'Little Sebastian', 'Correct values are saved in the new record.');
+    assert.dom(
+      document.querySelector('[data-test-id="users-table"] tr:first-child [data-test-id="name"]')
+    ).hasText('Little Sebastian', 'Correct values are saved in the new record.');
 
     await visit('/signup');
     await fillIn(document.querySelector('[data-test-id="validating-field-name"] input'), 'Little Sebastian');
@@ -56,8 +61,14 @@ module('Acceptance | Validating form', function(hooks) {
     await fillIn(document.querySelector('[data-test-id="validating-field-email"] input'), 'alreadytaken@yahoo.com');
     await click(document.querySelector('[data-test-id="evf-submit-form-button"]'));
     await isSettled();
-    assert.equal(document.querySelector('[data-test-id="system-message"] .message-content').textContent.trim(), 'Email already taken.', 'Error message shows where POST request returns error.');
-    assert.ok(document.querySelector('[data-test-id="validating-field-email"]').classList.contains('invalid'), 'Email field gets invalid class when server returns "Email already taken" error.');
+    assert.dom(document.querySelector('[data-test-id="system-message"] .message-content')).hasText(
+      'Email already taken.',
+      'Error message shows where POST request returns error.'
+    );
+    assert.dom(document.querySelector('[data-test-id="validating-field-email"]')).hasClass(
+      'invalid',
+      'Email field gets invalid class when server returns "Email already taken" error.'
+    );
     assert.ok(document.querySelector('[data-test-id="validating-field-email"] [data-test-id="field-error"]'), 'Email field gets error message when server returns "Email already taken" error.');
 
     session.set('signupFormSchema.submitSuccessMessage', 'Thank you for signing up.');
@@ -79,7 +90,10 @@ module('Acceptance | Validating form', function(hooks) {
     await click(document.querySelector('[data-test-id="validating-field-settings.mailing_list"] input'));
     await click(document.querySelector('[data-test-id="evf-submit-form-button"]'));
     await isSettled();
-    assert.equal(document.querySelector('[data-test-id="system-message"] .message-content').textContent.trim(), 'Thank you for signing up.', 'Custom success message displays on successful form submission if "submitSuccessMessage" is specified.');
+    assert.dom(document.querySelector('[data-test-id="system-message"] .message-content')).hasText(
+      'Thank you for signing up.',
+      'Custom success message displays on successful form submission if "submitSuccessMessage" is specified.'
+    );
 
     var allClear = function() {
       var allValues = [];
@@ -127,7 +141,12 @@ module('Acceptance | Validating form', function(hooks) {
     await visit('/users');
     assert.equal(document.querySelectorAll('[data-test-id="users-table"] tbody tr').length, 1, 'Submit does not insert a new record.');
 
-    assert.equal(document.querySelector('[data-test-id="users-table"] tbody tr:first-child [data-test-id="name"]').textContent.trim(), 'Little Sebastian', 'User edits are successfully saved when user clicks "Submit".');
+    assert.dom(
+      document.querySelector('[data-test-id="users-table"] tbody tr:first-child [data-test-id="name"]')
+    ).hasText(
+      'Little Sebastian',
+      'User edits are successfully saved when user clicks "Submit".'
+    );
 
   });
 });

@@ -12,7 +12,7 @@ module('Integration | Component | background/power-calendar-nav', function(hooks
 
     await render(hbs`{{background/power-calendar-nav}}`);
 
-    assert.equal(this.element.textContent.trim(), '');
+    assert.dom(this.element).hasText('');
 
     // Template block usage:
     await render(hbs`
@@ -21,6 +21,6 @@ module('Integration | Component | background/power-calendar-nav', function(hooks
       {{/background/power-calendar-nav}}
     `);
 
-    assert.equal(this.element.textContent.trim(), 'template block text');
+    assert.dom(this.element).hasText('template block text');
   });
 });

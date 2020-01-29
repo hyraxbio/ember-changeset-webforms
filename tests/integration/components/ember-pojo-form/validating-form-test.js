@@ -1,11 +1,26 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render, click, triggerKeyEvent, focus, blur, fillIn, isSettled } from '@ember/test-helpers';
+import {
+  render,
+  click,
+  triggerKeyEvent,
+  focus,
+  blur,
+  fillIn,
+  isSettled
+} from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 // import { datepickerSelect } from 'ember-power-datepicker/test-support';
-import { clickTrigger as clickTriggerBasicDropdown, tapTrigger } from 'ember-basic-dropdown/test-support/helpers';
+import {
+  clickTrigger as clickTriggerBasicDropdown,
+  tapTrigger
+} from 'ember-basic-dropdown/test-support/helpers';
 import { calendarCenter, calendarSelect } from 'ember-power-calendar/test-support';
-import { typeInSearch, clickTrigger, selectChoose } from 'ember-power-select/test-support/helpers';
+import {
+  typeInSearch,
+  clickTrigger,
+  selectChoose
+} from 'ember-power-select/test-support/helpers';
 import nameInputRequired from './fixtures/form-fields/required/name-input';
 import emailInputRequired from './fixtures/form-fields/required/email-input';
 import countrySelectRequired from './fixtures/form-fields/required/select-country';
@@ -29,7 +44,7 @@ module('Integration | Component | validating-form', function(hooks) {
     await render(hbs`{{ember-pojo-form/validating-form formSchema=formSchema}}`);
     assert.ok(this.element.querySelector('form'), 'Form element is rendered.');
     assert.ok(this.element.querySelector('button[data-test-id="evf-submit-form-button"]'), 'Submit form button renders.');
-    assert.equal(this.element.querySelector('[data-test-id="evf-submit-form-button"]').textContent.trim(), 'Submit', 'Correct default text renders on submit form button.');
+    assert.dom(this.element.querySelector('[data-test-id="evf-submit-form-button"]')).hasText('Submit', 'Correct default text renders on submit form button.');
     
     this.set('formSchema', {
       settings: {
@@ -104,7 +119,7 @@ module('Integration | Component | validating-form', function(hooks) {
     await render(hbs`{{ember-pojo-form/validating-form formSchema=formSchema}}`);
     await fillIn(this.element.querySelector('[data-test-id="validating-field-name"] input'), 'Little Sebastian');
     await blur(this.element.querySelector('[data-test-id="validating-field-name"] input'));
-    assert.ok(this.element.querySelector('[data-test-id="validating-field-name"]').classList.contains('valid'), 'Success validation shows by default for valid field.');
+    assert.dom(this.element.querySelector('[data-test-id="validating-field-name"]')).hasClass('valid', 'Success validation shows by default for valid field.');
 
     this.set('formSchema', {
       settings: {
@@ -118,7 +133,10 @@ module('Integration | Component | validating-form', function(hooks) {
 
     await fillIn(this.element.querySelector('[data-test-id="validating-field-name"] input'), 'Little Sebastian');
     await triggerKeyEvent(this.element.querySelector('input'), "keyup", 1);
-    assert.notOk(this.element.querySelector('[data-test-id="validating-field-name"]').classList.contains('valid', 'invalid'), 'Success validation hidden in all fields, if formSchema has "hideSuccessValidation:true".');
+    assert.dom(this.element.querySelector('[data-test-id="validating-field-name"]')).hasNoClass(
+      'valid',
+      'Success validation hidden in all fields, if formSchema has "hideSuccessValidation:true".'
+    );
 
     this.set('formSchema2', {
       settings: {
@@ -133,7 +151,10 @@ module('Integration | Component | validating-form', function(hooks) {
     await fillIn(this.element.querySelector('[data-test-id="validating-field-name"] input'), 'lsebastian@pawneegov.org');
     await triggerKeyEvent(this.element.querySelector('input'), "keyup", 1);
     await blur(this.element.querySelector('[data-test-id="validating-field-name"] input'));
-    assert.ok(this.element.querySelector('[data-test-id="validating-field-name"]').classList.contains('valid'), 'Success validation shows where individual field has "hideSuccessValidation:false", and formSchema has "hideSuccessValidation=true".');
+    assert.dom(this.element.querySelector('[data-test-id="validating-field-name"]')).hasClass(
+      'valid',
+      'Success validation shows where individual field has "hideSuccessValidation:false", and formSchema has "hideSuccessValidation=true".'
+    );
 
     this.set('formSchema', {
       settings: {
@@ -182,7 +203,10 @@ module('Integration | Component | validating-form', function(hooks) {
     await click(this.element.querySelector('[data-test-id="evf-reset-form-button"]'));
     
     assert.deepEqual(this.element.querySelector('[data-test-id="validating-field-name"] input').value, '', 'Form values reset in template when reset button is clicked');
-    assert.notOk(this.element.querySelector('[data-test-id="validating-field-name"]').classList.contains('valid', 'invalid'), 'Form validation class resets in template when reset button is clicked');
+    assert.dom(this.element.querySelector('[data-test-id="validating-field-name"]')).hasNoClass(
+      'valid',
+      'Form validation class resets in template when reset button is clicked'
+    );
     // await this.pauseTest();
     await render(hbs`
       {{ember-pojo-form/validating-form
@@ -233,7 +257,10 @@ module('Integration | Component | validating-form', function(hooks) {
     assert.deepEqual(this.element.querySelectorAll('[data-test-class="ember-pojo-form-field-errors"]').length, this.element.querySelectorAll('.required').length, 'All required but empty fields get errors, when submit is clicked with no other interaction.');
 
 
-    assert.ok(this.element.querySelector('form').classList.contains('validation-failed'), 'Form gets class "validation-failed" when validation fails.');
+    assert.dom(this.element.querySelector('form')).hasClass(
+      'validation-failed',
+      'Form gets class "validation-failed" when validation fails.'
+    );
     // TODO find a way to test Enter key press to submit form.
     await fillIn(this.element.querySelector('[data-test-id="validating-field-name"] input'), 'Little Sebastian');
     await triggerKeyEvent(this.element.querySelector('input'), "keyup", 1);
