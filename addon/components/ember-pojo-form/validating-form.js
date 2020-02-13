@@ -40,12 +40,14 @@ export default Component.extend({
   }),  
 
   formSettings: computed('formSchema', 'settings', function() {
-    var formSettings;
-    if (this.get('formSchema')) {
-      formSettings = this.get('formSchema.settings');
-    } else if (this.get('settings')) {
-      formSettings = this.get('settings');
-    }
+    // var formSettings;
+    // if (this.get('formSchema')) {
+    //   formSettings = this.get('formSchema.settings');
+    // } else if (this.get('settings')) {
+    //   formSettings = this.get('settings');
+    // }
+    var  formSettings = assign(this.get('formSchema.settings') || {}, this.get('settings'));
+
     return assign(EmberObject.create(this.get('emberPojoForms.defaultSettings') || {}), EmberObject.create(this.get('emberPojoForms.settings') || {}), EmberObject.create(formSettings || {}));
   }),
 
@@ -113,9 +115,9 @@ export default Component.extend({
   },
 
   actions: {
-    customTransforms(fieldId, changeset) {
+    customTransforms(fieldId, changeset, formField, snapshot) {
        if (this.get('customTransforms')) {
-        this.customTransforms(this.get('formFields'), fieldId, this.get('formMetaData'), changeset);
+        this.customTransforms(this.get('formFields'), fieldId, this.get('formMetaData'), changeset, snapshot);
       }
     },
 
@@ -146,6 +148,7 @@ export default Component.extend({
                     }
                   });
                 } else {
+                  this.set("requestInFlight", false);
                   var submitActionResponse = submitAction;
                   if (this.get('saveSuccess')) {
                     this.saveSuccess(submitActionResponse, this.get('formFields'), this.get('formMetaData'), changeset);

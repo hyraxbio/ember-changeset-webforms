@@ -1,6 +1,6 @@
 {
   "name": "ember-pojo-validating-fields",
-  "version": "0.0.6-beta.3",
+  "version": "0.0.6-beta.4",
   "description": "The default blueprint for ember-cli addons.",
   "keywords": [
     "ember-addon"
@@ -24,7 +24,7 @@
     "ember-changeset-validations": "^2.1.0",
     "ember-cli-babel": "^7.7.3",
     "ember-cli-htmlbars": "^3.0.1",
-    "ember-power-calendar": "^0.13.3",
+    "ember-power-calendar": "~0.13.3",
     "ember-power-calendar-moment": "^0.1.7",
     "ember-power-select": "^2.3.5",
     "ember-radio-button": "^2.0.1"

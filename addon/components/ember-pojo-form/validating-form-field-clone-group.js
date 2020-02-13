@@ -25,6 +25,7 @@ export default Component.extend({
   didInsertElement() {
     var masterFormField = this.get('masterFormField');
     var minLength = Math.max((this.get('groupValue') || []).length, masterFormField.minClones);
+    // console.log(this.get('groupValue'));
     for (var i = 0; i < minLength; i++) {
       var value = this.get('groupValue') ? this.get('groupValue')[i] : null;
       this.send('cloneField', value);
@@ -46,6 +47,10 @@ export default Component.extend({
       var groupValue = this.get('groupValue') || [];
       var lastIndex = masterFormField.clonedFields.length -1;
       groupValue[lastIndex] = defaultValue || newField.defaultValue;
+      masterFormField.set('lastUpdatedClone', {
+        index: lastIndex,
+        previousValue: null,
+      });
       this.setFieldValue(groupValue, masterFormField);
       this.send('checkMinMaxClones', masterFormField);
       if (this.get('afterAddClone')) {

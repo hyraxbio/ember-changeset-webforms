@@ -88,13 +88,10 @@ export default Component.extend({
         if (this.get('afterValidation')) {
           this.afterValidation(validationResponse, formField, changeset);
         }
-        if (this.get('afterFieldValidation')) {
-          this.afterFieldValidation(validationResponse, formField, changeset);
-        }
       });
     },
 
-    onUserInteraction: function(formField, value) {
+    onUserInteraction: function(formField, value, cloneIndex) {
       this.send('setFieldValue', value, formField);
       this.send('validateProperty', this.get('changeset'), formField);
     },
@@ -128,6 +125,7 @@ export default Component.extend({
 
     setFieldValue: function(value, formField) {
       var changeset = this.get('changeset');
+      formField.set('previousValue', changeset.get(formField.propertyName));
       changeset.set(formField.propertyName, value);
       if (this.customTransforms) {
         this.customTransforms(formField.fieldId, changeset, formField); // TODO sort out the mess of these args- no more fieldId.

@@ -80,6 +80,12 @@ export default Component.extend({
   },
 
   updatedGroupValue(value, index) {
+    var masterFormField = this.get('masterFormField');
+    masterFormField.set('lastUpdatedClone', {
+      index: index,
+      previousValue: this.get('groupValue')[index],
+      previousLength: this.get('groupValue').length
+    });
     var groupValue = [...this.get('groupValue')] || []; // Must use spread to copy the array and avoid mutating the original below, which would break the groupValue CP.
     groupValue[index] = value;
     return groupValue;

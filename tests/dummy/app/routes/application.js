@@ -17,13 +17,11 @@ export default Route.extend({
     },
 
     saveNewRecord: function(values, modelName) {
-      console.log('saveNewRecord');
       var record = this.store.createRecord(modelName, values);
       return record.save();
     },
 
     updateRecord: function(record) {
-      console.log('updateRecord');
       return record.save();
     },
   }
