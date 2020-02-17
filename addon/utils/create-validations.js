@@ -4,12 +4,16 @@ export default function createValidations(fields, customValidators = {}) {
   var validations = {};
   if (!fields) { return validations; }
   fields.forEach(field => {
+    field.propertyName = field.propertyName || field.fieldId;
     field.cloneFieldSchema = field.cloneFieldSchema || {};
     if (field.cloneFieldSchema.validationRules) {
       field.validationRules = field.validationRules || [];
       field.validationRules.push({
         validationMethod: 'validateClone',
-        arguments: field.cloneFieldSchema.validationRules
+        arguments: {
+          validationRules: field.cloneFieldSchema.validationRules, 
+          customValidators: customValidators
+        }
       });
     }
     
@@ -25,5 +29,6 @@ export default function createValidations(fields, customValidators = {}) {
     });
     validations[field.propertyName] = fieldValidations;
   });
+  // console.log(validations);
   return validations;
 }

@@ -1,20 +1,32 @@
 {{#if (and changeset (not formField.hidden))}}
   {{#if formField.cloneGroupName}}
-    {{ember-pojo-form/validating-form-field-clone-group
-      masterFormField=formField 
-      changeset=changeset 
-      setFieldValue=(action "setFieldValue")
-      onFocusOut=(action "onFocusOut")
-      onFocusIn=(action "onFocusIn")
-      onKeyUp=(action "onKeyUp")
-      onUserInteraction=(action "onUserInteraction")
-      validateProperty=(action "validateProperty")
-      afterAddClone=afterAddClone
-      afterRemoveClone=afterRemoveClone
-      groupValue=(changeset-get changeset formField.fieldId)
+    {{#ember-pojo-form/validating-form-field-wrapper
+      formField=formField
+      displayValidation=displayValidation
+      readonly=readonly
+      validates=validates
+      typeClass=typeClass
+      parsedDataTestId=parsedDataTestId
+      changeset=changeset
+      dataTestClass=dataTestClass
       templateSettings=templateSettings
-      masterfieldDisplayValidation=displayValidation
-    }}
+    }} 
+      {{ember-pojo-form/validating-form-field-clone-group
+        masterFormField=formField 
+        changeset=changeset 
+        setFieldValue=(action "setFieldValue")
+        onFocusOut=(action "onFocusOut")
+        onFocusIn=(action "onFocusIn")
+        onKeyUp=(action "onKeyUp")
+        onUserInteraction=(action "onUserInteraction")
+        validateProperty=(action "validateProperty")
+        afterAddClone=afterAddClone
+        afterRemoveClone=afterRemoveClone
+        groupValue=(changeset-get changeset formField.fieldId)
+        templateSettings=templateSettings
+        masterfieldDisplayValidation=displayValidation
+      }}
+    {{/ember-pojo-form/validating-form-field-wrapper}}
   {{else}}
     {{#ember-pojo-form/validating-form-field-wrapper 
       formField=formField

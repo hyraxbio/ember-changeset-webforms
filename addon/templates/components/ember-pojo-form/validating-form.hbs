@@ -28,8 +28,12 @@
         formSettings=formSettings
       }}
     {{/unless}}
+    {{formMetaData.submitDisabled}}
+    {{#if formSettings.showDiscardChangesButton}}
+      <button class={{formSettings.resetButtonClasses}} type="button" data-test-id="evf-reset-form-button" onclick={{action "discardChanges" changeset formFields formMetaData.modelName}}>{{formSettings.resetButtonText}}</button>
+    {{/if}}
     {{#if formSettings.showResetButton}}
-      <button class={{formSettings.resetButtonClasses}} type="button" data-test-id="evf-reset-form-button" onclick={{action "clearForm" changeset formFields formMetaData.modelName}}>{{formSettings.resetButtonText}}</button>
+      <button class={{formSettings.resetButtonClasses}} type="button" data-test-id="evf-reset-form-button" onclick={{action "discardChanges" changeset formFields formMetaData.modelName}}>{{formSettings.resetButtonText}}</button>
     {{/if}}
   </div>
 </form>

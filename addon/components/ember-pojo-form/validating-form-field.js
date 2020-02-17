@@ -91,7 +91,7 @@ export default Component.extend({
       });
     },
 
-    onUserInteraction: function(formField, value, cloneIndex) {
+    onUserInteraction: function(formField, value) {
       this.send('setFieldValue', value, formField);
       this.send('validateProperty', this.get('changeset'), formField);
     },
