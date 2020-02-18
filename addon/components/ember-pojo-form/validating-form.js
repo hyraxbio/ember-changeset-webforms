@@ -136,7 +136,5 @@ export default Component.extend({
       this.send('generateChangeset', this.get('formSchema'), {});
       this.send('generateFormObject', this.get('formSchema'), this.get('fieldComponentsMap'));
     }
-
-    
   }
 });

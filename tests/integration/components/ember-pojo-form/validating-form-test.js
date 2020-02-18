@@ -179,10 +179,10 @@ module('Integration | Component | validating-form', function(hooks) {
       this.set('afterKeyUpActionValue', value);
     });
 
-    this.set('dummyAction_customTransforms', (formFields, fieldId, formMetaData) => {
+    this.set('dummyAction_customTransforms', (formFields, fieldId, formSettings) => {
       this.set('customTransformFieldLabel', formFields[0].fieldLabel);
       this.set('customTransformFieldId', fieldId);
-      this.set('customTransformFormName', formMetaData.formName);
+      this.set('customTransformFormName', formSettings.formName);
     });
 
     this.set('testAction', (actual) => {
@@ -218,19 +218,19 @@ module('Integration | Component | validating-form', function(hooks) {
     await triggerKeyEvent(this.element.querySelector('input'), "keyup", 1);
     assert.deepEqual(this.get('customTransformFieldLabel'), 'Name', '"formField" object passed to customTransforms action when field is updated.');
     assert.deepEqual(this.get('customTransformFieldId'), 'name', '"fieldId" object passed to customTransforms action when field is updated.');
-    assert.deepEqual(this.get('customTransformFormName'), 'signupForm', '"formMetaData" object passed to customTransforms action when field is updated.');
+    assert.deepEqual(this.get('customTransformFormName'), 'signupForm', '"formSettings" object passed to customTransforms action when field is updated.');
   });
 
   test('Form validation on submit', async function(assert) {
-    this.set('dummyAction_formValidationFailed', (formFields, formMetaData) => {
-      assert.deepEqual(formMetaData.submitButtonFeedback, 'Some fields have errors which must be fixed before continuing.', 'Follow up action is sent when form validation fails, with formFields and formMetaData as arguments.');
+    this.set('dummyAction_formValidationFailed', (formFields, formSettings) => {
+      assert.deepEqual(formSettings.submitButtonFeedback, 'Some fields have errors which must be fixed before continuing.', 'Follow up action is sent when form validation fails, with formFields and formSettings as arguments.');
     });
 
     this.set('dummyAction_submitAction', (changeset) => {
       this.set('submittedChangeset', changeset);
     });
 
-    this.set('dummyAction_saveFail', (response, formFields, formMetaData) => {
+    this.set('dummyAction_saveFail', (response, formFields, formSettings) => {
       assert.ok('' === '', 'Save success action is fired');
     });
 

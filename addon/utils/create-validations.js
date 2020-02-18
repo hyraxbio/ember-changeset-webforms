@@ -29,6 +29,5 @@ export default function createValidations(fields, customValidators = {}) {
     });
     validations[field.propertyName] = fieldValidations;
   });
-  // console.log(validations);
   return validations;
 }

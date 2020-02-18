@@ -5,10 +5,10 @@ export default Component.extend({
   classNameBindings: ['class'],
 
   actions: {
-    saveSuccess: function(response, formFields, formMetaData) {
+    saveSuccess: function(response, formFields, formSettings) {
       var successMessage = {
         'type': 'success',
-        'content': formMetaData.submitSuccessMessage,
+        'content': formSettings.submitSuccessMessage,
       };
       this.setProperty('systemMessage', successMessage);
     },
@@ -24,7 +24,7 @@ export default Component.extend({
       this.setProperty('systemMessage', errorMessage);
     },
 
-    formValidationFailed: function(formFields, formMetaData) {
+    formValidationFailed: function(formFields, formSettings) {
       var errorMessage = {
         'name': 'errorMessage',
         'type': 'error',
