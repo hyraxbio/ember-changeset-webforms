@@ -56,6 +56,9 @@ export default Component.extend({
       if (this.get('afterAddClone')) {
         this.afterAddClone(newField, masterFormField, this.get('changeset'));
       } 
+      // if (masterFormField.cloneFieldSchema.validationEvents.indexOf('addClone') > -1) {
+      //   this.validateProperty(this.get('changeset'), newField);
+      // }
     },
 
     removeClone(clone) {
@@ -69,6 +72,9 @@ export default Component.extend({
       if (this.get('afterRemoveClone')) {
         this.afterRemoveClone(clone, masterFormField, this.get('changeset'));
       } 
+      // if (masterFormField.cloneFieldSchema.validationEvents.indexOf('removeClone') > -1) {
+      //   this.validateProperty(this.get('changeset'));
+      // }
     },
 
     checkMinMaxClones(masterFormField) {
