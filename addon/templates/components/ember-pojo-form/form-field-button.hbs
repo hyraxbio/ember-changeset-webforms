@@ -1,5 +1,5 @@
 {{ember-pojo-form/form-field-label formField=formField}}
 <div class="field-controls">
-  <button class={{formField.buttonClasses}} {{action onUserInteraction}}>{{formField.buttonText}}</button>
+  <button class={{formField.buttonClasses}} {{action onUserInteraction formField}}>{{formField.buttonText}}</button>
 </div>
 {{ember-pojo-form/form-field-error changeset=changeset formField=formField displayValidation=displayValidation}}
