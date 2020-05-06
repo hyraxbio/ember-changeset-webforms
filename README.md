@@ -223,3 +223,49 @@ Test that resetting form works and allows subsequent form submission correctly.
 Note `notrim` in docs.
 
 Note `dataTestId` for form fields. First takes `dataTestId` in template, then `formField.dataTestId`, then combines `validating-form-` with `formField,fieldId`.
+
+## Action callbacks
+
+### Form
+
+`afterFieldValidation`
+
+Runs after any field is validated. 
+
+```
+afterFieldValidation(validationResponse, formField, changeset, formFields, formSettings) {
+  ...
+}
+```
+
+`afterFieldEdit`
+
+Runs after any property in `changeset.data` is updated- ie when any field is edited by the user. Runs before the relevant field is validated.
+
+```
+this.afterFieldEdit(formFields, fieldId, formSettings, changeset, snapshot) {
+  ...
+}
+```
+
+### Field
+
+`afterFieldEdit`
+
+Runs after the value of the data property of the changeset is updated, but before the field is validated.
+
+```
+this.afterFieldEdit(fieldId, changeset, formField) {
+  ...
+}
+```
+
+`afterFieldValidation`
+
+Runs after the field is validated.
+
+```
+afterFieldValidation(validationResponse, formField, changeset) {
+  ...
+}
+```

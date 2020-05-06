@@ -64,11 +64,17 @@ export default Component.extend({
       this.set('formObject', generateEmberValidatingFormFields(formSchema, fieldComponentsMap));
     },
 
-    customTransforms(fieldId, changeset, formField, snapshot) {
-       if (this.get('customTransforms')) {
-        this.customTransforms(this.get('formFields'), fieldId, this.get('formSettings'), changeset, snapshot);
+    afterFieldEdit(fieldId, changeset, formField, snapshot) {
+       if (this.get('afterFieldEdit')) {
+        this.afterFieldEdit(this.get('formFields'), fieldId, this.get('formSettings'), changeset, snapshot);
       }
     },
+
+    afterFieldValidation(validationResponse, formField, changeset) {
+      if (this.afterFieldValidation) {
+       this.afterFieldValidation(validationResponse, formField, changeset, this.get('formFields'), this.get('formSettings'));
+     }
+   },
 
     submit(changeset, modelName) {
       validateFields(this.get('formFields'), changeset).then(validateResponse => {

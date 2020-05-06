@@ -4,12 +4,12 @@
       {{ember-pojo-form/validating-form-field
         data-test-validating-field
         processedFieldSchema=formField
-        customTransforms=(action "customTransforms")
+        afterFieldEdit=(action "afterFieldEdit")
         afterAddClone=afterAddClone
         afterRemoveClone=afterRemoveClone
         afterKeyUpAction=afterKeyUpAction
-        afterValidation=afterValidation
-        afterFieldValidation=afterFieldValidation
+        submitForm=(action "submit" changeset formSettings.modelName)
+        afterFieldValidation=(action "afterFieldValidation")
         dataTestId=(concat "validating-field-" formField.fieldId)
         changeset=changeset
         formSettings=formSettings
