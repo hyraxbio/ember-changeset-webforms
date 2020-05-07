@@ -1,8 +1,84 @@
 // $power-datetime-picker
-.form-field.field-type-power-date-picker .validation-area {
-  border: $power-datetime-picker-border-width solid $power-datetime-picker-border-color;
-  border-radius: $power-datetime-picker-border-radius;
-  background: $power-datetime-picker-background-color;
-  padding: 10px;
+
+.ember-power-datetime-picker {
+  display: inline-flex;
+  flex-wrap: wrap;
+
+
+  input.date-select {
+    border-width: 0;
+    padding-right: 0;
+    background: transparent;
+  }
 }
+
+.ember-power-datepicker-trigger {
+  margin-right: 10px;
+}
+
+.time-select-dropdown {
+  width: 60px;
+}
+
+.time-select {
+  // display: flex;
+  // flex-wrap: wrap;
+  display: inline-flex;
+  align-items: center;
+  // width: 60px;
+
+  svg {
+    margin-top: 5px;
+    display: inline-block;
+    height: 20px;
+    width: auto;
+    fill: #fff;
+  }
+
+  .ember-power-select-trigger {
+    padding-left: 0;
+    padding-right: 0;
+    // width: auto;
+    background: transparent;
+    min-width: 0;
+    width: 60px;
+    border-width: 0;
+    display: inline-flex;
+    align-items: center;
+    .ember-power-select-selected-item {
+      display: inline-flex;
+      align-items: center;
+      margin-left: 0;
+      text-align: center;
+      justify-content: center;
+    }
+
+    .ember-power-select-status-icon {
+      display: none;
+    }
+  }
+
+  .time-divider {
+    align-items: center;
+    display: flex;
+    margin: 0 2px;
+  }
+}
+
+.time-select.disabled {
+  background: $power-datetime-picker-time-select-disabled-background-color;
+}
+
+.clear-date-time-button {
+  background: transparent;
+  border-width: 0;
+}
+
+.clear-date-time-button:hover {
+  cursor: pointer;
+}
+
+// .ember-pojo-form-field.field-type-power-date-picker .validation-area {
+//   padding: 10px 30px 10px 10px;
+// }
 

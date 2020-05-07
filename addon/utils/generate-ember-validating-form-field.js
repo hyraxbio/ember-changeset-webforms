@@ -21,7 +21,7 @@ export default function generateEmberValidatingFormField(field, fieldComponentsM
   var required;
   if (field.validationRules) {
     var requiredRule = field.validationRules.find(function(rule) {
-      return rule.validationMethod === 'validatePresence' && rule.arguments === true;
+      return rule.validationMethod === 'validatePresence' && (rule.arguments === true || rule.arguments.presence === true);
     });
     if (requiredRule) {
       required = true;

@@ -64,8 +64,8 @@ export default Component.extend({
     }
   }),
 
-  validates: computed('fieldSchema', function() {
-    return (this.get('fieldSchema.validationRules') || []).length > 0;
+  validates: computed('formField', function() {
+    return (this.get('formField.validationRules') || []).length > 0;
   }),
 
   actions: {

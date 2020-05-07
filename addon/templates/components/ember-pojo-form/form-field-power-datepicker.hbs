@@ -1,6 +1,4 @@
-{{ember-pojo-form/form-field-label formField=formField}}
-<div class="clr"></div>
-<div class="field-controls validation-area">
+<div class="validation-area input">
   {{background/power-datetime-picker
     formField=formField
     value=displayValue
@@ -24,17 +22,3 @@
     timeSelectComponent=settings.powerDatePicker.timeSelectComponent
   }}
 </div>
-{{ember-pojo-form/form-field-error changeset=changeset formField=formField displayValidation=displayValidation}}
-{{!-- {{#power-calendar
-    minDate=minDate
-    maxDate=maxDate
-    selected=value 
-    onSelect=(action (mut value) value="date") 
-    closeOnSelect=false 
-    onCenterChange=(action (mut center) value="date") 
-    center=center 
-    class="foo"
-  as |calendar|}}
-    {{background/power-calendar-nav calendar-calendar moveCenter=(action calendar.actions.moveCenter)}}
-    {{calendar.days minDate=minDate maxDate=maxDate}}
-  {{/power-calendar}} --}}

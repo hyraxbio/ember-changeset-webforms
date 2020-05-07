@@ -208,6 +208,11 @@ In this case `this.set('model.info.phone_number', '555')` will update the value 
 
 `notrim` Input fields are trimmed by default, unless they are type `password`, or you set `notrim` to true. 
 
+### checkbox group
+
+Default layout is vertical.
+Include `horizontal` in `fieldClasses` for a horizontal layout.
+
 ## Additional
 
 Note `skipValidation` will skip validation even if rules are present. You would opnly use this to turn off validation based on some other state of the form- otherwise you would just not include any validation rules for the field.
