@@ -7,8 +7,7 @@ export default Component.extend({
   layout,
   emberPojoForms: service(),
   classNames: ['ember-pojo-form-field-clone'],
-  attributeBindings: ['dataTestClass:data-test-class'],
-  dataTestClass: 'cloned-field',
+  'data-test-class': 'cloned-field',
 
   didInsertElement: function() {
     //Code below will maintain validation colours when component is re-rendered.

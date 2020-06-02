@@ -5,9 +5,9 @@ import { computed } from '@ember/object';
 export default Component.extend({
   layout,
   classNames: ['ember-power-datetime-picker'],
-  attributeBindings: ['dataTestType:data-test-type', 'data-test-id'],
+  attributeBindings: ['data-test-id'],
 
-  dataTestType: "power-datetime-picker",
+  'data-test-type': "power-datetime-picker",
 
   init: function() {
     this._super(...arguments);

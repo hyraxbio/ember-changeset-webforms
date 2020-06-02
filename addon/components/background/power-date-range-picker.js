@@ -6,8 +6,7 @@ import { computed } from '@ember/object';
 export default Component.extend({
   layout,
   classNames: ['ember-power-daterange-picker'],
-  attributeBindings: ['dataTestType:data-test-type', 'data-test-id'],
-  dataTestType: "power-daterange-picker",
+  'data-test-type': "power-daterange-picker",
 
   didInsertElement() {
     var minDate = this.get('minDate');

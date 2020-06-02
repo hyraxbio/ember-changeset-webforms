@@ -1,7 +1,7 @@
   <div class="radio-button-group-container field-controls validation-area">
     {{#each formField.options as |option|}}
       {{ember-pojo-form/labelled-radio-button
-        dataTestId=(concat "radio-option-" formField.fieldId "-" option.value)
+        data-test-id=(concat "radio-option-" formField.fieldId "-" option.value)
         value=option.value
         groupValue=displayValue
         required=false

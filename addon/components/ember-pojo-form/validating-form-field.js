@@ -30,10 +30,6 @@ export default Component.extend({
     }
   },
 
-  parsedDataTestId: computed('dataTestId', function() {
-    return this.get('dataTestId') || this.get('formField.dataTestId') || `validating-field-${this.get('formField.fieldId')}`;
-  }),
-
   typeClass: computed('formField.fieldType', function() {
     var myStr = this.get('formField.fieldType');
     myStr = myStr.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();

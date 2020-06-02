@@ -1,7 +1,7 @@
 <div class="checkbox-group-container field-controls validation-area">
   {{#each options as |option|}}
     {{background/labelled-checkbox
-      dataTestId=(concat "checkbox-option-" formField.fieldId "-" option.value)
+      data-test-id=(concat "checkbox-option-" formField.fieldId "-" option.value)
       value=(readonly option.value)
       label=option.label
       changedAction=(action "checkboxToggled" option.key)

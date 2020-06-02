@@ -6,9 +6,8 @@
       readonly=readonly
       validates=validates
       typeClass=typeClass
-      parsedDataTestId=parsedDataTestId
+      data-test-id=(or data-test-id (concat "validating-field-" formField.fieldId))
       changeset=changeset
-      dataTestClass=dataTestClass
       templateSettings=templateSettings
     }} 
       {{ember-pojo-form/validating-form-field-clone-group
@@ -34,9 +33,8 @@
       readonly=readonly
       validates=validates
       typeClass=typeClass
-      parsedDataTestId=parsedDataTestId
+      data-test-id=(or data-test-id (concat "validating-field-" formField.fieldId))
       changeset=changeset
-      dataTestClass=dataTestClass
       templateSettings=templateSettings
     }}
       {{component formField.component

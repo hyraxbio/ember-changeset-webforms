@@ -10,9 +10,8 @@ export default Component.extend({
   emberPojoForms: service(),
   classNames: ['clone-group'],
   classNameBindings: ['cloneGroupNameClass'],
-  attributeBindings: ['dataTestId:data-test-id'],
 
-  dataTestId: computed('masterFormField', function() {
+  'data-test-id': computed('masterFormField', function() {
     return `clone-group-${this.get('masterFormField.fieldId')}`;
   }),
 

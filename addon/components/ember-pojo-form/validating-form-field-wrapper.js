@@ -5,5 +5,5 @@ export default Component.extend({
   layout,
   classNames: ['ember-pojo-form-field'],
   classNameBindings: ['displayValidation', 'formField.required:required', 'disabled:disabled', 'readonly:readonly', 'formField.fieldClasses', 'formField.hideSuccessValidation:hide-success-validation', 'validates:validates', 'typeClass', 'formField.focussed:focussed'],
-  attributeBindings: ['parsedDataTestId:data-test-id', 'data-test-validation-field', 'dataTestClass:data-test-class'],
+  'data-test-validating-field': true
 });
