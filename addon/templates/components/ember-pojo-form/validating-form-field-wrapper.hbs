@@ -1,5 +1,10 @@
-<EmberPojoForm::FormFieldLabel @formField={{formField}} @fieldLabelClassNames={{templateSettings.fieldLabelClassNames}} />
+<EmberPojoForm::FormFieldLabel 
+  @formField={{formField}} 
+  @fieldLabelClassNames={{templateSettings.fieldLabelClassNames}} />
 <div class="field-controls validation-icon {{ember-fire-forms/array-join templateSettings.fieldControlsClassNames " "}}">
   {{yield}}
 </div>
-<EmberPojoForm::FormFieldError @changeset={{changeset}} @formField={{formField}} @displayValidation={{displayValidation}} />
+<EmberPojoForm::FormFieldError 
+  @changesetProp={{changesetProp}} 
+  @formField={{formField}} 
+  @displayValidation={{displayValidation}} />

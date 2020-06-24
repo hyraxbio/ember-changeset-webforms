@@ -21,12 +21,12 @@ export default Component.extend({
   didInsertElement: function() {
     //Code below will maintain validation colours when component is re-rendered.
     var formField = this.get('formField');
-    if (!this.get('changeset')) {
-      this.set('changeset', createChangeset([this.get('formField')], this.get('data'), this.get('customValidators')));
+    if (!this.get('changesetProp')) {
+      this.set('changesetProp', createChangeset([this.get('formField')], this.get('data'), this.get('customValidators')));
     }
-    var changeset = this.get('changeset');
-    if (changeset.get(formField.propertyName)) {
-      this.send('validateProperty', changeset, formField, 'insert');
+    var changesetProp = this.get('changesetProp');
+    if (changesetProp.get(formField.propertyName)) {
+      this.send('validateProperty', changesetProp, formField, 'insert');
     }
   },
 
@@ -118,7 +118,7 @@ export default Component.extend({
     },
 
     setFieldValue: function(value, formField, eventType, event) {
-      var changeset = this.get('changeset');
+      var changeset = this.get('changesetProp');
       if (formField.fieldType === 'input' && eventType === 'keyUp' && event.keyCode === 13) {
         if (this.submitForm) {
           formField.set('focussed', false);

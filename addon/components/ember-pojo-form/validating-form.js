@@ -54,7 +54,7 @@ export default Component.extend({
 
   actions: {
     generateChangeset(formSchema, data) {
-      this.set('changeset', createChangeset(formSchema.fields, data, this.get('customValidators')));
+      this.set('changesetProp', createChangeset(formSchema.fields, data, this.get('customValidators')));
       if (this.get('afterGenerateChangeset')) {
         this.afterGenerateChangeset(this.get('changeset'));
       } 

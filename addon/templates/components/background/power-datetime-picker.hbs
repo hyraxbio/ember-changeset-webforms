@@ -2,17 +2,17 @@
   <button class="clear-date-time-button {{dynamicClassClearDateTime}}" data-test-id="datetime-picker-clear-datetime" onclick={{action "clearDateTime"}}>×</button>
 {{/if}}
 <BasicDropdown @renderInPlace={{true}} as |dropdown|>
-  <dropdown.trigger>
+  <dropdown.Trigger>
     <input class="date-select" type="text" value={{if value (moment-format value dateDisplayFormat)}} placeholder={{displayPlaceholder}} onKeyUp={{action "onDateInputChange" value="target.value"}}>
-  </dropdown.trigger>
-  <dropdown.content>
+  </dropdown.Trigger>
+  <dropdown.Content>
     <div class={{calendarContainerClasses}}>
       <PowerCalendar @minDate={{minDate}} @maxDate={{maxDate}} @selected={{selectedDate}} @onSelect={{action "setDate" value="date"}} @closeOnSelect={{false}} @onCenterChange={{action (mut center) value="date"}} @center={{center}} @class={{calendarClass}} as |calendar|>
         <Background::PowerCalendarNav @calendar={{calendar}} @moveCenter={{action calendar.actions.moveCenter}} />
         <calendar.days @minDate={{minDate}} @maxDate={{maxDate}} />
       </PowerCalendar>
     </div>
-  </dropdown.content>
+  </dropdown.Content>
 </BasicDropdown>
 {{#if (and showTimeSelector value)}}
   <div data-test-type="time-selector" class="time-select {{timeSelectorTriggerClasses}} {{unless value "disabled"}}">

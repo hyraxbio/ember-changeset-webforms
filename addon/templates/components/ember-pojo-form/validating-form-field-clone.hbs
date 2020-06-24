@@ -12,13 +12,13 @@
       onUserInteraction=(action "onUserInteractionClone" index)
       cloneField=(action cloneField)
       removeClone=(action removeClone)
-      changeset=changeset
+      changesetProp=changesetProp
       displayValidation=displayValidation
       displayValue=(cloned-form-field-display-value groupValue index)
       templateSettings=templateSettings
     }}
     {{#if (eq displayValidation "invalid")}}
-      {{#if (or clonedFormField.fieldErrors (get (get changeset.error masterFormField.fieldId) 'validation'))}}
+      {{#if (or clonedFormField.fieldErrors (get (get changesetProp.error masterFormField.fieldId) 'validation'))}}
         <div class="ember-pojo-form-field-errors" data-test-class="ember-pojo-form-field-errors">
           {{#each cloneErrors as |error|}}
             <div class="ember-pojo-form-field-error" data-test-class="ember-pojo-form-field-error">{{error}}</div>

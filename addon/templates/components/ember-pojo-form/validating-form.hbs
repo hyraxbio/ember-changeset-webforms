@@ -1,31 +1,31 @@
 <form {{action "submit" on="submit"}} class={{formValidationClass}} novalidate={{formObject.formSettings.novalidate}}>
   <div class="form-section form-fields">
     {{#each formFields as |formField|}}
-      {{ember-pojo-form/validating-form-field
+      <EmberPojoForm::ValidatingFormField
         data-test-validating-field
-        processedFieldSchema=formField
-        afterFieldEdit=(action "afterFieldEdit")
-        afterAddClone=afterAddClone
-        afterRemoveClone=afterRemoveClone
-        afterKeyUpAction=afterKeyUpAction
-        submitForm=(action "submit" changeset formSettings.modelName)
-        afterFieldValidation=(action "afterFieldValidation")
-        changeset=changeset
-        formSettings=formSettings
-        formFields=formFields
-      }}
+        @processedFieldSchema={{formField}}
+        @afterAddClone={{afterAddClone}}
+        @afterRemoveClone={{afterRemoveClone}}
+        @afterKeyUpAction={{afterKeyUpAction}}
+        @changesetProp={{changesetProp}}
+        @formSettings={{formSettings}}
+        @formFields={{formFields}}
+        @submitForm={{action "submit" changesetProp formSettings.modelName}}
+        @afterFieldValidation={{action "afterFieldValidation"}}
+        @afterFieldEdit={{action "afterFieldEdit"}}
+      />
     {{/each}}
   </div>
   {{yield}}
   <div class="form-section form-submit">
     {{#unless formSettings.hideSubmitButton}}
-      <EmberPojoForm::FormSubmitButton @click={{action "submit" changeset formSettings.modelName}} @value={{submitButtonText}} @requestInFlight={{requestInFlight}} @data-test-id="evf-submit-form-button" @disabled={{formSettings.submitDisabled}} @formSettings={{formSettings}} />
+      <EmberPojoForm::FormSubmitButton @click={{action "submit" changesetProp formSettings.modelName}} @value={{submitButtonText}} @requestInFlight={{requestInFlight}} @data-test-id="evf-submit-form-button" @disabled={{formSettings.submitDisabled}} @formSettings={{formSettings}} />
     {{/unless}}
     {{#if formSettings.showDiscardChangesButton}}
-      <button class={{formSettings.showDiscardChangesButtonClasses}} type="button" data-test-id="evf-reset-form-button" onclick={{action "discardChanges" changeset}}>{{formSettings.showDiscardChangesButtonTetx}}</button>
+      <button class={{formSettings.showDiscardChangesButtonClasses}} type="button" data-test-id="evf-reset-form-button" onclick={{action "discardChanges" changesetProp}}>{{formSettings.showDiscardChangesButtonTetx}}</button>
     {{/if}}
     {{#if formSettings.showClearFormButton}}
-      <button class={{formSettings.clearFormButtonClasses}} type="button" data-test-id="evf-reset-form-button" onclick={{action "clerarForm" changeset formFields formSettings.modelName}}>{{formSettings.clearFormButton}}</button>
+      <button class={{formSettings.clearFormButtonClasses}} type="button" data-test-id="evf-reset-form-button" onclick={{action "clerarForm" changesetProp formFields formSettings.modelName}}>{{formSettings.clearFormButton}}</button>
     {{/if}}
   </div>
 </form>
