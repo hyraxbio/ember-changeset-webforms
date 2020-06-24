@@ -1,23 +1,9 @@
 <div data-test-type="form-field-power-select">
-  {{#power-select
-    triggerClass="validation-area"
-    options=formField.options
-    selected=(changeset-get changeset formField.propertyName)
-    searchPlaceholder=formField.searchPlaceholder
-    searchField=formField.optionDisplayProp
-    allowClear=allowClear
-    searchEnabled=formField.searchEnabled
-    placeholder=formField.placeholder
-    onchange=(action onUserInteraction formField)
-    onclose=onclose
-    triggerId=formField.name
-    disabled=formField.disabled
-    as |option|
-    }}
+  <PowerSelect @triggerClass="validation-area" @options={{formField.options}} @selected={{changeset-get changeset formField.propertyName}} @searchPlaceholder={{formField.searchPlaceholder}} @searchField={{formField.optionDisplayProp}} @allowClear={{allowClear}} @searchEnabled={{formField.searchEnabled}} @placeholder={{formField.placeholder}} @onChange={{action onUserInteraction formField}} @onclose={{onclose}} @triggerId={{formField.name}} @disabled={{formField.disabled}} as |option|>
     {{#if formField.optionComponent}}
       {{component formField.optionComponent option=option}}
     {{else}}
-      {{background/power-select-option option=option optionDisplayProp=formField.optionDisplayProp fieldId=formField.fieldId}}
+      <Background::PowerSelectOption @option={{option}} @optionDisplayProp={{formField.optionDisplayProp}} @fieldId={{formField.fieldId}} />
     {{/if}}
-  {{/power-select}}
+  </PowerSelect>
 </div>

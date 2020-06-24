@@ -1,42 +1,10 @@
 {{#if (and changeset (not formField.hidden))}}
   {{#if formField.cloneGroupName}}
-    {{#ember-pojo-form/validating-form-field-wrapper
-      formField=formField
-      displayValidation=displayValidation
-      readonly=readonly
-      validates=validates
-      typeClass=typeClass
-      data-test-id=(or data-test-id (concat "validating-field-" formField.fieldId))
-      changeset=changeset
-      templateSettings=templateSettings
-    }} 
-      {{ember-pojo-form/validating-form-field-clone-group
-        masterFormField=formField 
-        changeset=changeset 
-        setFieldValue=(action "setFieldValue")
-        onFocusOut=(action "onFocusOut")
-        onFocusIn=(action "onFocusIn")
-        onKeyUp=(action "onKeyUp")
-        onUserInteraction=(action "onUserInteraction")
-        validateProperty=(action "validateProperty")
-        afterAddClone=afterAddClone
-        afterRemoveClone=afterRemoveClone
-        groupValue=(changeset-get changeset formField.fieldId)
-        templateSettings=templateSettings
-        masterfieldDisplayValidation=displayValidation
-      }}
-    {{/ember-pojo-form/validating-form-field-wrapper}}
+    <EmberPojoForm::ValidatingFormFieldWrapper @formField={{formField}} @displayValidation={{displayValidation}} @readonly={{readonly}} @validates={{validates}} @typeClass={{typeClass}} @data-test-id={{or data-test-id (concat "validating-field-" formField.fieldId)}} @changeset={{changeset}} @templateSettings={{templateSettings}}> 
+      <EmberPojoForm::ValidatingFormFieldCloneGroup @masterFormField={{formField}} @changeset={{changeset}} @setFieldValue={{action "setFieldValue"}} @onFocusOut={{action "onFocusOut"}} @onFocusIn={{action "onFocusIn"}} @onKeyUp={{action "onKeyUp"}} @onUserInteraction={{action "onUserInteraction"}} @validateProperty={{action "validateProperty"}} @afterAddClone={{afterAddClone}} @afterRemoveClone={{afterRemoveClone}} @groupValue={{changeset-get changeset formField.fieldId}} @templateSettings={{templateSettings}} @masterfieldDisplayValidation={{displayValidation}} />
+    </EmberPojoForm::ValidatingFormFieldWrapper>
   {{else}}
-    {{#ember-pojo-form/validating-form-field-wrapper 
-      formField=formField
-      displayValidation=displayValidation
-      readonly=readonly
-      validates=validates
-      typeClass=typeClass
-      data-test-id=(or data-test-id (concat "validating-field-" formField.fieldId))
-      changeset=changeset
-      templateSettings=templateSettings
-    }}
+    <EmberPojoForm::ValidatingFormFieldWrapper @formField={{formField}} @displayValidation={{displayValidation}} @readonly={{readonly}} @validates={{validates}} @typeClass={{typeClass}} @data-test-id={{or data-test-id (concat "validating-field-" formField.fieldId)}} @changeset={{changeset}} @templateSettings={{templateSettings}}>
       {{component formField.component
         formField=formField
         formFields=formFields
@@ -49,6 +17,6 @@
         displayValue=(changeset-get changeset formField.fieldId)
         templateSettings=templateSettings
       }}
-    {{/ember-pojo-form/validating-form-field-wrapper}}
+    </EmberPojoForm::ValidatingFormFieldWrapper>
   {{/if}}
 {{/if}}

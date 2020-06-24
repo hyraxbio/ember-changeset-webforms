@@ -19,14 +19,7 @@
   {{yield}}
   <div class="form-section form-submit">
     {{#unless formSettings.hideSubmitButton}}
-      {{ember-pojo-form/form-submit-button 
-        click=(action "submit" changeset formSettings.modelName) 
-        value=submitButtonText 
-        requestInFlight=requestInFlight 
-        data-test-id="evf-submit-form-button" 
-        disabled=formSettings.submitDisabled
-        formSettings=formSettings
-      }}
+      <EmberPojoForm::FormSubmitButton @click={{action "submit" changeset formSettings.modelName}} @value={{submitButtonText}} @requestInFlight={{requestInFlight}} @data-test-id="evf-submit-form-button" @disabled={{formSettings.submitDisabled}} @formSettings={{formSettings}} />
     {{/unless}}
     {{#if formSettings.showDiscardChangesButton}}
       <button class={{formSettings.showDiscardChangesButtonClasses}} type="button" data-test-id="evf-reset-form-button" onclick={{action "discardChanges" changeset}}>{{formSettings.showDiscardChangesButtonTetx}}</button>

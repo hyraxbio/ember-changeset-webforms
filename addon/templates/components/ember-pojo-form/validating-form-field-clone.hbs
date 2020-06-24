@@ -2,13 +2,7 @@
   {{#unless (eq masterFormField.cloneCountStatus "min")}}
     <div role="button" class="hover-pointer remove-clone clone-actions" type="button" onclick={{action removeClone clonedFormField}} data-test-class="remove-clone" title="Remove {{formField.fieldId}}">{{component templateSettings.removeCloneIcon}}</div>
   {{/unless}}
-  {{#ember-pojo-form/validating-form-field-wrapper 
-    formField=clonedFormField
-    displayValidation=displayValidation
-    readonly=readonly
-    validates=validates
-    typeClass=typeClass
-  }}
+  <EmberPojoForm::ValidatingFormFieldWrapper @formField={{clonedFormField}} @displayValidation={{displayValidation}} @readonly={{readonly}} @validates={{validates}} @typeClass={{typeClass}}>
     {{component clonedFormField.component
       clonedFormField=clonedFormField
       masterFormField=masterFormField
@@ -35,5 +29,5 @@
         </div>
       {{/if}}
     {{/if}}      
-  {{/ember-pojo-form/validating-form-field-wrapper}}
+  </EmberPojoForm::ValidatingFormFieldWrapper>
 </div>

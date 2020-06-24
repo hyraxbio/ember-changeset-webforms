@@ -1,12 +1,5 @@
 <div class="checkbox-group-container field-controls validation-area">
   {{#each options as |option|}}
-    {{background/labelled-checkbox
-      data-test-id=(concat "checkbox-option-" formField.fieldId "-" option.value)
-      value=(readonly option.value)
-      label=option.label
-      changedAction=(action "checkboxToggled" option.key)
-      name=formField.name
-      disabled=(or option.disabled formField.disabled (and formField.preventEmpty option.onlyCheckedOption))
-    }}
+    <Background::LabelledCheckbox @data-test-id={{concat "checkbox-option-" formField.fieldId "-" option.value}} @value={{readonly option.value}} @label={{option.label}} @changedAction={{action "checkboxToggled" option.key}} @name={{formField.name}} @disabled={{or option.disabled formField.disabled (and formField.preventEmpty option.onlyCheckedOption)}} />
   {{/each}}
 </div>
