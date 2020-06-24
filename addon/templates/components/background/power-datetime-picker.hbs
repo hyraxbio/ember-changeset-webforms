@@ -3,7 +3,7 @@
 {{/if}}
 {{#basic-dropdown renderInPlace=true as |dropdown|}}
   {{#dropdown.trigger}}
-    <input class="date-select" type="text" value={{displayValue}} placeholder={{displayPlaceholder}} readonly>
+    <input class="date-select" type="text" value={{if value (moment-format value dateDisplayFormat)}} placeholder={{displayPlaceholder}} onKeyUp={{action "onDateInputChange" value="target.value"}}>
   {{/dropdown.trigger}}
   {{#dropdown.content}}
     <div class={{calendarContainerClasses}}>

@@ -6,4 +6,26 @@ export default Component.extend({
   layout,
   tagName: '',
   emberPojoForms: service(),
+
+  actions: {
+    onSelectDateTime(dateTime) {
+      var changeset = this.get('changeset');
+      var formField = this.get('formField');
+      if (formField.dateRangeSettings) {
+        var rangePartner = this.get('formFields').findBy('fieldId', formField.dateRangeSettings.rangePartnerFieldId);
+        if (rangePartner) {
+          if (rangePartner.dateRangeSettings.rangePosition === 'start') {
+            rangePartner.set('maxDate', dateTime);
+          } else if (rangePartner.dateRangeSettings.rangePosition === 'end') {
+            rangePartner.set('minDate', dateTime);
+          }
+        }
+        
+        console.log(rangePartner);
+      }
+      
+      this.onUserInteraction(formField, dateTime);
+      console.log(dateTime);
+    }
+  }
 });

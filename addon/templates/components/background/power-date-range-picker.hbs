@@ -13,7 +13,7 @@
         endTime=endTime
         onCenterChange=(action (mut center) value="date")
         onSelect=(action "rangeSelected" value="date") as |calendar|}}
-        {{background/power-calendar-nav calendar-calendar moveCenter=(action calendar.actions.moveCenter)}}
+        {{background/power-calendar-nav calendar=calendar moveCenter=(action calendar.actions.moveCenter)}}
         {{calendar.days minDate=minDate maxDate=maxDate}}
       {{/power-calendar-range}}
     </div>

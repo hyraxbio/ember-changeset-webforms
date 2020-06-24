@@ -27,6 +27,12 @@ export default Component.extend({
       var split = this.get('calendarStartMonth').split('/');
       this.set('calendarStartDate', moment().year(parseInt(split[1])).month(parseInt(split[0]) - 1).day(1));
     }
+    var value = this.get('value');
+    if (moment.isDate(value)) {
+      this.send('updateDateTime', value);
+    } else if (moment.isMoment(value) && moment(value).isValid()) {
+      this.send('updateDateTime', moment(value).toDate());
+    }
   },
 
   navButtons: computed('center', function() {
@@ -43,14 +49,24 @@ export default Component.extend({
     return this.get('dateFormat') || 'DD-MM-YYYY'; // TODO this must be a global option
   }),
 
-  displayValue: computed('value', function() {
-    var value = this.get('value');
-    if (!value) { return; }
-    var dateDisplayFormat = this.get('dateDisplayFormat');
-    return moment(value).format(dateDisplayFormat);
-  }),
-
   actions: {
+    onDateInputChange(value) {
+      var dateDisplayFormat = this.get('dateDisplayFormat');
+      if (moment(value, dateDisplayFormat, true).isValid()) {
+        this.send('setDate', moment(value, dateDisplayFormat).toDate());
+      }
+    },
+
+    onFocus(e) {
+      this.set('dateInputFocussed', true);
+      console.log(this.get('dateInputFocussed'))
+    },
+
+    onBlur(e) {
+      this.set('dateInputFocussed', false);
+      console.log(this.get('dateInputFocussed'))
+    },
+
     clearDateTime: function() {
       this.onSelectDateTime(null);
     },
@@ -66,7 +82,7 @@ export default Component.extend({
       } else {
         newDateTime = selectedDate;
       }
-      this.onSelectDateTime(newDateTime);
+      this.send('updateDateTime', newDateTime);
     },
 
     setTime: function(unit, value) {
@@ -79,7 +95,13 @@ export default Component.extend({
       } else if (unit === 'second') {
         newDateTime = moment(currentDateTime).second(value);
       }
-      this.onSelectDateTime(newDateTime);
+      this.send('updateDateTime', newDateTime);
+    },
+
+    updateDateTime(dateTime) {
+      this.set('center', dateTime);
+      this.set('selectedDate', dateTime);
+      this.onSelectDateTime(dateTime);
     },
 
     onTriggerFocus: function(datepicker) {
