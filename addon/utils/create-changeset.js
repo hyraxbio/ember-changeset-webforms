@@ -5,7 +5,6 @@ import createValidations from './create-validations';
 export default function createChangeset(formFields, data, customValidators) {
   data = data || {};
   var validationsMap = createValidations(formFields, customValidators);
-  console.log(data);
   var changeset = new Changeset(data, lookupValidator(validationsMap), validationsMap, { skipValidate: true });
   data.date = {};
   data.date.start = data.date_from;

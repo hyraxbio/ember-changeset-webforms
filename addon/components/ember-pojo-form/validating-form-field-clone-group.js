@@ -24,7 +24,6 @@ export default Component.extend({
   didInsertElement() {
     var masterFormField = this.get('masterFormField');
     var minLength = Math.max((this.get('groupValue') || []).length, masterFormField.minClones);
-    // console.log(this.get('groupValue'));
     for (var i = 0; i < minLength; i++) {
       var value = this.get('groupValue') ? this.get('groupValue')[i] : null;
       this.send('cloneField', value);

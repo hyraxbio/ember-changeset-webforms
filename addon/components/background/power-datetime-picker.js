@@ -57,14 +57,17 @@ export default Component.extend({
       }
     },
 
-    onFocus(e) {
-      this.set('dateInputFocussed', true);
-      console.log(this.get('dateInputFocussed'))
+    checkDateInputFocus() {
+      if (this.get('dateInputFocussed')) { return false;}
+      return true;
     },
 
-    onBlur(e) {
+    onDateInputFocus() {
+      this.set('dateInputFocussed', true);
+    },
+
+    onDateInputBlur() {
       this.set('dateInputFocussed', false);
-      console.log(this.get('dateInputFocussed'))
     },
 
     clearDateTime: function() {

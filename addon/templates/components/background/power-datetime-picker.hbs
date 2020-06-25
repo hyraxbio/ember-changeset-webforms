@@ -1,9 +1,9 @@
 {{#if value}}
   <button class="clear-date-time-button {{dynamicClassClearDateTime}}" data-test-id="datetime-picker-clear-datetime" onclick={{action "clearDateTime"}}>×</button>
 {{/if}}
-<BasicDropdown @renderInPlace={{true}} as |dropdown|>
-  <dropdown.Trigger>
-    <input class="date-select" type="text" value={{if value (moment-format value dateDisplayFormat)}} placeholder={{displayPlaceholder}} onKeyUp={{action "onDateInputChange" value="target.value"}}>
+<BasicDropdown @renderInPlace={{true}} @onClose={{action "checkDateInputFocus"}} as |dropdown|>
+  <dropdown.Trigger @eventType="mousedown">
+    <input class="date-select" type="text" value={{if value (moment-format value dateDisplayFormat)}} placeholder={{displayPlaceholder}} onKeyUp={{action "onDateInputChange" value="target.value"}} onFocus={{action "onDateInputFocus"}} onBlur={{action "onDateInputBlur"}}>
   </dropdown.Trigger>
   <dropdown.Content>
     <div class={{calendarContainerClasses}}>

@@ -19,13 +19,9 @@ export default Component.extend({
           } else if (rangePartner.dateRangeSettings.rangePosition === 'end') {
             rangePartner.set('minDate', dateTime);
           }
-        }
-        
-        console.log(rangePartner);
+        }        
       }
-      
       this.onUserInteraction(formField, dateTime);
-      console.log(dateTime);
     }
   }
 });
