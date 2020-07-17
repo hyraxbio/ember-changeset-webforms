@@ -1,5 +1,5 @@
 import Component from '@ember/component';
-import $ from 'jquery';
+import jQuery from 'jquery';
 import layout from '../../templates/components/ember-pojo-form/form-field-tag-selector';
 import { computed } from '@ember/object';
 
@@ -8,10 +8,11 @@ export default Component.extend({
 
   didInsertElement() {
     this._super(...arguments);
-    var labelElement = this.$('label[for]');
+    var self = this;
+    var labelElement = this.jQuery('label[for]');
     var forAttr = labelElement.attr('for');
-    $(labelElement).click(function() {
-      self.$(`#${forAttr}`).focus();
+    jQuery(labelElement).click(function() {
+      self.jQuery(`#${forAttr}`).focus();
     });
   },
 

@@ -6,8 +6,6 @@ export default function createChangeset(formFields, data, customValidators) {
   data = data || {};
   var validationsMap = createValidations(formFields, customValidators);
   var changeset = new Changeset(data, lookupValidator(validationsMap), validationsMap, { skipValidate: true });
-  data.date = {};
-  data.date.start = data.date_from;
   formFields.forEach(formField => {
     formField.propertyName = formField.propertyName || formField.fieldId;
     if (!changeset.get(formField.propertyName) && formField.defaultValue) {

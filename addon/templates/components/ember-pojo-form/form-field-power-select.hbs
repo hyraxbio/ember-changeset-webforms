@@ -3,7 +3,9 @@
     {{#if formField.optionComponent}}
       {{component formField.optionComponent option=option}}
     {{else}}
-      <Background::PowerSelectOption @option={{option}} @optionDisplayProp={{formField.optionDisplayProp}} @fieldId={{formField.fieldId}} />
+      <Background::PowerSelectOption @option={{option}} @optionDisplayProp={{formField.optionDisplayProp}} @fieldId={{formField.fieldId}} 
+      @optionName={{if formField.optionDisplayProp (get option formField.optionDisplayProp) option}}
+      />
     {{/if}}
   </PowerSelect>
 </div>
