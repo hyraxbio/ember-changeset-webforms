@@ -49,6 +49,10 @@ export default Component.extend({
     return this.get('dateFormat') || 'DD-MM-YYYY'; // TODO this must be a global option
   }),
 
+  parsedDatepickerPlaceholder: computed('datepickerPlaceholder', 'dateDisplayFormat', function() {
+    return this.get('datepickerPlaceholder') || this.get('dateDisplayFormat');
+  }),
+
   actions: {
     onDateInputChange(value) {
       var dateDisplayFormat = this.get('dateDisplayFormat');

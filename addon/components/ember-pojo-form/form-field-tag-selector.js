@@ -8,11 +8,10 @@ export default Component.extend({
 
   didInsertElement() {
     this._super(...arguments);
-    var self = this;
-    var labelElement = this.jQuery('label[for]');
+    var labelElement = jQuery('label[for]');
     var forAttr = labelElement.attr('for');
     jQuery(labelElement).click(function() {
-      self.jQuery(`#${forAttr}`).focus();
+      jQuery(`#${forAttr}`).focus();
     });
   },
 

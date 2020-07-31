@@ -1,6 +1,7 @@
 import Component from '@ember/component';
 import layout from '../../templates/components/ember-pojo-form/form-field-power-datepicker';
 import { inject as service } from '@ember/service';
+import { computed } from '@ember/object';
 
 export default Component.extend({
   layout,

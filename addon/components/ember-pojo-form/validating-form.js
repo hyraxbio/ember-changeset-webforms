@@ -56,7 +56,7 @@ export default Component.extend({
     generateChangeset(formSchema, data) {
       this.set('changesetProp', createChangeset(formSchema.fields, data, this.get('customValidators')));
       if (this.get('afterGenerateChangeset')) {
-        this.afterGenerateChangeset(this.get('changeset'));
+        this.afterGenerateChangeset(this.get('changesetProp'));
       } 
     },
 
@@ -94,7 +94,7 @@ export default Component.extend({
                       this.saveSuccess(submitActionResponse, this.get('formFields'), this.get('formSettings'), changeset);
                     }
                     if (this.get('formSettings.resetAfterSubmit')) {
-                      // this.send('resetForm'); //TODO does this need to be uncommented?
+                      this.send('clearForm');
                     }
                   }).catch(error => {
                     this.set("requestInFlight", false);
@@ -144,6 +144,9 @@ export default Component.extend({
       // TODO add option for suppress defaults
       this.send('generateChangeset', this.get('formSchema'), {});
       this.send('generateFormObject', this.get('formSchema'), this.get('fieldComponentsMap'));
+      if (this.get('formSettings.submitAfterClear')) {
+        this.send('submit', this.get('changesetProp'), this.get('formSettings.modelName'));
+      }
     }
   }
 });
