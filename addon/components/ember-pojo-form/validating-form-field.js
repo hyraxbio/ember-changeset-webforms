@@ -66,7 +66,6 @@ export default Component.extend({
 
   actions: {
     validateProperty(changeset, formField, eventType, event) {
-      console.log('validateProperty');
       if (!formField.validates) { return; }
       if (eventType && !this.validationEventObj(formField.validationEvents, eventType)) {
         return;
@@ -80,14 +79,8 @@ export default Component.extend({
           return;
         }
       }  
-      console.log(changeset);
-      console.log(formField.propertyName);
-      console.log(changeset.get(formField.propertyName));
       changeset.validate(formField.propertyName).then(validationResponse => {
-        console.log(validationResponse);
-      console.log(changeset.get('errors'));
-      formField.set('wasValidated', true);
-
+        formField.set('wasValidated', true);
         if (this.afterFieldValidation) {
           this.afterFieldValidation(validationResponse, formField, changeset);
         }
