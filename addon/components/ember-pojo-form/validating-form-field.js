@@ -37,13 +37,13 @@ export default Component.extend({
   }),
 
   // TODO should a formField not be a class of it's own?
-  displayValidation: computed('changeset.error', 'formField.{focussed,wasValidated}', function() {
+  displayValidation: computed('changesetProp.error', 'formField.{focussed,wasValidated}', function() {
     var formField = this.get('formField');
     if (!formField) { return; }
     if (!this.validationEventObj(formField.validationEvents, 'keyUp') && formField.get('focussed')) {
       return;
     }
-    var validationErrors = (this.get(`changeset.error.${this.get('formField.propertyName')}.validation`)) || [];
+    var validationErrors = (this.get(`changesetProp.error.${this.get('formField.propertyName')}.validation`)) || [];
     if (!this.get('formField.wasValidated')) { return; }
     if (validationErrors.length === 0) {
       return 'valid';
@@ -66,6 +66,7 @@ export default Component.extend({
 
   actions: {
     validateProperty(changeset, formField, eventType, event) {
+      console.log('validateProperty');
       if (!formField.validates) { return; }
       if (eventType && !this.validationEventObj(formField.validationEvents, eventType)) {
         return;
@@ -79,8 +80,13 @@ export default Component.extend({
           return;
         }
       }  
+      console.log(changeset);
+      console.log(formField.propertyName);
+      console.log(changeset.get(formField.propertyName));
       changeset.validate(formField.propertyName).then(validationResponse => {
-        formField.set('wasValidated', true);
+        console.log(validationResponse);
+      console.log(changeset.get('errors'));
+      formField.set('wasValidated', true);
 
         if (this.afterFieldValidation) {
           this.afterFieldValidation(validationResponse, formField, changeset);
