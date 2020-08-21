@@ -14,27 +14,27 @@ export default Component.extend({
     var index = this.get('index');
     var masterFormField = this.get('masterFormField');
     var clonedFormField = this.get('clonedFormField');
-    var changeset = this.get('changeset');
-    if (changeset.get(masterFormField.fieldId)[index]) {
-      this.validateProperty(changeset, clonedFormField, 'insert');
+    var changesetProp = this.get('changesetProp');
+    if (changesetProp.get(masterFormField.fieldId)[index]) {
+      this.validateProperty(changesetProp, clonedFormField, 'insert');
     }
   },
 
-  cloneErrors: computed('changeset.error', function() {
+  cloneErrors: computed('changesetProp.error', function() {
     var index = this.get('index');
-    var validationErrors = ((this.get(`changeset.error.${this.get('masterFormField.fieldId')}.validation`)) || [])[0];
+    var validationErrors = ((this.get(`changesetProp.error.${this.get('masterFormField.fieldId')}.validation`)) || [])[0];
     if (!validationErrors) { return; }
     return validationErrors[index];
   }),
 
-  displayValidation: computed('changeset.error', 'clonedFormField.{focussed,wasValidated,fieldErrors,fieldErrors.@each}', function() {
+  displayValidation: computed('changesetProp.error', 'clonedFormField.{focussed,wasValidated,fieldErrors,fieldErrors.@each}', function() {
     var index = this.get('index');
     var clonedFormField = this.get('clonedFormField');
     if (!clonedFormField) { return; }
     if (!this.validationEventObj(clonedFormField.validationEvents, 'keyUp') && clonedFormField.get('focussed')) {
       return;
     }   
-    var masterFieldvalidationErrors = ((this.get(`changeset.error.${this.get('masterFormField.fieldId')}.validation`)) || []);
+    var masterFieldvalidationErrors = ((this.get(`changesetProp.error.${this.get('masterFormField.fieldId')}.validation`)) || []);
     var clonedFieldValidationErrors = masterFieldvalidationErrors[0];
     if (!this.get('clonedFormField.wasValidated')) { return; }
     if ((clonedFormField.fieldErrors || []).length > 0) {
@@ -64,7 +64,7 @@ export default Component.extend({
     onKeyUpClone(index, clonedFormField, value, event) {
       this.onKeyUp(clonedFormField, this.updatedGroupValue(value, index), event);
       // Must always validate on keyUp because when changeset prop is updated, the validation errors for that prop are removed until validated again- this is dude to skipValidation.
-      this.validateProperty(this.get('changeset'), clonedFormField);
+      this.validateProperty(this.get('changesetProp'), clonedFormField);
     },
 
     onUserInteractionClone(index, clonedFormField, value) {

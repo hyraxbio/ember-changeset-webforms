@@ -1,9 +1,24 @@
 <div data-test-type="form-field-power-select">
-  <PowerSelectMultiple @triggerClass="validation-area" @searchField={{formField.optionDisplayProp}} @options={{formField.options}} @selected={{readonly displayValue}} @searchPlaceholder={{formField.searchPlaceholder}} @allowClear={{allowClear}} @searchEnabled={{formField.searchEnabled}} @placeholder={{formField.placeholder}} @onChange={{action "onchange" formField}} @onkeydown={{action "onkeydown"}} @onclose={{onclose}} as |option|>
+  <PowerSelectMultiple 
+    @triggerClass="validation-area" 
+    @searchField={{formField.optionDisplayProp}} 
+    @options={{formField.options}} 
+    @selected={{readonly displayValue}} 
+    @searchPlaceholder={{formField.searchPlaceholder}} 
+    @allowClear={{allowClear}} 
+    @searchEnabled={{formField.searchEnabled}} 
+    @placeholder={{formField.placeholder}} 
+    @onChange={{action "onchange" formField}} 
+    @onkeydown={{action "onkeydown"}} 
+    @onclose={{onclose}} as |option|>
     {{#if formField.optionComponent}}
       {{component formField.optionComponent option=option}}
     {{else}}
-      <Background::PowerSelectOption @option={{option}} @optionDisplayProp={{formField.optionDisplayProp}} @fieldId={{formField.fieldId}} @optionName={{if formField.optionDisplayProp (get option formField.optionDisplayProp) option}} />
+      <Background::PowerSelectOption 
+        @option={{option}} 
+        @optionDisplayProp={{formField.optionDisplayProp}} 
+        @fieldId={{formField.fieldId}} 
+        @optionName={{if formField.optionDisplayProp (get option formField.optionDisplayProp) option}} />
     {{/if}}
   </PowerSelectMultiple>
 </div>
