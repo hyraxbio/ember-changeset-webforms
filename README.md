@@ -276,3 +276,6 @@ afterFieldValidation(validationResponse, formField, changeset) {
 ```
 
 formField.datepickerPlaceholder for power-datetime-picker formfield.
+
+Default search placeholder for power select referenced in:
+  addon/templates/components/ember-pojo-form/form-field-power-select.hbs
