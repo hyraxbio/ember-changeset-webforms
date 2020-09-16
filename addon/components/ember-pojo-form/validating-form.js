@@ -19,21 +19,6 @@ export default Component.extend({
 
   didInsertElement() {
     this.fieldComponentsMap = assign(this.get('emberPojoForms.defaultFieldElementComponents'), this.get('emberPojoForms.customFieldElementComponents'));
-    var formSchema = this.get('formSchema');
-    var parsedSchemaFields = [];
-    formSchema.fields.forEach(function(field) {
-      if (field.includeLabelOnSubmit) {
-        var labelField = {
-          fieldId: `${field.fieldId}_label`,
-          defaultValue: field.fieldLabel,
-          fieldType: 'noDisplay'
-        };
-        parsedSchemaFields.push(labelField);
-      } 
-      parsedSchemaFields.push(field);
-    });
-    this.set('formSchema.fields', parsedSchemaFields);
-
     this.send('generateFormObject', this.get('formSchema'), this.get('fieldComponentsMap'));
     this.send('generateChangeset', this.get('formSchema'), this.get('data'));
   },  
