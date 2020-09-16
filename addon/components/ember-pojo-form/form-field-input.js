@@ -19,6 +19,10 @@ export default Component.extend({
       this.onFocusIn(this.get('formField'));
     },
 
+    change(value) {
+      this.onChange(this.get('formField'), value);
+    },
+
     focusOut(value) {
       this.onFocusOut(this.get('formField'), value);
     }

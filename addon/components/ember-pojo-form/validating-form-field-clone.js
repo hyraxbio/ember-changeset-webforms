@@ -69,6 +69,10 @@ export default Component.extend({
 
     onUserInteractionClone(index, clonedFormField, value) {
       this.onUserInteraction(clonedFormField, this.updatedGroupValue(value, index));
+    },
+
+    onChangeClone(index, clonedFormField, value) {
+      this.onChange(clonedFormField, this.updatedGroupValue(value, index));
     }
   },
 

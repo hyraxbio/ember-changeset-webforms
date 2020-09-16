@@ -9,7 +9,6 @@ import createChangeset from '../../utils/create-changeset';
 import { assign } from '@ember/polyfills';
 import isPromise from 'ember-changeset/utils/is-promise';
 import EmberObject from '@ember/object';
-import { test } from 'ember-qunit';
 
 export default Component.extend({
   layout,

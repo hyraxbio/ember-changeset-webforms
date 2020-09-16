@@ -1,6 +1,7 @@
 <Input class="validation-area" 
   @value={{displayValue}} 
   @focusOut={{action "focusOut" value="target.value" }} 
+  @change={{action "change" value="target.value" }} 
   @focusIn={{action "focusIn" value="target.value"}} placeholder={{formField.placeholder}} 
   @autofocus={{formField.autofocus}} 
   @type={{formField.inputType}} 
