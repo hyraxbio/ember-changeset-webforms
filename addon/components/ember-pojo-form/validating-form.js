@@ -9,6 +9,7 @@ import createChangeset from '../../utils/create-changeset';
 import { assign } from '@ember/polyfills';
 import isPromise from 'ember-changeset/utils/is-promise';
 import EmberObject from '@ember/object';
+import { test } from 'ember-qunit';
 
 export default Component.extend({
   layout,
@@ -18,8 +19,23 @@ export default Component.extend({
 
   didInsertElement() {
     this.fieldComponentsMap = assign(this.get('emberPojoForms.defaultFieldElementComponents'), this.get('emberPojoForms.customFieldElementComponents'));
-    this.send('generateChangeset', this.get('formSchema'), this.get('data'));
+    var formSchema = this.get('formSchema');
+    var parsedSchemaFields = [];
+    formSchema.fields.forEach(function(field) {
+      if (field.includeLabelOnSubmit) {
+        var labelField = {
+          fieldId: `${field.fieldId}_label`,
+          defaultValue: field.fieldLabel,
+          fieldType: 'noDisplay'
+        };
+        parsedSchemaFields.push(labelField);
+      } 
+      parsedSchemaFields.push(field);
+    });
+    this.set('formSchema.fields', parsedSchemaFields);
+
     this.send('generateFormObject', this.get('formSchema'), this.get('fieldComponentsMap'));
+    this.send('generateChangeset', this.get('formSchema'), this.get('data'));
   },  
 
   formSettings: computed('formSchema', function() {
@@ -142,8 +158,8 @@ export default Component.extend({
 
     clearForm() {
       // TODO add option for suppress defaults
-      this.send('generateChangeset', this.get('formSchema'), {});
       this.send('generateFormObject', this.get('formSchema'), this.get('fieldComponentsMap'));
+      this.send('generateChangeset', this.get('formSchema'), {});
       if (this.get('formSettings.submitAfterClear')) {
         this.send('submit', this.get('changesetProp'), this.get('formSettings.modelName'));
       }
