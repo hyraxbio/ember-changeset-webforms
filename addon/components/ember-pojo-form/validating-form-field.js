@@ -97,6 +97,9 @@ export default Component.extend({
 
     onFocusOut: function(formField, value) {
       formField.set('focussed', false);
+      if (value && !formField.get('notrim') && formField.get('inputType') !== 'password' && typeof value === 'string') {
+        value = value.trim();
+      }
       this.send('setFieldValue', value, formField, 'focusOut', event);
       if (this.focusOutAction) {
         this.focusOutAction(formField);
@@ -119,9 +122,6 @@ export default Component.extend({
     },
 
     setFieldValue: function(value, formField, eventType, event) {
-      if (value && !formField.get('notrim') && formField.get('inputType') !== 'password' && typeof value === 'string') {
-        value = value.trim();
-      }
       var changeset = this.get('changesetProp');
       if (formField.fieldType === 'input' && eventType === 'keyUp' && event.keyCode === 13) {
         if (this.submitForm) {
