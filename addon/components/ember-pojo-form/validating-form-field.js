@@ -108,7 +108,6 @@ export default Component.extend({
 
     onFocusIn: function(formField) {
       formField.set('focussed', true);
-      formField.set('foo', 'bar')
       if (this.focusInAction) {
         this.focusInAction(formField);
       }
