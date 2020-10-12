@@ -16,7 +16,7 @@ export default function formSchemaFromQueryParams(queryParamsObject) {
 
   var dateRangeFieldLabels = [];
   queryParamsObject.items.forEach(item => {
-    if (item.parent !== 'filter') { return; }
+    if (!item.filtersForm) { return; }
     if (item.filtersForm.fieldType === 'dateRange') {
       dateRangeFieldLabels.push(item.filtersForm.fieldLabel);
       return;
@@ -32,7 +32,7 @@ export default function formSchemaFromQueryParams(queryParamsObject) {
   });
   dateRangeFieldLabels.uniq().forEach(label => {
     var objects = queryParamsObject.items.filter(item => {
-      if (item.parent !== 'filter') { return; }
+      if (!item.filtersForm) { return; }
       return item.filtersForm.fieldLabel === label;
     });
     var field = {
