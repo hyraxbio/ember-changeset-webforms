@@ -4,9 +4,14 @@ export default function castAllowedFields(formFields, changeset) {
   var fromChanges = (changeset.changes || []).map(item => {
     return item.key;
   });
-  
+  var changesetDataPojo;
+  if (changeset.data.toJSON) {
+    changesetDataPojo = changeset.data.toJSON();
+  } else {
+    changesetDataPojo = changeset.data;
+  }
   var fromData = [];
-  for (var key in dotify(changeset.data)) {
+  for (var key in dotify(changesetDataPojo)) {
     fromData.push(key);
   }
   var allKeys =  fromChanges.concat(fromData).uniq();
