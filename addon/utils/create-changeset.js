@@ -9,7 +9,11 @@ export default function createChangeset(formFields, data, customValidators) {
   formFields.forEach(formField => {
     formField.propertyName = formField.propertyName || formField.fieldId;
     if (changeset.get(formField.propertyName)) { return; }
-    changeset.set(formField.propertyName, formField.defaultValue || null);
+    if (formField.defaultValue || formField.defaultValue === false) {
+      changeset.set(formField.propertyName, formField.defaultValue);
+    } else {
+      changeset.set(formField.propertyName, null);
+    }
   });
   return changeset;
 }
