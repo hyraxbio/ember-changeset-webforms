@@ -30,6 +30,11 @@ export default Component.extend({
     }
   },
 
+  dataTestFieldId: computed('dataTestId', 'dataTestFormName', 'formField.dataTestFieldName', function() {
+    if (this.get('dataTestId')) { return this.get('dataTestId'); }
+    return [this.get('dataTestFormName'), this.get('formField.dataTestFieldName') || this.get('formField.fieldId')].filter(item => item).join('-');
+  }),
+
   typeClass: computed('formField.fieldType', function() {
     var myStr = this.get('formField.fieldType');
     myStr = myStr.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();

@@ -2,8 +2,8 @@
   <div class="form-section form-fields">
     {{#each formFields as |formField|}}
       <EmberPojoForm::ValidatingFormField
-        data-test-validating-field
         @processedFieldSchema={{formField}}
+        @dataTestFormName={{formSettings.dataTestFormName}}
         @afterAddClone={{afterAddClone}}
         @afterRemoveClone={{afterRemoveClone}}
         @afterKeyUpAction={{afterKeyUpAction}}

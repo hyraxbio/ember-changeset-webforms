@@ -6,7 +6,8 @@
     @readonly={{readonly}} 
     @validates={{validates}} 
     @typeClass={{typeClass}} 
-    @data-test-id={{or dataTestId (concat "validating-field-" formField.fieldId)}} 
+    @dataTestFormName={{dataTestFormName}}
+    @fieldName={{fieldName}}
     @changesetProp={{changesetProp}} 
     @templateSettings={{templateSettings}}> 
       <EmberPojoForm::ValidatingFormFieldCloneGroup 
@@ -31,7 +32,8 @@
     @readonly={{readonly}} 
     @validates={{validates}} 
     @typeClass={{typeClass}} 
-    @data-test-id={{or dataTestId (concat "validating-field-" formField.fieldId)}} 
+    @dataTestFormName={{dataTestFormName}}
+    @dataTestFieldId={{dataTestFieldId}}
     @changesetProp={{changesetProp}} 
     @templateSettings={{templateSettings}}>
       {{component formField.component
@@ -46,6 +48,7 @@
         displayValidation=displayValidation
         displayValue=(changeset-get changesetProp formField.fieldId)
         templateSettings=templateSettings
+        dataTestFieldId=dataTestFieldId
       }}
     </EmberPojoForm::ValidatingFormFieldWrapper>
   {{/if}}
