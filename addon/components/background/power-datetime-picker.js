@@ -6,7 +6,6 @@ export default Component.extend({
   layout,
   classNames: ['ember-power-datetime-picker'],
   attributeBindings: ['data-test-id'],
-
   'data-test-type': "power-datetime-picker",
 
   init: function() {
@@ -15,13 +14,29 @@ export default Component.extend({
     this.minutesSeconds = ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31', '32', '33', '34', '35', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45', '46', '47', '48', '49', '50', '51', '52', '53', '54', '55', '56', '57', '58', '59'];
   },
 
+  defaultHour: computed('defaultTime', function() {
+    if (!this.get('defaultTime')) { return '00'; }
+    return this.get('defaultTime').split(':')[0] || '00';
+  }),
+
+  defaultMinute: computed('defaultTime', function() {
+    if (!this.get('defaultTime')) { return '00'; }
+    return this.get('defaultTime').split(':')[1] || '00';
+  }),
+
+  defaultSecond: computed('defaultTime', function() {
+    if (!this.get('defaultTime')) { return '00'; }
+    return this.get('defaultTime').split(':')[2] || '00';
+  }),
+
   didInsertElement: function() {
     if (this.get('defaultDate')) {
       this.set('selectedDate', this.get('defaultDate'));
     }
     if (this.get('defaultTime')) {
-      this.set('selectedHour', this.get('defaultTime').split(':')[0]);
-      this.set('selectedMinute', this.get('defaultTime').split(':')[1]);
+      this.set('selectedHour', this.get('defaultHour'));
+      this.set('selectedMinute', this.get('defaultMinute'));
+      this.set('selectedSecond', this.get('defaultSecond'));
     }
     if (this.get('calendarStartMonth')) {
       var split = this.get('calendarStartMonth').split('/');
@@ -87,7 +102,7 @@ export default Component.extend({
       if (currentDateTime) {
         newDateTime = moment(selectedDate).hour(currentHour).minute(currentMinute).second(currentSecond).toDate();
       } else {
-        newDateTime = selectedDate;
+        newDateTime = moment(selectedDate).hour(this.get('defaultHour')).minute(this.get('defaultMinute')).second(this.get('defaultSecond')).toDate();
       }
       this.send('updateDateTime', newDateTime);
     },

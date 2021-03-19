@@ -72,13 +72,21 @@
 .clear-date-time-button {
   background: transparent;
   border-width: 0;
+  @include cross-icon();
+  background-repeat: no-repeat;
+  background-position: center center;
+  width: 20px;
+  font-size: 0;
+}
+
+.calendar-icon {
+  @include calendar-icon();
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 16px;
+  width: 20px;
 }
 
 .clear-date-time-button:hover {
   cursor: pointer;
 }
-
-// .ember-pojo-form-field.field-type-power-date-picker .validation-area {
-//   padding: 10px 30px 10px 10px;
-// }
-
