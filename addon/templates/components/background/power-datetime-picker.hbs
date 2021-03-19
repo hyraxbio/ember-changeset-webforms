@@ -16,8 +16,7 @@
         @minDate={{minDate}} 
         @maxDate={{maxDate}} 
         @selected={{selectedDate}} 
-        @onSelect={{action "setDate" value="date"}} 
-        @closeOnSelect={{false}} 
+        @onSelect={{action "setDate" dropdown}} 
         @onCenterChange={{action (mut center) value="date"}} 
         @center={{center}} 
         @class={{calendarClass}} as |calendar|>

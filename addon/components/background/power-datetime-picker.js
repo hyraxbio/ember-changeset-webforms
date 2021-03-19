@@ -93,7 +93,8 @@ export default Component.extend({
       this.onSelectDateTime(null);
     },
 
-    setDate: function(selectedDate) {
+    setDate: function(dropdown, value) {
+      const selectedDate = value.date;
       var currentDateTime = this.get('value');
       var currentHour = moment(currentDateTime).hour();
       var currentMinute = moment(currentDateTime).minute();
@@ -105,6 +106,9 @@ export default Component.extend({
         newDateTime = moment(selectedDate).hour(this.get('defaultHour')).minute(this.get('defaultMinute')).second(this.get('defaultSecond')).toDate();
       }
       this.send('updateDateTime', newDateTime);
+      if (this.get('closeDatePickerOnSelect')) {
+        dropdown.actions.close();
+      }
     },
 
     setTime: function(unit, value) {
