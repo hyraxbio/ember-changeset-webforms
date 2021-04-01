@@ -45,9 +45,9 @@ export default Component.extend({
     var value = this.get('value');
     if (moment.isDate(value)) {
       this.send('updateDateTime', value);
-    } else if (moment.isMoment(value) && moment(value).isValid()) {
+    } else if (moment(value).isValid()) {
       this.send('updateDateTime', moment(value).toDate());
-    }
+    } 
   },
 
   navButtons: computed('center', function() {
@@ -93,8 +93,14 @@ export default Component.extend({
       this.onSelectDateTime(null);
     },
 
-    setDate: function(dropdown, value) {
-      const selectedDate = value.date;
+    dateClicked(dropdown, value) {
+      this.send('setDate', value.date);
+      if (this.get('closeDatePickerOnSelect')) {
+        dropdown.actions.close();
+      }
+    },
+
+    setDate: function(selectedDate) {
       var currentDateTime = this.get('value');
       var currentHour = moment(currentDateTime).hour();
       var currentMinute = moment(currentDateTime).minute();
@@ -106,9 +112,6 @@ export default Component.extend({
         newDateTime = moment(selectedDate).hour(this.get('defaultHour')).minute(this.get('defaultMinute')).second(this.get('defaultSecond')).toDate();
       }
       this.send('updateDateTime', newDateTime);
-      if (this.get('closeDatePickerOnSelect')) {
-        dropdown.actions.close();
-      }
     },
 
     setTime: function(unit, value) {
@@ -130,8 +133,8 @@ export default Component.extend({
       this.onSelectDateTime(dateTime);
     },
 
-    onTriggerFocus: function(datepicker) {
-      datepicker.actions.open();
+    onTriggerFocus: function() {
+      if (this.get('center')) { return; }
       var startDate = this.get('calendarStartDate') || moment().toDate()
       if (this.get('maxDate') < moment().toDate()) {
         startDate = this.get('maxDate');

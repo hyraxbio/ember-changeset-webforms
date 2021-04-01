@@ -4,7 +4,17 @@
   display: inline-flex;
   flex-wrap: wrap;
 
-
+  .ember-power-calendar-nav-control {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 30px;
+    &:hover {
+      background: #eee;
+    }
+  }
   input.date-select {
     border-width: 0;
     padding-right: 0;

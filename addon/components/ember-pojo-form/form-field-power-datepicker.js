@@ -7,10 +7,15 @@ export default Component.extend({
   layout,
   tagName: '',
   emberPojoForms: service(),
+  dateFormat: computed('formField.dateFormat', function() {
+    return this.get('formField.dateFormat') || 'YYYY-MM-DD';
+  }),
+  timeFormat: computed('formField.timeFormat', function() {
+    return this.get('formField.timeFormat') || 'HH:mm:ss';
+  }),
 
   actions: {
     onSelectDateTime(dateTime) {
-      var changeset = this.get('changeset');
       var formField = this.get('formField');
       if (formField.dateRangeSettings) {
         var rangePartner = this.get('formFields').findBy('fieldId', formField.dateRangeSettings.rangePartnerFieldId);
@@ -22,7 +27,8 @@ export default Component.extend({
           }
         }        
       }
-      this.onUserInteraction(formField, dateTime);
+      const formatted = dateTime ?  moment(dateTime).format(`${this.get('dateFormat')} ${this.get('timeFormat')}`).toString() : null;
+      this.onUserInteraction(formField, formatted);
     }
   }
 });
