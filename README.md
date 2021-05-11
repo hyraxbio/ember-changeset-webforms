@@ -34,7 +34,7 @@ See the [Contributing](CONTRIBUTING.md) guide for details.
 
 `ember install ember-power-select`
 
-If the installation does not automatically add these line to your `app.scss` file, then add them, before the line `@import ember-extended-elements`.
+If the installation does not automatically add these line to your `app.scss` file, then add them, before the line `@import ember-sundries`.
 
 `@import "ember-basic-dropdown";`
 
