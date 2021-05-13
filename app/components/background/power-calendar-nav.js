@@ -1,1 +1,1 @@
-export { default } from 'ember-pojo-validating-fields/components/background/power-calendar-nav';
+export { default } from 'ember-changeset-webforms/components/background/power-calendar-nav';

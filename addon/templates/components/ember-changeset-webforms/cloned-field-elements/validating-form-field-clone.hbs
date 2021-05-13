@@ -1,0 +1,34 @@
+<div class="form-field-clone">
+  {{#if (not-eq masterFormField.cloneCountStatus "min")}}
+    <div role="button" class="hover-pointer remove-clone clone-actions" type="button" onclick={{action removeClone clonedFormField}} data-test-class="remove-clone" title="Remove {{formField.fieldId}}">{{component templateSettings.removeCloneIcon}}</div>
+  {{/if}}
+  <EmberChangesetWebforms::FieldElements::ValidatingFieldWrapper @formField={{clonedFormField}} @displayValidation={{displayValidation}} @readonly={{readonly}} @validates={{validates}} @typeClass={{typeClass}}>
+    {{component clonedFormField.component
+      clonedFormField=clonedFormField
+      masterFormField=masterFormField
+      onFocusOut=(action "onFocusOutClone" index)
+      onFocusIn=(action "onFocusInClone" index)
+      onKeyUp=(action "onKeyUpClone" index)
+      onUserInteraction=(action "onUserInteractionClone" index)
+      onChange=(action "onChangeClone" index)
+      cloneField=(action cloneField)
+      removeClone=(action removeClone)
+      changesetProp=changesetProp
+      displayValidation=displayValidation
+      displayValue=(ember-changeset-webforms/cloned-form-field-display-value groupValue index)
+      templateSettings=templateSettings
+    }}
+    {{#if (eq displayValidation "invalid")}}
+      {{#if (or clonedFormField.fieldErrors (get (get changesetProp.error masterFormField.fieldId) "validation"))}}
+        <div class="ember-changeset-webforms-field-errors" data-test-class="ember-changeset-webforms-field-errors">
+          {{#each cloneErrors as |error|}}
+            <div class="ember-changeset-webforms-field-error" data-test-class="ember-changeset-webforms-field-error">{{error}}</div>
+          {{/each}}
+          {{#each clonedFormField.fieldErrors as |error|}}
+            <div class="ember-changeset-webforms-field-error" data-test-class="ember-changeset-webforms-field-error">{{error}}</div>
+          {{/each}}
+        </div>
+      {{/if}}
+    {{/if}}      
+  </EmberChangesetWebforms::FieldElements::ValidatingFieldWrapper>
+</div>

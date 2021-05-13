@@ -1,4 +1,4 @@
-ember-pojo-validating-fields
+ember-changeset-webforms
 ==============================================================================
 
 [Short description of the addon.]
@@ -16,14 +16,14 @@ Installation
 ------------------------------------------------------------------------------
 
 ```
-ember install ember-pojo-validating-fields
+ember install ember-changeset-webforms
 ```
 
 ## Importing styles
 
 The addon tries to remain as agnostic as possible about styling, however, there are a few styles which aere required. Import them into your `app.scss` file with the following line:
 
-`@import ember-pojo-forms;`
+`@import ember-changeset-webformss;`
 
 ## Required addons
 
@@ -40,7 +40,7 @@ If the installation does not automatically add these line to your `app.scss` fil
 
 `@import "ember-power-select";`
 
-**ember-pojo-form/form-field-radio-button-group (fieldType=radioButtonGroup)**
+**ember-changeset-webforms/form-field-radio-button-group (fieldType=radioButtonGroup)**
 
 `ember install ember-radio-button`
 
@@ -100,7 +100,7 @@ This is how you would create something like an edit account form, where the user
       name: 'Little Sebastian'
     });
 
-    {{ember-pojo-form/validating-form
+    {{ember-changeset-webforms/validating-form
       formSchema=formSchema
       submitAction=(action submitAction)
       data=model
@@ -134,7 +134,7 @@ The `propsHash` property exists for the edge case in which you need to update a 
       name: 'Little Sebastian'
     });
 
-    {{ember-pojo-form/validating-form
+    {{ember-changeset-webforms/validating-form
       formSchema=formSchema
       submitAction=(action submitAction)
       data=model
@@ -164,7 +164,7 @@ If you need to be able to update individual properties from outside the form, yo
       name: 'Little Sebastian'
     });
 
-    {{ember-pojo-form/validating-form
+    {{ember-changeset-webforms/validating-form
       formSchema=formSchema
       submitAction=(action submitAction)
       data=model
@@ -183,7 +183,7 @@ Note that the keys and values of `propsHash` should correspond to `props`.
 
 Note that `propsHash` can accept nested hashes.
 
-    {{ember-pojo-form/validating-form
+    {{ember-changeset-webforms/validating-form
       formSchema=formSchema
       submitAction=(action submitAction)
       data=model
@@ -278,6 +278,6 @@ afterFieldValidation(validationResponse, formField, changeset) {
 formField.datepickerPlaceholder for power-datetime-picker formfield.
 
 Default search placeholder for power select referenced in:
-  addon/templates/components/ember-pojo-form/form-field-power-select.hbs
+  addon/templates/components/ember-changeset-webforms/form-field-power-select.hbs
 
 Test: castAllowedFields allows in changeset.set keys that are not in the formSchema, but still rejects those who have a related field which is hidden or castOut. Must take into accouhnt all keys in both changeset.data and changeset.changes.

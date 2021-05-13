@@ -1,23 +1,24 @@
-import EmberRouter from '@ember/routing/router';
+import AddonDocsRouter, { docsRoute } from 'ember-cli-addon-docs/router';
 import config from './config/environment';
 
-const Router = EmberRouter.extend({
+const Router = AddonDocsRouter.extend({
   location: config.locationType,
-  rootURL: config.rootURL
+  rootURL: config.rootURL,
 });
 
 Router.map(function() {
-  this.route('index', {path: '/'});
-  this.route('signup');
-  this.route('users');
-  this.route('edit-account');
-  this.route('user');
-
-  this.route('public-pages', { path: '' }, function() {
-    this.route('docs', function() {
-      this.route('introduction');
-    });
+  docsRoute(this, function() { 
+    this.route('basic-usage');
+    this.route('configuration-options');
+    this.route('creating-custom-fields');
+    this.route('action-handling');
+    this.route('field-validation');
+    this.route('integrating-custom-validators');
+    this.route('field-options');
   });
+  this.route('not-found', { path: '/*path' });
+
+
 });
 
 export default Router;

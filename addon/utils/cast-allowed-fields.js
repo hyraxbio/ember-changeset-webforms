@@ -1,4 +1,4 @@
-import dotify from 'ember-pojo-validating-fields/utils/dotify';
+import dotify from 'ember-changeset-webforms/utils/dotify';
 
 export default function castAllowedFields(formFields, changeset) {
   var fromChanges = (changeset.changes || []).map(item => {

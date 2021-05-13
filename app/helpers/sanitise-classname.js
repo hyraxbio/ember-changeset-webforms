@@ -1,1 +1,1 @@
-export { default, sanitiseClassname } from 'ember-pojo-validating-fields/helpers/sanitise-classname';
+export { default, sanitiseClassname } from 'ember-changeset-webforms/helpers/sanitise-classname';

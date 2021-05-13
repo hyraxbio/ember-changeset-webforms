@@ -1,27 +1,3 @@
-<div class="wrapper">
-  <header>
-    <li>{{#link-to 'users'}}Users{{/link-to}}</li>
-    <li>{{#link-to 'signup'}}Signup{{/link-to}}</li>
-    <li>{{#link-to 'edit-account'}}Edit Account{{/link-to}}</li>
-  </header>
-  {{outlet}}
-</div>
-{{!-- {{#with (changeset model (action "validate")) as |changesetObj|}}
-  {{dummy-form
-    changeset=changesetObj
-    submit=(action "submit")
-    rollback=(action "rollback")
-  }}
-{{/with}} --}}
+{{docs-header}}
 
-{{!-- {{dummy-form
-  changeset=changeset
-  submit=(action "submit")
-  rollback=(action "rollback")
-}} --}}
-
-{{!-- {{dummy-form
-  changeset=(changeset model UserValidations)
-  submit=(action "submit")
-  rollback=(action "rollback")
-}} --}}
+{{outlet}}

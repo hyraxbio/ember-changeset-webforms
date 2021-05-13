@@ -6,6 +6,10 @@
   }
   @return $string;
 }
+
+$default-svg-stroke-width: 1px !default;
+$default-svg-stroke-color: #ccc !default;
+
 $pojo-form-field-default-icon-fill: #ccc;
 
 $pojo-form-field-max-width: 500px !default;

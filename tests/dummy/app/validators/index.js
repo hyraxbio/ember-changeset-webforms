@@ -1,2 +1,4 @@
-export { default as validateDate } from './date';
-export { default as validateIncrement } from './increment';
+// BEGIN-SNIPPET export-validators.js
+// validators/index.js
+export { default as validateUniqueness } from './uniqueness';
+//END-SNIPPET

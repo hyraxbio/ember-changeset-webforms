@@ -1,0 +1,20 @@
+{{#docs-viewer as |viewer|}}
+  {{#viewer.nav as |nav|}}
+    {{nav.section "Introduction"}}
+    {{nav.item "Index" "docs.index"}}
+    {{nav.item "Basic usage" "docs.basic-usage"}}
+    {{nav.section "Validation"}}
+    {{nav.item "Field validation" "docs.field-validation"}}
+    {{nav.item "Integrating custom validators" "docs.integrating-custom-validators"}}
+    {{nav.section "Custom form fields"}}
+    {{nav.item "Creating custom fields" "docs.creating-custom-fields"}}
+    {{nav.item "Action handling" "docs.action-handling"}}
+    {{nav.section "Configuration options"}}
+    {{nav.item "Configuration options" "docs.configuration-options"}}
+    {{nav.item "Field options" "docs.field-options"}}
+  {{/viewer.nav}}
+
+  {{#viewer.main}}
+    {{outlet}}
+  {{/viewer.main}}
+{{/docs-viewer}}

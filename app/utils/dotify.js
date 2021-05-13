@@ -1,1 +1,1 @@
-export { default } from 'ember-pojo-validating-fields/utils/dotify';
+export { default } from 'ember-changeset-webforms/utils/dotify';

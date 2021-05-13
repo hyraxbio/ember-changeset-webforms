@@ -1,6 +1,6 @@
 import Component from '@ember/component';
 import layout from '../../templates/components/background/power-date-range-picker';
-import updateTime from '../../utils/update-time';
+import updateTime from 'ember-changeset-webforms/ember-changeset-webforms/utils/update-time';
 import { computed } from '@ember/object';
 
 export default Component.extend({

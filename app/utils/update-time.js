@@ -1,1 +1,1 @@
-export { default } from 'ember-pojo-validating-fields/utils/update-time';
+export { default } from 'ember-changeset-webforms/utils/update-time';

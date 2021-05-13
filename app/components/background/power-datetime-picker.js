@@ -1,1 +1,1 @@
-export { default } from 'ember-pojo-validating-fields/components/background/power-datetime-picker';
+export { default } from 'ember-changeset-webforms/components/background/power-datetime-picker';

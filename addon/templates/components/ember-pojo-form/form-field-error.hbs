@@ -1,9 +1,0 @@
-{{#if (eq displayValidation "invalid")}}
-  {{#if (get (get changesetProp.error formField.propertyName) 'validation')}}
-    <div class="{{formField.fieldErrorClasses}} ember-pojo-form-field-errors" data-test-class="ember-pojo-form-field-errors">
-      {{#each (get (get changesetProp.error formField.propertyName) 'validation') as |error|}}
-        <div class="ember-pojo-form-field-error" data-test-class="ember-pojo-form-field-error">{{error}}</div>
-      {{/each}}
-    </div>
-  {{/if}}
-{{/if}}

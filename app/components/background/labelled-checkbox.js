@@ -1,1 +1,1 @@
-export { default } from 'ember-pojo-validating-fields/components/background/labelled-checkbox';
+export { default } from 'ember-changeset-webforms/components/background/labelled-checkbox';

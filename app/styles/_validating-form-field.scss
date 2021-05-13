@@ -1,4 +1,4 @@
-.ember-pojo-form-field {
+.ember-changeset-webforms-field {
   margin-top: $pojo-form-field-controls-margin-top;
   margin-bottom: $pojo-form-field-margin-bottom;
   &.readonly input,
@@ -51,11 +51,11 @@
     }
   }
 
-  .ember-pojo-form-field-errors {
+  .ember-changeset-webforms-field-errors {
     width: 100%;
   }
 
-  .ember-pojo-form-field-error {
+  .ember-changeset-webforms-field-error {
     color: $pojo-form-field-error-text-color;
     margin-top: $pojo-form-field-error-margin-top;
   }
@@ -113,7 +113,7 @@
 .clone-group {
   .form-field-clone {
     display: flex;
-    .ember-pojo-form-field {
+    .ember-changeset-webforms-field {
       flex-grow: 1;
     }
   }

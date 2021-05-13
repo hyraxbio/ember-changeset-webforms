@@ -1,1 +1,1 @@
-export { default } from 'ember-pojo-validating-fields/utils/create-changeset';
+export { default } from 'ember-changeset-webforms/utils/create-changeset';

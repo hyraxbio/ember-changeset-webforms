@@ -1,7 +1,0 @@
-{{#unless formField.hideLabel}}
-  {{#if formField.labelComponent}}
-    <label for={{formField.name}} class={{ember-fire-forms/array-join fieldLabelClassNames " "}}>{{component formField.labelComponent}}</label>
-  {{else if formField.fieldLabel}}
-    <label for={{formField.name}} class={{ember-fire-forms/array-join fieldLabelClassNames " "}}>{{formField.fieldLabel}}</label>
-  {{/if}}
-{{/unless}}
