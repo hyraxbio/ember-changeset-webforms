@@ -15,6 +15,7 @@ Router.map(function() {
     this.route('field-validation');
     this.route('integrating-custom-validators');
     this.route('field-options');
+    this.route('clonable-form-fields');
   });
   this.route('not-found', { path: '/*path' });
 

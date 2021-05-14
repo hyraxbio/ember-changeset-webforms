@@ -9,4 +9,7 @@ fieldId
 hidden
 fieldType
   inputType
-defaultValue
+defaultValue - only applied if form is submitted.
+autoFocus: true,
+hideLabel: true,
+trim: false ?

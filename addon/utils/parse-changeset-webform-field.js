@@ -75,7 +75,6 @@ export default function parseChangesetWebformField(field, fieldComponentsMap, fo
       return item;
     }
   });
-
   var componentPath;
   if (field.componentPath) {
     componentPath = field.componentPath;

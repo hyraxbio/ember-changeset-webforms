@@ -10,32 +10,32 @@
     @fieldName={{fieldName}}
     @changesetProp={{changesetProp}} 
     @templateSettings={{templateSettings}}> 
-      <EmberChangesetWebforms::FieldElements::ValidatingFieldCloneGroup 
-      @masterFormField={{formField}} 
-      @changesetProp={{changesetProp}} 
-      @setFieldValue={{action "setFieldValue"}} 
-      @onFocusOut={{action "onFocusOut"}} 
-      @onFocusIn={{action "onFocusIn"}} 
-      @onKeyUp={{action "onKeyUp"}} 
-      @onUserInteraction={{action "onUserInteraction"}} 
-      @validateProperty={{action "validateProperty"}} 
-      @afterAddClone={{afterAddClone}} 
-      @afterRemoveClone={{afterRemoveClone}} 
-      @groupValue={{changeset-get changesetProp formField.fieldId}} 
-      @templateSettings={{templateSettings}} 
-      @masterfieldDisplayValidation={{displayValidation}} />
+      <EmberChangesetWebforms::ClonedFieldElements::ValidatingCloneGroup 
+        @masterFormField={{formField}} 
+        @changesetProp={{changesetProp}} 
+        @setFieldValue={{action "setFieldValue"}} 
+        @onFocusOut={{action "onFocusOut"}} 
+        @onFocusIn={{action "onFocusIn"}} 
+        @onKeyUp={{action "onKeyUp"}} 
+        @onUserInteraction={{action "onUserInteraction"}} 
+        @validateProperty={{action "validateProperty"}} 
+        @afterAddClone={{afterAddClone}} 
+        @afterRemoveClone={{afterRemoveClone}} 
+        @groupValue={{changeset-get changesetProp formField.fieldId}} 
+        @templateSettings={{templateSettings}} 
+        @masterfieldDisplayValidation={{displayValidation}} />
     </EmberChangesetWebforms::FieldElements::ValidatingFieldWrapper>
   {{else}}
     <EmberChangesetWebforms::FieldElements::ValidatingFieldWrapper 
-    @formField={{formField}} 
-    @displayValidation={{displayValidation}} 
-    @readonly={{readonly}} 
-    @validates={{validates}} 
-    @typeClass={{typeClass}} 
-    @dataTestFormName={{dataTestFormName}}
-    @dataTestFieldId={{dataTestFieldId}}
-    @changesetProp={{changesetProp}} 
-    @templateSettings={{templateSettings}}>
+      @formField={{formField}} 
+      @displayValidation={{displayValidation}} 
+      @readonly={{readonly}} 
+      @validates={{validates}} 
+      @typeClass={{typeClass}} 
+      @dataTestFormName={{dataTestFormName}}
+      @dataTestFieldId={{dataTestFieldId}}
+      @changesetProp={{changesetProp}} 
+      @templateSettings={{templateSettings}}>
       {{component formField.component
         formField=formField
         formFields=formFields

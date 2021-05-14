@@ -25,7 +25,7 @@ The example below shows how to:
   {{demo.snippet "uniqueness-validator.js" label="1. Custom Validator" language="javascript"}}
   {{demo.snippet "export-validators.js" label="2. Export custom validators" language="javascript"}}
   {{demo.snippet "custom-validators-form.js" label="3. Import and use custom validators" language="javascript"}}
-  {{demo.snippet "custom-validators-form.hbs" label="4. Template" language="htmlbars"}}
+  {{demo.snippet "custom-validators-form.hbs" label="4. Template" language="html"}}
 {{/docs-demo}}
 
 ## Additional notes

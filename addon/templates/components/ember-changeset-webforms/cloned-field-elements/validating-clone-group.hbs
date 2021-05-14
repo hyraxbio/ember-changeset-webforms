@@ -1,0 +1,27 @@
+<div class="cloned-fields">
+  {{#each masterFormField.clonedFields as |clonedFormField index| }}
+    <EmberChangesetWebforms::ClonedFieldElements::ValidatingClone 
+      @onFocusOut={{action onFocusOut}} 
+      @onFocusIn={{action onFocusIn}} 
+      @onKeyUp={{action onKeyUp}} 
+      @onUserInteraction={{action onUserInteraction}} 
+      @validateProperty={{action validateProperty}} 
+      @cloneField={{action "cloneField"}} 
+      @removeClone={{action "removeClone"}} 
+      @changesetProp={{changesetProp}} 
+      @index={{index}} 
+      @groupValue={{groupValue}} 
+      @clonedFormField={{clonedFormField}} 
+      @masterFormField={{masterFormField}} 
+      @processedFieldSchema={{clonedFormField}} 
+      @masterfieldDisplayValidation={{masterfieldDisplayValidation}} 
+      @templateSettings={{templateSettings}} />
+  {{/each}}
+</div>
+<div class="clone-group-actions">
+  {{#if (eq masterFormField.cloneCountStatus "max")}}
+    Max clones reached.
+  {{else}}
+    {{component templateSettings.addCloneButtonComponent cloneField=(action "cloneField") masterFormField=masterFormField templateSettings=templateSettings}}
+  {{/if}}
+</div>

@@ -1,5 +1,5 @@
 import Component from '@ember/component';
-import layout from '../../../templates/components/ember-changeset-webforms/cloned-field-elements/validating-form-field-clone-group';
+import layout from '../../../templates/components/ember-changeset-webforms/cloned-field-elements/validating-clone-group';
 import { computed } from '@ember/object';
 import parseChangesetWebformField from 'ember-changeset-webforms/utils/parse-changeset-webform-field';
 import { assign } from '@ember/polyfills';

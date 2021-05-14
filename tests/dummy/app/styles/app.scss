@@ -15,6 +15,14 @@ $spacer-md: 16px;
   border-color: #666;
 }
 
+.hljs-tag {
+  color: #abb2bf;
+}
+
+.hljs-function .hljs-title {
+  color: #e6c07b;
+}
+
 .ember-changeset-webforms {
   input {
     border: 1px solid #ccc;

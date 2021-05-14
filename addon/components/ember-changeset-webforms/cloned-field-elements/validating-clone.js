@@ -1,5 +1,5 @@
 import Component from '@ember/component';
-import layout from '../../../templates/components/ember-changeset-webforms/cloned-field-elements/validating-form-field-clone';
+import layout from '../../../templates/components/ember-changeset-webforms/cloned-field-elements/validating-clone';
 import { inject as service } from '@ember/service';
 import { computed } from '@ember/object';
 
@@ -72,7 +72,7 @@ export default Component.extend({
     },
 
     onChangeClone(index, clonedFormField, value) {
-      this.onChange(clonedFormField, this.updatedGroupValue(value, index));
+      // this.onChange(clonedFormField, this.updatedGroupValue(value, index));
     }
   },
 

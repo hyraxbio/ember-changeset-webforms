@@ -1,6 +1,8 @@
 import defaultValidators from 'ember-changeset-validations/validators';
+import clonedValidator from 'ember-changeset-webforms/validators/cloned';
 
 export default function createValidations(fields, customValidators = {}) {
+  defaultValidators.validateClone = clonedValidator;
   var validations = {};
   if (!fields) { return validations; }
   fields.forEach(field => {
