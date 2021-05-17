@@ -47,8 +47,8 @@ export default Service.extend({
       tagSelector:      {
         componentPath: 'ember-changeset-webforms/fields/tag-selector'
       },
-      button:           {
-        componentPath: 'ember-changeset-webforms/fields/button',
+      clicker:           {
+        componentPath: 'ember-changeset-webforms/fields/clicker',
         castOut: true
       },
       staticContent:    {

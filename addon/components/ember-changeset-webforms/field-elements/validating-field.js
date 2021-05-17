@@ -92,6 +92,12 @@ export default Component.extend({
       });
     },
 
+    onClick(formField) {
+      if (this.onClick) {
+        this.onClick(formField.fieldId, formField, this.get('changesetProp'));
+      }
+    },
+
     onUserInteraction: function(formField, value) {
       this.send('setFieldValue', value, formField);
     },

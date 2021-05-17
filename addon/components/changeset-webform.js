@@ -90,6 +90,12 @@ export default Component.extend({
       }
     },
 
+    onClick(fieldId, formField, changeset) {
+      if (this.onClick) {
+        this.onClick(this.get('formFields'), fieldId, formField, changeset)
+      }
+    },
+
     afterFieldValidation(validationResponse, formField, changeset) {
       if (this.afterFieldValidation) {
        this.afterFieldValidation(validationResponse, formField, changeset, this.get('formFields'), this.get('formSettings'));

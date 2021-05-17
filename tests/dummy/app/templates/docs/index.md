@@ -13,3 +13,6 @@
 * The addon has a built in form submit function, but also allows you to override this with a function of your own.
 * The addon provides several action hooks.
 * You are able to set and unset form fields as hidden. Using action hooks, this can also be used to create conditional fields.
+
+TODO - stop send both fieldId and field from action hooks
+TODO - exclude fields from changeset altogether, bot just castOut on submit. Set this is form when using field, or on field definition as a default.
