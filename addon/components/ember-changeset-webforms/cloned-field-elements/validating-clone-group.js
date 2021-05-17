@@ -66,7 +66,9 @@ export default Component.extend({
       this.send('checkMinMaxClones', masterFormField);
       var groupValue = this.get('groupValue') || [];
       groupValue.splice(index, 1);
+
       this.setFieldValue(groupValue, masterFormField);
+
       if (this.get('afterRemoveClone')) {
         this.afterRemoveClone(clone, masterFormField, this.get('changesetProp'));
       } 

@@ -2,7 +2,6 @@
   {{#if formField.cloneGroupName}}
     <EmberChangesetWebforms::FieldElements::ValidatingFieldWrapper 
     @formField={{formField}} 
-    @displayValidation={{displayValidation}} 
     @readonly={{readonly}} 
     @validates={{validates}} 
     @typeClass={{typeClass}} 
@@ -22,8 +21,7 @@
         @afterAddClone={{afterAddClone}} 
         @afterRemoveClone={{afterRemoveClone}} 
         @groupValue={{changeset-get changesetProp formField.fieldId}} 
-        @templateSettings={{templateSettings}} 
-        @masterfieldDisplayValidation={{displayValidation}} />
+        @templateSettings={{templateSettings}}  />
     </EmberChangesetWebforms::FieldElements::ValidatingFieldWrapper>
   {{else}}
     <EmberChangesetWebforms::FieldElements::ValidatingFieldWrapper 

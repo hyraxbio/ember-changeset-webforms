@@ -38,15 +38,15 @@ export default Component.extend({
     var clonedFieldValidationErrors = masterFieldvalidationErrors[0];
     if (!this.get('clonedFormField.wasValidated')) { return; }
     if ((clonedFormField.fieldErrors || []).length > 0) {
-      return 'invalid';
+      return 'invalid clone';
     }
     if (!masterFieldvalidationErrors) { return; }
-    if (masterFieldvalidationErrors.length === 0) { return 'valid'; }
+    if (masterFieldvalidationErrors.length === 0) { return 'valid clone'; }
     if (!clonedFieldValidationErrors[index]) { return; }
     if (clonedFieldValidationErrors[index].length === 0) {
-      return 'valid';
+      return 'valid clone';
     } else {
-      return 'invalid';
+      return 'invalid clone';
     }
   }),
   removeIconComponent: computed('EmberChangesetWebforms.removeCloneIcon', 'formField.removeButtonIcon', function() {
