@@ -42,14 +42,14 @@ export default Component.extend({
   }),
 
   // TODO should a formField not be a class of it's own?
-  displayValidation: computed('changesetProp.error', 'formField.{focussed,wasValidated}', function() {
+  displayValidation: computed('changesetProp.error', 'formField.{focussed,showFieldValidation}', function() {
     var formField = this.get('formField');
     if (!formField) { return; }
     if (!this.validationEventObj(formField.validationEvents, 'keyUp') && formField.get('focussed')) {
       return;
     }
     var validationErrors = (this.get(`changesetProp.error.${this.get('formField.propertyName')}.validation`)) || [];
-    if (!this.get('formField.wasValidated')) { return; }
+    if (!this.get('formField.showFieldValidation')) { return; }
     if (validationErrors.length === 0) {
       return 'valid';
     } else {
@@ -84,12 +84,8 @@ export default Component.extend({
           return;
         }
       }  
-      changeset.validate(formField.propertyName).then(validationResponse => {
-        formField.set('wasValidated', true);
-        if (this.afterFieldValidation) {
-          this.afterFieldValidation(validationResponse, formField, changeset);
-        }
-      });
+      formField.set('showFieldValidation', true);
+      this.afterFieldValidation(formField, changeset);
     },
 
     onClick(formField) {
@@ -142,6 +138,7 @@ export default Component.extend({
       }
       formField.set('previousValue', changeset.get(formField.propertyName));
       changeset.set(formField.propertyName, value);
+      // console.log(changeset.error);
       if (this.afterFieldEdit) {
         this.afterFieldEdit(formField.fieldId, changeset, formField); // TODO sort out the mess of these args- no more fieldId.
       }

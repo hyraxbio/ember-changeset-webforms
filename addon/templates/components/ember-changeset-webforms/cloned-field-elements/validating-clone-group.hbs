@@ -19,7 +19,7 @@
 </div>
 <div class="clone-group-actions">
   {{#if (eq masterFormField.cloneCountStatus "max")}}
-    Max clones reached.
+    <div class="max-clones-reached" data-test-id="max-clones-reached">{{EmberChangesetWebforms.defaultSettings.maxClonesReachedText}}</div>
   {{else}}
     {{component templateSettings.addCloneButtonComponent cloneField=(action "cloneField") masterFormField=masterFormField templateSettings=templateSettings}}
   {{/if}}

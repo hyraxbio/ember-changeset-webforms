@@ -10,13 +10,12 @@ export default Component.extend({
   'data-test-class': 'cloned-field',
 
   didInsertElement: function() {
-    //Code below will maintain validation colours when component is re-rendered.
     var index = this.get('index');
-    var masterFormField = this.get('masterFormField');
     var clonedFormField = this.get('clonedFormField');
-    var changesetProp = this.get('changesetProp');
-    if (changesetProp.get(masterFormField.fieldId)[index]) {
-      this.validateProperty(changesetProp, clonedFormField, 'insert');
+    const changeset = this.get('changesetProp');
+    
+    if (this.validationEventObj(clonedFormField.validationEvents, 'insert') && changeset.get(clonedFormField.propertyName)[index]) {
+      clonedFormField.set('showFieldValidation', true);
     }
   },
 
@@ -27,7 +26,7 @@ export default Component.extend({
     return validationErrors[index];
   }),
 
-  displayValidation: computed('changesetProp.error', 'clonedFormField.{focussed,wasValidated,fieldErrors,fieldErrors.@each}', function() {
+  displayValidation: computed('changesetProp.error', 'clonedFormField.{focussed,showFieldValidation,fieldErrors,fieldErrors.@each}', function() {
     var index = this.get('index');
     var clonedFormField = this.get('clonedFormField');
     if (!clonedFormField) { return; }
@@ -36,17 +35,20 @@ export default Component.extend({
     }   
     var masterFieldvalidationErrors = ((this.get(`changesetProp.error.${this.get('masterFormField.fieldId')}.validation`)) || []);
     var clonedFieldValidationErrors = masterFieldvalidationErrors[0];
-    if (!this.get('clonedFormField.wasValidated')) { return; }
+    if (!this.get('clonedFormField.showFieldValidation')) { return; }
     if ((clonedFormField.fieldErrors || []).length > 0) {
-      return 'invalid clone';
+      return 'invalid';
     }
     if (!masterFieldvalidationErrors) { return; }
-    if (masterFieldvalidationErrors.length === 0) { return 'valid clone'; }
+
+    if (masterFieldvalidationErrors.length === 0) { return 'valid'; }
+
     if (!clonedFieldValidationErrors[index]) { return; }
+
     if (clonedFieldValidationErrors[index].length === 0) {
-      return 'valid clone';
+      return 'valid';
     } else {
-      return 'invalid clone';
+      return 'invalid';
     }
   }),
   removeIconComponent: computed('EmberChangesetWebforms.removeCloneIcon', 'formField.removeButtonIcon', function() {
@@ -63,8 +65,6 @@ export default Component.extend({
 
     onKeyUpClone(index, clonedFormField, value, event) {
       this.onKeyUp(clonedFormField, this.updatedGroupValue(value, index), event);
-      // Must always validate on keyUp because when changeset prop is updated, the validation errors for that prop are removed until validated again- this is dude to skipValidation.
-      this.validateProperty(this.get('changesetProp'), clonedFormField);
     },
 
     onUserInteractionClone(index, clonedFormField, value) {

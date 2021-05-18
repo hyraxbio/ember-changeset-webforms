@@ -42,21 +42,19 @@ export default Component.extend({
       var newField = parseChangesetWebformField(newFieldSchema, this.get('fieldComponentsMap'));
       newField.set('isClone', true);
       masterFormField.clonedFields.pushObject(newField);
-      var groupValue = this.get('groupValue') || [];
+      var fieldValue = this.get('changesetProp').get(masterFormField.propertyName) || [];
       var lastIndex = masterFormField.clonedFields.length -1;
-      groupValue[lastIndex] = defaultValue || newField.defaultValue;
+      const newValue = defaultValue || newField.defaultValue;
+      fieldValue.push(newValue);
       masterFormField.set('lastUpdatedClone', {
         index: lastIndex,
         previousValue: null,
       });
-      this.setFieldValue(groupValue, masterFormField);
+      this.setFieldValue(fieldValue, masterFormField);
       this.send('checkMinMaxClones', masterFormField);
       if (this.get('afterAddClone')) {
         this.afterAddClone(newField, masterFormField, this.get('changesetProp'));
       } 
-      // if (masterFormField.cloneFieldSchema.validationEvents.indexOf('addClone') > -1) {
-      //   this.validateProperty(this.get('changeset'), newField);
-      // }
     },
 
     removeClone(clone) {

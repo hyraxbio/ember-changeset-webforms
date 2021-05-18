@@ -12,13 +12,13 @@ export default Controller.extend({
       },
       fields: [{
         fieldId: 'invitation',
-        fieldLabel: 'User email',
+        fieldLabel: 'Master field',
         fieldType: 'clonable',
         clonable: true,
         hideLabel: true,
         minClones: 2,
         maxClones: 4,
-        cloneButtonText: 'Add another invitation',
+        cloneButtonText: 'Add email',
         templateSettings: {
           removeCloneIcon: 'svg-repo/icons/icon-trash',
         },
@@ -27,13 +27,17 @@ export default Controller.extend({
           fieldType: 'input',
           inputType: 'email',
           hideLabel: true,
-          validationEvents: ['insert'],
+          // defaultValue: 'fooBar@wet.wetr',
+          // validationEvents: ['insert'],
           validationRules: [{
             validationMethod: 'validateFormat',
             arguments: { type: 'email' }
           }, {
             validationMethod: 'validatePresence',
             arguments: true
+          },
+          {
+            validationMethod: 'uniqueArray'
           }]
         }
       }]

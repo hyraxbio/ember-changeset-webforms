@@ -2,8 +2,8 @@
 // validators/uniqueness.js
 import { assign } from '@ember/polyfills';
 
-export default function validateUniqueness(opts) {
-  return (key, newValue, oldValue, changes, content) => {
+export default function validateUniqueness(opts = {}) {
+  return (key, newValue, _oldValue, changes, content) => {
     var current = assign(content, changes);  
     var response = true; 
     opts.descriptionsMap = opts.descriptionsMap || {};

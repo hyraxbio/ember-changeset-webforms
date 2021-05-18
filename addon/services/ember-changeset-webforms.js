@@ -13,7 +13,8 @@ export default Service.extend({
       resetButtonText: 'Reset',
       powerDatePicker: {
         dateSelectComponent: null
-      }
+      },
+      maxClonesReachedText: 'Max clones reached.'
     };
 
     this.defaultFieldElementComponents = {

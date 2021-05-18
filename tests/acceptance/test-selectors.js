@@ -8,6 +8,7 @@ export default {
   removeClone: '[data-test-class="remove-clone"]',
   fireFormClonedField: '[data-test-class="cloned-field"]',
   fireFormAddCloneButton: '[data-test-id="add-clone"]',
+  maxClonesReached: '[data-test-id="max-clones-reached"]',
 
   passwordField: '[data-test-id="password-field"]',
   emailField: '[data-test-id="email-field"]',
