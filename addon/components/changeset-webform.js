@@ -7,6 +7,7 @@ import { inject as service } from '@ember/service';
 import validateFields from 'ember-changeset-webforms/utils/validate-fields';
 import castAllowedFields from 'ember-changeset-webforms/utils/cast-allowed-fields';
 import createChangeset from 'ember-changeset-webforms/utils/create-changeset';
+import createChangesetWebform from 'ember-changeset-webforms/utils/create-changeset-webform';
 import { assign } from '@ember/polyfills';
 import isPromise from 'ember-changeset/utils/is-promise';
 import EmberObject from '@ember/object';
@@ -38,6 +39,7 @@ export default Component.extend({
 
   didInsertElement() {
     this.fieldComponentsMap = assign(this.get('EmberChangesetWebforms.defaultFieldElementComponents'), this.get('EmberChangesetWebforms.customFieldElementComponents'));
+    this.send('generateChangesetWebform', this.get('formSchema'), this.get('fieldComponentsMap'), this.get('data'), this.get('customValidators'));
     this.send('generateFormObject', this.get('formSchema'), this.get('fieldComponentsMap'));
     this.send('generateChangeset', this.get('formSchema'), this.get('data'));
   },  
@@ -73,6 +75,13 @@ export default Component.extend({
   }),
 
   actions: {
+    generateChangesetWebform(formSchema, fieldComponentsMap, data, customValidators) {
+      this.set('changesetWebform', createChangesetWebform(formSchema, fieldComponentsMap, data, customValidators));
+      if (this.get('afterGenerateChangesetWebform')) {
+        this.afterGenerateChangesetWebform(this.get('changesetWebform'));
+      } 
+    },
+
     generateChangeset(formSchema, data) {
       this.set('changesetProp', createChangeset(formSchema.fields, data, this.get('customValidators')));
       if (this.get('afterGenerateChangeset')) {
@@ -82,6 +91,9 @@ export default Component.extend({
 
     generateFormObject(formSchema, fieldComponentsMap) {
       this.set('formObject', parseChangesetWebformFields(formSchema, fieldComponentsMap));
+      // if (this.get('afterGenerateWebform')) {
+      //   this.afterGenerateWebform(this.get('formObject'));
+      // } 
     },
 
     afterFieldEdit(fieldId, changeset, formField, snapshot) {
@@ -96,9 +108,9 @@ export default Component.extend({
       }
     },
 
-    afterFieldValidation(validationResponse, formField, changeset) {
+    afterFieldValidation(fieldValidationErrors, formField, changeset) {
       if (this.afterFieldValidation) {
-       this.afterFieldValidation(validationResponse, formField, changeset, this.get('formFields'), this.get('formSettings'));
+       this.afterFieldValidation(fieldValidationErrors, formField, changeset, this.get('formFields'), this.get('formSettings'));
      }
    },
 

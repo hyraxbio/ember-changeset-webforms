@@ -6,6 +6,6 @@ export default function parseChangesetWebformFields(formSchema, fieldComponentsM
     formFields: (formSchema.fields || []).map(field => {
       return parseChangesetWebformField(field, fieldComponentsMap, formSchema);
     }),
-    formSchema: formSchema
+    formSchema: formSchema// TODO remove this
   };
 }

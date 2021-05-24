@@ -11,24 +11,22 @@ export default Controller.extend({
         resetAfterSubmit: true
       },
       fields: [{
-        fieldId: 'invitation',
-        fieldLabel: 'Master field',
+        fieldId: 'userEmails',
+        fieldLabel: 'User emails',
+        hideLabel: true,
         fieldType: 'clonable',
         clonable: true,
-        hideLabel: true,
         minClones: 2,
         maxClones: 4,
         cloneButtonText: 'Add email',
         templateSettings: {
-          removeCloneIcon: 'svg-repo/icons/icon-trash',
+          removeCloneIcon: 'svg-repo/icons/icon-trash', // TODO requires default setting
         },
         cloneFieldSchema: {
           fieldLabel: 'Email',
           fieldType: 'input',
           inputType: 'email',
           hideLabel: true,
-          // defaultValue: 'fooBar@wet.wetr',
-          // validationEvents: ['insert'],
           validationRules: [{
             validationMethod: 'validateFormat',
             arguments: { type: 'email' }

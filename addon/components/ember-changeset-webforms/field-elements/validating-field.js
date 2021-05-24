@@ -85,7 +85,8 @@ export default Component.extend({
         }
       }  
       formField.set('showFieldValidation', true);
-      this.afterFieldValidation(formField, changeset);
+      const fieldValidationErrors = changeset.error[formField.propertyName];
+      this.afterFieldValidation(fieldValidationErrors, formField, changeset);
     },
 
     onClick(formField) {
