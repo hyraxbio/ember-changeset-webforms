@@ -1,0 +1,16 @@
+{{#docs-demo as |demo|}}
+  {{#demo.example name="after-generate-changeset-webform-form.hbs"}}
+    <ChangesetWebform 
+      @formSchema={{formSchema}} 
+      @afterGenerateChangesetWebform={{action "afterGenerateChangesetWebform"}} 
+      data-test-id="after-generate-changeset-webform-form"
+     />
+    {{#if lastValidatedField}}
+      <div data-test-id="after-generate-changeset-webform-feedback">
+        Test
+      </div>
+    {{/if}}
+  {{/demo.example}}
+  {{demo.snippet "after-generate-changeset-webform-form.js" label="Component JS" language="javascript"}}
+  {{demo.snippet "after-generate-changeset-webform-form.hbs" label="Component template" language="htmlbars"}}
+{{/docs-demo}}

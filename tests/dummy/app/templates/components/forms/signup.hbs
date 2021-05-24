@@ -1,0 +1,12 @@
+{{#docs-demo as |demo|}}
+  {{#demo.example name="signup-form.hbs"}}
+    <ChangesetWebform 
+      @formSchema={{signUpFormSchema}} 
+      @data={{hash email="buster@bluthcompany.com"}}
+      @submitAction={{action "submit"}} 
+      @saveSuccess={{action "saveSuccess"}} 
+     />
+  {{/demo.example}}
+  {{demo.snippet "signup-form.hbs" label="Component template" language="htmlbars"}}
+  {{demo.snippet "signup-form.js" label="Component JS" language="javascript"}}
+{{/docs-demo}}

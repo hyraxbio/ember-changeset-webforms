@@ -1,5 +1,5 @@
-export default function validateAllowedFields(formFields, changeset) {
-  var allowedFields = formFields.filter(field => {
+export default function validateAllowedFields(changesetWebform) {
+  var allowedFields = changesetWebform.fields.filter(field => {
     return !field.hidden && !field.skipValidation && field.validates;
   }).map(allowedField => {
     allowedField.set('showFieldValidation', true);
@@ -11,7 +11,7 @@ export default function validateAllowedFields(formFields, changeset) {
     return allowedField.propertyName;
   });
   var validatePromises = allowedFields.map(allowedField => {
-    return changeset.validate(allowedField);
+    return changesetWebform.changeset.validate(allowedField);
   });
   return Promise.all(validatePromises);
 }

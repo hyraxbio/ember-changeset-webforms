@@ -1,12 +1,10 @@
 
 import Component from '@ember/component';
 import { computed } from '@ember/object';
-import parseChangesetWebformFields from 'ember-changeset-webforms/utils/parse-changeset-webform-schema';
 import layout from '../templates/components/changeset-webform';
 import { inject as service } from '@ember/service';
 import validateFields from 'ember-changeset-webforms/utils/validate-fields';
 import castAllowedFields from 'ember-changeset-webforms/utils/cast-allowed-fields';
-import createChangeset from 'ember-changeset-webforms/utils/create-changeset';
 import createChangesetWebform from 'ember-changeset-webforms/utils/create-changeset-webform';
 import { assign } from '@ember/polyfills';
 import isPromise from 'ember-changeset/utils/is-promise';
@@ -40,12 +38,10 @@ export default Component.extend({
   didInsertElement() {
     this.fieldComponentsMap = assign(this.get('EmberChangesetWebforms.defaultFieldElementComponents'), this.get('EmberChangesetWebforms.customFieldElementComponents'));
     this.send('generateChangesetWebform', this.get('formSchema'), this.get('fieldComponentsMap'), this.get('data'), this.get('customValidators'));
-    this.send('generateFormObject', this.get('formSchema'), this.get('fieldComponentsMap'));
-    this.send('generateChangeset', this.get('formSchema'), this.get('data'));
   },  
 
   formSettings: computed('formSchema', function() {
-    return assign(EmberObject.create(this.get('EmberChangesetWebforms.defaultSettings') || {}), EmberObject.create(this.get('EmberChangesetWebforms.settings') || {}), EmberObject.create(this.get('formSchema.settings') || {}));
+    return assign(EmberObject.create(this.get('EmberChangesetWebforms.defaultSettings') || {}), EmberObject.create(this.get('EmberChangesetWebforms.settings') || {}), EmberObject.create(this.get('changesetWebform.formSchema.settings') || {}));
   }),
   
   formFields: computed('formObject', function() {
@@ -82,54 +78,59 @@ export default Component.extend({
       } 
     },
 
-    generateChangeset(formSchema, data) {
-      this.set('changesetProp', createChangeset(formSchema.fields, data, this.get('customValidators')));
-      if (this.get('afterGenerateChangeset')) {
-        this.afterGenerateChangeset(this.get('changesetProp'));
-      } 
-    },
-
-    generateFormObject(formSchema, fieldComponentsMap) {
-      this.set('formObject', parseChangesetWebformFields(formSchema, fieldComponentsMap));
-      // if (this.get('afterGenerateWebform')) {
-      //   this.afterGenerateWebform(this.get('formObject'));
-      // } 
-    },
-
-    afterFieldEdit(fieldId, changeset, formField, snapshot) {
+    afterFieldEdit(formField, changeset, snapshot) {
        if (this.get('afterFieldEdit')) {
-        this.afterFieldEdit(this.get('formFields'), fieldId, this.get('formSettings'), changeset, snapshot);
+        this.afterFieldEdit(formField, this.get('changesetWebform'), snapshot);
       }
     },
 
-    onClick(fieldId, formField, changeset) {
-      if (this.onClick) {
-        this.onClick(this.get('formFields'), fieldId, formField, changeset)
-      }
-    },
-
-    afterFieldValidation(fieldValidationErrors, formField, changeset) {
+    afterFieldValidation(formField, _changeset, fieldValidationErrors) {
       if (this.afterFieldValidation) {
-       this.afterFieldValidation(fieldValidationErrors, formField, changeset, this.get('formFields'), this.get('formSettings'));
-     }
-   },
+        this.afterFieldValidation(formField, this.get('changesetWebform'), fieldValidationErrors);
+      }
+    },
 
-    submit(changeset, modelName) {
-      validateFields(this.get('formFields'), changeset).then(validateResponse => {
+    afterFieldClick(formField) {
+      if (this.afterFieldClick) {
+        this.afterFieldClick(formField, this.get('changesetWebform'))
+      }
+    },
+
+    afterInputFocusOut(formField) {
+      if (this.afterInputFocusOut) {
+        this.afterInputFocusOut(formField, this.get('changesetWebform'));
+      }
+    },
+
+    afterInputFocusIn(formField) {
+      if (this.afterInputFocusIn) {
+        this.afterInputFocusIn(formField, this.get('changesetWebform'));
+      }
+    },
+
+    afterInputKeyUp: function(formField, changeset, value, event) {
+      if (this.afterInputKeyUp) {
+        this.afterInputKeyUp(formField, this.get('changesetWebform'), value, event);
+      }
+    },
+   
+    submit(changesetWebform) {
+      const changeset = changesetWebform;
+      validateFields(changesetWebform).then(validateResponse => {
         if (changeset.isValid) {
-          if (this.get('beforeSubmitAction')) {
-            this.beforeSubmitAction(changeset, this.get('formFields'));
+          if (this.beforeSubmitAction) {
+            this.beforeSubmitAction(changesetWebform);
           }
-          castAllowedFields(this.get('formFields'), changeset);
+          castAllowedFields(changesetWebform);
           this.set("requestInFlight", true);
-          if (this.get('submitAction')) {
+          if (this.submitAction) {
               changeset.save().then(savedChangeset => {
-                var submitAction = this.submitAction(savedChangeset.data, modelName, changeset, this.get('formFields'));
+                var submitAction = this.submitAction(savedChangeset.data, changesetWebform);
                 if (isPromise(submitAction)) {
                   submitAction.then(submitActionResponse => {
                     this.set("requestInFlight", false);
-                    if (this.get('saveSuccess')) {
-                      this.saveSuccess(submitActionResponse, this.get('formFields'), this.get('formSettings'), changeset);
+                    if (this.saveSuccess) {
+                      this.saveSuccess(submitActionResponse, changesetWebform);
                     }
                     if (this.get('formSettings.resetAfterSubmit')) {
                       this.send('clearForm');
@@ -137,29 +138,29 @@ export default Component.extend({
                   }).catch(error => {
                     this.set("requestInFlight", false);
                     if (this.get('saveFail')) {
-                      this.saveFail(error, this.get('formFields'), this.get('formSettings'), changeset);
+                      this.saveFail(error, changesetWebform);
                     }
                   });
                 } else {
                   this.set("requestInFlight", false);
                   var submitActionResponse = submitAction;
                   if (this.get('saveSuccess')) {
-                    this.saveSuccess(submitActionResponse, this.get('formFields'), this.get('formSettings'), changeset);
+                    this.saveSuccess(submitActionResponse, changesetWebform);
                   }
                 }
               });
           } else {
             changeset.save().then(saveChangesetResponse => {
               this.set("requestInFlight", false);
-              if (this.get('saveSuccess')) {
-                this.saveSuccess(saveChangesetResponse, this.get('formFields'), this.get('formSettings'), changeset);
+              if (this.saveSuccess) {
+                this.saveSuccess(saveChangesetResponse, changesetWebform);
               }
-              if (this.get('formSettings.resetAfterSubmit')) {
+              if (changesetWebform.formSettings.resetAfterSubmit) {
                 this.send('resetForm');
               }
             }).catch(error => {
-              if (this.get('saveFail')) {
-                this.saveFail(error, this.get('formFields'), this.get('formSettings'), changeset);
+              if (this.saveFail) {
+                this.saveFail(error, changesetWebform);
               }
               this.set("requestInFlight", false);
             });

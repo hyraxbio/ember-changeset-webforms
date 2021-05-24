@@ -1,29 +1,30 @@
 <form {{action "submit" on="submit"}} class={{formValidationClass}} novalidate={{formObject.formSettings.novalidate}}>
   <div class="form-section form-fields">
-    {{#each formFields as |formField|}}
+    {{#each changesetWebform.fields as |formField|}}
       <EmberChangesetWebforms::FieldElements::ValidatingField
         @processedFieldSchema={{formField}}
+        @changesetWebform={{changesetWebform}}
         @dataTestFormName={{formSettings.dataTestFormName}}
         @afterAddClone={{afterAddClone}}
         @afterRemoveClone={{afterRemoveClone}}
         @afterKeyUpAction={{afterKeyUpAction}}
-        @changesetProp={{changesetProp}}
+        @changesetProp={{changesetWebform.changeset}}
         @formSettings={{formSettings}}
         @formFields={{formFields}}
-        @submitForm={{action "submit" changesetProp formSettings.modelName}}
+        @submitForm={{action "submit" changesetWebform.changeset formSettings.modelName}}
         @afterFieldValidation={{action "afterFieldValidation"}}
         @afterFieldEdit={{action "afterFieldEdit"}}
-        @onClick={{action "onClick"}}
+        @onClick={{action "afterFieldClick"}}
       />
     {{/each}}
   </div>
   {{yield}}
   <div class="form-section form-submit">
     {{#unless formSettings.hideSubmitButton}}
-      <EmberChangesetWebforms::FormElements::FormSubmitButton @click={{action "submit" changesetProp formSettings.modelName}} @value={{submitButtonText}} @requestInFlight={{requestInFlight}} @data-test-id="evf-submit-form-button" @disabled={{formSettings.submitDisabled}} @formSettings={{formSettings}} />
+      <EmberChangesetWebforms::FormElements::FormSubmitButton @click={{action "submit" changesetWebform formSettings.modelName}} @value={{submitButtonText}} @requestInFlight={{requestInFlight}} @data-test-id="evf-submit-form-button" @disabled={{formSettings.submitDisabled}} @formSettings={{formSettings}} />
     {{/unless}}
     {{#if formSettings.showDiscardChangesButton}}
-      <button class={{formSettings.showDiscardChangesButtonClasses}} type="button" data-test-id="evf-reset-form-button" onclick={{action "discardChanges" changesetProp}}>{{formSettings.showDiscardChangesButtonTetx}}</button>
+      <button class={{formSettings.showDiscardChangesButtonClasses}} type="button" data-test-id="evf-reset-form-button" onclick={{action "discardChanges" changesetWebform.changeset}}>{{formSettings.showDiscardChangesButtonTetx}}</button>
     {{/if}}
     {{#if formSettings.showClearFormButton}}
       <button class={{formSettings.clearFormButtonClasses}} type="button" data-test-id="evf-reset-form-button" {{action "clearForm"}}>{{formSettings.clearFormButtonText}}</button>

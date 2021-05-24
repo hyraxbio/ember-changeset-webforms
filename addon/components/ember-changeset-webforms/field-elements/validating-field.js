@@ -86,12 +86,12 @@ export default Component.extend({
       }  
       formField.set('showFieldValidation', true);
       const fieldValidationErrors = changeset.error[formField.propertyName];
-      this.afterFieldValidation(fieldValidationErrors, formField, changeset);
+      this.afterFieldValidation(formField, changeset, fieldValidationErrors);
     },
 
     onClick(formField) {
-      if (this.onClick) {
-        this.onClick(formField.fieldId, formField, this.get('changesetProp'));
+      if (this.onClickAction) {
+        this.onClickAction(formField, this.get('changesetProp'));
       }
     },
 
@@ -110,21 +110,21 @@ export default Component.extend({
       }
       this.send('setFieldValue', value, formField, 'focusOut', event);
       if (this.focusOutAction) {
-        this.focusOutAction(formField);
+        this.focusOutAction(formField, this.get('changesetProp'));
       }
     },
 
     onFocusIn: function(formField) {
       formField.set('focussed', true);
       if (this.focusInAction) {
-        this.focusInAction(formField);
+        this.focusInAction(formField, this.get('changesetProp'));
       }
     },
 
     onKeyUp: function(formField, value, event) {
       this.send('setFieldValue', value, formField, 'keyUp', event);
       if (this.afterKeyUpAction) {
-        this.afterKeyUpAction(value, event, formField, this.get('changeset'));
+        this.afterKeyUpAction(formField, this.get('changesetProp'), value, event);
       }
     },
 
@@ -139,9 +139,8 @@ export default Component.extend({
       }
       formField.set('previousValue', changeset.get(formField.propertyName));
       changeset.set(formField.propertyName, value);
-      // console.log(changeset.error);
       if (this.afterFieldEdit) {
-        this.afterFieldEdit(formField.fieldId, changeset, formField); // TODO sort out the mess of these args- no more fieldId.
+        this.afterFieldEdit(formField, this.get('changesetProp'));
       }
       this.send('validateProperty', changeset, formField, eventType, event);
     }
