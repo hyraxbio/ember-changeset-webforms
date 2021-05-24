@@ -60,4 +60,6 @@ module('Acceptance | Field validation', function(hooks) {
     assert.equal(cth.textContentArray(findAll(els.fireFormFieldError)).join('|'), 'Each field must be unique- primary email is the same as recovery email.|Each field must be unique- recovery email is the same as primary email.', 'Custom validator is applied correctly.');
   });
   
+  // TODO - validation pf all field son submit, and ignores hidden fields.
+
 });

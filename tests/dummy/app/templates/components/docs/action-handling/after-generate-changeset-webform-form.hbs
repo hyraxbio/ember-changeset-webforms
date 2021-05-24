@@ -1,16 +1,27 @@
 {{#docs-demo as |demo|}}
   {{#demo.example name="after-generate-changeset-webform-form.hbs"}}
-    <ChangesetWebform 
-      @formSchema={{formSchema}} 
-      @afterGenerateChangesetWebform={{action "afterGenerateChangesetWebform"}} 
-      data-test-id="after-generate-changeset-webform-form"
-     />
-    {{#if lastValidatedField}}
-      <div data-test-id="after-generate-changeset-webform-feedback">
-        Test
+    {{#if (eq step 2)}}
+      <div data-test-id="step-2">
+        <h2>Step 2</h2>
+        <div>Step 2 content</div>
+      </div>
+    {{else}}
+      <div data-test-id="step-1">
+        <h2>Step 1</h2>
+        <ChangesetWebform 
+        @formSchema={{formSchema}} 
+        @afterGenerateChangesetWebform={{action "afterGenerateChangesetWebform"}} 
+        data-test-id="after-generate-changeset-webform-form"
+        />
       </div>
     {{/if}}
+    <div class="external body-text" data-test-id="after-generate-changeset-webform-feedback">
+      <h2>These buttons are not part of the ChangesetWebform component.</h2>
+      <hr class="margin-top-lg">
+      <button class="btn btn-outline-gray-medium margin-top-lg" {{action "prev"}} data-test-id="previous-button">Previous step</button>
+      <button class="btn btn-outline-gray-medium margin-top-lg" {{action "next"}} data-test-id="next-button">Next step</button>
+    </div> 
   {{/demo.example}}
-  {{demo.snippet "after-generate-changeset-webform-form.js" label="Component JS" language="javascript"}}
   {{demo.snippet "after-generate-changeset-webform-form.hbs" label="Component template" language="htmlbars"}}
+  {{demo.snippet "after-generate-changeset-webform-form.js" label="Component JS" language="javascript"}}
 {{/docs-demo}}

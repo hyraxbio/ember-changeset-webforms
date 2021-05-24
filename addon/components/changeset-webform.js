@@ -1,6 +1,4 @@
-
-import Component from '@ember/component';
-import { computed } from '@ember/object';
+import Component from '@ember/component';import { computed } from '@ember/object';
 import layout from '../templates/components/changeset-webform';
 import { inject as service } from '@ember/service';
 import validateFields from 'ember-changeset-webforms/utils/validate-fields';
@@ -40,8 +38,8 @@ export default Component.extend({
     this.send('generateChangesetWebform', this.get('formSchema'), this.get('fieldComponentsMap'), this.get('data'), this.get('customValidators'));
   },  
 
-  formSettings: computed('formSchema', function() {
-    return assign(EmberObject.create(this.get('EmberChangesetWebforms.defaultSettings') || {}), EmberObject.create(this.get('EmberChangesetWebforms.settings') || {}), EmberObject.create(this.get('changesetWebform.formSchema.settings') || {}));
+  formSettings: computed('changesetWebform', function() {
+    return assign(EmberObject.create(this.get('EmberChangesetWebforms.defaultSettings') || {}), EmberObject.create(this.get('EmberChangesetWebforms.settings') || {}), EmberObject.create(this.get('changesetWebform.formSettings') || {}));
   }),
   
   formFields: computed('formObject', function() {

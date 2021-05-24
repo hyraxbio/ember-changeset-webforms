@@ -21,7 +21,7 @@
   {{yield}}
   <div class="form-section form-submit">
     {{#unless formSettings.hideSubmitButton}}
-      <EmberChangesetWebforms::FormElements::FormSubmitButton @click={{action "submit" changesetWebform formSettings.modelName}} @value={{submitButtonText}} @requestInFlight={{requestInFlight}} @data-test-id="evf-submit-form-button" @disabled={{formSettings.submitDisabled}} @formSettings={{formSettings}} />
+      <EmberChangesetWebforms::FormElements::FormSubmitButton @click={{action "submit" changesetWebform formSettings.modelName}} @value={{formSettings.submitButtonText}} @requestInFlight={{requestInFlight}} @data-test-id="evf-submit-form-button" @disabled={{formSettings.submitDisabled}} @formSettings={{formSettings}} />
     {{/unless}}
     {{#if formSettings.showDiscardChangesButton}}
       <button class={{formSettings.showDiscardChangesButtonClasses}} type="button" data-test-id="evf-reset-form-button" onclick={{action "discardChanges" changesetWebform.changeset}}>{{formSettings.showDiscardChangesButtonTetx}}</button>

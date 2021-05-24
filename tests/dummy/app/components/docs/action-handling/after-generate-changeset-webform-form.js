@@ -1,16 +1,18 @@
+// BEGIN-SNIPPET after-generate-changeset-webform-form.js
 import Component from '@ember/component';
 import layout from '../../../templates/components/docs/action-handling/after-generate-changeset-webform-form';
+import validateFields from 'ember-changeset-webforms/utils/validate-fields';
 
 export default Component.extend({
   layout,
+  step: 1,
 
   init: function() {
     this._super(...arguments);
-// BEGIN-SNIPPET after-generate-changeset-webform-form.js
     this.formSchema = {
       settings: {
         formName: 'nameAndEmail',
-        submitButtonText: 'Submit', // TODO default setting
+        hideSubmitButton: true,
         showResetButton: false,
         hideLabels: true
       },
@@ -41,9 +43,22 @@ export default Component.extend({
   },
 
   actions: {
-    afterGenerateChangesetWebform(webform) {
-      console.log(webform);
-      
+    afterGenerateChangesetWebform(changesetWebform) {
+      this.set('changesetWebform', changesetWebform)
+    },
+
+    next() {
+      const currentStep = this.get('step');
+      const changesetWebform = this.get('changesetWebform');
+      validateFields(changesetWebform).then(() => {
+        if (changesetWebform.changeset.isValid) {
+          this.set('step', currentStep + 1);
+        }
+      });
+    },
+    prev() {
+      const currentStep = this.get('step');
+      this.set('step', currentStep - 1);
     }
   }
 });

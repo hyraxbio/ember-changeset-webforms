@@ -22,8 +22,14 @@ export default {
   confirmHumanField: '[data-test-id="confirmHuman-field"]',
   
   // Dummy app
+  step1: '[data-test-id="step-1"]',
+  step2: '[data-test-id="step-2"]',
+  nextButton: '[data-test-id="next-button"]',
+  previousButton: '[data-test-id="previous-button"]',
   afterFieldEditForm: '[data-test-id="after-field-edit-form"]',
   afterFieldEditFeedback: '[data-test-id="after-field-edit-feedback"]',
   afterFieldValidationForm: '[data-test-id="after-field-validation-form"]',
   afterFieldValidationFeedback: '[data-test-id="after-field-validation-feedback"]',
+  afterGenerateChangesetWebformForm: '[data-test-id="after-generate-changeset-webform-form"]',
+  afterGenerateChangesetWebformFeedback: '[data-test-id="after-generate-changeset-webform-feedback"]'
 }
