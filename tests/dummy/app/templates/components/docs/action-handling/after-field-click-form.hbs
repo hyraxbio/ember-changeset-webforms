@@ -1,0 +1,27 @@
+{{#docs-demo as |demo|}}
+  {{#demo.example name="after-field-click-action-form.hbs"}}
+    {{#if alert}}
+      <div class="external">
+        <div class="alert alert-{{alert.type}}">
+          {{alert.message}}
+        </div>
+      </div>
+    {{/if}}
+    <ChangesetWebform 
+      @formSchema={{formSchema}} 
+      @afterFieldClick={{action "afterFieldClick"}} 
+      @formValidationFailed={{action "formValidationFailed"}}
+      @submitAction={{action "submitAction"}}
+      data-test-id="after-field-click-form"
+     />
+    {{#if fullName}}
+      <div data-test-id="after-field-click-feedback">
+        The user's full name is "{{fullName}}".<br>
+        The last updated field was {{lastUpdateField}}.<br>
+        The value of settings.formName is {{formName}}.
+      </div>
+    {{/if}}
+  {{/demo.example}}
+  {{demo.snippet "after-field-click-action-form.js" label="Component JS" language="javascript"}}
+  {{demo.snippet "after-field-click-action-form.hbs" label="Component template" language="htmlbars"}}
+{{/docs-demo}}

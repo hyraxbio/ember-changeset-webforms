@@ -62,7 +62,7 @@ export default Component.extend({
       var index = masterFormField.clonedFields.indexOf(clone);
       masterFormField.clonedFields.removeObject(clone);
       this.send('checkMinMaxClones', masterFormField);
-      var groupValue = this.get('groupValue') || [];
+      var groupValue = this.get('groupValue') || []; //TODO check this.
       groupValue.splice(index, 1);
 
       this.setFieldValue(groupValue, masterFormField);

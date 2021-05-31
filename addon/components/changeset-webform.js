@@ -38,8 +38,10 @@ export default Component.extend({
     this.send('generateChangesetWebform', this.get('formSchema'), this.get('fieldComponentsMap'), this.get('data'), this.get('customValidators'));
   },  
 
-  formSettings: computed('changesetWebform', function() {
-    return assign(EmberObject.create(this.get('EmberChangesetWebforms.defaultSettings') || {}), EmberObject.create(this.get('EmberChangesetWebforms.settings') || {}), EmberObject.create(this.get('changesetWebform.formSettings') || {}));
+  formSettings: computed('changesetWebform.formSettings', function() {
+    console.log(this.get('changesetWebform.formSettings'));
+    return this.get('changesetWebform.formSettings')
+    // return assign(EmberObject.create(this.get('EmberChangesetWebforms.defaultSettings') || {}), EmberObject.create(this.get('EmberChangesetWebforms.settings') || {}), EmberObject.create(this.get('changesetWebform.formSettings') || {}));
   }),
   
   formFields: computed('formObject', function() {
@@ -113,7 +115,7 @@ export default Component.extend({
     },
    
     submit(changesetWebform) {
-      const changeset = changesetWebform;
+      const changeset = changesetWebform.changeset;
       validateFields(changesetWebform).then(validateResponse => {
         if (changeset.isValid) {
           if (this.beforeSubmitAction) {
@@ -164,8 +166,8 @@ export default Component.extend({
             });
           }
         } else {
-          if (this.get('formValidationFailed')) {
-            this.formValidationFailed(validateResponse, changeset);
+          if (this.formValidationFailed) {
+            this.formValidationFailed(changesetWebform);
           }
         }
       }).catch(err => {

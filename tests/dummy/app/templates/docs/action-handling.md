@@ -4,18 +4,19 @@
 
 Fires every time a property in the changeset is updated.
 
-It provides `(formFields, fieldId, formSettings, changeset)` as arguments.
+It provides `(formField, ChangesetWebform, snapshot)` as arguments.
+
+<!-- TODO explain snapshot -->
 
 <Docs::ActionHandling::AfterFieldEditForm />
-
 
 ## afterFieldValidation
 
 Fires every time a field is validated.
 
-It provides `(fieldValidationErrors, formField, changeset, formFields, formSettings)` as arguments.
+It provides `(formField, ChangesetWebform, fieldValidationErrors)` as arguments.
 
-Where there are validation errors, the value of the `fieldValidationErrors` argument takes the form of 
+Where there are validation errors, the value of the `fieldValidationErrors` argument takes the form of:
 
 ```
 {
@@ -47,6 +48,25 @@ This action can be useful for accessing the above properties outside of the form
 
 <Docs::ActionHandling::AfterGenerateChangesetWebformForm />
 
+## afterFieldClick
+
+Fires after any individual field calls the `onClick` action in the `ValidatingField` component. 
+
+The `clicker` is the only default field which calls this action.
+
+It provides `(formField, changesetWebform)` as arguments.
+
+<Docs::ActionHandling::AfterFieldClickForm />
+
+## afterInputFocusOut
+
+It provides `(formField, changesetWebform)` as arguments.
+## afterInputFocusIn
+
+It provides `(formField, changesetWebform)` as arguments.
+## afterInputKeyUp
+
+It provides `(formField, changesetWebform, value, event)` as arguments.
 ## afterOrRemoveAddClone
 
 afterOrRemoveAddClone(clone, master, changeset) {
