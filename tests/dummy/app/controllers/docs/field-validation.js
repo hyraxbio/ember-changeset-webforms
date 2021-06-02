@@ -9,7 +9,7 @@ export default Controller.extend({
     this._super(...arguments);
     // BEGIN-SNIPPET signup-form.js
     this.signUpFormSchema = {
-      settings: {
+      formSettings: {
         formName: 'signup',
         submitSuccessMessage: 'Thank you for signing up.',
         submitButtonText: 'Sign up',

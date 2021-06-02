@@ -9,7 +9,7 @@ export default Service.extend({
       submitButtonIconClassNames: 'button-right spinner',
       addCloneButtonComponent: 'ember-changeset-webforms/cloned-field-elements/add-clone-button',
       submitButtonIconRequestInFlightClassNames: 'on',
-      // removeCloneIcon: 'svg-repo/icons-icon-trash',
+      // removeCloneComponent: 'svg-repo/icons-icon-trash',
       resetButtonText: 'Reset',
       powerDatePicker: {
         dateSelectComponent: null

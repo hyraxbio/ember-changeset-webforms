@@ -23,7 +23,11 @@ module.exports = function(environment) {
     }
   };
 
-  
+  ENV.changesetWebformsDefaults = {
+    form: {
+      resetButtonText: 'Resets'
+    }
+  };
 
   if (environment === 'development') {
     // ENV.APP.LOG_RESOLVER = true;

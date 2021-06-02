@@ -9,9 +9,12 @@ export default Component.extend({
   init() {
     this._super(...arguments);
     this.signUpFormSchema = {
-      settings: {
+      formSettings: {
         formName: 'signUpForm',
         submitButtonText: 'Create my Account',
+      },
+      fieldSettings: {
+        hideLabel: true,
       },
       fields: [{
         fieldId: 'name',

@@ -51,7 +51,7 @@ export default Component.extend({
       return 'invalid';
     }
   }),
-  removeIconComponent: computed('EmberChangesetWebforms.removeCloneIcon', 'formField.removeButtonIcon', function() {
+  removeIconComponent: computed('EmberChangesetWebforms.removeCloneComponent', 'formField.removeButtonIcon', function() {
   }),
 
   actions: {

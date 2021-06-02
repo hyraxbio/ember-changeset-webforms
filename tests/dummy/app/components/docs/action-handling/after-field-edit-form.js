@@ -8,7 +8,7 @@ export default Component.extend({
     this._super(...arguments);
 // BEGIN-SNIPPET after-field-edit-action-form.js
     this.userNamesFormSchema = {
-      settings: {
+      formSettings: {
         formName: 'names',
         submitButtonText: 'Submit', // TODO default setting
         showResetButton: false,

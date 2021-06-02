@@ -6,7 +6,7 @@ export default Component.extend({
   init: function() {
     this._super(...arguments);
     this.formSchema = {
-      settings: {
+      formSettings: {
         formName: 'loginForm',
         submitButtonText: 'Log in',
         submitButtonClasses: 'btn btn-primary btn-lg btn-block',

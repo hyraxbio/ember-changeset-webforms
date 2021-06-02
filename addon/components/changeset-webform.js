@@ -39,7 +39,6 @@ export default Component.extend({
   },  
 
   formSettings: computed('changesetWebform.formSettings', function() {
-    console.log(this.get('changesetWebform.formSettings'));
     return this.get('changesetWebform.formSettings')
     // return assign(EmberObject.create(this.get('EmberChangesetWebforms.defaultSettings') || {}), EmberObject.create(this.get('EmberChangesetWebforms.settings') || {}), EmberObject.create(this.get('changesetWebform.formSettings') || {}));
   }),

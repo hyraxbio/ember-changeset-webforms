@@ -1,6 +1,6 @@
 <div class="form-field-clone">
   {{#if (not-eq masterFormField.cloneCountStatus "min")}}
-    <div role="button" class="hover-pointer remove-clone clone-actions" type="button" onclick={{action removeClone clonedFormField}} data-test-class="remove-clone" title="Remove {{formField.fieldId}}">{{component templateSettings.removeCloneIcon}}</div>
+    <div role="button" class="hover-pointer remove-clone clone-actions" type="button" onclick={{action removeClone clonedFormField}} data-test-class="remove-clone" title="Remove {{formField.fieldId}}">{{component templateSettings.removeCloneComponent}}</div>
   {{/if}}
   <EmberChangesetWebforms::FieldElements::ValidatingFieldWrapper 
     @formField={{clonedFormField}} 

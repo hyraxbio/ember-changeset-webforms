@@ -12,12 +12,13 @@ module('Acceptance | Cloned fields', function(hooks) {
     await visit('/docs/clonable-form-fields');
     assert.dom(els.clonedFormField).exists({count: 2}, 'Min clones setting of 2 results in two cloned fields on load.');
     assert.dom(els.maxClonesReached).doesNotExist('Max clones reached text does not display when the number of clones is below the value of the maxClones setting.');
-    assert.dom(els.removeClone).doesNotExist({count: 3}, 'None of the clones has a remove clone button when the number of clones is equal to the the minClones setting.');
+    assert.dom(els.removeClone).doesNotExist( 'None of the clones has a remove clone button when the number of clones is equal to the the minClones setting.');
     await focus(getClones()[0].querySelector('input'));
     await blur(getClones()[0].querySelector('input'));
     assert.equal(getClones()[0].querySelectorAll(els.fireFormFieldError).length, 2, 'First clone gets correct validation error messages when user focusses out and clone is empty.');
     assert.ok(getClones()[0].querySelector(els.fireFormField).classList.contains('invalid'), 'First clone gets class "invalid" when user focusses out and clone is empty.');
     assert.ok(getClones()[1].querySelectorAll(els.fireFormFieldError).length === 0, 'Second clone is not validated on focus out of first clone.');
+    await this.pauseTest();
     await click(els.fireFormAddCloneButton);
     assert.dom(els.clonedFormField).exists({count: 3}, 'A new clone is added after the add clone button os clicked.');
     assert.dom(els.removeClone).exists({count: 3}, 'Each clone gets a remove clone button when the number of clones becomes greater than the minClones setting.');

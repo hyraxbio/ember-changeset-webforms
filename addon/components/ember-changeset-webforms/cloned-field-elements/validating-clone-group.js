@@ -30,6 +30,11 @@ export default Component.extend({
     } 
   },
 
+  groupValue: computed('changesetProp', function() {
+    var masterFormField = this.get('masterFormField');
+    return this.get('changesetProp').get(masterFormField.propertyName) || [];
+  }),
+
   cloneGroupNameClass: computed('masterFormField.cloneGroupName', function() {
     return `clone-group-${this.get('masterFormField.cloneGroupName')}`;
   }),
