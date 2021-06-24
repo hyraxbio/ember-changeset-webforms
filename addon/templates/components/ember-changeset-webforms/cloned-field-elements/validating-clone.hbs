@@ -12,16 +12,16 @@
       formField=clonedFormField
       clonedFormField=clonedFormField
       masterFormField=masterFormField
-      onFocusOut=(action "onFocusOutClone" index)
-      onFocusIn=(action "onFocusInClone" index)
-      onKeyUp=(action "onKeyUpClone" index)
-      onUserInteraction=(action "onUserInteractionClone" index)
-      onChange=(action "onChangeClone" index)
+      onFocusOut=(action onFocusOutClone)
+      onFocusIn=(action onFocusInClone)
+      onKeyUp=(action onKeyUpClone)
+      onUserInteraction=(action onUserInteractionClone)
+      onChange=(action onChangeClone)
       cloneField=(action cloneField)
       removeClone=(action removeClone)
       changesetProp=changesetProp
       displayValidation=displayValidation
-      displayValue=(ember-changeset-webforms/cloned-form-field-display-value groupValue index)
+      displayValue=(ember-changeset-webforms/cloned-form-field-display-value (get changesetProp masterFormField.propertyName) index)
     }}
     {{#if (eq displayValidation "invalid")}}
       {{#if (or clonedFormField.fieldErrors (get (get changesetProp.error masterFormField.fieldId) "validation"))}}

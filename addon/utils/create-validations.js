@@ -10,19 +10,20 @@ export default function createValidations(fields, customValidators = {}) {
   if (!fields) { return validations; }
   fields.forEach(field => {
     field.propertyName = field.propertyName || field.fieldId;
-    field.cloneFieldSchema = field.cloneFieldSchema || {};
-    if (field.cloneFieldSchema.validationRules) {
-      field.validationRules = field.validationRules || [];
-      field.validationRules.push({
-        validationMethod: 'validateClone',
-        arguments: {
-          validationRules: field.cloneFieldSchema.validationRules, 
-          customValidators: customValidators
-        }
-      });
-    }
+    // field.cloneFieldSchema = field.cloneFieldSchema || {};
+    // if (field.cloneFieldSchema.validationRules) {
+    //   field.validationRules = field.validationRules || [];
+    //   field.validationRules.push({
+    //     validationMethod: 'validateClone',
+    //     arguments: {
+    //       validationRules: field.cloneFieldSchema.validationRules, 
+    //       customValidators: customValidators
+    //     }
+    //   });
+    // }
     
     if (!field.validationRules) { return; }
+
     var fieldValidations = [];
     
     field.validationRules.forEach(rule => {

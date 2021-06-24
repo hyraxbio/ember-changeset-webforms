@@ -5,9 +5,10 @@ import EmberObject from '@ember/object';
 
 export default function createChangesetWebform(formSchema, data, customValidators) {
   const formSchemaWithDefaults = getWithDefaultUtil(formSchema);
+  const parsedFields = formSchemaWithDefaults.fields.map(item => parseChangesetWebformField(item, customValidators));
   return  {
-    changeset: createChangeset(formSchema.fields, data, customValidators),
-    fields: formSchemaWithDefaults.fields.map(item => parseChangesetWebformField(item)),
+    changeset: createChangeset(parsedFields, data, customValidators),
+    fields: parsedFields,
     formSettings: EmberObject.create(formSchema.settings),
     formSchema: {...formSchema}
   }

@@ -52,25 +52,7 @@ export default Component.extend({
   }),
 
   actions: {
-    onFocusOutClone(index, clonedFormField, value) {
-      this.onFocusOut(clonedFormField, this.updatedGroupValue(value, index));
-    },
-
-    onFocusInClone(index, clonedFormField) {
-      this.onFocusIn(clonedFormField);
-    },
-
-    onKeyUpClone(index, clonedFormField, value, event) {
-      this.onKeyUp(clonedFormField, this.updatedGroupValue(value, index), event);
-    },
-
-    onUserInteractionClone(index, clonedFormField, value) {
-      this.onUserInteraction(clonedFormField, this.updatedGroupValue(value, index));
-    },
-
-    onChangeClone(index, clonedFormField, value) {
-      // this.onChange(clonedFormField, this.updatedGroupValue(value, index));
-    }
+   
   },
 
   validationEventObj(validationEvents, eventType) { // TODO this is duplicated in validating form field.
@@ -79,15 +61,5 @@ export default Component.extend({
     });
   },
 
-  updatedGroupValue(value, index) {
-    var masterFormField = this.get('masterFormField');
-    masterFormField.set('lastUpdatedClone', {
-      index: index,
-      previousValue: this.get('groupValue')[index],
-      previousLength: this.get('groupValue').length
-    });
-    var groupValue = [...this.get('groupValue')] || []; // Must use spread to copy the array and avoid mutating the original below, which would break the groupValue CP.
-    groupValue[index] = value;
-    return groupValue;
-  },
+
 });

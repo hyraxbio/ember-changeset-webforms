@@ -3,7 +3,6 @@ import layout from '../../../templates/components/ember-changeset-webforms/clone
 import { computed } from '@ember/object';
 import parseChangesetWebformField from 'ember-changeset-webforms/utils/parse-changeset-webform-field';
 import { assign } from '@ember/polyfills';
-import { inject as service } from '@ember/service';
 
 export default Component.extend({
   layout,
@@ -16,17 +15,13 @@ export default Component.extend({
 
   didInsertElement() {
     var masterFormField = this.get('masterFormField');
-    var minLength = Math.max((this.get('groupValue') || []).length, masterFormField.minClones);
+    var groupValue = this.get('changesetProp').get(masterFormField.propertyName) || [];
+    var minLength = Math.max((groupValue || []).length, masterFormField.minClones);
     for (var i = 0; i < minLength; i++) {
-      var value = this.get('groupValue') ? this.get('groupValue')[i] : null;
+      var value = groupValue ? groupValue[i] : null;
       this.send('cloneField', value);
     } 
   },
-
-  groupValue: computed('changesetProp', function() {
-    var masterFormField = this.get('masterFormField');
-    return this.get('changesetProp').get(masterFormField.propertyName) || [];
-  }),
 
   cloneGroupNameClass: computed('masterFormField.cloneGroupName', function() {
     return `clone-group-${this.get('masterFormField.cloneGroupName')}`;
@@ -60,7 +55,7 @@ export default Component.extend({
       var index = masterFormField.clonedFields.indexOf(clone);
       masterFormField.clonedFields.removeObject(clone);
       this.send('checkMinMaxClones', masterFormField);
-      var groupValue = this.get('groupValue') || []; //TODO check this.
+      var groupValue = this.get('changesetProp').get(masterFormField.propertyName) || []; //TODO check this.
       groupValue.splice(index, 1);
 
       this.setFieldValue(groupValue, masterFormField);
@@ -83,6 +78,38 @@ export default Component.extend({
       }
     },
 
-   
-  }
+    onFocusOutClone(index, clonedFormField, value) {
+      this.onFocusOut(clonedFormField, this.updatedGroupValue(value, index));
+    },
+
+    onFocusInClone(index, clonedFormField) {
+      this.onFocusIn(clonedFormField);
+    },
+
+    onKeyUpClone(index, clonedFormField, value, event) {
+      this.onKeyUp(clonedFormField, this.updatedGroupValue(value, index), event);
+    },
+
+    onUserInteractionClone(index, clonedFormField, value) {
+      this.onUserInteraction(clonedFormField, this.updatedGroupValue(value, index));
+    },
+
+    onChangeClone(index, clonedFormField, value) {
+      // this.onChange(clonedFormField, this.updatedGroupValue(value, index));
+    }
+  },
+
+    updatedGroupValue(value, index) {
+    var masterFormField = this.get('masterFormField');
+    var groupValue = this.get('changesetProp').get(masterFormField.propertyName) || [];
+
+    masterFormField.set('lastUpdatedClone', {
+      index: index,
+      previousValue: groupValue[index],
+      previousLength: groupValue.length
+    });
+
+    groupValue[index] = value;
+    return groupValue;
+  },
 });

@@ -22,7 +22,6 @@ export default Controller.extend({
         minClones: 2,
         maxClones: 4,
         cloneButtonText: 'Add email',
-        removeCloneComponent: 'svg-repo/icons/icon-trash',
         cloneFieldSchema: {
           fieldLabel: 'Email',
           fieldType: 'input',

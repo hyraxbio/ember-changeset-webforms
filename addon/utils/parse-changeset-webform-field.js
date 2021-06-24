@@ -1,6 +1,6 @@
 import EmberObject from '@ember/object';
 
-export default function parseChangesetWebformField(field) {
+export default function parseChangesetWebformField(field, customValidators) {
   // var defaultValidationEvents = ['focusOut'];
   if (!field) { return; }
   if (!field.fieldId) {
@@ -63,7 +63,16 @@ export default function parseChangesetWebformField(field) {
     field.cloneGroupNumber = 0;
     // field.minClones = field.minClones || 1;
   }
-
+  if ((field.cloneFieldSchema || {}).validationRules) {
+    field.validationRules = field.validationRules || [];
+    field.validationRules.push({
+      validationMethod: 'validateClone',
+      arguments: {
+        validationRules: field.cloneFieldSchema.validationRules, 
+        customValidators: customValidators
+      }
+    });
+  }
   // var validationRules = field.validationRules || [];
   field.validates = field.validationRules.length > 0 ? true : false;
 
@@ -74,6 +83,8 @@ export default function parseChangesetWebformField(field) {
       return item;
     }
   });
+
+
   // var componentPath;
   // if (field.componentPath) {
   //   componentPath = field.componentPath;

@@ -58,7 +58,6 @@ export default Component.extend({
       this.set('alert', {type: 'success', message: `Validation passed, submit action fired with the following data: ${dataProps.join(', ')}.`});
       const changeset = changsetWebform.changeset;
       changsetWebform.formSettings.set('submitButtonText', 'Re-submit');
-      console.log(changsetWebform.formSettings);
       changeset.set('name', '');
       changeset.set('nickName', '');
     },

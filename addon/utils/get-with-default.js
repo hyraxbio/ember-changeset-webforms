@@ -62,7 +62,7 @@ const addonDefaults = {
       fieldType: 'clonable',
       componentPath: 'ember-changeset-webforms/cloned-form-fields/validating-form-field-clone-group',
       maxClonesReachedText: 'Max clones reached.', // String
-      removeCloneComponent: 'svg-repo/icons-icon-trash', // String - path to the component to use as the remove clone element
+      removeCloneComponent: 'svg-repo/icons/icon-trash', // String - path to the component to use as the remove clone element
       addCloneButtonComponent: 'ember-changeset-webforms/cloned-field-elements/add-clone-button', // String - path to the component to use as the add clone element
       minClones: 1, // Number - minimum number of clones allowed. 
       maxClones: null, // Number - maximum number of clones allowed. 

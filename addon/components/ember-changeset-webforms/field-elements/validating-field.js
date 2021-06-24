@@ -55,9 +55,9 @@ export default Component.extend({
     }
   }),
 
-  validates: computed('formField', function () {
-    return (this.get('formField.validationRules') || []).length > 0;
-  }),
+  // validates: computed('formField', function () {
+  //   return (this.get('formField.validationRules') || []).length > 0;
+  // }),
 
   actions: {
     validateProperty(changeset, formField, eventType, event) {
@@ -74,7 +74,8 @@ export default Component.extend({
           return;
         }
       }
-      changeset.validate(formField.propertyName).then(() => {
+      
+      changeset.validate(formField.propertyName).then(res => {
         formField.set('showFieldValidation', true);
         const fieldValidationErrors = changeset.error[formField.propertyName];
         this.afterFieldValidation(formField, changeset, fieldValidationErrors);
