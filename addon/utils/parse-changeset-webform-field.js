@@ -67,7 +67,7 @@ export default function parseChangesetWebformField(field) {
   // var validationRules = field.validationRules || [];
   field.validates = field.validationRules.length > 0 ? true : false;
 
-  field.validationEvents = (field.validationEvents || []).map(item => {
+  field.validationEvents = (field.validationEvents || []).concat(field.alwaysValidateOn || []).map(item => {
     if (typeof item === 'string') {
       return {event: item};
     } else {
@@ -112,7 +112,6 @@ export default function parseChangesetWebformField(field) {
   // field.required = required;
   field.name = field.name || field.fieldId.replace(/\./g, '-');
   field.placeholder = field.placeholder || field.fieldLabel;
-  field.component = field.componentPath;
   // field.castOut = castOut;
   // field.validates = validates;
   // field.validationEvents = parsedValidationEvents;

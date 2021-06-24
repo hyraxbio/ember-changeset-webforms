@@ -7,19 +7,12 @@ import { inject as service } from '@ember/service';
 
 export default Component.extend({
   layout,
-  EmberChangesetWebforms: service(),
   classNames: ['clone-group'],
   classNameBindings: ['cloneGroupNameClass'],
 
   'data-test-id': computed('masterFormField', function() {
     return `clone-group-${this.get('masterFormField.fieldId')}`;
   }),
-
-  init() {
-    this._super(...arguments);
-    this.fieldComponentsMap = assign(this.get('EmberChangesetWebforms.defaultFieldElementComponents'), this.get('EmberChangesetWebforms.customFieldElementComponents'));
-    this.formSettings = assign(this.get('EmberChangesetWebforms.defaultSettings'), this.get('EmberChangesetWebforms.settings'));
-  },
 
   didInsertElement() {
     var masterFormField = this.get('masterFormField');
@@ -44,7 +37,7 @@ export default Component.extend({
       var masterFormField = this.get('masterFormField');
       masterFormField.set('clonedFields', masterFormField.clonedFields || []);
       var newFieldSchema = assign(this.get('masterFormField.cloneFieldSchema'), { fieldId: masterFormField.fieldId, cloneIndex: masterFormField.clonedFields.length });
-      var newField = parseChangesetWebformField(newFieldSchema, this.get('fieldComponentsMap'));
+      var newField = parseChangesetWebformField(newFieldSchema);
       newField.set('isClone', true);
       masterFormField.clonedFields.pushObject(newField);
       var fieldValue = this.get('changesetProp').get(masterFormField.propertyName) || [];

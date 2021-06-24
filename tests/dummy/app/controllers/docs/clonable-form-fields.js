@@ -5,7 +5,7 @@ export default Controller.extend({
     this._super(...arguments);
     // BEGIN-SNIPPET clone-form.js
     this.formSchema = {
-      formSettings: {
+      settings: {
         formName: 'inviteUsersForm',
         submitButtonText: 'Submit',
         resetAfterSubmit: true
@@ -22,9 +22,7 @@ export default Controller.extend({
         minClones: 2,
         maxClones: 4,
         cloneButtonText: 'Add email',
-        templateSettings: {
-          removeCloneComponent: 'svg-repo/icons/icon-trash', // TODO requires default setting
-        },
+        removeCloneComponent: 'svg-repo/icons/icon-trash',
         cloneFieldSchema: {
           fieldLabel: 'Email',
           fieldType: 'input',

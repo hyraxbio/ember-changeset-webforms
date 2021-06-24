@@ -4,6 +4,5 @@ import { inject as service } from '@ember/service';
 
 export default Component.extend({
   layout,
-  EmberChangesetWebforms: service(),
   classNames: ['field-description']
 });

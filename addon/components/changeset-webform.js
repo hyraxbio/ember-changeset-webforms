@@ -4,9 +4,7 @@ import { inject as service } from '@ember/service';
 import validateFields from 'ember-changeset-webforms/utils/validate-fields';
 import castAllowedFields from 'ember-changeset-webforms/utils/cast-allowed-fields';
 import createChangesetWebform from 'ember-changeset-webforms/utils/create-changeset-webform';
-import { assign } from '@ember/polyfills';
 import isPromise from 'ember-changeset/utils/is-promise';
-import EmberObject from '@ember/object';
 
 /**
   The component called to render a webform, based on a schema and data.
@@ -29,18 +27,15 @@ import EmberObject from '@ember/object';
 */
 export default Component.extend({
   layout,
-  EmberChangesetWebforms: service(),
   classNameBindings: ['validationFailed:validation-failed'],
   classNames: ['ember-changeset-webforms'],
 
   didInsertElement() {
-    this.fieldComponentsMap = assign(this.get('EmberChangesetWebforms.defaultFieldElementComponents'), this.get('EmberChangesetWebforms.customFieldElementComponents'));
-    this.send('generateChangesetWebform', this.get('formSchema'), this.get('fieldComponentsMap'), this.get('data'), this.get('customValidators'));
+    this.send('generateChangesetWebform', this.get('formSchema'), this.get('data'), this.get('customValidators'));
   },  
 
   formSettings: computed('changesetWebform.formSettings', function() {
     return this.get('changesetWebform.formSettings')
-    // return assign(EmberObject.create(this.get('EmberChangesetWebforms.defaultSettings') || {}), EmberObject.create(this.get('EmberChangesetWebforms.settings') || {}), EmberObject.create(this.get('changesetWebform.formSettings') || {}));
   }),
   
   formFields: computed('formObject', function() {
@@ -70,8 +65,8 @@ export default Component.extend({
   }),
 
   actions: {
-    generateChangesetWebform(formSchema, fieldComponentsMap, data, customValidators) {
-      this.set('changesetWebform', createChangesetWebform(formSchema, fieldComponentsMap, data, customValidators));
+    generateChangesetWebform(formSchema, data, customValidators) {
+      this.set('changesetWebform', createChangesetWebform(formSchema, data, customValidators));
       if (this.get('afterGenerateChangesetWebform')) {
         this.afterGenerateChangesetWebform(this.get('changesetWebform'));
       } 

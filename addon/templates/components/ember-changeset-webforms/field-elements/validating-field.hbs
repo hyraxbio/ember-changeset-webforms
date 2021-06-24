@@ -7,8 +7,7 @@
     @typeClass={{typeClass}} 
     @dataTestFormName={{dataTestFormName}}
     @fieldName={{fieldName}}
-    @changesetProp={{changesetProp}} 
-    @templateSettings={{templateSettings}}> 
+    @changesetProp={{changesetProp}}> 
       <EmberChangesetWebforms::ClonedFieldElements::ValidatingCloneGroup 
         @masterFormField={{formField}} 
         @changesetProp={{changesetProp}} 
@@ -19,8 +18,7 @@
         @onUserInteraction={{action "onUserInteraction"}} 
         @validateProperty={{action "validateProperty"}} 
         @afterAddClone={{afterAddClone}} 
-        @afterRemoveClone={{afterRemoveClone}} 
-        @templateSettings={{templateSettings}}  />
+        @afterRemoveClone={{afterRemoveClone}} />
     </EmberChangesetWebforms::FieldElements::ValidatingFieldWrapper>
   {{else}}
     <EmberChangesetWebforms::FieldElements::ValidatingFieldWrapper 
@@ -31,9 +29,8 @@
       @typeClass={{typeClass}} 
       @dataTestFormName={{dataTestFormName}}
       @dataTestFieldId={{dataTestFieldId}}
-      @changesetProp={{changesetProp}} 
-      @templateSettings={{templateSettings}}>
-      {{component formField.component
+      @changesetProp={{changesetProp}} >
+      {{component formField.componentPath
         formField=formField
         formFields=formFields
         onFocusOut=(action "onFocusOut")
@@ -45,7 +42,6 @@
         changesetProp=changesetProp
         displayValidation=displayValidation
         displayValue=(changeset-get changesetProp formField.fieldId)
-        templateSettings=templateSettings
         dataTestFieldId=dataTestFieldId
       }}
     </EmberChangesetWebforms::FieldElements::ValidatingFieldWrapper>

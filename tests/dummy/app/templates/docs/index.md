@@ -23,7 +23,9 @@ The component can also accept POJO, Ember object or Ember model as its `@data` p
 * The addon provides several action hooks, allowing your app to respond to user interactions in various ways.
 * Conditional fields - only allow a field to show if another field has a certain value, but updating its `hidden` setting. Fields which are hidden are not validated and they are not included in the data submitted by the form.
 * Fine grained configuration control. Configuration options can be set at the app level, form level and, where appropriate, at field level. 
-* Configurable CSS class names - configure the classnames applied to form controols such as inputs or buttons, to alow for seamless styling integration with libraries such as Bootstrap.
+* Configurable CSS class names - configure the classnames applied to form controls such as inputs or buttons, to alow for seamless styling integration with libraries such as Bootstrap.
 
 TODO - stop sending both fieldId and field from action hooks
 TODO - exclude fields from changeset altogether, bot just castOut on submit. Set this is form when using field, or on field definition as a default.
+TODO - disable single option where things have options.
+TODO allowed and disallowed char patterns for all fields.

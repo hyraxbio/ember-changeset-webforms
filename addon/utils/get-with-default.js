@@ -33,7 +33,8 @@ const addonDefaults = {
     propertyName: null, // Optional, defaults to the value oif fieldId if not set.
     name: null, // String - defaults to the fieldId
     validationRules: [], // Array of objects
-    validationEvents: ['focusOut'], // Array of strings
+    validationEvents: [], // Array of strings, possible values include focusOut, keyUp, onChange // TODO check onChanger as validation event
+    alwaysValidateOn: ['focusOut'], // Array of strings, possible values include focusOut, keyUp, onChange // TODO check onChanger as validation event
     hideSuccessValidation: null, // Boolean - only show validation colours when field validation fails
     hidden: null, // Boolean - if true, the field is hidden and also ignored when validating or submitting the form
     fieldClasses: null, // String
@@ -44,6 +45,8 @@ const addonDefaults = {
     hideLabel: null, // Hide the label from the user
     disabled: null, // Boolean - disable the field, but do not hide it. It will still be validated [TODO check] and included when the form is submitted
     showfieldLabel: null, // Kill
+    fieldLabelClassNames: null,
+    fieldControlsClassNames: null
   },
   fieldTypes: [
     {
@@ -132,8 +135,8 @@ const addonDefaults = {
     {
       fieldType: 'clicker',
       componentPath: 'ember-changeset-webforms/fields/clicker',
-      clickerText: null, // String - test to display in the clicker element.
-      displayComponent: 'hyrax-ember-assets/exatype/ngs/jobs/new/steps/sequencing-platform-advanced-options-button', // TODO set
+      clickerText: null, // String - text to display in the clicker element.
+      displayComponent: null, // String - path to the component
 
     },
     {
@@ -154,7 +157,6 @@ export default function getWithDefault(formSchema = {}) {
   const formSettings = _merge(addonDefaults.formSettings, appDefaults.formSettings, formSchema.formSettings);
   const addonFieldDefaults = addonDefaults.fieldSettings || {};
   const appConfigFieldDefaults = appDefaults.fieldSettings || {};
-  console.log(formSchema);
   const mergedFields = (formSchema.fields || []).map(field => {
     let mergedField = {};
     const addonFieldTypeDefaults = addonDefaults.fieldTypes.find(addonFieldType => addonFieldType.fieldType === field.fieldType);
@@ -162,6 +164,13 @@ export default function getWithDefault(formSchema = {}) {
     const formSettingsFieldDefaults = formSchema.fieldSettings || {};
 
     mergedField = {..._merge(mergedField, addonFieldDefaults, addonFieldTypeDefaults, appConfigFieldDefaults, appConfigFieldTypeDefaults, formSettingsFieldDefaults, field)};
+    if (field.cloneFieldSchema) {
+      let mergedCloneField = {};
+      const cloneAddonFieldTypeDefaults = addonDefaults.fieldTypes.find(addonFieldType => addonFieldType.fieldType === field.cloneFieldSchema.fieldType);
+      const appConfigCloneFieldTypeDefaults = (appDefaults.fieldTypes || []).find(appConfigFieldType => appConfigFieldType.fieldType === field.cloneFieldSchema.fieldType);
+      mergedCloneField = {..._merge(mergedCloneField, addonFieldDefaults, cloneAddonFieldTypeDefaults, appConfigFieldDefaults, appConfigCloneFieldTypeDefaults, formSettingsFieldDefaults, field.cloneFieldSchema)};
+      mergedField.cloneFieldSchema = mergedCloneField;
+    }
     return mergedField;
   });
   return {

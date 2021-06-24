@@ -13,16 +13,14 @@
       @groupValue={{groupValue}} 
       @clonedFormField={{clonedFormField}} 
       @masterFormField={{masterFormField}} 
-      @processedFieldSchema={{clonedFormField}} 
-      @templateSettings={{templateSettings}} />
+      @processedFieldSchema={{clonedFormField}} />
   {{/each}}
 </div>
-{{get-with-default}}
 <div class="clone-group-actions">
   {{#if (eq masterFormField.cloneCountStatus "max")}}
-    <div class="max-clones-reached" data-test-id="max-clones-reached">{{EmberChangesetWebforms.defaultSettings.maxClonesReachedText}}</div>
+    <div class="max-clones-reached" data-test-id="max-clones-reached">{{masterFormField.maxClonesReachedText}}</div>
   {{else}}
-  Test
-    {{component templateSettings.addCloneButtonComponent cloneField=(action "cloneField") masterFormField=masterFormField templateSettings=templateSettings}}
+    Test
+    {{component masterFormField.addCloneButtonComponent cloneField=(action "cloneField") masterFormField=masterFormField}}
   {{/if}}
 </div>

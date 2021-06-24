@@ -1,7 +1,7 @@
 <EmberChangesetWebforms::FieldElements::FieldLabel 
   @formField={{formField}} 
-  @fieldLabelClassNames={{templateSettings.fieldLabelClassNames}} />
-<div class="field-controls validation-icon {{ember-changeset-webforms/array-join templateSettings.fieldControlsClassNames " "}}">
+  @fieldLabelClassNames={{formField.fieldLabelClassNames}} />
+<div class="field-controls validation-icon {{ember-changeset-webforms/array-join formField.fieldControlsClassNames " "}}">
   {{yield}}
 </div>
 <EmberChangesetWebforms::FieldElements::FieldErrors 

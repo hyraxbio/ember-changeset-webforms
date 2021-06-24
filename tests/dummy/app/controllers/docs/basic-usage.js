@@ -5,7 +5,7 @@ export default Controller.extend({
   init: function() {
     this._super(...arguments);
     this.formSchema = {
-      formSettings: {
+      settings: {
         formName: 'loginForm',
         submitButtonText: 'Log in',
         showResetButton: false,

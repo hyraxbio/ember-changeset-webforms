@@ -8,7 +8,7 @@ export default Controller.extend({
   init() {
     this._super(...arguments);
     this.uniquenessFormSchema = {
-      formSettings: {
+      settings: {
         formName: 'unique',
         submitButtonText: 'Submit'
       },

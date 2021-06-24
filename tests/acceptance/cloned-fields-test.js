@@ -18,7 +18,6 @@ module('Acceptance | Cloned fields', function(hooks) {
     assert.equal(getClones()[0].querySelectorAll(els.fireFormFieldError).length, 2, 'First clone gets correct validation error messages when user focusses out and clone is empty.');
     assert.ok(getClones()[0].querySelector(els.fireFormField).classList.contains('invalid'), 'First clone gets class "invalid" when user focusses out and clone is empty.');
     assert.ok(getClones()[1].querySelectorAll(els.fireFormFieldError).length === 0, 'Second clone is not validated on focus out of first clone.');
-    await this.pauseTest();
     await click(els.fireFormAddCloneButton);
     assert.dom(els.clonedFormField).exists({count: 3}, 'A new clone is added after the add clone button os clicked.');
     assert.dom(els.removeClone).exists({count: 3}, 'Each clone gets a remove clone button when the number of clones becomes greater than the minClones setting.');

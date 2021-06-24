@@ -1,6 +1,6 @@
 <div class="form-field-clone">
   {{#if (not-eq masterFormField.cloneCountStatus "min")}}
-    <div role="button" class="hover-pointer remove-clone clone-actions" type="button" onclick={{action removeClone clonedFormField}} data-test-class="remove-clone" title="Remove {{formField.fieldId}}">{{component templateSettings.removeCloneComponent}}</div>
+    <div role="button" class="hover-pointer remove-clone clone-actions" type="button" onclick={{action removeClone clonedFormField}} data-test-class="remove-clone" title="Remove {{formField.fieldId}}">{{component masterFormField.removeCloneComponent}}</div>
   {{/if}}
   <EmberChangesetWebforms::FieldElements::ValidatingFieldWrapper 
     @formField={{clonedFormField}} 
@@ -8,7 +8,7 @@
     @readonly={{readonly}} 
     @validates={{validates}} 
     @typeClass={{typeClass}}>
-    {{component clonedFormField.component
+    {{component clonedFormField.componentPath
       formField=clonedFormField
       clonedFormField=clonedFormField
       masterFormField=masterFormField
@@ -22,7 +22,6 @@
       changesetProp=changesetProp
       displayValidation=displayValidation
       displayValue=(ember-changeset-webforms/cloned-form-field-display-value groupValue index)
-      templateSettings=templateSettings
     }}
     {{#if (eq displayValidation "invalid")}}
       {{#if (or clonedFormField.fieldErrors (get (get changesetProp.error masterFormField.fieldId) "validation"))}}

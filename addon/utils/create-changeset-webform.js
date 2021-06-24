@@ -3,9 +3,8 @@ import getWithDefaultUtil from 'ember-changeset-webforms/utils/get-with-default'
 import parseChangesetWebformField from 'ember-changeset-webforms/utils/parse-changeset-webform-field';
 import EmberObject from '@ember/object';
 
-export default function createChangesetWebform(formSchema, fieldComponentsMap, data, customValidators) {
+export default function createChangesetWebform(formSchema, data, customValidators) {
   const formSchemaWithDefaults = getWithDefaultUtil(formSchema);
-  console.log(formSchemaWithDefaults);
   return  {
     changeset: createChangeset(formSchema.fields, data, customValidators),
     fields: formSchemaWithDefaults.fields.map(item => parseChangesetWebformField(item)),

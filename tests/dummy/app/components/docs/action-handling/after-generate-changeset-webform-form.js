@@ -10,7 +10,7 @@ export default Component.extend({
   init: function() {
     this._super(...arguments);
     this.formSchema = {
-      formSettings: {
+      settings: {
         formName: 'nameAndEmail',
         hideSubmitButton: true,
         showResetButton: false,

@@ -8,7 +8,7 @@ export default Component.extend({
   init() {
     this._super(...arguments);
     this.formSchema = {
-      formSettings: {
+      settings: {
         formName: 'names',
         submitButtonText: 'Submit',
         showResetButton: false,

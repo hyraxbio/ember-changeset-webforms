@@ -5,7 +5,6 @@ import { computed } from '@ember/object';
 
 export default Component.extend({
   layout,
-  EmberChangesetWebforms: service(),
   classNames: ['ember-changeset-webforms-field-clone'],
   'data-test-class': 'cloned-field',
 
@@ -50,8 +49,6 @@ export default Component.extend({
     } else {
       return 'invalid';
     }
-  }),
-  removeIconComponent: computed('EmberChangesetWebforms.removeCloneComponent', 'formField.removeButtonIcon', function() {
   }),
 
   actions: {

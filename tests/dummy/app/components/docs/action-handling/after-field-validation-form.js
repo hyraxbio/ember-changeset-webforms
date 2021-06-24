@@ -7,8 +7,8 @@ export default Component.extend({
   init: function() {
     this._super(...arguments);
 // BEGIN-SNIPPET after-field-validation-form.js
-    this.formSchema = {
-      formSettings: {
+    this.nameAndEmailFormSchema = {
+      settings: {
         formName: 'nameAndEmail',
         submitButtonText: 'Submit', // TODO default setting
         showResetButton: false,
@@ -36,7 +36,7 @@ export default Component.extend({
           arguments: { type: 'email' }
         }],
         inputType: 'email'
-      },]
+      }]
     };
   },
 

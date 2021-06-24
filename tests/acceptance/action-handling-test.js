@@ -12,7 +12,7 @@ module('Acceptance | Action handling', function(hooks) {
   test('afterFieldEdit', async function(assert) {
     await visit('/docs/action-handling');
     await typeIn(`${els.afterFieldEditForm} ${els.firstNameField} input`, 'G');
-    assert.dom(els.afterFieldEditFeedback).hasText(`The user's full name is "G ". The last updated field was First name. The value of settings.formName is names.`, 'afterFieldEdit runs when user types in an input field.', 'All arguments are correctly sent with the afterFieldEdit action.');
+    assert.dom(els.afterFieldEditFeedback).hasText(`The user's full name is "G ". The last updated field was First name. The value of settings.formName is names.`, 'All arguments are correctly sent with the afterFieldEdit action.');
     await typeIn(`${els.afterFieldEditForm} ${els.firstNameField} input`, 'ene');
     assert.dom(els.afterFieldEditFeedback).hasText(`The user's full name is "Gene ". The last updated field was First name. The value of settings.formName is names.`, 'afterFieldEdit runs when user types in an input field.');
 
@@ -20,6 +20,7 @@ module('Acceptance | Action handling', function(hooks) {
 
   test('afterFieldValidation', async function(assert) {
     await visit('/docs/action-handling');
+
     await focus(`${els.afterFieldValidationForm} ${els.nameField} input`);
     await blur(`${els.afterFieldValidationForm} ${els.nameField} input`);
     assert.dom(els.afterFieldValidationFeedback).hasText(`The user's name is "". The last validated field was Name. The first argument to the afterFieldValidation argument has the following values: value: "" validation: [Name can't be blank] The form has the following fields: name, email. The value of settings.formName is nameAndEmail.`, 'All arguments are correctly sent with the afterFieldValidation action, after blur, where there is one validation error.');
