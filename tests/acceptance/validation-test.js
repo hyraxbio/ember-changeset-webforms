@@ -36,13 +36,10 @@ module('Acceptance | Field validation', function(hooks) {
     assert.notOk(find(`${els.emailField}`).classList.contains('valid'), 'Field without validation event "keyUp" loses class "valid" when focussed.');
     await fillIn(`${els.emailField} input`, 'bluemangroup');
     await blur(`${els.emailField} input`);
-
     assert.ok(find(`${els.emailField}`).classList.contains('invalid'), 'Invalid field without validation event "keyUp" gets class "invalid" on focus out.');
     await focus(`${els.emailField} input`);
     assert.notOk(find(`${els.emailField}`).classList.contains('invalid'), 'Invalid field without validation event "keyUp" loses class "invalid" when focussed.');
-    
     await click(`${els.acceptTermsTrueRadioButton} input[type="radio"]`);
-    // await this.pauseTest();
     assert.ok(find(`${els.acceptTermsField}`).classList.contains('valid'), 'Validation runs after selecting option in radio button group.');
     await click(`${els.confirmHumanField} input[type="checkbox"]`);
     assert.ok(find(`${els.confirmHumanField}`).classList.contains('valid'), 'Validation runs after checking single checkbox.');

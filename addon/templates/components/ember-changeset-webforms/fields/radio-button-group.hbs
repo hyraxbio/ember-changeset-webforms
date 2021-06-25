@@ -1,5 +1,5 @@
 <div class="radio-button-group-container field-controls validation-area">
   {{#each formField.options as |option|}}
-    <Background::LabelledRadioButton data-test-id={{concat dataTestFieldId "-radio-option-" option.value}} @value={{option.value}} @groupValue={{displayValue}} @required={{false}} @name={{or formField.name formField.fieldId}} @disabled={{if formField.disabled true option.disabled}} @label={{option.label}} @changedAction={{action onUserInteraction formField groupValue}} />
+    <Background::LabelledRadioButton data-test-id={{concat dataTestFieldId "-radio-option-" option.value}} @value={{option.value}} @groupValue={{displayValue}} @required={{false}} @name={{or formField.name formField.fieldId}} @disabled={{if formField.disabled true option.disabled}} @label={{option.label}} @changedAction={{action onChange formField groupValue}} />
   {{/each}}
 </div>
