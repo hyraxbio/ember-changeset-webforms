@@ -1,6 +1,6 @@
 import Component from '@ember/component';
 import layout from '../../../templates/components/ember-changeset-webforms/cloned-field-elements/validating-clone';
-import { inject as service } from '@ember/service';
+import validationEventLog from 'ember-changeset-webforms/utils/validation-event-log';
 import { computed } from '@ember/object';
 
 export default Component.extend({
@@ -11,7 +11,16 @@ export default Component.extend({
   didInsertElement: function() {
     // var index = this.get('index');
     var clonedFormField = this.get('clonedFormField');
+    clonedFormField.validationEvents.forEach(item => {
+      if (item.event === 'submit') { return; }
+      const newObj = {...item};
+      newObj.event = `${item.event}Clone`
+      if (!this.masterFormField.validationEvents.find(item => item.event === newObj.event)) {
+        this.masterFormField.validationEvents.pushObject(newObj);
+      }
+    });
     clonedFormField.eventLog.pushObject('insert');
+    this.masterFormField.eventLog.push('insertClone');
 
     // const changeset = this.get('changesetProp');
     
@@ -34,13 +43,10 @@ export default Component.extend({
     if (!this.validationEventObj(clonedFormField.validationEvents, 'keyUp') && clonedFormField.get('focussed')) {
       return;
     }   
-    const validationEventNames = clonedFormField.validationEvents.map(item => item.event)
-    const validatingEventLog = validationEventNames.filter(validationEventName => {
-      return clonedFormField.eventLog.indexOf(validationEventName) > -1
-    });
+    if (!validationEventLog(clonedFormField).length) { return; }
+
     var masterFieldvalidationErrors = ((this.get(`changesetProp.error.${this.get('masterFormField.fieldId')}.validation`)) || []);
     var clonedFieldValidationErrors = masterFieldvalidationErrors[0];
-    if (!validatingEventLog.length) { return; }
     if ((clonedFormField.fieldErrors || []).length > 0) {
       return 'invalid';
     }
@@ -58,7 +64,30 @@ export default Component.extend({
   }),
 
   actions: {
-   
+    onFocusOutClone(index, clonedFormField, value) {
+      clonedFormField.eventLog.push('focusOut');
+      this.masterFormField.eventLog.push('focusOutClone');
+      clonedFormField.set('focussed', false)
+      this.setFieldValue(this.updatedGroupValue(value, index), this.get('masterFormField'));
+    },
+
+    onFocusInClone(index, clonedFormField) {
+      clonedFormField.set('focussed', true);
+      clonedFormField.eventLog.push('focusIn');
+      this.masterFormField.eventLog.push('focusInClone');
+    },
+
+    onKeyUpClone(index, clonedFormField, value, event) {
+      clonedFormField.eventLog.push('keyUp');
+      this.masterFormField.eventLog.push('keyUpClone');
+      this.setFieldValue(this.updatedGroupValue(value, index), this.get('masterFormField'));
+    },
+
+    onChangeClone(index, clonedFormField, value) {
+      clonedFormField.eventLog.push('change');
+      this.masterFormField.eventLog.push('changeClone');
+      this.setFieldValue(this.updatedGroupValue(value, index), this.get('masterFormField'));
+    },
   },
 
   validationEventObj(validationEvents, eventType) { // TODO this is duplicated in validating form field.

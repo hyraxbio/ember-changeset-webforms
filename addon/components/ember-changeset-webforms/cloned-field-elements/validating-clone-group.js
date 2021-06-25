@@ -78,31 +78,9 @@ export default Component.extend({
         masterFormField.set('cloneCountStatus', null); // TODO install ember truth helpers as a dep.
       }
     },
-
-    onFocusOutClone(index, clonedFormField, value) {
-      clonedFormField.eventLog.push('focusOut');
-      this.onFocusOut(this.get('masterFormField'), this.updatedGroupValue(value, index));
-      clonedFormField.set('focussed', false)
-    },
-
-    onFocusInClone(index, clonedFormField) {
-      clonedFormField.set('focussed', true);
-      clonedFormField.eventLog.push('focusIn');
-      this.onFocusIn(this.get('masterFormField'));
-    },
-
-    onKeyUpClone(index, clonedFormField, value, event) {
-      clonedFormField.eventLog.push('keyUp');
-      this.onKeyUp(this.get('masterFormField'), this.updatedGroupValue(value, index), event);
-    },
-
-    onChangeClone(index, clonedFormField, value) {
-      clonedFormField.eventLog.push('userInteraction');
-      this.onChange(this.get('masterFormField'), this.updatedGroupValue(value, index));
-    },
   },
 
-    updatedGroupValue(value, index) {
+  updatedGroupValue(value, index) {
     var masterFormField = this.get('masterFormField');
     var groupValue = this.get('changesetProp').get(masterFormField.propertyName) || [];
     masterFormField.set('lastUpdatedClone', {

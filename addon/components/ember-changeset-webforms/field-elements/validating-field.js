@@ -61,6 +61,7 @@ export default Component.extend({
     validateProperty(changeset, formField) {
       if (!formField.validates) { return; }
       if (!validationEventLog(formField).length) { return }
+
       // var keyUpValidationMethod = this.validationEventObj(formField.validationEvents, 'keyUp');
       // if (eventType === 'keyUp' && keyUpValidationMethod.includeKeyCodes && event) {
       //   if (keyUpValidationMethod.includeKeyCodes.indexOf(event.keyCode) < 0) {

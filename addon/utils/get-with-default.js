@@ -34,7 +34,7 @@ const addonDefaults = {
     name: null, // String - defaults to the fieldId
     validationRules: [], // Array of objects
     validationEvents: [], // Array of strings, possible values include focusOut, keyUp, onChange // TODO check onChanger as validation event
-    alwaysValidateOn: ['focusOut', 'onChange','change', 'submit'], // Array of strings, possible values include focusOut, keyUp, onChange // TODO check onChange as validation event
+    alwaysValidateOn: ['focusOut', 'change', 'submit'], // Array of strings, possible values include focusOut, keyUp, onChange // TODO check onChange as validation event
     eventLog: [],
     hideSuccessValidation: null, // Boolean - only show validation colours when field validation fails
     hidden: null, // Boolean - if true, the field is hidden and also ignored when validating or submitting the form

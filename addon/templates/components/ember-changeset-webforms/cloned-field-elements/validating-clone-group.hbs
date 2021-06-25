@@ -1,13 +1,10 @@
 <div class="cloned-fields">
   {{#each masterFormField.clonedFields as |clonedFormField index| }}
     <EmberChangesetWebforms::ClonedFieldElements::ValidatingClone 
-      @onFocusOutClone={{action "onFocusOutClone" index}}
-      @onFocusInClone={{action "onFocusInClone" index}}
-      @onKeyUpClone={{action "onKeyUpClone" index}}
-      @onChangeClone={{action "onChangeClone" index}}
-      @validateProperty={{action validateProperty}} 
       @cloneField={{action "cloneField"}} 
-      @removeClone={{action "removeClone"}} 
+      @setFieldValue={{action setFieldValue}} 
+      @removeClone={{action "removeClone"}}
+      @updatedGroupValue={{updatedGroupValue}} 
       @changesetProp={{changesetProp}} 
       @index={{index}} 
       @groupValue={{groupValue}} 
