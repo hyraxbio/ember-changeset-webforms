@@ -53,7 +53,10 @@ validationRules: [{
   {{#demo.example name="signup-form.hbs"}}
     <ChangesetWebform 
       @formSchema={{signUpFormSchema}} 
-      @data={{hash email="tobias@bluthcompany.com"}}
+      @data={{hash 
+        email="tobias@bluthcompany.com"
+        recoveryEmail="test"
+      }}
       @submitAction={{action "submit"}} 
       @saveSuccess={{action "saveSuccess"}} 
      />

@@ -9,13 +9,15 @@ export default Component.extend({
   'data-test-class': 'cloned-field',
 
   didInsertElement: function() {
-    var index = this.get('index');
+    // var index = this.get('index');
     var clonedFormField = this.get('clonedFormField');
-    const changeset = this.get('changesetProp');
+    clonedFormField.eventLog.pushObject('insert');
+
+    // const changeset = this.get('changesetProp');
     
-    if (this.validationEventObj(clonedFormField.validationEvents, 'insert') && changeset.get(clonedFormField.propertyName)[index]) {
-      clonedFormField.set('showFieldValidation', true);
-    }
+    // if (this.validationEventObj(clonedFormField.validationEvents, 'insert') && changeset.get(clonedFormField.propertyName)[index]) {
+    //   clonedFormField.set('showFieldValidation', true);
+    // }
   },
 
   cloneErrors: computed('changesetProp.error', function() {
@@ -25,16 +27,20 @@ export default Component.extend({
     return validationErrors[index];
   }),
 
-  displayValidation: computed('changesetProp.error', 'clonedFormField.{focussed,showFieldValidation,fieldErrors,fieldErrors.@each}', function() {
+  displayValidation: computed('changesetProp.error', 'clonedFormField.{focussed,fieldErrors,fieldErrors.@each,eventLog.[]}', function() {
     var index = this.get('index');
     var clonedFormField = this.get('clonedFormField');
     if (!clonedFormField) { return; }
     if (!this.validationEventObj(clonedFormField.validationEvents, 'keyUp') && clonedFormField.get('focussed')) {
       return;
     }   
+    const validationEventNames = clonedFormField.validationEvents.map(item => item.event)
+    const validatingEventLog = validationEventNames.filter(validationEventName => {
+      return clonedFormField.eventLog.indexOf(validationEventName) > -1
+    });
     var masterFieldvalidationErrors = ((this.get(`changesetProp.error.${this.get('masterFormField.fieldId')}.validation`)) || []);
     var clonedFieldValidationErrors = masterFieldvalidationErrors[0];
-    if (!this.get('clonedFormField.showFieldValidation')) { return; }
+    if (!validatingEventLog.length) { return; }
     if ((clonedFormField.fieldErrors || []).length > 0) {
       return 'invalid';
     }

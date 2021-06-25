@@ -12,6 +12,7 @@ export default {
 
   passwordField: '[data-test-id="password-field"]',
   emailField: '[data-test-id="email-field"]',
+  recoveryEmailField: '[data-test-id="recoveryEmail-field"]',
   nameField: '[data-test-id="name-field"]',
   firstNameField: '[data-test-id="firstName-field"]',
   lastNameField: '[data-test-id="lastName-field"]',

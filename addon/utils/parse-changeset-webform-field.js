@@ -61,7 +61,6 @@ export default function parseChangesetWebformField(field, customValidators) {
   if (field.clonable) {
     field.cloneGroupName = field.fieldId;
     field.cloneGroupNumber = 0;
-    // field.minClones = field.minClones || 1;
   }
   if ((field.cloneFieldSchema || {}).validationRules) {
     field.validationRules = field.validationRules || [];
@@ -73,7 +72,6 @@ export default function parseChangesetWebformField(field, customValidators) {
       }
     });
   }
-  // var validationRules = field.validationRules || [];
   field.validates = field.validationRules.length > 0 ? true : false;
 
   field.validationEvents = (field.validationEvents || []).concat(field.alwaysValidateOn || []).map(item => {

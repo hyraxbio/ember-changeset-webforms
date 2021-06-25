@@ -16,6 +16,7 @@ export default Component.extend({
     }
     var changesetProp = this.get('changesetProp');
     if (changesetProp.get(formField.propertyName)) {
+      formField.eventLog.pushObject('insert');
       this.send('validateProperty', changesetProp, formField, 'insert');
     }
   },
@@ -32,14 +33,18 @@ export default Component.extend({
   }),
 
   // TODO should a formField not be a class of it's own?
-  displayValidation: computed('changesetProp.error', 'formField.{focussed,showFieldValidation}', function () {
+  displayValidation: computed('changesetProp.error', 'formField.{focussed,eventLog.[]}', function () {
     var formField = this.get('formField');
     if (!formField) { return; }
     if (!this.validationEventObj(formField.validationEvents, 'keyUp') && formField.get('focussed')) {
       return;
     }
+    const validationEventNames = formField.validationEvents.map(item => item.event)
+    const validatingEventLog = validationEventNames.filter(validationEventName => {
+      return formField.eventLog.indexOf(validationEventName) > -1
+    });
+    if (!validatingEventLog.length) { return }
     var validationErrors = (this.get(`changesetProp.error.${this.get('formField.propertyName')}.validation`)) || [];
-    if (!this.get('formField.showFieldValidation')) { return; }
     if (validationErrors.length === 0) {
       return 'valid';
     } else {
@@ -54,10 +59,6 @@ export default Component.extend({
       return parseChangesetWebformField(this.get('fieldSchema'), this.get('fieldComponentsMap'));
     }
   }),
-
-  // validates: computed('formField', function () {
-  //   return (this.get('formField.validationRules') || []).length > 0;
-  // }),
 
   actions: {
     validateProperty(changeset, formField, eventType, event) {
@@ -76,28 +77,32 @@ export default Component.extend({
       }
       
       changeset.validate(formField.propertyName).then(res => {
-        formField.set('showFieldValidation', true);
+        // formField.set('showFieldValidation', true);
         const fieldValidationErrors = changeset.error[formField.propertyName];
         this.afterFieldValidation(formField, changeset, fieldValidationErrors);
       });
     },
 
     onClick(formField) {
+      formField.eventLog.push('click');
       if (this.onClickAction) {
         this.onClickAction(formField, this.get('changesetProp'));
       }
     },
 
     onUserInteraction: function (formField, value) {
+      formField.eventLog.push('onUserInteraction');
       this.send('setFieldValue', value, formField);
     },
 
     onChange(formField, value) {
+      formField.eventLog.push('change');
       this.send('setFieldValue', value, formField, 'change');
     },
 
     onFocusOut: function (formField, value) {
       formField.set('focussed', false);
+      formField.eventLog.push('focusOut');
       if (value && !formField.get('notrim') && formField.get('inputType') !== 'password' && typeof value === 'string') {
         value = value.trim();
       }
@@ -109,6 +114,7 @@ export default Component.extend({
 
     onFocusIn: function (formField) {
       formField.set('focussed', true);
+      formField.eventLog.push('focusIn');
       if (this.focusInAction) {
         this.focusInAction(formField, this.get('changesetProp'));
       }
@@ -116,6 +122,7 @@ export default Component.extend({
 
     onKeyUp: function (formField, value, event) {
       this.send('setFieldValue', value, formField, 'keyUp', event);
+      formField.eventLog.push('keyUp');
       if (this.afterKeyUpAction) {
         this.afterKeyUpAction(formField, this.get('changesetProp'), value, event);
       }

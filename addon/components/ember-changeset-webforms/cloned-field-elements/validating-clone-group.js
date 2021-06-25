@@ -39,6 +39,7 @@ export default Component.extend({
       var lastIndex = masterFormField.clonedFields.length -1;
       const newValue = defaultValue || newField.defaultValue;
       fieldValue.push(newValue);
+      newField.eventLog = []; // BD must recreate this, otherwise all clones share the same instance of eventLog array.
       masterFormField.set('lastUpdatedClone', {
         index: lastIndex,
         previousValue: null,
@@ -79,36 +80,41 @@ export default Component.extend({
     },
 
     onFocusOutClone(index, clonedFormField, value) {
-      this.onFocusOut(clonedFormField, this.updatedGroupValue(value, index));
+      clonedFormField.eventLog.push('focusOut');
+      this.onFocusOut(this.get('masterFormField'), this.updatedGroupValue(value, index));
+      clonedFormField.set('focussed', false)
     },
 
     onFocusInClone(index, clonedFormField) {
-      this.onFocusIn(clonedFormField);
+      clonedFormField.set('focussed', true);
+      clonedFormField.eventLog.push('focusIn');
+      this.onFocusIn(this.get('masterFormField'));
     },
 
     onKeyUpClone(index, clonedFormField, value, event) {
-      this.onKeyUp(clonedFormField, this.updatedGroupValue(value, index), event);
+      clonedFormField.eventLog.push('keyUp');
+      this.onKeyUp(this.get('masterFormField'), this.updatedGroupValue(value, index), event);
     },
 
     onUserInteractionClone(index, clonedFormField, value) {
-      this.onUserInteraction(clonedFormField, this.updatedGroupValue(value, index));
+      clonedFormField.eventLog.push('userInteraction');
+      this.onUserInteraction(this.get('masterFormField'), this.updatedGroupValue(value, index));
     },
 
     onChangeClone(index, clonedFormField, value) {
-      // this.onChange(clonedFormField, this.updatedGroupValue(value, index));
+      clonedFormField.eventLog.push('change');
+      // this.onChange(this.get('masterFormField'), this.updatedGroupValue(value, index));
     }
   },
 
     updatedGroupValue(value, index) {
     var masterFormField = this.get('masterFormField');
     var groupValue = this.get('changesetProp').get(masterFormField.propertyName) || [];
-
     masterFormField.set('lastUpdatedClone', {
       index: index,
       previousValue: groupValue[index],
       previousLength: groupValue.length
     });
-
     groupValue[index] = value;
     return groupValue;
   },

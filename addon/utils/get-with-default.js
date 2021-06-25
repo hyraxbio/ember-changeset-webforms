@@ -34,7 +34,8 @@ const addonDefaults = {
     name: null, // String - defaults to the fieldId
     validationRules: [], // Array of objects
     validationEvents: [], // Array of strings, possible values include focusOut, keyUp, onChange // TODO check onChanger as validation event
-    alwaysValidateOn: ['focusOut'], // Array of strings, possible values include focusOut, keyUp, onChange // TODO check onChanger as validation event
+    alwaysValidateOn: ['focusOut', 'onUserInteraction', 'submit'], // Array of strings, possible values include focusOut, keyUp, onChange // TODO check onChange as validation event
+    eventLog: [],
     hideSuccessValidation: null, // Boolean - only show validation colours when field validation fails
     hidden: null, // Boolean - if true, the field is hidden and also ignored when validating or submitting the form
     fieldClasses: null, // String
@@ -55,8 +56,7 @@ const addonDefaults = {
       inputType: 'text', // String - the html input type
       autofocus: null, // Boolean - whether to autofocus the input on insert 
       placeholder: null, // String - placeholder text of the input
-      class: 'password', // TODO does this work?
-      hideSuccessValidation: true
+      class: null, // TODO does this work?
     },
     {
       fieldType: 'clonable',

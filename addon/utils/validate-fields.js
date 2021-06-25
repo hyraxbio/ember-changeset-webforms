@@ -2,10 +2,11 @@ export default function validateAllowedFields(changesetWebform) {
   var allowedFields = changesetWebform.fields.filter(field => {
     return !field.hidden && !field.skipValidation && field.validates;
   }).map(allowedField => {
-    allowedField.set('showFieldValidation', true);
+    allowedField.eventLog.pushObject('submit');
     if (allowedField.clonedFields) { // TODO does this really belong in a util.
       allowedField.clonedFields.forEach(clonedField => {
-        clonedField.set('showFieldValidation', true);
+        clonedField.eventLog.pushObject('submit');
+
       });
     }
     return allowedField.propertyName;

@@ -42,6 +42,20 @@ export default Controller.extend({
         inputType: 'email'
       },
       {
+        fieldId: 'recoveryEmail',
+        fieldLabel: 'Recovery email',
+        fieldType: 'input',
+        validationEvents: ['insert'],
+        validationRules: [{
+          validationMethod: 'validatePresence',
+          arguments: true
+        }, {
+          validationMethod: 'validateFormat',
+          arguments: { type: 'email' }
+        }],
+        inputType: 'email'
+      },
+      {
         fieldId: 'password',
         fieldLabel: 'Password (Minimum 8 characters)',
         fieldType: 'input',
