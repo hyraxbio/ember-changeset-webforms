@@ -1,6 +1,7 @@
 import Component from '@ember/component';
 import { computed } from '@ember/object';
 import parseChangesetWebformField from 'ember-changeset-webforms/utils/parse-changeset-webform-field';
+import validationEventLog from 'ember-changeset-webforms/utils/validation-event-log';
 import layout from '../../../templates/components/ember-changeset-webforms/field-elements/validating-field';
 import createChangeset from 'ember-changeset-webforms/utils/create-changeset';
 
@@ -17,7 +18,7 @@ export default Component.extend({
     var changesetProp = this.get('changesetProp');
     if (changesetProp.get(formField.propertyName)) {
       formField.eventLog.pushObject('insert');
-      this.send('validateProperty', changesetProp, formField, 'insert');
+      this.send('validateProperty', changesetProp, formField);
     }
   },
 
@@ -39,11 +40,7 @@ export default Component.extend({
     if (!this.validationEventObj(formField.validationEvents, 'keyUp') && formField.get('focussed')) {
       return;
     }
-    const validationEventNames = formField.validationEvents.map(item => item.event)
-    const validatingEventLog = validationEventNames.filter(validationEventName => {
-      return formField.eventLog.indexOf(validationEventName) > -1
-    });
-    if (!validatingEventLog.length) { return }
+    if (!validationEventLog(formField).length) { return }
     var validationErrors = (this.get(`changesetProp.error.${this.get('formField.propertyName')}.validation`)) || [];
     if (validationErrors.length === 0) {
       return 'valid';
@@ -63,7 +60,7 @@ export default Component.extend({
   actions: {
     validateProperty(changeset, formField) {
       if (!formField.validates) { return; }
-
+      if (!validationEventLog(formField).length) { return }
       // var keyUpValidationMethod = this.validationEventObj(formField.validationEvents, 'keyUp');
       // if (eventType === 'keyUp' && keyUpValidationMethod.includeKeyCodes && event) {
       //   if (keyUpValidationMethod.includeKeyCodes.indexOf(event.keyCode) < 0) {
@@ -75,7 +72,6 @@ export default Component.extend({
       // }
       
       changeset.validate(formField.propertyName).then(() => {
-        // formField.set('showFieldValidation', true);
         const fieldValidationErrors = changeset.error[formField.propertyName];
         this.afterFieldValidation(formField, changeset, fieldValidationErrors);
       });
@@ -96,7 +92,7 @@ export default Component.extend({
     onFocusOut: function (formField, value) {
       formField.set('focussed', false);
       formField.eventLog.push('focusOut');
-      if (value && !formField.get('notrim') && formField.get('inputType') !== 'password' && typeof value === 'string') {
+      if (value && formField.trim && formField.inputType !== 'password' && typeof value === 'string') {
         value = value.trim();
       }
       this.send('setFieldValue', value, formField);
@@ -114,6 +110,13 @@ export default Component.extend({
     },
 
     onKeyUp: function (formField, value, event) {
+      if (formField.fieldType === 'input' && event.keyCode === 13) {
+        if (this.submitForm) {
+          formField.set('focussed', false);
+          this.submitForm(this.get('changesetProp'));
+        }
+        return;
+      }
       this.send('setFieldValue', value, formField);
       formField.eventLog.push('keyUp');
       if (this.afterKeyUpAction) {
@@ -121,15 +124,8 @@ export default Component.extend({
       }
     },
 
-    setFieldValue: function (value, formField, eventType, event) {
+    setFieldValue: function (value, formField) {
       var changeset = this.get('changesetProp');
-      if (formField.fieldType === 'input' && eventType === 'keyUp' && event.keyCode === 13) {
-        if (this.submitForm) {
-          formField.set('focussed', false);
-          this.submitForm(changeset);
-        }
-        return;
-      }
       formField.set('previousValue', changeset.get(formField.propertyName));
       changeset.set(formField.propertyName, value);
       if (this.afterFieldEdit) {

@@ -57,6 +57,7 @@ const addonDefaults = {
       autofocus: null, // Boolean - whether to autofocus the input on insert 
       placeholder: null, // String - placeholder text of the input
       class: null, // TODO does this work?
+      trim: true
     },
     {
       fieldType: 'clonable',

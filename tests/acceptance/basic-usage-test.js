@@ -10,5 +10,7 @@ module('Acceptance | Basic usage', function(hooks) {
   test('Basic usage', async function(assert) {
     await visit('/docs/basic-usage');
     await this.pauseTest();
+    // TESTS TODO
+    // Trim works by default on input
   });
 });
