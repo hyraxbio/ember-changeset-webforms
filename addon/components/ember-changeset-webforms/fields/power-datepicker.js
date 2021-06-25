@@ -28,7 +28,7 @@ export default Component.extend({
         }        
       }
       const formatted = dateTime ?  moment(dateTime).format(`${this.get('dateFormat')} ${this.get('timeFormat')}`).toString() : null;
-      this.onUserInteraction(formField, formatted);
+      this.onChange(formField, formatted);
     }
   }
 });

@@ -4,7 +4,7 @@ export default Component.extend({
   layout,
 
   actions: {
-    onUserInteraction(value) {
+    onChange(value) {
       var formField = this.get('formField');
       formField.set('value', value);
     },

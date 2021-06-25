@@ -88,11 +88,6 @@ export default Component.extend({
       }
     },
 
-    onUserInteraction: function (formField, value) {
-      formField.eventLog.push('onUserInteraction');
-      this.send('setFieldValue', value, formField);
-    },
-
     onChange(formField, value) {
       formField.eventLog.push('change');
       this.send('setFieldValue', value, formField);

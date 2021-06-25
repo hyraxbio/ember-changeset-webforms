@@ -96,15 +96,10 @@ export default Component.extend({
       this.onKeyUp(this.get('masterFormField'), this.updatedGroupValue(value, index), event);
     },
 
-    onUserInteractionClone(index, clonedFormField, value) {
-      clonedFormField.eventLog.push('userInteraction');
-      this.onUserInteraction(this.get('masterFormField'), this.updatedGroupValue(value, index));
-    },
-
     onChangeClone(index, clonedFormField, value) {
-      clonedFormField.eventLog.push('change');
-      // this.onChange(this.get('masterFormField'), this.updatedGroupValue(value, index));
-    }
+      clonedFormField.eventLog.push('userInteraction');
+      this.onChange(this.get('masterFormField'), this.updatedGroupValue(value, index));
+    },
   },
 
     updatedGroupValue(value, index) {

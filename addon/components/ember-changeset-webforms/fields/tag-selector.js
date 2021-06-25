@@ -29,7 +29,7 @@ export default Component.extend({
       if (value.length === 0) {
         value = null;
       }
-      this.onUserInteraction(formField, value);
+      this.onChange(formField, value);
     },
 
     onkeydown(dropdown, e) {
@@ -42,7 +42,7 @@ export default Component.extend({
         } else {
           newItem = e.target.value;
         }
-        this.onUserInteraction(value.concat(newItem));
+        this.onChange(value.concat(newItem));
       }
     }
   }
