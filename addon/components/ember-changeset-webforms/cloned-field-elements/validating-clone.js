@@ -9,24 +9,13 @@ export default Component.extend({
   'data-test-class': 'cloned-field',
 
   didInsertElement: function() {
-    // var index = this.get('index');
-    var clonedFormField = this.get('clonedFormField');
-    clonedFormField.validationEvents.forEach(item => {
-      if (item.event === 'submit') { return; }
-      const newObj = {...item};
-      newObj.event = `${item.event}Clone`
-      if (!this.masterFormField.validationEvents.find(item => item.event === newObj.event)) {
-        this.masterFormField.validationEvents.pushObject(newObj);
-      }
-    });
-    clonedFormField.eventLog.pushObject('insert');
     this.masterFormField.eventLog.push('insertClone');
-
-    // const changeset = this.get('changesetProp');
-    
-    // if (this.validationEventObj(clonedFormField.validationEvents, 'insert') && changeset.get(clonedFormField.propertyName)[index]) {
-    //   clonedFormField.set('showFieldValidation', true);
-    // }
+    var changesetProp = this.get('changesetProp');
+    if (changesetProp.get(this.masterFormField.propertyName)[this.index]) {
+      this.clonedFormField.eventLog.pushObject('insert');
+      this.masterFormField.eventLog.pushObject('insertClone');
+      this.validateProperty(changesetProp, this.masterFormField);
+    }
   },
 
   cloneErrors: computed('changesetProp.error', function() {

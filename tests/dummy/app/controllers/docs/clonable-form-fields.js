@@ -14,7 +14,7 @@ export default Controller.extend({
         hideLabel: true,
       },
       fields: [{
-        fieldId: 'userEmails',
+        fieldId: 'emails',
         fieldLabel: 'User emails',
         hideLabel: true,
         fieldType: 'clonable',
@@ -27,6 +27,7 @@ export default Controller.extend({
           fieldType: 'input',
           inputType: 'email',
           hideLabel: true,
+          validationEvents: ['insert'],
           validationRules: [{
             validationMethod: 'validateFormat',
             arguments: { type: 'email' }
@@ -35,7 +36,10 @@ export default Controller.extend({
             arguments: true
           },
           {
-            validationMethod: 'uniqueArray'
+            validationMethod: 'uniqueArray',
+            arguments: {
+              description: 'email'
+            }
           }]
         }
       }]

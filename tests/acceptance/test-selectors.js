@@ -32,5 +32,9 @@ export default {
   afterFieldValidationForm: '[data-test-id="after-field-validation-form"]',
   afterFieldValidationFeedback: '[data-test-id="after-field-validation-feedback"]',
   afterGenerateChangesetWebformForm: '[data-test-id="after-generate-changeset-webform-form"]',
-  afterGenerateChangesetWebformFeedback: '[data-test-id="after-generate-changeset-webform-feedback"]'
+  afterGenerateChangesetWebformFeedback: '[data-test-id="after-generate-changeset-webform-feedback"]',
+
+  clonableFieldBasics: '[data-test-id="clonable-field-basics"]',
+  clonableFieldWithData: '[data-test-id="clonable-field-with-data"]',
+  
 }

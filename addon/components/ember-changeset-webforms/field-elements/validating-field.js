@@ -71,7 +71,6 @@ export default Component.extend({
       //     return;
       //   }
       // }
-      
       changeset.validate(formField.propertyName).then(() => {
         const fieldValidationErrors = changeset.error[formField.propertyName];
         this.afterFieldValidation(formField, changeset, fieldValidationErrors);

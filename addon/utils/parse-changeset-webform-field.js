@@ -6,6 +6,10 @@ export default function parseChangesetWebformField(field, customValidators) {
   if (!field.fieldId) {
     throw Error(`[Ember validating field] fieldId is a required field for each field in a validating form.`);
   }
+  return EmberObject.create(parse(field, customValidators));
+}
+
+function parse(fieldSchema, customValidators) {
   // TODO this must go many levels deep and be it's own util.
   // var checkKeyExists = (object, searchKey) => {
   //   for (var key in object) {
@@ -15,7 +19,7 @@ export default function parseChangesetWebformField(field, customValidators) {
   //   }
   //   return false;
   // };
-
+  const field = {...fieldSchema};
 
   // var required;
   if (field.validationRules) {
@@ -58,9 +62,10 @@ export default function parseChangesetWebformField(field, customValidators) {
   //   field.inputType = 'text';
   // }
 
-  if (field.clonable) {
+  if (field.cloneFieldSchema) {
     field.cloneGroupName = field.fieldId;
     field.cloneGroupNumber = 0;
+    field.clonedFieldBlueprint = parse(field.cloneFieldSchema, customValidators)
   }
   if ((field.cloneFieldSchema || {}).validationRules) {
     field.validationRules = field.validationRules || [];
@@ -69,6 +74,14 @@ export default function parseChangesetWebformField(field, customValidators) {
       arguments: {
         validationRules: field.cloneFieldSchema.validationRules, 
         customValidators: customValidators
+      }
+    });
+    field.clonedFieldBlueprint.validationEvents.forEach(item => {
+      if (item.event === 'submit') { return; }
+      const newObj = {...item};
+      newObj.event = `${item.event}Clone`
+      if (!field.validationEvents.find(item => item.event === newObj.event)) {
+        field.validationEvents.pushObject(newObj);
       }
     });
   }
@@ -119,11 +132,13 @@ export default function parseChangesetWebformField(field, customValidators) {
   // field.hideSuccessValidation = hideSuccessValidation;
   // field.hideLabel = hideLabel;
   // field.required = required;
-  field.name = field.name || field.fieldId.replace(/\./g, '-');
+  field.name = field.name || (field.fieldId ? field.fieldId.replace(/\./g, '-') : null);
   field.placeholder = field.placeholder || field.fieldLabel;
   // field.castOut = castOut;
   // field.validates = validates;
   // field.validationEvents = parsedValidationEvents;
   field.propertyName = field.propertyName || field.fieldId;
-  return EmberObject.create(field);
+  delete field.alwaysValidateOn;
+  delete field.cloneFieldSchema;
+  return field;
 }
