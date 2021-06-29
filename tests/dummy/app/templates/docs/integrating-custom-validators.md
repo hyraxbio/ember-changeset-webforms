@@ -20,6 +20,7 @@ The example below shows how to:
     <ChangesetWebform 
       @formSchema={{uniquenessFormSchema}} 
       @customValidators={{customValidators}} 
+      data-test-id="integrating-custom-validators-form"
      />
   {{/demo.example}}
   {{demo.snippet "uniqueness-validator.js" label="1. Custom Validator" language="javascript"}}

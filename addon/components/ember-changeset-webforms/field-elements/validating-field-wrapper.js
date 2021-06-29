@@ -5,18 +5,18 @@ import { computed } from '@ember/object';
 export default Component.extend({
   layout,
   classNames: ['ember-changeset-webforms-field'],
-  classNameBindings: ['displayValidation', 'formField.required:required', 'disabled:disabled', 'readonly:readonly', 'formField.fieldClasses', 'formField.hideSuccessValidation:hide-success-validation', 'validates:validates', 'typeClass', 'formField.focussed:focussed'],
-  'data-test-ember-changeset-webforms-field': true,
+  classNameBindings: ['displayValidation', 'formField.required:required', 'disabled:disabled', 'readonly:readonly', 'formField.fieldClasses', 'formField.hideSuccessValidation:hide-success-validation', 'formField.validates:validates', 'typeClass', 'formField.focussed:focussed'],
 
-  'data-test-ember-pojo-validating-field': computed('validates', function() {
-    return this.get('validates');
+  'data-test-ember-changeset-webforms-field-validates': computed('formField.validates', function() {
+    return this.get('formField.validates');
   }),
 
-  'data-test-ember-pojo-required-field': computed('formField.required', function() {
+  'data-test-ember-changeset-webforms-field-required': computed('formField.required', function() {
     return this.get('formField.required');
   }),
 
   'data-test-id': computed('dataTestFieldId', function() {
+    if (!this.get('dataTestFieldId')) { return; }
     return `${this.get('dataTestFieldId')}-field`;
   }),
 

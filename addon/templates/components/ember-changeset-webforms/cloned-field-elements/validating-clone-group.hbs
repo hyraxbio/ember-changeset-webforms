@@ -1,4 +1,4 @@
-<div class="cloned-fields">
+<div class="clone-group-items">
   {{#each masterFormField.clonedFields as |clonedFormField index| }}
     <EmberChangesetWebforms::ClonedFieldElements::ValidatingClone 
       @cloneField={{action "cloneField"}} 
@@ -11,14 +11,14 @@
       @groupValue={{groupValue}} 
       @clonedFormField={{clonedFormField}} 
       @masterFormField={{masterFormField}} 
-      @processedFieldSchema={{clonedFormField}} />
+      @processedFieldSchema={{clonedFormField}} 
+      data-test-id={{concat masterFormField.fieldId "-clone-" clonedFormField.cloneId "-wrapper"}} />
   {{/each}}
 </div>
 <div class="clone-group-actions">
   {{#if (eq masterFormField.cloneCountStatus "max")}}
     <div class="max-clones-reached" data-test-id="max-clones-reached">{{masterFormField.maxClonesReachedText}}</div>
   {{else}}
-    Test
     {{component masterFormField.addCloneButtonComponent cloneField=(action "cloneField") masterFormField=masterFormField}}
   {{/if}}
 </div>

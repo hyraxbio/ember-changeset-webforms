@@ -6,8 +6,10 @@
     @formField={{clonedFormField}} 
     @displayValidation={{displayValidation}} 
     @readonly={{readonly}} 
-    @validates={{validates}} 
-    @typeClass={{typeClass}}>
+    @typeClass={{typeClass}}
+    data-test-id={{concat masterFormField.fieldId "-clone-" clonedFormField.cloneId "-field"}}
+    class="ember-changeset-webforms-clone-field"
+    data-test-ember-changeset-webforms-clone-field>
     {{component clonedFormField.componentPath
       formField=clonedFormField
       clonedFormField=clonedFormField

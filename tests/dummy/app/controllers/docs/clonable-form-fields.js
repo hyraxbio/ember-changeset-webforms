@@ -18,7 +18,6 @@ export default Controller.extend({
         fieldLabel: 'User emails',
         hideLabel: true,
         fieldType: 'clonable',
-        clonable: true,
         minClones: 2,
         maxClones: 4,
         cloneButtonText: 'Add email',

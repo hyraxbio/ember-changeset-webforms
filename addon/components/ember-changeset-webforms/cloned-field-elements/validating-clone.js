@@ -6,7 +6,7 @@ import { computed } from '@ember/object';
 export default Component.extend({
   layout,
   classNames: ['ember-changeset-webforms-field-clone'],
-  'data-test-class': 'cloned-field',
+  'data-test-class': 'ember-changeset-webforms-clone-wrapper',
 
   didInsertElement: function() {
     this.masterFormField.eventLog.push('insertClone');
@@ -17,7 +17,7 @@ export default Component.extend({
       this.validateProperty(changesetProp, this.masterFormField);
     }
   },
-
+  
   cloneErrors: computed('changesetProp.error', function() {
     var index = this.get('index');
     var validationErrors = ((this.get(`changesetProp.error.${this.get('masterFormField.fieldId')}.validation`)) || [])[0];

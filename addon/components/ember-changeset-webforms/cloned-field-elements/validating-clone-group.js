@@ -31,24 +31,24 @@ export default Component.extend({
     return `clone-group-${this.get('masterFormField.cloneGroupName')}`;
   }),
 
-  cloneIndex(clonedFields) {
+  cloneId(clonedFields) {
     if (!(clonedFields || []).length) {
       return 0;
     }
     const sortedClones = [...clonedFields].sort((a, b) => {
-      return b.cloneIndex - a.cloneIndex;
+      return b.cloneId - a.cloneId;
     });
-    return sortedClones[0].cloneIndex + 1;
+    return sortedClones[0].cloneId + 1;
   },
 
   actions: {
     cloneField(defaultValue) {
       var masterFormField = this.get('masterFormField');
-      if (masterFormField.cloneCountStatus === 'max') { return; }
+      // if (masterFormField.cloneCountStatus === 'max') { return; }
       masterFormField.set('clonedFields', masterFormField.clonedFields || []);
       var newField = {...masterFormField.clonedFieldBlueprint};
       newField.isClone = true;
-      newField.cloneIndex = this.cloneIndex(masterFormField.clonedFields);
+      newField.cloneId = this.cloneId(masterFormField.clonedFields);
       newField.eventLog = []; // BD must recreate this, otherwise all clones share the same instance of eventLog array.
       masterFormField.clonedFields.pushObject(EmberObject.create(newField));
       var lastIndex = masterFormField.clonedFields.length -1;

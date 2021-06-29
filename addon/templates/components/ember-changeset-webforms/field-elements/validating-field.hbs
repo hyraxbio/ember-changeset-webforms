@@ -3,29 +3,32 @@
     <EmberChangesetWebforms::FieldElements::ValidatingFieldWrapper 
     @formField={{formField}} 
     @readonly={{readonly}} 
-    @validates={{validates}} 
     @typeClass={{typeClass}} 
     @dataTestFormName={{dataTestFormName}}
     @fieldName={{fieldName}}
-    @changesetProp={{changesetProp}}> 
+    @changesetProp={{changesetProp}}
+    class="ember-changeset-webforms-clone-group"
+    data-test-ember-changeset-webforms-clone-group> 
       <EmberChangesetWebforms::ClonedFieldElements::ValidatingCloneGroup 
         @masterFormField={{formField}} 
         @changesetProp={{changesetProp}} 
         @setFieldValue={{action "setFieldValue"}} 
         @validateProperty={{action "validateProperty"}} 
         @afterAddClone={{afterAddClone}} 
-        @afterRemoveClone={{afterRemoveClone}} />
+        @afterRemoveClone={{afterRemoveClone}}
+        @dataTestFieldId={{dataTestFieldId}}
+      />
     </EmberChangesetWebforms::FieldElements::ValidatingFieldWrapper>
   {{else}}
     <EmberChangesetWebforms::FieldElements::ValidatingFieldWrapper 
       @formField={{formField}} 
       @displayValidation={{displayValidation}} 
       @readonly={{readonly}} 
-      @validates={{validates}} 
       @typeClass={{typeClass}} 
       @dataTestFormName={{dataTestFormName}}
       @dataTestFieldId={{dataTestFieldId}}
-      @changesetProp={{changesetProp}} >
+      @changesetProp={{changesetProp}}
+      data-test-ember-changeset-webforms-field >
       {{component formField.componentPath
         formField=formField
         formFields=formFields
