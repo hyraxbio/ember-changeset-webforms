@@ -17,7 +17,7 @@ export default Controller.extend({
         fieldId: 'emails',
         fieldLabel: 'User emails',
         hideLabel: true,
-        fieldType: 'clonable',
+        fieldType: 'clone-group',
         minClones: 2,
         maxClones: 4,
         cloneButtonText: 'Add email',

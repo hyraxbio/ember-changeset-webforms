@@ -12,14 +12,14 @@ module('Acceptance | Cloned fields', function (hooks) {
 
   test('Basics', async function (assert) {
     await visit('/docs/clonable-form-fields');
-    assert.ok(cth.wasNotValidated(`${dummyEls.clonableFieldBasics} ${els.cloneSelector('emails', 0)}`), 'Clone is not validated on insert, when insert is a validationEvent, but the clone is empty.');
+    assert.notOk(cth.wasValidated(`${dummyEls.clonableFieldBasics} ${els.cloneSelector('emails', 0)}`), 'Clone is not validated on insert, when insert is a validationEvent, but the clone is empty.');
     assert.dom(`${dummyEls.clonableFieldBasics} ${els.emberChangesetWebformsCloneWrapper}`).exists({ count: 2 }, 'Min clones setting of 2 results in two cloned fields on load.');
     assert.dom(`${dummyEls.clonableFieldBasics} ${els.maxClonesReached}`).doesNotExist('Max clones reached text does not display when the number of clones is below the value of the maxClones setting.');
     assert.dom(`${dummyEls.clonableFieldBasics} ${els.removeClone}`).doesNotExist('None of the clones has a remove clone button when the number of clones is equal to the the minClones setting.');
     await focus(`${dummyEls.clonableFieldBasics} ${els.cloneSelector('emails', 0)} input`);
     await blur(`${dummyEls.clonableFieldBasics} ${els.cloneSelector('emails', 0)} input`);
     assert.ok(cth.failedValidation(`${dummyEls.clonableFieldBasics} ${els.cloneSelector('emails', 0)}`), 'First clone fails validation when user focusses out and clone is empty.');
-    assert.ok(cth.wasNotValidated(`${dummyEls.clonableFieldBasics} ${els.cloneSelector('emails', 1)}`), 'Second clone is not validated on focus out of first clone.');
+    assert.notOk(cth.wasValidated(`${dummyEls.clonableFieldBasics} ${els.cloneSelector('emails', 1)}`), 'Second clone is not validated on focus out of first clone.');
     await cth.addClone(dummyEls.clonableFieldBasics);
     assert.dom(`${dummyEls.clonableFieldBasics} ${els.emberChangesetWebformsCloneWrapper}`).exists({ count: 3 }, 'A new clone is added after the add clone button os clicked.');
     assert.dom(`${dummyEls.clonableFieldBasics} ${els.removeClone}`).exists({ count: 3 }, 'Each clone gets a remove clone button when the number of clones becomes greater than the minClones setting.');

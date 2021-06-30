@@ -51,16 +51,12 @@ export default {
     return this.passedValidation(arg) || this.failedValidation(arg);
   },
 
-  wasNotValidated(arg) {
-    return !this.passedValidation(arg) && !this.failedValidation(arg);
-  },
-
-  wereValidated(arg, indexes) {
+  allValidated(arg, indexes) {
     const els =  this.getElements(arg, indexes);
     return els.map(el => this.wasValidated(el)).every(item => item === true);
   },
 
-  wereNotValidated(arg, indexes) {
+  noneValidated(arg, indexes) {
     const els =  this.getElements(arg, indexes);
     return !els.map(el => this.wasValidated(el)).filter(item => item === true);
   },
