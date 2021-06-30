@@ -4,7 +4,7 @@
   @changesetProp={{changesetProp}} 
   @formField={{masterFormField}} 
   @displayValidation={{displayValidation}}
-  @fieldErrors={{cloneGroupErrors}}
+  @validationErrorsArray={{masterFormFieldValidationErrors}}
   @class="clone-group-field-errors" />
 <div class="clone-group-items">
   {{#each masterFormField.clonedFields as |clonedFormField index| }}

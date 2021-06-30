@@ -66,6 +66,7 @@ const addonDefaults = {
       maxClonesReachedText: 'Max clones reached.', // String
       removeCloneComponent: 'svg-repo/icons/icon-trash', // String - path to the component to use as the remove clone element
       addCloneButtonComponent: 'ember-changeset-webforms/cloned-field-elements/add-clone-button', // String - path to the component to use as the add clone element
+      hideSuccessValidation: true,
       minClones: 1, // Number - minimum number of clones allowed. 
       maxClones: null, // Number - maximum number of clones allowed. 
       cloneButtonText: 'Add another item', // String - text to show in the add clone button

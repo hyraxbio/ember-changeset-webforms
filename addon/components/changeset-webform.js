@@ -1,6 +1,5 @@
 import Component from '@ember/component';import { computed } from '@ember/object';
 import layout from '../templates/components/changeset-webform';
-import { inject as service } from '@ember/service';
 import validateFields from 'ember-changeset-webforms/utils/validate-fields';
 import castAllowedFields from 'ember-changeset-webforms/utils/cast-allowed-fields';
 import createChangesetWebform from 'ember-changeset-webforms/utils/create-changeset-webform';
@@ -110,7 +109,7 @@ export default Component.extend({
    
     submit(changesetWebform) {
       const changeset = changesetWebform.changeset;
-      validateFields(changesetWebform).then(validateResponse => {
+      validateFields(changesetWebform).then(() => {
         if (changeset.isValid) {
           if (this.beforeSubmitAction) {
             this.beforeSubmitAction(changesetWebform);
@@ -165,7 +164,7 @@ export default Component.extend({
           }
         }
       }).catch(err => {
-        console.log(err);
+        this.formValidationFailed(err);
       });
     },
 

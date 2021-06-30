@@ -24,18 +24,20 @@ export default Component.extend({
   didInsertElement() {
     var masterFormField = this.get('masterFormField');
     var groupValue = this.get('changesetProp').get(masterFormField.propertyName) || [];
-    var minLength = Math.max((groupValue || []).length, masterFormField.minClones);
-    for (var i = 0; i < minLength; i++) {
-      var value = groupValue ? groupValue[i] : null;
-      this.send('cloneField', value);
+    groupValue.forEach(() => {
+      this.send('cloneField', {fromData: true});
+    });
+    const emptyClones = masterFormField.minClones - groupValue.length;
+    for (var i = 0; i < emptyClones; i++) {
+      this.send('cloneField');
     } 
   },
 
-  displayValidation: computed('cloneGroupErrors', 'masterFormField.{eventLog.[]}', function () {
+  displayValidation: computed('masterFormFieldValidationErrors', 'masterFormField.{eventLog.[]}', function () {
     var formField = this.get('masterFormField');
     if (!formField) { return; }
     if (!validationEventLog(formField).filter(item => !item.endsWith('Clone')).length) { return }
-    var validationErrors = this.get('cloneGroupErrors') || [];
+    var validationErrors = this.get('masterFormFieldValidationErrors') || [];
     if (validationErrors.length === 0) {
       return 'valid';
     } else {
@@ -47,11 +49,12 @@ export default Component.extend({
     return `clone-group-${this.get('masterFormField.cloneGroupName')}`;
   }),
 
-  cloneGroupErrors: computed('changesetProp.error', 'masterFormField.cloneGroupName', function() {
-    if (!this.get('masterFormField.cloneGroupName')) { return; }
-    var validationErrors = [...(this.get(`changesetProp.error.${this.get('masterFormField.propertyName')}.validation`)) || []];
-    validationErrors.shift();
-    return validationErrors;
+  masterFormFieldValidationErrors: computed('changesetProp.error', function() {
+    var validationErrors = ((this.get(`changesetProp.error.${this.get('masterFormField.propertyName')}.validation`)) || []);
+    const masterFormFieldValidationErrors = [...validationErrors].filter(item => {
+      return typeof item !== 'object' || !item.clones;
+    });
+    return masterFormFieldValidationErrors;
   }),
 
   cloneId(clonedFields) {
@@ -65,9 +68,8 @@ export default Component.extend({
   },
 
   actions: {
-    cloneField(defaultValue) {
+    cloneField(opts = {}) {
       var masterFormField = this.get('masterFormField');
-      // if (masterFormField.cloneCountStatus === 'max') { return; }
       masterFormField.set('clonedFields', masterFormField.clonedFields || []);
       var newField = {...masterFormField.clonedFieldBlueprint};
       newField.isClone = true;
@@ -75,14 +77,13 @@ export default Component.extend({
       newField.eventLog = []; // BD must recreate this, otherwise all clones share the same instance of eventLog array.
       masterFormField.clonedFields.pushObject(EmberObject.create(newField));
       var lastIndex = masterFormField.clonedFields.length -1;
-      
       masterFormField.set('lastUpdatedClone', {
         index: lastIndex,
         previousValue: null,
       });
-      if (!defaultValue) {
+      if (!opts.fromData) {
         var fieldValue = this.get('changesetProp').get(masterFormField.propertyName) || [];
-        fieldValue.push(newField.defaultValue);
+        fieldValue.push(opts.newCloneValue || newField.defaultValue);
         this.setFieldValue(fieldValue, masterFormField);
       }
       
@@ -100,15 +101,10 @@ export default Component.extend({
       var groupValue = this.get('changesetProp').get(masterFormField.propertyName) || []; //TODO check this.
       groupValue.splice(index, 1);
       masterFormField.eventLog.pushObject('removeClone');
-
       this.setFieldValue(groupValue, masterFormField);
       if (this.get('afterRemoveClone')) {
         this.afterRemoveClone(clone, masterFormField, this.get('changesetProp'));
-      } 
-      // TODO does overall field validate on remove clone?
-      // if (masterFormField.cloneFieldSchema.validationEvents.indexOf('removeClone') > -1) {
-      //   this.validateProperty(this.get('changeset'));
-      // }
+      }
     },
 
     checkMinMaxClones(masterFormField) {

@@ -1,15 +1,7 @@
-{{#if (eq displayValidation "invalid")}}
-  {{#if (get (get changesetProp.error formField.propertyName) "validation")}}
-    <div class="{{formField.fieldErrorClasses}} ember-changeset-webforms-field-errors {{class}}" data-test-class="ember-changeset-webforms-field-errors">
-      {{#if fieldErrors}}
-        {{#each fieldErrors as |error|}}
-          <div class="ember-changeset-webforms-field-error" data-test-class="ember-changeset-webforms-field-error">{{error}}</div>
-        {{/each}}
-      {{else}}
-        {{#each (get (get changesetProp.error formField.propertyName) "validation") as |error|}}
-          <div class="ember-changeset-webforms-field-error" data-test-class="ember-changeset-webforms-field-error">{{error}}</div>
-        {{/each}}
-      {{/if}}
-    </div>
-  {{/if}}
+{{#if (and (eq displayValidation "invalid") validationErrorsArray)}}
+  <div class="{{formField.fieldErrorClasses}} ember-changeset-webforms-field-errors {{class}}" data-test-class="ember-changeset-webforms-field-errors">
+    {{#each validationErrorsArray as |error|}}
+      <div class="ember-changeset-webforms-field-error" data-test-class="ember-changeset-webforms-field-error">{{error}}</div>
+    {{/each}}
+  </div>
 {{/if}}

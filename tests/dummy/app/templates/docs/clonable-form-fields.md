@@ -30,3 +30,5 @@ Clonable form fields content
 {{/docs-demo}}
 
 Note that when the array of data passed to a `clone-group` field is longer than the `maxClones` setting, the component will still insert one clone for each item in the array. In this case, the add clonbe button will not be available until the user has removed clones until the total is less than the `maxClones` setting.
+
+See [https://github.com/poteto/ember-changeset-validations#overriding-validation-messages](https://github.com/poteto/ember-changeset-validations#overriding-validation-messages) on how to override validation messages, while retaining dynamic values.

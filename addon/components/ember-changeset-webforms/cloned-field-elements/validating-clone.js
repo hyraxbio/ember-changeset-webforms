@@ -17,34 +17,25 @@ export default Component.extend({
     }
   },
   
-  cloneErrors: computed('changesetProp.error', function() {
+  cloneValidationErrors: computed('changesetProp.error', function() {
     var index = this.get('index');
-    var validationErrors = ((this.get(`changesetProp.error.${this.get('masterFormField.fieldId')}.validation`)) || [])[0];
-    if (!validationErrors) { return; }
-    return validationErrors[index];
+    var validationErrors = ((this.get(`changesetProp.error.${this.get('masterFormField.fieldId')}.validation`)) || []);
+    const cloneValidationErrors = [...validationErrors].find(item => {
+      return typeof item === 'object' || item.clones;
+    });
+    if (!cloneValidationErrors) { return; }
+    return cloneValidationErrors.clones[index];
   }),
 
-  displayValidation: computed('changesetProp.error', 'clonedFormField.{focussed,fieldErrors,fieldErrors.@each,eventLog.[]}', function() {
-    var index = this.get('index');
+  displayValidation: computed('cloneValidationErrors', 'changesetProp.error', 'clonedFormField.{focussed,fieldErrors,fieldErrors.@each,eventLog.[]}', function() {
     var clonedFormField = this.get('clonedFormField');
     if (!clonedFormField) { return; }
     if (!this.validationEventObj(clonedFormField.validationEvents, 'keyUp') && clonedFormField.get('focussed')) {
       return;
     }   
     if (!validationEventLog(clonedFormField).length) { return; }
-
-    var masterFieldvalidationErrors = ((this.get(`changesetProp.error.${this.get('masterFormField.fieldId')}.validation`)) || []);
-    var clonedFieldValidationErrors = masterFieldvalidationErrors[0];
-    if ((clonedFormField.fieldErrors || []).length > 0) {
-      return 'invalid';
-    }
-    if (!masterFieldvalidationErrors) { return; }
-
-    if (masterFieldvalidationErrors.length === 0) { return 'valid'; }
-
-    if (!clonedFieldValidationErrors[index]) { return; }
-
-    if (clonedFieldValidationErrors[index].length === 0) {
+    var clonedFieldValidationErrors = this.get('cloneValidationErrors') || [];
+    if (clonedFieldValidationErrors.length === 0) {
       return 'valid';
     } else {
       return 'invalid';

@@ -31,6 +31,6 @@ export default function validateClone(options = {} ) {
     })) {
       return true;
     }
-    return allCloneValidations;
+    return {clones: allCloneValidations};
   };
 }

@@ -7,6 +7,7 @@
     @displayValidation={{displayValidation}} 
     @readonly={{readonly}} 
     @typeClass={{typeClass}}
+    @validationErrorsArray={{cloneValidationErrors}}
     data-test-id={{concat masterFormField.fieldId "-clone-" clonedFormField.cloneId "-field"}}
     class="ember-changeset-webforms-clone-field"
     data-test-ember-changeset-webforms-clone-field>
@@ -24,17 +25,5 @@
       displayValidation=displayValidation
       displayValue=(ember-changeset-webforms/cloned-form-field-display-value (get changesetProp masterFormField.propertyName) index)
     }}
-    {{#if (eq displayValidation "invalid")}}
-      {{#if (or clonedFormField.fieldErrors (get (get changesetProp.error masterFormField.fieldId) "validation"))}}
-        <div class="ember-changeset-webforms-field-errors" data-test-class="ember-changeset-webforms-field-errors">
-          {{#each cloneErrors as |error|}}
-            <div class="ember-changeset-webforms-field-error" data-test-class="ember-changeset-webforms-field-error">{{error}}</div>
-          {{/each}}
-          {{#each clonedFormField.fieldErrors as |error|}}
-            <div class="ember-changeset-webforms-field-error" data-test-class="ember-changeset-webforms-field-error">{{error}}</div>
-          {{/each}}
-        </div>
-      {{/if}}
-    {{/if}}      
   </EmberChangesetWebforms::FieldElements::ValidatingFieldWrapper>
 </div>

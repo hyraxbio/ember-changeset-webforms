@@ -15,16 +15,19 @@ export default Controller.extend({
         submitButtonText: 'Submit',
         resetAfterSubmit: true
       },
+
       fields: [{
         fieldId: 'emails',
         fieldLabel: 'User emails',
         fieldType: 'clone-group',
         minClones: 2,
         maxClones: 4,
-        validationEvents: ['insert'],
         validationRules: [{
           validationMethod: 'validateLength',
-          arguments: {max: 2}
+          arguments: {
+            description: 'emails',
+            message: 'Too many {description} (maximum is {max}).',
+            max: 4}
         }],
         cloneButtonText: 'Add email',
         cloneFieldSchema: {
