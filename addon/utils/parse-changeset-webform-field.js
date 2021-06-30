@@ -69,7 +69,7 @@ function parse(fieldSchema, customValidators) {
   }
   if ((field.cloneFieldSchema || {}).validationRules) {
     field.validationRules = field.validationRules || [];
-    field.validationRules.push({
+    field.validationRules.unshift({
       validationMethod: 'validateClone',
       arguments: {
         validationRules: field.cloneFieldSchema.validationRules, 
@@ -77,7 +77,8 @@ function parse(fieldSchema, customValidators) {
       }
     });
     field.clonedFieldBlueprint.validationEvents.forEach(item => {
-      if (item.event === 'submit') { return; }
+      const skip = ['submit', 'removeClone'];
+      if (skip.indexOf(item.event) > -1) { return; }
       const newObj = {...item};
       newObj.event = `${item.event}Clone`
       if (!field.validationEvents.find(item => item.event === newObj.event)) {

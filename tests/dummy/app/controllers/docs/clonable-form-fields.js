@@ -3,23 +3,29 @@ import Controller from '@ember/controller';
 export default Controller.extend({
   init() {
     this._super(...arguments);
-    // BEGIN-SNIPPET clone-form.js
+    // BEGIN-SNIPPET clone-group-form-data.js
+    this.data = {
+      emails: ['test1@timosol.com', 'test1@timosol.com', null, 'test3@timosol.com', 'test4@timosol.com', 'test5@timosil.com']
+    };
+    // END-SNIPPET
+    // BEGIN-SNIPPET clone-group-form.js
     this.formSchema = {
       settings: {
         formName: 'inviteUsersForm',
         submitButtonText: 'Submit',
         resetAfterSubmit: true
       },
-      fieldSettings: {
-        hideLabel: true,
-      },
       fields: [{
         fieldId: 'emails',
         fieldLabel: 'User emails',
-        hideLabel: true,
         fieldType: 'clone-group',
         minClones: 2,
         maxClones: 4,
+        validationEvents: ['insert'],
+        validationRules: [{
+          validationMethod: 'validateLength',
+          arguments: {max: 2}
+        }],
         cloneButtonText: 'Add email',
         cloneFieldSchema: {
           fieldLabel: 'Email',
@@ -33,8 +39,7 @@ export default Controller.extend({
           }, {
             validationMethod: 'validatePresence',
             arguments: true
-          },
-          {
+          }, {
             validationMethod: 'uniqueArray',
             arguments: {
               description: 'email'
@@ -48,7 +53,6 @@ export default Controller.extend({
 
   actions: {
     submit() {
-
     }
   }
 });

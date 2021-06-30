@@ -1,0 +1,68 @@
+.ember-changeset-webforms-clone-group {
+  .clone-group-field-errors {
+    margin-bottom: $pojo-form-field-margin-bottom;
+  }
+  &.validates {
+    .clone-group-validation-icon {
+      padding-right: $pojo-form-field-validation-icon-width;
+    }
+  }
+
+  .clone-group-validation-icon {
+    background-repeat: no-repeat;
+    background-size: 20px;
+    background-position: $pojo-form-field-icon-position;
+  }
+
+  &.required {
+    .clone-group-validation-icon {
+      background-image: $pojo-form-field-required-icon;
+      background-size: $pojo-form-field-required-icon-size;
+    }
+  }
+
+  &.valid:not(.hide-success-validation) {
+    .clone-group-validation-area { // TODO delete this is not used in template
+      border-color: $pojo-form-field-valid-border-color;
+      background-color: $pojo-form-field-valid-background-color;
+      
+    }
+    .clone-group-validation-icon {
+      background-image: $pojo-form-field-valid-icon;
+      background-size: $pojo-form-field-valid-icon-size;
+    }
+  }
+
+  &.invalid {
+    .clone-group-validation-area {
+      border-color: $pojo-form-field-invalid-border-color;
+      background-color: $pojo-form-field-invalid-background-color;
+      
+    }
+    .clone-group-validation-icon {
+      background-image: $pojo-form-field-invalid-icon;
+      background-size: $pojo-form-field-invalid-icon-size;
+    }
+  }
+}
+.clone-group {
+  .form-field-clone {
+    display: flex;
+    .ember-changeset-webforms-field {
+      flex-grow: 1;
+    }
+  }
+  .clone-actions {
+    padding-top: $spacer-md;
+    padding-right: $spacer-md;
+    svg {
+      height: 20px;
+    }
+  }
+  
+  .clone-group-actions {
+    width: 100%;
+    margin-top: 10px;
+    
+  }
+}

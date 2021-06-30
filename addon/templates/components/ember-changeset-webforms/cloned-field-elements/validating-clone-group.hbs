@@ -1,3 +1,11 @@
+<EmberChangesetWebforms::FieldElements::FieldLabel 
+  @formField={{masterFormField}} />
+<EmberChangesetWebforms::FieldElements::FieldErrors 
+  @changesetProp={{changesetProp}} 
+  @formField={{masterFormField}} 
+  @displayValidation={{displayValidation}}
+  @fieldErrors={{cloneGroupErrors}}
+  @class="clone-group-field-errors" />
 <div class="clone-group-items">
   {{#each masterFormField.clonedFields as |clonedFormField index| }}
     <EmberChangesetWebforms::ClonedFieldElements::ValidatingClone 

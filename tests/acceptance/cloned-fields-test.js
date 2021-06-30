@@ -41,14 +41,9 @@ module('Acceptance | Cloned fields', function (hooks) {
 
   test('With data', async function (assert) {
     await visit('/docs/clonable-form-fields');
-    assert.dom(`${dummyEls.clonableFieldWithData} ${els.emberChangesetWebformsCloneWrapper}`).exists({ count: 5 }, 'Where number of items in the data array exceeds max clones, one cloned field is still generated for each item in the data array.');
+    // await this.pauseTest()
+    assert.dom(`${dummyEls.clonableFieldWithData} ${els.emberChangesetWebformsCloneWrapper}`).exists({ count: 6 }, 'Where number of items in the data array exceeds max clones, one cloned field is still generated for each item in the data array.');
     assert.ok(cth.wasValidated(`${dummyEls.clonableFieldWithData} ${els.cloneSelector('emails', 0)}`), 'First clone is validated on insert.');
-    // console.log(cth.allValidated(`${dummyEls.clonableFieldWithData} ${els.emberChangesetWebformsCloneField}`));
-    // console.log(cth.noneValidated(`${dummyEls.clonableFieldWithData} ${els.emberChangesetWebformsCloneField}`));
-
-    // console.log(cth.allValidated(`${dummyEls.clonableFieldBasics} ${els.emberChangesetWebformsCloneField}`));
-    // console.log(cth.noneValidated(`${dummyEls.clonableFieldWithData} ${els.emberChangesetWebformsCloneField}`));
-    // await this.pauseTest();
 
   })
 });

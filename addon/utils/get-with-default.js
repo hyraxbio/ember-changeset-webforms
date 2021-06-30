@@ -61,6 +61,7 @@ const addonDefaults = {
     },
     {
       fieldType: 'clone-group',
+      fieldLabelClassNames: 'clone-group-validation-icon',
       componentPath: 'ember-changeset-webforms/cloned-form-fields/validating-form-field-clone-group',
       maxClonesReachedText: 'Max clones reached.', // String
       removeCloneComponent: 'svg-repo/icons/icon-trash', // String - path to the component to use as the remove clone element

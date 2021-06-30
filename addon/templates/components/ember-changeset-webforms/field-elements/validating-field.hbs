@@ -1,14 +1,17 @@
 {{#if (and changesetProp (not formField.hidden))}}
   {{#if formField.cloneGroupName}}
-    <EmberChangesetWebforms::FieldElements::ValidatingFieldWrapper 
+    {{!-- {{log cloneGroupErrors}} --}}
+    {{!-- <EmberChangesetWebforms::FieldElements::ValidatingFieldWrapper 
     @formField={{formField}} 
     @readonly={{readonly}} 
     @typeClass={{typeClass}} 
     @dataTestFormName={{dataTestFormName}}
     @fieldName={{fieldName}}
     @changesetProp={{changesetProp}}
+    @displayValidation={{displayValidation}} 
+    @fieldErrors={{cloneGroupErrors}}
     class="ember-changeset-webforms-clone-group"
-    data-test-ember-changeset-webforms-clone-group> 
+    data-test-ember-changeset-webforms-clone-group>  --}}
       <EmberChangesetWebforms::ClonedFieldElements::ValidatingCloneGroup 
         @masterFormField={{formField}} 
         @changesetProp={{changesetProp}} 
@@ -18,7 +21,7 @@
         @afterRemoveClone={{afterRemoveClone}}
         @dataTestFieldId={{dataTestFieldId}}
       />
-    </EmberChangesetWebforms::FieldElements::ValidatingFieldWrapper>
+    {{!-- </EmberChangesetWebforms::FieldElements::ValidatingFieldWrapper> --}}
   {{else}}
     <EmberChangesetWebforms::FieldElements::ValidatingFieldWrapper 
       @formField={{formField}} 

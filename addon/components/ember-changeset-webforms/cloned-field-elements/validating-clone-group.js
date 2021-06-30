@@ -2,11 +2,20 @@ import Component from '@ember/component';
 import layout from '../../../templates/components/ember-changeset-webforms/cloned-field-elements/validating-clone-group';
 import { computed } from '@ember/object';
 import EmberObject from '@ember/object';
+import validationEventLog from 'ember-changeset-webforms/utils/validation-event-log';
 
 export default Component.extend({
   layout,
-  classNames: ['clone-group'],
-  classNameBindings: ['cloneGroupNameClass'],
+  classNames: ['clone-group', 'ember-changeset-webforms-clone-group'],
+  classNameBindings: ['cloneGroupNameClass', 'displayValidation', 'masterFormField.required:required', 'disabled:disabled', 'readonly:readonly', 'masterFormField.fieldClasses', 'masterFormField.hideSuccessValidation:hide-success-validation', 'masterFormField.validates:validates', 'typeClass', 'masterFormField.focussed:focussed'],
+
+  'data-test-ember-changeset-webforms-field-validates': computed('masterFormField.validates', function() {
+    return this.get('masterFormField.validates');
+  }),
+
+  'data-test-ember-changeset-webforms-field-required': computed('masterFormField.required', function() {
+    return this.get('masterFormField.required');
+  }),
 
   'data-test-id': computed('masterFormField', function() {
     return `clone-group-${this.get('masterFormField.fieldId')}`;
@@ -20,15 +29,29 @@ export default Component.extend({
       var value = groupValue ? groupValue[i] : null;
       this.send('cloneField', value);
     } 
-    // var changesetProp = this.get('changesetProp');
-    // if (changesetProp.get(masterFormField.propertyName)) {
-    //   masterFormField.eventLog.pushObject('insert');
-    //   this.validateProperty(changesetProp, masterFormField);
-    // }
   },
+
+  displayValidation: computed('cloneGroupErrors', 'masterFormField.{eventLog.[]}', function () {
+    var formField = this.get('masterFormField');
+    if (!formField) { return; }
+    if (!validationEventLog(formField).filter(item => !item.endsWith('Clone')).length) { return }
+    var validationErrors = this.get('cloneGroupErrors') || [];
+    if (validationErrors.length === 0) {
+      return 'valid';
+    } else {
+      return 'invalid';
+    }
+  }),
 
   cloneGroupNameClass: computed('masterFormField.cloneGroupName', function() {
     return `clone-group-${this.get('masterFormField.cloneGroupName')}`;
+  }),
+
+  cloneGroupErrors: computed('changesetProp.error', 'masterFormField.cloneGroupName', function() {
+    if (!this.get('masterFormField.cloneGroupName')) { return; }
+    var validationErrors = [...(this.get(`changesetProp.error.${this.get('masterFormField.propertyName')}.validation`)) || []];
+    validationErrors.shift();
+    return validationErrors;
   }),
 
   cloneId(clonedFields) {

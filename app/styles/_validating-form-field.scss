@@ -1,3 +1,4 @@
+.ember-changeset-webforms-clone-group,
 .ember-changeset-webforms-field {
   margin-top: $pojo-form-field-controls-margin-top;
   margin-bottom: $pojo-form-field-margin-bottom;
@@ -6,7 +7,17 @@
     background-color: #e9e9e9;
     cursor: not-allowed;
   }
+  .ember-changeset-webforms-field-errors {
+    width: 100%;
+  }
 
+  .ember-changeset-webforms-field-error {
+    color: $pojo-form-field-error-text-color;
+    margin-top: $pojo-form-field-error-margin-top;
+  }
+}
+
+.ember-changeset-webforms-field {
   &.validates {
     .validation-icon {
       padding-right: $pojo-form-field-validation-icon-width;
@@ -17,7 +28,6 @@
     background-repeat: no-repeat;
     background-size: 20px;
     background-position: $pojo-form-field-icon-position;
-    // display: inline-flex;
   }
 
   &.required {
@@ -51,14 +61,7 @@
     }
   }
 
-  .ember-changeset-webforms-field-errors {
-    width: 100%;
-  }
-
-  .ember-changeset-webforms-field-error {
-    color: $pojo-form-field-error-text-color;
-    margin-top: $pojo-form-field-error-margin-top;
-  }
+  
 
   &.power-select {
     max-width: 300px;
@@ -110,24 +113,4 @@
   }
 }
 
-.clone-group {
-  .form-field-clone {
-    display: flex;
-    .ember-changeset-webforms-field {
-      flex-grow: 1;
-    }
-  }
-  .clone-actions {
-    padding-top: $spacer-md;
-    padding-right: $spacer-md;
-    svg {
-      height: 20px;
-    }
-  }
-  
-  .clone-group-actions {
-    width: 100%;
-    margin-top: 10px;
-    
-  }
-}
+

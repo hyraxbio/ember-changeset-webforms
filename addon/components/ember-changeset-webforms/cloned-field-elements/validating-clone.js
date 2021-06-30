@@ -9,7 +9,6 @@ export default Component.extend({
   'data-test-class': 'ember-changeset-webforms-clone-wrapper',
 
   didInsertElement: function() {
-    this.masterFormField.eventLog.push('insertClone');
     var changesetProp = this.get('changesetProp');
     if (changesetProp.get(this.masterFormField.propertyName)[this.index]) {
       this.clonedFormField.eventLog.pushObject('insert');
