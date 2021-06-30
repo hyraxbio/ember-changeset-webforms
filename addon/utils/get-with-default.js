@@ -4,7 +4,6 @@ import _merge from 'lodash/merge';
 const addonDefaults = {
   formSettings: {
     clearFormButtonText: 'Cancel',
-    formName: 'changePasswordForm',
     hideSubmitButton: null,  // Boolean - hides the submit button if true
     submitButtonText: 'Submit', // String - text to show on the submit form button
     showResetButton: null, // Boolean - whether or not to show the reset form button
@@ -156,7 +155,7 @@ const addonDefaults = {
 
 export default function getWithDefault(formSchema = {}) {
   const appDefaults = config.changesetWebformsDefaults || {};
-  const formSettings = _merge(addonDefaults.formSettings, appDefaults.formSettings, formSchema.formSettings);
+  const formSettings = {..._merge(addonDefaults.formSettings, appDefaults.formSettings, formSchema.settings)};
   const addonFieldDefaults = addonDefaults.fieldSettings || {};
   const appConfigFieldDefaults = appDefaults.fieldSettings || {};
   const mergedFields = (formSchema.fields || []).map(field => {
@@ -164,7 +163,6 @@ export default function getWithDefault(formSchema = {}) {
     const addonFieldTypeDefaults = addonDefaults.fieldTypes.find(addonFieldType => addonFieldType.fieldType === field.fieldType);
     const appConfigFieldTypeDefaults = (appDefaults.fieldTypes || []).find(appConfigFieldType => appConfigFieldType.fieldType === field.fieldType);
     const formSettingsFieldDefaults = formSchema.fieldSettings || {};
-
     mergedField = {..._merge(mergedField, addonFieldDefaults, addonFieldTypeDefaults, appConfigFieldDefaults, appConfigFieldTypeDefaults, formSettingsFieldDefaults, field)};
     if (field.cloneFieldSchema) {
       let mergedCloneField = {};

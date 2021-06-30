@@ -80,7 +80,7 @@ function parse(fieldSchema, customValidators) {
       const skip = ['submit', 'removeClone'];
       if (skip.indexOf(item.event) > -1) { return; }
       const newObj = {...item};
-      newObj.event = `${item.event}Clone`
+      newObj.event = `${item.event}Clone`;
       if (!field.validationEvents.find(item => item.event === newObj.event)) {
         field.validationEvents.pushObject(newObj);
       }

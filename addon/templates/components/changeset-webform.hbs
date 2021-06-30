@@ -1,4 +1,4 @@
-<form {{action "submit" on="submit"}} class={{formValidationClass}} novalidate={{formObject.formSettings.novalidate}}>
+<form {{action "submit" on="submit"}} class={{formValidationClass}} novalidate={{formSettings.novalidate}}>
   <div class="form-section form-fields">
     {{#each changesetWebform.fields as |formField|}}
       <EmberChangesetWebforms::FieldElements::ValidatingField

@@ -5,13 +5,13 @@ export default Controller.extend({
     this._super(...arguments);
     // BEGIN-SNIPPET clone-group-form-data.js
     this.data = {
-      emails: ['test1@timosol.com', 'test1@timosol.com', null, 'test3@timosol.com', 'test4@timosol.com', 'test5@timosil.com']
+      emails: ['tobias@timosol.com', 'tobias@timosol.com', null, 'lindsay@timosol.com', 'maeby@timosol.com', 'funke@timosil.com']
     };
     // END-SNIPPET
     // BEGIN-SNIPPET clone-group-form.js
     this.formSchema = {
       settings: {
-        formName: 'inviteUsersForm',
+        formName: 'addEmailsForm',
         submitButtonText: 'Submit',
         resetAfterSubmit: true
       },

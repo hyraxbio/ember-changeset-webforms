@@ -9,7 +9,8 @@ export default function createChangesetWebform(formSchema, data, customValidator
   return  {
     changeset: createChangeset(parsedFields, data, customValidators),
     fields: parsedFields,
-    formSettings: EmberObject.create(formSchema.settings),
-    formSchema: {...formSchema}
+    formSettings: EmberObject.create(formSchemaWithDefaults.formSettings),
+    formSchema: {...formSchema},
+    formSchemaWithDefaults: {...formSchemaWithDefaults}
   }
 }
