@@ -10,16 +10,17 @@ export default {
   emberChangesetWebformsCloneWrapper: '[data-test-class="ember-changeset-webforms-clone-wrapper"]',
   emberChangesetWebformsCloneField: '[data-test-ember-changeset-webforms-clone-field]',
   
+  addClone: '[data-test-id="add-clone"]',
   removeClone: '[data-test-class="remove-clone"]',
   emberChangesetWebformsClonedField: '[data-test-class="cloned-field"]',
   emberChangesetWebformsAddCloneButton: '[data-test-id="add-clone"]',
   maxClonesReached: '[data-test-id="max-clones-reached"]',
 
-  cloneField(fieldId, cloneId) {
-    return `[data-test-id="${fieldId}-clone-${cloneId}-field"]`
+  cloneField(opts) {
+    return `[data-test-id="${opts.fieldId}-clone-${opts.cloneId}-field"]`
   },
 
-  cloneSelector(fieldId, cloneId) {
-    return `[data-test-id="${fieldId}-clone-${cloneId}-wrapper"]`
+  cloneSelector(opts) {
+    return `[data-test-id="${opts.fieldId}-clone-${opts.cloneId}-wrapper"]`
   }
 }

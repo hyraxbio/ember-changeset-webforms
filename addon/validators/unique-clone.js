@@ -1,6 +1,6 @@
 import { assign } from '@ember/polyfills';
 
-export default function validateUniqueArray(opts = {}) {
+export default function validateUniqueClone(opts = {}) {
   return (key, newValue, oldValue, changes, content) => {  
     var response = true; 
     const fieldName = opts.description || key;

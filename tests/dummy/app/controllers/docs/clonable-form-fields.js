@@ -1,8 +1,11 @@
 import Controller from '@ember/controller';
+import { addonDefaults } from 'ember-changeset-webforms/utils/get-with-default';
 
 export default Controller.extend({
   init() {
     this._super(...arguments);
+    this.cloneGroupFieldAddonDefaults = addonDefaults.fieldTypes.find(item => item.fieldType === 'clone-group');;
+
     // BEGIN-SNIPPET clone-group-form-data.js
     this.data = {
       emails: ['tobias@timosol.com', 'tobias@timosol.com', null, 'lindsay@timosol.com', 'maeby@timosol.com', 'funke@timosil.com']
@@ -43,7 +46,7 @@ export default Controller.extend({
             validationMethod: 'validatePresence',
             arguments: true
           }, {
-            validationMethod: 'uniqueArray',
+            validationMethod: 'uniqueClone',
             arguments: {
               description: 'email'
             }

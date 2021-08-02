@@ -23,4 +23,6 @@ export default {
   afterGenerateChangesetWebformFeedback: '[data-test-id="after-generate-changeset-webform-feedback"]',
   clonableFieldBasics: '[data-test-id="clonable-field-basics"]',
   clonableFieldWithData: '[data-test-id="clonable-field-with-data"]',
+  cloneGroupEmails: '[data-test-id="clone-group-emails"]',
+  
 }

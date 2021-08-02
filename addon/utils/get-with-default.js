@@ -2,6 +2,7 @@ import config from 'ember-get-config';
 import _merge from 'lodash/merge';
 
 const addonDefaults = {
+  // BEGIN-SNIPPET addon-defaults.js
   formSettings: {
     clearFormButtonText: 'Cancel',
     hideSubmitButton: null,  // Boolean - hides the submit button if true
@@ -152,23 +153,22 @@ const addonDefaults = {
     }
   ],
 };
+// END-SNIPPET
+export {addonDefaults};
 
 export default function getWithDefault(formSchema = {}) {
   const appDefaults = config.changesetWebformsDefaults || {};
-  const formSettings = {..._merge(addonDefaults.formSettings, appDefaults.formSettings, formSchema.settings)};
+  const formSettings = _merge({}, addonDefaults.formSettings, appDefaults.formSettings, formSchema.settings);
   const addonFieldDefaults = addonDefaults.fieldSettings || {};
   const appConfigFieldDefaults = appDefaults.fieldSettings || {};
   const mergedFields = (formSchema.fields || []).map(field => {
-    let mergedField = {};
     const addonFieldTypeDefaults = addonDefaults.fieldTypes.find(addonFieldType => addonFieldType.fieldType === field.fieldType);
     const appConfigFieldTypeDefaults = (appDefaults.fieldTypes || []).find(appConfigFieldType => appConfigFieldType.fieldType === field.fieldType);
-    const formSettingsFieldDefaults = formSchema.fieldSettings || {};
-    mergedField = {..._merge(mergedField, addonFieldDefaults, addonFieldTypeDefaults, appConfigFieldDefaults, appConfigFieldTypeDefaults, formSettingsFieldDefaults, field)};
+    const mergedField = _merge({}, addonFieldDefaults, addonFieldTypeDefaults, appConfigFieldDefaults, appConfigFieldTypeDefaults, formSchema.fieldSettings, field);
     if (field.cloneFieldSchema) {
-      let mergedCloneField = {};
       const cloneAddonFieldTypeDefaults = addonDefaults.fieldTypes.find(addonFieldType => addonFieldType.fieldType === field.cloneFieldSchema.fieldType);
       const appConfigCloneFieldTypeDefaults = (appDefaults.fieldTypes || []).find(appConfigFieldType => appConfigFieldType.fieldType === field.cloneFieldSchema.fieldType);
-      mergedCloneField = {..._merge(mergedCloneField, addonFieldDefaults, cloneAddonFieldTypeDefaults, appConfigFieldDefaults, appConfigCloneFieldTypeDefaults, formSettingsFieldDefaults, field.cloneFieldSchema)};
+      const mergedCloneField = _merge({}, addonFieldDefaults, cloneAddonFieldTypeDefaults, appConfigFieldDefaults, appConfigCloneFieldTypeDefaults, formSchema.fieldSettings, field.cloneFieldSchema);
       mergedField.cloneFieldSchema = mergedCloneField;
     }
     return mergedField;

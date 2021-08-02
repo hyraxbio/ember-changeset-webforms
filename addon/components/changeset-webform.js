@@ -19,10 +19,7 @@ import isPromise from 'ember-changeset/utils/is-promise';
   ```
   
   @class DocsDemo
-  @yield {Hash} demo
-  @yield {Component} demo.example
-  @yield {Component} demo.snippet
-  @yield {Component} demo.liveExample
+
 */
 export default Component.extend({
   layout,

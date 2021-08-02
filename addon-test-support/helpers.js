@@ -41,10 +41,32 @@ export default {
     return false;
   },
 
+  allPassedValidation(arg, indexes) {
+    const elements = this.getElements(arg, indexes);
+    let allPassed = true;
+    elements.forEach(el => {
+      if (!this.passedValidation(el)) {
+        allPassed = false;
+      }
+    })
+    return allPassed;
+  },
+
   failedValidation(arg) {
     const element = this.getElement(arg);
     if ((element.classList.contains('invalid') || element.querySelector('.invalid')) && element.querySelector(els.emberChangesetWebformsFieldErrors)) { return true; }
     return false;
+  },
+
+  allFailedValidation(arg, indexes) {
+    const elements = this.getElements(arg, indexes);
+    let allFailed = true;
+    elements.forEach(el => {
+      if (!this.failedValidation(el)) {
+        allFailed = false;
+      }
+    })
+    return allFailed;
   },
 
   wasValidated(arg) {
@@ -61,13 +83,27 @@ export default {
     return !els.map(el => this.wasValidated(el)).filter(item => item === true);
   },
 
-  async removeClone(arg) {
+  async removeClone(arg, indexes) {
     const element = this.getElement(arg);
-    await click(element.querySelector(els.removeClone));
+    if (indexes) {
+      const elementsToClick = indexes.map(index => element.querySelectorAll(els.removeClone)[index]);
+      for (var el of elementsToClick) {
+        await click(el);
+      }
+    } else {
+      await click(element.querySelector(els.removeClone));
+    }
   },
 
   async addClone(arg) {
     const element = this.getElement(arg);
     await click(element.querySelector(els.emberChangesetWebformsAddCloneButton));
+  },
+
+  async submitForm(arg) {
+    const element = this.getElement(arg);
+    console.log(element.querySelector(els.emberChangesetWebformsSubmitButton))
+    await click(element.querySelector(els.emberChangesetWebformsSubmitButton));
+
   }
 }

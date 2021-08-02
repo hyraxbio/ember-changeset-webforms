@@ -1,2 +1,2 @@
 export { default as validateClone } from './cloned';
-export { default as uniqueArray } from './unique-array';
+export { default as uniqueClone } from './unique-clone';

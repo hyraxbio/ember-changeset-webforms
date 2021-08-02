@@ -108,7 +108,7 @@ export default Component.extend({
     },
 
     checkMinMaxClones(masterFormField) {
-      if (masterFormField.clonedFields.length === masterFormField.maxClones) {
+      if (masterFormField.clonedFields.length >= masterFormField.maxClones) {
         masterFormField.set('cloneCountStatus', 'max');
       } else if (masterFormField.clonedFields.length === masterFormField.minClones) {
         masterFormField.set('cloneCountStatus', 'min');

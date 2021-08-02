@@ -74,7 +74,8 @@
     "loader.js": "^4.7.0",
     "qunit-dom": "^0.8.4",
     "sass": "^1.15.1",
-    "svg-repo": "git+ssh://git@github.com/andrew-paterson/svg-repo.git#master"
+    "svg-repo": "git+ssh://git@github.com/andrew-paterson/svg-repo.git#master",
+    "tag-and-release": "^1.0.12"
   },
   "engines": {
     "node": "8.* || >= 10.*"
