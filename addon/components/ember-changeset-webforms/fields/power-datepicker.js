@@ -27,7 +27,7 @@ export default Component.extend({
           }
         }        
       }
-      const formatted = dateTime ?  moment(dateTime).format(`${this.get('dateFormat')} ${this.get('timeFormat')}`).toString() : null;
+      const formatted = dateTime ?  moment(dateTime).format(`${this.get('dateFormat')} ${this.get('timeFormat')}`).toString() : null; // TODO this must default simply to moment(dateTime).toDate() to accommodate ember attr 'date', and allow user to specify output function to overridde this when defining field.
       this.onChange(formField, formatted);
     }
   }
