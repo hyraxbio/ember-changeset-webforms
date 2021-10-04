@@ -42,11 +42,11 @@ export default Component.extend({
       var split = this.get('calendarStartMonth').split('/');
       this.set('calendarStartDate', moment().year(parseInt(split[1])).month(parseInt(split[0]) - 1).day(1));
     }
-    var value = this.get('value');
-    if (moment.isDate(value)) {
-      this.send('updateDateTime', value);
-    } else if (moment(value).isValid()) {
-      this.send('updateDateTime', moment(value).toDate());
+    
+    if (moment.isDate(this.value)) {
+      this.send('updateDateTime', this.value);
+    } else if (moment(this.value).isValid()) {
+      this.send('updateDateTime', moment(this.value, this.dateDisplayFormat).toDate());
     } 
   },
 
