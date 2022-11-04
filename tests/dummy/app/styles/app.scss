@@ -1,6 +1,10 @@
 // @import 'ember-code-example';
 
 // $body-content-text-font-size: 1em;
+
+body {
+  position: relative;
+}
 $spacer-md: 16px;
 
 :root {
@@ -113,9 +117,31 @@ $spacer-md: 16px;
 //   svg {
 //     display: none;
 //   }
+.flex {
+  display: flex;
+}
+
+.inline-flex {
+  display: inline-flex;
+}
+
+.flex-align-center {
+  align-items: center;
+}
+
+.ember-basic-dropdown-content {
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background: #eee;
+  box-shadow: 0 1px 3px rgb(0 0 0 / 52%)
+}
+
   @import "ember-changeset-webforms";
 
   @import "ember-skeleton-variables";
+  @import "ember-skeleton/generic/_buttons";
+  // @import "ember-skeleton/generic/_box-arrows";
 
   div.external {
     font-size: 62.5%;

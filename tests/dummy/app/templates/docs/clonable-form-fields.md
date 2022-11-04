@@ -1,6 +1,6 @@
 # Clonable form fields
 
-A clonable form field allows the user to add and remove instances of a field. The example below allows a user to add multiple emails. Tehn the form is submitted, the value of the clonable form field will be an array of values.
+A clonable form field allows the user to add and remove instances of a field. The example below allows a user to add multiple emails. When the form is submitted, the value of the clonable form field will be an array of values.
 
 To make a field clonable, the `fieldType` property must be set to `clone-group`, and a `cloneFieldSchema` property must be included as well.
 
@@ -55,9 +55,25 @@ In order to validate on the length of the array, add the `validateLength` valida
 
 Note that when the array of data passed to a `clone-group` field is longer than the `maxClones` setting, the component will still insert one clone for each item in the array. In this case, the add clone button will not be available until the user has removed clones until the total is less than the `maxClones` setting.
 
+
+## Example 3 - misc TODO not required in docs 
+
+{{#docs-demo as |demo|}}
+  {{#demo.example name="clone-group-form-with-keyup.hbs"}}
+    <ChangesetWebform 
+      @formSchema={{formSchema2}} 
+      @submitAction={{action "submit"}} 
+      data-test-id="clonable-field-countries"
+    />
+  {{/demo.example}}
+  {{demo.snippet "clone-group-form-with-keyup.hbs" label="Template" language="htmlbars"}}
+  {{demo.snippet "clone-group-form-keyup.js" label="Data" language="javascript"}}
+{{/docs-demo}}
+
+
 ## Validation notes
 
-Note that there is an additional built in validator specifically for use inb a clonedFieldSchema- `uniqueClone`. See usage in the above example. This validation rule checks that each clone is unique.
+Note that there is an additional built in validator specifically for use in a clonedFieldSchema- `uniqueClone`. See usage in the above example. This validation rule checks that each clone is unique.
 
 <!-- TODO move to more appropriate docs. -->
 See [https://github.com/poteto/ember-changeset-validations#overriding-validation-messages](https://github.com/poteto/ember-changeset-validations#overriding-validation-messages) on how to override validation messages, while retaining dynamic values.

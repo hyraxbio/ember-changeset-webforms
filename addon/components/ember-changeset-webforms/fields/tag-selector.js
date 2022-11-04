@@ -29,7 +29,7 @@ export default Component.extend({
       if (value.length === 0) {
         value = null;
       }
-      this.onChange(formField, value);
+      this.onChange(formField, value, 'optionSelected');
     },
 
     onkeydown(dropdown, e) {

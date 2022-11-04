@@ -37,6 +37,7 @@ export default Component.extend({
   displayValidation: computed('changesetProp.error', 'formField.{focussed,eventLog.[]}', function () {
     var formField = this.get('formField');
     if (!formField) { return; }
+    if (!formField.validates) { return; }
     if (!this.validationEventObj(formField.validationEvents, 'keyUp') && formField.get('focussed')) {
       return;
     }

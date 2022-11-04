@@ -5,7 +5,11 @@ export default function validateClone(options = {} ) {
   return (key, newValue, oldValue, changes, content) => {
     var allCloneValidations = [];
     newValue = newValue || [];
-    newValue.forEach(item => {
+    newValue.forEach((item, index) => {
+      if ((options.validationRules[0].activateValidation || []).indexOf(index) < 0) {
+        allCloneValidations.push([]);
+        return;
+      }
       var thisCloneValidations = [];
       options.validationRules.forEach(cloneValidation => {
         var func;

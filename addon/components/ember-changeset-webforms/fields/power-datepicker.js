@@ -6,13 +6,6 @@ import { computed } from '@ember/object';
 export default Component.extend({
   layout,
   tagName: '',
-  
-  dateFormat: computed('formField.dateFormat', function() {
-    return this.get('formField.dateFormat') || 'YYYY-MM-DD';
-  }),
-  timeFormat: computed('formField.timeFormat', function() {
-    return this.get('formField.timeFormat') || 'HH:mm:ss';
-  }),
 
   actions: {
     onSelectDateTime(dateTime) {
@@ -27,8 +20,8 @@ export default Component.extend({
           }
         }        
       }
-      const formatted = dateTime ?  moment(dateTime).format(`${this.get('dateFormat')} ${this.get('timeFormat')}`).toString() : null; // TODO this must default simply to moment(dateTime).toDate() to accommodate ember attr 'date', and allow user to specify output function to overridde this when defining field.
-      this.onChange(formField, formatted);
+      const formatted = dateTime ?  moment(dateTime).format(`${this.formField.dateFormat} ${this.formField.timeFormat}`).toString() : null; // TODO this must default simply to moment(dateTime).toDate() to accommodate ember attr 'date', and allow user to specify output function to overridde this when defining field.
+      this.onChange(formField, formatted, 'optionSelected');
     }
   }
 });

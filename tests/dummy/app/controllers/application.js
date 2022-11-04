@@ -1,21 +1,16 @@
-import Component from '@ember/component';
-import layout from '../../templates/components/forms/login-form';
-export default Component.extend({
-  layout,
+import Controller from '@ember/controller';
+
 // BEGIN-SNIPPET login-form.js
+export default Controller.extend({
   init: function() {
     this._super(...arguments);
-    this.formSchema = {
+    this.loginFormSchema = {
       settings: {
-        formName: 'loginForm',
         submitButtonText: 'Log in',
-        submitButtonClasses: 'btn btn-primary btn-lg btn-block',
-        modelName: 'authorisation',
         showResetButton: false,
         hideSuccessValidation: true,
         hideLabels: true
       },
-      class: 'login',
       fields: [{
         fieldId: 'email',
         fieldLabel: 'Email',
@@ -42,6 +37,16 @@ export default Component.extend({
         class: 'password'
       }]
     };
+  },
+
+  actions: {
+    submit() {
+      return true;
+    },
+
+    saveSuccess() {
+      alert('Success!');
+    }
   }
-//END-SNIPPET
 });
+//END-SNIPPET

@@ -1,4 +1,4 @@
-import { visit, click, findAll, find, fillIn, focus, blur } from '@ember/test-helpers';
+import { visit, click, findAll, find, fillIn, focus, blur, typeIn } from '@ember/test-helpers';
 import { module, test } from 'qunit';
 import { setupApplicationTest } from 'ember-qunit';
 import { setupMirage } from 'ember-cli-mirage/test-support';
@@ -20,6 +20,7 @@ module('Acceptance | Cloned fields', function (hooks) {
     await blur(`${dummyEls.clonableFieldBasics} ${els.cloneSelector({fieldId:'emails', cloneId:0})} input`);
     assert.ok(cth.failedValidation(`${dummyEls.clonableFieldBasics} ${els.cloneSelector({fieldId:'emails', cloneId:0})}`), 'First clone fails validation when user focusses out and clone is empty.');
     assert.notOk(cth.wasValidated(`${dummyEls.clonableFieldBasics} ${els.cloneSelector({fieldId:'emails', cloneId:1})}`), 'Second clone is not validated on focus out of first clone.');
+    assert.dom(`${dummyEls.clonableFieldBasics} ${els.emberChangesetWebformsAddCloneButton}`).hasText('Add email address', 'Add clone button reflects custom cloneButtonText when passed to the field definition.');
     await cth.addClone(dummyEls.clonableFieldBasics);
     assert.dom(`${dummyEls.clonableFieldBasics} ${els.emberChangesetWebformsCloneWrapper}`).exists({ count: 3 }, 'A new clone is added after the add clone button os clicked.');
     assert.dom(`${dummyEls.clonableFieldBasics} ${els.removeClone}`).exists({ count: 3 }, 'Each clone gets a remove clone button when the number of clones becomes greater than the minClones setting.');
@@ -57,5 +58,20 @@ module('Acceptance | Cloned fields', function (hooks) {
     await cth.removeClone(dummyEls.clonableFieldWithData);
     assert.dom(`${dummyEls.clonableFieldWithData} ${els.addClone}`).exists('Add clone button shows after clone removal, where the existing number of clones is less than to the max allowed.');
     assert.dom(`${dummyEls.clonableFieldWithData} ${els.maxClonesReached}`).doesNotExist('Max clones reached text disappears after clone removal, where the existing number of clones is less than to the max allowed.');
+  });
+
+  test('Other', async function(assert) {
+    await visit('/docs/clonable-form-fields');
+    assert.dom(`${dummyEls.clonableFieldCountries} ${els.emberChangesetWebformsCloneWrapper}`).exists({ count: 2 }, '2 clones exist on load.');
+    const firstCloneSelector = `${dummyEls.clonableFieldCountries} ${els.cloneSelector({fieldId:'countryCodes', cloneId:0})}`;
+    const firstCloneInputSelector = `${firstCloneSelector} input`;
+    const secondCloneSelector = `${dummyEls.clonableFieldCountries} ${els.cloneSelector({fieldId:'countryCodes', cloneId:1})}`;
+    await typeIn(firstCloneInputSelector, 'ZAFs');
+    assert.ok(cth.failedValidation(firstCloneSelector), 'First clone fails validation when user types a fourth character.');
+    assert.notOk(cth.failedValidation(secondCloneSelector), 'Second clone is not validated on keyUp in the input of the first clone.');
+    assert.dom(`${dummyEls.clonableFieldCountries} ${els.emberChangesetWebformsAddCloneButton}`).hasText('Add Country code field', 'Add clone button is present and has correct default text when minClones is specified, but maxClones is not.');
+
+    // await this.pauseTest();
+    // 
   });
 });

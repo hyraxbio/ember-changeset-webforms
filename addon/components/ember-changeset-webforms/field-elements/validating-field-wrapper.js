@@ -5,7 +5,7 @@ import { computed } from '@ember/object';
 export default Component.extend({
   layout,
   classNames: ['ember-changeset-webforms-field'],
-  classNameBindings: ['displayValidation', 'formField.required:required', 'disabled:disabled', 'readonly:readonly', 'formField.fieldClasses', 'formField.hideSuccessValidation:hide-success-validation', 'formField.validates:validates', 'typeClass', 'formField.focussed:focussed'],
+  classNameBindings: ['displayValidation', 'formField.required:required', 'disabled:disabled', 'readonly:readonly', 'formField.fieldNamesClasses', 'formField.hideSuccessValidation:hide-success-validation', 'formField.validates:validates', 'typeClass', 'formField.focussed:focussed'],
 
   'data-test-ember-changeset-webforms-field-validates': computed('formField.validates', function() {
     return this.get('formField.validates');

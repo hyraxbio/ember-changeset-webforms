@@ -27,6 +27,6 @@
   {{#if (eq masterFormField.cloneCountStatus "max")}}
     <div class="max-clones-reached" data-test-id="max-clones-reached">{{masterFormField.maxClonesReachedText}}</div>
   {{else}}
-    {{component masterFormField.addCloneButtonComponent cloneField=(action "cloneField") masterFormField=masterFormField}}
+    {{component masterFormField.addCloneButtonComponent cloneField=(action "cloneField") masterFormField=masterFormField cloneFieldLabel=masterFormField.clonedFields.firstObject.fieldLabel}}
   {{/if}}
 </div>

@@ -13,6 +13,8 @@ export default Component.extend({
     if (changesetProp.get(this.masterFormField.propertyName)[this.index]) {
       this.clonedFormField.eventLog.pushObject('insert');
       this.masterFormField.eventLog.pushObject('insertClone');
+      this.updateValidationActivation(this.clonedFormField, this.index, 'insert');
+
       this.validateProperty(changesetProp, this.masterFormField);
     }
   },
@@ -42,11 +44,20 @@ export default Component.extend({
     }
   }),
 
+  updateValidationActivation(clonedFormField, index, eventType) {
+    if (this.validationEventObj(clonedFormField.validationEvents, eventType)) {
+      const validationRules =  clonedFormField.validationRules[0];
+      validationRules.activateValidation = validationRules.activateValidation || [];
+      validationRules.activateValidation.push(index);// clonedFormField.set()
+    }
+  },
+
   actions: {
     onFocusOutClone(index, clonedFormField, value) {
       clonedFormField.eventLog.push('focusOut');
       this.masterFormField.eventLog.push('focusOutClone');
-      clonedFormField.set('focussed', false)
+      clonedFormField.set('focussed', false);
+      this.updateValidationActivation(clonedFormField, index, 'focusOut');
       this.setFieldValue(this.updatedGroupValue(value, index), this.get('masterFormField'));
     },
 
@@ -54,17 +65,21 @@ export default Component.extend({
       clonedFormField.set('focussed', true);
       clonedFormField.eventLog.push('focusIn');
       this.masterFormField.eventLog.push('focusInClone');
+      this.updateValidationActivation(clonedFormField, index, 'focusIn');
     },
 
     onKeyUpClone(index, clonedFormField, value, event) {
       clonedFormField.eventLog.push('keyUp');
       this.masterFormField.eventLog.push('keyUpClone');
+      this.updateValidationActivation(clonedFormField, index, 'keyUp');
       this.setFieldValue(this.updatedGroupValue(value, index), this.get('masterFormField'));
     },
 
-    onChangeClone(index, clonedFormField, value) {
-      clonedFormField.eventLog.push('change');
-      this.masterFormField.eventLog.push('changeClone');
+    onChangeClone(index, clonedFormField, value, eventType = 'change') {
+      clonedFormField.eventLog.push(eventType);
+      this.masterFormField.eventLog.push(`${eventType}Clone`);
+      this.updateValidationActivation(clonedFormField, index, eventType)
+
       this.setFieldValue(this.updatedGroupValue(value, index), this.get('masterFormField'));
     },
   },

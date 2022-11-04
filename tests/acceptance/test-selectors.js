@@ -24,5 +24,13 @@ export default {
   clonableFieldBasics: '[data-test-id="clonable-field-basics"]',
   clonableFieldWithData: '[data-test-id="clonable-field-with-data"]',
   cloneGroupEmails: '[data-test-id="clone-group-emails"]',
+  clonableFieldCountries: '[data-test-id="clonable-field-countries"]',
+
+  powerDatepicker24HourTimeSelect: '[data-test-id="power-datepicker-24-hour-time-select"]',
+  powerDatepicker12HourTimeSelect: '[data-test-id="power-datepicker-12-hour-time-select"]',
+  startDateField: '[data-test-id="startDate-field"]',
+  powerDatepickerAmPmInput: '[data-test-id="power-datepicker-am-pm-input"]',
+  rawDateTime: '[data-test-id="raw-date-time"]',
+  
   
 }

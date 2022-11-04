@@ -12,4 +12,10 @@ export default Component.extend({
       return true;
     }
   }),
+
+  actions: {
+    onOptionChanged(formField, value, _selectComponent, event) {
+      this.onChange(formField, value, 'optionSelected', event)
+    }
+  }
 });

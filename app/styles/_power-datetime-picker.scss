@@ -1,8 +1,16 @@
 // $power-datetime-picker
 
 .ember-power-datetime-picker {
-  display: inline-flex;
-  flex-wrap: wrap;
+  display: flex;
+  align-items: center;
+  border: 1px solid #ccc;
+
+  & > .ember-basic-dropdown .ember-basic-dropdown-trigger {
+    display: flex;
+    flex-basis: 0;
+    flex-shrink: 1;
+  }
+  
 
   .ember-power-calendar-nav-control {
     width: 30px;
@@ -15,11 +23,11 @@
       background: #eee;
     }
   }
-  // input.date-select {
-  //   border-width: 0;
-  //   padding-right: 0;
-  //   background: transparent;
-  // }
+  input.date-select {
+    border-width: 0;
+    padding-right: 0;
+    background: transparent;
+  }
 }
 
 .ember-power-datepicker-trigger {
@@ -28,9 +36,15 @@
 
 .time-select-dropdown {
   width: 60px;
+  .ember-power-select-options[role=listbox] {
+    max-height: inherit;
+  }
 }
 
 .time-select {
+  input {
+    width: 80px;
+  }
   // display: flex;
   // flex-wrap: wrap;
   display: inline-flex;

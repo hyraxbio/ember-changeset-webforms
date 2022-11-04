@@ -1,4 +1,4 @@
-<div class="validation-area input">
+<div class="validation-area {{formField.validationAreaClassNames}}">
   <Background::PowerDatetimePicker 
     @formField={{formField}} 
     @value={{displayValue}} 
@@ -23,6 +23,6 @@
     @datepickerPlaceholder={{formField.datepickerPlaceholder}}
     @closeDatePickerOnSelect={{formField.closeDatePickerOnSelect}}
     @calendarContainerClasses={{formField.calendarContainerClasses}}
-    @dateFormat={{dateFormat}} 
-    @timeFormat={{timeFormat}} />
+    @dateFormat={{formField.dateFormat}} 
+    @timeFormat={{formField.timeFormat}} />
 </div>

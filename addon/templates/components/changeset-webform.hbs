@@ -6,11 +6,12 @@
         @changesetWebform={{changesetWebform}}
         @dataTestFormName={{formSettings.dataTestFormName}}
         @afterAddClone={{afterAddClone}}
+        @afterClickAddCloneButton={{afterClickAddCloneButton}}
         @afterRemoveClone={{afterRemoveClone}}
         @afterKeyUpAction={{afterKeyUpAction}}
         @changesetProp={{changesetWebform.changeset}}
         @formSettings={{formSettings}}
-        @formFields={{formFields}}
+        @formFields={{changesetWebform.fields}}
         @submitForm={{action "submit" changesetWebform.changeset formSettings.modelName}}
         @afterFieldValidation={{action "afterFieldValidation"}}
         @afterFieldEdit={{action "afterFieldEdit"}}

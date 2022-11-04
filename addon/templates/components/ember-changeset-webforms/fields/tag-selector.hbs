@@ -1,6 +1,6 @@
 <div data-test-type="form-field-power-select">
   <PowerSelectMultiple 
-    @triggerClass="validation-area" 
+    @triggerClass="validation-area {{formField.validationAreaClassNames}}" 
     @searchField={{formField.optionDisplayProp}} 
     @options={{formField.options}} 
     @selected={{readonly displayValue}} 

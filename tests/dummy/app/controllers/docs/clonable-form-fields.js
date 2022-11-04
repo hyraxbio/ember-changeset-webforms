@@ -18,7 +18,6 @@ export default Controller.extend({
         submitButtonText: 'Submit',
         resetAfterSubmit: true
       },
-
       fields: [{
         fieldId: 'emails',
         fieldLabel: 'User emails',
@@ -32,7 +31,7 @@ export default Controller.extend({
             message: 'Too many {description} (maximum is {max}).',
             max: 4}
         }],
-        cloneButtonText: 'Add email',
+        cloneButtonText: 'Add email address',
         cloneFieldSchema: {
           fieldLabel: 'Email',
           fieldType: 'input',
@@ -49,6 +48,36 @@ export default Controller.extend({
             validationMethod: 'uniqueClone',
             arguments: {
               description: 'email'
+            }
+          }]
+        }
+      }]
+    };
+    //END-SNIPPET
+    // BEGIN-SNIPPET clone-group-form-keyup.js
+    this.formSchema2 = {
+      settings: {
+        formName: 'addEmailsForm',
+        submitButtonText: 'Submit',
+        resetAfterSubmit: true
+      },
+
+      fields: [{
+        fieldId: 'countryCodes',
+        fieldLabel: 'Country ISO codes',
+        fieldType: 'clone-group',
+        minClones: 2,
+        cloneFieldSchema: {
+          fieldLabel: 'Country code',
+          fieldType: 'input',
+          inputType: 'text',
+          hideLabel: true,
+          validationEvents: ['keyUp'],
+          validationRules: [{
+            validationMethod: 'validateLength',
+            arguments: { 
+              max: 3,
+              description: 'Country code'
             }
           }]
         }

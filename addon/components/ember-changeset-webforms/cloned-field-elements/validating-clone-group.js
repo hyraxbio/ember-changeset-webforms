@@ -7,7 +7,7 @@ import validationEventLog from 'ember-changeset-webforms/utils/validation-event-
 export default Component.extend({
   layout,
   classNames: ['clone-group', 'ember-changeset-webforms-clone-group'],
-  classNameBindings: ['cloneGroupNameClass', 'displayValidation', 'masterFormField.required:required', 'disabled:disabled', 'readonly:readonly', 'masterFormField.fieldClasses', 'masterFormField.hideSuccessValidation:hide-success-validation', 'masterFormField.validates:validates', 'typeClass', 'masterFormField.focussed:focussed'],
+  classNameBindings: ['cloneGroupNameClass', 'displayValidation', 'masterFormField.required:required', 'disabled:disabled', 'readonly:readonly', 'masterFormField.fieldClassNames', 'masterFormField.hideSuccessValidation:hide-success-validation', 'masterFormField.validates:validates', 'typeClass', 'masterFormField.focussed:focussed'],
 
   'data-test-ember-changeset-webforms-field-validates': computed('masterFormField.validates', function() {
     return this.get('masterFormField.validates');
@@ -68,6 +68,13 @@ export default Component.extend({
   },
 
   actions: {
+    onClickAddCloneButton() {
+      this.send('cloneField');
+      if (this.get('afterClickAddCloneButton')) {
+        this.afterClickAddCloneButton();
+      } 
+    },
+    
     cloneField(opts = {}) {
       var masterFormField = this.get('masterFormField');
       masterFormField.set('clonedFields', masterFormField.clonedFields || []);
@@ -108,9 +115,9 @@ export default Component.extend({
     },
 
     checkMinMaxClones(masterFormField) {
-      if (masterFormField.clonedFields.length >= masterFormField.maxClones) {
+      if (masterFormField.maxClones && masterFormField.clonedFields.length >= masterFormField.maxClones) {
         masterFormField.set('cloneCountStatus', 'max');
-      } else if (masterFormField.clonedFields.length === masterFormField.minClones) {
+      } else if (masterFormField.minClones && masterFormField.clonedFields.length === masterFormField.minClones) {
         masterFormField.set('cloneCountStatus', 'min');
       } else {
         masterFormField.set('cloneCountStatus', null); // TODO install ember truth helpers as a dep.

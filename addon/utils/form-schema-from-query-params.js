@@ -6,7 +6,6 @@ export default function formSchemaFromQueryParams(queryParamsObject) {
       submitButtonText: 'Apply Filters',
       showClearFormButton: true,
       resetAfterSubmit: false,
-      submitAsync: false,
       clearFormButtonClasses: 'btn btn-outline-gray-medium',
       clearFormButtonText: 'Reset filters',
       submitAfterClear: true

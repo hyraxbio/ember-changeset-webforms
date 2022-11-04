@@ -6,7 +6,7 @@
     @eventType="mousedown"
     onmousedown={{action "onTriggerFocus"}}>
     {{#if value}}
-      <button class="clear-date-time-button {{dynamicClassClearDateTime}}" data-test-id="datetime-picker-clear-datetime" onclick={{action "clearDateTime"}}>×</button>
+      <div role="button" class="clear-date-time-button {{dynamicClassClearDateTime}}" data-test-id="datetime-picker-clear-datetime" onclick={{action "clearDateTime"}}>×</div>
     {{else}}
       <div class="calendar-icon"></div>
     {{/if}}
@@ -29,10 +29,47 @@
           @minDate={{minDate}} 
           @maxDate={{maxDate}} />
       </PowerCalendar>
+      {{#if (and showTimeSelector value)}}
+        <div data-test-type="time-selector" class="time-select {{unless value "disabled"}}">
+          {{#each timeFormatParts as | timeFormatPart| }}
+              <div>
+                {{timeFormatPart.label}}
+                <input type="number" max={{timeFormatPart.max}} min={{timeFormatPart.min}} value={{readonly (if value (moment-format value timeFormatPart.formatChar))}} onChange={{action "setTime" timeFormatPart.formatChar}} onKeyDown={{action "onKeyUpTimePartInput" timeFormatPart.formatChar}}>
+              </div>
+          {{/each}}
+          {{#if isTwelveHourFormat}}
+            <div>
+              AM/PM
+              <input type="text" value={{if value (moment-format value "a")}} onChange={{action "onChangeAmPm"}} onFocus={{action "onFocusInAmPm"}} onBlur={{action "onChangeAmPm"}} onKeyUp={{action "onKeyUpAmPm"}} data-test-id="power-datepicker-am-pm-input">
+              {{!-- <PowerSelect 
+                @matchTriggerWidth={{true}} 
+                @options={{array "am" "pm"}}
+                @selected={{moment-format value "a"}} 
+                @placeholder="AM/PM" 
+                @searchEnabled={{true}} 
+                @onChange={{action "setAmPm"}} 
+                 as |option|>
+                {{option}}
+              </PowerSelect> --}}
+            </div>
+          {{/if}}
+        </div>
+      {{/if}}
     </div>
   </dropdown.Content>
 </BasicDropdown>
-{{#if (and showTimeSelector value)}}
+{{!-- {{#if (and showTimeSelector value)}}
+  <div data-test-type="time-selector" class="time-select {{unless value "disabled"}}">
+    {{#each timeFormatParts as | timeFormatPart| }}
+       {{timeFormatPart}}
+        <input type="number" max="12" min="1" value={{readonly (if value (moment-format value timeFormatPart))}} onChange={{action "setTime" timeFormatPart}}>
+    {{/each}}
+    {{#if isTwelveHourFormat}}
+      {{moment-format value "a"}}
+      <input type="text" value={{if value (moment-format value "a")}} onChange={{action "setTime" "a"}}>
+    {{/if}}
+  </div>
+
   <div data-test-type="time-selector" class="time-select {{timeSelectorTriggerClasses}} {{unless value "disabled"}}">
     <PowerSelect 
       @triggerClass="time-select-trigger hour" 
@@ -77,4 +114,4 @@
     </PowerSelect>
   </div>
   {{component timeSelectComponent}}
-{{/if}}
+{{/if}} --}}

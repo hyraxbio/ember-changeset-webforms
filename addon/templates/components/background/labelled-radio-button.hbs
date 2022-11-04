@@ -1,3 +1,10 @@
-<RadioButton @value={{value}} @groupValue={{groupValue}} @name={{name}} @changed={{changedAction}} @radioId={{concat elementId "-" value}} @disabled={{disabled}}>
-  {{#if labelComponent}}{{component labelComponent}}{{else if label}}{{label}}{{/if}}
-</RadioButton>
+<RadioButton @value={{value}} @groupValue={{groupValue}} @name={{name}} @changed={{changedAction}} @radioId={{radioId}} @disabled={{disabled}} />
+  {{#if labelComponent}}
+    {{#if labelComponent.path}}
+      {{component labelComponent.path props=labelComponent.props option=option name=name radioId=radioId}}
+    {{else}}
+      {{component labelComponent option=option}}
+    {{/if}}
+  {{else if label}}
+    <label for="{{radioId}}">{{label}}</label>
+  {{/if}}

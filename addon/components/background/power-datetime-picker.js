@@ -1,6 +1,7 @@
 import Component from '@ember/component';
 import layout from '../../templates/components/background/power-datetime-picker';
 import { computed } from '@ember/object'; 
+import keyCodesMap from 'ember-changeset-webforms/utils/keycodes-map';
 
 export default Component.extend({
   layout,
@@ -61,7 +62,40 @@ export default Component.extend({
   }),
 
   dateDisplayFormat: computed('dateFormat', function() {
-    return this.get('dateFormat') || 'DD-MM-YYYY'; // TODO this must be a global option
+    return `${this.dateFormat} ${this.timeFormat}`; // TODO this must be a global option
+  }),
+
+  timeFormatParts: computed('timeFormat', 'isTwelveHourFormat', function() {
+    const timePart = this.timeFormat.trim().split(' ')[0];
+    return timePart.replace('s.S', 's:S').split(':').map(item => {
+      const obj = {
+        formatChar: item,
+        min: '0'
+      };
+      if (item.startsWith('h') && this.isTwelveHourFormat) {
+        obj.min = '1';
+        obj.max = '12'
+        obj.label = 'Hours' // TODO make configurable
+      } else if (item.startsWith('H') && !this.isTwelveHourFormat) {
+        obj.max = '23'
+        obj.label = 'Hours' // TODO make configurable
+      }else if (item.startsWith('k')) {
+        obj.min = '1'
+        obj.max = '24'
+        obj.label = 'Hours' // TODO make configurable
+      } else if (item.startsWith('m') || item.startsWith('s')) {
+        obj.max = '59'
+        obj.label = item.startsWith('m') ? 'Minutes' : 'Seconds'// TODO make configurable
+      } else if (item.startsWith('S')) {
+        obj.max = '999'
+        obj.label = 'Milliseconds'// TODO make configurable
+      } 
+      return obj;
+    });
+  }),
+
+  isTwelveHourFormat: computed('timeFormat', function() {
+    return this.timeFormat.trim().startsWith('h') && this.timeFormat.trim().toLowerCase().split(' ').indexOf('a') > -1;
   }),
 
   parsedDatepickerPlaceholder: computed('datepickerPlaceholder', 'dateDisplayFormat', function() {
@@ -114,17 +148,112 @@ export default Component.extend({
       this.send('updateDateTime', newDateTime);
     },
 
-    setTime: function(unit, value) {
+    setTime: function(unit, event) {
       var currentDateTime = this.get('value');
+      let value = event.target.value;
       var newDateTime;
-      if (unit === 'hour') {
-        newDateTime = moment(currentDateTime).hour(value);
-      } else if (unit === 'minute') {
-        newDateTime = moment(currentDateTime).minute(value);
-      } else if (unit === 'second') {
-        newDateTime = moment(currentDateTime).second(value);
+      if (unit.toLowerCase().startsWith('h')) {
+        value = this.conformBounds(value, {min: event.target.getAttribute('min'), max: event.target.getAttribute('max')});
+        if (moment(currentDateTime, this.dateDisplayFormat).format('a') === 'pm' && parseInt(value) < 12) {
+          value = parseInt(value) + 12
+        } else if (moment(currentDateTime, this.dateDisplayFormat).format('a') === 'am' && parseInt(value) === 12) {
+          value = 0;
+        }
+        newDateTime = moment(currentDateTime, this.dateDisplayFormat).hour(value);
+      } else if (unit.startsWith('m')) {
+        newDateTime = moment(currentDateTime, this.dateDisplayFormat).minute(value);
+      } else if (unit.startsWith('s')) {
+        newDateTime = moment(currentDateTime, this.dateDisplayFormat).second(value);
+      } else if (unit.startsWith('S')) {
+        newDateTime = moment(currentDateTime, this.dateDisplayFormat).millisecond(value);
+      } else if (unit.toLowerCase().startsWith('a')) {
+        if (moment(currentDateTime, this.dateDisplayFormat).format('a') !== value) {
+           const currentHour = moment(currentDateTime, this.dateDisplayFormat).hour();
+          let newHour; 
+          if (value === 'am') {
+            newHour = currentHour - 12;
+          } else if (value === 'pm') {
+            newHour = currentHour + 12;
+          }
+          newDateTime = moment(currentDateTime, this.dateDisplayFormat).hour(newHour);
+        } else {
+          newDateTime = moment(currentDateTime, this.dateDisplayFormat);
+        }
       }
       this.send('updateDateTime', newDateTime);
+    },
+
+    onKeyUpTimePartInput(unit, event) {
+      event.preventDefault();
+      const { keys } = keyCodesMap;
+      let newValue;
+      let increment;
+      if (event.keyCode === keys.arrowUp) {
+          increment = 1;
+
+        if (event.shiftKey) {
+          increment = 10;
+        }
+        if (event.shiftKey && event.ctrlKey) {
+          increment = 100;
+        }
+        let initialValue = event.target.value ? parseInt(event.target.value) : 0;
+        newValue = initialValue += increment;
+      } 
+      if (event.keyCode === keys.arrowDown) {
+          increment = 1;
+
+        if (event.shiftKey) {
+          increment = 10;
+        }
+        if (event.shiftKey && event.ctrlKey) {
+          increment = 100;
+        }
+        let initialValue = event.target.value ? parseInt(event.target.value) : 0;
+        newValue = initialValue = initialValue - increment;
+      }
+      if (!increment) { return; }
+
+      event.target.value = this.conformBounds(newValue, {min: event.target.getAttribute('min'), max: event.target.getAttribute('max')})
+
+      this.send('setTime', unit, event);
+    },
+
+    onFocusInAmPm(event) {
+      event.target.value = '';
+    },
+
+    onChangeAmPm(event) {
+      var currentDateTime = this.get('value');
+      const value = event.target.value.toLowerCase();
+      if (value !== 'am' && value !== 'pm') {
+        event.target.value = moment(currentDateTime, this.dateDisplayFormat).format('a');
+      }
+      this.send('setTime', 'a', event);
+    },
+
+    onKeyUpAmPm(event) {
+      const { keys } = keyCodesMap;
+      const amKeyCodes = [keys.a, keys.arrowUp];
+      const pmKeyCodes = [keys.p, keys.arrowDown];
+      const clearKeyCodes = [keys.backspace, keys.delete]
+      if (event.keyCode === keys.m) {
+        if (event.target.value === 'amm') {
+          event.target.value = 'am';
+        }
+        if (event.target.value === 'pmm') {
+          event.target.value = 'pm';
+        }
+      }
+      if (amKeyCodes.indexOf(event.keyCode) > -1) {
+        event.target.value = 'am';
+      }
+      if (pmKeyCodes.indexOf(event.keyCode) > -1) {        
+        event.target.value = 'pm';
+      }
+      if (clearKeyCodes.indexOf(event.keyCode) > -1) {        
+        event.target.value = '';
+      }
     },
 
     updateDateTime(dateTime) {
@@ -231,6 +360,15 @@ export default Component.extend({
     }
     return true;
   },
+
+  conformBounds(value, opts) {
+    const int = parseInt(value);
+    const max = parseInt(opts.max);
+    const min = parseInt(opts.min);
+    if (int < min) { return min; }
+    else if (int > max) { return max; }
+    return int;
+  }
 });
 // TODO
 // Bundle ember truth helpers or remove or statements
