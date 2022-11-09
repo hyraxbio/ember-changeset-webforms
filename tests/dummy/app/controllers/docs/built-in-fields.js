@@ -469,6 +469,9 @@ export default Controller.extend({
       }]
     }
     // END-SNIPPET
+
+    
+
     // BEGIN-SNIPPET power-datepicker-example-3.js
     this.powerDatapickerExample3FormSchema = {
       settings: {

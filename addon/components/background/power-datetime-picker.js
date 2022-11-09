@@ -9,12 +9,6 @@ export default Component.extend({
   attributeBindings: ['data-test-id'],
   'data-test-type': "power-datetime-picker",
 
-  init: function() {
-    this._super(...arguments);
-    this.hours = ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23'];
-    this.minutesSeconds = ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31', '32', '33', '34', '35', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45', '46', '47', '48', '49', '50', '51', '52', '53', '54', '55', '56', '57', '58', '59'];
-  },
-
   defaultHour: computed('defaultTime', function() {
     if (!this.get('defaultTime')) { return '00'; }
     return this.get('defaultTime').split(':')[0] || '00';
@@ -74,21 +68,30 @@ export default Component.extend({
       };
       if (item.startsWith('h') && this.isTwelveHourFormat) {
         obj.min = '1';
-        obj.max = '12'
-        obj.label = 'Hours' // TODO make configurable
+        obj.max = '12';
+        obj.label = 'Hours'; // TODO make configurable
+        obj.type = 'hour';
       } else if (item.startsWith('H') && !this.isTwelveHourFormat) {
-        obj.max = '23'
+        obj.max = '23';
         obj.label = 'Hours' // TODO make configurable
-      }else if (item.startsWith('k')) {
-        obj.min = '1'
-        obj.max = '24'
-        obj.label = 'Hours' // TODO make configurable
-      } else if (item.startsWith('m') || item.startsWith('s')) {
-        obj.max = '59'
-        obj.label = item.startsWith('m') ? 'Minutes' : 'Seconds'// TODO make configurable
+        obj.type = 'hour';
+      } else if (item.startsWith('k')) {
+        obj.min = '1';
+        obj.max = '24';
+        obj.label = 'Hours'; // TODO make configurable
+        obj.type = 'hour';
+      } else if (item.startsWith('m')) {
+        obj.max = '59';
+        obj.label = 'Minutes';// TODO make configurable
+        obj.type = 'minutes';
+      } else if (item.startsWith('s')) {
+        obj.max = '59';
+        obj.label = 'Seconds'// TODO make configurable
+        obj.type = 'seconds';
       } else if (item.startsWith('S')) {
-        obj.max = '999'
-        obj.label = 'Milliseconds'// TODO make configurable
+        obj.max = '999';
+        obj.label = 'Milliseconds';// TODO make configurable
+        obj.type = 'milliseconds';
       } 
       return obj;
     });
@@ -103,10 +106,21 @@ export default Component.extend({
   }),
 
   actions: {
-    onDateInputChange(value) {
+    onDateInputChange(event) {
+      const value = event.target.value;
       var dateDisplayFormat = this.get('dateDisplayFormat');
       if (moment(value, dateDisplayFormat, true).isValid()) {
-        this.send('setDate', moment(value, dateDisplayFormat).toDate());
+        this.send('updateDateTime', moment(value, dateDisplayFormat).toDate());
+      } else {
+        event.target.value = this.value;
+      }
+    },
+
+    onDateInputKeyUp(event) {
+      const value = event.target.value;
+      var dateDisplayFormat = this.get('dateDisplayFormat');
+      if (moment(value, dateDisplayFormat, true).isValid()) {
+        this.send('updateDateTime', moment(value, dateDisplayFormat).toDate());
       }
     },
 
@@ -150,15 +164,20 @@ export default Component.extend({
 
     setTime: function(unit, event) {
       var currentDateTime = this.get('value');
+      if (event.target.getAttribute('min') && event.target.getAttribute('max')) {
+        event.target.value = this.conformBounds(event.target.value, {min: event.target.getAttribute('min'), max: event.target.getAttribute('max'), length: unit.length});
+      }
       let value = event.target.value;
+
       var newDateTime;
-      if (unit.toLowerCase().startsWith('h')) {
-        value = this.conformBounds(value, {min: event.target.getAttribute('min'), max: event.target.getAttribute('max')});
+      if (unit.startsWith('h')) {
         if (moment(currentDateTime, this.dateDisplayFormat).format('a') === 'pm' && parseInt(value) < 12) {
           value = parseInt(value) + 12
         } else if (moment(currentDateTime, this.dateDisplayFormat).format('a') === 'am' && parseInt(value) === 12) {
           value = 0;
         }
+        newDateTime = moment(currentDateTime, this.dateDisplayFormat).hour(value);
+      } else if (unit.startsWith('H')) {
         newDateTime = moment(currentDateTime, this.dateDisplayFormat).hour(value);
       } else if (unit.startsWith('m')) {
         newDateTime = moment(currentDateTime, this.dateDisplayFormat).minute(value);
@@ -168,7 +187,7 @@ export default Component.extend({
         newDateTime = moment(currentDateTime, this.dateDisplayFormat).millisecond(value);
       } else if (unit.toLowerCase().startsWith('a')) {
         if (moment(currentDateTime, this.dateDisplayFormat).format('a') !== value) {
-           const currentHour = moment(currentDateTime, this.dateDisplayFormat).hour();
+          const currentHour = moment(currentDateTime, this.dateDisplayFormat).hour();
           let newHour; 
           if (value === 'am') {
             newHour = currentHour - 12;
@@ -183,9 +202,12 @@ export default Component.extend({
       this.send('updateDateTime', newDateTime);
     },
 
-    onKeyUpTimePartInput(unit, event) {
-      event.preventDefault();
+    onKeyDownTimePartInput(unit, event) {
       const { keys } = keyCodesMap;
+      if (event.keyCode !== keys.arrowUp && event.keyCode !== keys.arrowDown) {
+        return;
+      }
+      event.preventDefault();
       let newValue;
       let increment;
       if (event.keyCode === keys.arrowUp) {
@@ -201,7 +223,7 @@ export default Component.extend({
         newValue = initialValue += increment;
       } 
       if (event.keyCode === keys.arrowDown) {
-          increment = 1;
+        increment = 1;
 
         if (event.shiftKey) {
           increment = 10;
@@ -213,9 +235,12 @@ export default Component.extend({
         newValue = initialValue = initialValue - increment;
       }
       if (!increment) { return; }
+      event.target.value = newValue;
+      
+      this.send('setTime', unit, event);
+    },
 
-      event.target.value = this.conformBounds(newValue, {min: event.target.getAttribute('min'), max: event.target.getAttribute('max')})
-
+    onKeyUpTimePartInput(unit, event) {
       this.send('setTime', unit, event);
     },
 
@@ -365,9 +390,9 @@ export default Component.extend({
     const int = parseInt(value);
     const max = parseInt(opts.max);
     const min = parseInt(opts.min);
-    if (int < min) { return min; }
+    if (int < min) { return min.toLocaleString('en-US', {minimumIntegerDigits: opts.length, useGrouping:false}); }
     else if (int > max) { return max; }
-    return int;
+    return int.toLocaleString('en-US', {minimumIntegerDigits: opts.length, useGrouping:false});
   }
 });
 // TODO

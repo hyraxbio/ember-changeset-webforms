@@ -113,6 +113,10 @@ When the user clicks a country name, the value of the field will be set to the 3
 
 ### With time selector using 24 hour format
 
+TODO SSSSS must go down tpo SSS
+
+2022-11-03 14:42:19
+
 {{#docs-demo as |demo|}}
   {{#demo.example name="power-datepicker-example-3.hbs"}}
     <div>

@@ -10,7 +10,7 @@
     {{else}}
       <div class="calendar-icon"></div>
     {{/if}}
-    <input class="date-select" type="text" value={{if value (moment-format (moment value dateDisplayFormat) dateDisplayFormat)}} placeholder={{parsedDatepickerPlaceholder}} onKeyUp={{action "onDateInputChange" value="target.value"}} onFocus={{action "onDateInputFocus"}} onBlur={{action "onDateInputBlur"}}>
+    <input class="date-select" type="text" value={{if value (moment-format (moment value dateDisplayFormat) dateDisplayFormat)}} placeholder={{parsedDatepickerPlaceholder}} onChange={{action "onDateInputChange"}} onKeyUp={{action "onDateInputKeyUp"}} onFocus={{action "onDateInputFocus"}} onBlur={{action "onDateInputBlur"}}>
   </dropdown.Trigger>
   <dropdown.Content>
     <div class={{calendarContainerClasses}}>
@@ -33,8 +33,8 @@
         <div data-test-type="time-selector" class="time-select {{unless value "disabled"}}">
           {{#each timeFormatParts as | timeFormatPart| }}
               <div>
-                {{timeFormatPart.label}}
-                <input type="number" max={{timeFormatPart.max}} min={{timeFormatPart.min}} value={{readonly (if value (moment-format value timeFormatPart.formatChar))}} onChange={{action "setTime" timeFormatPart.formatChar}} onKeyDown={{action "onKeyUpTimePartInput" timeFormatPart.formatChar}}>
+                <label for="time-selector-{{timeFormatPart.type}}" data-test-class="time-selector-label-{{timeFormatPart.type}}">{{timeFormatPart.label}}</label>
+                <input id="time-selector-{{timeFormatPart.type}}" data-test-class="time-selector-input-{{timeFormatPart.type}}" type="number" max={{timeFormatPart.max}} min={{timeFormatPart.min}} value={{readonly (if value (moment-format value timeFormatPart.formatChar))}} onChange={{action "setTime" timeFormatPart.formatChar}} onKeyDown={{action "onKeyDownTimePartInput" timeFormatPart.formatChar}}>
               </div>
           {{/each}}
           {{#if isTwelveHourFormat}}
