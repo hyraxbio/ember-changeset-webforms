@@ -103,10 +103,10 @@ const addonDefaults = {
       // BEGIN-SNIPPET powerDatePicker-field-options.js
       fieldType: 'powerDatePicker',
       dateSelectComponent: null,
-      dateFormat: 'YYYY-MM-DD', // String - date format to use
-      timeFormat: 'HH:mm:ss', // String - time format to use
+      dateTimeFormat: 'YYYY-MM-DD HH:mm:ss', // String - time format to use
       defaultTime: '00:00:00', // String - default time. Must be in the format provided by timeFormat.
       showTimeSelector: null, // Boolean - show the UI for the user to change the time.
+      timeSelectorFields: ['hh', 'mm', 'ss', 'SSS'],
       calendarContainerClasses: null, // String - classes to apply to the calendar component,
       closeDatePickerOnSelect: true,
       dateRangeSettings: null, 

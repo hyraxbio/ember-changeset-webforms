@@ -119,16 +119,14 @@ TODO SSSSS must go down tpo SSS
 
 {{#docs-demo as |demo|}}
   {{#demo.example name="power-datepicker-example-3.hbs"}}
-    <div>
+    <div data-test-id="power-datepicker-24-hour-time-select">
       <b>Raw date time:</b>
-      <span class="raw-date-time" data-test-id="raw-date-time">{{24HourDateTime}}</span>
-    </div> 
+      <span class="raw-date-time" data-test-id="raw-date-time">{{rawDateTime3}}</span>
     <ChangesetWebform 
       @formSchema={{powerDatapickerExample3FormSchema}}
-      @afterFieldEdit={{action "update24HourTime"}}
-      data-test-id="power-datepicker-24-hour-time-select" 
+      @afterFieldEdit={{action "updateRawDateTime" "rawDateTime3"}}
     />
-   
+    </div> 
   {{/demo.example}}
   {{demo.snippet "power-datepicker-example-3.js" label="Component JS" language="javascript"}}
   {{demo.snippet "power-datepicker-example-3.hbs" label="Template" language="htmlbars"}}
@@ -138,19 +136,32 @@ TODO SSSSS must go down tpo SSS
 
 {{#docs-demo as |demo|}}
   {{#demo.example name="power-datepicker-example-4.hbs"}}
-    <div>
+    <div data-test-id="power-datepicker-12-hour-time-select">
       <b>Raw date time:</b>
-      <span class="raw-date-time" data-test-id="raw-date-time">{{24HourDateTime}}</span>
-    </div> 
-    <ChangesetWebform 
-      @formSchema={{powerDatapickerExample4FormSchema}}
-      @afterFieldEdit={{action "update24HourTime"}}
-      data-test-id="power-datepicker-12-hour-time-select" 
-    />
-   
+      <span class="raw-date-time" data-test-id="raw-date-time">{{rawDateTime4}}</span>
+      <ChangesetWebform 
+        @formSchema={{powerDatapickerExample4FormSchema}}
+        @afterFieldEdit={{action "updateRawDateTime" "rawDateTime4"}}
+      />
+    </div>
   {{/demo.example}}
   {{demo.snippet "power-datepicker-example-4.js" label="Component JS" language="javascript"}}
   {{demo.snippet "power-datepicker-example-4.hbs" label="Template" language="htmlbars"}}
+{{/docs-demo}}
+
+{{#docs-demo as |demo|}}
+  {{#demo.example name="power-datepicker-example-5.hbs"}}
+    <div data-test-id="power-datepicker-unusual-format" >
+      <b>Raw date time:</b>
+      <span class="raw-date-time" data-test-id="raw-date-time">{{rawDateTime5}}</span>
+      <ChangesetWebform 
+        @formSchema={{powerDatapickerExample5FormSchema}}
+        @afterFieldEdit={{action "updateRawDateTime" "rawDateTime5"}}
+      />
+    </div> 
+  {{/demo.example}}
+  {{demo.snippet "power-datepicker-example-5.js" label="Component JS" language="javascript"}}
+  {{demo.snippet "power-datepicker-example-5.hbs" label="Template" language="htmlbars"}}
 {{/docs-demo}}
 
 ## Single checkbox

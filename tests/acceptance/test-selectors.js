@@ -28,6 +28,7 @@ export default {
 
   powerDatepicker24HourTimeSelect: '[data-test-id="power-datepicker-24-hour-time-select"]',
   powerDatepicker12HourTimeSelect: '[data-test-id="power-datepicker-12-hour-time-select"]',
+  powerDatepickerUnusualFormat: '[data-test-id="power-datepicker-unusual-format"]',
   startDateField: '[data-test-id="startDate-field"]',
   powerDatepickerAmPmInput: '[data-test-id="power-datepicker-am-pm-input"]',
   rawDateTime: '[data-test-id="raw-date-time"]',

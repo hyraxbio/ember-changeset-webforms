@@ -429,8 +429,7 @@ export default Controller.extend({
         fieldId: 'inserted_to',
         fieldLabel: 'Last day',
         fieldType: 'powerDatePicker',
-        dateFormat: 'YYYY-MM-DD',
-        timeFormat: 'HH:mm:ss',
+        dateTimeFormat: 'YYYY-MM-DD HH:mm:ss',
         defaultTime: '23:59:59',
         calendarContainerClasses: 'pop-up-box box-arrow',
         closeDatePickerOnSelect: true,
@@ -447,8 +446,7 @@ export default Controller.extend({
         fieldId: 'startDate',
         fieldLabel: 'First day',
         fieldType: 'powerDatePicker',
-        dateFormat: 'YYYY-MM-DD',
-        timeFormat: 'HH:mm:ss',
+        dateTimeFormat: 'YYYY-MM-DD HH:mm:ss',
         closeDatePickerOnSelect: true,
         dateRangeSettings: {
           rangePosition: 'start',
@@ -458,8 +456,7 @@ export default Controller.extend({
         fieldId: 'endDate',
         fieldLabel: 'Last day',
         fieldType: 'powerDatePicker',
-        dateFormat: 'YYYY-MM-DD',
-        timeFormat: 'HH:mm:ss',
+        dateTimeFormat: 'YYYY-MM-DD HH:mm:ss',
         defaultTime: '23:59:59',
         closeDatePickerOnSelect: true,
         dateRangeSettings: {
@@ -481,10 +478,10 @@ export default Controller.extend({
         fieldId: 'startDate',
         fieldLabel: 'First day',
         fieldType: 'powerDatePicker',
-        dateFormat: 'YYYY-MM-DD',
-        timeFormat: 'HH:mm:ss.SSS',
+        dateTimeFormat: 'YYYY-MM-DD HH:mm:ss.SSS',
         closeDatePickerOnSelect: true,
         showTimeSelector: true,
+        timeSelectorFields: ['HH', 'mm', 'ss', 'SSS'],
         defaultValue: moment('2022-11-03 14:42:19.23456', 'YYYY-MM-DD HH:mm:ss.SSS')
       }]
     }
@@ -498,19 +495,37 @@ export default Controller.extend({
         fieldId: 'startDate',
         fieldLabel: 'First day',
         fieldType: 'powerDatePicker',
-        dateFormat: 'YYYY-MM-DD',
-        timeFormat: 'h:mm:ss a',
+        dateTimeFormat: 'YYYY-MM-DD h:mm:ss a',
         closeDatePickerOnSelect: true,
         showTimeSelector: true,
+        timeSelectorFields: ['h', 'mm', 'ss'],
         defaultValue: moment('2022-11-03 14:42:19 p', 'YYYY-MM-DD h:mm:ss a')
+      }]
+    }
+    // END-SNIPPET
+    // BEGIN-SNIPPET power-datepicker-example-5.js
+    this.powerDatapickerExample5FormSchema = {
+      settings: {
+        hideSubmitButton: true,
+      },
+      fields: [{
+        fieldId: 'startDate',
+        fieldLabel: 'First day',
+        fieldType: 'powerDatePicker',
+        dateTimeFormat: 'HH:mm:ss.SSSSS DD.MM.YYYY',
+        closeDatePickerOnSelect: true,
+        showTimeSelector: true,
+        timeSelectorFields: ['HH', 'mm', 'ss', 'SS'],
+        defaultValue: moment('14:42:19.14223 03.11.2022', 'HH:mm:ss.SSSSS DD.MM.YYYY')
       }]
     }
     // END-SNIPPET
   },
   actions: {
-    update24HourTime(formField, ChangesetWebform, _snapshot) {
+    updateRawDateTime(prop, formField, ChangesetWebform, _snapshot) {
+      const dateTimeFormat = formField.dateTimeFormat || 'YYYY-MM-DD h:mm:ss a';
       const dateTime = ChangesetWebform.changeset.get('startDate');
-      this.set('24HourDateTime', moment(dateTime, 'YYYY-MM-DD h:mm:ss a').toDate())
+      this.set(prop, moment(dateTime, dateTimeFormat).toDate())
     }
   }
 })

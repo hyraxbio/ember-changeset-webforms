@@ -1,4 +1,3 @@
-
 <BasicDropdown 
   @renderInPlace={{true}} 
   @onClose={{action "checkDateInputFocus"}} as |dropdown|>
@@ -37,20 +36,10 @@
                 <input id="time-selector-{{timeFormatPart.type}}" data-test-class="time-selector-input-{{timeFormatPart.type}}" type="number" max={{timeFormatPart.max}} min={{timeFormatPart.min}} value={{readonly (if value (moment-format value timeFormatPart.formatChar))}} onChange={{action "setTime" timeFormatPart.formatChar}} onKeyDown={{action "onKeyDownTimePartInput" timeFormatPart.formatChar}}>
               </div>
           {{/each}}
-          {{#if isTwelveHourFormat}}
+          {{#if showAmPmInput}}
             <div>
               AM/PM
               <input type="text" value={{if value (moment-format value "a")}} onChange={{action "onChangeAmPm"}} onFocus={{action "onFocusInAmPm"}} onBlur={{action "onChangeAmPm"}} onKeyUp={{action "onKeyUpAmPm"}} data-test-id="power-datepicker-am-pm-input">
-              {{!-- <PowerSelect 
-                @matchTriggerWidth={{true}} 
-                @options={{array "am" "pm"}}
-                @selected={{moment-format value "a"}} 
-                @placeholder="AM/PM" 
-                @searchEnabled={{true}} 
-                @onChange={{action "setAmPm"}} 
-                 as |option|>
-                {{option}}
-              </PowerSelect> --}}
             </div>
           {{/if}}
         </div>
@@ -58,60 +47,3 @@
     </div>
   </dropdown.Content>
 </BasicDropdown>
-{{!-- {{#if (and showTimeSelector value)}}
-  <div data-test-type="time-selector" class="time-select {{unless value "disabled"}}">
-    {{#each timeFormatParts as | timeFormatPart| }}
-       {{timeFormatPart}}
-        <input type="number" max="12" min="1" value={{readonly (if value (moment-format value timeFormatPart))}} onChange={{action "setTime" timeFormatPart}}>
-    {{/each}}
-    {{#if isTwelveHourFormat}}
-      {{moment-format value "a"}}
-      <input type="text" value={{if value (moment-format value "a")}} onChange={{action "setTime" "a"}}>
-    {{/if}}
-  </div>
-
-  <div data-test-type="time-selector" class="time-select {{timeSelectorTriggerClasses}} {{unless value "disabled"}}">
-    <PowerSelect 
-      @triggerClass="time-select-trigger hour" 
-      @dropdownClass="time-select-dropdown" 
-      @matchTriggerWidth={{false}} 
-      @options={{hours}} 
-      @selected={{moment-format value "HH"}} 
-      @placeholder="hh" 
-      @searchEnabled={{false}} 
-      @onChange={{action "setTime" "hour"}} 
-      @onclose={{onclose}} 
-      @triggerId={{concat (if name (concat name "-")) "hours"}} as |option|>
-      {{option}}
-    </PowerSelect>
-    <div class="time-divider">:</div>
-    <PowerSelect 
-      @triggerClass="time-select-trigger minute" 
-      @dropdownClass="time-select-dropdown" 
-      @matchTriggerWidth={{false}} 
-      @options={{minutesSeconds}} 
-      @selected={{moment-format value "mm"}} 
-      @placeholder="mm" 
-      @searchEnabled={{false}} 
-      @onChange={{action "setTime" "minute"}} 
-      @onclose={{onclose}} 
-      @triggerId={{concat (if name (concat name "-")) "minutes"}} as |option|>
-      {{option}}
-    </PowerSelect>
-    <div class="time-divider">:</div>
-    <PowerSelect 
-      @triggerClass="time-select-trigger second" 
-      @dropdownClass="time-select-dropdown" 
-      @matchTriggerWidth={{false}} 
-      @options={{minutesSeconds}} 
-      @selected={{moment-format value "ss"}} 
-      @placeholder="mm" 
-      @searchEnabled={{false}} 
-      @onChange={{action "setTime" "second"}} 
-      @onclose={{onclose}} 
-      @triggerId={{concat (if name (concat name "-")) "seconds"}} as |option|>
-      {{option}}
-    </PowerSelect>
-  </div>
-  {{component timeSelectComponent}}
-{{/if}} --}}

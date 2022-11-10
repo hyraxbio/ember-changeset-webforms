@@ -37,7 +37,7 @@ export default Component.extend({
       var split = this.get('calendarStartMonth').split('/');
       this.set('calendarStartDate', moment().year(parseInt(split[1])).month(parseInt(split[0]) - 1).day(1));
     }
-    
+
     if (moment.isDate(this.value)) {
       this.send('updateDateTime', this.value);
     } else if (moment(this.value).isValid()) {
@@ -55,23 +55,26 @@ export default Component.extend({
     };
   }),
 
-  dateDisplayFormat: computed('dateFormat', function() {
-    return `${this.dateFormat} ${this.timeFormat}`; // TODO this must be a global option
+  dateDisplayFormat: computed('dateTimeFormat', function() {
+    return this.dateTimeFormat.replace(/S{1,}/, 'SSS'); // TODO this must be a global option
   }),
 
-  timeFormatParts: computed('timeFormat', 'isTwelveHourFormat', function() {
-    const timePart = this.timeFormat.trim().split(' ')[0];
-    return timePart.replace('s.S', 's:S').split(':').map(item => {
+  showAmPmInput: computed('fields', function() {
+    return this.fields.filter(field => field.startsWith('h')).length ? true : false;
+  }),
+
+  timeFormatParts: computed('fields', function() {
+    return this.fields.map(item => {
       const obj = {
         formatChar: item,
         min: '0'
       };
-      if (item.startsWith('h') && this.isTwelveHourFormat) {
+      if (item.startsWith('h')) {
         obj.min = '1';
         obj.max = '12';
         obj.label = 'Hours'; // TODO make configurable
         obj.type = 'hour';
-      } else if (item.startsWith('H') && !this.isTwelveHourFormat) {
+      } else if (item.startsWith('H')) {
         obj.max = '23';
         obj.label = 'Hours' // TODO make configurable
         obj.type = 'hour';
@@ -89,6 +92,7 @@ export default Component.extend({
         obj.label = 'Seconds'// TODO make configurable
         obj.type = 'seconds';
       } else if (item.startsWith('S')) {
+        obj.formatChar = 'SSS';
         obj.max = '999';
         obj.label = 'Milliseconds';// TODO make configurable
         obj.type = 'milliseconds';
@@ -97,21 +101,19 @@ export default Component.extend({
     });
   }),
 
-  isTwelveHourFormat: computed('timeFormat', function() {
-    return this.timeFormat.trim().startsWith('h') && this.timeFormat.trim().toLowerCase().split(' ').indexOf('a') > -1;
-  }),
-
   parsedDatepickerPlaceholder: computed('datepickerPlaceholder', 'dateDisplayFormat', function() {
     return this.get('datepickerPlaceholder') || this.get('dateDisplayFormat');
   }),
 
   actions: {
     onDateInputChange(event) {
-      const value = event.target.value;
       var dateDisplayFormat = this.get('dateDisplayFormat');
-      if (moment(value, dateDisplayFormat, true).isValid()) {
+      const value = event.target.value;
+      const strictDateFormat = dateDisplayFormat.replace(/S{1,}/, 'SSSS');
+      if (moment(value, strictDateFormat, true).isValid()) {
         this.send('updateDateTime', moment(value, dateDisplayFormat).toDate());
       } else {
+        console.log(this.value)
         event.target.value = this.value;
       }
     },

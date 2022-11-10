@@ -1,7 +1,5 @@
 import Component from '@ember/component';
 import layout from '../../../templates/components/ember-changeset-webforms/fields/power-datepicker';
-import { inject as service } from '@ember/service';
-import { computed } from '@ember/object';
 
 export default Component.extend({
   layout,
@@ -20,7 +18,7 @@ export default Component.extend({
           }
         }        
       }
-      const formatted = dateTime ?  moment(dateTime).format(`${this.formField.dateFormat} ${this.formField.timeFormat}`).toString() : null; // TODO this must default simply to moment(dateTime).toDate() to accommodate ember attr 'date', and allow user to specify output function to overridde this when defining field.
+      const formatted = dateTime ?  moment(dateTime).format(`${this.formField.dateTimeFormat.replace(/S{1,}/, 'SSS')}`).toString() : null; // TODO this must default simply to moment(dateTime).toDate() to accommodate ember attr 'date', and allow user to specify output function to overridde this when defining field.
       this.onChange(formField, formatted, 'optionSelected');
     }
   }

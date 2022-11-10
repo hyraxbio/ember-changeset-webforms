@@ -10,19 +10,16 @@ module('Acceptance | Power datepicker field', function(hooks) {
   setupApplicationTest(hooks);
   setupMirage(hooks);
 
-  test('Main input (24 hour format) zzz', async function(assert) {
+  test('Main input (24 hour format)', async function(assert) {
     await visit('/docs/built-in-fields');
     const parentFieldSelector = dummyEls.powerDatepicker24HourTimeSelect;
     await clickTrigger(`${parentFieldSelector} ${dummyEls.startDateField}`);
+    assert.dom(dummyEls.powerDatepickerAmPmInput).doesNotExist('AM/PM input not shown when HH passed as the hour input format.')
     const dateTimeInput = find(`${parentFieldSelector} input.date-select`);
     const timeSelectorHourInput = find(dummyEls.timeSelectorInputHour);
     const timeSelectorMinutesInput = find(dummyEls.timeSelectorInputMinutes);
     const timeSelectorSecondsInput = find(dummyEls.timeSelectorInputSeconds);
     const timeSelectorMillisecondsInput = find(dummyEls.timeSelectorInputMilliseconds);
-    
-    // await fillIn(dateTimeInput, '2022-11-03 16:42:19.234');    
-    // await triggerKeyEvent(dateTimeInput, "keyup", '1');
-    // await blur(dateTimeInput);
 
     await check(assert, {
       expectedRawDateTimeAfterBlur: 'Thu Nov 03 2022 16:42:19 GMT+0200 (South Africa Standard Time)',
@@ -37,6 +34,7 @@ module('Acceptance | Power datepicker field', function(hooks) {
         value: '16'
       }]
     });
+
 
     await check(assert, {
       expectedRawDateTimeAfterBlur: 'Thu Nov 03 2022 16:51:19 GMT+0200 (South Africa Standard Time)',
@@ -81,6 +79,90 @@ module('Acceptance | Power datepicker field', function(hooks) {
     });
 
     await check(assert, {
+      expectedRawDateTimeAfterBlur: 'Thu Nov 03 2022 16:51:57 GMT+0200 (South Africa Standard Time)',
+      expectedFieldValAfterBlur: '2022-11-03 16:51:57.234',
+      parentFieldSelector: parentFieldSelector,
+      element: dateTimeInput,
+      fillIn: '2022-11-03 16:51:57.234',
+      expectedInputValAfterBlur: '2022-11-03 16:51:57.234',
+      inputValuesAfterBlur: [{
+        input: timeSelectorSecondsInput,
+        description: 'Seconds',
+        value: '57'
+      }]
+    });
+
+    await check(assert, {
+      expectedRawDateTimeAfterBlur: 'Thu Nov 03 2022 16:51:57 GMT+0200 (South Africa Standard Time)',
+      expectedFieldValAfterBlur: '2022-11-03 16:51:57.234',
+      parentFieldSelector: parentFieldSelector,
+      element: dateTimeInput,
+      fillIn: '2022-11-03 16:51:81.234',
+      expectedInputValAfterBlur: '2022-11-03 16:51:57.234',
+      inputValuesAfterBlur: [{
+        input: timeSelectorSecondsInput,
+        description: 'Seconds',
+        value: '57'
+      }]
+    });
+
+    await check(assert, {
+      expectedRawDateTimeAfterBlur: 'Thu Nov 03 2022 16:51:57 GMT+0200 (South Africa Standard Time)',
+      expectedFieldValAfterBlur: '2022-11-03 16:51:57.234',
+      parentFieldSelector: parentFieldSelector,
+      element: dateTimeInput,
+      fillIn: 'trash',
+      expectedInputValAfterBlur: '2022-11-03 16:51:57.234',
+      inputValuesAfterBlur: [{
+        input: timeSelectorSecondsInput,
+        description: 'Seconds',
+        value: '57'
+      }]
+    });
+
+    await check(assert, {
+      expectedRawDateTimeAfterBlur: 'Thu Nov 03 2022 16:51:57 GMT+0200 (South Africa Standard Time)',
+      expectedFieldValAfterBlur: '2022-11-03 16:51:57.873',
+      parentFieldSelector: parentFieldSelector,
+      element: dateTimeInput,
+      fillIn: '2022-11-03 16:51:57.873',
+      expectedInputValAfterBlur: '2022-11-03 16:51:57.873',
+      inputValuesAfterBlur: [{
+        input: timeSelectorMillisecondsInput,
+        description: 'Milliseconds',
+        value: '873'
+      }]
+    });
+    
+    await check(assert, {
+      expectedRawDateTimeAfterBlur: 'Thu Nov 03 2022 16:51:57 GMT+0200 (South Africa Standard Time)',
+      expectedFieldValAfterBlur: '2022-11-03 16:51:57.873',
+      parentFieldSelector: parentFieldSelector,
+      element: dateTimeInput,
+      fillIn: 'trash',
+      expectedInputValAfterBlur: '2022-11-03 16:51:57.873',
+      inputValuesAfterBlur: [{
+        input: timeSelectorMillisecondsInput,
+        description: 'Milliseconds',
+        value: '873'
+      }]
+    });
+  
+    await check(assert, {
+      expectedRawDateTimeAfterBlur: 'Thu Nov 03 2022 16:51:57 GMT+0200 (South Africa Standard Time)',
+      expectedFieldValAfterBlur: '2022-11-03 16:51:57.888',
+      parentFieldSelector: parentFieldSelector,
+      element: dateTimeInput,
+      fillIn: '2022-11-03 16:51:57.88888888888',
+      expectedInputValAfterBlur: '2022-11-03 16:51:57.888',
+      inputValuesAfterBlur: [{
+        input: timeSelectorMillisecondsInput,
+        description: 'Milliseconds',
+        value: '888'
+      }]
+    });
+
+    await check(assert, {
       expectedRawDateTimeAfterBlur: 'Sat Dec 03 2022 16:51:19 GMT+0200 (South Africa Standard Time)',
       expectedFieldValAfterBlur: '2022-12-03 16:51:19.234',
       parentFieldSelector: parentFieldSelector,
@@ -116,6 +198,195 @@ module('Acceptance | Power datepicker field', function(hooks) {
       expectedInputValAfterBlur: '2028-12-31 16:51:19.234',
     });
   });
+
+  test('Main input (12 hour format)', async function(assert) {
+    await visit('/docs/built-in-fields');
+    const parentFieldSelector = dummyEls.powerDatepicker12HourTimeSelect;
+    await clickTrigger(`${parentFieldSelector} ${dummyEls.startDateField}`);
+    assert.dom(dummyEls.powerDatepickerAmPmInput).exists('AM/PM input shown when h passed as the hour input format.')
+
+    const dateTimeInput = find(`${parentFieldSelector} input.date-select`);
+    const timeSelectorHourInput = find(dummyEls.timeSelectorInputHour);
+    const timeSelectorMinutesInput = find(dummyEls.timeSelectorInputMinutes);
+    const timeSelectorSecondsInput = find(dummyEls.timeSelectorInputSeconds);
+    const timeSelectorAmPmInput = find(dummyEls.powerDatepickerAmPmInput);
+  
+    await check(assert, {
+      expectedRawDateTimeAfterBlur: 'Thu Nov 03 2022 16:42:19 GMT+0200 (South Africa Standard Time)',
+      expectedFieldValAfterBlur: '2022-11-03 4:42:19 pm',
+      parentFieldSelector: parentFieldSelector,
+      element: dateTimeInput,
+      fillIn: '2022-11-03 04:42:19 pm',
+      expectedInputValAfterBlur: '2022-11-03 4:42:19 pm',
+      inputValuesAfterBlur: [{
+        input: timeSelectorHourInput,
+        description: 'Hours',
+        value: '4'
+      }]
+    });
+
+    await check(assert, {
+      expectedRawDateTimeAfterBlur: 'Thu Nov 03 2022 14:51:19 GMT+0200 (South Africa Standard Time)',
+      expectedFieldValAfterBlur: '2022-11-03 2:51:19 pm',
+      parentFieldSelector: parentFieldSelector,
+      element: dateTimeInput,
+      fillIn: '2022-11-03 2:51:19 pm',
+      expectedInputValAfterBlur: '2022-11-03 2:51:19 pm',
+      inputValuesAfterBlur: [{
+        input: timeSelectorMinutesInput,
+        description: 'Minutes',
+        value: '51'
+      }]
+    });
+  
+    await check(assert, {
+      expectedRawDateTimeAfterBlur: 'Thu Nov 03 2022 14:51:19 GMT+0200 (South Africa Standard Time)',
+      expectedFieldValAfterBlur: '2022-11-03 2:51:19 pm',
+      parentFieldSelector: parentFieldSelector,
+      element: dateTimeInput,
+      fillIn: '2022-11-03 02:81:19 pm',
+      expectedInputValAfterBlur: '2022-11-03 2:51:19 pm',
+      inputValuesAfterBlur: [{
+        input: timeSelectorMinutesInput,
+        description: 'Minutes',
+        value: '51'
+      }]
+    });
+  
+    await check(assert, {
+      expectedRawDateTimeAfterBlur: 'Thu Nov 03 2022 14:51:19 GMT+0200 (South Africa Standard Time)',
+      expectedFieldValAfterBlur: '2022-11-03 2:51:19 pm',
+      parentFieldSelector: parentFieldSelector,
+      element: dateTimeInput,
+      fillIn: 'trash',
+      expectedInputValAfterBlur: '2022-11-03 2:51:19 pm',
+      inputValuesAfterBlur: [{
+        input: timeSelectorMinutesInput,
+        description: 'Minutes',
+        value: '51'
+      }]
+    });
+  
+    await check(assert, {
+      expectedRawDateTimeAfterBlur: 'Thu Nov 03 2022 14:51:57 GMT+0200 (South Africa Standard Time)',
+      expectedFieldValAfterBlur: '2022-11-03 2:51:57 pm',
+      parentFieldSelector: parentFieldSelector,
+      element: dateTimeInput,
+      fillIn: '2022-11-03 2:51:57 pm',
+      expectedInputValAfterBlur: '2022-11-03 2:51:57 pm',
+      inputValuesAfterBlur: [{
+        input: timeSelectorSecondsInput,
+        description: 'Seconds',
+        value: '57'
+      }]
+    });
+  
+    await check(assert, {
+      expectedRawDateTimeAfterBlur: 'Thu Nov 03 2022 14:51:57 GMT+0200 (South Africa Standard Time)',
+      expectedFieldValAfterBlur: '2022-11-03 2:51:57 pm',
+      parentFieldSelector: parentFieldSelector,
+      element: dateTimeInput,
+      fillIn: '2022-11-03 02:51:81 pm',
+      expectedInputValAfterBlur: '2022-11-03 2:51:57 pm',
+      inputValuesAfterBlur: [{
+        input: timeSelectorSecondsInput,
+        description: 'Seconds',
+        value: '57'
+      }]
+    });
+  
+    await check(assert, {
+      expectedRawDateTimeAfterBlur: 'Thu Nov 03 2022 14:51:57 GMT+0200 (South Africa Standard Time)',
+      expectedFieldValAfterBlur: '2022-11-03 2:51:57 pm',
+      parentFieldSelector: parentFieldSelector,
+      element: dateTimeInput,
+      fillIn: 'trash',
+      expectedInputValAfterBlur: '2022-11-03 2:51:57 pm',
+      inputValuesAfterBlur: [{
+        input: timeSelectorSecondsInput,
+        description: 'Seconds',
+        value: '57'
+      }]
+    });
+  
+    await check(assert, {
+      expectedRawDateTimeAfterBlur: 'Thu Nov 03 2022 02:51:57 GMT+0200 (South Africa Standard Time)',
+      expectedFieldValAfterBlur: '2022-11-03 2:51:57 am',
+      parentFieldSelector: parentFieldSelector,
+      element: dateTimeInput,
+      fillIn: '2022-11-03 2:51:57 am',
+      expectedInputValAfterBlur: '2022-11-03 2:51:57 am',
+      inputValuesAfterBlur: [{
+        input: timeSelectorAmPmInput,
+        description: 'AM/PM',
+        value: 'am'
+      }]
+    });
+  
+    await check(assert, {
+      expectedRawDateTimeAfterBlur: 'Thu Nov 03 2022 02:51:57 GMT+0200 (South Africa Standard Time)',
+      expectedFieldValAfterBlur: '2022-11-03 2:51:57 am',
+      parentFieldSelector: parentFieldSelector,
+      element: dateTimeInput,
+      fillIn: '2022-11-03 02:51:81 pm',
+      expectedInputValAfterBlur: '2022-11-03 2:51:57 am',
+      inputValuesAfterBlur: [{
+        input: timeSelectorAmPmInput,
+        description: 'AM/PM',
+        value: 'am'
+      }]
+    });
+  
+    await check(assert, {
+      expectedRawDateTimeAfterBlur: 'Thu Nov 03 2022 02:51:57 GMT+0200 (South Africa Standard Time)',
+      expectedFieldValAfterBlur: '2022-11-03 2:51:57 am',
+      parentFieldSelector: parentFieldSelector,
+      element: dateTimeInput,
+      fillIn: 'trash',
+      expectedInputValAfterBlur: '2022-11-03 2:51:57 am',
+      inputValuesAfterBlur: [{
+        input: timeSelectorAmPmInput,
+        description: 'AM/PM',
+        value: 'am'
+      }]
+    });
+  
+    await check(assert, {
+      expectedRawDateTimeAfterBlur: 'Sat Dec 03 2022 14:51:19 GMT+0200 (South Africa Standard Time)',
+      expectedFieldValAfterBlur: '2022-12-03 2:51:19 pm',
+      parentFieldSelector: parentFieldSelector,
+      element: dateTimeInput,
+      fillIn: '2022-12-03 2:51:19 pm',
+      expectedInputValAfterBlur: '2022-12-03 2:51:19 pm',
+    });
+  
+    await check(assert, {
+      expectedRawDateTimeAfterBlur: 'Sat Dec 31 2022 14:51:19 GMT+0200 (South Africa Standard Time)',
+      expectedFieldValAfterBlur: '2022-12-31 2:51:19 pm',
+      parentFieldSelector: parentFieldSelector,
+      element: dateTimeInput,
+      fillIn: '2022-12-31 2:51:19 pm',
+      expectedInputValAfterBlur: '2022-12-31 2:51:19 pm',
+    });
+  
+    await check(assert, {
+      expectedRawDateTimeAfterBlur: 'Sun Dec 31 2028 14:51:19 GMT+0200 (South Africa Standard Time)',
+      expectedFieldValAfterBlur: '2028-12-31 2:51:19 pm',
+      parentFieldSelector: parentFieldSelector,
+      element: dateTimeInput,
+      fillIn: '2028-12-31 2:51:19 pm',
+      expectedInputValAfterBlur: '2028-12-31 2:51:19 pm',
+    });
+  
+    await check(assert, {
+      expectedRawDateTimeAfterBlur: 'Sun Dec 31 2028 14:51:19 GMT+0200 (South Africa Standard Time)',
+      expectedFieldValAfterBlur: '2028-12-31 2:51:19 pm',
+      parentFieldSelector: parentFieldSelector,
+      element: dateTimeInput,
+      fillIn: '2028-02-31 2:51:19 pm',
+      expectedInputValAfterBlur: '2028-12-31 2:51:19 pm',
+    });
+  });  
 
   test('Arrow keys - hour controls (24 hours format)', async function(assert) {
     await visit('/docs/built-in-fields');
@@ -546,6 +817,17 @@ module('Acceptance | Power datepicker field', function(hooks) {
       expectedInputValAfterBlur: 'pm',
     });
   });
+
+  test('Millisecond digits', async function(assert) {
+    await visit('/docs/built-in-fields');
+    const parentFieldSelector = dummyEls.powerDatepickerUnusualFormat;
+    await clickTrigger(`${parentFieldSelector} ${dummyEls.startDateField}`);
+    const timeSelectorMillisecondsInput = find(dummyEls.timeSelectorInputMilliseconds);
+    const dateTimeInput = find(`${dummyEls.powerDatepickerUnusualFormat} input.date-select`);
+    assert.equal(dateTimeInput.value, '14:42:19.142 03.11.2022', 'Fractional seconds in the date time input are trimmed to 3 decimals where format and passed data specifies more than 3 decimals');
+    await focus(dateTimeInput);
+    assert.equal(timeSelectorMillisecondsInput.value, '142', 'Milliseconds input forced top 3 digits where format for milliseconds input specifies less than 3 digits.');
+  })
 });
 
 async function check(assert, opts) {
@@ -554,9 +836,9 @@ async function check(assert, opts) {
   const initialDateTime = dateTimeInput.value;
   const initialInputValue = opts.element.value;
   const initialRawDateTime = find(dummyEls.rawDateTime).textContent;
-  const inputValuesAfterBlur = (opts.inputValuesAfterBlur || []).map(item => {
-    item.initialValue = item.input.value;
-  })
+  // const inputValuesAfterBlur = (opts.inputValuesAfterBlur || []).map(item => {
+  //   item.initialValue = item.input.value;
+  // })
   let assertionPrefix;
   let assertionSuffix;
   await focus(opts.element);
@@ -597,7 +879,7 @@ async function check(assert, opts) {
     
     assert.equal(dateTimeInput.value, opts.expectedFieldValAfterBlur, `[${assertionPrefix}] Value of formatted date time updates from [${initialDateTime} => ${opts.expectedFieldValAfterBlur}] after blur, ${assertionSuffix}`);
     
-    assert.dom(dummyEls.rawDateTime).hasText(opts.expectedRawDateTimeAfterBlur, `[${assertionPrefix}] Value of raw date time updates from [${initialRawDateTime} => ${opts.expectedRawDateTimeAfterBlur}] after blur, ${assertionSuffix}`);
+    assert.dom(`${opts.parentFieldSelector} ${dummyEls.rawDateTime}`).hasText(opts.expectedRawDateTimeAfterBlur, `[${assertionPrefix}] Value of raw date time updates from [${initialRawDateTime} => ${opts.expectedRawDateTimeAfterBlur}] after blur, ${assertionSuffix}`);
     
     for (const item of opts.inputValuesAfterBlur || []) {
       assert.equal(item.input.value, item.value, `[${assertionPrefix}] ${item.description} input updates from [${item.initialValue}] => [${item.value}] after blur, ${assertionSuffix}.`);
@@ -629,7 +911,6 @@ async function checkIncrements(assert, opts) {
     const currentValue = parseInt(opts.element.value);
     const expectedInputValAfterBlur = currentValue + increment > opts.max ? opts.max : currentValue + increment;
     await check(assert, {
-      // expectedFieldValAfterBlur: '2022-11-03 16:42:19.234',
       parentFieldSelector: opts.parentFieldSelector,
       element: opts.element,
       keyName: 'arrowUp',
@@ -648,7 +929,6 @@ async function checkIncrements(assert, opts) {
     const currentValue = parseInt(opts.element.value);
     const expectedInputValAfterBlur = currentValue - increment < opts.min ? opts.min : currentValue - increment
     await check(assert, {
-      // expectedFieldValAfterBlur: '2022-11-03 16:42:19.234',
       parentFieldSelector: opts.parentFieldSelector,
       element: opts.element,
       keyName: 'arrowDown',
