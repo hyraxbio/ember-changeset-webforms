@@ -25,12 +25,14 @@ module('Acceptance | Power datepicker field', function(hooks) {
 
     await check(assert, {
       expectedRawDateTimeAfterKeyUp: 'Thu Nov 03 2022 16:42:19 GMT+0200 (South Africa Standard Time)',
-      expectedDatetimeInputValAfterKeyUp: '2022-11-03 16:42:19.234',
       parentFieldSelector: parentFieldSelector,
       element: dateTimeInput,
       fillIn: '2022-11-03 16:42:19.234',
-      expectedInputValAfterKeyUp: '2022-11-03 16:42:19.234',
       inputValuesAfterKeyUp: [{
+        input: dateTimeInput,
+        description: 'Datetime',
+        value: '2022-11-03 16:42:19.234'
+      }, {
         input: timeSelectorHourInput,
         description: 'Hours',
         value: '16'
@@ -40,12 +42,14 @@ module('Acceptance | Power datepicker field', function(hooks) {
 
     await check(assert, {
       expectedRawDateTimeAfterKeyUp: 'Thu Nov 03 2022 16:51:19 GMT+0200 (South Africa Standard Time)',
-      expectedDatetimeInputValAfterKeyUp: '2022-11-03 16:51:19.234',
       parentFieldSelector: parentFieldSelector,
       element: dateTimeInput,
       fillIn: '2022-11-03 16:51:19.234',
-      expectedInputValAfterKeyUp: '2022-11-03 16:51:19.234',
       inputValuesAfterKeyUp: [{
+        input: dateTimeInput,
+        description: 'Datetime',
+        value: '2022-11-03 16:51:19.234'
+      }, {
         input: timeSelectorMinutesInput,
         description: 'Minutes',
         value: '51'
@@ -54,12 +58,14 @@ module('Acceptance | Power datepicker field', function(hooks) {
 
     await check(assert, {
       expectedRawDateTimeAfterKeyUp: 'Thu Nov 03 2022 16:51:19 GMT+0200 (South Africa Standard Time)',
-      expectedDatetimeInputValAfterKeyUp: '2022-11-03 16:51:19.234',
       parentFieldSelector: parentFieldSelector,
       element: dateTimeInput,
       fillIn: '2022-11-03 16:81:19.234',
-      expectedInputValAfterKeyUp: '2022-11-03 16:51:19.234',
       inputValuesAfterKeyUp: [{
+        input: dateTimeInput,
+        description: 'Datetime',
+        value: '2022-11-03 16:51:19.234'
+      }, {
         input: timeSelectorMinutesInput,
         description: 'Minutes',
         value: '51'
@@ -68,12 +74,14 @@ module('Acceptance | Power datepicker field', function(hooks) {
 
     await check(assert, {
       expectedRawDateTimeAfterKeyUp: 'Thu Nov 03 2022 16:51:19 GMT+0200 (South Africa Standard Time)',
-      expectedDatetimeInputValAfterKeyUp: '2022-11-03 16:51:19.234',
       parentFieldSelector: parentFieldSelector,
       element: dateTimeInput,
       fillIn: 'trash',
-      expectedInputValAfterKeyUp: '2022-11-03 16:51:19.234',
       inputValuesAfterKeyUp: [{
+        input: dateTimeInput,
+        description: 'Datetime',
+        value: '2022-11-03 16:51:19.234'
+      }, {
         input: timeSelectorMinutesInput,
         description: 'Minutes',
         value: '51'
@@ -82,12 +90,14 @@ module('Acceptance | Power datepicker field', function(hooks) {
 
     await check(assert, {
       expectedRawDateTimeAfterKeyUp: 'Thu Nov 03 2022 16:51:57 GMT+0200 (South Africa Standard Time)',
-      expectedDatetimeInputValAfterKeyUp: '2022-11-03 16:51:57.234',
       parentFieldSelector: parentFieldSelector,
       element: dateTimeInput,
       fillIn: '2022-11-03 16:51:57.234',
-      expectedInputValAfterKeyUp: '2022-11-03 16:51:57.234',
       inputValuesAfterKeyUp: [{
+        input: dateTimeInput,
+        description: 'Datetime',
+        value: '2022-11-03 16:51:57.234'
+      }, {
         input: timeSelectorSecondsInput,
         description: 'Seconds',
         value: '57'
@@ -96,12 +106,14 @@ module('Acceptance | Power datepicker field', function(hooks) {
 
     await check(assert, {
       expectedRawDateTimeAfterKeyUp: 'Thu Nov 03 2022 16:51:57 GMT+0200 (South Africa Standard Time)',
-      expectedDatetimeInputValAfterKeyUp: '2022-11-03 16:51:57.234',
       parentFieldSelector: parentFieldSelector,
       element: dateTimeInput,
       fillIn: '2022-11-03 16:51:81.234',
-      expectedInputValAfterKeyUp: '2022-11-03 16:51:57.234',
       inputValuesAfterKeyUp: [{
+        input: dateTimeInput,
+        description: 'Datetime',
+        value: '2022-11-03 16:51:57.234'
+      }, {
         input: timeSelectorSecondsInput,
         description: 'Seconds',
         value: '57'
@@ -110,12 +122,14 @@ module('Acceptance | Power datepicker field', function(hooks) {
 
     await check(assert, {
       expectedRawDateTimeAfterKeyUp: 'Thu Nov 03 2022 16:51:57 GMT+0200 (South Africa Standard Time)',
-      expectedDatetimeInputValAfterKeyUp: '2022-11-03 16:51:57.234',
       parentFieldSelector: parentFieldSelector,
       element: dateTimeInput,
       fillIn: 'trash',
-      expectedInputValAfterKeyUp: '2022-11-03 16:51:57.234',
       inputValuesAfterKeyUp: [{
+        input: dateTimeInput,
+        description: 'Datetime',
+        value: '2022-11-03 16:51:57.234'
+      }, {
         input: timeSelectorSecondsInput,
         description: 'Seconds',
         value: '57'
@@ -124,12 +138,14 @@ module('Acceptance | Power datepicker field', function(hooks) {
 
     await check(assert, {
       expectedRawDateTimeAfterKeyUp: 'Thu Nov 03 2022 16:51:57 GMT+0200 (South Africa Standard Time)',
-      expectedDatetimeInputValAfterKeyUp: '2022-11-03 16:51:57.873',
       parentFieldSelector: parentFieldSelector,
       element: dateTimeInput,
       fillIn: '2022-11-03 16:51:57.873',
-      expectedInputValAfterKeyUp: '2022-11-03 16:51:57.873',
       inputValuesAfterKeyUp: [{
+        input: dateTimeInput,
+        description: 'Datetime',
+        value: '2022-11-03 16:51:57.873'
+      }, {
         input: timeSelectorMillisecondsInput,
         description: 'Milliseconds',
         value: '873'
@@ -138,12 +154,14 @@ module('Acceptance | Power datepicker field', function(hooks) {
     
     await check(assert, {
       expectedRawDateTimeAfterKeyUp: 'Thu Nov 03 2022 16:51:57 GMT+0200 (South Africa Standard Time)',
-      expectedDatetimeInputValAfterKeyUp: '2022-11-03 16:51:57.873',
       parentFieldSelector: parentFieldSelector,
       element: dateTimeInput,
       fillIn: 'trash',
-      expectedInputValAfterKeyUp: '2022-11-03 16:51:57.873',
       inputValuesAfterKeyUp: [{
+        input: dateTimeInput,
+        description: 'Datetime',
+        value: '2022-11-03 16:51:57.873'
+      }, {
         input: timeSelectorMillisecondsInput,
         description: 'Milliseconds',
         value: '873'
@@ -152,12 +170,14 @@ module('Acceptance | Power datepicker field', function(hooks) {
   
     await check(assert, {
       expectedRawDateTimeAfterKeyUp: 'Thu Nov 03 2022 16:51:57 GMT+0200 (South Africa Standard Time)',
-      expectedDatetimeInputValAfterKeyUp: '2022-11-03 16:51:57.888',
       parentFieldSelector: parentFieldSelector,
       element: dateTimeInput,
       fillIn: '2022-11-03 16:51:57.88888888888',
-      expectedInputValAfterKeyUp: '2022-11-03 16:51:57.888',
       inputValuesAfterKeyUp: [{
+        input: dateTimeInput,
+        description: 'Datetime',
+        value: '2022-11-03 16:51:57.888'
+      }, {
         input: timeSelectorMillisecondsInput,
         description: 'Milliseconds',
         value: '888'
@@ -166,38 +186,50 @@ module('Acceptance | Power datepicker field', function(hooks) {
 
     await check(assert, {
       expectedRawDateTimeAfterKeyUp: 'Sat Dec 03 2022 16:51:19 GMT+0200 (South Africa Standard Time)',
-      expectedDatetimeInputValAfterKeyUp: '2022-12-03 16:51:19.234',
       parentFieldSelector: parentFieldSelector,
       element: dateTimeInput,
       fillIn: '2022-12-03 16:51:19.234',
-      expectedInputValAfterKeyUp: '2022-12-03 16:51:19.234',
+      inputValuesAfterKeyUp: [{
+        input: dateTimeInput,
+        description: 'Datetime',
+        value: '2022-12-03 16:51:19.234'
+      }]
     });
 
     await check(assert, {
       expectedRawDateTimeAfterKeyUp: 'Sat Dec 31 2022 16:51:19 GMT+0200 (South Africa Standard Time)',
-      expectedDatetimeInputValAfterKeyUp: '2022-12-31 16:51:19.234',
       parentFieldSelector: parentFieldSelector,
       element: dateTimeInput,
       fillIn: '2022-12-31 16:51:19.234',
-      expectedInputValAfterKeyUp: '2022-12-31 16:51:19.234',
+      inputValuesAfterKeyUp: [{
+        input: dateTimeInput,
+        description: 'Datetime',
+        value: '2022-12-31 16:51:19.234'
+      }]
     });
 
     await check(assert, {
       expectedRawDateTimeAfterKeyUp: 'Sun Dec 31 2028 16:51:19 GMT+0200 (South Africa Standard Time)',
-      expectedDatetimeInputValAfterKeyUp: '2028-12-31 16:51:19.234',
       parentFieldSelector: parentFieldSelector,
       element: dateTimeInput,
       fillIn: '2028-12-31 16:51:19.234',
-      expectedInputValAfterKeyUp: '2028-12-31 16:51:19.234',
+      inputValuesAfterKeyUp: [{
+        input: dateTimeInput,
+        description: 'Datetime',
+        value: '2028-12-31 16:51:19.234'
+      }]
     });
 
     await check(assert, {
       expectedRawDateTimeAfterKeyUp: 'Sun Dec 31 2028 16:51:19 GMT+0200 (South Africa Standard Time)',
-      expectedDatetimeInputValAfterKeyUp: '2028-12-31 16:51:19.234',
       parentFieldSelector: parentFieldSelector,
       element: dateTimeInput,
       fillIn: '2028-02-31 16:51:19.234',
-      expectedInputValAfterKeyUp: '2028-12-31 16:51:19.234',
+      inputValuesAfterKeyUp: [{
+        input: dateTimeInput,
+        description: 'Datetime',
+        value: '2028-12-31 16:51:19.234'
+      }]
     });
   });
 
@@ -215,12 +247,14 @@ module('Acceptance | Power datepicker field', function(hooks) {
   
     await check(assert, {
       expectedRawDateTimeAfterKeyUp: 'Thu Nov 03 2022 16:42:19 GMT+0200 (South Africa Standard Time)',
-      expectedDatetimeInputValAfterKeyUp: '2022-11-03 4:42:19 pm',
       parentFieldSelector: parentFieldSelector,
       element: dateTimeInput,
       fillIn: '2022-11-03 04:42:19 pm',
-      expectedInputValAfterKeyUp: '2022-11-03 4:42:19 pm',
       inputValuesAfterKeyUp: [{
+        input: dateTimeInput,
+        description: 'Datetime',
+        value: '2022-11-03 4:42:19 pm'
+      }, {
         input: timeSelectorHourInput,
         description: 'Hours',
         value: '4'
@@ -229,12 +263,14 @@ module('Acceptance | Power datepicker field', function(hooks) {
 
     await check(assert, {
       expectedRawDateTimeAfterKeyUp: 'Thu Nov 03 2022 14:51:19 GMT+0200 (South Africa Standard Time)',
-      expectedDatetimeInputValAfterKeyUp: '2022-11-03 2:51:19 pm',
       parentFieldSelector: parentFieldSelector,
       element: dateTimeInput,
       fillIn: '2022-11-03 2:51:19 pm',
-      expectedInputValAfterKeyUp: '2022-11-03 2:51:19 pm',
       inputValuesAfterKeyUp: [{
+        input: dateTimeInput,
+        description: 'Datetime',
+        value: '2022-11-03 2:51:19 pm'
+      }, {
         input: timeSelectorMinutesInput,
         description: 'Minutes',
         value: '51'
@@ -243,12 +279,14 @@ module('Acceptance | Power datepicker field', function(hooks) {
   
     await check(assert, {
       expectedRawDateTimeAfterKeyUp: 'Thu Nov 03 2022 14:51:19 GMT+0200 (South Africa Standard Time)',
-      expectedDatetimeInputValAfterKeyUp: '2022-11-03 2:51:19 pm',
       parentFieldSelector: parentFieldSelector,
       element: dateTimeInput,
       fillIn: '2022-11-03 02:81:19 pm',
-      expectedInputValAfterKeyUp: '2022-11-03 2:51:19 pm',
       inputValuesAfterKeyUp: [{
+        input: dateTimeInput,
+        description: 'Datetime',
+        value: '2022-11-03 2:51:19 pm'
+      }, {
         input: timeSelectorMinutesInput,
         description: 'Minutes',
         value: '51'
@@ -257,12 +295,14 @@ module('Acceptance | Power datepicker field', function(hooks) {
   
     await check(assert, {
       expectedRawDateTimeAfterKeyUp: 'Thu Nov 03 2022 14:51:19 GMT+0200 (South Africa Standard Time)',
-      expectedDatetimeInputValAfterKeyUp: '2022-11-03 2:51:19 pm',
       parentFieldSelector: parentFieldSelector,
       element: dateTimeInput,
       fillIn: 'trash',
-      expectedInputValAfterKeyUp: '2022-11-03 2:51:19 pm',
       inputValuesAfterKeyUp: [{
+        input: dateTimeInput,
+        description: 'Datetime',
+        value: '2022-11-03 2:51:19 pm'
+      }, {
         input: timeSelectorMinutesInput,
         description: 'Minutes',
         value: '51'
@@ -271,12 +311,14 @@ module('Acceptance | Power datepicker field', function(hooks) {
   
     await check(assert, {
       expectedRawDateTimeAfterKeyUp: 'Thu Nov 03 2022 14:51:57 GMT+0200 (South Africa Standard Time)',
-      expectedDatetimeInputValAfterKeyUp: '2022-11-03 2:51:57 pm',
       parentFieldSelector: parentFieldSelector,
       element: dateTimeInput,
       fillIn: '2022-11-03 2:51:57 pm',
-      expectedInputValAfterKeyUp: '2022-11-03 2:51:57 pm',
       inputValuesAfterKeyUp: [{
+        input: dateTimeInput,
+        description: 'Datetime',
+        value: '2022-11-03 2:51:57 pm'
+      }, {
         input: timeSelectorSecondsInput,
         description: 'Seconds',
         value: '57'
@@ -285,12 +327,14 @@ module('Acceptance | Power datepicker field', function(hooks) {
   
     await check(assert, {
       expectedRawDateTimeAfterKeyUp: 'Thu Nov 03 2022 14:51:57 GMT+0200 (South Africa Standard Time)',
-      expectedDatetimeInputValAfterKeyUp: '2022-11-03 2:51:57 pm',
       parentFieldSelector: parentFieldSelector,
       element: dateTimeInput,
       fillIn: '2022-11-03 02:51:81 pm',
-      expectedInputValAfterKeyUp: '2022-11-03 2:51:57 pm',
       inputValuesAfterKeyUp: [{
+        input: dateTimeInput,
+        description: 'Datetime',
+        value: '2022-11-03 2:51:57 pm'
+      }, {
         input: timeSelectorSecondsInput,
         description: 'Seconds',
         value: '57'
@@ -299,12 +343,14 @@ module('Acceptance | Power datepicker field', function(hooks) {
   
     await check(assert, {
       expectedRawDateTimeAfterKeyUp: 'Thu Nov 03 2022 14:51:57 GMT+0200 (South Africa Standard Time)',
-      expectedDatetimeInputValAfterKeyUp: '2022-11-03 2:51:57 pm',
       parentFieldSelector: parentFieldSelector,
       element: dateTimeInput,
       fillIn: 'trash',
-      expectedInputValAfterKeyUp: '2022-11-03 2:51:57 pm',
       inputValuesAfterKeyUp: [{
+        input: dateTimeInput,
+        description: 'Datetime',
+        value: '2022-11-03 2:51:57 pm'
+      }, {
         input: timeSelectorSecondsInput,
         description: 'Seconds',
         value: '57'
@@ -313,12 +359,14 @@ module('Acceptance | Power datepicker field', function(hooks) {
   
     await check(assert, {
       expectedRawDateTimeAfterKeyUp: 'Thu Nov 03 2022 02:51:57 GMT+0200 (South Africa Standard Time)',
-      expectedDatetimeInputValAfterKeyUp: '2022-11-03 2:51:57 am',
       parentFieldSelector: parentFieldSelector,
       element: dateTimeInput,
       fillIn: '2022-11-03 2:51:57 am',
-      expectedInputValAfterKeyUp: '2022-11-03 2:51:57 am',
       inputValuesAfterKeyUp: [{
+        input: dateTimeInput,
+        description: 'Datetime',
+        value: '2022-11-03 2:51:57 am'
+      }, {
         input: timeSelectorAmPmInput,
         description: 'AM/PM',
         value: 'am'
@@ -327,12 +375,14 @@ module('Acceptance | Power datepicker field', function(hooks) {
   
     await check(assert, {
       expectedRawDateTimeAfterKeyUp: 'Thu Nov 03 2022 02:51:57 GMT+0200 (South Africa Standard Time)',
-      expectedDatetimeInputValAfterKeyUp: '2022-11-03 2:51:57 am',
       parentFieldSelector: parentFieldSelector,
       element: dateTimeInput,
       fillIn: '2022-11-03 02:51:81 pm',
-      expectedInputValAfterKeyUp: '2022-11-03 2:51:57 am',
       inputValuesAfterKeyUp: [{
+        input: dateTimeInput,
+        description: 'Datetime',
+        value: '2022-11-03 2:51:57 am'
+      }, {
         input: timeSelectorAmPmInput,
         description: 'AM/PM',
         value: 'am'
@@ -341,12 +391,14 @@ module('Acceptance | Power datepicker field', function(hooks) {
   
     await check(assert, {
       expectedRawDateTimeAfterKeyUp: 'Thu Nov 03 2022 02:51:57 GMT+0200 (South Africa Standard Time)',
-      expectedDatetimeInputValAfterKeyUp: '2022-11-03 2:51:57 am',
       parentFieldSelector: parentFieldSelector,
       element: dateTimeInput,
       fillIn: 'trash',
-      expectedInputValAfterKeyUp: '2022-11-03 2:51:57 am',
       inputValuesAfterKeyUp: [{
+        input: dateTimeInput,
+        description: 'Datetime',
+        value: '2022-11-03 2:51:57 am'
+      }, {
         input: timeSelectorAmPmInput,
         description: 'AM/PM',
         value: 'am'
@@ -355,38 +407,50 @@ module('Acceptance | Power datepicker field', function(hooks) {
   
     await check(assert, {
       expectedRawDateTimeAfterKeyUp: 'Sat Dec 03 2022 14:51:19 GMT+0200 (South Africa Standard Time)',
-      expectedDatetimeInputValAfterKeyUp: '2022-12-03 2:51:19 pm',
       parentFieldSelector: parentFieldSelector,
       element: dateTimeInput,
       fillIn: '2022-12-03 2:51:19 pm',
-      expectedInputValAfterKeyUp: '2022-12-03 2:51:19 pm',
+      inputValuesAfterKeyUp: [{
+        input: dateTimeInput,
+        description: 'Datetime',
+        value: '2022-12-03 2:51:19 pm'
+      }]
     });
   
     await check(assert, {
       expectedRawDateTimeAfterKeyUp: 'Sat Dec 31 2022 14:51:19 GMT+0200 (South Africa Standard Time)',
-      expectedDatetimeInputValAfterKeyUp: '2022-12-31 2:51:19 pm',
       parentFieldSelector: parentFieldSelector,
       element: dateTimeInput,
       fillIn: '2022-12-31 2:51:19 pm',
-      expectedInputValAfterKeyUp: '2022-12-31 2:51:19 pm',
+      inputValuesAfterKeyUp: [{
+        input: dateTimeInput,
+        description: 'Datetime',
+        value: '2022-12-31 2:51:19 pm'
+      }]
     });
   
     await check(assert, {
       expectedRawDateTimeAfterKeyUp: 'Sun Dec 31 2028 14:51:19 GMT+0200 (South Africa Standard Time)',
-      expectedDatetimeInputValAfterKeyUp: '2028-12-31 2:51:19 pm',
       parentFieldSelector: parentFieldSelector,
       element: dateTimeInput,
       fillIn: '2028-12-31 2:51:19 pm',
-      expectedInputValAfterKeyUp: '2028-12-31 2:51:19 pm',
+      inputValuesAfterKeyUp: [{
+        input: dateTimeInput,
+        description: 'Datetime',
+        value: '2028-12-31 2:51:19 pm'
+      }]
     });
   
     await check(assert, {
       expectedRawDateTimeAfterKeyUp: 'Sun Dec 31 2028 14:51:19 GMT+0200 (South Africa Standard Time)',
-      expectedDatetimeInputValAfterKeyUp: '2028-12-31 2:51:19 pm',
       parentFieldSelector: parentFieldSelector,
       element: dateTimeInput,
       fillIn: '2028-02-31 2:51:19 pm',
-      expectedInputValAfterKeyUp: '2028-12-31 2:51:19 pm',
+      inputValuesAfterKeyUp: [{
+        input: dateTimeInput,
+        description: 'Datetime',
+        value: '2028-12-31 2:51:19 pm'
+      }]
     });
   });  
 
@@ -400,6 +464,7 @@ module('Acceptance | Power datepicker field', function(hooks) {
       iterations: 25,
       element: timeSelectorHourInput,
       parentFieldSelector: parentFieldSelector,
+      inputDescription: 'Hours',
       min: 0,
       max: 23
     });
@@ -407,6 +472,7 @@ module('Acceptance | Power datepicker field', function(hooks) {
       iterations: 4,
       element: timeSelectorHourInput,
       parentFieldSelector: parentFieldSelector,
+      inputDescription: 'Hours',
       min: 0,
       max: 23,
       modifiers: {
@@ -425,6 +491,7 @@ module('Acceptance | Power datepicker field', function(hooks) {
       iterations: 13,
       element: timeSelectorHourInput,
       parentFieldSelector: parentFieldSelector,
+      inputDescription: 'Hours',
       min: 1,
       max: 12,
       digits: 1
@@ -433,6 +500,7 @@ module('Acceptance | Power datepicker field', function(hooks) {
       iterations: 4,
       element: timeSelectorHourInput,
       parentFieldSelector: parentFieldSelector,
+      inputDescription: 'Hours',
       min: 1,
       max: 12,
       digits: 1,
@@ -443,11 +511,14 @@ module('Acceptance | Power datepicker field', function(hooks) {
 
     await check(assert, {
       expectedRawDateTimeAfterKeyUp: 'Thu Nov 03 2022 14:42:19 GMT+0200 (South Africa Standard Time)',
-      expectedDatetimeInputValAfterKeyUp: '2022-11-03 2:42:19 pm',
       parentFieldSelector: parentFieldSelector,
       element: timeSelectorHourInput,
       keyName: 'arrowUp',
-      expectedInputValAfterKeyUp: '2',
+      inputValuesAfterKeyUp: [{
+        input: timeSelectorHourInput,
+        description: 'Hours',
+        value: '2'
+      }]
     });
   });
 
@@ -461,6 +532,7 @@ module('Acceptance | Power datepicker field', function(hooks) {
       iterations: 12,
       element: timeSelectorMinuteInput,
       parentFieldSelector: parentFieldSelector,
+      inputDescription: 'Minutes',
       min: 0,
       max: 59,
       upStart: 50,
@@ -470,6 +542,7 @@ module('Acceptance | Power datepicker field', function(hooks) {
       iterations: 8,
       element: timeSelectorMinuteInput,
       parentFieldSelector: parentFieldSelector,
+      inputDescription: 'Minutes',
       min: 0,
       max: 59,
       modifiers: {
@@ -488,6 +561,7 @@ module('Acceptance | Power datepicker field', function(hooks) {
       iterations: 12,
       element: timeSelectorSecondsInput,
       parentFieldSelector: parentFieldSelector,
+      inputDescription: 'Seconds',
       min: 0,
       max: 59,
       upStart: 50,
@@ -497,6 +571,7 @@ module('Acceptance | Power datepicker field', function(hooks) {
       iterations: 8,
       element: timeSelectorSecondsInput,
       parentFieldSelector: parentFieldSelector,
+      inputDescription: 'Seconds',
       min: 0,
       max: 59,
       modifiers: {
@@ -515,6 +590,7 @@ module('Acceptance | Power datepicker field', function(hooks) {
       iterations: 12,
       element: timeSelectorMillisecondsInput,
       parentFieldSelector: parentFieldSelector,
+      inputDescription: 'Milliseconds',
       min: 0,
       max: 999,
       downStart: 10,
@@ -525,6 +601,7 @@ module('Acceptance | Power datepicker field', function(hooks) {
       iterations: 8,
       element: timeSelectorMillisecondsInput,
       parentFieldSelector: parentFieldSelector,
+      inputDescription: 'Milliseconds',
       min: 0,
       max: 999,
       downStart: 100,
@@ -538,6 +615,7 @@ module('Acceptance | Power datepicker field', function(hooks) {
       iterations: 12,
       element: timeSelectorMillisecondsInput,
       parentFieldSelector: parentFieldSelector,
+      inputDescription: 'Milliseconds',
       min: 0,
       max: 999,
       downStart: 900,
@@ -558,29 +636,38 @@ module('Acceptance | Power datepicker field', function(hooks) {
 // await this.pauseTest();
     await check(assert, {
       expectedRawDateTimeAfterKeyUp: 'Thu Nov 03 2022 12:42:19 GMT+0200 (South Africa Standard Time)',
-      expectedDatetimeInputValAfterKeyUp: '2022-11-03 12:42:19 pm',
       parentFieldSelector: parentFieldSelector,
       element: timeSelectorHourInput,
       fillIn: '21',
-      expectedInputValAfterKeyUp: '12',
+      inputValuesAfterKeyUp: [{
+        input: timeSelectorHourInput,
+        description: 'Hours',
+        value: '12'
+      }]
     });
 
     await check(assert, {
       expectedRawDateTimeAfterKeyUp: 'Thu Nov 03 2022 13:42:19 GMT+0200 (South Africa Standard Time)',
-      expectedDatetimeInputValAfterKeyUp: '2022-11-03 1:42:19 pm',
       parentFieldSelector: parentFieldSelector,
       element: timeSelectorHourInput,
       fillIn: '-1',
-      expectedInputValAfterKeyUp: '1',
+      inputValuesAfterKeyUp: [{
+        input: timeSelectorHourInput,
+        description: 'Hours',
+        value: '1'
+      }]
     });
 
     await check(assert, {
       expectedRawDateTimeAfterKeyUp: 'Thu Nov 03 2022 20:42:19 GMT+0200 (South Africa Standard Time)',
-      expectedDatetimeInputValAfterKeyUp: '2022-11-03 8:42:19 pm',
       parentFieldSelector: parentFieldSelector,
       element: timeSelectorHourInput,
       fillIn: '8',
-      expectedInputValAfterKeyUp: '8',
+      inputValuesAfterKeyUp: [{
+        input: timeSelectorHourInput,
+        description: 'Hours',
+        value: '8'
+      }]
     });
   });
 
@@ -592,38 +679,50 @@ module('Acceptance | Power datepicker field', function(hooks) {
 
     await check(assert, {
       expectedRawDateTimeAfterKeyUp: 'Thu Nov 03 2022 23:42:19 GMT+0200 (South Africa Standard Time)',
-      expectedDatetimeInputValAfterKeyUp: '2022-11-03 23:42:19.234',
       parentFieldSelector: parentFieldSelector,
       element: timeSelectorHourInput,
       typeInVal: '9999',
-      expectedInputValAfterKeyUp: '23',
+      inputValuesAfterKeyUp: [{
+        input: timeSelectorHourInput,
+        description: 'Hours',
+        value: '23'
+      }]
     });
 
     await check(assert, {
       expectedRawDateTimeAfterKeyUp: 'Thu Nov 03 2022 00:42:19 GMT+0200 (South Africa Standard Time)',
-      expectedDatetimeInputValAfterKeyUp: '2022-11-03 00:42:19.234',
       parentFieldSelector: parentFieldSelector,
       element: timeSelectorHourInput,
       fillIn: '-1',
-      expectedInputValAfterKeyUp: '00',
+      inputValuesAfterKeyUp: [{
+        input: timeSelectorHourInput,
+        description: 'Hours',
+        value: '00'
+      }]
     });
 
     await check(assert, {
       expectedRawDateTimeAfterKeyUp: 'Thu Nov 03 2022 21:42:19 GMT+0200 (South Africa Standard Time)',
-      expectedDatetimeInputValAfterKeyUp: '2022-11-03 21:42:19.234',
       parentFieldSelector: parentFieldSelector,
       element: timeSelectorHourInput,
       typeInVal: '21',
-      expectedInputValAfterKeyUp: '21',
+      inputValuesAfterKeyUp: [{
+        input: timeSelectorHourInput,
+        description: 'Hours',
+        value: '21'
+      }]
     });
 
     await check(assert, {
       expectedRawDateTimeAfterKeyUp: 'Thu Nov 03 2022 08:42:19 GMT+0200 (South Africa Standard Time)',
-      expectedDatetimeInputValAfterKeyUp: '2022-11-03 08:42:19.234',
       parentFieldSelector: parentFieldSelector,
       element: timeSelectorHourInput,
       typeInVal: '08',
-      expectedInputValAfterKeyUp: '08',
+      inputValuesAfterKeyUp: [{
+        input: timeSelectorHourInput,
+        description: 'Hours',
+        value: '08'
+      }]
     });
   });
 
@@ -635,29 +734,38 @@ module('Acceptance | Power datepicker field', function(hooks) {
 
     await check(assert, {
       expectedRawDateTimeAfterKeyUp: 'Thu Nov 03 2022 14:59:19 GMT+0200 (South Africa Standard Time)',
-      expectedDatetimeInputValAfterKeyUp: '2022-11-03 14:59:19.234',
       parentFieldSelector: parentFieldSelector,
       element: timeSelectorMinutesInput,
       typeInVal: '9999',
-      expectedInputValAfterKeyUp: '59',
+      inputValuesAfterKeyUp: [{
+        input: timeSelectorMinutesInput,
+        description: 'Minutes',
+        value: '59'
+      }]
     });
 
     await check(assert, {
       expectedRawDateTimeAfterKeyUp: 'Thu Nov 03 2022 14:00:19 GMT+0200 (South Africa Standard Time)',
-      expectedDatetimeInputValAfterKeyUp: '2022-11-03 14:00:19.234',
       parentFieldSelector: parentFieldSelector,
       element: timeSelectorMinutesInput,
       fillIn: '-1',
-      expectedInputValAfterKeyUp: '00',
+      inputValuesAfterKeyUp: [{
+        input: timeSelectorMinutesInput,
+        description: 'Minutes',
+        value: '00'
+      }]
     });
 
     await check(assert, {
       expectedRawDateTimeAfterKeyUp: 'Thu Nov 03 2022 14:34:19 GMT+0200 (South Africa Standard Time)',
-      expectedDatetimeInputValAfterKeyUp: '2022-11-03 14:34:19.234',
       parentFieldSelector: parentFieldSelector,
       element: timeSelectorMinutesInput,
       typeInVal: '34',
-      expectedInputValAfterKeyUp: '34',
+      inputValuesAfterKeyUp: [{
+        input: timeSelectorMinutesInput,
+        description: 'Minutes',
+        value: '34'
+      }]
     });
   });
 
@@ -669,29 +777,38 @@ module('Acceptance | Power datepicker field', function(hooks) {
 
     await check(assert, {
       expectedRawDateTimeAfterKeyUp: 'Thu Nov 03 2022 14:42:59 GMT+0200 (South Africa Standard Time)',
-      expectedDatetimeInputValAfterKeyUp: '2022-11-03 14:42:59.234',
       parentFieldSelector: parentFieldSelector,
       element: timeSelectorSecondsInput,
       typeInVal: '9999',
-      expectedInputValAfterKeyUp: '59',
+      inputValuesAfterKeyUp: [{
+        input: timeSelectorSecondsInput,
+        description: 'Seconds',
+        value: '59'
+      }]
     });
 
     await check(assert, {
       expectedRawDateTimeAfterKeyUp: 'Thu Nov 03 2022 14:42:00 GMT+0200 (South Africa Standard Time)',
-      expectedDatetimeInputValAfterKeyUp: '2022-11-03 14:42:00.234',
       parentFieldSelector: parentFieldSelector,
       element: timeSelectorSecondsInput,
       fillIn: '-1',
-      expectedInputValAfterKeyUp: '00',
+      inputValuesAfterKeyUp: [{
+        input: timeSelectorSecondsInput,
+        description: 'Seconds',
+        value: '00'
+      }]
     });
 
     await check(assert, {
       expectedRawDateTimeAfterKeyUp: 'Thu Nov 03 2022 14:42:34 GMT+0200 (South Africa Standard Time)',
-      expectedDatetimeInputValAfterKeyUp: '2022-11-03 14:42:34.234',
       parentFieldSelector: parentFieldSelector,
       element: timeSelectorSecondsInput,
       typeInVal: '34',
-      expectedInputValAfterKeyUp: '34',
+      inputValuesAfterKeyUp: [{
+        input: timeSelectorSecondsInput,
+        description: 'Seconds',
+        value: '34'
+      }]
     });
   });
 
@@ -703,29 +820,38 @@ module('Acceptance | Power datepicker field', function(hooks) {
 
     await check(assert, {
       expectedRawDateTimeAfterKeyUp: 'Thu Nov 03 2022 14:42:19 GMT+0200 (South Africa Standard Time)',
-      expectedDatetimeInputValAfterKeyUp: '2022-11-03 14:42:19.999',
       parentFieldSelector: parentFieldSelector,
       element: timeSelectorMillisecondsInput,
       typeInVal: '9999',
-      expectedInputValAfterKeyUp: '999',
+      inputValuesAfterKeyUp: [{
+        input: timeSelectorMillisecondsInput,
+        description: 'Milliseconds',
+        value: '999'
+      }]
     });
 
     await check(assert, {
       expectedRawDateTimeAfterKeyUp: 'Thu Nov 03 2022 14:42:19 GMT+0200 (South Africa Standard Time)',
-      expectedDatetimeInputValAfterKeyUp: '2022-11-03 14:42:19.000',
       parentFieldSelector: parentFieldSelector,
       element: timeSelectorMillisecondsInput,
       fillIn: '-1',
-      expectedInputValAfterKeyUp: '000',
+      inputValuesAfterKeyUp: [{
+        input: timeSelectorMillisecondsInput,
+        description: 'Milliseconds',
+        value: '000'
+      }]
     });
 
     await check(assert, {
       expectedRawDateTimeAfterKeyUp: 'Thu Nov 03 2022 14:42:19 GMT+0200 (South Africa Standard Time)',
-      expectedDatetimeInputValAfterKeyUp: '2022-11-03 14:42:19.334',
       parentFieldSelector: parentFieldSelector,
       element: timeSelectorMillisecondsInput,
       typeInVal: '334',
-      expectedInputValAfterKeyUp: '334',
+      inputValuesAfterKeyUp: [{
+        input: timeSelectorMillisecondsInput,
+        description: 'Milliseconds',
+        value: '334'
+      }]
     });
   });
 
@@ -743,91 +869,119 @@ module('Acceptance | Power datepicker field', function(hooks) {
       expectedDatetimeInputValAfterBlur: '2022-11-03 2:42:19 pm',
       parentFieldSelector: parentFieldSelector,
       element: amPmInput,
-      expectedInputValAfterKeyUp: '',
-      expectedInputValAfterBlur: 'pm',
+      inputValuesAfterBlur: [{
+        input: amPmInput,
+        description: 'AM/PM',
+        value: 'pm'
+      }]
     });
 
     await check(assert, {
       expectedRawDateTimeAfterKeyUp: 'Thu Nov 03 2022 02:42:19 GMT+0200 (South Africa Standard Time)',
-      expectedDatetimeInputValAfterKeyUp: '2022-11-03 2:42:19 am',
       parentFieldSelector: parentFieldSelector,
       element: amPmInput,
       typeInVal: 'a',
-      expectedInputValAfterKeyUp: 'am',
+      inputValuesAfterKeyUp: [{
+        input: amPmInput,
+        description: 'AM/PM',
+        value: 'am'
+      }]
     });
 
     await check(assert, {
       expectedRawDateTimeAfterKeyUp: 'Thu Nov 03 2022 14:42:19 GMT+0200 (South Africa Standard Time)',
-      expectedDatetimeInputValAfterKeyUp: '2022-11-03 2:42:19 pm',
       parentFieldSelector: parentFieldSelector,
       element: amPmInput,
       typeInVal: 'p',
-      expectedInputValAfterKeyUp: 'pm',
+      inputValuesAfterKeyUp: [{
+        input: amPmInput,
+        description: 'AM/PM',
+        value: 'pm'
+      }]
     });
 
     await check(assert, {
       expectedRawDateTimeAfterKeyUp: 'Thu Nov 03 2022 02:42:19 GMT+0200 (South Africa Standard Time)',
-      expectedDatetimeInputValAfterKeyUp: '2022-11-03 2:42:19 am',
       parentFieldSelector: parentFieldSelector,
       element: amPmInput,
       typeInVal: 'am',
-      expectedInputValAfterKeyUp: 'am',
+      inputValuesAfterKeyUp: [{
+        input: amPmInput,
+        description: 'AM/PM',
+        value: 'am'
+      }]
     });
 
     await check(assert, {
       expectedRawDateTimeAfterKeyUp: 'Thu Nov 03 2022 14:42:19 GMT+0200 (South Africa Standard Time)',
-      expectedDatetimeInputValAfterKeyUp: '2022-11-03 2:42:19 pm',
       parentFieldSelector: parentFieldSelector,
       element: amPmInput,
       typeInVal: 'pm',
-      expectedInputValAfterKeyUp: 'pm',
+      inputValuesAfterKeyUp: [{
+        input: amPmInput,
+        description: 'AM/PM',
+        value: 'pm'
+      }]
     });
 
     await check(assert, {
       expectedRawDateTimeAfterKeyUp: 'Thu Nov 03 2022 14:42:19 GMT+0200 (South Africa Standard Time)',
-      expectedDatetimeInputValAfterKeyUp: '2022-11-03 2:42:19 pm',
       parentFieldSelector: parentFieldSelector,
       element: amPmInput,
       typeInVal: 'zzzz',
-      expectedInputValAfterKeyUp: 'pm',
+      inputValuesAfterKeyUp: [{
+        input: amPmInput,
+        description: 'AM/PM',
+        value: 'pm'
+      }]
     });
 
     await check(assert, {
       expectedRawDateTimeAfterKeyUp: 'Thu Nov 03 2022 02:42:19 GMT+0200 (South Africa Standard Time)',
-      expectedDatetimeInputValAfterKeyUp: '2022-11-03 2:42:19 am',
       parentFieldSelector: parentFieldSelector,
       element: amPmInput,
       keyName: 'arrowUp',
-      expectedInputValAfterKeyUp: 'am',
+      inputValuesAfterKeyUp: [{
+        input: amPmInput,
+        description: 'AM/PM',
+        value: 'am'
+      }]
     });
 
     await check(assert, {
       expectedRawDateTimeAfterKeyUp: 'Thu Nov 03 2022 14:42:19 GMT+0200 (South Africa Standard Time)',
-      expectedDatetimeInputValAfterKeyUp: '2022-11-03 2:42:19 pm',
       parentFieldSelector: parentFieldSelector,
       element: amPmInput,
       keyName: 'arrowDown',
-      expectedInputValAfterKeyUp: 'pm',
+      inputValuesAfterKeyUp: [{
+        input: amPmInput,
+        description: 'Datetime',
+        value: 'pm'
+      }]
     });
 
     await check(assert, {
       expectedRawDateTimeAfterKeyUp: 'Thu Nov 03 2022 14:42:19 GMT+0200 (South Africa Standard Time)',
-      expectedDatetimeInputValAfterKeyUp: '2022-11-03 2:42:19 pm',
       parentFieldSelector: parentFieldSelector,
       element: amPmInput,
       keyName: 'delete',
-      expectedInputValAfterKeyUp: '',
-      expectedInputValAfterBlur: 'pm',
+      inputValuesAfterBlur: [{
+        input: amPmInput,
+        description: 'AM/PM',
+        value: 'pm'
+      }]
     });
 
     await check(assert, {
       expectedRawDateTimeAfterKeyUp: 'Thu Nov 03 2022 14:42:19 GMT+0200 (South Africa Standard Time)',
-      expectedDatetimeInputValAfterKeyUp: '2022-11-03 2:42:19 pm',
       parentFieldSelector: parentFieldSelector,
       element: amPmInput,
       keyName: 'backspace',
-      expectedInputValAfterKeyUp: '',
-      expectedInputValAfterBlur: 'pm',
+      inputValuesAfterBlur: [{
+        input: amPmInput,
+        description: 'AM/PM',
+        value: 'pm'
+      }]
     });
   });
 
@@ -860,13 +1014,15 @@ module('Acceptance | Power datepicker field', function(hooks) {
     await check(assert, {
       expectedRawDateTimeAfterKeyUp: 'Thu Nov 03 2022 14:59:19 GMT+0200 (South Africa Standard Time)',
       expectedFieldValueAfterKeyUp: '14:59:19.142 03.11.2022',
-      expectedDatetimeInputValAfterKeyUp: '03/11/2022 14:59:19.142',
       parentFieldSelector: parentFieldSelector,
       element: timeSelectorMinutesInput,
       typeInVal: '59',
-      expectedInputValAfterKeyUp: '59',
+      inputValuesAfterKeyUp: [{
+        input: dateTimeInput,
+        description: 'Datetime',
+        value: '03/11/2022 14:59:19.142'
+      }]
     });
-    // await this.pauseTest();
   });
 });
 
@@ -874,9 +1030,16 @@ async function check(assert, opts) {
   const { keys } = keyCodesMap;
   const dateTimeInput = find(`${opts.parentFieldSelector} input.date-select`);
   const initialDateTime = dateTimeInput.value;
-  const initialInputValue = opts.element.value;
   const initialRawDateTime = (find(`${opts.parentFieldSelector} ${dummyEls.rawDateTime}`) || {}).textContent;
   const initialOutputFieldValue = (find(`${opts.parentFieldSelector} ${dummyEls.outputFieldValue}`) || {}).textContent;
+
+  ['inputValuesAfterKeyUp', 'inputValuesAfterKeyUp'].forEach(eventType => {
+    opts[eventType] = opts[eventType] || [];
+    opts[eventType].forEach(item => {
+      item.initialValue = item.input.value;
+    })
+  });
+
   let assertionPrefix;
   await focus(opts.element);
   if (opts.typeInVal) {
@@ -903,43 +1066,37 @@ async function check(assert, opts) {
 
   const valueComparison = (initial, after) => {
     if (initial === after) {
-      return `REMAINS ______${initial}`;
+      return `REMAINS ${initial}`;
     } else {
-      return `UPDATES from ______${initial} to ${after}`;
+      return `UPDATES from ${initial} to ${after}`;
     }
   }
 
-  if (!opts.quiet) {
-    if (opts.expectedInputValAfterKeyUp) {
-      assert.equal(opts.element.value, opts.expectedInputValAfterKeyUp, `[${assertionPrefix} => keyUp] Input value ${valueComparison(initialInputValue, opts.expectedInputValAfterKeyUp)}`);
-    }
-    if (opts.expectedDatetimeInputValAfterKeyUp) {
-      assert.equal(dateTimeInput.value, opts.expectedDatetimeInputValAfterKeyUp, `[${assertionPrefix} => keyUp] Value of formatted date time ${valueComparison(initialDateTime, opts.expectedDatetimeInputValAfterKeyUp)}`);
-    }
-    if (opts.expectedRawDateTimeAfterKeyUp) {
-      assert.dom(`${opts.parentFieldSelector} ${dummyEls.rawDateTime}`).hasText(opts.expectedRawDateTimeAfterKeyUp, `[${assertionPrefix} => keyUp] Value of raw date time ${valueComparison(initialRawDateTime, opts.expectedRawDateTimeAfterKeyUp)}`);
-    }
-    if (opts.expectedFieldValueAfterKeyUp) {
-      assert.dom(`${opts.parentFieldSelector} ${dummyEls.outputFieldValue}`).hasText(opts.expectedFieldValueAfterKeyUp, `[${assertionPrefix} => keyUp] Value of field ${valueComparison(initialOutputFieldValue, opts.expectedFieldValueAfterKeyUp)}`);
-    }
-   
-    for (const item of opts.inputValuesAfterKeyUp || []) {
-      assert.equal(item.input.value, item.value, `[${assertionPrefix} => keyUp] ${item.description} input ${valueComparison(item.initialValue, item.value)}`);
-    }
-    
-    await blur(opts.element);
-    if (opts.expectedInputValAfterBlur) {
-      assert.equal(opts.element.value, `${opts.expectedInputValAfterBlur}`, `[${assertionPrefix} => blur] Input value ${valueComparison(initialInputValue, opts.expectedInputValAfterBlur)}`);
-    }
-    if (opts.expectedDatetimeInputValAfterBlur) {
-      assert.equal(dateTimeInput.value, `${opts.expectedDatetimeInputValAfterBlur}`, `[${assertionPrefix} => blur] Value of formatted date time ${valueComparison(initialDateTime, opts.expectedDatetimeInputValAfterBlur)}`);
-    }
-    if (opts.expectedRawDateTimeAfterBlur) {
-      assert.dom(`${opts.parentFieldSelector} ${dummyEls.rawDateTime}`).hasText(opts.expectedRawDateTimeAfterBlur, `[${assertionPrefix} => blur] Value of raw date time ${valueComparison(initialRawDateTime, opts.expectedRawDateTimeAfterBlur)}`);
-    }
-    
-  } else {
-    assert.equal(opts.element.value, `${opts.expectedInputValAfterKeyUp}`, `[${assertionPrefix} => keyUp] Input value ${valueComparison(initialInputValue, opts.expectedInputValAfterKeyUp)}`);
+  if (opts.expectedRawDateTimeAfterKeyUp) {
+    assert.dom(`${opts.parentFieldSelector} ${dummyEls.rawDateTime}`).hasText(opts.expectedRawDateTimeAfterKeyUp, `[${assertionPrefix} => keyUp] Value of raw date time ${valueComparison(initialRawDateTime, opts.expectedRawDateTimeAfterKeyUp)}`);
+  }
+  if (opts.expectedFieldValueAfterKeyUp) {
+    assert.dom(`${opts.parentFieldSelector} ${dummyEls.outputFieldValue}`).hasText(opts.expectedFieldValueAfterKeyUp, `[${assertionPrefix} => keyUp] Value of field ${valueComparison(initialOutputFieldValue, opts.expectedFieldValueAfterKeyUp)}`);
+  }
+  
+  for (const item of opts.inputValuesAfterKeyUp || []) {
+    assert.equal(item.input.value, item.value, `[${assertionPrefix} => keyUp] ${item.description} input ${valueComparison(item.initialValue, item.value)}`);
+  }
+  
+  await blur(opts.element);
+
+  for (const item of opts.inputValuesAfterBlur || []) {
+    assert.equal(item.input.value, item.value, `[${assertionPrefix} => keyUp] ${item.description} input ${valueComparison(item.initialValue, item.value)}`);
+  }
+
+  if (opts.expectedDatetimeInputValAfterBlur) {
+    assert.equal(dateTimeInput.value, `${opts.expectedDatetimeInputValAfterBlur}`, `[${assertionPrefix} => blur] Value of formatted date time ${valueComparison(initialDateTime, opts.expectedDatetimeInputValAfterBlur)}`);
+  }
+  if (opts.expectedRawDateTimeAfterBlur) {
+    assert.dom(`${opts.parentFieldSelector} ${dummyEls.rawDateTime}`).hasText(opts.expectedRawDateTimeAfterBlur, `[${assertionPrefix} => blur] Value of raw date time ${valueComparison(initialRawDateTime, opts.expectedRawDateTimeAfterBlur)}`);
+  }
+  if (opts.expectedFieldValueAfterBlur) {
+    assert.dom(`${opts.parentFieldSelector} ${dummyEls.outputFieldValue}`).hasText(opts.expectedFieldValueAfterBlur, `[${assertionPrefix} => keyUp] Value of field ${valueComparison(initialOutputFieldValue, opts.expectedFieldValueAfterBlur)}`);
   }
 }
 
@@ -962,14 +1119,17 @@ async function checkIncrements(assert, opts) {
 
   for (const _iteration of iterations) {
     const currentValue = parseInt(opts.element.value);
-    const expectedInputValAfterKeyUp = currentValue + increment > opts.max ? opts.max : currentValue + increment;
+    const expectedValue = currentValue + increment > opts.max ? opts.max : currentValue + increment;
     await check(assert, {
       parentFieldSelector: opts.parentFieldSelector,
       element: opts.element,
       keyName: 'arrowUp',
       modifiers: opts.modifiers,
-      expectedInputValAfterKeyUp: expectedInputValAfterKeyUp.toLocaleString('en-US', {minimumIntegerDigits: digits, useGrouping:false}),
-      quiet: true
+      inputValuesAfterKeyUp: [{
+        input: opts.element,
+        description: opts.inputDescription,
+        value: expectedValue.toLocaleString('en-US', {minimumIntegerDigits: digits, useGrouping:false})
+      }],
     });
   }
 
@@ -980,14 +1140,17 @@ async function checkIncrements(assert, opts) {
 
   for (const _iteration of iterations) {
     const currentValue = parseInt(opts.element.value);
-    const expectedInputValAfterKeyUp = currentValue - increment < opts.min ? opts.min : currentValue - increment
+    const expectedValue = currentValue - increment < opts.min ? opts.min : currentValue - increment
     await check(assert, {
       parentFieldSelector: opts.parentFieldSelector,
       element: opts.element,
       keyName: 'arrowDown',
       modifiers: opts.modifiers,
-      expectedInputValAfterKeyUp: expectedInputValAfterKeyUp.toLocaleString('en-US', {minimumIntegerDigits: digits, useGrouping:false}),
-      quiet: true
+      inputValuesAfterKeyUp: [{
+        input: opts.element,
+        description: opts.inputDescription,
+        value: expectedValue.toLocaleString('en-US', {minimumIntegerDigits: digits, useGrouping:false})
+      }],
     });
   }
 }
