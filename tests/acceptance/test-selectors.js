@@ -32,6 +32,7 @@ export default {
   startDateField: '[data-test-id="startDate-field"]',
   powerDatepickerAmPmInput: '[data-test-id="power-datepicker-am-pm-input"]',
   rawDateTime: '[data-test-id="raw-date-time"]',
+  outputFieldValue: '[data-test-id="output-field-value"]',
   timeSelectorLabelHour: '[data-test-class="time-selector-label-hour"]',
   timeSelectorInputHour: '[data-test-class="time-selector-input-hour"]',
   timeSelectorLabelMinutes: '[data-test-class="time-selector-label-minutes"]',

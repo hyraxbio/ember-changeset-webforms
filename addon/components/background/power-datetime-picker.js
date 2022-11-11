@@ -41,7 +41,7 @@ export default Component.extend({
     if (moment.isDate(this.value)) {
       this.send('updateDateTime', this.value);
     } else if (moment(this.value).isValid()) {
-      this.send('updateDateTime', moment(this.value, this.dateDisplayFormat).toDate());
+      this.send('updateDateTime', moment(this.value, this.parsedDateTimeFormat).toDate());
     } 
   },
 
@@ -55,9 +55,14 @@ export default Component.extend({
     };
   }),
 
-  dateDisplayFormat: computed('dateTimeFormat', function() {
+  parsedDateTimeFormat: computed('dateTimeFormat', function() {
     return this.dateTimeFormat.replace(/S{1,}/, 'SSS'); // TODO this must be a global option
   }),
+
+  parsedDateTimeDisplayFormat: computed('parsedDateTimeFormat', 'dateTimeDisplayFormat', function() {
+    return this.dateTimeDisplayFormat ? this.dateTimeDisplayFormat.replace(/S{1,}/, 'SSS') : this.parsedDateTimeFormat; // TODO this must be a global option
+  }),
+
 
   showAmPmInput: computed('fields', function() {
     return this.fields.filter(field => field.startsWith('h')).length ? true : false;
@@ -101,28 +106,29 @@ export default Component.extend({
     });
   }),
 
-  parsedDatepickerPlaceholder: computed('datepickerPlaceholder', 'dateDisplayFormat', function() {
-    return this.get('datepickerPlaceholder') || this.get('dateDisplayFormat');
+  parsedDatepickerPlaceholder: computed('datepickerPlaceholder', 'parsedDateTimeFormat', function() {
+    return this.get('datepickerPlaceholder') || this.get('parsedDateTimeFormat');
   }),
+
+  validMoment(event) {
+    var parsedDateTimeDisplayFormat = this.get('parsedDateTimeDisplayFormat');
+    const value = event.target.value;
+    const strictDateFormat = parsedDateTimeDisplayFormat.replace(/S{1,}/, 'SSSS');
+    return moment(value, strictDateFormat, true).isValid() ?  moment(value, parsedDateTimeDisplayFormat).toDate() : null;
+  },
 
   actions: {
     onDateInputChange(event) {
-      var dateDisplayFormat = this.get('dateDisplayFormat');
-      const value = event.target.value;
-      const strictDateFormat = dateDisplayFormat.replace(/S{1,}/, 'SSSS');
-      if (moment(value, strictDateFormat, true).isValid()) {
-        this.send('updateDateTime', moment(value, dateDisplayFormat).toDate());
+      if (this.validMoment(event)) {
+        this.send('updateDateTime', this.validMoment(event));
       } else {
-        console.log(this.value)
         event.target.value = this.value;
       }
     },
 
     onDateInputKeyUp(event) {
-      const value = event.target.value;
-      var dateDisplayFormat = this.get('dateDisplayFormat');
-      if (moment(value, dateDisplayFormat, true).isValid()) {
-        this.send('updateDateTime', moment(value, dateDisplayFormat).toDate());
+      if (this.validMoment(event)) {
+        this.send('updateDateTime', this.validMoment(event));
       }
     },
 
@@ -173,32 +179,32 @@ export default Component.extend({
 
       var newDateTime;
       if (unit.startsWith('h')) {
-        if (moment(currentDateTime, this.dateDisplayFormat).format('a') === 'pm' && parseInt(value) < 12) {
+        if (moment(currentDateTime, this.parsedDateTimeFormat).format('a') === 'pm' && parseInt(value) < 12) {
           value = parseInt(value) + 12
-        } else if (moment(currentDateTime, this.dateDisplayFormat).format('a') === 'am' && parseInt(value) === 12) {
+        } else if (moment(currentDateTime, this.parsedDateTimeFormat).format('a') === 'am' && parseInt(value) === 12) {
           value = 0;
         }
-        newDateTime = moment(currentDateTime, this.dateDisplayFormat).hour(value);
+        newDateTime = moment(currentDateTime, this.parsedDateTimeFormat).hour(value);
       } else if (unit.startsWith('H')) {
-        newDateTime = moment(currentDateTime, this.dateDisplayFormat).hour(value);
+        newDateTime = moment(currentDateTime, this.parsedDateTimeFormat).hour(value);
       } else if (unit.startsWith('m')) {
-        newDateTime = moment(currentDateTime, this.dateDisplayFormat).minute(value);
+        newDateTime = moment(currentDateTime, this.parsedDateTimeFormat).minute(value);
       } else if (unit.startsWith('s')) {
-        newDateTime = moment(currentDateTime, this.dateDisplayFormat).second(value);
+        newDateTime = moment(currentDateTime, this.parsedDateTimeFormat).second(value);
       } else if (unit.startsWith('S')) {
-        newDateTime = moment(currentDateTime, this.dateDisplayFormat).millisecond(value);
+        newDateTime = moment(currentDateTime, this.parsedDateTimeFormat).millisecond(value);
       } else if (unit.toLowerCase().startsWith('a')) {
-        if (moment(currentDateTime, this.dateDisplayFormat).format('a') !== value) {
-          const currentHour = moment(currentDateTime, this.dateDisplayFormat).hour();
+        if (moment(currentDateTime, this.parsedDateTimeFormat).format('a') !== value) {
+          const currentHour = moment(currentDateTime, this.parsedDateTimeFormat).hour();
           let newHour; 
           if (value === 'am') {
             newHour = currentHour - 12;
           } else if (value === 'pm') {
             newHour = currentHour + 12;
           }
-          newDateTime = moment(currentDateTime, this.dateDisplayFormat).hour(newHour);
+          newDateTime = moment(currentDateTime, this.parsedDateTimeFormat).hour(newHour);
         } else {
-          newDateTime = moment(currentDateTime, this.dateDisplayFormat);
+          newDateTime = moment(currentDateTime, this.parsedDateTimeFormat);
         }
       }
       this.send('updateDateTime', newDateTime);
@@ -243,7 +249,9 @@ export default Component.extend({
     },
 
     onKeyUpTimePartInput(unit, event) {
-      this.send('setTime', unit, event);
+      if (event.target.value.length >= unit.length ) {
+        this.send('setTime', unit, event);
+      }
     },
 
     onFocusInAmPm(event) {
@@ -254,7 +262,7 @@ export default Component.extend({
       var currentDateTime = this.get('value');
       const value = event.target.value.toLowerCase();
       if (value !== 'am' && value !== 'pm') {
-        event.target.value = moment(currentDateTime, this.dateDisplayFormat).format('a');
+        event.target.value = moment(currentDateTime, this.parsedDateTimeFormat).format('a');
       }
       this.send('setTime', 'a', event);
     },
@@ -280,6 +288,9 @@ export default Component.extend({
       }
       if (clearKeyCodes.indexOf(event.keyCode) > -1) {        
         event.target.value = '';
+      }
+      if (event.target.value === 'am' || event.target.value === 'pm') {
+        this.send('setTime', 'a', event);
       }
     },
 

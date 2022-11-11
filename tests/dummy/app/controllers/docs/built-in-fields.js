@@ -513,6 +513,7 @@ export default Controller.extend({
         fieldLabel: 'First day',
         fieldType: 'powerDatePicker',
         dateTimeFormat: 'HH:mm:ss.SSSSS DD.MM.YYYY',
+        dateTimeDisplayFormat: 'DD/MM/YYYY HH:mm:ss.SSSS',
         closeDatePickerOnSelect: true,
         showTimeSelector: true,
         timeSelectorFields: ['HH', 'mm', 'ss', 'SS'],
@@ -525,7 +526,8 @@ export default Controller.extend({
     updateRawDateTime(prop, formField, ChangesetWebform, _snapshot) {
       const dateTimeFormat = formField.dateTimeFormat || 'YYYY-MM-DD h:mm:ss a';
       const dateTime = ChangesetWebform.changeset.get('startDate');
-      this.set(prop, moment(dateTime, dateTimeFormat).toDate())
+      this.set(`rawDateTime${prop}`, moment(dateTime, dateTimeFormat).toDate())
+      this.set(`outputFieldValue${prop}`, dateTime);
     }
   }
 })

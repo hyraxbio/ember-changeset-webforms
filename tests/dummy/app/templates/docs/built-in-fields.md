@@ -124,7 +124,7 @@ TODO SSSSS must go down tpo SSS
       <span class="raw-date-time" data-test-id="raw-date-time">{{rawDateTime3}}</span>
     <ChangesetWebform 
       @formSchema={{powerDatapickerExample3FormSchema}}
-      @afterFieldEdit={{action "updateRawDateTime" "rawDateTime3"}}
+      @afterFieldEdit={{action "updateRawDateTime" "3"}}
     />
     </div> 
   {{/demo.example}}
@@ -141,7 +141,7 @@ TODO SSSSS must go down tpo SSS
       <span class="raw-date-time" data-test-id="raw-date-time">{{rawDateTime4}}</span>
       <ChangesetWebform 
         @formSchema={{powerDatapickerExample4FormSchema}}
-        @afterFieldEdit={{action "updateRawDateTime" "rawDateTime4"}}
+        @afterFieldEdit={{action "updateRawDateTime" "4"}}
       />
     </div>
   {{/demo.example}}
@@ -154,9 +154,10 @@ TODO SSSSS must go down tpo SSS
     <div data-test-id="power-datepicker-unusual-format" >
       <b>Raw date time:</b>
       <span class="raw-date-time" data-test-id="raw-date-time">{{rawDateTime5}}</span>
+      <span class="output-field-value" data-test-id="output-field-value">{{outputFieldValue5}}</span>
       <ChangesetWebform 
         @formSchema={{powerDatapickerExample5FormSchema}}
-        @afterFieldEdit={{action "updateRawDateTime" "rawDateTime5"}}
+        @afterFieldEdit={{action "updateRawDateTime" "5"}}
       />
     </div> 
   {{/demo.example}}

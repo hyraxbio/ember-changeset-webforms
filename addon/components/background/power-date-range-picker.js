@@ -36,7 +36,7 @@ export default Component.extend({
     }
   },
 
-  dateDisplayFormat: computed('dateFormat', function() {
+  parsedDateTimeFormat: computed('dateFormat', function() {
     return this.get('dateFormat') || 'DD-MM-YYYY';
   }),
 
@@ -47,13 +47,13 @@ export default Component.extend({
   displayValue: computed('value', function() {
     var value = this.get('value');
     if (!value) { return; }
-    var dateDisplayFormat = this.get('dateDisplayFormat');
+    var parsedDateTimeFormat = this.get('parsedDateTimeFormat');
     var final = '';
     if (value.start) {
-      final += moment(value.start).format(dateDisplayFormat) + ' - ';
+      final += moment(value.start).format(parsedDateTimeFormat) + ' - ';
     }
     if (value.end) {
-      final += moment(value.end).format(dateDisplayFormat);
+      final += moment(value.end).format(parsedDateTimeFormat);
     }
     return final;
   }),
