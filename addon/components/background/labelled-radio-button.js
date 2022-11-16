@@ -9,7 +9,10 @@ export default Component.extend({
   classNames: ['labelled-radio-button'],
   classNameBindings: ['disabled:disabled'],
   
-  radioId: computed('name', 'option.value', function() {
-    return safeName(`${this.name}-${this.option.value}`)
+  radioId: computed('name', 'option.value', 'containerName', function() {
+    if (this.name === this.option.value) {
+      return safeName(`${this.containerName} ${this.name}`);
+    }
+    return safeName(`${this.containerName} ${this.name}-${this.option.value}`)
   }),
 });

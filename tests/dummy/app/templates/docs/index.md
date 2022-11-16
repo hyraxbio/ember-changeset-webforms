@@ -36,4 +36,9 @@ Classes
 fieldLabelClassNames
 fieldControlsClassNames
 
+Document that ember test selectors is advised.
+Requires `markdown-it`
 
+formName is required
+
+All checkBox => checkbox

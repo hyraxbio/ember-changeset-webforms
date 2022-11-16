@@ -24,6 +24,19 @@ export default Component.extend({
     return this.get('defaultTime').split(':')[2] || '00';
   }),
 
+  fixedTimeParsed: computed('fixedTime', function() {
+    if (!this.fixedTime) {
+      return;
+    }
+    const fixedTime = this.fixedTime.replace('.', ':');
+    return {
+      HH: fixedTime.split(':')[0], 
+      mm: fixedTime.split(':')[1] || '00',
+      ss: fixedTime.split(':')[2] || '00',
+      SSS: fixedTime.split(':')[3] || '000'
+    }
+  }),
+
   didInsertElement: function() {
     if (this.get('defaultDate')) {
       this.set('selectedDate', this.get('defaultDate'));
@@ -43,6 +56,10 @@ export default Component.extend({
     } else if (moment(this.value).isValid()) {
       this.send('updateDateTime', moment(this.value, this.parsedDateTimeFormat).toDate());
     } 
+
+    if (this.fixedTime && this.showTimeSelector) {
+      console.warn('[Ember Changeset Webforms] You have set showTimeSelector to true, but you have also passed fixedTime. fixedTime must be null in order to show the tine selector component.')
+    }
   },
 
   navButtons: computed('center', function() {
@@ -64,12 +81,12 @@ export default Component.extend({
   }),
 
 
-  showAmPmInput: computed('fields', function() {
-    return this.fields.filter(field => field.startsWith('h')).length ? true : false;
+  showAmPmInput: computed('timeSelectorFields', function() {
+    return this.timeSelectorFields.filter(field => field.startsWith('h')).length ? true : false;
   }),
 
-  timeFormatParts: computed('fields', function() {
-    return this.fields.map(item => {
+  timeFormatParts: computed('timeSelectorFields', function() {
+    return this.timeSelectorFields.map(item => {
       const obj = {
         formatChar: item,
         min: '0'
@@ -103,23 +120,80 @@ export default Component.extend({
         obj.type = 'milliseconds';
       } 
       return obj;
-    });
+    }).filter(item => item.label);
   }),
 
-  parsedDatepickerPlaceholder: computed('datepickerPlaceholder', 'parsedDateTimeFormat', function() {
-    return this.get('datepickerPlaceholder') || this.get('parsedDateTimeFormat');
+  parsedDatepickerPlaceholder: computed('datepickerPlaceholder', 'parsedDateTimeDisplayFormat', function() {
+    return this.get('datepickerPlaceholder') || this.get('parsedDateTimeDisplayFormat');
   }),
 
   validMoment(event) {
     var parsedDateTimeDisplayFormat = this.get('parsedDateTimeDisplayFormat');
     const value = event.target.value;
     const strictDateFormat = parsedDateTimeDisplayFormat.replace(/S{1,}/, 'SSSS');
-    return moment(value, strictDateFormat, true).isValid() ?  moment(value, parsedDateTimeDisplayFormat).toDate() : null;
+    if (!moment(value, strictDateFormat, true).isValid()) {
+      return null;
+    }
+    if (moment(value, parsedDateTimeDisplayFormat).isBefore(moment(this.minDate, 'YYYY-MM-DD'))) {
+      return null;
+    }
+    if (moment(value, parsedDateTimeDisplayFormat).isAfter(moment(this.maxDate, 'YYYY-MM-DD'))) {
+      return null;
+    }
+    return moment(value, parsedDateTimeDisplayFormat).toDate();
+  },
+
+  updateDate(selectedDate, currentDateTime) {
+    var currentHour = moment(currentDateTime).hour();
+    var currentMinute = moment(currentDateTime).minute();
+    var currentSecond = moment(currentDateTime).second();
+    var newDateTime;
+    if (currentDateTime) {
+      newDateTime = moment(selectedDate).hour(currentHour).minute(currentMinute).second(currentSecond).toDate();
+    } else {
+      newDateTime = moment(selectedDate).hour(this.get('defaultHour')).minute(this.get('defaultMinute')).second(this.get('defaultSecond')).toDate();
+    }
+    return newDateTime;
+  },
+
+  updateTimeUnit(unit, value, currentDateTime) {
+    let newDateTime;
+    if (unit.startsWith('h')) {
+      if (moment(currentDateTime, this.parsedDateTimeFormat).format('a') === 'pm' && parseInt(value) < 12) {
+        value = parseInt(value) + 12
+      } else if (moment(currentDateTime, this.parsedDateTimeFormat).format('a') === 'am' && parseInt(value) === 12) {
+        value = 0;
+      }
+      newDateTime = moment(currentDateTime, this.parsedDateTimeFormat).hour(value);
+    } else if (unit.startsWith('H')) {
+      newDateTime = moment(currentDateTime, this.parsedDateTimeFormat).hour(value);
+    } else if (unit.startsWith('m')) {
+      newDateTime = moment(currentDateTime, this.parsedDateTimeFormat).minute(value);
+    } else if (unit.startsWith('s')) {
+      newDateTime = moment(currentDateTime, this.parsedDateTimeFormat).second(value);
+    } else if (unit.startsWith('S')) {
+      newDateTime = moment(currentDateTime, this.parsedDateTimeFormat).millisecond(value);
+    } else if (unit.toLowerCase().startsWith('a')) {
+      if (moment(currentDateTime, this.parsedDateTimeFormat).format('a') !== value) {
+        const currentHour = moment(currentDateTime, this.parsedDateTimeFormat).hour();
+        let newHour; 
+        if (value === 'am') {
+          newHour = currentHour - 12;
+        } else if (value === 'pm') {
+          newHour = currentHour + 12;
+        }
+        newDateTime = moment(currentDateTime, this.parsedDateTimeFormat).hour(newHour);
+      } else {
+        newDateTime = moment(currentDateTime, this.parsedDateTimeFormat);
+      }
+    }
+    return newDateTime.toDate();
   },
 
   actions: {
     onDateInputChange(event) {
       if (this.validMoment(event)) {
+
         this.send('updateDateTime', this.validMoment(event));
       } else {
         event.target.value = this.value;
@@ -158,55 +232,19 @@ export default Component.extend({
 
     setDate: function(selectedDate) {
       var currentDateTime = this.get('value');
-      var currentHour = moment(currentDateTime).hour();
-      var currentMinute = moment(currentDateTime).minute();
-      var currentSecond = moment(currentDateTime).second();
-      var newDateTime;
-      if (currentDateTime) {
-        newDateTime = moment(selectedDate).hour(currentHour).minute(currentMinute).second(currentSecond).toDate();
-      } else {
-        newDateTime = moment(selectedDate).hour(this.get('defaultHour')).minute(this.get('defaultMinute')).second(this.get('defaultSecond')).toDate();
-      }
-      this.send('updateDateTime', newDateTime);
+      this.send('updateDateTime', this.updateDate(selectedDate, currentDateTime));
     },
 
     setTime: function(unit, event) {
-      var currentDateTime = this.get('value');
+      if (!event.target.value) {
+        return;
+      }
       if (event.target.getAttribute('min') && event.target.getAttribute('max')) {
         event.target.value = this.conformBounds(event.target.value, {min: event.target.getAttribute('min'), max: event.target.getAttribute('max'), length: unit.length});
       }
       let value = event.target.value;
-
-      var newDateTime;
-      if (unit.startsWith('h')) {
-        if (moment(currentDateTime, this.parsedDateTimeFormat).format('a') === 'pm' && parseInt(value) < 12) {
-          value = parseInt(value) + 12
-        } else if (moment(currentDateTime, this.parsedDateTimeFormat).format('a') === 'am' && parseInt(value) === 12) {
-          value = 0;
-        }
-        newDateTime = moment(currentDateTime, this.parsedDateTimeFormat).hour(value);
-      } else if (unit.startsWith('H')) {
-        newDateTime = moment(currentDateTime, this.parsedDateTimeFormat).hour(value);
-      } else if (unit.startsWith('m')) {
-        newDateTime = moment(currentDateTime, this.parsedDateTimeFormat).minute(value);
-      } else if (unit.startsWith('s')) {
-        newDateTime = moment(currentDateTime, this.parsedDateTimeFormat).second(value);
-      } else if (unit.startsWith('S')) {
-        newDateTime = moment(currentDateTime, this.parsedDateTimeFormat).millisecond(value);
-      } else if (unit.toLowerCase().startsWith('a')) {
-        if (moment(currentDateTime, this.parsedDateTimeFormat).format('a') !== value) {
-          const currentHour = moment(currentDateTime, this.parsedDateTimeFormat).hour();
-          let newHour; 
-          if (value === 'am') {
-            newHour = currentHour - 12;
-          } else if (value === 'pm') {
-            newHour = currentHour + 12;
-          }
-          newDateTime = moment(currentDateTime, this.parsedDateTimeFormat).hour(newHour);
-        } else {
-          newDateTime = moment(currentDateTime, this.parsedDateTimeFormat);
-        }
-      }
+      var currentDateTime = this.get('value');
+      const newDateTime = this.updateTimeUnit(unit, value, currentDateTime);
       this.send('updateDateTime', newDateTime);
     },
 
@@ -296,6 +334,11 @@ export default Component.extend({
 
     updateDateTime(dateTime) {
       this.set('center', dateTime);
+      if (this.fixedTimeParsed) {
+        for (const key in this.fixedTimeParsed) {
+          dateTime = this.updateTimeUnit(key, this.fixedTimeParsed[key], dateTime)
+        }
+      }
       this.set('selectedDate', dateTime);
       this.onSelectDateTime(dateTime);
     },

@@ -5,11 +5,11 @@
     @options={{formField.options}} 
     @selected={{readonly displayValue}} 
     @searchPlaceholder={{formField.searchPlaceholder}} 
-    @allowClear={{allowClear}} 
+    @allowClear={{allowClear}}
     @searchEnabled={{formField.searchEnabled}} 
     @placeholder={{formField.placeholder}} 
     @onChange={{action "onchange" formField}} 
-    @onkeydown={{action "onkeydown"}} 
+    @onKeydown={{action "onkeydown"}} 
     @onclose={{onclose}} as |option|>
     {{#if formField.optionComponent}}
       {{component formField.optionComponent option=option}}
@@ -22,4 +22,3 @@
     {{/if}}
   </PowerSelectMultiple>
 </div>
-

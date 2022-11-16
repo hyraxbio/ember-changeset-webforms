@@ -8,6 +8,8 @@ Renders an HTML input.
 
 Calls the `keyUp`, `focusIn` and `focusOut` actions when the corresponding events occur.
 
+### Input field props
+
 {{docs-snippet name="input-field-options.js"}}
 
 {{#docs-demo as |demo|}}
@@ -32,6 +34,8 @@ Renders an HTML textarea.
 
 Calls the `keyUp`, `focusIn` and `focusOut` actions when the corresponding events occur.
 
+### Textarea field props
+
 {{docs-snippet name="textarea-field-options.js"}}
 
 {{#docs-demo as |demo|}}
@@ -41,141 +45,80 @@ Calls the `keyUp`, `focusIn` and `focusOut` actions when the corresponding event
   {{demo.snippet "textarea-example-1.js" label="Component JS" language="javascript"}}
   {{demo.snippet "textarea-example-1.hbs" label="Template" language="htmlbars"}}
 {{/docs-demo}}
-
-## Power select
-
-Renders an [ember-power-select](https://ember-power-select.com) component.
-
-{{docs-snippet name="powerSelect-field-options.js"}}
-
-Note also that if passed, value of `placeholder` will display as the placeholder in the select box until an option is selected.
-
-### Power select where options is an array of strings
-
-{{#docs-demo as |demo|}}
-  {{#demo.example name="power-select-example-1.hbs"}}
-    <ChangesetWebform @formSchema={{powerSelectExample1FormSchema}} />
-  {{/demo.example}}
-  {{demo.snippet "power-select-example-1.js" label="Component JS" language="javascript"}}
-  {{demo.snippet "power-select-example-1.hbs" label="Template" language="htmlbars"}}
-{{/docs-demo}}
-
-### Power select where options is an array of objects
-
-Where an array of objects is passed to `options`, `optionDisplayProp` must be set to tell the power select component which property to use as the display for both the options in the list, the display of the selected item and the propertuy to target when searching the list.
-
-In the example below, the user only sees the country names, but the value of the field will be set to an object with the country ID and name when a country is selcted.
-
-{{#docs-demo as |demo|}}
-  {{#demo.example name="power-select-example-2.hbs"}}
-    <ChangesetWebform @formSchema={{powerSelectExample2FormSchema}} />
-  {{/demo.example}}
-  {{demo.snippet "power-select-example-2.js" label="Component JS" language="javascript"}}
-  {{demo.snippet "power-select-example-2.hbs" label="Template" language="htmlbars"}}
-{{/docs-demo}}
-
-### Power select with custom components for the options and selected item
-
-In this scenario, we want the actual value of the field to be the 3 letter country code, but we want only ever want user to see the full country name. 
-
-We thus pass an array of country code strings as options, but then use custom components for the selected item and options to show the full country name for each ID.
-
-When the user clicks a country name, the value of the field will be set to the 3 letter id.
-
-{{#docs-demo as |demo|}}
-  {{#demo.example name="power-select-example-3.hbs"}}
-    <ChangesetWebform @formSchema={{powerSelectExample3FormSchema}} />
-  {{/demo.example}}
-  {{demo.snippet "power-select-example-3.js" label="Component JS" language="javascript"}}
-  {{demo.snippet "power-select-example-3.hbs" label="Template" language="htmlbars"}}
-{{/docs-demo}}
-
-## Power datepicker
-
-{{docs-snippet name="powerDatePicker-field-options.js"}}
-
-
-<!-- {{#docs-demo as |demo|}}
-  {{#demo.example name="power-datepicker-example-1.hbs"}}
-    <ChangesetWebform @formSchema={{powerDatapickerExample1FormSchema}} />
-  {{/demo.example}}
-  {{demo.snippet "power-datepicker-example-1.js" label="Component JS" language="javascript"}}
-  {{demo.snippet "power-datepicker-example-1.hbs" label="Template" language="htmlbars"}}
-{{/docs-demo}}
-
-{{#docs-demo as |demo|}}
-  {{#demo.example name="power-datepicker-example-2.hbs"}}
-    <ChangesetWebform @formSchema={{powerDatapickerExample2FormSchema}} />
-  {{/demo.example}}
-  {{demo.snippet "power-datepicker-example-2.js" label="Component JS" language="javascript"}}
-  {{demo.snippet "power-datepicker-example-2.hbs" label="Template" language="htmlbars"}}
-{{/docs-demo}} -->
-
-### With time selector using 24 hour format
-
-TODO SSSSS must go down tpo SSS
-
-2022-11-03 14:42:19
-
-{{#docs-demo as |demo|}}
-  {{#demo.example name="power-datepicker-example-3.hbs"}}
-    <div data-test-id="power-datepicker-24-hour-time-select">
-      <b>Raw date time:</b>
-      <span class="raw-date-time" data-test-id="raw-date-time">{{rawDateTime3}}</span>
-    <ChangesetWebform 
-      @formSchema={{powerDatapickerExample3FormSchema}}
-      @afterFieldEdit={{action "updateRawDateTime" "3"}}
-    />
-    </div> 
-  {{/demo.example}}
-  {{demo.snippet "power-datepicker-example-3.js" label="Component JS" language="javascript"}}
-  {{demo.snippet "power-datepicker-example-3.hbs" label="Template" language="htmlbars"}}
-{{/docs-demo}}
-
-### With time selector using 12 hour format
-
-{{#docs-demo as |demo|}}
-  {{#demo.example name="power-datepicker-example-4.hbs"}}
-    <div data-test-id="power-datepicker-12-hour-time-select">
-      <b>Raw date time:</b>
-      <span class="raw-date-time" data-test-id="raw-date-time">{{rawDateTime4}}</span>
-      <ChangesetWebform 
-        @formSchema={{powerDatapickerExample4FormSchema}}
-        @afterFieldEdit={{action "updateRawDateTime" "4"}}
-      />
-    </div>
-  {{/demo.example}}
-  {{demo.snippet "power-datepicker-example-4.js" label="Component JS" language="javascript"}}
-  {{demo.snippet "power-datepicker-example-4.hbs" label="Template" language="htmlbars"}}
-{{/docs-demo}}
-
-{{#docs-demo as |demo|}}
-  {{#demo.example name="power-datepicker-example-5.hbs"}}
-    <div data-test-id="power-datepicker-unusual-format" >
-      <b>Raw date time:</b>
-      <span class="raw-date-time" data-test-id="raw-date-time">{{rawDateTime5}}</span>
-      <span class="output-field-value" data-test-id="output-field-value">{{outputFieldValue5}}</span>
-      <ChangesetWebform 
-        @formSchema={{powerDatapickerExample5FormSchema}}
-        @afterFieldEdit={{action "updateRawDateTime" "5"}}
-      />
-    </div> 
-  {{/demo.example}}
-  {{demo.snippet "power-datepicker-example-5.js" label="Component JS" language="javascript"}}
-  {{demo.snippet "power-datepicker-example-5.hbs" label="Template" language="htmlbars"}}
-{{/docs-demo}}
-
 ## Single checkbox
 
+Renders a single checkbox with a label.
+
+The field ID is set to `true` or `false` depending on whether the checkbox is checked or not.
+
+### Single checkbox props
+
 {{docs-snippet name="singleCheckbox-field-options.js"}}
+
+### Single checkbox basic usage
+
+{{#docs-demo as |demo|}}
+  {{#demo.example name="single-checkbox-example-1.hbs"}}
+    <div data-test-id="single-checkbox-basic-use">
+      <ChangesetWebform @formSchema={{singleCheckboxExample1FormSchema}} />
+    </div>
+
+  {{/demo.example}}
+  {{demo.snippet "single-checkbox-example-1.js" label="Component JS" language="javascript"}}
+  {{demo.snippet "single-checkbox-example-1.hbs" label="Template" language="htmlbars"}}
+{{/docs-demo}}
+
+### Single checkbox markdown checkbox label
+
+You can also pass a markdown string to the `checkboxLabelMarkdown` prop. This will bne rendered as HTML inside a `label` element.
+
+{{#docs-demo as |demo|}}
+  {{#demo.example name="single-checkbox-example-2.hbs"}}
+    <div data-test-id="single-checkbox-markdown-label">
+      <ChangesetWebform @formSchema={{singleCheckboxExample2FormSchema}} />
+    </div>
+
+  {{/demo.example}}
+  {{demo.snippet "single-checkbox-example-2.js" label="Component JS" language="javascript"}}
+  {{demo.snippet "single-checkbox-example-2.hbs" label="Template" language="htmlbars"}}
+{{/docs-demo}}
+
+### Single checkbox custom component for checkbox label
+
+When using a custom component for the checkbox label, either by passing `checkBoxLabelComponent` to the field. The component passed will then be rendered in place of the standard label element for each option.
+
+The object passed must take the following form.
+
+``` 
+{ 
+  path: // String, required. The path to the component to render', 
+  props: // Object, optional. This object that will be passed to the component as "props"
+}
+```
+
+* The component will also have access to an `option` prop, with the data for that option.
+* The component will also have access to the `checkboxId` property. Set the label elements `for` attribute to this value to match it to the related checkbox.
+
+{{#docs-demo as |demo|}}
+  {{#demo.example name="single-checkbox-example-3.hbs"}}
+    <div data-test-id="single-checkbox-component-label">
+      <ChangesetWebform @formSchema={{singleCheckboxExample3FormSchema}} />
+    </div>
+
+  {{/demo.example}}
+  {{demo.snippet "single-checkbox-example-3.js" label="Component JS" language="javascript"}}
+  {{demo.snippet "single-checkbox-example-3.hbs" label="Template" language="htmlbars"}}
+{{/docs-demo}}
 
 ## Radio button group
 
 Renders a radio button group. The value of the field as a whole is the `value` property of the currently selected option.
 
+### Radio button group props
+
 {{docs-snippet name="radioButtonGroup-field-options.js"}}
 
-### Radio button group options
+### Radio button group `options` prop
 
 Each option in the `options` property of field with type `radioButtonGroup` can have the following properties.
 
@@ -253,7 +196,7 @@ In both cases the following applies, the object passed must take the following f
 ```
 
 * The component will also have access to an `option` prop, with the data for that option.
-* The component will also have access to the `radioId` property. Set the label elements `for` attribute to this value to match it to the related checkbox.
+* The component will also have access to the `checkboxId` property. Set the label elements `for` attribute to this value to match it to the related checkbox.
 
 {{#docs-demo as |demo|}}
   {{#demo.example name="checkbox-group-example-2.hbs"}}
@@ -265,16 +208,265 @@ In both cases the following applies, the object passed must take the following f
 
 
 
-{{docs-snippet name="dateRange-field-options.js"}}
-
-{{docs-snippet name="tagSelector-field-options.js"}}
-
 {{docs-snippet name="clicker-field-options.js"}}
+
+    this.staticContentExample1FormSchema = {
+
+## Static content field
+
+This field can be used to static content in a form. It has no action handlers.
+
+If static text is sufficient, you can simply use the `text` prop to pass the static text to display, and the `textElement` prop to specify what element the text should be wrapped in.
+
+{{#docs-demo as |demo|}}
+  {{#demo.example name="static-content-example-1.hbs"}}
+    <div data-test-id="static-content-basic-use">
+      <ChangesetWebform @formSchema={{staticContentExample1FormSchema}} />
+    </div>
+  {{/demo.example}}
+  {{demo.snippet "static-content-example-1.js" label="Component JS" language="javascript"}}
+  {{demo.snippet "static-content-example-1.hbs" label="Template" language="htmlbars"}}
+{{/docs-demo}}
+
+### Static content field with custom content component
+
+{{#docs-demo as |demo|}}
+  {{#demo.example name="static-content-example-2.hbs"}}
+    <div data-test-id="static-content-custom-content-component">
+      <ChangesetWebform @formSchema={{staticContentExample2FormSchema}} />
+    </div>
+  {{/demo.example}}
+  {{demo.snippet "static-content-example-2.js" label="Component JS" language="javascript"}}
+  {{demo.snippet "static-content-example-2.hbs" label="Template" language="htmlbars"}}
+{{/docs-demo}}
+
+Alternatively, you can pass `
 
 {{docs-snippet name="staticContent-field-options.js"}}
 
-{{docs-snippet name="clone-group-field-options.js"}}
+## Power select
 
+Renders an [ember-power-select](https://ember-power-select.com) component.
+
+### Power select field props
+
+{{docs-snippet name="powerSelect-field-options.js"}}
+
+Note also that if passed, value of `placeholder` will display as the placeholder in the select box until an option is selected.
+
+### Power select where options is an array of strings
+
+{{#docs-demo as |demo|}}
+  {{#demo.example name="power-select-example-1.hbs"}}
+    <ChangesetWebform @formSchema={{powerSelectExample1FormSchema}} />
+  {{/demo.example}}
+  {{demo.snippet "power-select-example-1.js" label="Component JS" language="javascript"}}
+  {{demo.snippet "power-select-example-1.hbs" label="Template" language="htmlbars"}}
+{{/docs-demo}}
+
+### Power select where options is an array of objects
+
+Where an array of objects is passed to `options`, `optionDisplayProp` must be set to tell the power select component which property to use as the display for both the options in the list, the display of the selected item and the propertuy to target when searching the list.
+
+In the example below, the user only sees the country names, but the value of the field will be set to an object with the country ID and name when a country is selcted.
+
+{{#docs-demo as |demo|}}
+  {{#demo.example name="power-select-example-2.hbs"}}
+    <ChangesetWebform @formSchema={{powerSelectExample2FormSchema}} />
+  {{/demo.example}}
+  {{demo.snippet "power-select-example-2.js" label="Component JS" language="javascript"}}
+  {{demo.snippet "power-select-example-2.hbs" label="Template" language="htmlbars"}}
+{{/docs-demo}}
+
+### Power select with custom components for the options and selected item
+
+In this scenario, we want the actual value of the field to be the 3 letter country code, but we want only ever want user to see the full country name. 
+
+We thus pass an array of country code strings as options, but then use custom components for the selected item and options to show the full country name for each ID.
+
+When the user clicks a country name, the value of the field will be set to the 3 letter id.
+
+{{#docs-demo as |demo|}}
+  {{#demo.example name="power-select-example-3.hbs"}}
+    <ChangesetWebform @formSchema={{powerSelectExample3FormSchema}} />
+  {{/demo.example}}
+  {{demo.snippet "power-select-example-3.js" label="Component JS" language="javascript"}}
+  {{demo.snippet "power-select-example-3.hbs" label="Template" language="htmlbars"}}
+{{/docs-demo}}
+### Power select with multiple selection
+
+Passing `multipleSelection: true` will render a [Power select multiple component](https://ember-power-select.com/docs/multiple-selection).
+
+{{#docs-demo as |demo|}}
+  {{#demo.example name="power-select-multiple-example-1.hbs"}}
+    <div data-test-id="power-select-multiple-selector-example-1">
+      <ChangesetWebform @formSchema={{powerSelectMultipleExample1FormSchema}} />
+    </div>
+  {{/demo.example}}
+  {{demo.snippet "power-select-multiple-example-1.js" label="Component JS" language="javascript"}}
+  {{demo.snippet "power-select-multiple-example-1.hbs" label="Template" language="htmlbars"}}
+{{/docs-demo}}
+## Power datepicker
+
+Displays an input which shows the current selected date or datetime. When the input is focussed, a dropdown shows, including an [Ember Power Calendar](https://ember-power-calendar.com) component, and optionally a time selection component below that. 
+
+The datetime can be updated by simply editing the string in the trigger input, or bu using the calendar component, and the time selector component is it is shown. 
+
+The `dateTimeFormat` option is important. This is the format which will be used by momentjs to parse any dates being passed to the field, wither by setting `defaultValue` on the field,or if it is passed as past of the `data` object to the `changesetWebform` component. 
+
+The value output by this field will also always be a formatted according to this format.
+
+### Power datepicker field props
+
+{{docs-snippet name="powerDatePicker-field-options.js"}}
+
+### Basic usage - date only selection
+
+{{#docs-demo as |demo|}}
+  {{#demo.example name="power-datepicker-example-1.hbs"}}
+    <div data-test-id="power-datepicker-basic-use">
+      <FormattedDatetimes @data={{dateTimeOutput1}} />
+      <ChangesetWebform 
+        @formSchema={{powerDatapickerExample1FormSchema}}
+        @afterFieldEdit={{action "afterDatetimeUpdated" "1"}} />
+    </div>
+  {{/demo.example}}
+  {{demo.snippet "power-datepicker-example-1.js" label="Component JS" language="javascript"}}
+  {{demo.snippet "power-datepicker-example-1.hbs" label="Template" language="htmlbars"}}
+  {{demo.snippet "after-datetime-updated-action.js" label="Action handing" language="javascript"}}
+{{/docs-demo}}
+
+### With fixed time
+
+`fixedTime` can be passed in the format `HH:mm:ss.SSS`. When present, the time portion of the field values will be fixed to this value.
+
+Note that setting `showTimeSelector` to`true` will have no effect if `fixedTime` is passed.
+
+{{#docs-demo as |demo|}}
+  {{#demo.example name="power-datepicker-example-1b.hbs"}}
+    <div data-test-id="power-datepicker-advanced-use">
+      <FormattedDatetimes @data={{dateTimeOutput1b}} />
+      <ChangesetWebform 
+        @formSchema={{powerDatapickerExample1bFormSchema}}
+        @afterFieldEdit={{action "afterDatetimeUpdated" "1b"}} />
+    </div>
+  {{/demo.example}}
+  {{demo.snippet "power-datepicker-example-1b.js" label="Component JS" language="javascript"}}
+  {{demo.snippet "power-datepicker-example-1b.hbs" label="Template" language="htmlbars"}}
+  {{demo.snippet "after-datetime-updated-action.js" label="Action handing" language="javascript"}}
+{{/docs-demo}}
+
+### With minDate and maxDate
+
+`minDate` and `maxDate` can both be passed in order to set the earliest and latest allowed dates respectively. In the calendar component, all dates before `minDate` or after `maxDate` will be disabled. 
+
+If the user types a date into the trigger input which is before `minDate` or after `maxDate`, then when the `onChnage` event fires, the value will be ignored and the trigger will be reset to its previous value.
+
+{{#docs-demo as |demo|}}
+  {{#demo.example name="power-datepicker-example-1c.hbs"}}
+    <div data-test-id="power-datepicker-min-max-date">
+      <FormattedDatetimes @data={{dateTimeOutput1c}} />
+      <ChangesetWebform 
+        @formSchema={{powerDatapickerExample1cFormSchema}}
+        @afterFieldEdit={{action "afterDatetimeUpdated" "1c"}} />
+    </div>
+  {{/demo.example}}
+  {{demo.snippet "power-datepicker-example-1c.js" label="Component JS" language="javascript"}}
+  {{demo.snippet "power-datepicker-example-1c.hbs" label="Template" language="htmlbars"}}
+  {{demo.snippet "after-datetime-updated-action.js" label="Action handing" language="javascript"}}
+{{/docs-demo}}
+
+### With time selector using default units
+
+If `showTimeSelector` is `true` then by default a series of inputs will be shown for time selection, based on a 24 hours clock with hours, minutes, seconds and milliseconds.
+
+All inputs can be updated either by typing numbers, or by using the arrow keys. 
+
+* An arrow key on its own increments the value by 1.
+* An arrow key + `Shift` increments the value by 10.
+* An arrow key + `Ctrl` + `Shift` increments the value by 100.
+
+If the user input exceeds the maximum value for the relevant time unit, the value will be forcibly set to the maximum value. 
+
+If the user input is lower than the minimum value for the relevant time unit, the value will be forcibly set to the minimum value. 
+
+{{#docs-demo as |demo|}}
+  {{#demo.example name="power-datepicker-example-3.hbs"}}
+    <div data-test-id="power-datepicker-24-hour-time-select">
+      <FormattedDatetimes @data={{dateTimeOutput3}} />
+      <ChangesetWebform 
+        @formSchema={{powerDatapickerExample3FormSchema}}
+        @afterFieldEdit={{action "afterDatetimeUpdated" "3"}} />
+    </div> 
+  {{/demo.example}}
+  {{demo.snippet "power-datepicker-example-3.js" label="Component JS" language="javascript"}}
+  {{demo.snippet "power-datepicker-example-3.hbs" label="Template" language="htmlbars"}}
+  {{demo.snippet "after-datetime-updated-action.js" label="Action handing" language="javascript"}}
+{{/docs-demo}}
+
+### With time selector using custom format
+
+`timeSelectorFields` can be passed as a comma separated string of [valid momentjs hour, minute, second, or millisecond tokens](https://momentjs.com/docs/#/parsing/string-format/).
+
+The related fields will be displayed in the order that they are listed.
+
+The example below shows a time selector component with just hours and minutes.
+
+{{#docs-demo as |demo|}}
+  {{#demo.example name="power-datepicker-example-3a.hbs"}}
+    <div data-test-id="power-datepicker-custom-time-select">
+      <FormattedDatetimes @data={{dateTimeOutput3a}} />
+      <ChangesetWebform 
+        @formSchema={{powerDatapickerExample3aFormSchema}}
+        @afterFieldEdit={{action "afterDatetimeUpdated" "3a"}} />
+    </div> 
+  {{/demo.example}}
+  {{demo.snippet "power-datepicker-example-3a.js" label="Component JS" language="javascript"}}
+  {{demo.snippet "power-datepicker-example-3a.hbs" label="Template" language="htmlbars"}}
+  {{demo.snippet "after-datetime-updated-action.js" label="Action handing" language="javascript"}}
+{{/docs-demo}}
+
+### With time selector using 12 hour format
+
+If `h` or `hh` is passed as the hour format for the time selector component, the hour input will accept values from 1 - 12, and an AM/PM input will be shown as well.
+
+The AM/PM input can be updated wither by typing in the input, or using arrow up to select AM or arrow down to select PM.
+
+{{#docs-demo as |demo|}}
+  {{#demo.example name="power-datepicker-example-4.hbs"}}
+    <div data-test-id="power-datepicker-12-hour-time-select">
+      <FormattedDatetimes @data={{dateTimeOutput4}} />
+      <ChangesetWebform 
+        @formSchema={{powerDatapickerExample4FormSchema}}
+        @afterFieldEdit={{action "afterDatetimeUpdated" "4"}} />
+    </div>
+  {{/demo.example}}
+  {{demo.snippet "power-datepicker-example-4.js" label="Component JS" language="javascript"}}
+  {{demo.snippet "power-datepicker-example-4.hbs" label="Template" language="htmlbars"}}
+  {{demo.snippet "after-datetime-updated-action.js" label="Action handing" language="javascript"}}
+{{/docs-demo}}
+
+### With a different display format from the underlying date value format
+
+It is possible pass `dateTimeDisplayFormat` to have a different display format in the datetime trigger input, to the underlying date format specified by `dateTimeFormat`. 
+
+In this case, the field value will still be formattd according to `dateTimeFormat`. `dateTimeFormat` will still be the format which will be used by momentjs to parse any dates being passed to the field, wither by setting `defaultValue` on the field,or if it is passed as past of the `data` object to the `changesetWebform` component.  
+
+This could be useful where your server requires one date format, but your users would expect another format.
+
+{{#docs-demo as |demo|}}
+  {{#demo.example name="power-datepicker-example-5.hbs"}}
+    <div data-test-id="power-datepicker-unusual-format">
+      <FormattedDatetimes @data={{dateTimeOutput5}} />
+      <ChangesetWebform 
+        @formSchema={{powerDatapickerExample5FormSchema}}
+        @afterFieldEdit={{action "afterDatetimeUpdated" "5"}} />
+    </div> 
+  {{/demo.example}}
+  {{demo.snippet "power-datepicker-example-5.js" label="Component JS" language="javascript"}}
+  {{demo.snippet "power-datepicker-example-5.hbs" label="Template" language="htmlbars"}}
+  {{demo.snippet "after-datetime-updated-action.js" label="Action handing" language="javascript"}}
+{{/docs-demo}}
 
 <!-- <ChangesetWebform @formSchema={{this.testFormSchema}} /> -->
 

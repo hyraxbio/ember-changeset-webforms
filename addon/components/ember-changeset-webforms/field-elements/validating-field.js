@@ -86,8 +86,27 @@ export default Component.extend({
     },
 
     onChange(formField, value) {
+      console.log('change')
       formField.eventLog.push('change');
       this.send('setFieldValue', value, formField);
+    },
+
+    onUserInteraction(formField, value, eventType, event) {
+      console.log(eventType)
+      if (eventType === 'keyUp') {
+        if (formField.fieldType === 'input' && event.keyCode === 13) {
+          if (this.submitForm) {
+            formField.set('focussed', false);
+            this.submitForm(this.get('changesetProp'));
+          }
+          return;
+        }
+        this.send('setFieldValue', value, formField);
+        formField.eventLog.push('keyUp');
+        if (this.afterKeyUpAction) {
+          this.afterKeyUpAction(formField, this.get('changesetProp'), value, event);
+        }
+      }
     },
 
     onFocusOut: function (formField, value) {
@@ -111,18 +130,19 @@ export default Component.extend({
     },
 
     onKeyUp: function (formField, value, event) {
-      if (formField.fieldType === 'input' && event.keyCode === 13) {
-        if (this.submitForm) {
-          formField.set('focussed', false);
-          this.submitForm(this.get('changesetProp'));
-        }
-        return;
-      }
-      this.send('setFieldValue', value, formField);
-      formField.eventLog.push('keyUp');
-      if (this.afterKeyUpAction) {
-        this.afterKeyUpAction(formField, this.get('changesetProp'), value, event);
-      }
+      console.log('keyUp')
+      // if (formField.fieldType === 'input' && event.keyCode === 13) {
+      //   if (this.submitForm) {
+      //     formField.set('focussed', false);
+      //     this.submitForm(this.get('changesetProp'));
+      //   }
+      //   return;
+      // }
+      // this.send('setFieldValue', value, formField);
+      // formField.eventLog.push('keyUp');
+      // if (this.afterKeyUpAction) {
+      //   this.afterKeyUpAction(formField, this.get('changesetProp'), value, event);
+      // }
     },
 
     setFieldValue: function (value, formField) {

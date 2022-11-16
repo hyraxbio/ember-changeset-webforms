@@ -4,6 +4,7 @@ import _merge from 'lodash/merge';
 const addonDefaults = {
   formSettings: {
     // BEGIN-SNIPPET form-settings-options.js
+    formName: null, // String. Must be unique. Used as a namespace for things like input ID and 'for' attributes. TODO doc more.
     clearFormButtonText: 'Cancel', // String - text to show in the clear form button, if enabled.
     hideSubmitButton: null,  // Boolean - hides the submit button if true
     submitButtonText: 'Submit', // String - text to show on the submit form button
@@ -104,18 +105,17 @@ const addonDefaults = {
       fieldType: 'powerDatePicker',
       dateSelectComponent: null,
       dateTimeFormat: 'YYYY-MM-DD HH:mm:ss', // String - time format to use
-      defaultTime: '00:00:00', // String - default time. Must be in the format provided by timeFormat.
+      dateTimeDisplayFormat: null, // String - the format of the datetime to show in the trigger input. Defaults to dateTimeFormat if null.
+      defaultTime: '00:00:00.000', // String - default time. Must be in the format HH:mm:ss.SSS.
+      fixedTime: null, // String - force the time to a value, whatever tha date is. Must be in the format HH:mm:ss.SSS
       showTimeSelector: null, // Boolean - show the UI for the user to change the time.
-      timeSelectorFields: ['hh', 'mm', 'ss', 'SSS'],
+      timeSelectorFields: 'HH,mm,ss,SSS', // String - comma separated list of the fields to show in the time selector component. combination of valid momentjs time string parts can be given. 
       calendarContainerClasses: null, // String - classes to apply to the calendar component,
-      closeDatePickerOnSelect: true,
+      closeDatePickerOnSelect: false,
       dateRangeSettings: null, 
+      minDate: null, // String - the earliest day that the calendar will allow the user to select. Must be in the format YYYY-MM-DD.
+      maxDate: null, // String - the latest day that the calendar will allow the user to select. Must be in the format YYYY-MM-DD.
       validationAreaClassNames: 'test',
-
-      // {
-      //   rangePosition: 'start',
-      //   rangePartnerFieldId: 'inserted_to'
-      // },
       // END-SNIPPET
       componentPath: 'ember-changeset-webforms/fields/power-datepicker',
     },
@@ -123,6 +123,7 @@ const addonDefaults = {
       // BEGIN-SNIPPET singleCheckbox-field-options.js
       fieldType: 'singleCheckbox',
       checkBoxLabelComponent: null, // String - path to the component to use as the checkbox label
+      checkBoxLabelMarkdown: null, // Markdown string - a markdown string to render as HTML TODO doc what addon is needed to use this and add to all the other labels.
       // END-SNIPPET
       componentPath: 'ember-changeset-webforms/fields/checkbox',
     },
@@ -164,7 +165,7 @@ const addonDefaults = {
       // BEGIN-SNIPPET clicker-field-options.js
       fieldType: 'clicker',
       clickerText: null, // String - text to display in the clicker element.
-      displayComponent: null, // String - path to the component
+      displayComponent: null, // Can either be string which is the path to the component or an object with a property called path being the path to the component and props, an object which will be passed to the component as "props".
       // END-SNIPPET
       componentPath: 'ember-changeset-webforms/fields/clicker',
     },
@@ -173,10 +174,7 @@ const addonDefaults = {
       fieldType: 'staticContent',
       text: null,
       textElement: 'h3 ', // TODO check this
-      contentComponent: {
-        path: null, // String - path to the component to display
-        props: null // Object - properties to be passed to the component above.
-      },
+      contentComponent: null, // Can either be string which is the path to the component or an object with a property called path being the path to the component and props, an object which will be passed to the component as "props".
       // END-SNIPPET
       componentPath: 'ember-changeset-webforms/fields/static-content',
 
@@ -184,6 +182,7 @@ const addonDefaults = {
   ],
 };
 // END-SNIPPET
+
 export {addonDefaults};
 
 export default function getWithDefault(formSchema = {}) {
@@ -192,13 +191,6 @@ export default function getWithDefault(formSchema = {}) {
   const addonFieldDefaults = addonDefaults.fieldSettings || {};
   const appConfigFieldDefaults = appDefaults.fieldSettings || {};
   const mergedFields = (formSchema.fields || []).map(field => {
-
-for (const key in field) {
-  if (typeof field[key] === 'string' && field[key].indexOf('_defaults') > -1) {
-    console.log(field[key])
-  }
-}
-
     const addonFieldTypeDefaults = addonDefaults.fieldTypes.find(addonFieldType => addonFieldType.fieldType === field.fieldType);
     const appConfigFieldTypeDefaults = (appDefaults.fieldTypes || []).find(appConfigFieldType => appConfigFieldType.fieldType === field.fieldType);
     const mergedField = _merge({}, addonFieldDefaults, addonFieldTypeDefaults, appConfigFieldDefaults, appConfigFieldTypeDefaults, formSchema.fieldSettings, field);

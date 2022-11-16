@@ -1,0 +1,11 @@
+{{#if labelComponent}}
+  {{#if labelComponent.path}}
+    {{component labelComponent.path props=labelComponent.props option=option name=name radioId=radioId}}
+  {{else}}
+    {{component labelComponent option=option}}
+  {{/if}}
+{{else if markdownLabel}}
+  <label for="{{for}}"><Background::MarkdownToHtml @source={{markdownLabel}} /></label>
+{{else if label}}
+  <label for="{{for}}">{{label}}</label>
+{{/if}}

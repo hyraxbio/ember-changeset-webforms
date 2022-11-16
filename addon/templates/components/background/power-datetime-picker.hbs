@@ -11,7 +11,7 @@
     {{/if}}
     <input class="date-select" type="text" value={{if value (moment-format (moment value parsedDateTimeFormat) parsedDateTimeDisplayFormat)}} placeholder={{parsedDatepickerPlaceholder}} onChange={{action "onDateInputChange"}} onKeyUp={{action "onDateInputKeyUp"}} onFocus={{action "onDateInputFocus"}} onBlur={{action "onDateInputBlur"}}>
   </dropdown.Trigger>
-  <dropdown.Content>
+  <dropdown.Content data-test-id="ecw-power-datepicker-dropdown" >
     <div class={{calendarContainerClasses}}>
       <PowerCalendar 
         @minDate={{minDate}} 
@@ -28,12 +28,12 @@
           @minDate={{minDate}} 
           @maxDate={{maxDate}} />
       </PowerCalendar>
-      {{#if (and showTimeSelector value)}}
+      {{#if (and showTimeSelector value (not fixedTime))}}
         <div data-test-type="time-selector" class="time-select {{unless value "disabled"}}">
           {{#each timeFormatParts as | timeFormatPart| }}
-              <div>
-                <label for="time-selector-{{timeFormatPart.type}}" data-test-class="time-selector-label-{{timeFormatPart.type}}">{{timeFormatPart.label}}</label>
-                <input id="time-selector-{{timeFormatPart.type}}" data-test-class="time-selector-input-{{timeFormatPart.type}}" type="number" max={{timeFormatPart.max}} min={{timeFormatPart.min}} value={{readonly (if value (moment-format (moment value parsedDateTimeFormat) timeFormatPart.formatChar))}} onChange={{action "setTime" timeFormatPart.formatChar}} onKeyDown={{action "onKeyDownTimePartInput" timeFormatPart.formatChar}} onKeyUp={{action "onKeyUpTimePartInput" timeFormatPart.formatChar}}>
+              <div data-test-class="time-selector-field">
+                <label for="time-selector-{{timeFormatPart.type}}" data-test-class="time-selector-field-label" data-test-id="time-selector-field-label-{{timeFormatPart.type}}">{{timeFormatPart.label}}</label>
+                <input id="time-selector-{{timeFormatPart.type}}" data-test-class="time-selector-field-input" data-test-id="time-selector-field-input-{{timeFormatPart.type}}" type="number" max={{timeFormatPart.max}} min={{timeFormatPart.min}} value={{readonly (if value (moment-format (moment value parsedDateTimeFormat) timeFormatPart.formatChar))}} onChange={{action "setTime" timeFormatPart.formatChar}} onKeyDown={{action "onKeyDownTimePartInput" timeFormatPart.formatChar}} onKeyUp={{action "onKeyUpTimePartInput" timeFormatPart.formatChar}}>
               </div>
           {{/each}}
           {{#if showAmPmInput}}

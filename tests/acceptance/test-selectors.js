@@ -29,18 +29,34 @@ export default {
   powerDatepicker24HourTimeSelect: '[data-test-id="power-datepicker-24-hour-time-select"]',
   powerDatepicker12HourTimeSelect: '[data-test-id="power-datepicker-12-hour-time-select"]',
   powerDatepickerUnusualFormat: '[data-test-id="power-datepicker-unusual-format"]',
+  powerDatepickerCustomTimeSelect: '[data-test-id="power-datepicker-custom-time-select"]',
+  powerDatepickerBasicUse: '[data-test-id="power-datepicker-basic-use"]',
+  powerDatepickerAdvancedUse: '[data-test-id="power-datepicker-advanced-use"]',
+  powerDatepickerMinMaxDate: '[data-test-id="power-datepicker-min-max-date"]',
+  
   startDateField: '[data-test-id="startDate-field"]',
   powerDatepickerAmPmInput: '[data-test-id="power-datepicker-am-pm-input"]',
   rawDateTime: '[data-test-id="raw-date-time"]',
   outputFieldValue: '[data-test-id="output-field-value"]',
-  timeSelectorLabelHour: '[data-test-class="time-selector-label-hour"]',
-  timeSelectorInputHour: '[data-test-class="time-selector-input-hour"]',
-  timeSelectorLabelMinutes: '[data-test-class="time-selector-label-minutes"]',
-  timeSelectorInputMinutes: '[data-test-class="time-selector-input-minutes"]',
-  timeSelectorLabelSeconds: '[data-test-class="time-selector-label-seconds"]',
-  timeSelectorInputSeconds: '[data-test-class="time-selector-input-seconds"]',
-  timeSelectorLabelMilliseconds: '[data-test-class="time-selector-label-milliseconds"]',
-  timeSelectorInputMilliseconds: '[data-test-class="time-selector-input-milliseconds"]',
+  ecwPowerDatepickerDropdown: '[data-test-id="ecw-power-datepicker-dropdown"]',
+  timeSelector: '[data-test-type="time-selector"]',
+  timeSelectorField: '[data-test-class="time-selector-field"]',
+  timeSelectorFieldLabel: '[data-test-class="time-selector-field-label"]',
+  timeSelectorFieldInput: '[data-test-class="time-selector-field-input"]',
+  timeSelectorFieldLabelHour: '[data-test-id="time-selector-field-label-hour"]',
+  timeSelectorFieldInputHour: '[data-test-id="time-selector-field-input-hour"]',
+  timeSelectorFieldLabelMinutes: '[data-test-id="time-selector-field-label-minutes"]',
+  timeSelectorFieldInputMinutes: '[data-test-id="time-selector-field-input-minutes"]',
+  timeSelectorFieldLabelSeconds: '[data-test-id="time-selector-field-label-seconds"]',
+  timeSelectorFieldInputSeconds: '[data-test-id="time-selector-field-input-seconds"]',
+  timeSelectorFieldLabelMilliseconds: '[data-test-id="time-selector-field-label-milliseconds"]',
+  timeSelectorFieldInputMilliseconds: '[data-test-id="time-selector-field-input-milliseconds"]',
+
+  singleCheckboxBasicUse: '[data-test-id="single-checkbox-basic-use"]',
+  
+  dataDate(date) {
+    return `[data-date="${date}"]`;
+  }
   
   
 }

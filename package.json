@@ -21,12 +21,14 @@
     "test:all": "ember try:each"
   },
   "dependencies": {
+    "ember-auto-import": "^1.12.2",
     "ember-changeset-validations": "^2.1.0",
     "ember-cli-babel": "^7.20.0",
     "ember-cli-htmlbars": "^4.3.1",
     "ember-power-calendar": "^0.13.3",
     "ember-power-select": "^3.0.6",
-    "ember-radio-button": "^2.0.1"
+    "ember-radio-button": "^2.0.1",
+    "markdown-it": "^13.0.1"
   },
   "devDependencies": {
     "@ember/optional-features": "^0.7.0",

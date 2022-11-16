@@ -11,8 +11,9 @@ export default Component.extend({
   },
 
   actions: {
-    handleKeyUp(e) {
-      this.onKeyUp(this.get('formField'), e.target.value, e);
+    handleKeyUp(event) {
+      this.onUserInteraction(this.formField, event.target.value, 'keyUp', event);
+      // this.onKeyUp(this.get('formField'), e.target.value, e);
     },
 
     focusIn() {

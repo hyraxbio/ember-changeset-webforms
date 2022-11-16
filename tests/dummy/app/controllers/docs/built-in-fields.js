@@ -3,52 +3,6 @@ import Controller from '@ember/controller';
 export default Controller.extend({
   init() {
     this._super(...arguments);
-    this.fields = [{
-      fieldType: 'input',
-      inputType: 'text', // String - any valid html input type
-      placeholder: 'First name', // String - optional. Defaults to label if not present.
-      autofocus: true
-    },
-    { fieldType: 'radioButtonGroup', options: [] },
-    {
-      fieldType: 'powerSelect',
-      placeholder: 'Select',
-      searchEnabled: true,
-      allowClear: false,
-      options: [],
-      optionDisplayProp: 'name',
-      selectedItemComponent: 'hyrax-ember-assets/janus/forms/shared-fields/country-field-selected-item',
-      optionComponent: 'hyrax-ember-assets/janus/forms/shared-fields/country-field-option'
-    },
-    { fieldType: 'clicker' },
-    {
-      fieldType: 'powerDatePicker',
-      dateFormat: 'YYYY-MM-DD',
-      timeFormat: 'HH:mm:ss',
-      defaultTime: '23:59:59',
-      calendarContainerClasses: 'pop-up-box box-arrow',
-      closeDatePickerOnSelect: true,
-      dateRangeSettings: { rangePosition: 'end', rangePartnerFieldId: 'inserted_from' }
-    },
-    {
-      fieldType: 'singleCheckbox',
-      checkBoxLabel: 'Generate BAM files (Note that BAM files are large and may slow the job down)',
-      label: 'I agree that my uploaded data can be used anonymously for research purposes other than surveillance. See our [privacy policy](https://exatype.com/privacy-policy) for further information.',
-      checkBoxLabelMarkdown: 'I agree that my uploaded data can be used anonymously for research purposes other than surveillance. See our [privacy policy](https://exatype.com/privacy-policy) for further information.'
-    },
-    {
-      fieldType: 'staticContent',
-      text: 'andrew+no-org@hyraxbio.com',
-      textElement: 'div',
-      textElementClass: 'badge badge-gray-medium',
-      contentComponent: {
-        path: 'hyrax-ember-assets/exatype/surveillance-research-data-consent-revoked-notice',
-        props: [Object]
-      }
-    },
-    { fieldType: 'noDisplay' },
-    { fieldType: 'checkboxGroup', placeholder: 'Select', options: [] }
-    ]
     // this.allFieldsInOne = 
     // this.combined = {
     //   settings: {
@@ -87,7 +41,7 @@ export default Controller.extend({
 
     this.testFormSchema = {
       settings: {
-        formName: 'signUpForm',
+        formName: 'test',
         submitButtonText: 'Create my Account',
       },
       fieldSettings: {
@@ -202,6 +156,7 @@ export default Controller.extend({
     // BEGIN-SNIPPET radio-button-group-example-1.js
     this.radioButtonGroupExample1FormSchema = {
       settings: {
+        formName: 'radioButtonGroupExample1',
         hideSubmitButton: true,
       },
       fields: [{
@@ -225,6 +180,7 @@ export default Controller.extend({
     //BEGIN-SNIPPET radio-button-group-example-2.js
     this.radioButtonGroupExample2FormSchema = {
       settings: {
+        formName: 'radioButtonGroupExample2',
         hideSubmitButton: true,
       },
       fields: [{
@@ -261,6 +217,7 @@ export default Controller.extend({
     // BEGIN-SNIPPET checkbox-group-example-1.js
     this.checkboxGroupExample1FormSchema = {
       settings: {
+        formName: 'checkboxGroupExample1',
         hideSubmitButton: true,
       },
       fields: [{
@@ -284,6 +241,7 @@ export default Controller.extend({
     //BEGIN-SNIPPET checkbox-group-example-2.js
     this.checkboxGroupExample2FormSchema = {
       settings: {
+        formName: 'checkboxGroupExample2',
         hideSubmitButton: true,
       },
       fields: [{
@@ -320,6 +278,7 @@ export default Controller.extend({
     // BEGIN-SNIPPET power-select-example-1.js
     this.powerSelectExample1FormSchema = {
       settings: {
+        formName: 'powerSelectExample1',
         hideSubmitButton: true,
       },
       fields: [{
@@ -336,6 +295,7 @@ export default Controller.extend({
     // BEGIN-SNIPPET power-select-example-2.js
     this.powerSelectExample2FormSchema = {
       settings: {
+        formName: 'powerSelectExample2',
         hideSubmitButton: true,
       },
       fields: [{
@@ -369,6 +329,7 @@ export default Controller.extend({
     // BEGIN-SNIPPET power-select-example-3.js
     this.powerSelectExample3FormSchema = {
       settings: {
+        formName: 'powerSelectExample3',
         hideSubmitButton: true,
       },
       fields: [{
@@ -381,9 +342,29 @@ export default Controller.extend({
       }]
     }
     // END-SNIPPET
+
+    // BEGIN-SNIPPET power-select-multiple-example-1.js
+    this.powerSelectMultipleExample1FormSchema = {
+      settings: {
+        formName: 'powerSelectMultipleExample1',
+        hideSubmitButton: true,
+      },
+      fields: [{
+        searchEnabled: true,
+        fieldId: 'country',
+        fieldType: 'powerSelect',
+        multipleSelection: true,
+        allowFreeTyping: true,
+        fieldLabel: 'Select countries',
+        options: ['ABW', 'AFG', 'AGO', 'ALB', 'AND']
+      }]
+    }
+    // END-SNIPPET
+
     // BEGIN-SNIPPET input-example-1.js
     this.inputExample1FormSchema = {
       settings: {
+        formName: 'inputExample1',
         hideSubmitButton: true,
       },
       fields: [{
@@ -396,6 +377,7 @@ export default Controller.extend({
     // BEGIN-SNIPPET input-example-2.js
     this.inputExample2FormSchema = {
       settings: {
+        formName: 'inputExample2',
         hideSubmitButton: true,
       },
       fields: [{
@@ -410,6 +392,7 @@ export default Controller.extend({
     // BEGIN-SNIPPET textarea-example-1.js
     this.textareaExample1FormSchema = {
       settings: {
+        formName: 'textareaExample1',
         hideSubmitButton: true,
       },
       fields: [{
@@ -420,26 +403,154 @@ export default Controller.extend({
       }]
     }
     // END-SNIPPET
-    // BEGIN-SNIPPET power-datepicker-example-1.js
-    this.powerDatapickerExample1FormSchema = {
+    // BEGIN-SNIPPET single-checkbox-example-1.js
+    this.singleCheckboxExample1FormSchema = {
       settings: {
+        formName: 'singleCheckboxExample1',
         hideSubmitButton: true,
       },
       fields: [{
-        fieldId: 'inserted_to',
-        fieldLabel: 'Last day',
+        fieldId: 'acceptTerms',
+        fieldType: 'singleCheckbox',
+        checkBoxLabel: 'I agree to the terms and conditions',
+      }]
+    }
+    // END-SNIPPET
+    
+    // BEGIN-SNIPPET single-checkbox-example-2.js
+    this.singleCheckboxExample2FormSchema = {
+      settings: {
+        formName: 'singleCheckboxExample2',
+        hideSubmitButton: true,
+      },
+      fields: [{
+        fieldId: 'acceptTerms',
+        fieldType: 'singleCheckbox',
+        checkBoxLabelMarkdown: 'I agree to the __**[terms and conditions here](https://example.com)**__.'
+      }]
+    }
+    // END-SNIPPET
+
+    // BEGIN-SNIPPET single-checkbox-example-3.js
+    this.singleCheckboxExample3FormSchema = {
+      settings: {
+        formName: 'singleCheckboxExample3',
+        hideSubmitButton: true,
+      },
+      fields: [{
+        fieldId: 'acceptTerms',
+        fieldType: 'singleCheckbox',
+        checkBoxLabelComponent: {
+          path: 'forms/component-for-single-checkbox-option',
+          props: {
+            info: 'Some additional info'
+          }
+        },
+      }]
+    }
+    // END-SNIPPET
+
+    // BEGIN-SNIPPET static-content-example-1.js
+    this.staticContentExample1FormSchema = {
+      settings: {
+        formName: 'staticContentExample1',
+        hideSubmitButton: true,
+      },
+      fields: [{
+        fieldId: 'staticContent',
+        fieldType: 'staticContent',
+        text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero similique, repellat fuga ad enim eveniet exercitationem earum et commodi necessitatibus doloremque saepe veniam consequuntur maxime a soluta ea perferendis sit.',
+        textElement: 'p',
+      }]
+    }
+    // END-SNIPPET
+
+    // BEGIN-SNIPPET static-content-example-2.js
+    this.staticContentExample2FormSchema = {
+      settings: {
+        formName: 'staticContentExample2',
+        hideSubmitButton: true,
+      },
+      fields: [{
+        fieldId: 'staticContent',
+        fieldType: 'staticContent',
+        contentComponent: {
+          path: 'forms/component-for-single-checkbox-option',
+          props: {
+            info: 'Some additional info'
+          }
+        },
+      }]
+    }
+    // END-SNIPPET
+
+    // BEGIN-SNIPPET power-datepicker-example-1.js
+    this.powerDatapickerExample1FormSchema = {
+      settings: {
+        formName: 'powerDatapickerExample1',
+        hideSubmitButton: true,
+      },
+      fields: [{
+        fieldId: 'startDate',
+        fieldLabel: 'First day',
+        fieldType: 'powerDatePicker',
+        dateTimeFormat: 'YYYY-MM-DD',
+      }]
+    }
+    // END-SNIPPET
+    // BEGIN-SNIPPET power-datepicker-example-1b.js
+    this.powerDatapickerExample1bFormSchema = {
+      settings: {
+        formName: 'powerDatapickerExample1b',
+        hideSubmitButton: true,
+      },
+      fields: [{
+        fieldId: 'startDate',
+        fieldLabel: 'First day',
         fieldType: 'powerDatePicker',
         dateTimeFormat: 'YYYY-MM-DD HH:mm:ss',
-        defaultTime: '23:59:59',
-        calendarContainerClasses: 'pop-up-box box-arrow',
-        closeDatePickerOnSelect: true,
-        propertyName: 'inserted_to',
+        fixedTime: '23:59:59.999',
+        dateTimeDisplayFormat: 'YYYY-MM-DD'
+      }]
+    }
+    // END-SNIPPET
+    // BEGIN-SNIPPET power-datepicker-example-1c.js
+    this.powerDatapickerExample1cFormSchema = {
+      settings: {
+        formName: 'powerDatapickerExample1c',
+        hideSubmitButton: true,
+      },
+      fields: [{
+        fieldId: 'startDate',
+        fieldLabel: 'First day',
+        fieldType: 'powerDatePicker',
+        dateTimeFormat: 'YYYY-MM-DD',
+        minDate: '2022-11-10',
+        maxDate: '2022-11-16'
+      }]
+    }
+    // END-SNIPPET
+    // BEGIN-SNIPPET power-datepicker-example-1d.js
+    this.powerDatapickerExample1dFormSchema = {
+      settings: {
+        formName: 'powerDatapickerExample1d',
+        hideSubmitButton: true,
+      },
+      fields: [{
+        fieldId: 'startDate',
+        fieldLabel: 'First day',
+        fieldType: 'powerDatePicker',
+        dateTimeFormat: 'YYYY-MM-DD HH:mm:ss',
+        dateTimeDisplayFormat: 'YYYY-MM-DD',
+        minDate: '2022-11-10',
+        maxDate: '2022-11-16'
       }]
     }
     // END-SNIPPET
     // BEGIN-SNIPPET power-datepicker-example-2.js
      this.powerDatapickerExample2FormSchema = {
       settings: {
+        formName: 'powerDatapickerExample2',
         hideSubmitButton: true,
       },
       fields: [{
@@ -472,6 +583,7 @@ export default Controller.extend({
     // BEGIN-SNIPPET power-datepicker-example-3.js
     this.powerDatapickerExample3FormSchema = {
       settings: {
+        formName: 'powerDatapickerExample3',
         hideSubmitButton: true,
       },
       fields: [{
@@ -481,14 +593,33 @@ export default Controller.extend({
         dateTimeFormat: 'YYYY-MM-DD HH:mm:ss.SSS',
         closeDatePickerOnSelect: true,
         showTimeSelector: true,
-        timeSelectorFields: ['HH', 'mm', 'ss', 'SSS'],
         defaultValue: moment('2022-11-03 14:42:19.23456', 'YYYY-MM-DD HH:mm:ss.SSS')
+      }]
+    }
+    // END-SNIPPET
+
+    // BEGIN-SNIPPET power-datepicker-example-3a.js
+    this.powerDatapickerExample3aFormSchema = {
+      settings: {
+        formName: 'powerDatapickerExample3a',
+        hideSubmitButton: true,
+      },
+      fields: [{
+        fieldId: 'startDate',
+        fieldLabel: 'First day',
+        fieldType: 'powerDatePicker',
+        dateTimeFormat: 'YYYY-MM-DD HH:mm',
+        closeDatePickerOnSelect: true,
+        showTimeSelector: true,
+        timeSelectorFields: 'HH,mm',
+        defaultValue: moment('2022-11-03 14:42', 'YYYY-MM-DD HH:mm')
       }]
     }
     // END-SNIPPET
     // BEGIN-SNIPPET power-datepicker-example-4.js
     this.powerDatapickerExample4FormSchema = {
       settings: {
+        formName: 'powerDatapickerExample4',
         hideSubmitButton: true,
       },
       fields: [{
@@ -498,7 +629,7 @@ export default Controller.extend({
         dateTimeFormat: 'YYYY-MM-DD h:mm:ss a',
         closeDatePickerOnSelect: true,
         showTimeSelector: true,
-        timeSelectorFields: ['h', 'mm', 'ss'],
+        timeSelectorFields: 'h,mm,ss',
         defaultValue: moment('2022-11-03 14:42:19 p', 'YYYY-MM-DD h:mm:ss a')
       }]
     }
@@ -506,6 +637,7 @@ export default Controller.extend({
     // BEGIN-SNIPPET power-datepicker-example-5.js
     this.powerDatapickerExample5FormSchema = {
       settings: {
+        formName: 'powerDatapickerExample5',
         hideSubmitButton: true,
       },
       fields: [{
@@ -516,18 +648,21 @@ export default Controller.extend({
         dateTimeDisplayFormat: 'DD/MM/YYYY HH:mm:ss.SSSS',
         closeDatePickerOnSelect: true,
         showTimeSelector: true,
-        timeSelectorFields: ['HH', 'mm', 'ss', 'SS'],
+        timeSelectorFields: 'HH,mm,ss,SS',
         defaultValue: moment('14:42:19.14223 03.11.2022', 'HH:mm:ss.SSSSS DD.MM.YYYY')
       }]
     }
     // END-SNIPPET
   },
   actions: {
-    updateRawDateTime(prop, formField, ChangesetWebform, _snapshot) {
-      const dateTimeFormat = formField.dateTimeFormat || 'YYYY-MM-DD h:mm:ss a';
+    // BEGIN-SNIPPET after-datetime-updated-action.js
+    afterDatetimeUpdated(prop, formField, ChangesetWebform) {
       const dateTime = ChangesetWebform.changeset.get('startDate');
-      this.set(`rawDateTime${prop}`, moment(dateTime, dateTimeFormat).toDate())
-      this.set(`outputFieldValue${prop}`, dateTime);
+      this.set(`dateTimeOutput${prop}`, {
+        nativeJSFormat: moment(dateTime, formField.dateTimeFormat).toDate(),
+        fieldValue: dateTime
+      })
     }
+    // END-SNIPPET
   }
 })

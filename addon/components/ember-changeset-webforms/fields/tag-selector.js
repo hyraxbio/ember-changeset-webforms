@@ -1,5 +1,4 @@
 import Component from '@ember/component';
-import jQuery from 'jquery';
 import layout from '../../../templates/components/ember-changeset-webforms/fields/tag-selector';
 import { computed } from '@ember/object';
 
@@ -8,11 +7,11 @@ export default Component.extend({
 
   didInsertElement() {
     this._super(...arguments);
-    var labelElement = jQuery('label[for]');
-    var forAttr = labelElement.attr('for');
-    jQuery(labelElement).click(function() {
-      jQuery(`#${forAttr}`).focus();
-    });
+    // var labelElement = jQuery('label[for]');
+    // var forAttr = labelElement.attr('for');
+    // jQuery(labelElement).click(function() {
+    //   jQuery(`#${forAttr}`).focus();
+    // });
   },
 
   allowClear: computed('formField.allowClear', function() {

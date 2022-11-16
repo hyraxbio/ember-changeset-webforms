@@ -1,9 +1,14 @@
 import Component from '@ember/component';
 import layout from '../../../templates/components/ember-changeset-webforms/fields/power-datepicker';
+import { computed } from '@ember/object';
 
 export default Component.extend({
   layout,
   tagName: '',
+
+  timeSelectorFields: computed('formField.timeSelectorFields', function() {
+    return (this.formField.timeSelectorFields || '').split(',');
+  }),
 
   actions: {
     onSelectDateTime(dateTime) {
