@@ -14,3 +14,9 @@ Do labelComponent, checkboxlabelComnponent, optionLabelComponent, contentCompone
 All IDs must use formName as namespace
 
 All classes become classNames and are arrays.
+  * submitButtonClasses
+  * resetButtonClasses
+
+Tech debt
+
+Clicker no lo

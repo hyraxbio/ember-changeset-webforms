@@ -3,6 +3,10 @@ import _merge from 'lodash/merge';
 import _mergeWith from 'lodash/mergeWith';
 
 const addonDefaults = {
+  generalClassNames: {
+    requiredField: ['required'],
+
+  },
   formSettings: {
     // BEGIN-SNIPPET form-settings-options.js
     formName: null, // String. Must be unique. Used as a namespace for things like input ID and 'for' attributes. TODO doc more.
@@ -24,7 +28,7 @@ const addonDefaults = {
       submitButton: 'saving',
       submitButtonIcon: 'saving'
     }, // Object - class to add to each of the three above elements which a form submit operation is ion flight. The class os removed after the submit action resolves or rejects if a promise, or returns if not. TODO impelent
-    resetButtonClasses: null, // String - classes to show on the rest button
+    resetButtonClasses: null, // String - classes to show on the reset button
     submitAfterClear: null // Boolean. If true submits the form after the clear form button is clicked. An example use case is a filters form with a clear filters button, where the desired behaviour is to clear the form fields, and then submit the empty form to reset the filters
     // END-SNIPPET
   },
@@ -45,7 +49,14 @@ const addonDefaults = {
     labelComponent: null, // String - path to a component to use as the label. If set, takes the place of fieldLabel 
     hideLabel: null, // Hide the label from the user
     disabled: null, // Boolean - disable the field, but do not hide it. It will still be validated [TODO check] and included when the form is submitted
-    fieldClassNames: null, // String. CSS classes to apply to the outer element of the field TODO check this
+    fieldClassNames: ['cwf-field'], // String. CSS classes to apply to the outer element of the field TODO check this
+    requiredFieldClassNames: ['required'],
+    validFieldClassNames: ['valid'],
+    invalidFieldClassNames: ['invalid'],
+    fieldValidatesClassNames: ['validates'],
+    disabledFieldClassNames: ['disabled'],
+    wasValidatedClassNames: ['was-validated'],
+    focussedClassNames: ['focussed'],
     fieldLabelClassNames: null,
     fieldControlsClassNames: null,
     validationAreaClassNames: 'test'

@@ -3,24 +3,6 @@ import Controller from '@ember/controller';
 export default Controller.extend({
   init() {
     this._super(...arguments);
-    // this.allFieldsInOne = 
-    // this.combined = {
-    //   settings: {
-    //     formName: 'signUpForm',
-    //     showResetButton: false,
-    //     hideSubmitButton: true,
-    //     resetAfterSubmit: true,
-    //     submitAsync: true,
-    //     submitButtonText: 'Create my Account',
-    //     hideSuccessValidation: true,
-    //     submitButtonClasses: 'btn btn-primary btn-lg btn-block',
-    //     submitSuccessMessage: 'Your sign up request has been received. Please check your email for a confirmation link.',
-    //     title: 'Edit Account',
-    //     modelName: 'user',
-    //     hideLabels: true
-    //   },
-
-    // }
     this.radioButtonGroupOption = {
       // BEGIN-SNIPPET radio-button-group-option.js
       value: null, // 

@@ -4,11 +4,11 @@
       <EmberChangesetWebforms::FieldElements::ValidatingField
         @processedFieldSchema={{formField}}
         @changesetWebform={{changesetWebform}}
+        @changesetProp={{changesetWebform.changeset}}
         @dataTestFormName={{formSettings.dataTestFormName}}
         @afterAddClone={{afterAddClone}}
         @afterClickAddCloneButton={{afterClickAddCloneButton}}
         @afterRemoveClone={{afterRemoveClone}}
-        @changesetProp={{changesetWebform.changeset}}
         @formSettings={{formSettings}}
         @formFields={{changesetWebform.fields}}
         @submitForm={{action "submit" changesetWebform.changeset formSettings.modelName}}

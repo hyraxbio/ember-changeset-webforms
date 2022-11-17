@@ -12,13 +12,9 @@ export default Component.extend({
   didInsertElement: function () {
     //Code below will maintain validation colours when component is re-rendered.
     var formField = this.formField;
-    if (!this.changesetProp) {
-      this.set('changesetProp', createChangeset([this.formField], this.data, this.customValidators));
-    }
-    var changesetProp = this.changesetProp;
-    if (changesetProp.get(formField.propertyName)) {
+    if (this.changesetProp.get(formField.propertyName)) {
       formField.eventLog.pushObject('insert');
-      this.send('validateProperty', changesetProp, formField);
+      this.send('validateProperty', this.changesetProp, formField);
     }
   },
 
@@ -42,11 +38,12 @@ export default Component.extend({
       return;
     }
     if (!validationEventLog(formField).length) { return }
+
     var validationErrors = (this.get(`changesetProp.error.${this.formField.propertyName}.validation`)) || [];
     if (validationErrors.length === 0) {
-      return 'valid';
+      return this.formField.validFieldClassNames.join(' ');
     } else {
-      return 'invalid';
+      return this.formField.invalidFieldClassNames.join(' ');
     }
   }),
 
@@ -73,6 +70,8 @@ export default Component.extend({
       //   }
       // }
       changeset.validate(formField.propertyName).then(() => {
+        formField.set('wasValidated', true);
+        console.log(formField)
         const fieldValidationErrors = changeset.error[formField.propertyName];
         this.afterFieldValidation(formField, changeset, fieldValidationErrors);
       });

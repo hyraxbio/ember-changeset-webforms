@@ -1,5 +1,5 @@
 .ember-changeset-webforms-clone-group,
-.ember-changeset-webforms-field {
+.cwf-field {
   margin-top: $pojo-form-field-controls-margin-top;
   margin-bottom: $pojo-form-field-margin-bottom;
   &.readonly input,
@@ -17,7 +17,7 @@
   }
 }
 
-.ember-changeset-webforms-field {
+.cwf-field {
   &.validates {
     .validation-icon {
       padding-right: $pojo-form-field-validation-icon-width;

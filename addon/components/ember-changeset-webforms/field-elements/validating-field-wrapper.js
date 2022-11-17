@@ -4,14 +4,33 @@ import { computed } from '@ember/object';
 
 export default Component.extend({
   layout,
-  classNames: ['ember-changeset-webforms-field'],
-  classNameBindings: ['displayValidation', 'formField.required:required', 'disabled:disabled', 'readonly:readonly', 'formField.fieldNamesClasses', 'formField.hideSuccessValidation:hide-success-validation', 'formField.validates:validates', 'typeClass', 'formField.focussed:focussed'],
+  classNameBindings: ['displayValidation', 'disabledClasses', 'readonly:readonly', 'formField.fieldNamesClasses', 'formField.hideSuccessValidation:hide-success-validation', 'validatesClasses', 'wasValidatedClasses', 'typeClass', 'focussedClasses', 'formField.fieldClassNames', 'requiredClasses'],
 
-  'data-test-ember-changeset-webforms-field-validates': computed('formField.validates', function() {
+  requiredClasses: computed('formField.required', function() {
+    return this.formField.required ? this.formField.requiredFieldClassNames.join(' ') : '';
+  }),
+
+  disabledClasses: computed('formField.disabled', function() {
+    return this.formField.disabled ? this.formField.disabledFieldClassNames.join(' ') : '';
+  }),
+
+  validatesClasses: computed('formField.validates', function() {
+    return this.formField.validates ? this.formField.fieldValidatesClassNames.join(' ') : '';
+  }),
+
+  wasValidatedClasses: computed('formField.wasValidated', function() {
+    return this.formField.wasValidated ? this.formField.wasValidatedClassNames.join(' ') : '';
+  }),
+
+  focussedClasses: computed('formField.focussed', function() {
+    return this.formField.focussed ? this.formField.focussedClassNames.join(' ') : '';
+  }),
+
+  'data-test-cwf-field-validates': computed('formField.validates', function() {
     return this.get('formField.validates');
   }),
 
-  'data-test-ember-changeset-webforms-field-required': computed('formField.required', function() {
+  'data-test-cwf-field-required': computed('formField.required', function() {
     return this.get('formField.required');
   }),
 
