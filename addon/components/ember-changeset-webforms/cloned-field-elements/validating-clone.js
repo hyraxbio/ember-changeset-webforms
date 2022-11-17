@@ -53,33 +53,23 @@ export default Component.extend({
   },
 
   actions: {
-    onFocusOutClone(index, clonedFormField, value) {
-      clonedFormField.eventLog.push('focusOut');
+    onUserInteractionClone(index, clonedFormField, eventType, value, event) {
+      if (eventType === 'focusOut') {
+        clonedFormField.set('focussed', false);
+      } else if (eventType === 'focusIn') {
+        clonedFormField.set('focussed', true);
+      }
+      clonedFormField.eventLog.push(eventType);
       this.masterFormField.eventLog.push('focusOutClone');
-      clonedFormField.set('focussed', false);
       this.updateValidationActivation(clonedFormField, index, 'focusOut');
       this.setFieldValue(this.updatedGroupValue(value, index), this.get('masterFormField'));
-    },
-
-    onFocusInClone(index, clonedFormField) {
-      clonedFormField.set('focussed', true);
-      clonedFormField.eventLog.push('focusIn');
-      this.masterFormField.eventLog.push('focusInClone');
-      this.updateValidationActivation(clonedFormField, index, 'focusIn');
-    },
-
-    onKeyUpClone(index, clonedFormField, value, event) {
-      clonedFormField.eventLog.push('keyUp');
-      this.masterFormField.eventLog.push('keyUpClone');
-      this.updateValidationActivation(clonedFormField, index, 'keyUp');
-      this.setFieldValue(this.updatedGroupValue(value, index), this.get('masterFormField'));
+      this.onUserInteractionClone(clonedFormField, `${eventType}Clone`, value, event)
     },
 
     onChangeClone(index, clonedFormField, value, eventType = 'change') {
       clonedFormField.eventLog.push(eventType);
       this.masterFormField.eventLog.push(`${eventType}Clone`);
       this.updateValidationActivation(clonedFormField, index, eventType)
-
       this.setFieldValue(this.updatedGroupValue(value, index), this.get('masterFormField'));
     },
   },
@@ -88,7 +78,5 @@ export default Component.extend({
     return validationEvents.find(validationEvent => {
       return validationEvent.event === eventType;
     });
-  },
-
-
+  }
 });

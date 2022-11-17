@@ -10,6 +10,7 @@
   {{#each masterFormField.clonedFields as |clonedFormField index| }}
     <EmberChangesetWebforms::ClonedFieldElements::ValidatingClone 
       @cloneField={{action "cloneField"}} 
+      @onUserInteractionClone={{action onUserInteractionClone}}
       @setFieldValue={{action setFieldValue}} 
       @validateProperty={{action validateProperty}} 
       @removeClone={{action "removeClone"}}

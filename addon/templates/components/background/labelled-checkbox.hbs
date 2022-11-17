@@ -1,4 +1,8 @@
 
-  <input type="checkbox" checked={{readonly value}} onclick={{action "checkboxClicked" value="target.checked"}} disabled={{disabled}} id={{checkboxId}} name={{name}}>
-  <Background::LabelComponent @labelComponent={{labelComponent}} @markdownLabel={{markdownLabel}} @label={{label}} @for={{checkboxId}} />
+  <input type="checkbox" checked={{readonly value}} onclick={{action "checkboxClicked"}} disabled={{disabled}} id={{checkboxId}} name={{name}}>
+  <Background::LabelComponent 
+    @labelComponent={{labelComponent}} 
+    @markdownLabel={{markdownLabel}} 
+    @label={{label}} 
+    @for={{checkboxId}} />
 

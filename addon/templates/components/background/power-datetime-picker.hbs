@@ -33,7 +33,7 @@
           {{#each timeFormatParts as | timeFormatPart| }}
               <div data-test-class="time-selector-field">
                 <label for="time-selector-{{timeFormatPart.type}}" data-test-class="time-selector-field-label" data-test-id="time-selector-field-label-{{timeFormatPart.type}}">{{timeFormatPart.label}}</label>
-                <input id="time-selector-{{timeFormatPart.type}}" data-test-class="time-selector-field-input" data-test-id="time-selector-field-input-{{timeFormatPart.type}}" type="number" max={{timeFormatPart.max}} min={{timeFormatPart.min}} value={{readonly (if value (moment-format (moment value parsedDateTimeFormat) timeFormatPart.formatChar))}} onChange={{action "setTime" timeFormatPart.formatChar}} onKeyDown={{action "onKeyDownTimePartInput" timeFormatPart.formatChar}} onKeyUp={{action "onKeyUpTimePartInput" timeFormatPart.formatChar}}>
+                <input id="time-selector-{{timeFormatPart.type}}" data-test-class="time-selector-field-input" data-test-id="time-selector-field-input-{{timeFormatPart.type}}" type="number" max={{timeFormatPart.max}} min={{timeFormatPart.min}} value={{readonly (if value (moment-format (moment value parsedDateTimeFormat) timeFormatPart.formatChar))}} onChange={{action "setTime" timeFormatPart.formatChar}} onKeyDown={{action "onKeyDownTimeUnitInput" timeFormatPart.formatChar}} onKeyUp={{action "onKeyUpTimeUnitInput" timeFormatPart.formatChar}}>
               </div>
           {{/each}}
           {{#if showAmPmInput}}

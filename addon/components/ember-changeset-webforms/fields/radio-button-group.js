@@ -9,4 +9,11 @@ export default Component.extend({
   groupValue: computed('displayValue', function() {
     return this.get('displayValue');
   }),
+
+  actions: {
+    onChange(formField, value) {
+      this.onUserInteraction(formField, 'radioOptionChanged', value)
+      this.onChange(formField, value);
+    }
+  }
 });

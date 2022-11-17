@@ -38,121 +38,6 @@ export default Controller.extend({
         labelComponent: null, // Optional. Component to replace the standard label element for a single option
       // END-SNIPPET
     },
-
-    this.testFormSchema = {
-      settings: {
-        formName: 'test',
-        submitButtonText: 'Create my Account',
-      },
-      fieldSettings: {
-        // hideLabel: true,
-      },
-      fields: [{
-        fieldId: 'name',
-        fieldLabel: 'Name',
-        fieldType: 'input',
-        validationRules: [{
-          validationMethod: 'validatePresence',
-          arguments: true
-        }],
-        inputType: 'text'
-      }, {
-        fieldId: 'email',
-        fieldLabel: 'Email',
-        fieldType: 'input',
-        validationEvents: ['insert'],
-        validationRules: [{
-          validationMethod: 'validatePresence',
-          arguments: true
-        }, {
-          validationMethod: 'validateFormat',
-          arguments: { type: 'email' }
-        }],
-        inputType: 'email'
-      }, {
-        fieldId: 'birthDate',
-        fieldLabel: 'Date of birth',
-        fieldType: 'powerDatePicker',
-        calendarContainerClasses: 'pop-up-box box-arrow', // TODO default app settings
-        closeDatePickerOnSelect: true,
-      }, {
-        fieldId: 'password',
-        fieldLabel: 'Password (Minimum 8 characters)',
-        fieldType: 'input',
-        validationRules: [{
-          validationMethod: 'validatePresence',
-          arguments: true
-        }, {
-          validationMethod: 'validateLength',
-          arguments: { min: 8, max: 72 }
-        }],
-        inputType: 'password'
-      },
-      {
-        fieldId: 'password_confirmation',
-        fieldLabel: 'Confirm password',
-        fieldType: 'input',
-        validationRules: [{
-          validationMethod: 'validatePresence',
-          arguments: true
-        }, {
-          validationMethod: 'validateLength',
-          arguments: { min: 8, max: 72 }
-        }, {
-          validationMethod: 'validateConfirmation',
-          arguments: { on: 'password' }
-        }],
-        inputType: 'password'
-      },
-      {
-        fieldId: 'details.country',
-        fieldLabel: 'Country',
-        fieldType: 'powerSelect',
-        placeholder: 'Select',
-        searchEnabled: true,
-        validationRules: [{
-          validationMethod: 'validatePresence',
-          arguments: {presence: true, description: 'Country'}
-        }],
-        options: this.get('globalVariables.countries'),
-      },
-      
-      {
-        fieldId: 'mailSubscriptions',
-        dataTestFieldName: 'assay',
-        fieldLabel: 'Which HIV kit/s do you use?',
-        fieldType: 'checkboxGroup',
-        placeholder: 'Select',
-        hidden: true,
-        showfieldLabel: false,
-        validationRules: [{
-          validationMethod: 'validatePresence',
-          arguments: {
-            presence: true,
-            message: 'Please select at least one of the options above.'
-          }
-        }],
-        options: [{
-          'key': 'A32317/A32318 (RUO) ABI HIV-1 Genotyping Kit Amplification and Sequencing Modules',
-          'label': 'A32317/A32318 (RUO) ABI HIV-1 Genotyping Kit Amplification and Sequencing Modules'
-        }, {
-          'key': 'A55120 (RUO) ABI HIV-1 Genotyping Kit with Integrase',
-          'label': 'A55120 (RUO) ABI HIV-1 Genotyping Kit with Integrase'
-        }, {
-          'key': 'A54401 (CE-IVDD) ABI TaqPath Seq HIV-1 Genotyping Kit',
-          'label': 'A54401 (CE-IVDD) ABI TaqPath Seq HIV-1 Genotyping Kit'
-        }, {
-          'key': 'Other',
-          'label': 'Other'
-        }]
-      },
-      {
-        fieldId: 'preferences.surveillance',
-        fieldType: 'singleCheckbox',
-        checkBoxLabel: 'Allow my data to be used to be collected.',
-        defaultValue: false,
-      }]
-    };
     // BEGIN-SNIPPET radio-button-group-example-1.js
     this.radioButtonGroupExample1FormSchema = {
       settings: {
@@ -577,9 +462,6 @@ export default Controller.extend({
       }]
     }
     // END-SNIPPET
-
-    
-
     // BEGIN-SNIPPET power-datepicker-example-3.js
     this.powerDatapickerExample3FormSchema = {
       settings: {
@@ -653,6 +535,52 @@ export default Controller.extend({
       }]
     }
     // END-SNIPPET
+    // BEGIN-SNIPPET clicker-example-1.js
+    this.clickerExample1FormSchema = {
+      settings: {
+        formName: 'clickerExample1',
+        hideSubmitButton: true,
+      },
+      fields: [{
+        fieldId: 'toggleAdvanced',
+        fieldType: 'clicker',
+        clickerElementClassNames: ['...defaults', 'btn', 'btn-primary'],
+        clickerText: 'Advanced options'
+      }, {
+        fieldId: 'advanced',
+        fieldType: 'input',
+        fieldLabel: 'Advanced setting',
+        hidden: true,
+        advancedSetting: true
+      }]
+    }
+    // END-SNIPPET
+    // BEGIN-SNIPPET clicker-example-2.js
+    this.clickerExample2FormSchema = {
+      settings: {
+        formName: 'clickerExample2',
+        hideSubmitButton: true,
+      },
+      fields: [{
+        fieldId: 'toggleAdvanced',
+        fieldType: 'clicker',
+        clickerElementClassNames: ['...defaults', 'btn'],
+        clickerText: 'Advanced options',
+        displayComponent: {
+          path: 'forms/custom-clicker-component',
+          props: {
+            buttonType: 'danger'
+          }
+        }
+      }, {
+        fieldId: 'advanced',
+        fieldType: 'input',
+        fieldLabel: 'Advanced setting',
+        hidden: true,
+        advancedSetting: true
+      }]
+    }
+    // END-SNIPPET
   },
   actions: {
     // BEGIN-SNIPPET after-datetime-updated-action.js
@@ -662,6 +590,19 @@ export default Controller.extend({
         nativeJSFormat: moment(dateTime, formField.dateTimeFormat).toDate(),
         fieldValue: dateTime
       })
+    },
+    // END-SNIPPET
+    onUserInteraction(...args) {
+      console.log(args);
+
+    },
+    // BEGIN-SNIPPET clicker-example-action.js
+    onUserInteractionClicker1(formField, changesetWebform, eventType) {
+      if (formField.fieldId === 'toggleAdvanced' && eventType === 'click') {
+        formField.toggleProperty('showAdvanced');
+        const advancedFields = changesetWebform.fields.filterBy('advancedSetting', true);
+        advancedFields.forEach(field => field.toggleProperty('hidden'));
+      }
     }
     // END-SNIPPET
   }

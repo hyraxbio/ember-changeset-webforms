@@ -11,11 +11,11 @@ export default Component.extend({
 
   didInsertElement: function () {
     //Code below will maintain validation colours when component is re-rendered.
-    var formField = this.get('formField');
-    if (!this.get('changesetProp')) {
-      this.set('changesetProp', createChangeset([this.get('formField')], this.get('data'), this.get('customValidators')));
+    var formField = this.formField;
+    if (!this.changesetProp) {
+      this.set('changesetProp', createChangeset([this.formField], this.data, this.customValidators));
     }
-    var changesetProp = this.get('changesetProp');
+    var changesetProp = this.changesetProp;
     if (changesetProp.get(formField.propertyName)) {
       formField.eventLog.pushObject('insert');
       this.send('validateProperty', changesetProp, formField);
@@ -23,26 +23,26 @@ export default Component.extend({
   },
 
   dataTestFieldId: computed('dataTestId', 'dataTestFormName', 'formField.dataTestFieldName', function () {
-    if (this.get('dataTestId')) { return this.get('dataTestId'); }
-    return [this.get('dataTestFormName'), this.get('formField.dataTestFieldName') || this.get('formField.fieldId')].filter(item => item).join('-');
+    if (this.dataTestId) { return this.dataTestId; }
+    return [this.dataTestFormName, this.formField.dataTestFieldName || this.formField.fieldId].filter(item => item).join('-');
   }),
 
   typeClass: computed('formField.fieldType', function () {
-    var myStr = this.get('formField.fieldType');
+    var myStr = this.formField.fieldType;
     myStr = myStr.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
     return `field-type-${myStr}`;
   }),
 
   // TODO should a formField not be a class of it's own?
   displayValidation: computed('changesetProp.error', 'formField.{focussed,eventLog.[]}', function () {
-    var formField = this.get('formField');
+    var formField = this.formField;
     if (!formField) { return; }
     if (!formField.validates) { return; }
     if (!this.validationEventObj(formField.validationEvents, 'keyUp') && formField.get('focussed')) {
       return;
     }
     if (!validationEventLog(formField).length) { return }
-    var validationErrors = (this.get(`changesetProp.error.${this.get('formField.propertyName')}.validation`)) || [];
+    var validationErrors = (this.get(`changesetProp.error.${this.formField.propertyName}.validation`)) || [];
     if (validationErrors.length === 0) {
       return 'valid';
     } else {
@@ -51,10 +51,10 @@ export default Component.extend({
   }),
 
   formField: computed('fieldSchema', 'processedFieldSchema', 'prop', function () {
-    if (this.get('processedFieldSchema')) {
-      return this.get('processedFieldSchema');
+    if (this.processedFieldSchema) {
+      return this.processedFieldSchema;
     } else {
-      return parseChangesetWebformField(this.get('fieldSchema'), this.get('fieldComponentsMap'));
+      return parseChangesetWebformField(this.fieldSchema, this.fieldComponentsMap);
     }
   }),
 
@@ -78,79 +78,45 @@ export default Component.extend({
       });
     },
 
-    onClick(formField) {
-      formField.eventLog.push('click');
-      if (this.onClickAction) {
-        this.onClickAction(formField, this.get('changesetProp'));
-      }
-    },
-
     onChange(formField, value) {
-      console.log('change')
       formField.eventLog.push('change');
       this.send('setFieldValue', value, formField);
     },
 
-    onUserInteraction(formField, value, eventType, event) {
-      console.log(eventType)
+    onUserInteraction(formField, eventType, value, event) {
+      formField.eventLog.push(eventType);
       if (eventType === 'keyUp') {
         if (formField.fieldType === 'input' && event.keyCode === 13) {
           if (this.submitForm) {
             formField.set('focussed', false);
-            this.submitForm(this.get('changesetProp'));
+            this.submitForm(this.changesetProp);
           }
           return;
         }
         this.send('setFieldValue', value, formField);
-        formField.eventLog.push('keyUp');
-        if (this.afterKeyUpAction) {
-          this.afterKeyUpAction(formField, this.get('changesetProp'), value, event);
+      } else if (eventType === 'focusOut') {
+        formField.set('focussed', false);
+        formField.eventLog.push('focusOut');
+        if (value && formField.trim && formField.inputType !== 'password' && typeof value === 'string') {
+          value = value.trim();
         }
-      }
+        this.send('setFieldValue', value, formField);
+      } else if (eventType === 'focusIn') {
+        formField.set('focussed', true);
+      }  
+      this.onUserInteraction(formField, eventType, value, event)
     },
 
-    onFocusOut: function (formField, value) {
-      formField.set('focussed', false);
-      formField.eventLog.push('focusOut');
-      if (value && formField.trim && formField.inputType !== 'password' && typeof value === 'string') {
-        value = value.trim();
-      }
-      this.send('setFieldValue', value, formField);
-      if (this.focusOutAction) {
-        this.focusOutAction(formField, this.get('changesetProp'));
-      }
-    },
-
-    onFocusIn: function (formField) {
-      formField.set('focussed', true);
-      formField.eventLog.push('focusIn');
-      if (this.focusInAction) {
-        this.focusInAction(formField, this.get('changesetProp'));
-      }
-    },
-
-    onKeyUp: function (formField, value, event) {
-      console.log('keyUp')
-      // if (formField.fieldType === 'input' && event.keyCode === 13) {
-      //   if (this.submitForm) {
-      //     formField.set('focussed', false);
-      //     this.submitForm(this.get('changesetProp'));
-      //   }
-      //   return;
-      // }
-      // this.send('setFieldValue', value, formField);
-      // formField.eventLog.push('keyUp');
-      // if (this.afterKeyUpAction) {
-      //   this.afterKeyUpAction(formField, this.get('changesetProp'), value, event);
-      // }
+    onUserInteractionClone(...args) {
+      this.onUserInteraction([args]);
     },
 
     setFieldValue: function (value, formField) {
-      var changeset = this.get('changesetProp');
+      var changeset = this.changesetProp;
       formField.set('previousValue', changeset.get(formField.propertyName));
       changeset.set(formField.propertyName, value);
       if (this.afterFieldEdit) {
-        this.afterFieldEdit(formField, this.get('changesetProp'));
+        this.afterFieldEdit(formField, this.changesetProp);
       }
       this.send('validateProperty', changeset, formField);
     }

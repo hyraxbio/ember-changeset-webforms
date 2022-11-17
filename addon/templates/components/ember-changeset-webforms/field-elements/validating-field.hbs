@@ -8,6 +8,7 @@
       @afterAddClone={{afterAddClone}} 
       @afterRemoveClone={{afterRemoveClone}}
       @afterClickAddCloneButton={{afterClickAddCloneButton}}
+      @onUserInteractionClone={{action "onUserInteractionClone"}}
       @dataTestFieldId={{dataTestFieldId}}
     />
   {{else}}
@@ -25,12 +26,8 @@
         formField=formField
         formFields=formFields
         formSettings=formSettings
-        onFocusOut=(action "onFocusOut")
-        onFocusIn=(action "onFocusIn")
-        onKeyUp=(action "onKeyUp")
         onChange=(action "onChange")
         onUserInteraction=(action "onUserInteraction")
-        onClick=(action "onClick")
         changesetProp=changesetProp
         displayValidation=displayValidation
         displayValue=(changeset-get changesetProp formField.fieldId)

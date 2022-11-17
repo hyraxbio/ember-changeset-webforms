@@ -204,6 +204,9 @@ export default Component.extend({
       if (this.validMoment(event)) {
         this.send('updateDateTime', this.validMoment(event));
       }
+      if (this.onUserInteraction) {
+        this.onUserInteraction('keyUpDateTimeInput', event.target.value, event);
+      }
     },
 
     checkDateInputFocus() {
@@ -211,16 +214,25 @@ export default Component.extend({
       return true;
     },
 
-    onDateInputFocus() {
+    onDateInputFocus(event) {
       this.set('dateInputFocussed', true);
+      if (this.onUserInteraction) {
+        this.onUserInteraction('focusDateTimeInput', event.target.value, event);
+      }
     },
 
-    onDateInputBlur() {
+    onDateInputBlur(event) {
       this.set('dateInputFocussed', false);
+      if (this.onUserInteraction) {
+        this.onUserInteraction('blurDateTimeInput', event.target.value, event);
+      }
     },
 
     clearDateTime: function() {
       this.onSelectDateTime(null);
+      if (this.onUserInteraction) {
+        this.onUserInteraction('clearDateTime', this.value);
+      }
     },
 
     dateClicked(dropdown, value) {
@@ -228,10 +240,13 @@ export default Component.extend({
       if (this.get('closeDatePickerOnSelect')) {
         dropdown.actions.close();
       }
+      if (this.onUserInteraction) {
+        this.onUserInteraction('dateSelected', value.date);
+      }
     },
 
     setDate: function(selectedDate) {
-      var currentDateTime = this.get('value');
+      var currentDateTime = this.value;
       this.send('updateDateTime', this.updateDate(selectedDate, currentDateTime));
     },
 
@@ -243,12 +258,12 @@ export default Component.extend({
         event.target.value = this.conformBounds(event.target.value, {min: event.target.getAttribute('min'), max: event.target.getAttribute('max'), length: unit.length});
       }
       let value = event.target.value;
-      var currentDateTime = this.get('value');
+      var currentDateTime = this.value;
       const newDateTime = this.updateTimeUnit(unit, value, currentDateTime);
       this.send('updateDateTime', newDateTime);
     },
 
-    onKeyDownTimePartInput(unit, event) {
+    onKeyDownTimeUnitInput(unit, event) {
       const { keys } = keyCodesMap;
       if (event.keyCode !== keys.arrowUp && event.keyCode !== keys.arrowDown) {
         return;
@@ -284,20 +299,29 @@ export default Component.extend({
       event.target.value = newValue;
       
       this.send('setTime', unit, event);
+      if (this.onUserInteraction) {
+        this.onUserInteraction('keyDownTimeUnitInput', event.target.value, event);
+      }
     },
 
-    onKeyUpTimePartInput(unit, event) {
+    onKeyUpTimeUnitInput(unit, event) {
       if (event.target.value.length >= unit.length ) {
         this.send('setTime', unit, event);
+      }
+      if (this.onUserInteraction) {
+        this.onUserInteraction('keyUpTimeUnitInput', event.target.value, event);
       }
     },
 
     onFocusInAmPm(event) {
       event.target.value = '';
+      if (this.onUserInteraction) {
+        this.onUserInteraction('focusAmPmInput', event.target.value, event);
+      }
     },
 
     onChangeAmPm(event) {
-      var currentDateTime = this.get('value');
+      var currentDateTime = this.value;
       const value = event.target.value.toLowerCase();
       if (value !== 'am' && value !== 'pm') {
         event.target.value = moment(currentDateTime, this.parsedDateTimeFormat).format('a');
@@ -306,6 +330,9 @@ export default Component.extend({
     },
 
     onKeyUpAmPm(event) {
+      if (this.onUserInteraction) {
+        this.onUserInteraction('keyUpAmPmInput', event.target.value, event);
+      }
       const { keys } = keyCodesMap;
       const amKeyCodes = [keys.a, keys.arrowUp];
       const pmKeyCodes = [keys.p, keys.arrowDown];

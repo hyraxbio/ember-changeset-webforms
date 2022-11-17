@@ -10,3 +10,7 @@ Add validationAreaClassNames to the same element with class `validation-area`
 [ ] Doc or remove `class=formField.contentComponent.class` in static content component
 
 Do labelComponent, checkboxlabelComnponent, optionLabelComponent, contentComponent allow strings?
+
+All IDs must use formName as namespace
+
+All classes become classNames and are arrays.

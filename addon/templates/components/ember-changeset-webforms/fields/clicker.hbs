@@ -1,5 +1,7 @@
 <EmberChangesetWebforms::FieldElements::FieldLabel 
   @formField={{formField}} />
-  <div role="button" class={{formField.clickerElementClass}} {{action onClick formField}} data-test-class="cwf-clicker-element">
-    {{or (component formField.displayComponent.path changesetProp=changesetProp displayComponentProps=formField.displayComponent.props) formField.clickerText}}
-  </div>
+  {{#if formField.displayComponent}}
+    {{component formField.displayComponent.path props=formField.displayComponent.props formField=formField classNames=(ember-changeset-webforms/array-join formField.clickerElementClassNames " ") changesetProp=changesetProp onClick=(action "onClick" formField)}}
+  {{else}}
+    <div role="button" class={{ember-changeset-webforms/array-join formField.clickerElementClassNames " "}} onclick={{action "onClick" formField}} data-test-class="cwf-clicker-element">{{formField.clickerText}}</div>
+  {{/if}}

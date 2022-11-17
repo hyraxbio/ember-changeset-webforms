@@ -80,27 +80,9 @@ export default Component.extend({
       }
     },
 
-    afterFieldClick(formField) {
-      if (this.afterFieldClick) {
-        this.afterFieldClick(formField, this.get('changesetWebform'))
-      }
-    },
-
-    afterInputFocusOut(formField) {
-      if (this.afterInputFocusOut) {
-        this.afterInputFocusOut(formField, this.get('changesetWebform'));
-      }
-    },
-
-    afterInputFocusIn(formField) {
-      if (this.afterInputFocusIn) {
-        this.afterInputFocusIn(formField, this.get('changesetWebform'));
-      }
-    },
-
-    afterInputKeyUp: function(formField, changeset, value, event) {
-      if (this.afterInputKeyUp) {
-        this.afterInputKeyUp(formField, this.get('changesetWebform'), value, event);
+    onUserInteraction(formField, eventType, value, event) {
+      if (this.onUserInteraction) {
+        this.onUserInteraction(formField, this.changesetWebform, eventType, value, event)
       }
     },
    

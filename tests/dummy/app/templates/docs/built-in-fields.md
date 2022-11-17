@@ -14,7 +14,8 @@ Calls the `keyUp`, `focusIn` and `focusOut` actions when the corresponding event
 
 {{#docs-demo as |demo|}}
   {{#demo.example name="input-example-1.hbs"}}
-    <ChangesetWebform @formSchema={{inputExample1FormSchema}} />
+    <ChangesetWebform @formSchema={{inputExample1FormSchema}} 
+    @onUserInteraction={{action "onUserInteraction" }}/>
   {{/demo.example}}
   {{demo.snippet "input-example-1.js" label="Component JS" language="javascript"}}
   {{demo.snippet "input-example-1.hbs" label="Template" language="htmlbars"}}
@@ -85,7 +86,7 @@ You can also pass a markdown string to the `checkboxLabelMarkdown` prop. This wi
 
 ### Single checkbox custom component for checkbox label
 
-When using a custom component for the checkbox label, either by passing `checkBoxLabelComponent` to the field. The component passed will then be rendered in place of the standard label element for each option.
+You can use a custom component for the checkbox label by passing `checkBoxLabelComponent` to the field. The component passed will then be rendered in place of the standard label element for each option.
 
 The object passed must take the following form.
 
@@ -466,6 +467,74 @@ This could be useful where your server requires one date format, but your users 
   {{demo.snippet "power-datepicker-example-5.js" label="Component JS" language="javascript"}}
   {{demo.snippet "power-datepicker-example-5.hbs" label="Template" language="htmlbars"}}
   {{demo.snippet "after-datetime-updated-action.js" label="Action handing" language="javascript"}}
+{{/docs-demo}}
+
+## Clicker
+
+The field displays an element which emits the `onUserInteraction` action with the eventType `click` when clicked. You can bind this to an action in your component and then respond in any way.
+
+The examples below toggle the advanced field in a form.
+
+## Clicker field basic usage
+
+Pass `clickerText` and optionally `clickerElementClassNames`.
+
+Renders a `div` element with `role="button"` the classNames provided. The inner text of the element is what is passed to `clickerText`.
+
+{{#docs-demo as |demo|}}
+  {{#demo.example name="clicker-example-1.hbs"}}
+    <div data-test-id="clicker-example-1">
+      <ChangesetWebform 
+        @formSchema={{clickerExample1FormSchema}} 
+        @onUserInteraction={{action "onUserInteractionClicker1"}}/>
+    </div> 
+  {{/demo.example}}
+  {{demo.snippet "clicker-example-1.js" label="Component JS" language="javascript"}}
+  {{demo.snippet "clicker-example-1.hbs" label="Template" language="htmlbars"}}
+  {{demo.snippet "clicker-example-action.js" label="Action handing" language="javascript"}}
+{{/docs-demo}}
+
+### Clicker field with a custom component
+
+You can use a custom component for the checkbox label by passing `displayComponent` to the field. The component passed will then be rendered in place of the standard clicker component.
+
+The object passed must take the following form.
+
+``` 
+{ 
+  path: // String, required. The path to the component to render', 
+  props: // Object, optional. This object that will be passed to the component as "props"
+}
+```
+
+* The component will also have access to an `formField` prop, with the formField object.
+* The component will also have access to the `classNames` property. These are the classnames that would be applied to the standard clicker element, derived by resolving th default class names for the field, with any overrides provided.
+* The component will also have access to a `changesetProp` prop, which ios the changeset underlying the form.
+
+Pass `displayComponent` as an object containing:
+
+* `path` - the path to the component to render
+* `props`
+
+If using a `button` element in your custom clicker component, bear in mind that the default `type` of a button is `submit`. Thus, if you don't add a type to your button, clicking it will result in a form submission. Setting `type="button"` is recommended.
+
+{{#docs-snippet name="custom-clicker-component.hbs"}}
+<button type="button" onclick={{action onClick}} class={{classNames}}><b>{{formField.clickerText}}</b> {{component icon}}</button>
+{{/docs-snippet}}
+
+{{#docs-demo as |demo|}}
+  {{#demo.example name="clicker-example-2.hbs"}}
+    <div data-test-id="clicker-example-2">
+      <ChangesetWebform 
+        @formSchema={{clickerExample2FormSchema}} 
+        @onUserInteraction={{action "onUserInteractionClicker1"}}/>
+    </div> 
+  {{/demo.example}}
+  {{demo.snippet "clicker-example-2.js" label="Component JS" language="javascript"}}
+  {{demo.snippet "clicker-example-2.hbs" label="Template" language="htmlbars"}}
+  {{demo.snippet "clicker-example-action.js" label="Action handing" language="javascript"}}
+  {{demo.snippet "custom-clicker-component.js" label="Custom clicker JS" language="javascript"}}
+  {{demo.snippet "custom-clicker-component.hbs" label="Custom clicker HBS" language="htmlbars"}}
 {{/docs-demo}}
 
 <!-- <ChangesetWebform @formSchema={{this.testFormSchema}} /> -->

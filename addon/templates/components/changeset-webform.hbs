@@ -8,14 +8,13 @@
         @afterAddClone={{afterAddClone}}
         @afterClickAddCloneButton={{afterClickAddCloneButton}}
         @afterRemoveClone={{afterRemoveClone}}
-        @afterKeyUpAction={{afterKeyUpAction}}
         @changesetProp={{changesetWebform.changeset}}
         @formSettings={{formSettings}}
         @formFields={{changesetWebform.fields}}
         @submitForm={{action "submit" changesetWebform.changeset formSettings.modelName}}
         @afterFieldValidation={{action "afterFieldValidation"}}
         @afterFieldEdit={{action "afterFieldEdit"}}
-        @onClickAction={{action "afterFieldClick"}}
+        @onUserInteraction={{action "onUserInteraction"}}
       />
     {{/each}}
   </div>

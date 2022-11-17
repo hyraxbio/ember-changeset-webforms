@@ -3,5 +3,11 @@ import layout from '../../../templates/components/ember-changeset-webforms/field
 
 export default Component.extend({
   layout,
-  tagName: ''
+  tagName: '',
+
+  actions: {
+    onClick(formField, event) {
+      this.onUserInteraction(formField, 'click', null, event)
+    }
+  }
 });

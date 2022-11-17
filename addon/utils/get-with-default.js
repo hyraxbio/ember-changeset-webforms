@@ -1,5 +1,6 @@
 import config from 'ember-get-config';
 import _merge from 'lodash/merge';
+import _mergeWith from 'lodash/mergeWith';
 
 const addonDefaults = {
   formSettings: {
@@ -165,6 +166,7 @@ const addonDefaults = {
       // BEGIN-SNIPPET clicker-field-options.js
       fieldType: 'clicker',
       clickerText: null, // String - text to display in the clicker element.
+      clickerElementClassNames: ['cwf-clicker'], // Array - Classes to add to the default clicker element
       displayComponent: null, // Can either be string which is the path to the component or an object with a property called path being the path to the component and props, an object which will be passed to the component as "props".
       // END-SNIPPET
       componentPath: 'ember-changeset-webforms/fields/clicker',
@@ -177,7 +179,6 @@ const addonDefaults = {
       contentComponent: null, // Can either be string which is the path to the component or an object with a property called path being the path to the component and props, an object which will be passed to the component as "props".
       // END-SNIPPET
       componentPath: 'ember-changeset-webforms/fields/static-content',
-
     }
   ],
 };
@@ -186,18 +187,27 @@ const addonDefaults = {
 export {addonDefaults};
 
 export default function getWithDefault(formSchema = {}) {
+  const customisedMerge = function(objValue, srcValue, key, object, source, stack) {
+    if (Array.isArray(objValue) && key.endsWith('ClassNames') ) {
+      if (srcValue.indexOf('...defaults') > -1) {
+        return objValue.concat(srcValue).filter(className => !className.startsWith('.'));
+      } else {
+        return srcValue.filter(className => !className.startsWith('.'));
+      }
+    }
+  };
   const appDefaults = config.changesetWebformsDefaults || {};
-  const formSettings = _merge({}, addonDefaults.formSettings, appDefaults.formSettings, formSchema.settings);
+  const formSettings = _mergeWith({}, addonDefaults.formSettings, appDefaults.formSettings, formSchema.settings, customisedMerge);
   const addonFieldDefaults = addonDefaults.fieldSettings || {};
   const appConfigFieldDefaults = appDefaults.fieldSettings || {};
   const mergedFields = (formSchema.fields || []).map(field => {
     const addonFieldTypeDefaults = addonDefaults.fieldTypes.find(addonFieldType => addonFieldType.fieldType === field.fieldType);
     const appConfigFieldTypeDefaults = (appDefaults.fieldTypes || []).find(appConfigFieldType => appConfigFieldType.fieldType === field.fieldType);
-    const mergedField = _merge({}, addonFieldDefaults, addonFieldTypeDefaults, appConfigFieldDefaults, appConfigFieldTypeDefaults, formSchema.fieldSettings, field);
+    const mergedField = _mergeWith({}, addonFieldDefaults, addonFieldTypeDefaults, appConfigFieldDefaults, appConfigFieldTypeDefaults, formSchema.fieldSettings, field, customisedMerge);
     if (field.cloneFieldSchema) {
       const cloneAddonFieldTypeDefaults = addonDefaults.fieldTypes.find(addonFieldType => addonFieldType.fieldType === field.cloneFieldSchema.fieldType);
       const appConfigCloneFieldTypeDefaults = (appDefaults.fieldTypes || []).find(appConfigFieldType => appConfigFieldType.fieldType === field.cloneFieldSchema.fieldType);
-      const mergedCloneField = _merge({}, addonFieldDefaults, cloneAddonFieldTypeDefaults, appConfigFieldDefaults, appConfigCloneFieldTypeDefaults, formSchema.fieldSettings, field.cloneFieldSchema);
+      const mergedCloneField = _mergeWith({}, addonFieldDefaults, cloneAddonFieldTypeDefaults, appConfigFieldDefaults, appConfigCloneFieldTypeDefaults, formSchema.fieldSettings, field.cloneFieldSchema, customisedMerge);
       mergedField.cloneFieldSchema = mergedCloneField;
     }
     return mergedField;

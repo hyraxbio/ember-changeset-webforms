@@ -25,7 +25,7 @@ export default Component.extend({
   }),
 
   actions: {
-    checkboxToggled: function(key, value) {
+    checkboxToggled: function(formField, key, value, event) {
       var checkedItems = this.stringToArray(this.get('displayValue'));
       if (value === true) {
         checkedItems = checkedItems.concat([key]); // Use concat not push so that the computed property above can recognide whne a new item is checked.
@@ -39,7 +39,8 @@ export default Component.extend({
       } else {
         checkedItems = checkedItems.sort();
       }
-      this.onChange(this.get('formField'), checkedItems, 'optionSelected');
+      this.onChange(formField, checkedItems);
+      this.onUserInteraction(formField, 'checkboxToggled', checkedItems, event);
     },
   },
 

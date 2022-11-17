@@ -12,7 +12,7 @@ export default Component.extend({
 
   actions: {
     onSelectDateTime(dateTime) {
-      var formField = this.get('formField');
+      var formField = this.formField;
       if (formField.dateRangeSettings) {
         var rangePartner = this.get('formFields').findBy('fieldId', formField.dateRangeSettings.rangePartnerFieldId);
         if (rangePartner) {
@@ -23,8 +23,8 @@ export default Component.extend({
           }
         }        
       }
-      const formatted = dateTime ?  moment(dateTime).format(`${this.formField.dateTimeFormat.replace(/S{1,}/, 'SSS')}`).toString() : null; // TODO this must default simply to moment(dateTime).toDate() to accommodate ember attr 'date', and allow user to specify output function to overridde this when defining field.
-      this.onChange(formField, formatted, 'optionSelected');
+      const formatted = dateTime ?  moment(dateTime).format(`${this.formField.dateTimeFormat.replace(/S{1,}/, 'SSS')}`).toString() : null; // TODO this must default simply to moment(dateTime).toDate() to accommodate ember attr 'date', and allow user to specify output function to override this when defining field.
+      this.onChange(formField, formatted);
     }
   }
 });

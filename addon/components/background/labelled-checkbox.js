@@ -17,9 +17,9 @@ export default Component.extend({
   }),
   
   actions: {
-    checkboxClicked: function(value) {
+    checkboxClicked: function(event) {
       if (this.changedAction) {
-        this.changedAction(value);
+        this.changedAction(event.target.checked, event);
       }
     }
   }
