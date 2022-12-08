@@ -13,7 +13,7 @@ module('Acceptance | Power datepicker field', function(hooks) {
   test('Date select', async function(assert) {
     await visit('/docs/built-in-fields');
     const parentFieldSelector = dummyEls.singleCheckboxBasicUse;
-    await this.pauseTest();
+    assert.ok(true)
   });
 
 })

@@ -27,27 +27,27 @@ $spacer-md: 16px;
   color: #e6c07b;
 }
 
-.ember-changeset-webforms {
-  input {
-    border: 1px solid #ccc;
-    padding: 3px 10px;
-  }
-  button {
-    // height: 40px;
-    white-space: nowrap;
-    // background: #999;
-    color: #fff;
-    border-width: 0;
-    border-radius: 3px;
-    display: flex;
-    align-items: center;
-    padding: 8px 16px;
-    svg {
-      margin-left: 10px;
-      width: 20px;
-    }
-  }
- }
+// .ember-changeset-webforms {
+//   input {
+//     border: 1px solid #ccc;
+//     padding: 3px 10px;
+//   }
+//   button {
+//     // height: 40px;
+//     white-space: nowrap;
+//     // background: #999;
+//     color: #fff;
+//     border-width: 0;
+//     border-radius: 3px;
+//     display: flex;
+//     align-items: center;
+//     padding: 8px 16px;
+//     svg {
+//       margin-left: 10px;
+//       width: 20px;
+//     }
+//   }
+//  }
 
  .formatted-list {
   padding-left: 1.5em;
@@ -129,43 +129,96 @@ $spacer-md: 16px;
   align-items: center;
 }
 
-.ember-basic-dropdown-content {
-  padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  background: #eee;
-  box-shadow: 0 1px 3px rgb(0 0 0 / 52%)
+// .ember-basic-dropdown-content {
+//   padding: 12px;
+//   border: 1px solid #ccc;
+//   border-radius: 5px;
+//   background: #eee;
+//   box-shadow: 0 1px 3px rgb(0 0 0 / 52%)
+// }
+
+  // @import "ember-changeset-webforms";
+
+
+//   @import "ember-skeleton-variables";
+//   @import "ember-skeleton/generic/_buttons";
+//   // @import "ember-skeleton/generic/_box-arrows";
+
+// div.docs-rounded {
+//   font-size: 62.5%;
+//   // @import "ember-skeleton/layout/_layout-basics";
+//   // @import "ember-skeleton/generic/_spinning-animation";
+//   // @import "ember-skeleton/generic/_list-group";
+//   // @import "ember-skeleton/generic/_badge";
+//   @import "ember-skeleton/generic/_alert";
+//   // @import "ember-skeleton/generic/_misc";
+//   @import "ember-skeleton/generic/_text";
+//   @import "ember-skeleton/generic/_buttons";
+//   // @import "ember-skeleton/generic/_tables";
+//   // @import "ember-skeleton/generic/_inputs-and-labels";
+//   // @import "ember-skeleton/generic/_bootstrap-tooltips";
+//   // @import "ember-skeleton/generic/_box-arrows";
+//   @import "ember-skeleton/generic/_borders";
+//   @import "ember-skeleton/generic/_card-box-shadow";
+//   @import "ember-skeleton/generic/_svg.scss";
+//   @import "ember-skeleton/generic/_backgrounds.scss";
+//   @import "ember-skeleton/generic/_overlays.scss";
+//   @import "ember-skeleton/generic/_flexbox";
+//   @import "ember-skeleton/generic/_spacer-margin-padding";
+//   @import "ember-skeleton/generic/_spacer-height-width";
+// }
+
+button {
+  svg {
+    width: 24px;
+    display: inline-block;
+  }
 }
 
-  @import "ember-changeset-webforms";
+@import "ember-power-select";
+.ember-power-select-trigger-multiple-input {
+  border-color: transparent !important;
+}
+@import "ember-power-calendar";
+.ember-power-calendar {
+  @include ember-power-calendar($cell-size: 34px);
+}
 
-  @import "ember-skeleton-variables";
-  @import "ember-skeleton/generic/_buttons";
-  // @import "ember-skeleton/generic/_box-arrows";
-
-  div.external {
-    font-size: 62.5%;
-    // @import "ember-skeleton/layout/_layout-basics";
-    // @import "ember-skeleton/generic/_spinning-animation";
-    // @import "ember-skeleton/generic/_list-group";
-    // @import "ember-skeleton/generic/_badge";
-    @import "ember-skeleton/generic/_alert";
-    // @import "ember-skeleton/generic/_misc";
-    @import "ember-skeleton/generic/_text";
-    @import "ember-skeleton/generic/_buttons";
-    // @import "ember-skeleton/generic/_tables";
-    // @import "ember-skeleton/generic/_inputs-and-labels";
-    // @import "ember-skeleton/generic/_bootstrap-tooltips";
-    // @import "ember-skeleton/generic/_box-arrows";
-    @import "ember-skeleton/generic/_borders";
-    @import "ember-skeleton/generic/_card-box-shadow";
-    @import "ember-skeleton/generic/_svg.scss";
-    @import "ember-skeleton/generic/_backgrounds.scss";
-    @import "ember-skeleton/generic/_overlays.scss";
-    @import "ember-skeleton/generic/_flexbox";
-    @import "ember-skeleton/generic/_spacer-margin-padding";
-    @import "ember-skeleton/generic/_spacer-height-width";
-  }
+.docs-rounded {
+  .docs-p-4 * {
+    @import "bootstrap-5/bootstrap";
+    .cwf-time-selector {
+      display: flex;
+      .time-selector-field {
+        width: 60px;
+        &.time-selector-field-milliseconds {
+          width: 80px;
+        }
+      }
+    }
+    .clone-group {
+      .form-field-clone {
+        display: flex;
+        .ember-changeset-webforms-field {
+          flex-grow: 1;
+        }
+      }
+      .clone-actions {
+        padding-top: $spacer-md;
+        padding-right: $spacer-md;
+        svg {
+          height: 20px;
+        }
+      }
+      
+      .clone-group-actions {
+        width: 100%;
+        margin-top: 10px;
+        
+      }
+    }
+  } 
+}
 
 
 

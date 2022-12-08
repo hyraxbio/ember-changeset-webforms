@@ -2,12 +2,13 @@ import Component from '@ember/component';
 import layout from '../../../templates/components/ember-changeset-webforms/cloned-field-elements/validating-clone-group';
 import { computed } from '@ember/object';
 import EmberObject from '@ember/object';
+import FormFieldClone from 'ember-changeset-webforms/utils/form-field-clone';
 import validationEventLog from 'ember-changeset-webforms/utils/validation-event-log';
 
 export default Component.extend({
   layout,
   classNames: ['clone-group', 'ember-changeset-webforms-clone-group'],
-  classNameBindings: ['cloneGroupNameClass', 'displayValidation', 'masterFormField.required:required', 'disabled:disabled', 'readonly:readonly', 'masterFormField.fieldClassNames', 'masterFormField.hideSuccessValidation:hide-success-validation', 'masterFormField.validates:validates', 'typeClass', 'masterFormField.focussed:focussed'],
+  classNameBindings: ['cloneGroupNameClass', 'validationStatus', 'masterFormField.required:required', 'disabled:disabled', 'readonly:readonly', 'masterFormField.fieldClassNames', 'masterFormField.hideSuccessValidation:hide-success-validation', 'masterFormField.validates:validates', 'typeClass', 'masterFormField.focussed:focussed'],
 
   'data-test-ember-changeset-webforms-field-validates': computed('masterFormField.validates', function() {
     return this.get('masterFormField.validates');
@@ -33,7 +34,7 @@ export default Component.extend({
     } 
   },
 
-  displayValidation: computed('masterFormFieldValidationErrors', 'masterFormField.{eventLog.[]}', function () {
+  validationStatus: computed('masterFormFieldValidationErrors', 'masterFormField.{eventLog.[]}', function () {
     var formField = this.get('masterFormField');
     if (!formField) { return; }
     if (!validationEventLog(formField).filter(item => !item.endsWith('Clone')).length) { return }
@@ -82,9 +83,13 @@ export default Component.extend({
       newField.isClone = true;
       newField.cloneId = this.cloneId(masterFormField.clonedFields);
       newField.eventLog = []; // BD must recreate this, otherwise all clones share the same instance of eventLog array.
-      masterFormField.clonedFields.pushObject(EmberObject.create(newField));
+      const clone = FormFieldClone.create(newField);
+      clone.set('changeset', this.changesetProp);
+      clone.set('masterFormField', masterFormField);
+      masterFormField.clonedFields.pushObject(clone);
+      clone.set('index', masterFormField.clonedFields.indexOf(clone));
       var lastIndex = masterFormField.clonedFields.length -1;
-      masterFormField.set('lastUpdatedClone', {
+      masterFormField.set('lastUpdatedClone', { // TODO does lastUpdatedClone do anything?
         index: lastIndex,
         previousValue: null,
       });
@@ -109,6 +114,11 @@ export default Component.extend({
       groupValue.splice(index, 1);
       masterFormField.eventLog.pushObject('removeClone');
       this.setFieldValue(groupValue, masterFormField);
+
+      masterFormField.clonedFields.forEach((clone, index) => {
+        clone.set('index', index);
+      });
+
       if (this.get('afterRemoveClone')) {
         this.afterRemoveClone(clone, masterFormField, this.get('changesetProp'));
       }

@@ -14,7 +14,9 @@ export default Controller.extend({
         submitSuccessMessage: 'Thank you for signing up.',
         submitButtonText: 'Sign up',
         modelName: 'user', // TODO required?
-        resetAfterSubmit: true
+        resetAfterSubmit: true,
+        showDiscardChangesButton: true,
+        showClearFormButton: true,
       },
       fields: [{
         fieldId: 'name',
@@ -69,7 +71,7 @@ export default Controller.extend({
         inputType: 'password'
       },
       {
-        fieldId: 'details.country',
+        fieldId: 'country',
         fieldLabel: 'Country',
         fieldType: 'powerSelect',
         placeholder: 'Select',
@@ -81,19 +83,29 @@ export default Controller.extend({
         options: this.get('globalVariables.countries'),
       },
       {
+        fieldId: 'birthDate',
+        fieldLabel: 'Date of Birth',
+        fieldType: 'powerDatePicker',
+        showTimeSelector: true,
+        validationRules: [{
+          validationMethod: 'validatePresence',
+          arguments: {presence: true, description: 'Date of birth'}
+        }],
+      },
+      {
         fieldId: 'acceptTerms',
         fieldType: 'radioButtonGroup',
-        label: 'Do you agree to the terms and conditions?',
+        fieldLabel: 'Do you agree to the terms and conditions?',
         validationRules: [{
           validationMethod: 'validateInclusion',
           arguments: { list: ['true'], message: 'You must accept the terms to continue.'}
         }],
         options: [{
-          'label': 'I agree',
-          'value': 'true'
+          label: 'I agree',
+          value: 'true'
         }, {
-          'label': 'I do not agree',
-          'value': 'false'
+          label: 'I do not agree',
+          value: 'false'
         }]
       },
       {
@@ -104,13 +116,31 @@ export default Controller.extend({
           validationMethod: 'validatePresence',
           arguments: {presence: true, message: 'Please confirm that you are not a robot.'}
         }],
+      }, {
+        fieldId: 'cookieConsent',
+        fieldType: 'checkboxGroup',
+        fieldLabel: 'Please select the cookies you consent to',
+        validationRules: [{
+          validationMethod: 'validateLength',
+          arguments: { min: 2, allowNone: false, message: 'You must select at least one cookie consent option.'}
+        }],
+        options: [{
+          label: 'Essential',
+          key: 'essential'
+        }, {
+          label: 'Analytics',
+          key: 'analytics'
+        }, {
+          label: 'Marketing',
+          key: 'marketing'
+        }]
       }]
     };
     // END-SNIPPET
     
   },
   actions: {
-    submit() {
+    submit(data) {
 
     },
 

@@ -3,6 +3,7 @@ import layout from '../../../templates/components/ember-changeset-webforms/field
 
 export default Component.extend({
   layout,
+  tagName: '',
 
   actions: {
     onChange(formField, event) {

@@ -50,6 +50,7 @@ module('Acceptance | Power datepicker field', function(hooks) {
 
   test('Date select with minDate 2022-11-10 and maxDate 2022-11-16', async function(assert) {
     await visit('/docs/built-in-fields');
+    // TODO write test to check that calendarStartMonth works and is overridden by defaultValue or data passed in.
     const parentFieldSelector = dummyEls.powerDatepickerMinMaxDate;
     const dateTimeInput = find(`${parentFieldSelector} input.date-select`);
     const rawDateTimeElement = find(`${parentFieldSelector} ${dummyEls.rawDateTime}`);
@@ -1638,8 +1639,8 @@ module('Acceptance | Power datepicker field', function(hooks) {
     const parentFieldSelector = dummyEls.powerDatepickerCustomTimeSelect;
     await clickTrigger(`${parentFieldSelector} ${dummyEls.startDateField}`);
     assert.dom(dummyEls.timeSelectorField).exists({count: 2}, 'Two time selector inputs exist');
-    assert.equal(findAll(dummyEls.timeSelectorFieldLabel)[0].textContent, 'Hours', 'First time selector field has label "Hours"');
-    assert.equal(findAll(dummyEls.timeSelectorFieldLabel)[1].textContent, 'Minutes', 'Second time selector field has label "Minutes"');
+    assert.equal(findAll(dummyEls.timeSelectorFieldLabel)[0].textContent, 'Hour', 'First time selector field has label "Hour"');
+    assert.equal(findAll(dummyEls.timeSelectorFieldLabel)[1].textContent, 'Min', 'Second time selector field has label "Min"');
   }),
 
   test('Display date format differs from date format', async function(assert) {

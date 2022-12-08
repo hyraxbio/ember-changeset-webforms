@@ -1,11 +1,13 @@
 <EmberChangesetWebforms::FieldElements::FieldLabel 
   @formField={{formField}} 
-  @fieldLabelClassNames={{formField.fieldLabelClassNames}} />
-<div class="field-controls validation-icon {{ember-changeset-webforms/array-join formField.fieldControlsClassNames " "}}">
+  @changesetWebform={{changesetWebform}}
+  @validationStatus={{validationStatus}} />
+<div class="{{ember-changeset-webforms/dynamic-classes "fieldControls" changesetWebform formField formField.validationStatus}}">
   {{yield}}
 </div>
 <EmberChangesetWebforms::FieldElements::FieldErrors 
   @changesetProp={{changesetProp}} 
   @formField={{formField}} 
-  @displayValidation={{displayValidation}}
+  @validationStatus={{validationStatus}}
+  @changesetWebform={{changesetWebform}}
   @validationErrorsArray={{validationErrorsArray}} />

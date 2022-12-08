@@ -1,12 +1,15 @@
 import EmberObject from '@ember/object';
+import FormField from 'ember-changeset-webforms/utils/form-field';
 import { typeOf as emberTypeOf } from '@ember/utils';
 
-export default function parseChangesetWebformField(field, customValidators) {
+export default function parseChangesetWebformField(field, customValidators, changeset) {
   if (!field) { return; }
   if (!field.fieldId) {
     throw Error(`[Ember validating field] fieldId is a required field for each field in a validating form.`);
   }
-  return EmberObject.create(parse(field, customValidators));
+  const parsedField = parse(field, customValidators);
+  parsedField.changeset = changeset;
+  return FormField.create(parsedField);
 }
 
 function parse(fieldSchema, customValidators) {

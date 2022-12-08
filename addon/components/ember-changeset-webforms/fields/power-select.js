@@ -5,6 +5,7 @@ import { typeOf as emberTypeOf } from '@ember/utils';
 
 export default Component.extend({
   layout,
+  tagName: '',
 
   allowClear: computed('formField.allowClear', function () {
     if (this.get('formField.allowClear') === false) {

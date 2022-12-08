@@ -3,11 +3,12 @@
 <EmberChangesetWebforms::FieldElements::FieldErrors 
   @changesetProp={{changesetProp}} 
   @formField={{masterFormField}} 
-  @displayValidation={{displayValidation}}
+  @validationStatus={{validationStatus}}
   @validationErrorsArray={{masterFormFieldValidationErrors}}
   @class="clone-group-field-errors" />
+  {{log masterFormFieldValidationErrors}}
 <div class="clone-group-items">
-  {{#each masterFormField.clonedFields as |clonedFormField index| }}
+  {{#each masterFormField.clonedFields as |clonedFormField| }}
     <EmberChangesetWebforms::ClonedFieldElements::ValidatingClone 
       @cloneField={{action "cloneField"}} 
       @onUserInteractionClone={{action onUserInteractionClone}}
@@ -16,11 +17,10 @@
       @removeClone={{action "removeClone"}}
       @updatedGroupValue={{updatedGroupValue}} 
       @changesetProp={{changesetProp}} 
-      @index={{index}} 
       @groupValue={{groupValue}} 
       @clonedFormField={{clonedFormField}} 
       @masterFormField={{masterFormField}} 
-      @processedFieldSchema={{clonedFormField}} 
+      @changesetWebform={{changesetWebform}}
       data-test-id={{concat masterFormField.fieldId "-clone-" clonedFormField.cloneId "-wrapper"}} />
   {{/each}}
 </div>
@@ -28,6 +28,6 @@
   {{#if (eq masterFormField.cloneCountStatus "max")}}
     <div class="max-clones-reached" data-test-id="max-clones-reached">{{masterFormField.maxClonesReachedText}}</div>
   {{else}}
-    {{component masterFormField.addCloneButtonComponent cloneField=(action "cloneField") masterFormField=masterFormField cloneFieldLabel=masterFormField.clonedFields.firstObject.fieldLabel}}
+    {{component masterFormField.addCloneButtonComponent cloneField=(action "cloneField") masterFormField=masterFormField cloneFieldLabel=masterFormField.clonedFields.firstObject.fieldLabel changesetWebform=changesetWebform}}
   {{/if}}
 </div>

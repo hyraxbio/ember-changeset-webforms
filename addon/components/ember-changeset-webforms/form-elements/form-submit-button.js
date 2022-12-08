@@ -7,5 +7,5 @@ export default Component.extend({
   classNames: ['form-submit-button'],
   classNameBindings: ['requestInFlight:request-in-flight', 'formSettings.submitButtonClasses'],
   attributeBindings: ['customType:type', 'data-test-id', 'disabled:disabled'],
-  customType: 'button'
+  customType: 'button',
 });

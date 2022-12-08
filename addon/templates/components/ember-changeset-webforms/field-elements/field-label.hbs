@@ -1,7 +1,10 @@
 {{#unless formField.hideLabel}}
-  {{#if formField.labelComponent}}
-    <label for={{formField.name}} class={{ember-changeset-webforms/array-join formField.fieldLabelClassNames " "}}>{{component formField.labelComponent}}</label>
-  {{else if formField.fieldLabel}}
-    <label for={{formField.name}} class={{ember-changeset-webforms/array-join formField.fieldLabelClassNames " "}}>{{formField.fieldLabel}}</label>
-  {{/if}}
+  <label for={{formField.name}} class="{{ember-changeset-webforms/dynamic-classes "labelElement,fieldLabel" changesetWebform formField formField.validationStatus}}">
+    {{#if formField.labelComponent}}
+      {{component formField.labelComponent}}
+    {{else if formField.fieldLabel}}
+      {{formField.fieldLabel}}
+    {{/if}}
+  </label>
 {{/unless}}
+

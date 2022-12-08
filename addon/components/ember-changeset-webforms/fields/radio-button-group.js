@@ -4,7 +4,7 @@ import layout from '../../../templates/components/ember-changeset-webforms/field
 
 export default Component.extend({
   layout,
-  classNames: ['radio-button-group'],
+  tagName: '',
 
   groupValue: computed('displayValue', function() {
     return this.get('displayValue');

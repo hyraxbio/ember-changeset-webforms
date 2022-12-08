@@ -10,11 +10,11 @@
       @afterClickAddCloneButton={{afterClickAddCloneButton}}
       @onUserInteractionClone={{action "onUserInteractionClone"}}
       @dataTestFieldId={{dataTestFieldId}}
+      @changesetWebform={{changesetWebform}}
     />
   {{else}}
     <EmberChangesetWebforms::FieldElements::ValidatingFieldWrapper 
       @formField={{formField}} 
-      @displayValidation={{displayValidation}} 
       @readonly={{readonly}} 
       @typeClass={{typeClass}} 
       @dataTestFormName={{dataTestFormName}}
@@ -30,7 +30,8 @@
         onChange=(action "onChange")
         onUserInteraction=(action "onUserInteraction")
         changesetProp=changesetProp
-        displayValidation=displayValidation
+        changesetWebform=changesetWebform
+        validationStatus=validationStatus
         displayValue=(changeset-get changesetProp formField.fieldId)
         dataTestFieldId=dataTestFieldId
       }}

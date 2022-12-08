@@ -1,7 +1,5 @@
 import Component from '@ember/component';
 import layout from '../../../templates/components/ember-changeset-webforms/cloned-field-elements/validating-clone';
-import validationEventLog from 'ember-changeset-webforms/utils/validation-event-log';
-import { computed } from '@ember/object';
 
 export default Component.extend({
   layout,
@@ -10,40 +8,15 @@ export default Component.extend({
 
   didInsertElement: function() {
     var changesetProp = this.get('changesetProp');
-    if (changesetProp.get(this.masterFormField.propertyName)[this.index]) {
+    if (changesetProp.get(this.masterFormField.propertyName)[this.clonedFormField.index]) {
       this.clonedFormField.eventLog.pushObject('insert');
       this.masterFormField.eventLog.pushObject('insertClone');
-      this.updateValidationActivation(this.clonedFormField, this.index, 'insert');
+      this.updateValidationActivation(this.clonedFormField, this.clonedFormField.index, 'insert');
 
       this.validateProperty(changesetProp, this.masterFormField);
     }
   },
-  
-  cloneValidationErrors: computed('changesetProp.error', function() {
-    var index = this.get('index');
-    var validationErrors = ((this.get(`changesetProp.error.${this.get('masterFormField.fieldId')}.validation`)) || []);
-    const cloneValidationErrors = [...validationErrors].find(item => {
-      return typeof item === 'object' || item.clones;
-    });
-    if (!cloneValidationErrors) { return; }
-    return cloneValidationErrors.clones[index];
-  }),
-
-  displayValidation: computed('cloneValidationErrors', 'changesetProp.error', 'clonedFormField.{focussed,fieldErrors,fieldErrors.@each,eventLog.[]}', function() {
-    var clonedFormField = this.get('clonedFormField');
-    if (!clonedFormField) { return; }
-    if (!this.validationEventObj(clonedFormField.validationEvents, 'keyUp') && clonedFormField.get('focussed')) {
-      return;
-    }   
-    if (!validationEventLog(clonedFormField).length) { return; }
-    var clonedFieldValidationErrors = this.get('cloneValidationErrors') || [];
-    if (clonedFieldValidationErrors.length === 0) {
-      return 'valid';
-    } else {
-      return 'invalid';
-    }
-  }),
-
+  // TODO move this into the Class
   updateValidationActivation(clonedFormField, index, eventType) {
     if (this.validationEventObj(clonedFormField.validationEvents, eventType)) {
       const validationRules =  clonedFormField.validationRules[0];
@@ -63,13 +36,13 @@ export default Component.extend({
       this.masterFormField.eventLog.push('focusOutClone');
       this.updateValidationActivation(clonedFormField, index, 'focusOut');
       this.setFieldValue(this.updatedGroupValue(value, index), this.get('masterFormField'));
-      this.onUserInteractionClone(clonedFormField, `${eventType}Clone`, value, event)
+      this.onUserInteractionClone(clonedFormField, `${eventType}Clone`, value, event);
     },
 
     onChangeClone(index, clonedFormField, value, eventType = 'change') {
       clonedFormField.eventLog.push(eventType);
       this.masterFormField.eventLog.push(`${eventType}Clone`);
-      this.updateValidationActivation(clonedFormField, index, eventType)
+      this.updateValidationActivation(clonedFormField, index, eventType);
       this.setFieldValue(this.updatedGroupValue(value, index), this.get('masterFormField'));
     },
   },

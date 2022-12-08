@@ -23,7 +23,6 @@ import isPromise from 'ember-changeset/utils/is-promise';
 */
 export default Component.extend({
   layout,
-  classNameBindings: ['validationFailed:validation-failed'],
   classNames: ['ember-changeset-webforms'],
 
   didInsertElement() {
@@ -36,10 +35,6 @@ export default Component.extend({
   
   formFields: computed('formObject', function() {
     return this.get('formObject.formFields');
-  }),
-
-  validationFailed: computed('formSettings.validationStatus', function() {
-    return this.get('formSettings.validationStatus') === 'failed';
   }),
 
   needsValidation: computed('formFields', 'formFields.@each', function() {

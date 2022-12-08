@@ -94,29 +94,29 @@ export default Component.extend({
       if (item.startsWith('h')) {
         obj.min = '1';
         obj.max = '12';
-        obj.label = 'Hours'; // TODO make configurable
+        obj.label = this.timeInputLabels.hours;
         obj.type = 'hour';
       } else if (item.startsWith('H')) {
         obj.max = '23';
-        obj.label = 'Hours' // TODO make configurable
+        obj.label = this.timeInputLabels.hours;
         obj.type = 'hour';
       } else if (item.startsWith('k')) {
         obj.min = '1';
         obj.max = '24';
-        obj.label = 'Hours'; // TODO make configurable
+        obj.label = this.timeInputLabels.hours;
         obj.type = 'hour';
       } else if (item.startsWith('m')) {
         obj.max = '59';
-        obj.label = 'Minutes';// TODO make configurable
+        obj.label = this.timeInputLabels.minutes;
         obj.type = 'minutes';
       } else if (item.startsWith('s')) {
         obj.max = '59';
-        obj.label = 'Seconds'// TODO make configurable
+        obj.label = this.timeInputLabels.seconds;
         obj.type = 'seconds';
       } else if (item.startsWith('S')) {
         obj.formatChar = 'SSS';
         obj.max = '999';
-        obj.label = 'Milliseconds';// TODO make configurable
+        obj.label = this.timeInputLabels.milliseconds;
         obj.type = 'milliseconds';
       } 
       return obj;

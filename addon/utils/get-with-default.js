@@ -1,10 +1,76 @@
 import config from 'ember-get-config';
-import _merge from 'lodash/merge';
 import _mergeWith from 'lodash/mergeWith';
 
 const addonDefaults = {
   generalClassNames: {
+    validClassNames: ['is-valid'],
+    invalidClassNames: ['is-invalid'],
+
+    inputElement: ['form-control', 'validation-area', '...validationClassNames'],
+    textareaElement: ['form-control',  'validation-area', '...validationClassNames'],
+    labelElement: ['form-label'], // TODO name to distinguish from checkbox and radiobutton
+    checkboxElement: ['form-check-input', '...validationClassNames'],
+    radioButtonElement: ['form-check-input', '...validationClassNames'],
+    checkboxLabel: ['form-check-label'],
+    radioButtonLabel: ['form-check-label'],
+    buttonElement: ['btn', '...validationClassNames'],
+    submitButton: ['btn-primary'],
+    discardChangesButton: ['btn-success'],
+    clearFormButton: ['btn-warning'],
+    addCloneButton: ['btn-secondary'],
+
+    removeClone: ['hover-pointer', 'remove-clone', 'clone-actions', 'width-xl'],
+
+    fieldWrapper: ['cwf-field'], 
+    fieldWrapperInput: ['cwf-field-input'],
+    fieldWrapperTextArea: null,
+    fieldWrapperSingleCheckbox: null,
+    fieldWrapperPowerDatePicker: null,
+    fieldWrapperPowerSelect: null,
+    fieldWrapperRadioButtonGroup: null,
+    fieldWrapperCheckboxGroup: null,
+    fieldWrapperCloneGroup: null,
+
+    fieldControls: ['field-controls', 'validation-icon', '...validationClassNames'],
+    fieldControlsInput: null,
+    fieldControlsTextArea: null,
+    fieldControlsSingleCheckbox: null,
+    fieldControlsPowerDatePicker: null,
+    fieldControlsPowerSelect: null,
+    fieldControlsClicker: null,
+    fieldControlsRadioButtonGroup: ['radio-button-group', 'validation-area', '...validationClassNames'],
+    fieldControlsCheckboxGroup: ['checkbox-group', 'validation-area', '...validationClassNames'],
+    fieldControlsCloneGroup: ['checkbox-group', 'validation-area'],
+
+    fieldLabel: ['field-label', 'validation-icon', 'test', '...validationClassNames'],
+    fieldLabelInput: null,
+    fieldLabelTextArea: null,
+    fieldLabelSingleCheckbox: null,
+    fieldLabelPowerDatePicker: null,
+    fieldLabelPowerSelect: null,
+    fieldLabelRadioButtonGroup: null,
+    fieldLabelCheckboxGroup: null,
+    fieldLabelCloneGroup: null,
+
+    cloneField: ['cwf-clone-field'],
+
+    powerSelectTrigger: ['form-control', '...validationClassNames'],
+    powerDatePickerTrigger: ['form-control', '...validationClassNames'],
+    powerDatePickerDropdown: null,
+    powerDatePickerCalendar: null,
+    powerDatePickerTimeSelectorContainer: ['cwf-time-selector'],
+    powerDatePickerTimeSelectorInput: ['inline'],
+    
+    labelledCheckbox: ['form-check', 'labelled-checkbox'],
+    labelledRadioButton: ['form-check', 'labelled-radio-button'],
+    
+    validationErrors: ['invalid-feedback', '...validationErrors'],
+
     requiredField: ['required'],
+    fieldValidates: ['validates'],
+    disabledField: ['disabled'],
+    validatedField: ['was-validated'],
+    focussedField: ['focussed'],
 
   },
   formSettings: {
@@ -15,7 +81,6 @@ const addonDefaults = {
     submitButtonText: 'Submit', // String - text to show on the submit form button
     showResetButton: null, // Boolean - whether or not to show the reset form button
     resetAfterSubmit: null, // Boolean - reset all fields to their defaults after a the form submitAction returns successfully
-    resetButtonText: 'Reset', // String - text to show on the reset form button
     showClearFormButton: null, // Boolean - whether or not to show the button that will empty all fields TODO check if this works
     showClearFormButtonText: 'Clear', // String - text to show on the clear form button TODO implement
     novalidate: true, // Disable the browser's native validation feedback
@@ -23,6 +88,8 @@ const addonDefaults = {
     submitButtonIcon: 'ember-changeset-webforms/form-elements/submit-button-icon', // String - path to the component icon to show on the submit form button
     submitButtonIconClassNames: null, // String - classes to all to the submitButtonIcon component, 
     submitButtonIconRequestInFlightClassNames: 'on', // TODO deprecate
+    showDiscardChangesButton: null,
+    showDiscardChangesButtonText: 'Reset',
     requestInFlightClasses: {
       form: 'saving',
       submitButton: 'saving',
@@ -49,18 +116,6 @@ const addonDefaults = {
     labelComponent: null, // String - path to a component to use as the label. If set, takes the place of fieldLabel 
     hideLabel: null, // Hide the label from the user
     disabled: null, // Boolean - disable the field, but do not hide it. It will still be validated [TODO check] and included when the form is submitted
-    fieldClassNames: ['cwf-field'], // String. CSS classes to apply to the outer element of the field TODO check this
-    requiredFieldClassNames: ['required'],
-    validFieldClassNames: ['valid'],
-    invalidFieldClassNames: ['invalid'],
-    fieldValidatesClassNames: ['validates'],
-    disabledFieldClassNames: ['disabled'],
-    wasValidatedClassNames: ['was-validated'],
-    focussedClassNames: ['focussed'],
-    fieldLabelClassNames: null,
-    fieldControlsClassNames: null,
-    validationAreaClassNames: 'test'
-
   },
   fieldTypes: [
     {
@@ -78,7 +133,6 @@ const addonDefaults = {
     {
       // BEGIN-SNIPPET clone-group-field-options.js
       fieldType: 'clone-group',
-      fieldLabelClassNames: 'clone-group-validation-icon',
       maxClonesReachedText: 'Max clones reached.', // String
       removeCloneComponent: 'svg-repo/icons/icon-trash', // String - path to the component to use as the remove clone element
       addCloneButtonComponent: 'ember-changeset-webforms/cloned-field-elements/add-clone-button', // String - path to the component to use as the add clone element
@@ -107,7 +161,6 @@ const addonDefaults = {
       optionDisplayProp: null, // String - if options is an array of objects, provide the key to show in the list
       optionComponent: null,
       selectedItemComponent: null, // String - path to a component to replace what is displayed as the selected item.
-      fieldLabelClassNames: null, // Array of classnames TODO check this
       // END-SNIPPET
       componentPath: 'ember-changeset-webforms/fields/power-select',
       
@@ -115,19 +168,25 @@ const addonDefaults = {
     {
       // BEGIN-SNIPPET powerDatePicker-field-options.js
       fieldType: 'powerDatePicker',
-      dateSelectComponent: null,
       dateTimeFormat: 'YYYY-MM-DD HH:mm:ss', // String - time format to use
       dateTimeDisplayFormat: null, // String - the format of the datetime to show in the trigger input. Defaults to dateTimeFormat if null.
       defaultTime: '00:00:00.000', // String - default time. Must be in the format HH:mm:ss.SSS.
       fixedTime: null, // String - force the time to a value, whatever tha date is. Must be in the format HH:mm:ss.SSS
       showTimeSelector: null, // Boolean - show the UI for the user to change the time.
       timeSelectorFields: 'HH,mm,ss,SSS', // String - comma separated list of the fields to show in the time selector component. combination of valid momentjs time string parts can be given. 
-      calendarContainerClasses: null, // String - classes to apply to the calendar component,
+      calendarStartMonth: null, // Tell the calendar to start at a specific month. Must be given in the format MM/YYYY
+      calendarTitleFormat: 'MMMM YYYY',
+      timeInputLabels: {
+        hours: 'Hour',
+        minutes: 'Min',
+        seconds: 'Sec',
+        milliseconds: 'Msec',
+        amPm: 'AM/PM'
+      },
       closeDatePickerOnSelect: false,
       dateRangeSettings: null, 
       minDate: null, // String - the earliest day that the calendar will allow the user to select. Must be in the format YYYY-MM-DD.
       maxDate: null, // String - the latest day that the calendar will allow the user to select. Must be in the format YYYY-MM-DD.
-      validationAreaClassNames: 'test',
       // END-SNIPPET
       componentPath: 'ember-changeset-webforms/fields/power-datepicker',
     },
@@ -209,6 +268,7 @@ export default function getWithDefault(formSchema = {}) {
   };
   const appDefaults = config.changesetWebformsDefaults || {};
   const formSettings = _mergeWith({}, addonDefaults.formSettings, appDefaults.formSettings, formSchema.settings, customisedMerge);
+  const classNameSettings = _mergeWith({}, addonDefaults.generalClassNames, appDefaults.generalClassNames, formSchema.generalClassNames, customisedMerge);
   const addonFieldDefaults = addonDefaults.fieldSettings || {};
   const appConfigFieldDefaults = appDefaults.fieldSettings || {};
   const mergedFields = (formSchema.fields || []).map(field => {
@@ -224,6 +284,7 @@ export default function getWithDefault(formSchema = {}) {
     return mergedField;
   });
   return {
+    classNameSettings: classNameSettings,
     formSettings: formSettings,
     fields: mergedFields
   };

@@ -1,4 +1,4 @@
-## Poweer selct
+## Power selct
 
 All actions emitted as userInteraction and onChnage
 All options integrated
@@ -19,4 +19,6 @@ All classes become classNames and are arrays.
 
 Tech debt
 
-Clicker no lo
+All classes and data attrs with ember-changeset-webforms replaced by cwf 
+
+change defaultValue to autoFill

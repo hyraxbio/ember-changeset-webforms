@@ -1,9 +1,7 @@
 import Component from '@ember/component';
 import { computed } from '@ember/object';
-import parseChangesetWebformField from 'ember-changeset-webforms/utils/parse-changeset-webform-field';
 import validationEventLog from 'ember-changeset-webforms/utils/validation-event-log';
 import layout from '../../../templates/components/ember-changeset-webforms/field-elements/validating-field';
-import createChangeset from 'ember-changeset-webforms/utils/create-changeset';
 
 export default Component.extend({
   layout,
@@ -30,30 +28,22 @@ export default Component.extend({
   }),
 
   // TODO should a formField not be a class of it's own?
-  displayValidation: computed('changesetProp.error', 'formField.{focussed,eventLog.[]}', function () {
-    var formField = this.formField;
-    if (!formField) { return; }
-    if (!formField.validates) { return; }
-    if (!this.validationEventObj(formField.validationEvents, 'keyUp') && formField.get('focussed')) {
-      return;
-    }
-    if (!validationEventLog(formField).length) { return }
+  // validationStatus: computed('changesetProp.error', 'formField.{focussed,eventLog.[]}', function () {
+  //   var formField = this.formField;
+  //   if (!formField) { return; }
+  //   if (!formField.validates) { return; }
+  //   if (!this.validationEventObj(formField.validationEvents, 'keyUp') && formField.get('focussed')) {
+  //     return;
+  //   }
+  //   if (!validationEventLog(formField).length) { return }
 
-    var validationErrors = (this.get(`changesetProp.error.${this.formField.propertyName}.validation`)) || [];
-    if (validationErrors.length === 0) {
-      return this.formField.validFieldClassNames.join(' ');
-    } else {
-      return this.formField.invalidFieldClassNames.join(' ');
-    }
-  }),
-
-  formField: computed('fieldSchema', 'processedFieldSchema', 'prop', function () {
-    if (this.processedFieldSchema) {
-      return this.processedFieldSchema;
-    } else {
-      return parseChangesetWebformField(this.fieldSchema, this.fieldComponentsMap);
-    }
-  }),
+  //   var validationErrors = (this.get(`changesetProp.error.${this.formField.propertyName}.validation`)) || [];
+  //   if (validationErrors.length === 0) {
+  //     return 'valid';
+  //   } else {
+  //     return 'invalid';
+  //   }
+  // }),
 
   actions: {
     validateProperty(changeset, formField) {
@@ -71,7 +61,6 @@ export default Component.extend({
       // }
       changeset.validate(formField.propertyName).then(() => {
         formField.set('wasValidated', true);
-        console.log(formField)
         const fieldValidationErrors = changeset.error[formField.propertyName];
         this.afterFieldValidation(formField, changeset, fieldValidationErrors);
       });

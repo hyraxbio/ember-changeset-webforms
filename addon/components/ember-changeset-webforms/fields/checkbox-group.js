@@ -4,7 +4,7 @@ import { computed } from '@ember/object';
 
 export default Component.extend({
   layout,
-  classNames: ['checkbox-group'],
+  tagName: '',
 
   options: computed('displayValue', function() {
     var checkedItems = this.stringToArray(this.get('displayValue'));

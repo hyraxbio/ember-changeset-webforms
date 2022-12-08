@@ -393,7 +393,8 @@ export default Controller.extend({
         fieldType: 'powerDatePicker',
         dateTimeFormat: 'YYYY-MM-DD',
         minDate: '2022-11-10',
-        maxDate: '2022-11-16'
+        maxDate: '2022-11-16',
+        calendarStartMonth: '11/2022'
       }]
     }
     // END-SNIPPET

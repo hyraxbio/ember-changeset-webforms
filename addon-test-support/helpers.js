@@ -37,7 +37,7 @@ export default {
 
   passedValidation(arg) {
     const element = this.getElement(arg);
-    if (element.classList.contains('valid') || element.querySelector('.valid')) { return true; }
+    if (element.classList.contains('is-valid') || element.querySelector('.is-valid')) { return true; }
     return false;
   },
 
@@ -54,7 +54,7 @@ export default {
 
   failedValidation(arg) {
     const element = this.getElement(arg);
-    if ((element.classList.contains('invalid') || element.querySelector('.invalid')) && element.querySelector(els.emberChangesetWebformsFieldErrors)) { return true; }
+    if ((element.classList.contains('is-invalid') || element.querySelector('.is-invalid')) && element.querySelector(els.emberChangesetWebformsFieldErrors)) { return true; }
     return false;
   },
 
@@ -102,7 +102,6 @@ export default {
 
   async submitForm(arg) {
     const element = this.getElement(arg);
-    console.log(element.querySelector(els.emberChangesetWebformsSubmitButton))
     await click(element.querySelector(els.emberChangesetWebformsSubmitButton));
 
   }

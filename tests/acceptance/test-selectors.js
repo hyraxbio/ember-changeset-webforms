@@ -6,7 +6,7 @@ export default {
   firstNameField: '[data-test-id="firstName-field"]',
   lastNameField: '[data-test-id="lastName-field"]',
   acceptTermsTrueRadioButton: '[data-test-id="acceptTerms-radio-option-true"]',
-  countryField: '[data-test-id="details.country-field"]',
+  countryField: '[data-test-id="country-field"]',
   acceptTermsField: '[data-test-id="acceptTerms-field"]',
   confirmHumanField: '[data-test-id="confirmHuman-field"]',
   step1: '[data-test-id="step-1"]',

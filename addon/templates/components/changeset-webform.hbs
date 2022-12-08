@@ -2,7 +2,7 @@
   <div class="form-section form-fields">
     {{#each changesetWebform.fields as |formField|}}
       <EmberChangesetWebforms::FieldElements::ValidatingField
-        @processedFieldSchema={{formField}}
+        @formField={{formField}}
         @changesetWebform={{changesetWebform}}
         @changesetProp={{changesetWebform.changeset}}
         @dataTestFormName={{formSettings.dataTestFormName}}
@@ -21,13 +21,21 @@
   {{yield}}
   <div class="form-section form-submit">
     {{#unless formSettings.hideSubmitButton}}
-      <EmberChangesetWebforms::FormElements::FormSubmitButton @click={{action "submit" changesetWebform formSettings.modelName}} @value={{formSettings.submitButtonText}} @requestInFlight={{requestInFlight}} @data-test-id="ember-changeset-webforms-submit-form-button" @disabled={{formSettings.submitDisabled}} @formSettings={{formSettings}} />
+      <EmberChangesetWebforms::FormElements::FormSubmitButton 
+        @click={{action "submit" changesetWebform formSettings.modelName}} 
+        @value={{formSettings.submitButtonText}} 
+        @requestInFlight={{requestInFlight}} 
+        @data-test-id="ember-changeset-webforms-submit-form-button" 
+        @disabled={{formSettings.submitDisabled}} 
+        @formSettings={{formSettings}} 
+        @changesetWebform={{changesetWebform}}
+        class="{{ember-changeset-webforms/dynamic-classes "buttonElement,submitButton" changesetWebform}}" />
     {{/unless}}
     {{#if formSettings.showDiscardChangesButton}}
-      <button class={{formSettings.showDiscardChangesButtonClasses}} type="button" data-test-id="ember-changeset-webforms-reset-form-button" onclick={{action "discardChanges" changesetWebform.changeset}}>{{formSettings.showDiscardChangesButtonTetx}}</button>
+      <button class={{formSettings.showDiscardChangesButtonClasses}} type="button" data-test-id="ember-changeset-webforms-reset-form-button" onclick={{action "discardChanges" changesetWebform.changeset}} class="{{ember-changeset-webforms/dynamic-classes "buttonElement,discardChangesButton" changesetWebform}}">{{formSettings.showDiscardChangesButtonText}}</button>
     {{/if}}
     {{#if formSettings.showClearFormButton}}
-      <button class={{formSettings.clearFormButtonClasses}} type="button" data-test-id="ember-changeset-webforms-reset-form-button" {{action "clearForm"}}>{{formSettings.clearFormButtonText}}</button>
+      <button class={{formSettings.clearFormButtonClasses}} type="button" data-test-id="ember-changeset-webforms-reset-form-button" {{action "clearForm"}} class="{{ember-changeset-webforms/dynamic-classes "buttonElement,clearFormButton" changesetWebform}}">{{formSettings.clearFormButtonText}}</button>
     {{/if}}
   </div>
 </form>

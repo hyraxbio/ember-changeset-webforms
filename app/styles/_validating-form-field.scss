@@ -75,8 +75,8 @@
     width: 100%;
   }
 
-  .checkbox-group-container,
-  .radio-button-group-container {
+  .field-type-checkbox-group .form-controls, // TODO move to Hyrax
+  .field-type-radio-button-group .form-controls {
     position: relative;
     padding: $pojo-form-field-radio-checkbox-group-padding-y $pojo-form-field-radio-checkbox-group-padding-x;
     border: $pojo-form-field-radio-checkbox-group-border-width solid $pojo-form-field-radio-checkbox-group-border-color;

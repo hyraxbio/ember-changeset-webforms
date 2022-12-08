@@ -1,29 +1,34 @@
 import Component from '@ember/component';
 import layout from '../../../templates/components/ember-changeset-webforms/field-elements/validating-field-wrapper';
 import { computed } from '@ember/object';
+import dynamicClassNames from 'ember-changeset-webforms/utils/dynamic-class-names';
 
 export default Component.extend({
   layout,
-  classNameBindings: ['displayValidation', 'disabledClasses', 'readonly:readonly', 'formField.fieldNamesClasses', 'formField.hideSuccessValidation:hide-success-validation', 'validatesClasses', 'wasValidatedClasses', 'typeClass', 'focussedClasses', 'formField.fieldClassNames', 'requiredClasses'],
+  classNameBindings: ['focussedClasses', 'requiredClasses', 'disabledClasses', 'validatesClasses', 'wasValidatedClasses', 'readonly:readonly', 'formField.hideSuccessValidation:hide-success-validation', 'fieldWrapperClassNames'],
+
+  fieldWrapperClassNames: computed('changesetWebform', function() {
+    return dynamicClassNames('fieldWrapper', this.changesetWebform, this.formField);
+  }),
 
   requiredClasses: computed('formField.required', function() {
-    return this.formField.required ? this.formField.requiredFieldClassNames.join(' ') : '';
+    return this.formField.required ? dynamicClassNames('requiredField', this.changesetWebform, this.formField) : '';
   }),
 
   disabledClasses: computed('formField.disabled', function() {
-    return this.formField.disabled ? this.formField.disabledFieldClassNames.join(' ') : '';
+    return this.formField.disabled ? dynamicClassNames('disabledField', this.changesetWebform, this.formField) : '';
   }),
 
   validatesClasses: computed('formField.validates', function() {
-    return this.formField.validates ? this.formField.fieldValidatesClassNames.join(' ') : '';
+    return this.formField.validates ? dynamicClassNames('fieldValidates', this.changesetWebform, this.formField) : '';
   }),
 
   wasValidatedClasses: computed('formField.wasValidated', function() {
-    return this.formField.wasValidated ? this.formField.wasValidatedClassNames.join(' ') : '';
+    return this.formField.wasValidated ? dynamicClassNames('validatedField', this.changesetWebform, this.formField) : '';
   }),
 
   focussedClasses: computed('formField.focussed', function() {
-    return this.formField.focussed ? this.formField.focussedClassNames.join(' ') : '';
+    return this.formField.focussed ? dynamicClassNames('focussedField', this.changesetWebform, this.formField) : '';
   }),
 
   'data-test-cwf-field-validates': computed('formField.validates', function() {

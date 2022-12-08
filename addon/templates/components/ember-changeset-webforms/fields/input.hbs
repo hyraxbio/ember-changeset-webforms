@@ -1,4 +1,4 @@
-<input class="validation-area {{formField.validationAreaClassNames}}" 
+<input class="{{ember-changeset-webforms/dynamic-classes "inputElement" changesetWebform formField formField.validationStatus}}" 
   value={{displayValue}} 
   onkeyup={{action "onUserInteraction" formField "keyUp"}} 
   onkeydown={{action "onUserInteraction" formField "keyDown"}} 

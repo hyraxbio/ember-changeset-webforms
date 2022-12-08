@@ -39,14 +39,13 @@ module('Acceptance | Action handling', function(hooks) {
   test('afterGenerateChangesetWebform', async function(assert) {
     await visit('/docs/action-handling');
     await click(`${dummyEls.afterGenerateChangesetWebformFeedback} ${dummyEls.nextButton}`);
-   
     assert.equal(findAll(`${dummyEls.afterGenerateChangesetWebformForm} ${dummyEls.nameField} ${els.emberChangesetWebformsFieldError}`).length, 1, 'One error message shows for empty name field after user clicks next button.');
     assert.equal(findAll(`${dummyEls.afterGenerateChangesetWebformForm} ${dummyEls.nameField} ${els.emberChangesetWebformsFieldError}`)[0].textContent, `Name can't be blank`, 'Correct default error message shows for empty name field after user clicks next button.');
-    assert.ok(find(`${dummyEls.afterGenerateChangesetWebformForm} ${dummyEls.nameField}`).classList.contains('invalid'), 'Empty name field gets class "invalid" when user clicks next button.');
-
+    assert.ok(cth.failedValidation(`${dummyEls.afterGenerateChangesetWebformForm} ${dummyEls.nameField}`), 'Empty name field gets fails validation when user clicks next button.');
     assert.equal(findAll(`${dummyEls.afterGenerateChangesetWebformForm} ${dummyEls.emailField} ${els.emberChangesetWebformsFieldError}`).length, 2, 'Two error messages show for empty email field after user clicks next button.');
     assert.equal(cth.fieldErrorText(`${dummyEls.afterGenerateChangesetWebformForm} ${dummyEls.emailField}`).join('|'), `Email can't be blank|Email must be a valid email address`, 'Correct default error messages  for empty email field after user clicks next button.');
-    assert.ok(find(`${dummyEls.afterGenerateChangesetWebformForm} ${dummyEls.emailField}`).classList.contains('invalid'), 'Empty email field gets class "invalid" when user clicks next button.');
+    assert.ok(cth.failedValidation(`${dummyEls.afterGenerateChangesetWebformForm} ${dummyEls.emailField}`), 'Empty email field gets fails validation when user clicks next button.');
+
     assert.dom(dummyEls.step1).exists('User still on step 1 after clicking next, and there are validation errors.');
     assert.dom(dummyEls.step2).doesNotExist('User not on step 2 after clicking next, and there are validation errors.');
     await fillIn(`${dummyEls.afterGenerateChangesetWebformForm} ${dummyEls.nameField} input`, 'Lindsay Bluth');

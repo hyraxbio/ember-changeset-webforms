@@ -1,11 +1,11 @@
 {{#if labelComponent}}
   {{#if labelComponent.path}}
-    {{component labelComponent.path props=labelComponent.props option=option name=name radioId=radioId}}
+    {{component labelComponent.path props=labelComponent.props option=option name=name radioId=radioId class=class}}
   {{else}}
-    {{component labelComponent option=option}}
+    {{component labelComponent option=option class=class}}
   {{/if}}
 {{else if markdownLabel}}
-  <label for="{{for}}"><Background::MarkdownToHtml @source={{markdownLabel}} /></label>
+  <label for="{{for}}"><Background::MarkdownToHtml @source={{markdownLabel}} class={{class}} /></label>
 {{else if label}}
-  <label for="{{for}}">{{label}}</label>
+  <label for="{{for}}" class={{class}}>{{label}}</label>
 {{/if}}

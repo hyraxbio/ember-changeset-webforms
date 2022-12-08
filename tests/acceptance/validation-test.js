@@ -36,6 +36,7 @@ module('Acceptance | Field validation', function(hooks) {
     assert.ok(cth.passedValidation(`${dummyEls.acceptTermsField}`), 'Validation runs after selecting option in radio button group.');
     await click(`${dummyEls.confirmHumanField} input[type="checkbox"]`);
     assert.ok(cth.passedValidation(`${dummyEls.confirmHumanField}`), 'Validation runs after checking single checkbox.');
+    // await this.pauseTest();
     await selectChoose(find(dummyEls.countryField), 'United States');
     assert.ok(cth.passedValidation(`${dummyEls.countryField}`), 'Validation runs after selecting power select option.');
     // TODO checkbox group and text area.
@@ -43,7 +44,7 @@ module('Acceptance | Field validation', function(hooks) {
   test('Validation messages', async function(assert) {
     await visit('/docs/field-validation');
     await click(els.emberChangesetWebformsSubmitButton);
-    assert.equal(findAll(els.emberChangesetWebformsFieldErrors).length, 6, 'All fields with validation rules are validated when user clicks submit button.');
+    assert.equal(findAll(els.emberChangesetWebformsFieldErrors).length, 8, 'All fields with validation rules are validated when user clicks submit button.');
     assert.equal(cth.fieldErrorText(dummyEls.countryField).join(''), `Nation of origin can't be blank`, 'Passing "description" as an argument to validationRules replaces the default validation description ("Details.country) with the description provided.');
     assert.equal(cth.fieldErrorText(dummyEls.acceptTermsField).join(''), 'You must accept the terms to continue.', 'Passing "message" as an argument to validationRules replaces the default validation message with the message provided.');
     await fillIn(`${dummyEls.emailField} input`, '');

@@ -1,6 +1,8 @@
 <div data-test-type="form-field-power-select">
   {{#component componentName 
-    triggerClass="validation-area=formField.validationAreaClassNames" 
+    triggerClass=(concat 
+      "validation-area " (ember-changeset-webforms/dynamic-classes "powerSelectTrigger" changesetWebform formField formField.validationStatus) 
+    )
     options=formField.options 
     selected=(changeset-get changesetProp formField.propertyName) 
     searchPlaceholder=(or formField.searchPlaceholder "Search") 

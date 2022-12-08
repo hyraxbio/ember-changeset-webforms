@@ -1,27 +1,27 @@
 <div class="form-field-clone">
   {{#if (not-eq masterFormField.cloneCountStatus "min")}}
-    <div role="button" class="hover-pointer remove-clone clone-actions" type="button" onclick={{action removeClone clonedFormField}} data-test-class="remove-clone" title="Remove {{formField.fieldId}}">{{component masterFormField.removeCloneComponent}}</div>
+    <div role="button" class="{{ember-changeset-webforms/dynamic-classes "removeClone" changesetWebform}}" type="button" onclick={{action removeClone clonedFormField}} data-test-class="remove-clone" title="Remove {{formField.fieldId}}">{{component masterFormField.removeCloneComponent}}</div>
   {{/if}}
   <EmberChangesetWebforms::FieldElements::ValidatingFieldWrapper 
     @formField={{clonedFormField}} 
-    @displayValidation={{displayValidation}} 
+    @changesetWebform={{changesetWebform}} 
     @readonly={{readonly}} 
     @typeClass={{typeClass}}
-    @validationErrorsArray={{cloneValidationErrors}}
+    @validationErrorsArray={{clonedFormField.cloneValidationErrors}}
     data-test-id={{concat masterFormField.fieldId "-clone-" clonedFormField.cloneId "-field"}}
-    class="ember-changeset-webforms-clone-field"
-    data-test-ember-changeset-webforms-clone-field>
+    class="{{ember-changeset-webforms/dynamic-classes "cloneField" changesetWebform formField formField.validationStatus}}"
+    data-test-cwf-clone-field>
     {{component clonedFormField.componentPath
       formField=clonedFormField
       clonedFormField=clonedFormField
       masterFormField=masterFormField
-      onUserInteraction=(action "onUserInteractionClone" index)
-      onChange=(action "onChangeClone" index)
+      onUserInteraction=(action "onUserInteractionClone" clonedFormField.index)
+      onChange=(action "onChangeClone" clonedFormField.index)
       cloneField=(action cloneField)
       removeClone=(action removeClone)
       changesetProp=changesetProp
-      displayValidation=displayValidation
-      displayValue=(ember-changeset-webforms/cloned-form-field-display-value (get changesetProp masterFormField.propertyName) index)
+      changesetWebform=changesetWebform
+      displayValue=(ember-changeset-webforms/cloned-form-field-display-value (get changesetProp masterFormField.propertyName) clonedFormField.index)
     }}
   </EmberChangesetWebforms::FieldElements::ValidatingFieldWrapper>
 </div>

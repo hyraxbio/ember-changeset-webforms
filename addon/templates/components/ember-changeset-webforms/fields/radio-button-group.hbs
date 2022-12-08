@@ -1,15 +1,16 @@
-<div class="radio-button-group-container field-controls validation-area {{formField.validationAreaClassNames}}">
-  {{#each formField.options as |option|}}
-    <Background::LabelledRadioButton data-test-id={{concat dataTestFieldId "-radio-option-" option.value}} 
-      @value={{option.value}} 
-      @groupValue={{displayValue}} 
-      @required={{false}} 
-      @name={{or formField.name formField.fieldId}} 
-      @disabled={{if formField.disabled true option.disabled}} 
-      @label={{option.label}} 
-      @labelComponent={{or option.labelComponent formField.optionLabelComponent}} 
-      @containerName={{formSettings.formName}}
-      @changedAction={{action "onChange" formField groupValue}} 
-      @option={{option}} />
-  {{/each}}
-</div>
+{{#each formField.options as |option|}}
+  <Background::LabelledRadioButton 
+    @dataTestId={{concat dataTestFieldId "-radio-option-" option.value}} 
+    @value={{option.value}} 
+    @groupValue={{displayValue}} 
+    @required={{false}} 
+    @name={{or formField.name formField.fieldId}} 
+    @disabled={{if formField.disabled true option.disabled}} 
+    @label={{option.label}} 
+    @labelComponent={{or option.labelComponent formField.optionLabelComponent}} 
+    @containerName={{formSettings.formName}}
+    @changedAction={{action "onChange" formField groupValue}} 
+    @option={{option}}
+    @changesetWebform={{changesetWebform}}
+    @formField={{formField}} />
+{{/each}}

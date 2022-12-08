@@ -33,9 +33,6 @@ TOTO doc name prop for field
 
 Classes
 
-fieldLabelClassNames
-fieldControlsClassNames
-
 Document that ember test selectors is advised.
 Requires `markdown-it`
 

@@ -31,7 +31,7 @@ module('Acceptance | Cloned fields', function (hooks) {
     assert.dom(`${dummyEls.clonableFieldBasics} ${els.emberChangesetWebformsAddCloneButton}`).doesNotExist('Add clone button disappears when maxClones is reached.');
     await fillIn(`${dummyEls.clonableFieldBasics} ${els.cloneSelector({fieldId:'emails', cloneId:1})} input`, 'lucille@bluthcompany.com');
     await blur(`${dummyEls.clonableFieldBasics} ${els.cloneSelector({fieldId:'emails', cloneId:1})} input`);
-    assert.ok(cth.passedValidation(`${dummyEls.clonableFieldBasics} ${els.cloneSelector({fieldId:'emails', cloneId:1})}`), 'Second clone gets class "valid" when user focusses out and clone has a valid email.');
+    assert.ok(cth.passedValidation(`${dummyEls.clonableFieldBasics} ${els.cloneSelector({fieldId:'emails', cloneId:1})}`), 'Second clone gets class "is-valid" when user focusses out and clone has a valid email.');
     await fillIn(`${dummyEls.clonableFieldBasics} ${els.cloneSelector({fieldId:'emails', cloneId:2})} input`, 'email');
     await blur(`${dummyEls.clonableFieldBasics} ${els.cloneSelector({fieldId:'emails', cloneId:2})} input`);
     assert.ok(cth.failedValidation(`${dummyEls.clonableFieldBasics} ${els.cloneSelector({fieldId:'emails', cloneId:2})}`), 'Third clone gets correct validation error messages when user focusses out and clone has invalid email in the input.');
@@ -43,12 +43,13 @@ module('Acceptance | Cloned fields', function (hooks) {
   test('With data', async function (assert) {
     await visit('/docs/clonable-form-fields');
     assert.dom(`${dummyEls.clonableFieldWithData} ${els.emberChangesetWebformsCloneWrapper}`).exists({ count: 6 }, 'Where number of items in the data array exceeds max clones, one cloned field is still generated for each item in the data array.');
-    assert.ok(cth.allFailedValidation(`${dummyEls.clonableFieldWithData} ${els.emberChangesetWebformsCloneWrapper}`, [0, 1]), 'Invalid clones fail validation on insert, where [insert] is a clone validation method, and uniqueClone validation method works.');
+    assert.ok(cth.allFailedValidation(`${dummyEls.clonableFieldWithData} ${els.emberChangesetWebformsCloneWrapper}`, [0, 1]), '1) Invalid clones fail validation on insert, where [insert] is a clone validation method. 2) The uniqueClone validation method works.');
     assert.notOk(cth.wasValidated(`${dummyEls.clonableFieldWithData} ${els.cloneSelector({fieldId:'emails', cloneId:2})}`), 'Empty clone is not validated on insert, where [insert] is a clone validation method.');
-    assert.ok(cth.allPassedValidation(`${dummyEls.clonableFieldWithData} ${els.emberChangesetWebformsCloneWrapper}`, [3, 4, 5]), 'Invalid clones pass validation on insert, where [insert] is a clone validation method');
+    assert.ok(cth.allPassedValidation(`${dummyEls.clonableFieldWithData} ${els.emberChangesetWebformsCloneWrapper}`, [3, 4, 5]), 'Valid clones pass validation on insert, where [insert] is a clone validation method');
     assert.dom(els.maxClonesReached).exists('Max clones reached text shows on insert.');
     await cth.removeClone(dummyEls.clonableFieldWithData);
     assert.ok(cth.passedValidation(`${dummyEls.clonableFieldWithData} ${els.cloneSelector({fieldId:'emails', cloneId:1})}`), 'Previously validated clone is revalidated after another clone is removed.');
+  
     assert.notOk(cth.wasValidated(`${dummyEls.clonableFieldWithData} ${els.cloneSelector({fieldId:'emails', cloneId:2})}`), 'Previously un-validated clone is not revalidated after another clone is removed.');
     await cth.submitForm(dummyEls.clonableFieldWithData);
     assert.dom(`${dummyEls.cloneGroupEmails} > ${els.emberChangesetWebformsFieldErrors}`).hasText('Too many emails (maximum is 4).', 'Correct error message for the clone group on submit.');
@@ -71,7 +72,6 @@ module('Acceptance | Cloned fields', function (hooks) {
     assert.notOk(cth.failedValidation(secondCloneSelector), 'Second clone is not validated on keyUp in the input of the first clone.');
     assert.dom(`${dummyEls.clonableFieldCountries} ${els.emberChangesetWebformsAddCloneButton}`).hasText('Add Country code field', 'Add clone button is present and has correct default text when minClones is specified, but maxClones is not.');
 
-    // await this.pauseTest();
     // 
   });
 });
