@@ -10,9 +10,10 @@ export default Component.extend({
   didInsertElement: function () {
     //Code below will maintain validation colours when component is re-rendered.
     var formField = this.formField;
-    if (this.changesetProp.get(formField.propertyName)) {
+    const changeset = this.changesetWebform.changeset;
+    if (changeset.get(formField.propertyName)) {
       formField.eventLog.pushObject('insert');
-      this.send('validateField', this.changesetProp, formField);
+      this.send('validateField', changeset, formField);
     }
   },
 
@@ -45,7 +46,7 @@ export default Component.extend({
         if (formField.fieldType === 'input' && event.keyCode === 13) {
           if (this.submitForm) {
             formField.set('focussed', false);
-            this.submitForm(this.changesetProp);
+            this.submitForm(this.changesetWebform.changeset);
           }
           return;
         }
@@ -68,11 +69,11 @@ export default Component.extend({
     },
 
     setFieldValue: function (value, formField) {
-      var changeset = this.changesetProp;
+      var changeset = this.changesetWebform.changeset;
       formField.set('previousValue', changeset.get(formField.propertyName));
       changeset.set(formField.propertyName, value);
       if (this.afterFieldEdit) {
-        this.afterFieldEdit(formField, this.changesetProp);
+        this.afterFieldEdit(formField, changeset);
       }
       this.send('validateField', formField);
     }

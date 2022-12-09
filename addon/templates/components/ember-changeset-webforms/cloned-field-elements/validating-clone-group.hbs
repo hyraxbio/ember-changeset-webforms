@@ -1,9 +1,7 @@
 <EmberChangesetWebforms::FieldElements::FieldLabel 
   @formField={{masterFormField}} />
 <EmberChangesetWebforms::FieldElements::FieldErrors 
-  @changesetProp={{changesetProp}} 
-  @formField={{masterFormField}} 
-  @validationStatus={{validationStatus}}
+  @formField={{masterFormField}}
   @validationErrorsArray={{masterFormFieldValidationErrors}}
   @class="clone-group-field-errors" />
 <div class="clone-group-items">
@@ -15,7 +13,6 @@
       @validateField={{action validateField}} 
       @removeClone={{action "removeClone"}}
       @updatedGroupValue={{updatedGroupValue}} 
-      @changesetProp={{changesetProp}} 
       @groupValue={{groupValue}} 
       @clonedFormField={{clonedFormField}} 
       @masterFormField={{masterFormField}} 
@@ -25,7 +22,7 @@
 </div>
 <div class="clone-group-actions">
   {{#if (eq masterFormField.cloneCountStatus "max")}}
-    <div class="max-clones-reached" data-test-id="max-clones-reached">{{masterFormField.maxClonesReachedText}}</div>
+    <div class={{ember-changeset-webforms/dynamic-classes "maxClonesReached" changesetWebform formField formField.validationStatus}} data-test-id="cwf-max-clones-reached">{{masterFormField.maxClonesReachedText}}</div>
   {{else}}
     {{component masterFormField.addCloneButtonComponent cloneField=(action "cloneField") masterFormField=masterFormField cloneFieldLabel=masterFormField.clonedFields.firstObject.fieldLabel changesetWebform=changesetWebform}}
   {{/if}}

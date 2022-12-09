@@ -3,12 +3,12 @@ import layout from '../../../templates/components/ember-changeset-webforms/clone
 
 export default Component.extend({
   layout,
-  classNames: ['ember-changeset-webforms-field-clone'],
-  'data-test-class': 'ember-changeset-webforms-clone-wrapper',
+  classNames: ['cwf-field-clone'],
+  'data-test-class': 'cwf-clone-wrapper',
 
   didInsertElement: function() {
-    var changesetProp = this.get('changesetProp');
-    if (changesetProp.get(this.masterFormField.propertyName)[this.clonedFormField.index]) {
+    var changeset = this.changesetWebform.changeset;
+    if (changeset.get(this.masterFormField.propertyName)[this.clonedFormField.index]) {
       this.clonedFormField.eventLog.pushObject('insert');
       this.masterFormField.eventLog.pushObject('insertClone');
       this.clonedFormField.updateValidationActivation(this.clonedFormField.index, 'insert');

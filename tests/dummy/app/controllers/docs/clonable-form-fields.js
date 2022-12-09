@@ -22,6 +22,8 @@ export default Controller.extend({
         fieldId: 'emails',
         fieldLabel: 'User emails',
         fieldType: 'clone-group',
+        cloneField: ['cwf-clone-field'],
+        maxClonesReached: ['cwf-max-clones-reached'],
         minClones: 2,
         maxClones: 4,
         validationRules: [{

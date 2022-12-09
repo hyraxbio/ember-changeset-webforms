@@ -39,10 +39,10 @@ module('Acceptance | Action handling', function(hooks) {
   test('afterGenerateChangesetWebform', async function(assert) {
     await visit('/docs/action-handling');
     await click(`${dummyEls.afterGenerateChangesetWebformFeedback} ${dummyEls.nextButton}`);
-    assert.equal(findAll(`${dummyEls.afterGenerateChangesetWebformForm} ${dummyEls.nameField} ${els.emberChangesetWebformsFieldError}`).length, 1, 'One error message shows for empty name field after user clicks next button.');
-    assert.equal(findAll(`${dummyEls.afterGenerateChangesetWebformForm} ${dummyEls.nameField} ${els.emberChangesetWebformsFieldError}`)[0].textContent, `Name can't be blank`, 'Correct default error message shows for empty name field after user clicks next button.');
+    assert.equal(findAll(`${dummyEls.afterGenerateChangesetWebformForm} ${dummyEls.nameField} ${els.cwfFieldError}`).length, 1, 'One error message shows for empty name field after user clicks next button.');
+    assert.equal(findAll(`${dummyEls.afterGenerateChangesetWebformForm} ${dummyEls.nameField} ${els.cwfFieldError}`)[0].textContent, `Name can't be blank`, 'Correct default error message shows for empty name field after user clicks next button.');
     assert.ok(cth.failedValidation(`${dummyEls.afterGenerateChangesetWebformForm} ${dummyEls.nameField}`), 'Empty name field gets fails validation when user clicks next button.');
-    assert.equal(findAll(`${dummyEls.afterGenerateChangesetWebformForm} ${dummyEls.emailField} ${els.emberChangesetWebformsFieldError}`).length, 2, 'Two error messages show for empty email field after user clicks next button.');
+    assert.equal(findAll(`${dummyEls.afterGenerateChangesetWebformForm} ${dummyEls.emailField} ${els.cwfFieldError}`).length, 2, 'Two error messages show for empty email field after user clicks next button.');
     assert.equal(cth.fieldErrorText(`${dummyEls.afterGenerateChangesetWebformForm} ${dummyEls.emailField}`).join('|'), `Email can't be blank|Email must be a valid email address`, 'Correct default error messages  for empty email field after user clicks next button.');
     assert.ok(cth.failedValidation(`${dummyEls.afterGenerateChangesetWebformForm} ${dummyEls.emailField}`), 'Empty email field gets fails validation when user clicks next button.');
 

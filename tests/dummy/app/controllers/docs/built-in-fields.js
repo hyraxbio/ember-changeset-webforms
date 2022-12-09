@@ -527,7 +527,9 @@ export default Controller.extend({
       fields: [{
         fieldId: 'toggleAdvanced',
         fieldType: 'clicker',
-        clickerElementClassNames: ['...defaults', 'btn', 'btn-primary'],
+        classNames: {
+          clickerElement: ['...defaults', 'btn', 'btn-primary'],
+        },
         clickerText: 'Advanced options'
       }, {
         fieldId: 'advanced',
@@ -547,7 +549,9 @@ export default Controller.extend({
       fields: [{
         fieldId: 'toggleAdvanced',
         fieldType: 'clicker',
-        clickerElementClassNames: ['...defaults', 'btn'],
+        classNames: {
+          clickerElement: ['...defaults', 'btn'],
+        },
         clickerText: 'Advanced options',
         displayComponent: {
           path: 'forms/custom-clicker-component',

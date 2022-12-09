@@ -43,19 +43,19 @@ module('Acceptance | Field validation', function(hooks) {
   });
   test('Validation messages', async function(assert) {
     await visit('/docs/field-validation');
-    await click(els.emberChangesetWebformsSubmitButton);
-    assert.equal(findAll(els.emberChangesetWebformsFieldErrors).length, 8, 'All fields with validation rules are validated when user clicks submit button.');
+    await click(els.cwfSubmitButton);
+    assert.equal(findAll(els.cwfFieldErrors).length, 8, 'All fields with validation rules are validated when user clicks submit button.');
     assert.equal(cth.fieldErrorText(dummyEls.countryField).join(''), `Nation of origin can't be blank`, 'Passing "description" as an argument to validationRules replaces the default validation description ("Details.country) with the description provided.');
     assert.equal(cth.fieldErrorText(dummyEls.acceptTermsField).join(''), 'You must accept the terms to continue.', 'Passing "message" as an argument to validationRules replaces the default validation message with the message provided.');
     await fillIn(`${dummyEls.emailField} input`, '');
     await blur(`${dummyEls.emailField} input`);
-    assert.equal(findAll(`${dummyEls.emailField} ${els.emberChangesetWebformsFieldError}`).length, 2, 'Multiple errors display where multiple exist.');
+    assert.equal(findAll(`${dummyEls.emailField} ${els.cwfFieldError}`).length, 2, 'Multiple errors display where multiple exist.');
   });
 
   test('Custom validators', async function(assert) {
     await visit('/docs/integrating-custom-validators');
-    await click(els.emberChangesetWebformsSubmitButton);
-    const fields = findAll(`${dummyEls.integratingCustomValidatorsForm} ${els.emberChangesetWebformsField}`);
+    await click(els.cwfSubmitButton);
+    const fields = findAll(`${dummyEls.integratingCustomValidatorsForm} ${els.cwfField}`);
     assert.equal(cth.fieldErrorText(fields[0]).concat(cth.fieldErrorText(fields[1])).join('|'), 'Each field must be unique- primary email is the same as recovery email.|Each field must be unique- recovery email is the same as primary email.', 'Custom validator is applied correctly.');
   });
   

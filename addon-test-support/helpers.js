@@ -4,7 +4,7 @@ import els from 'ember-changeset-webforms/test-support/element-selectors';
 export default {
   fieldErrorText(arg) {
     const element = this.getElement(arg);
-    const errors = element.querySelectorAll(els.emberChangesetWebformsFieldError);
+    const errors = element.querySelectorAll(els.cwfFieldError);
     if (!errors) { return; }
     return Array.from(errors).map(error => error.textContent.trim());
   },
@@ -54,7 +54,7 @@ export default {
 
   failedValidation(arg) {
     const element = this.getElement(arg);
-    if ((element.classList.contains('is-invalid') || element.querySelector('.is-invalid')) && element.querySelector(els.emberChangesetWebformsFieldErrors)) { return true; }
+    if ((element.classList.contains('is-invalid') || element.querySelector('.is-invalid')) && element.querySelector(els.cwfFieldErrors)) { return true; }
     return false;
   },
 
@@ -86,23 +86,23 @@ export default {
   async removeClone(arg, indexes) {
     const element = this.getElement(arg);
     if (indexes) {
-      const elementsToClick = indexes.map(index => element.querySelectorAll(els.removeClone)[index]);
+      const elementsToClick = indexes.map(index => element.querySelectorAll(els.cwfRemoveClone)[index]);
       for (var el of elementsToClick) {
         await click(el);
       }
     } else {
-      await click(element.querySelector(els.removeClone));
+      await click(element.querySelector(els.cwfRemoveClone));
     }
   },
 
   async addClone(arg) {
     const element = this.getElement(arg);
-    await click(element.querySelector(els.emberChangesetWebformsAddCloneButton));
+    await click(element.querySelector(els.cwfAddClone));
   },
 
   async submitForm(arg) {
     const element = this.getElement(arg);
-    await click(element.querySelector(els.emberChangesetWebformsSubmitButton));
+    await click(element.querySelector(els.cwfSubmitButton));
 
   }
 }

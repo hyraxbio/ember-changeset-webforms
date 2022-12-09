@@ -1,7 +1,7 @@
 {{#if (and (eq formField.validationStatus "invalid") validationErrorsArray)}}
-  <div class="{{formField.fieldErrorClasses}} ember-changeset-webforms-field-errors {{class}} {{ember-changeset-webforms/dynamic-classes "validationErrors" changesetWebform formField formField.validationStatus}}" data-test-class="ember-changeset-webforms-field-errors">
+  <div class="{{formField.fieldErrorClasses}} ember-changeset-webforms-field-errors {{class}} {{ember-changeset-webforms/dynamic-classes "validationErrors" changesetWebform formField formField.validationStatus}}" data-test-class="cwf-field-errors">
     {{#each validationErrorsArray as |error|}}
-      <div class="ember-changeset-webforms-field-error" data-test-class="ember-changeset-webforms-field-error">{{error}}</div>
+      <div class="ember-changeset-webforms-field-error" data-test-class="cwf-field-error">{{error}}</div>
     {{/each}}
   </div>
 {{/if}}

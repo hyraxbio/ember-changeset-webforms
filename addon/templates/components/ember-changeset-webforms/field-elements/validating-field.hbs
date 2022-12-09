@@ -1,8 +1,7 @@
-{{#if (and changesetProp (not formField.hidden))}}
+{{#if (and changesetWebform.changeset (not formField.hidden))}}
   {{#if formField.cloneGroupName}}
     <EmberChangesetWebforms::ClonedFieldElements::ValidatingCloneGroup 
       @masterFormField={{formField}} 
-      @changesetProp={{changesetProp}} 
       @setFieldValue={{action "setFieldValue"}} 
       @validateField={{action "validateField"}} 
       @afterAddClone={{afterAddClone}} 
@@ -19,20 +18,18 @@
       @typeClass={{typeClass}} 
       @dataTestFormName={{dataTestFormName}}
       @dataTestFieldId={{dataTestFieldId}}
-      @changesetProp={{changesetProp}}
       @changesetWebform={{changesetWebform}}
-      @validationErrorsArray={{get (get changesetProp.error formField.propertyName) "validation"}}
-      data-test-ember-changeset-webforms-field >
+      @validationErrorsArray={{get (get changesetWebform.changeset.error formField.propertyName) "validation"}}
+      data-test-cwf-field >
       {{component formField.componentPath
         formField=formField
         formFields=formFields
         formSettings=formSettings
         onChange=(action "onChange")
         onUserInteraction=(action "onUserInteraction")
-        changesetProp=changesetProp
         changesetWebform=changesetWebform
         validationStatus=validationStatus
-        displayValue=(changeset-get changesetProp formField.fieldId)
+        displayValue=(changeset-get changesetWebform.changeset formField.fieldId)
         dataTestFieldId=dataTestFieldId
       }}
     </EmberChangesetWebforms::FieldElements::ValidatingFieldWrapper>

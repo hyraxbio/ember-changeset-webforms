@@ -151,7 +151,7 @@ export default Component.extend({
       this.send('generateFormObject', this.get('formSchema'), this.get('fieldComponentsMap'));
       this.send('generateChangeset', this.get('formSchema'), {});
       if (this.get('formSettings.submitAfterClear')) {
-        this.send('submit', this.get('changesetProp'));
+        this.send('submit', this.changesetWebform.changeset);
       }
     }
   }

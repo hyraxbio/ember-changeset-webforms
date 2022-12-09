@@ -4,7 +4,7 @@
       "validation-area " (ember-changeset-webforms/dynamic-classes "powerSelectTrigger" changesetWebform formField formField.validationStatus) 
     )
     options=formField.options 
-    selected=(changeset-get changesetProp formField.propertyName) 
+    selected=(changeset-get changesetWebform.changeset formField.propertyName) 
     searchPlaceholder=(or formField.searchPlaceholder "Search") 
     searchField=formField.optionDisplayProp 
     allowClear=allowClear 

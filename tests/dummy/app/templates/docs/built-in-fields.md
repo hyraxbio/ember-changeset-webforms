@@ -508,8 +508,8 @@ The object passed must take the following form.
 ```
 
 * The component will also have access to an `formField` prop, with the formField object.
-* The component will also have access to the `classNames` property. These are the classnames that would be applied to the standard clicker element, derived by resolving th default class names for the field, with any overrides provided.
-* The component will also have access to a `changesetProp` prop, which ios the changeset underlying the form.
+* The component will also have access to the `clickerElementClass` property. These are the classnames that would be applied to the standard clicker element, derived by resolving th default class names for the field, with any overrides provided.
+* The component will also have access to the `changesetWebform` object, which is contains the form settings, form fields and underlying changeset.
 
 Pass `displayComponent` as an object containing:
 

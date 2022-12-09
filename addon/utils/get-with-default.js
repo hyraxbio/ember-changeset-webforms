@@ -1,5 +1,6 @@
 import config from 'ember-get-config';
 import _mergeWith from 'lodash/mergeWith';
+import mergeWithDefaultClassNames from 'ember-changeset-webforms/utils/merge-with-default-class-names';
 
 const addonDefaults = {
   generalClassNames: {
@@ -53,6 +54,7 @@ const addonDefaults = {
     fieldLabelCloneGroup: null,
 
     cloneField: ['cwf-clone-field'],
+    maxClonesReached: ['cwf-max-clones-reached'],
 
     powerSelectTrigger: ['form-control', '...validationClassNames'],
     powerDatePickerTrigger: ['form-control', '...validationClassNames'],
@@ -60,6 +62,8 @@ const addonDefaults = {
     powerDatePickerCalendar: null,
     powerDatePickerTimeSelectorContainer: ['cwf-time-selector'],
     powerDatePickerTimeSelectorInput: ['inline'],
+
+    clickerElement: ['cwf-clicker'],
     
     labelledCheckbox: ['form-check', 'labelled-checkbox'],
     labelledRadioButton: ['form-check', 'labelled-radio-button'],
@@ -174,7 +178,6 @@ const addonDefaults = {
       fixedTime: null, // String - force the time to a value, whatever tha date is. Must be in the format HH:mm:ss.SSS
       showTimeSelector: null, // Boolean - show the UI for the user to change the time.
       timeSelectorFields: 'HH,mm,ss,SSS', // String - comma separated list of the fields to show in the time selector component. combination of valid momentjs time string parts can be given. 
-      calendarStartMonth: null, // Tell the calendar to start at a specific month. Must be given in the format MM/YYYY
       calendarTitleFormat: 'MMMM YYYY',
       timeInputLabels: {
         hours: 'Hour',
@@ -257,28 +260,28 @@ const addonDefaults = {
 export {addonDefaults};
 
 export default function getWithDefault(formSchema = {}) {
-  const customisedMerge = function(objValue, srcValue, key, object, source, stack) {
-    if (Array.isArray(objValue) && key.endsWith('ClassNames') ) {
-      if (srcValue.indexOf('...defaults') > -1) {
-        return objValue.concat(srcValue).filter(className => !className.startsWith('.'));
-      } else {
-        return srcValue.filter(className => !className.startsWith('.'));
-      }
-    }
-  };
+  // const customisedMerge = function(objValue, srcValue, key, object, source, stack) {
+  //   if (Array.isArray(objValue) && key.endsWith('ClassNames') ) {
+  //     if (srcValue.indexOf('...defaults') > -1) {
+  //       return objValue.concat(srcValue).filter(className => !className.startsWith('.'));
+  //     } else {
+  //       return srcValue.filter(className => !className.startsWith('.'));
+  //     }
+  //   }
+  // };
   const appDefaults = config.changesetWebformsDefaults || {};
-  const formSettings = _mergeWith({}, addonDefaults.formSettings, appDefaults.formSettings, formSchema.settings, customisedMerge);
-  const classNameSettings = _mergeWith({}, addonDefaults.generalClassNames, appDefaults.generalClassNames, formSchema.generalClassNames, customisedMerge);
+  const formSettings = _mergeWith({}, addonDefaults.formSettings, appDefaults.formSettings, formSchema.settings);
+  const classNameSettings = _mergeWith({}, addonDefaults.generalClassNames, appDefaults.generalClassNames, formSchema.generalClassNames, mergeWithDefaultClassNames);
   const addonFieldDefaults = addonDefaults.fieldSettings || {};
   const appConfigFieldDefaults = appDefaults.fieldSettings || {};
   const mergedFields = (formSchema.fields || []).map(field => {
     const addonFieldTypeDefaults = addonDefaults.fieldTypes.find(addonFieldType => addonFieldType.fieldType === field.fieldType);
     const appConfigFieldTypeDefaults = (appDefaults.fieldTypes || []).find(appConfigFieldType => appConfigFieldType.fieldType === field.fieldType);
-    const mergedField = _mergeWith({}, addonFieldDefaults, addonFieldTypeDefaults, appConfigFieldDefaults, appConfigFieldTypeDefaults, formSchema.fieldSettings, field, customisedMerge);
+    const mergedField = _mergeWith({}, addonFieldDefaults, addonFieldTypeDefaults, appConfigFieldDefaults, appConfigFieldTypeDefaults, formSchema.fieldSettings, field);
     if (field.cloneFieldSchema) {
       const cloneAddonFieldTypeDefaults = addonDefaults.fieldTypes.find(addonFieldType => addonFieldType.fieldType === field.cloneFieldSchema.fieldType);
       const appConfigCloneFieldTypeDefaults = (appDefaults.fieldTypes || []).find(appConfigFieldType => appConfigFieldType.fieldType === field.cloneFieldSchema.fieldType);
-      const mergedCloneField = _mergeWith({}, addonFieldDefaults, cloneAddonFieldTypeDefaults, appConfigFieldDefaults, appConfigCloneFieldTypeDefaults, formSchema.fieldSettings, field.cloneFieldSchema, customisedMerge);
+      const mergedCloneField = _mergeWith({}, addonFieldDefaults, cloneAddonFieldTypeDefaults, appConfigFieldDefaults, appConfigCloneFieldTypeDefaults, formSchema.fieldSettings, field.cloneFieldSchema);
       mergedField.cloneFieldSchema = mergedCloneField;
     }
     return mergedField;

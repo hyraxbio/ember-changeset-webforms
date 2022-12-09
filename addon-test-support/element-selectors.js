@@ -1,20 +1,18 @@
 export default {
-  emberChangesetWebformsField: '[data-test-ember-changeset-webforms-field]',
-  emberChangesetWebformsFieldErrors: '[data-test-class="ember-changeset-webforms-field-errors"]',
-  emberChangesetWebformsFieldError: '[data-test-class="ember-changeset-webforms-field-error"]',
-  emberChangesetWebformsResetButton: '[data-test-id="ember-changeset-webforms-reset-form-button"]',
-  emberChangesetWebformsSubmitButton: '[data-test-id="ember-changeset-webforms-submit-form-button"]',
-  emberChangesetWebformsFieldRequired: '[data-test-ember-changeset-webforms-field-required]',
-  emberChangesetWebformsFieldValidates: '[data-test-ember-changeset-webforms-field-validates]',
+  cwfField: '[data-test-cwf-field]',
+  cwfFieldErrors: '[data-test-class="cwf-field-errors"]',
+  cwfFieldError: '[data-test-class="cwf-field-error"]',
+  cwfResetButton: '[data-test-id="cwf-reset-form-button"]',
+  cwfSubmitButton: '[data-test-id="cwf-submit-form-button"]',
+  cwfFieldRequired: '[data-test-cwf-field-required]',
+  cwfFieldValidates: '[data-test-cwf-field-validates]',
   
-  emberChangesetWebformsCloneWrapper: '[data-test-class="ember-changeset-webforms-clone-wrapper"]',
-  emberChangesetWebformsCloneField: '[data-test-ember-changeset-webforms-clone-field]',
+  cwfCloneWrapper: '[data-test-class="cwf-clone-wrapper"]',
+  cwfCloneField: '[data-test-cwf-clone-field]',
   
-  addClone: '[data-test-id="add-clone"]',
-  removeClone: '[data-test-class="remove-clone"]',
-  emberChangesetWebformsClonedField: '[data-test-class="cloned-field"]',
-  emberChangesetWebformsAddCloneButton: '[data-test-id="add-clone"]',
-  maxClonesReached: '[data-test-id="max-clones-reached"]',
+  cwfAddClone: '[data-test-id="add-clone"]',
+  cwfRemoveClone: '[data-test-class="cwf-remove-clone"]',
+  cwfMaxClonesReached: '[data-test-id="cwf-max-clones-reached"]',
 
   cloneField(opts) {
     return `[data-test-id="${opts.fieldId}-clone-${opts.cloneId}-field"]`
