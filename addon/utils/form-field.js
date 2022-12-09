@@ -19,7 +19,24 @@ export default EmberObject.extend({
       return 'invalid';
     }
   }),
-})
+
+  validate() {
+    return new Promise((resolve, reject) => {
+      const formField = this;
+      const changeset = this.changeset;
+      if (!formField.validates) { return; }
+      if (!validationEventLog(formField).length) { return }
+
+      changeset.validate(formField.propertyName).then(() => {
+        formField.set('wasValidated', true);
+        const fieldValidationErrors = changeset.error[formField.propertyName];
+        resolve(fieldValidationErrors);
+      }).catch(err => {
+        reject(err);
+      });
+    });
+  },
+});
 
 function validationEventObj(validationEvents, eventType) {
   return validationEvents.find(validationEvent => {

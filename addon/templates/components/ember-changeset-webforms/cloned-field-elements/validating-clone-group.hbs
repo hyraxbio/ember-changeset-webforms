@@ -6,14 +6,13 @@
   @validationStatus={{validationStatus}}
   @validationErrorsArray={{masterFormFieldValidationErrors}}
   @class="clone-group-field-errors" />
-  {{log masterFormFieldValidationErrors}}
 <div class="clone-group-items">
   {{#each masterFormField.clonedFields as |clonedFormField| }}
     <EmberChangesetWebforms::ClonedFieldElements::ValidatingClone 
       @cloneField={{action "cloneField"}} 
       @onUserInteractionClone={{action onUserInteractionClone}}
       @setFieldValue={{action setFieldValue}} 
-      @validateProperty={{action validateProperty}} 
+      @validateField={{action validateField}} 
       @removeClone={{action "removeClone"}}
       @updatedGroupValue={{updatedGroupValue}} 
       @changesetProp={{changesetProp}} 

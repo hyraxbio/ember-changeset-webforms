@@ -11,17 +11,9 @@ export default Component.extend({
     if (changesetProp.get(this.masterFormField.propertyName)[this.clonedFormField.index]) {
       this.clonedFormField.eventLog.pushObject('insert');
       this.masterFormField.eventLog.pushObject('insertClone');
-      this.updateValidationActivation(this.clonedFormField, this.clonedFormField.index, 'insert');
+      this.clonedFormField.updateValidationActivation(this.clonedFormField.index, 'insert');
 
-      this.validateProperty(changesetProp, this.masterFormField);
-    }
-  },
-  // TODO move this into the Class
-  updateValidationActivation(clonedFormField, index, eventType) {
-    if (this.validationEventObj(clonedFormField.validationEvents, eventType)) {
-      const validationRules =  clonedFormField.validationRules[0];
-      validationRules.activateValidation = validationRules.activateValidation || [];
-      validationRules.activateValidation.push(index);// clonedFormField.set()
+      this.validateField(this.masterFormField);
     }
   },
 
@@ -34,7 +26,7 @@ export default Component.extend({
       }
       clonedFormField.eventLog.push(eventType);
       this.masterFormField.eventLog.push('focusOutClone');
-      this.updateValidationActivation(clonedFormField, index, 'focusOut');
+      clonedFormField.updateValidationActivation(index, 'focusOut');
       this.setFieldValue(this.updatedGroupValue(value, index), this.get('masterFormField'));
       this.onUserInteractionClone(clonedFormField, `${eventType}Clone`, value, event);
     },
@@ -42,14 +34,8 @@ export default Component.extend({
     onChangeClone(index, clonedFormField, value, eventType = 'change') {
       clonedFormField.eventLog.push(eventType);
       this.masterFormField.eventLog.push(`${eventType}Clone`);
-      this.updateValidationActivation(clonedFormField, index, eventType);
+      clonedFormField.updateValidationActivation(index, eventType);
       this.setFieldValue(this.updatedGroupValue(value, index), this.get('masterFormField'));
     },
-  },
-
-  validationEventObj(validationEvents, eventType) { // TODO this is duplicated in validating form field.
-    return validationEvents.find(validationEvent => {
-      return validationEvent.event === eventType;
-    });
   }
 });

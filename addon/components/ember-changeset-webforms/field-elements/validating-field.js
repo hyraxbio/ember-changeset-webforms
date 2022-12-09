@@ -1,6 +1,6 @@
 import Component from '@ember/component';
 import { computed } from '@ember/object';
-import validationEventLog from 'ember-changeset-webforms/utils/validation-event-log';
+// import validationEventLog from 'ember-changeset-webforms/utils/validation-event-log';
 import layout from '../../../templates/components/ember-changeset-webforms/field-elements/validating-field';
 
 export default Component.extend({
@@ -12,7 +12,7 @@ export default Component.extend({
     var formField = this.formField;
     if (this.changesetProp.get(formField.propertyName)) {
       formField.eventLog.pushObject('insert');
-      this.send('validateProperty', this.changesetProp, formField);
+      this.send('validateField', this.changesetProp, formField);
     }
   },
 
@@ -27,42 +27,10 @@ export default Component.extend({
     return `field-type-${myStr}`;
   }),
 
-  // TODO should a formField not be a class of it's own?
-  // validationStatus: computed('changesetProp.error', 'formField.{focussed,eventLog.[]}', function () {
-  //   var formField = this.formField;
-  //   if (!formField) { return; }
-  //   if (!formField.validates) { return; }
-  //   if (!this.validationEventObj(formField.validationEvents, 'keyUp') && formField.get('focussed')) {
-  //     return;
-  //   }
-  //   if (!validationEventLog(formField).length) { return }
-
-  //   var validationErrors = (this.get(`changesetProp.error.${this.formField.propertyName}.validation`)) || [];
-  //   if (validationErrors.length === 0) {
-  //     return 'valid';
-  //   } else {
-  //     return 'invalid';
-  //   }
-  // }),
-
   actions: {
-    validateProperty(changeset, formField) {
-      if (!formField.validates) { return; }
-      if (!validationEventLog(formField).length) { return }
-
-      // var keyUpValidationMethod = this.validationEventObj(formField.validationEvents, 'keyUp');
-      // if (eventType === 'keyUp' && keyUpValidationMethod.includeKeyCodes && event) {
-      //   if (keyUpValidationMethod.includeKeyCodes.indexOf(event.keyCode) < 0) {
-      //     return;
-      //   }
-      //   if (keyUpValidationMethod.excludeKeyCodes.indexOf(event.keyCode) > -1) {
-      //     return;
-      //   }
-      // }
-      changeset.validate(formField.propertyName).then(() => {
-        formField.set('wasValidated', true);
-        const fieldValidationErrors = changeset.error[formField.propertyName];
-        this.afterFieldValidation(formField, changeset, fieldValidationErrors);
+    validateField(formField) {
+      formField.validate().then(fieldValidationErrors => {
+        this.afterFieldValidation(formField, formField.changeset, fieldValidationErrors);
       });
     },
 
@@ -106,13 +74,7 @@ export default Component.extend({
       if (this.afterFieldEdit) {
         this.afterFieldEdit(formField, this.changesetProp);
       }
-      this.send('validateProperty', changeset, formField);
+      this.send('validateField', formField);
     }
-  },
-
-  validationEventObj(validationEvents, eventType) {
-    return validationEvents.find(validationEvent => {
-      return validationEvent.event === eventType;
-    });
   }
 });
