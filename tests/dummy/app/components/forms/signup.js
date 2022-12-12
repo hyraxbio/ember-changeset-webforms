@@ -42,7 +42,6 @@ export default Component.extend({
         fieldId: 'birthDate',
         fieldLabel: "Date of birth",
         fieldType: "powerDatePicker",
-        calendarContainerClasses: 'pop-up-box box-arrow', // TODO default app settings
         closeDatePickerOnSelect: true,
       }, {
         fieldId: 'password',

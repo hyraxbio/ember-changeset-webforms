@@ -4,9 +4,9 @@
   <dropdown.Trigger 
     @eventType="mousedown"
     onmousedown={{action "onTriggerFocus"}}
-    class={{triggerClasses}}>
+    class={{triggerClass}}>
     {{#if value}}
-      <div role="button" class="clear-date-time-button {{dynamicClassClearDateTime}}" data-test-id="datetime-picker-clear-datetime" onclick={{action "clearDateTime"}}>×</div>
+      <div role="button" class="{{clearDateTimeButtonClass}}" data-test-id="datetime-picker-clear-datetime" onclick={{action "clearDateTime"}}>×</div>
     {{else}}
       <div class="calendar-icon"></div>
     {{/if}}

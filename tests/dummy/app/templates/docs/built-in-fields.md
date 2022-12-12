@@ -475,7 +475,7 @@ The field displays an element which emits the `onUserInteraction` action with th
 
 The examples below toggle the advanced field in a form.
 
-## Clicker field basic usage
+### Clicker field basic usage
 
 Pass `clickerText` and optionally `clickerElementClassNames`.
 
@@ -536,56 +536,3 @@ If using a `button` element in your custom clicker component, bear in mind that 
   {{demo.snippet "custom-clicker-component.js" label="Custom clicker JS" language="javascript"}}
   {{demo.snippet "custom-clicker-component.hbs" label="Custom clicker HBS" language="htmlbars"}}
 {{/docs-demo}}
-
-<!-- <ChangesetWebform @formSchema={{this.testFormSchema}} /> -->
-
-```
-{
-    fieldType: 'input',
-    inputType: 'text',
-    placeholder: 'Lot number',
-    autofocus: true
-  },
-  { fieldType: 'radioButtonGroup', options: [] },
-  {
-    fieldType: 'powerSelect',
-    placeholder: 'Select',
-    searchEnabled: true,
-    allowClear: false,
-    options: [],
-    optionDisplayProp: 'name',
-    selectedItemComponent: 'hyrax-ember-assets/janus/forms/shared-fields/country-field-selected-item',
-    optionComponent: 'hyrax-ember-assets/janus/forms/shared-fields/country-field-option'
-  },
-  { fieldType: 'clicker' },
-  { fieldType: 'prevalenceCutoff', inputType: 'number' },
-  {
-    fieldType: 'powerDatePicker',
-    dateFormat: 'YYYY-MM-DD',
-    timeFormat: 'HH:mm:ss',
-    defaultTime: '23:59:59',
-    calendarContainerClasses: 'pop-up-box box-arrow',
-    closeDatePickerOnSelect: true,
-    dateRangeSettings: { rangePosition: 'end', rangePartnerFieldId: 'inserted_from' }
-  },
-  {
-    fieldType: 'singleCheckbox',
-    checkBoxLabel: 'Generate BAM files (Note that BAM files are large and may slow the job down)',
-    label: 'I agree that my uploaded data can be used anonymously for research purposes other than surveillance. See our [privacy policy](https://exatype.com/privacy-policy) for further information.',
-    checkBoxLabelMarkdown: 'I agree that my uploaded data can be used anonymously for research purposes other than surveillance. See our [privacy policy](https://exatype.com/privacy-policy) for further information.'
-  },
-  {
-    fieldType: 'staticContent',
-    text: 'andrew+no-org@hyraxbio.com',
-    textElement: 'div',
-    textElementClass: 'badge badge-gray-medium',
-    contentComponent: {
-      path: 'hyrax-ember-assets/exatype/surveillance-research-data-consent-revoked-notice',
-      props: [Object]
-    }
-  },
-  { fieldType: 'noDisplay' },
-  { fieldType: 'checkboxGroup', 
-  placeholder: 'Select', options: [] }
-
-```

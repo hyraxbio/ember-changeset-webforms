@@ -4,78 +4,112 @@ import mergeWithDefaultClassNames from 'ember-changeset-webforms/utils/merge-wit
 
 const addonDefaults = {
   generalClassNames: {
-    validClassNames: ['is-valid'],
-    invalidClassNames: ['is-invalid'],
-
+    // BEGIN-SNIPPET configurable-classnames.js
+    // Generic element classes
     inputElement: ['form-control', 'validation-area', '...validationClassNames'],
     textareaElement: ['form-control',  'validation-area', '...validationClassNames'],
-    labelElement: ['form-label'], // TODO name to distinguish from checkbox and radiobutton
+    labelElement: ['form-label'],
     checkboxElement: ['form-check-input', '...validationClassNames'],
     radioButtonElement: ['form-check-input', '...validationClassNames'],
-    checkboxLabel: ['form-check-label'],
-    radioButtonLabel: ['form-check-label'],
-    buttonElement: ['btn', '...validationClassNames'],
+    buttonElement: ['btn', '...validationClassNames'], 
+    // Generic field classes- apply to all fields
+    disabledField: ['disabled'],
+    focussedField: ['focussed'],
+    fieldWrapper: ['cwf-field'], 
+    fieldControls: ['field-controls', 'validation-icon', '...validationClassNames'],
+    fieldLabel: ['field-label', 'validation-icon', '...validationClassNames'],
+    requiredField: ['required'],
+    // Generic validation related classes - apply to all fields
+    validClassNames: ['is-valid'],
+    invalidClassNames: ['is-invalid'],
+    validationErrors: ['invalid-feedback', '...validationClassNames'],
+    fieldValidates: ['validates'],
+    validatedField: ['was-validated'],
+    // Form action element element classes
     submitButton: ['btn-primary'],
     discardChangesButton: ['btn-success'],
     clearFormButton: ['btn-warning'],
-    addCloneButton: ['btn-secondary'],
-
-    removeClone: ['hover-pointer', 'remove-clone', 'clone-actions', 'width-xl'],
-
-    fieldWrapper: ['cwf-field'], 
+    // fieldType === 'input
     fieldWrapperInput: ['cwf-field-input'],
-    fieldWrapperTextArea: null,
-    fieldWrapperSingleCheckbox: null,
-    fieldWrapperPowerDatePicker: null,
-    fieldWrapperPowerSelect: null,
-    fieldWrapperRadioButtonGroup: null,
-    fieldWrapperCheckboxGroup: null,
-    fieldWrapperCloneGroup: null,
-
-    fieldControls: ['field-controls', 'validation-icon', '...validationClassNames'],
+    disabledFieldInput: null,
+    focussedFieldInput: null,
     fieldControlsInput: null,
-    fieldControlsTextArea: null,
-    fieldControlsSingleCheckbox: null,
-    fieldControlsPowerDatePicker: null,
-    fieldControlsPowerSelect: null,
-    fieldControlsClicker: null,
-    fieldControlsRadioButtonGroup: ['radio-button-group', 'validation-area', '...validationClassNames'],
-    fieldControlsCheckboxGroup: ['checkbox-group', 'validation-area', '...validationClassNames'],
-    fieldControlsCloneGroup: ['checkbox-group', 'validation-area'],
-
-    fieldLabel: ['field-label', 'validation-icon', 'test', '...validationClassNames'],
     fieldLabelInput: null,
-    fieldLabelTextArea: null,
-    fieldLabelSingleCheckbox: null,
-    fieldLabelPowerDatePicker: null,
-    fieldLabelPowerSelect: null,
-    fieldLabelRadioButtonGroup: null,
-    fieldLabelCheckboxGroup: null,
-    fieldLabelCloneGroup: null,
-
+    requiredFieldInput: null,
+    // fieldType === 'clonable'
     cloneField: ['cwf-clone-field'],
     maxClonesReached: ['cwf-max-clones-reached'],
-
+    addCloneButton: ['btn-secondary'],
+    removeClone: ['hover-pointer', 'remove-clone', 'clone-actions', 'width-xl'],
+    fieldControlsCloneGroup: ['checkbox-group', 'validation-area'],
+    disabledFieldCloneGroup: null,
+    focussedFieldCloneGroup: null,
+    fieldWrapperCloneGroup: null,
+    fieldLabelCloneGroup: null,
+    requiredFieldCloneGroup: null,
+    //fieldType === 'textarea'
+    disabledFieldTextarea: null,
+    focussedFieldTextarea: null,
+    fieldWrapperTextarea: null,
+    fieldControlsTextarea: null,
+    fieldLabelTextarea: null,
+    requiredFieldTextarea: null,
+    // fieldType === 'powerSelect'
     powerSelectTrigger: ['form-control', '...validationClassNames'],
+    disabledFieldPowerSelect: null,
+    focussedFieldPowerSelect: null,
+    fieldWrapperPowerSelect: null,
+    fieldControlsPowerSelect: null,
+    fieldLabelPowerSelect: null,
+    requiredFieldPowerSelect: null,   
+    // fieldType === powerDatePicker
     powerDatePickerTrigger: ['form-control', '...validationClassNames'],
     powerDatePickerDropdown: null,
     powerDatePickerCalendar: null,
     powerDatePickerTimeSelectorContainer: ['cwf-time-selector'],
     powerDatePickerTimeSelectorInput: ['inline'],
-
+    powerDatePickerClearButton: ['clear-date-time-button'],
+    disabledFieldPowerDatePicker: null,
+    focussedFieldPowerDatePicker: null,
+    fieldWrapperPowerDatePicker: null,
+    fieldControlsPowerDatePicker: null,
+    fieldLabelPowerDatePicker: null,
+    requiredFieldPowerDatePicker: null,
+    // fieldType === 'clicker';
     clickerElement: ['cwf-clicker'],
-    
+    disabledFieldClicker: null,
+    fieldWrapperClicker: null,
+    fieldLabelClicker: null,
+    // fieldType === 'checkboxGroup'
+    fieldControlsCheckboxGroup: ['checkbox-group', 'validation-area', '...validationClassNames'],
+    disabledFieldCheckboxGroup: null,
+    focussedFieldCheckboxGroup: null,
+    fieldWrapperCheckboxGroup: null,
+    fieldLabelCheckboxGroup: null,
+    requiredFieldCheckboxGroup: null,
+    // fieldType === 'singleCheckbox
+    disabledFieldSingleCheckbox: null,
+    focussedFieldSingleCheckbox: null,
+    fieldWrapperSingleCheckbox: null,
+    fieldControlsSingleCheckbox: null,
+    fieldLabelSingleCheckbox: null,
+    requiredFieldSingleCheckbox: null,
+    // fieldType === ('singleCheckBox' || 'checkBoxGroup)
+    checkboxLabel: ['form-check-label'],
     labelledCheckbox: ['form-check', 'labelled-checkbox'],
+    // fieldType === 'radioButtonGroup
     labelledRadioButton: ['form-check', 'labelled-radio-button'],
-    
-    validationErrors: ['invalid-feedback', '...validationErrors'],
-
-    requiredField: ['required'],
-    fieldValidates: ['validates'],
-    disabledField: ['disabled'],
-    validatedField: ['was-validated'],
-    focussedField: ['focussed'],
-
+    radioButtonLabel: ['form-check-label'],
+    fieldControlsRadioButtonGroup: ['radio-button-group', 'validation-area', '...validationClassNames'],
+    disabledFieldRadioButtonGroup: null,
+    focussedFieldRadioButtonGroup: null,
+    fieldWrapperRadioButtonGroup: null,
+    fieldLabelRadioButtonGroup: null,
+    requiredFieldRadioButtonGroup: null,
+    // fieldType === 'staticContent
+    fieldWrapperStaticContent: null,
+    fieldLabelStaticContent: null,
+    // END-SNIPPET
   },
   formSettings: {
     // BEGIN-SNIPPET form-settings-options.js
@@ -98,28 +132,30 @@ const addonDefaults = {
       form: 'saving',
       submitButton: 'saving',
       submitButtonIcon: 'saving'
-    }, // Object - class to add to each of the three above elements which a form submit operation is ion flight. The class os removed after the submit action resolves or rejects if a promise, or returns if not. TODO impelent
+    }, // ---TODO check if these work and add to local CSS --- Object - class to add to each of the three above elements which a form submit operation is ion flight. The class os removed after the submit action resolves or rejects if a promise, or returns if not. TODO impelent
     resetButtonClasses: null, // String - classes to show on the reset button
     submitAfterClear: null // Boolean. If true submits the form after the clear form button is clicked. An example use case is a filters form with a clear filters button, where the desired behaviour is to clear the form fields, and then submit the empty form to reset the filters
     // END-SNIPPET
   },
   fieldSettings: { // TODO document that these can all be included in a form in "fieldDefaults"
+    // BEGIN-SNIPPET field-settings-options.js
     fieldId: null,
     propertyName: null, // Optional, defaults to the value oif fieldId if not set.
     name: null, // String - defaults to the fieldId
-    validationRules: [], // Array of objects
+    validationRules: [], // Array of objects defining validation rules. See "Validation".
     validationEvents: [], // Array of strings, possible values include focusOut, keyUp, onChange // TODO check onChanger as validation event
     alwaysValidateOn: ['focusOut', 'change', 'submit', 'removeClone', 'optionSelected'], // Array of strings, possible values include focusOut, keyUp, onChange // TODO check onChange as validation event
-    eventLog: [],
     hideSuccessValidation: null, // Boolean - only show validation colours when field validation fails
     hidden: null, // Boolean - if true, the field is hidden and also ignored when validating or submitting the form
-    fieldClasses: null, // String
     castOut: null, // Boolean - exclude the field from validation and submission
     defaultValue: null, // Any - auto set the changeset property for the field to this value when the ChangesetWebform component is rendered and the changeset is created. This value will be overridden by a corresponding property in the data object that is passed to the ChangesetWebform component.  
     fieldLabel: null, // String - the label to show on the field
-    labelComponent: null, // String - path to a component to use as the label. If set, takes the place of fieldLabel 
+    labelComponent: null, // TODO props for this? String - path to a component to use as the label. If set, takes the place of fieldLabel 
     hideLabel: null, // Hide the label from the user
     disabled: null, // Boolean - disable the field, but do not hide it. It will still be validated [TODO check] and included when the form is submitted
+    classNames: {},
+    // END-SNIPPET
+    eventLog: [],
   },
   fieldTypes: [
     {
@@ -128,11 +164,9 @@ const addonDefaults = {
       inputType: 'text', // String - the html input type
       autofocus: null, // Boolean - whether to autofocus the input on insert 
       placeholder: null, // String - placeholder text of the input
-      class: null, // TODO does this work?
-      trim: true,
+      trim: true, // Trim spaces from the beginning and end of the input after focus out. This is never applied to inputs with type password, even if true.
       // END-SNIPPET
       componentPath: 'ember-changeset-webforms/fields/input',
-
     },
     {
       // BEGIN-SNIPPET clone-group-field-options.js
@@ -239,7 +273,6 @@ const addonDefaults = {
       // BEGIN-SNIPPET clicker-field-options.js
       fieldType: 'clicker',
       clickerText: null, // String - text to display in the clicker element.
-      clickerElementClassNames: ['cwf-clicker'], // Array - Classes to add to the default clicker element
       displayComponent: null, // Can either be string which is the path to the component or an object with a property called path being the path to the component and props, an object which will be passed to the component as "props".
       // END-SNIPPET
       componentPath: 'ember-changeset-webforms/fields/clicker',
@@ -260,18 +293,11 @@ const addonDefaults = {
 export {addonDefaults};
 
 export default function getWithDefault(formSchema = {}) {
-  // const customisedMerge = function(objValue, srcValue, key, object, source, stack) {
-  //   if (Array.isArray(objValue) && key.endsWith('ClassNames') ) {
-  //     if (srcValue.indexOf('...defaults') > -1) {
-  //       return objValue.concat(srcValue).filter(className => !className.startsWith('.'));
-  //     } else {
-  //       return srcValue.filter(className => !className.startsWith('.'));
-  //     }
-  //   }
-  // };
+
   const appDefaults = config.changesetWebformsDefaults || {};
   const formSettings = _mergeWith({}, addonDefaults.formSettings, appDefaults.formSettings, formSchema.settings);
   const classNameSettings = _mergeWith({}, addonDefaults.generalClassNames, appDefaults.generalClassNames, formSchema.generalClassNames, mergeWithDefaultClassNames);
+
   const addonFieldDefaults = addonDefaults.fieldSettings || {};
   const appConfigFieldDefaults = appDefaults.fieldSettings || {};
   const mergedFields = (formSchema.fields || []).map(field => {

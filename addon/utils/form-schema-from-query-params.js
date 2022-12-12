@@ -2,12 +2,9 @@ export default function formSchemaFromQueryParams(queryParamsObject) {
   var formSchema = {
     settings: {
       formName: `${queryParamsObject.name}Filters`,
-      submitButtonClasses: 'btn btn-primary',
       submitButtonText: 'Apply Filters',
       showClearFormButton: true,
       resetAfterSubmit: false,
-      clearFormButtonClasses: 'btn btn-outline-gray-medium',
-      clearFormButtonText: 'Reset filters',
       submitAfterClear: true
     },
     fields: []
@@ -44,8 +41,6 @@ export default function formSchemaFromQueryParams(queryParamsObject) {
         id: "_to",
         valueKey: "end"
       }],
-      triggerClasses: 'btn btn-primary',
-      calendarContainerClasses: 'pop-up-box box-arrow',
       maxDate: moment().toDate(),
       startTime: '00:01',
       endTime: '23:59',

@@ -3,6 +3,7 @@ import _mergeWith from 'lodash/mergeWith';
 import mergeWithDefaultClassNames from 'ember-changeset-webforms/utils/merge-with-default-class-names';
 
 export default function dynamicClassNames(elementTypesString, changesetWebform, formField) {
+  
   let classNames = [];
   if (!changesetWebform) {
     return;
@@ -13,17 +14,12 @@ export default function dynamicClassNames(elementTypesString, changesetWebform, 
   }, []) : elementTypesString.split(',');
 
   elementTypes.forEach(elementType => {
-    const formFieldClassNames = (formField || {}).classNames || {};
-    // TODO formFieldClassNames filtered to only merge in the classNames for the element type and not bother if that is not set.
-
-    const classNameSettings = _mergeWith({}, changesetWebform.formSchemaWithDefaults.classNameSettings, formFieldClassNames, mergeWithDefaultClassNames);
-    if (elementType === 'clickerElement') {
-      console.log('---------------------')
-      console.log(changesetWebform.formSchemaWithDefaults.classNameSettings)
-      console.log(classNameSettings)
+    let classNameSettings = changesetWebform.formSchemaWithDefaults.classNameSettings;
+    if (formField && (formField.classNames || {})[elementType]) {
+      const objToMerge = {};
+      objToMerge[elementType] = formField.classNames[elementType] || [];
+      classNameSettings = _mergeWith({}, classNameSettings, objToMerge, mergeWithDefaultClassNames);
     }
-
-
     const classNamesArray = classNameSettings[elementType] || [];
     if (formField && (classNamesArray).indexOf('...validationClassNames') > -1) {
       if (formField.validationStatus === 'valid') {
@@ -34,6 +30,5 @@ export default function dynamicClassNames(elementTypesString, changesetWebform, 
     }
     classNames = classNames.concat(classNamesArray);
   });
-  
   return classNames.filter(className => !className.startsWith('.')).join(' ');
 }

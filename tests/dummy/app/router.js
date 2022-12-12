@@ -14,9 +14,9 @@ Router.map(function() {
     this.route('action-handling');
     this.route('field-validation');
     this.route('integrating-custom-validators');
-    this.route('field-options');
     this.route('clonable-form-fields');
     this.route('built-in-fields');
+    this.route('configure-classnames');
   });
   this.route('not-found', { path: '/*path' });
 
