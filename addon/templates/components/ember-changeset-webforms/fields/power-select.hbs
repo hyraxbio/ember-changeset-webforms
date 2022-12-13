@@ -1,35 +1,32 @@
-<div data-test-type="form-field-power-select">
-  {{#component componentName 
-    triggerClass=(concat 
-      "validation-area " (ember-changeset-webforms/dynamic-classes "powerSelectTrigger" changesetWebform formField formField.validationStatus) 
-    )
-    options=formField.options 
-    selected=(changeset-get changesetWebform.changeset formField.propertyName) 
-    searchPlaceholder=(or formField.searchPlaceholder "Search") 
-    searchField=formField.optionDisplayProp 
-    allowClear=allowClear 
-    searchEnabled=formField.searchEnabled 
-    placeholder=formField.placeholder 
-    onChange=(action "onChange" formField) 
-    onKeydown=(action "onKeydown" formField)
-    onclose=onclose
-    triggerId=formField.name 
-    disabled=formField.disabled 
-    selectedItemComponent=(component formField.selectedItemComponent) as |option|}}
-    {{#if formField.optionComponent}}
-      {{#if optionComponent.path}}
-        {{component optionComponent.path props=optionComponent.props}}
-      {{else}}
-        {{component formField.optionComponent option=option}}
-      {{/if}}
+{{#component componentName 
+  triggerClass=(concat 
+    "validation-area " (ember-changeset-webforms/dynamic-class-names "powerSelectTrigger" changesetWebform formField) 
+  )
+  options=formField.options 
+  selected=(changeset-get changesetWebform.changeset formField.propertyName) 
+  searchPlaceholder=(or formField.searchPlaceholder "Search") 
+  searchField=formField.optionDisplayProp 
+  allowClear=allowClear 
+  searchEnabled=formField.searchEnabled 
+  placeholder=formField.placeholder 
+  onChange=(action "onChange" formField) 
+  onKeydown=(action "onKeydown" formField)
+  onclose=onclose
+  triggerId=formField.name 
+  disabled=formField.disabled 
+  selectedItemComponent=(component formField.selectedItemComponent) as |option|}}
+  {{#if formField.optionComponent}}
+    {{#if optionComponent.path}}
+      {{component optionComponent.path props=optionComponent.props}}
     {{else}}
-      <Background::PowerSelectOption 
-        @option={{option}} 
-        @optionDisplayProp={{formField.optionDisplayProp}} 
-        @fieldId={{formField.fieldId}} 
-        @optionName={{if formField.optionDisplayProp (get option formField.optionDisplayProp) option}}
-      />
+      {{component formField.optionComponent option=option}}
     {{/if}}
-  {{/component}}
-</div>
-<Background::LabelComponent @labelComponent={{labelComponent}} @label={{label}} />
+  {{else}}
+    <Background::PowerSelectOption 
+      @option={{option}} 
+      @optionDisplayProp={{formField.optionDisplayProp}} 
+      @fieldId={{formField.fieldId}} 
+      @optionName={{if formField.optionDisplayProp (get option formField.optionDisplayProp) option}}
+    />
+  {{/if}}
+{{/component}}

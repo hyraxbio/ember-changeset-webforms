@@ -22,7 +22,7 @@
 </div>
 <div class="clone-group-actions">
   {{#if (eq masterFormField.cloneCountStatus "max")}}
-    <div class={{ember-changeset-webforms/dynamic-classes "maxClonesReached" changesetWebform formField formField.validationStatus}} data-test-id="cwf-max-clones-reached">{{masterFormField.maxClonesReachedText}}</div>
+    <div class={{ember-changeset-webforms/dynamic-class-names "maxClonesReached" changesetWebform formField formField.validationStatus}} data-test-id="cwf-max-clones-reached">{{masterFormField.maxClonesReachedText}}</div>
   {{else}}
     {{component masterFormField.addCloneButtonComponent cloneField=(action "cloneField") masterFormField=masterFormField cloneFieldLabel=masterFormField.clonedFields.firstObject.fieldLabel changesetWebform=changesetWebform}}
   {{/if}}

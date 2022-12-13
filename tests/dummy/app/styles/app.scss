@@ -168,12 +168,12 @@ $spacer-md: 16px;
 //   @import "ember-skeleton/generic/_spacer-height-width";
 // }
 
-button {
-  svg {
-    width: 24px;
-    display: inline-block;
-  }
-}
+
+// .submit-button-icon {
+//   width: 16px;
+//   display: inline-block;
+// }
+
 
 @import "ember-power-select";
 .ember-power-select-trigger-multiple-input {
@@ -186,6 +186,16 @@ button {
 
 .docs-rounded {
   .docs-p-4 * {
+    @import "ember-power-select";
+    
+    .ember-power-select-trigger-multiple-input {
+      border-color: transparent !important;
+    }
+    
+    @import "ember-power-calendar";
+    .ember-power-calendar {
+      @include ember-power-calendar($cell-size: 34px);
+    }
     @import "bootstrap-5/bootstrap";
     .cwf-time-selector {
       display: flex;

@@ -5,22 +5,6 @@ import castAllowedFields from 'ember-changeset-webforms/utils/cast-allowed-field
 import createChangesetWebform from 'ember-changeset-webforms/utils/create-changeset-webform';
 import isPromise from 'ember-changeset/utils/is-promise';
 
-/**
-  The component called to render a webform, based on a schema and data.
-
-  ```hbs
-  {{#docs-demo as |demo|}}
-    {{#demo.example name='changeset-webform-component-basic.hbs'}}
-      <ChangesetWebform @formSchema={{formSchema}} @data={{data}} />
-    {{/demo.example}}
-
-    {{demo.snippet 'changeset-webform-component-basic.hbs'}}
-  {{/docs-demo}}
-  ```
-  
-  @class DocsDemo
-
-*/
 export default Component.extend({
   layout,
   classNames: ['ember-changeset-webforms'],
@@ -89,13 +73,13 @@ export default Component.extend({
             this.beforeSubmitAction(changesetWebform);
           }
           castAllowedFields(changesetWebform);
-          this.set("requestInFlight", true);
+          changesetWebform.formSettings.set('requestInFlight', true);
           if (this.submitAction) {
               changeset.save().then(savedChangeset => {
                 var submitAction = this.submitAction(savedChangeset.data, changesetWebform);
                 if (isPromise(submitAction)) {
                   submitAction.then(submitActionResponse => {
-                    this.set("requestInFlight", false);
+                    changesetWebform.formSettings.set('requestInFlight', false);
                     if (this.saveSuccess) {
                       this.saveSuccess(submitActionResponse, changesetWebform);
                     }
@@ -103,13 +87,13 @@ export default Component.extend({
                       this.send('clearForm');
                     }
                   }).catch(error => {
-                    this.set("requestInFlight", false);
+                    changesetWebform.formSettings.set('requestInFlight', false);
                     if (this.get('saveFail')) {
                       this.saveFail(error, changesetWebform);
                     }
                   });
                 } else {
-                  this.set("requestInFlight", false);
+                  changesetWebform.formSettings.set('requestInFlight', false);
                   var submitActionResponse = submitAction;
                   if (this.get('saveSuccess')) {
                     this.saveSuccess(submitActionResponse, changesetWebform);
@@ -118,7 +102,7 @@ export default Component.extend({
               });
           } else {
             changeset.save().then(saveChangesetResponse => {
-              this.set("requestInFlight", false);
+              changesetWebform.formSettings.set('requestInFlight', false);
               if (this.saveSuccess) {
                 this.saveSuccess(saveChangesetResponse, changesetWebform);
               }
@@ -129,7 +113,7 @@ export default Component.extend({
               if (this.saveFail) {
                 this.saveFail(error, changesetWebform);
               }
-              this.set("requestInFlight", false);
+              changesetWebform.formSettings.set('requestInFlight', false);
             });
           }
         } else {
@@ -138,6 +122,8 @@ export default Component.extend({
           }
         }
       }).catch(err => {
+        console.log(err)
+
         this.formValidationFailed(err);
       });
     },

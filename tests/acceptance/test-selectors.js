@@ -39,7 +39,7 @@ export default {
   rawDateTime: '[data-test-id="raw-date-time"]',
   outputFieldValue: '[data-test-id="output-field-value"]',
   ecwPowerDatepickerDropdown: '[data-test-id="ecw-power-datepicker-dropdown"]',
-  timeSelector: '[data-test-type="time-selector"]',
+  timeSelector: '[data-test-id="time-selector"]',
   timeSelectorField: '[data-test-class="time-selector-field"]',
   timeSelectorFieldLabel: '[data-test-class="time-selector-field-label"]',
   timeSelectorFieldInput: '[data-test-class="time-selector-field-input"]',

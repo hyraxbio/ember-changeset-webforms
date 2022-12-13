@@ -5,9 +5,7 @@ import keyCodesMap from 'ember-changeset-webforms/utils/keycodes-map';
 
 export default Component.extend({
   layout,
-  classNames: ['ember-power-datetime-picker'],
-  attributeBindings: ['data-test-id'],
-  'data-test-type': "power-datetime-picker",
+  classNames: ['power-datetime-picker'],
 
   defaultHour: computed('defaultTime', function() {
     if (!this.get('defaultTime')) { return '00'; }

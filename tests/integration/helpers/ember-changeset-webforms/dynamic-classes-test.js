@@ -3,14 +3,14 @@ import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
-module('Integration | Helper | ember-changeset-webforms/dynamic-classes', function(hooks) {
+module('Integration | Helper | ember-changeset-webforms/dynamic-class-names', function(hooks) {
   setupRenderingTest(hooks);
 
   // Replace this with your real tests.
   test('it renders', async function(assert) {
     this.set('inputValue', '1234');
 
-    await render(hbs`{{ember-changeset-webforms/dynamic-classes inputValue}}`);
+    await render(hbs`{{ember-changeset-webforms/dynamic-class-names inputValue}}`);
 
     assert.equal(this.element.textContent.trim(), '1234');
   });

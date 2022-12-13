@@ -1,6 +1,6 @@
 <div class="form-field-clone">
   {{#if (not-eq masterFormField.cloneCountStatus "min")}}
-    <div role="button" class="{{ember-changeset-webforms/dynamic-classes "removeClone" changesetWebform}}" type="button" onclick={{action removeClone clonedFormField}} data-test-class="cwf-remove-clone" title="Remove {{formField.fieldId}}">{{component masterFormField.removeCloneComponent}}</div>
+    <div role="button" class="{{ember-changeset-webforms/dynamic-class-names "removeClone" changesetWebform}}" type="button" onclick={{action removeClone clonedFormField}} data-test-class="cwf-remove-clone" title="Remove {{formField.fieldId}}">{{component masterFormField.removeCloneComponent}}</div>
   {{/if}}
   <EmberChangesetWebforms::FieldElements::ValidatingFieldWrapper 
     @formField={{clonedFormField}} 
@@ -9,7 +9,7 @@
     @typeClass={{typeClass}}
     @validationErrorsArray={{clonedFormField.cloneValidationErrors}}
     data-test-id={{concat masterFormField.fieldId "-clone-" clonedFormField.cloneId "-field"}}
-    class="{{ember-changeset-webforms/dynamic-classes "clonedFormField" changesetWebform formField formField.validationStatus}}"
+    class="{{ember-changeset-webforms/dynamic-class-names "clonedFormField" changesetWebform formField formField.validationStatus}}"
     data-test-cwf-clone-field>
     {{component clonedFormField.componentPath
       formField=clonedFormField

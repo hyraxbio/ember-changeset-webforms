@@ -1,8 +1,7 @@
 <EmberChangesetWebforms::FieldElements::FieldLabel 
   @formField={{formField}} 
-  @changesetWebform={{changesetWebform}}
-  @validationStatus={{validationStatus}} />
-<div class="{{ember-changeset-webforms/dynamic-classes "fieldControls" changesetWebform formField formField.validationStatus}}">
+  @changesetWebform={{changesetWebform}} />
+<div class="{{ember-changeset-webforms/dynamic-class-names "fieldControls" changesetWebform formField formField.validationStatus}}">
   {{yield}}
 </div>
 <EmberChangesetWebforms::FieldElements::FieldErrors 

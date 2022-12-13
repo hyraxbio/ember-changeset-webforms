@@ -11,7 +11,7 @@ export default Controller.extend({
     // Addon default class names for labelElement === ['form-label']
     // config/environment.js
     ENV.changesetWebformsDefaults.generalClassNames = {
-      labelElement: ['...defaults', 'label-el'], // class="form-label label-el"
+      labelElement: ['$inherited', 'label-el'], // class="form-label label-el"
     }
     // END-SNIPPET
     // BEGIN-SNIPPET class-name-config-ignore-defaults.js
@@ -27,7 +27,7 @@ export default Controller.extend({
       // Field label class="is-valid" when field passed validation
       // Field label class="is-invalid" when field failed validation
       // Field label class="" when field is not yet validated
-      fieldLabel: ['...validationClassNames'], 
+      fieldLabel: ['$validationClassNames'], 
     }
     // END-SNIPPET
 

@@ -41,11 +41,15 @@ export default Controller.extend({
 
   actions: {
     submit() {
-      return true;
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve()
+        }, 2000);
+      })
     },
 
     saveSuccess() {
-      alert('Success!');
+      console.log('Success!');
     }
   }
 });

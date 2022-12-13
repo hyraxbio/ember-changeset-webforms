@@ -1,16 +1,16 @@
 const { keys } = Object;
 
-export default function castAllowedFields(formFields, changeset) {
+export default function castAllowedFields(changesetWebform) {
   
-  var allKeys = (changeset.changes || []).map(item => {
+  var allKeys = (changesetWebform.changeset.changes || []).map(item => {
     return item.key;
-  }).concat(keys(changeset.data));
+  }).concat(keys(changesetWebform.changeset.data));
 
   var allowedKeys = allKeys.filter(key => {
-    var relatedField = formFields.find(field => {
+    var relatedField = changesetWebform.fields.find(field => {
       return field.propertyName === key;
     }) || {};
     return !(relatedField.hidden || relatedField.castOut);
   });
-  return changeset.cast(allowedKeys);
+  return changesetWebform.changeset.cast(allowedKeys);
 }

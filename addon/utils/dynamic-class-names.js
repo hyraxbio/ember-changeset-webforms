@@ -15,13 +15,19 @@ export default function dynamicClassNames(elementTypesString, changesetWebform, 
 
   elementTypes.forEach(elementType => {
     let classNameSettings = changesetWebform.formSchemaWithDefaults.classNameSettings;
+
     if (formField && (formField.classNames || {})[elementType]) {
       const objToMerge = {};
       objToMerge[elementType] = formField.classNames[elementType] || [];
       classNameSettings = _mergeWith({}, classNameSettings, objToMerge, mergeWithDefaultClassNames);
     }
-    const classNamesArray = classNameSettings[elementType] || [];
-    if (formField && (classNamesArray).indexOf('...validationClassNames') > -1) {
+    let classNamesArray;
+    if (typeof classNameSettings[elementType] === 'function') {
+      classNamesArray = classNameSettings[elementType](classNameSettings, changesetWebform, formField) || [];
+    } else {
+      classNamesArray = classNameSettings[elementType] || [];
+    }
+    if (formField && (classNamesArray).indexOf('$validationClassNames') > -1) {
       if (formField.validationStatus === 'valid') {
         classNames = classNames.concat(classNameSettings.validClassNames || []);
       } else if (formField.validationStatus === 'invalid') {
@@ -30,5 +36,5 @@ export default function dynamicClassNames(elementTypesString, changesetWebform, 
     }
     classNames = classNames.concat(classNamesArray);
   });
-  return classNames.filter(className => !className.startsWith('.')).join(' ');
+  return classNames.filter(className => !className.startsWith('$')).join(' ');
 }

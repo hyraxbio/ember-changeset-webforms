@@ -6,27 +6,37 @@ const addonDefaults = {
   generalClassNames: {
     // BEGIN-SNIPPET configurable-classnames.js
     // Generic element classes
-    inputElement: ['form-control', 'validation-area', '...validationClassNames'],
-    textareaElement: ['form-control',  'validation-area', '...validationClassNames'],
+    inputElement: ['form-control', 'validation-area', '$validationClassNames'],
+    textareaElement: ['form-control',  'validation-area', '$validationClassNames'],
     labelElement: ['form-label'],
-    checkboxElement: ['form-check-input', '...validationClassNames'],
-    radioButtonElement: ['form-check-input', '...validationClassNames'],
-    buttonElement: ['btn', '...validationClassNames'], 
+    checkboxElement: ['form-check-input', '$validationClassNames'],
+    radioButtonElement: ['form-check-input', '$validationClassNames'],
+    buttonElement: ['btn', '$validationClassNames'], 
+    buttonIcon: ['ms-1'],
+    // Request in flight
+    requestInFlight: ['request-in-flight', 'spinner-border', 'spinner-border-sm'], 
     // Generic field classes- apply to all fields
     disabledField: ['disabled'],
     focussedField: ['focussed'],
     fieldWrapper: ['cwf-field'], 
-    fieldControls: ['field-controls', 'validation-icon', '...validationClassNames'],
-    fieldLabel: ['field-label', 'validation-icon', '...validationClassNames'],
+    fieldControls: ['field-controls', 'validation-icon', '$validationClassNames'],
+    fieldLabel: ['field-label', 'validation-icon', '$validationClassNames'],
     requiredField: ['required'],
     // Generic validation related classes - apply to all fields
     validClassNames: ['is-valid'],
     invalidClassNames: ['is-invalid'],
-    validationErrors: ['invalid-feedback', '...validationClassNames'],
+    validationErrors: ['cwf-field-errors',  'invalid-feedback', '$validationClassNames'],
     fieldValidates: ['validates'],
     validatedField: ['was-validated'],
     // Form action element element classes
-    submitButton: ['btn-primary'],
+    formFields: ['form-fields'],
+    formActions: ['form-actions', 'mt-4'],
+    submitButton: ['btn-primary', 'form-submit-button', 'btn-lg'],
+    submitButtonIcon(classNameSettings, changesetWebform, formField) {
+      if (changesetWebform.formSettings.requestInFlight) {
+        return classNameSettings.requestInFlight;
+      }
+    },
     discardChangesButton: ['btn-success'],
     clearFormButton: ['btn-warning'],
     // fieldType === 'input
@@ -55,7 +65,7 @@ const addonDefaults = {
     fieldLabelTextarea: null,
     requiredFieldTextarea: null,
     // fieldType === 'powerSelect'
-    powerSelectTrigger: ['form-control', '...validationClassNames'],
+    powerSelectTrigger: ['validation-area', 'form-control', '$validationClassNames'],
     disabledFieldPowerSelect: null,
     focussedFieldPowerSelect: null,
     fieldWrapperPowerSelect: null,
@@ -63,7 +73,7 @@ const addonDefaults = {
     fieldLabelPowerSelect: null,
     requiredFieldPowerSelect: null,   
     // fieldType === powerDatePicker
-    powerDatePickerTrigger: ['form-control', '...validationClassNames'],
+    powerDatePickerTrigger: ['validation-area', 'form-control', '$validationClassNames'],
     powerDatePickerDropdown: null,
     powerDatePickerCalendar: null,
     powerDatePickerTimeSelectorContainer: ['cwf-time-selector'],
@@ -81,7 +91,7 @@ const addonDefaults = {
     fieldWrapperClicker: null,
     fieldLabelClicker: null,
     // fieldType === 'checkboxGroup'
-    fieldControlsCheckboxGroup: ['checkbox-group', 'validation-area', '...validationClassNames'],
+    fieldControlsCheckboxGroup: ['checkbox-group', 'validation-area', '$validationClassNames'],
     disabledFieldCheckboxGroup: null,
     focussedFieldCheckboxGroup: null,
     fieldWrapperCheckboxGroup: null,
@@ -100,7 +110,7 @@ const addonDefaults = {
     // fieldType === 'radioButtonGroup
     labelledRadioButton: ['form-check', 'labelled-radio-button'],
     radioButtonLabel: ['form-check-label'],
-    fieldControlsRadioButtonGroup: ['radio-button-group', 'validation-area', '...validationClassNames'],
+    fieldControlsRadioButtonGroup: ['radio-button-group', 'validation-area', '$validationClassNames'],
     disabledFieldRadioButtonGroup: null,
     focussedFieldRadioButtonGroup: null,
     fieldWrapperRadioButtonGroup: null,
@@ -122,17 +132,10 @@ const addonDefaults = {
     showClearFormButton: null, // Boolean - whether or not to show the button that will empty all fields TODO check if this works
     showClearFormButtonText: 'Clear', // String - text to show on the clear form button TODO implement
     novalidate: true, // Disable the browser's native validation feedback
-    submitButtonClasses: null, // String - classes to show on the form submit button
-    submitButtonIcon: 'ember-changeset-webforms/form-elements/submit-button-icon', // String - path to the component icon to show on the submit form button
-    submitButtonIconClassNames: null, // String - classes to all to the submitButtonIcon component, 
-    submitButtonIconRequestInFlightClassNames: 'on', // TODO deprecate
+    submitButtonIcon: null, // String - path to the component icon to show on the submit form button
     showDiscardChangesButton: null,
     showDiscardChangesButtonText: 'Reset',
-    requestInFlightClasses: {
-      form: 'saving',
-      submitButton: 'saving',
-      submitButtonIcon: 'saving'
-    }, // ---TODO check if these work and add to local CSS --- Object - class to add to each of the three above elements which a form submit operation is ion flight. The class os removed after the submit action resolves or rejects if a promise, or returns if not. TODO impelent
+    
     resetButtonClasses: null, // String - classes to show on the reset button
     submitAfterClear: null // Boolean. If true submits the form after the clear form button is clicked. An example use case is a filters form with a clear filters button, where the desired behaviour is to clear the form fields, and then submit the empty form to reset the filters
     // END-SNIPPET

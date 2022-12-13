@@ -1,5 +1,10 @@
 {{formSettings.submitButtonText}}
-{{component formSettings.submitButtonIcon 
-  requestInFlight=requestInFlight 
-  class=(concat (if requestInFlight formSettings.submitButtonIconRequestInFlightClassNames) " " formSettings.submitButtonIconClassNames)
-}}
+{{#if changesetWebform.formSettings.requestInFlight}}
+  {{#if formSettings.submitButtonIcon}}
+    {{component formSettings.submitButtonIcon 
+      class=(ember-changeset-webforms/dynamic-class-names "buttonIcon,submitButtonIcon" changesetWebform)
+    }}
+  {{else}}
+    <div class={{ember-changeset-webforms/dynamic-class-names "buttonIcon,submitButtonIcon" changesetWebform}}></div>
+  {{/if}}
+{{/if}}

@@ -31,7 +31,7 @@
           @maxDate={{maxDate}} />
       </PowerCalendar>
       {{#if (and showTimeSelector value (not fixedTime))}}
-        <div data-test-type="time-selector" class="time-select {{unless value "disabled"}} {{timeSelectorContainerClass}}">
+        <div data-test-id="time-selector" class="time-select {{unless value "disabled"}} {{timeSelectorContainerClass}}">
           {{#each timeFormatParts as | timeFormatPart| }}
             <div data-test-class="time-selector-field" data-test-id="time-selector-field-{{timeFormatPart.type}}" class="time-selector-field time-selector-field-{{timeFormatPart.type}}">
               <label for="time-selector-{{timeFormatPart.type}}" data-test-class="time-selector-field-label" data-test-id="time-selector-field-label-{{timeFormatPart.type}}" class={{timeInputLabelClass}}>{{timeFormatPart.label}}</label>

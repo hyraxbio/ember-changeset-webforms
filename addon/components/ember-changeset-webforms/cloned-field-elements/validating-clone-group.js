@@ -6,7 +6,7 @@ import validationEventLog from 'ember-changeset-webforms/utils/validation-event-
 
 export default Component.extend({
   layout,
-  classNames: ['clone-group', 'ember-changeset-webforms-clone-group'],
+  classNames: ['clone-group', 'cwf-clone-group'],
   classNameBindings: ['cloneGroupNameClass', 'validationStatus', 'masterFormField.required:required', 'disabled:disabled', 'readonly:readonly', 'masterFormField.fieldClassNames', 'masterFormField.hideSuccessValidation:hide-success-validation', 'masterFormField.validates:validates', 'typeClass', 'masterFormField.focussed:focussed'],
 
   'data-test-cwf-field-validates': computed('masterFormField.validates', function() {

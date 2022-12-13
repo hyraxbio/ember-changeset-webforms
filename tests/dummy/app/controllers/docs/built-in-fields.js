@@ -528,7 +528,7 @@ export default Controller.extend({
         fieldId: 'toggleAdvanced',
         fieldType: 'clicker',
         classNames: {
-          clickerElement: ['...defaults', 'btn', 'btn-primary'],
+          clickerElement: ['$inherited', 'btn', 'btn-primary'],
         },
         clickerText: 'Advanced options'
       }, {
@@ -550,7 +550,7 @@ export default Controller.extend({
         fieldId: 'toggleAdvanced',
         fieldType: 'clicker',
         classNames: {
-          clickerElement: ['...defaults', 'btn'],
+          clickerElement: ['$inherited', 'btn'],
         },
         clickerText: 'Advanced options',
         displayComponent: {
