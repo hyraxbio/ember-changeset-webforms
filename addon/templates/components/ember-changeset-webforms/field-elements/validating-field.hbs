@@ -19,6 +19,10 @@
       @dataTestFormName={{dataTestFormName}}
       @dataTestFieldId={{dataTestFieldId}}
       @changesetWebform={{changesetWebform}}
+      @labelId={{labelId}}
+      @ariaLabelledBy={{ariaLabelledBy}}
+      @ariaLabel={{ariaLabel}}
+      @isGroup={{isGroup}}
       @validationErrorsArray={{get (get changesetWebform.changeset.error formField.propertyName) "validation"}}
       data-test-cwf-field >
       {{component formField.componentPath
@@ -30,6 +34,10 @@
         changesetWebform=changesetWebform
         displayValue=(changeset-get changesetWebform.changeset formField.fieldId)
         dataTestFieldId=dataTestFieldId
+        labelId=labelId
+        ariaLabelledBy=ariaLabelledBy
+        ariaLabel=ariaLabel
+        isGroup=isGroup
       }}
     </EmberChangesetWebforms::FieldElements::ValidatingFieldWrapper>
   {{/if}}

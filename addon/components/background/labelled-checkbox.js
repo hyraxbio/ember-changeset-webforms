@@ -2,23 +2,16 @@ import Component from '@ember/component';
 import layout from '../../templates/components/background/labelled-checkbox';
 import { computed } from '@ember/object';
 import safeName from 'ember-changeset-webforms/utils/safe-name';
-// import getClassNamesUtil from 'ember-changeset-webforms/utils/get-class-names';
 
 export default Component.extend({
   layout,
   tagName: '',
-  // classNames: ["labelled-checkbox"],
-  // classNameBindings: ['disabled:disabled', 'elementClassNames'],
 
-  // elementClassNames: computed('changesetWebform', function() {
-  //   return getClassNamesUtil(this.changesetWebform, 'labelledCheckbox');
-  // }),
-
-  checkboxId: computed('name', 'option.key', 'containerName', function() {
-    if (this.name === this.option.key) {
-      return safeName(`${this.containerName} ${this.name}`);
+  checkboxId: computed('formField', 'option.key', function() {
+    if (this.formField.fieldId === this.option.key) {
+      return safeName(this.formField.id);
     }
-    return safeName(`${this.containerName} ${this.name}-${this.option.key}`)
+    return safeName(`${this.formField.id}-${this.option.key}`)
   }),
   
   actions: {

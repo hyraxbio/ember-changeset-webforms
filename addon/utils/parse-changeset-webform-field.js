@@ -2,17 +2,16 @@ import EmberObject from '@ember/object';
 import FormField from 'ember-changeset-webforms/utils/form-field';
 import { typeOf as emberTypeOf } from '@ember/utils';
 
-export default function parseChangesetWebformField(field, customValidators, changeset) {
+export default function parseChangesetWebformField(field, customValidators, formSettings) {
   if (!field) { return; }
   if (!field.fieldId) {
     throw Error(`[Ember validating field] fieldId is a required field for each field in a validating form.`);
   }
-  const parsedField = parse(field, customValidators);
-  parsedField.changeset = changeset;
+  const parsedField = parse(field, customValidators, formSettings);
   return FormField.create(parsedField);
 }
 
-function parse(fieldSchema, customValidators) {
+function parse(fieldSchema, customValidators, formSettings) {
   const field = {...fieldSchema};
   if (field.validationRules) {
     var requiredRule = field.validationRules.find(function(rule) {
@@ -26,7 +25,8 @@ function parse(fieldSchema, customValidators) {
   if (field.cloneFieldSchema) {
     field.cloneGroupName = field.fieldId;
     field.cloneGroupNumber = 0;
-    field.clonedFieldBlueprint = parse(field.cloneFieldSchema, customValidators)
+    field.cloneFieldSchema.fieldId = field.fieldId;
+    field.clonedFieldBlueprint = parse(field.cloneFieldSchema, customValidators, formSettings)
   }
   
   if (field.options) {
@@ -66,7 +66,9 @@ function parse(fieldSchema, customValidators) {
       return item;
     }
   });
-  field.name = field.name || (field.fieldId ? field.fieldId.replace(/\./g, '-') : null);
+
+  field.name = field.name || `${formSettings.formName}-${field.fieldId.replace(/\./g, '-')}`;
+  field.id = `${formSettings.formName}-${field.fieldId.replace(/\./g, '-')}`;
   field.placeholder = field.placeholder || field.fieldLabel;
   field.propertyName = field.propertyName || field.fieldId;
   delete field.alwaysValidateOn;

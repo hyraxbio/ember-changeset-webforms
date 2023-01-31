@@ -4,10 +4,7 @@
 .ember-power-select-trigger-multiple-input {
   border-color: transparent !important;
 }
-@import "ember-power-calendar";
-.ember-power-calendar {
-  @include ember-power-calendar($cell-size: 34px);
-}
+
 @import "_validating-form";
 @import "_validating-form-field";
 @import "_clone-group";

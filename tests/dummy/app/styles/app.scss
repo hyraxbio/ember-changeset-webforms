@@ -173,39 +173,30 @@ $spacer-md: 16px;
 //   width: 16px;
 //   display: inline-block;
 // }
+@import "bootstrap-5/functions";
+@import "bootstrap-5/variables";
+@import "bootstrap-5/mixins";
+@import "bootstrap-5/utilities";
 
-
+@import "_variables";
 @import "ember-power-select";
+    
 .ember-power-select-trigger-multiple-input {
   border-color: transparent !important;
 }
-@import "ember-power-calendar";
-.ember-power-calendar {
-  @include ember-power-calendar($cell-size: 34px);
-}
+
 
 .docs-rounded {
   .docs-p-4 * {
-    @import "ember-power-select";
+    // @import "ember-power-select";
     
-    .ember-power-select-trigger-multiple-input {
-      border-color: transparent !important;
-    }
+    // .ember-power-select-trigger-multiple-input {
+    //   border-color: transparent !important;
+    // }
     
-    @import "ember-power-calendar";
-    .ember-power-calendar {
-      @include ember-power-calendar($cell-size: 34px);
-    }
     @import "bootstrap-5/bootstrap";
-    .cwf-time-selector {
-      display: flex;
-      .time-selector-field {
-        width: 60px;
-        &.time-selector-field-milliseconds {
-          width: 80px;
-        }
-      }
-    }
+
+    @import "_power-datetime-picker";
     .clone-group {
       .form-field-clone {
         display: flex;

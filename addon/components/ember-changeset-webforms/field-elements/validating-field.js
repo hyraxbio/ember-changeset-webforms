@@ -28,6 +28,24 @@ export default Component.extend({
     return `field-type-${myStr}`;
   }),
 
+  labelId: computed('formField.name', function() {
+    return `${this.formField.name}-label`;
+  }),
+
+  ariaLabelledBy: computed('labelId', function() {
+    if (!this.formField.hideLabel) {
+      return this.labelId;
+    }
+  }),
+
+  ariaLabel: computed('formField.{hideLabel,fieldLabel}', function() {
+    return this.formField.hideLabel ? this.formField.fieldLabel : null;
+  }),
+
+  isGroup: computed('formField.options', function() {
+    return this.formField.options ? true : null;
+  }),
+
   actions: {
     validateField(formField) {
       formField.validate().then(fieldValidationErrors => {

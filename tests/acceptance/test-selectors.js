@@ -26,6 +26,7 @@ export default {
   cloneGroupEmails: '[data-test-id="clone-group-emails"]',
   clonableFieldCountries: '[data-test-id="clonable-field-countries"]',
 
+  powerDatepickerInput: '[data-test-id="power-datepicker-input"]',
   powerDatepicker24HourTimeSelect: '[data-test-id="power-datepicker-24-hour-time-select"]',
   powerDatepicker12HourTimeSelect: '[data-test-id="power-datepicker-12-hour-time-select"]',
   powerDatepickerUnusualFormat: '[data-test-id="power-datepicker-unusual-format"]',

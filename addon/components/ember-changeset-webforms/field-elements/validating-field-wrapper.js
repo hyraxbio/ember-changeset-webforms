@@ -2,6 +2,7 @@ import Component from '@ember/component';
 import layout from '../../../templates/components/ember-changeset-webforms/field-elements/validating-field-wrapper';
 import { computed } from '@ember/object';
 import dynamicClassNames from 'ember-changeset-webforms/utils/dynamic-class-names';
+import formField from '../../../utils/form-field';
 
 export default Component.extend({
   layout,

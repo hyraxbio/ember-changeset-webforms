@@ -7,60 +7,65 @@
   @return $string;
 }
 
+$input-focus-bg: $input-focus-bg;
+$input-focus-border-color: $input-focus-border-color;
+$input-focus-color: $input-focus-color;
+$input-focus-box-shadow: $input-focus-box-shadow;
+
 $default-svg-stroke-width: 1px !default;
 $default-svg-stroke-color: #ccc !default;
 
 $pojo-form-field-default-icon-fill: #ccc;
 
-$pojo-form-field-max-width: 500px !default;
+// $pojo-form-field-max-width: 500px !default;
 
-$pojo-form-field-margin-bottom: 30px !default;
-$pojo-form-field-controls-margin-top: 4px !default;
-$pojo-form-field-required-icon-fill: #999 !default;
-$pojo-form-field-required-icon-size: 16px !default;
+// $pojo-form-field-margin-bottom: 30px !default;
+// $pojo-form-field-controls-margin-top: 4px !default;
+// $pojo-form-field-required-icon-fill: #999 !default;
+// $pojo-form-field-required-icon-size: 16px !default;
 
-$pojo-form-field-valid-border-color: green !default;
-$pojo-form-field-valid-background-color: lighten(green, 50%) !default;
-$pojo-form-field-valid-icon-fill: $pojo-form-field-valid-border-color !default;
-$pojo-form-field-valid-icon-size: 20px 20px !default;
+// $pojo-form-field-valid-border-color: green !default;
+// $pojo-form-field-valid-background-color: lighten(green, 50%) !default;
+// $pojo-form-field-valid-icon-fill: $pojo-form-field-valid-border-color !default;
+// $pojo-form-field-valid-icon-size: 20px 20px !default;
 
-$pojo-form-field-invalid-border-color: maroon !default;
-$pojo-form-field-invalid-background-color: lighten(maroon, 50%) !default;
-$pojo-form-field-invalid-icon-fill: $pojo-form-field-invalid-border-color !default;
-$pojo-form-field-invalid-icon-size: 16px !default;
+// $pojo-form-field-invalid-border-color: maroon !default;
+// $pojo-form-field-invalid-background-color: lighten(maroon, 50%) !default;
+// $pojo-form-field-invalid-icon-fill: $pojo-form-field-invalid-border-color !default;
+// $pojo-form-field-invalid-icon-size: 16px !default;
 
-$pojo-form-field-error-text-color: $pojo-form-field-invalid-border-color !default;
-$pojo-form-field-error-margin-top: 3px !default;
+// $pojo-form-field-error-text-color: $pojo-form-field-invalid-border-color !default;
+// $pojo-form-field-error-margin-top: 3px !default;
 
-$pojo-form-field-radio-checkbox-group-border-color: #ccc !default;
-$pojo-form-field-radio-checkbox-group-border-width: 1px !default;
-$pojo-form-field-radio-checkbox-group-background-color: #fff !default;
-$pojo-form-field-radio-checkbox-group-border-radius: 3px !default;
-$pojo-form-field-radio-checkbox-group-padding-y: 8px !default;
-$pojo-form-field-radio-checkbox-group-padding-x: 5px !default;
+// $pojo-form-field-radio-checkbox-group-border-color: #ccc !default;
+// $pojo-form-field-radio-checkbox-group-border-width: 1px !default;
+// $pojo-form-field-radio-checkbox-group-background-color: #fff !default;
+// $pojo-form-field-radio-checkbox-group-border-radius: 3px !default;
+// $pojo-form-field-radio-checkbox-group-padding-y: 8px !default;
+// $pojo-form-field-radio-checkbox-group-padding-x: 5px !default;
 
-$pojo-form-field-legend-margin-bottom: 15px !default;
+// $pojo-form-field-legend-margin-bottom: 15px !default;
 
-$power-datetime-picker-border-width: 1px !default;
-$power-datetime-picker-border-color: #ccc !default;
-$power-datetime-picker-border-radius: 3px;
-$power-datetime-picker-background-color: #fff;
+// $power-datetime-picker-border-width: 1px !default;
+// $power-datetime-picker-border-color: #ccc !default;
+// $power-datetime-picker-border-radius: 3px;
+// $power-datetime-picker-background-color: #fff;
 
-$power-datetime-picker-time-select-background-color: #999 !default;
-$power-datetime-picker-time-select-border-radius: 3px !default;
-$power-datetime-picker-time-select-padding-x: 10px !default;
-$power-datetime-picker-time-select-trigger-color: #fff;
-$power-datetime-picker-time-select-disabled-background-color: #ccc !default;
+// $power-datetime-picker-time-select-background-color: #999 !default;
+// $power-datetime-picker-time-select-border-radius: 3px !default;
+// $power-datetime-picker-time-select-padding-x: 10px !default;
+// $power-datetime-picker-time-select-trigger-color: #fff;
+// $power-datetime-picker-time-select-disabled-background-color: #ccc !default;
 
 // Icons
 $pojo-form-field-validation-icon-width: 20px;
 $pojo-form-field-icon-position: right center;
 
-$pojo-form-field-valid-icon: str-replace(url("data:image/svg+xml,%3Csvg version='1.1' fill='#{$pojo-form-field-valid-icon-fill}' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='0 0 12 8.95' style='enable-background:new 0 0 12 8.95;' xml:space='preserve'%3E%3Cpath d='M0.16,4.88C0.05,4.77,0,4.62,0,4.45s0.05-0.31,0.16-0.42l0.87-0.84C1.14,3.06,1.28,3,1.44,3s0.31,0.06,0.43,0.19L4.5,5.81 l5.62-5.62C10.25,0.06,10.39,0,10.56,0s0.3,0.06,0.41,0.19l0.87,0.84C11.95,1.14,12,1.28,12,1.45s-0.05,0.31-0.16,0.42L4.92,8.77 C4.81,8.89,4.67,8.95,4.5,8.95S4.19,8.89,4.08,8.77L0.16,4.88z'/%3E%3C/svg%3E"), "#", "%23") !default;
+// $pojo-form-field-valid-icon: str-replace(url("data:image/svg+xml,%3Csvg version='1.1' fill='#{$pojo-form-field-valid-icon-fill}' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='0 0 12 8.95' style='enable-background:new 0 0 12 8.95;' xml:space='preserve'%3E%3Cpath d='M0.16,4.88C0.05,4.77,0,4.62,0,4.45s0.05-0.31,0.16-0.42l0.87-0.84C1.14,3.06,1.28,3,1.44,3s0.31,0.06,0.43,0.19L4.5,5.81 l5.62-5.62C10.25,0.06,10.39,0,10.56,0s0.3,0.06,0.41,0.19l0.87,0.84C11.95,1.14,12,1.28,12,1.45s-0.05,0.31-0.16,0.42L4.92,8.77 C4.81,8.89,4.67,8.95,4.5,8.95S4.19,8.89,4.08,8.77L0.16,4.88z'/%3E%3C/svg%3E"), "#", "%23") !default;
 
-$pojo-form-field-invalid-icon: str-replace(url("data:image/svg+xml,%3Csvg version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' fill='#{$pojo-form-field-invalid-icon-fill}' viewBox='0 0 8.25 8.25' style='enable-background:new 0 0 8.25 8.25;' xml:space='preserve'%3E%3Cpath d='M5.7,4.12l2.34,2.34c0.14,0.14,0.21,0.31,0.21,0.52S8.18,7.37,8.04,7.52L7.52,8.04C7.37,8.18,7.19,8.25,6.98,8.25 S6.61,8.18,6.47,8.04L4.12,5.7L1.78,8.04C1.64,8.18,1.47,8.25,1.27,8.25S0.88,8.18,0.73,8.04L0.21,7.52C0.07,7.37,0,7.19,0,6.98 s0.07-0.38,0.21-0.52l2.34-2.34L0.21,1.78C0.07,1.64,0,1.47,0,1.27s0.07-0.38,0.21-0.54l0.52-0.52C0.88,0.07,1.06,0,1.27,0 s0.38,0.07,0.52,0.21l2.34,2.34l2.34-2.34C6.61,0.07,6.78,0,6.98,0s0.38,0.07,0.54,0.21l0.52,0.52c0.14,0.16,0.21,0.34,0.21,0.54 S8.18,1.64,8.04,1.78L5.7,4.12z'/%3E%3C/svg%3E"), "#", "%23") !default;
+// $pojo-form-field-invalid-icon: str-replace(url("data:image/svg+xml,%3Csvg version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' fill='#{$pojo-form-field-invalid-icon-fill}' viewBox='0 0 8.25 8.25' style='enable-background:new 0 0 8.25 8.25;' xml:space='preserve'%3E%3Cpath d='M5.7,4.12l2.34,2.34c0.14,0.14,0.21,0.31,0.21,0.52S8.18,7.37,8.04,7.52L7.52,8.04C7.37,8.18,7.19,8.25,6.98,8.25 S6.61,8.18,6.47,8.04L4.12,5.7L1.78,8.04C1.64,8.18,1.47,8.25,1.27,8.25S0.88,8.18,0.73,8.04L0.21,7.52C0.07,7.37,0,7.19,0,6.98 s0.07-0.38,0.21-0.52l2.34-2.34L0.21,1.78C0.07,1.64,0,1.47,0,1.27s0.07-0.38,0.21-0.54l0.52-0.52C0.88,0.07,1.06,0,1.27,0 s0.38,0.07,0.52,0.21l2.34,2.34l2.34-2.34C6.61,0.07,6.78,0,6.98,0s0.38,0.07,0.54,0.21l0.52,0.52c0.14,0.16,0.21,0.34,0.21,0.54 S8.18,1.64,8.04,1.78L5.7,4.12z'/%3E%3C/svg%3E"), "#", "%23") !default;
 
-$pojo-form-field-required-icon: str-replace(url("data:image/svg+xml,%3Csvg version='1.1' xmlns='http://www.w3.org/2000/svg' x='0px' y='0px' viewBox='0 0 10.98 12' fill='#{$pojo-form-field-required-icon-fill}'  xml:space='preserve'%3E%3Cpath d='M10.7,7.83c0.14,0.08,0.23,0.19,0.27,0.34s0.02,0.29-0.06,0.43l-0.45,0.8c-0.08,0.14-0.2,0.23-0.35,0.27 s-0.3,0.01-0.42-0.08L6.43,7.62l0.07,3.8c0.02,0.17-0.03,0.31-0.14,0.42S6.11,12,5.94,12H5.05c-0.17,0-0.31-0.05-0.42-0.16 s-0.16-0.25-0.14-0.42l0.07-3.8L1.3,9.59C1.17,9.68,1.03,9.71,0.88,9.67S0.6,9.54,0.52,9.4L0.08,8.6C0,8.46-0.02,8.32,0.02,8.17 s0.13-0.26,0.27-0.34L3.62,6L0.29,4.17C0.15,4.09,0.06,3.98,0.02,3.83S0,3.54,0.08,3.4l0.45-0.8c0.08-0.14,0.2-0.23,0.35-0.27 s0.3-0.01,0.42,0.08l3.26,1.97l-0.07-3.8C4.47,0.41,4.52,0.27,4.62,0.16S4.88,0,5.05,0h0.89c0.17,0,0.31,0.05,0.42,0.16 S6.52,0.41,6.5,0.59l-0.07,3.8l3.26-1.97c0.12-0.09,0.27-0.12,0.42-0.08s0.27,0.13,0.35,0.27l0.45,0.8c0.08,0.14,0.1,0.29,0.06,0.43 s-0.13,0.26-0.27,0.34L7.37,6L10.7,7.83z'/%3E%3C/svg%3E"), "#", "%23") !default;
+// $pojo-form-field-required-icon: str-replace(url("data:image/svg+xml,%3Csvg version='1.1' xmlns='http://www.w3.org/2000/svg' x='0px' y='0px' viewBox='0 0 10.98 12' fill='#{$pojo-form-field-required-icon-fill}'  xml:space='preserve'%3E%3Cpath d='M10.7,7.83c0.14,0.08,0.23,0.19,0.27,0.34s0.02,0.29-0.06,0.43l-0.45,0.8c-0.08,0.14-0.2,0.23-0.35,0.27 s-0.3,0.01-0.42-0.08L6.43,7.62l0.07,3.8c0.02,0.17-0.03,0.31-0.14,0.42S6.11,12,5.94,12H5.05c-0.17,0-0.31-0.05-0.42-0.16 s-0.16-0.25-0.14-0.42l0.07-3.8L1.3,9.59C1.17,9.68,1.03,9.71,0.88,9.67S0.6,9.54,0.52,9.4L0.08,8.6C0,8.46-0.02,8.32,0.02,8.17 s0.13-0.26,0.27-0.34L3.62,6L0.29,4.17C0.15,4.09,0.06,3.98,0.02,3.83S0,3.54,0.08,3.4l0.45-0.8c0.08-0.14,0.2-0.23,0.35-0.27 s0.3-0.01,0.42,0.08l3.26,1.97l-0.07-3.8C4.47,0.41,4.52,0.27,4.62,0.16S4.88,0,5.05,0h0.89c0.17,0,0.31,0.05,0.42,0.16 S6.52,0.41,6.5,0.59l-0.07,3.8l3.26-1.97c0.12-0.09,0.27-0.12,0.42-0.08s0.27,0.13,0.35,0.27l0.45,0.8c0.08,0.14,0.1,0.29,0.06,0.43 s-0.13,0.26-0.27,0.34L7.37,6L10.7,7.83z'/%3E%3C/svg%3E"), "#", "%23") !default;
 
 @mixin calendar-icon($fill: $pojo-form-field-default-icon-fill) {
   background-image: str-replace(url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 218.8 250' fill='#{$fill}' %3E%3Cpath d='M218.8 226.6A23.3 23.3 0 0 1 195.3 250H23.4a22.6 22.6 0 0 1-16.6-6.8A22.6 22.6 0 0 1 0 226.6V54.7a22.6 22.6 0 0 1 6.8-16.6 22.6 22.6 0 0 1 16.6-6.8H46.9V5.9a5.7 5.7 0 0 1 1.7-4.1A5.7 5.7 0 0 1 52.7 0H72.3a5.7 5.7 0 0 1 4.2 1.7 5.7 5.7 0 0 1 1.7 4.2V31.3h62.5V5.9a5.7 5.7 0 0 1 1.7-4.1A5.7 5.7 0 0 1 146.5 0H166a5.7 5.7 0 0 1 4.2 1.7 5.7 5.7 0 0 1 1.7 4.2V31.3h23.4a23.3 23.3 0 0 1 23.4 23.4ZM195.3 78.1H23.4V223.6a2.8 2.8 0 0 0 1 2 2.8 2.8 0 0 0 2 1h166a3.5 3.5 0 0 0 2.9-2.9ZM52.7 140.6a5.8 5.8 0 0 1-5.9-5.9V115.2a5.8 5.8 0 0 1 5.9-5.9H72.3a5.8 5.8 0 0 1 5.9 5.9v19.5a5.8 5.8 0 0 1-5.9 5.9Zm25.4 21.5a5.8 5.8 0 0 0-5.9-5.9H52.7a5.8 5.8 0 0 0-5.9 5.9v19.5a5.8 5.8 0 0 0 5.9 5.9H72.3a5.8 5.8 0 0 0 5.9-5.9ZM125 115.2a5.8 5.8 0 0 0-5.9-5.9H99.6a5.8 5.8 0 0 0-5.9 5.9v19.5a5.8 5.8 0 0 0 5.9 5.9h19.5a5.8 5.8 0 0 0 5.9-5.9Zm0 46.9a5.8 5.8 0 0 0-5.9-5.9H99.6a5.8 5.8 0 0 0-5.9 5.9v19.5a5.8 5.8 0 0 0 5.9 5.9h19.5a5.8 5.8 0 0 0 5.9-5.9Zm46.9-46.9a5.8 5.8 0 0 0-5.9-5.9H146.5a5.8 5.8 0 0 0-5.9 5.9v19.5a5.8 5.8 0 0 0 5.9 5.9H166a5.8 5.8 0 0 0 5.9-5.9Zm0 46.9a5.8 5.8 0 0 0-5.9-5.9H146.5a5.8 5.8 0 0 0-5.9 5.9v19.5a5.8 5.8 0 0 0 5.9 5.9H166a5.8 5.8 0 0 0 5.9-5.9Z'/%3E%3C/svg%3E"), "#", "%23");

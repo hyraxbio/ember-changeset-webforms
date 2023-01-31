@@ -23,10 +23,19 @@
   @timeSelectorFields={{timeSelectorFields}} 
   @timeInputLabels={{formField.timeInputLabels}}
   @calendarTitleFormat={{formField.calendarTitleFormat}}
-  @clearDateTimeButtonCLass="{{ember-changeset-webforms/dynamic-class-names "powerDatePickerClearButton" changesetWebform formField formField.validationStatus}}" 
-  @triggerClass="{{ember-changeset-webforms/dynamic-class-names "powerDatePickerTrigger" changesetWebform formField formField.validationStatus}}" 
+  @clearDateTimeButtonClass="{{ember-changeset-webforms/dynamic-class-names "powerDatePickerClearButton" changesetWebform formField formField.validationStatus}}" 
+  @calendarIconClass="{{ember-changeset-webforms/dynamic-class-names "powerDatePickerCalendarIcon" changesetWebform formField formField.validationStatus}}" 
+  @triggerInputClass="{{ember-changeset-webforms/dynamic-class-names "powerDatePickerTriggerInput" changesetWebform formField formField.validationStatus}}" 
+  @triggerWrapperClass="{{ember-changeset-webforms/dynamic-class-names "powerDatePickerTriggerWrapper" changesetWebform formField formField.validationStatus}}" 
   @dropdownClass="{{ember-changeset-webforms/dynamic-class-names "powerDatePickerDropdown" changesetWebform formField formField.validationStatus}}"
+  @dropdownInnerClass="{{ember-changeset-webforms/dynamic-class-names "powerDatePickerDropdownInner" changesetWebform formField formField.validationStatus}}"
+  @calendarNavClass="{{ember-changeset-webforms/dynamic-class-names "powerDatePickerCalendarNav" changesetWebform formField formField.validationStatus}}"
+  @calendarDaysClass="{{ember-changeset-webforms/dynamic-class-names "powerDatePickerCalendarDays" changesetWebform formField formField.validationStatus}}"
+  calendarNavClass
   @calendarClass="{{ember-changeset-webforms/dynamic-class-names "powerDatePickerCalendar" changesetWebform formField formField.validationStatus}}"
   @timeSelectorContainerClass="{{ember-changeset-webforms/dynamic-class-names "powerDatePickerTimeSelectorContainer" changesetWebform formField formField.validationStatus}}"
   @timeInputLabelClass="{{ember-changeset-webforms/dynamic-class-names "label" changesetWebform formField formField.validationStatus}}"
-  @timeInputClass="{{ember-changeset-webforms/dynamic-class-names "inputs,powerDatePickerTimeSelectorInput" changesetWebform formField formField.validationStatus}}" />
+  @timeInputClass="{{ember-changeset-webforms/dynamic-class-names "inputElement,powerDatePickerTimeSelectorInput" changesetWebform formField formField.validationStatus}}" 
+  @triggerInputId={{formField.id}}
+  @ariaLabelledBy={{ariaLabelledBy}}
+  @ariaLabel={{ariaLabel}} />

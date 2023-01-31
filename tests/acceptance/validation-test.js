@@ -1,4 +1,4 @@
-import { visit, find, click, findAll, typeIn, focus, blur, fillIn, triggerKeyEvent } from '@ember/test-helpers';
+import { visit, find, click, findAll, focus, blur, fillIn, triggerKeyEvent } from '@ember/test-helpers';
 import { module, test } from 'qunit';
 import { setupApplicationTest } from 'ember-qunit';
 import { setupMirage } from 'ember-cli-mirage/test-support';
@@ -21,7 +21,8 @@ module('Acceptance | Field validation', function(hooks) {
     assert.equal(cth.fieldErrorText(`${dummyEls.nameField}`).join(''), `Name can't be blank`, 'Correct default error message shows for empty name field after focus out.');
     await focus(`${dummyEls.nameField} input`);
     assert.ok(cth.failedValidation(`${dummyEls.nameField}`), 'Field with "keyUp" validation event does not lose  class "invalid" when focussed.');
-    await typeIn(`${dummyEls.nameField} input`, 'T');
+    await fillIn(`${dummyEls.nameField} input`, 'T');
+    await triggerKeyEvent(find(`${dummyEls.nameField} input`), "keyup", 1);
     assert.ok(cth.passedValidation(`${dummyEls.nameField}`), 'Field with "keyUp" validation event passes validation on keyUp when user types single char.'); 
     await fillIn(`${dummyEls.nameField} input`, '');
     await triggerKeyEvent(find(`${dummyEls.nameField} input`), "keyup", 1);
@@ -36,11 +37,12 @@ module('Acceptance | Field validation', function(hooks) {
     assert.ok(cth.passedValidation(`${dummyEls.acceptTermsField}`), 'Validation runs after selecting option in radio button group.');
     await click(`${dummyEls.confirmHumanField} input[type="checkbox"]`);
     assert.ok(cth.passedValidation(`${dummyEls.confirmHumanField}`), 'Validation runs after checking single checkbox.');
-    // await this.pauseTest();
+    await click('.ember-basic-dropdown-trigger');
     await selectChoose(find(dummyEls.countryField), 'United States');
     assert.ok(cth.passedValidation(`${dummyEls.countryField}`), 'Validation runs after selecting power select option.');
     // TODO checkbox group and text area.
   });
+
   test('Validation messages', async function(assert) {
     await visit('/docs/field-validation');
     await click(els.cwfSubmitButton);

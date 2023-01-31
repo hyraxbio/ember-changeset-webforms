@@ -1,4 +1,4 @@
-import { visit, click, fillIn, focus, blur, find, findAll, typeIn } from '@ember/test-helpers';
+import { visit, click, fillIn, focus, blur, findAll } from '@ember/test-helpers';
 import { module, test } from 'qunit';
 import { setupApplicationTest } from 'ember-qunit';
 import { setupMirage } from 'ember-cli-mirage/test-support';
@@ -15,13 +15,12 @@ module('Acceptance | Action handling', function(hooks) {
     await visit('/docs/action-handling');
     await fillIn(`${dummyEls.afterFieldEditForm} ${dummyEls.firstNameField} input`, 'G');
     assert.dom(dummyEls.afterFieldEditFeedback).hasText(`The user's full name is "G ". The last updated field was First name. The value of settings.formName is names.`, 'All arguments are correctly sent with the afterFieldEdit action.');
-    await typeIn(`${dummyEls.afterFieldEditForm} ${dummyEls.firstNameField} input`, 'ene');
+    await fillIn(`${dummyEls.afterFieldEditForm} ${dummyEls.firstNameField} input`, 'Gene');
     assert.dom(dummyEls.afterFieldEditFeedback).hasText(`The user's full name is "Gene ". The last updated field was First name. The value of settings.formName is names.`, 'afterFieldEdit runs when user types in an input field.');
   });
 
   test('afterFieldValidation', async function(assert) {
     await visit('/docs/action-handling');
-
     await focus(`${dummyEls.afterFieldValidationForm} ${dummyEls.nameField} input`);
     await blur(`${dummyEls.afterFieldValidationForm} ${dummyEls.nameField} input`);
     assert.dom(dummyEls.afterFieldValidationFeedback).hasText(`The user's name is "". The last validated field was Name. The first argument to the afterFieldValidation argument has the following values: value: "" validation: [Name can't be blank] The form has the following fields: name, email. The value of settings.formName is nameAndEmail.`, 'All arguments are correctly sent with the afterFieldValidation action, after blur, where there is one validation error.');

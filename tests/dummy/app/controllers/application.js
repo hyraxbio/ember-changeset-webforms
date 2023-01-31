@@ -6,6 +6,7 @@ export default Controller.extend({
     this._super(...arguments);
     this.loginFormSchema = {
       settings: {
+        formName: 'login',
         submitButtonText: 'Log in',
         showResetButton: false,
         hideSuccessValidation: true,
@@ -29,6 +30,7 @@ export default Controller.extend({
         fieldId: 'password',
         fieldLabel: 'Password',
         fieldType: 'input',
+        hideLabel: true,  
         validationRules: [{
           validationMethod: 'validatePresence',
           arguments: true

@@ -4,16 +4,18 @@
   <dropdown.Trigger 
     @eventType="mousedown"
     onmousedown={{action "onTriggerFocus"}}
-    class={{triggerClass}}>
+    class={{triggerWrapperClass}}
+    ariaLabelledBy={{ariaLabelledBy}} 
+    aria-label={{arialabel}}>
     {{#if value}}
-      <div role="button" class="{{clearDateTimeButtonClass}}" data-test-id="datetime-picker-clear-datetime" onclick={{action "clearDateTime"}}>×</div>
+      <button type="button" class="{{clearDateTimeButtonClass}}" data-test-id="datetime-picker-clear-datetime" onclick={{action "clearDateTime"}}>×</button>
     {{else}}
-      <div class="calendar-icon"></div>
+      <div class="{{calendarIconClass}}"></div>
     {{/if}}
-    <input class="date-select" type="text" value={{if value (moment-format (moment value parsedDateTimeFormat) parsedDateTimeDisplayFormat)}} placeholder={{parsedDatepickerPlaceholder}} onChange={{action "onDateInputChange"}} onKeyUp={{action "onDateInputKeyUp"}} onFocus={{action "onDateInputFocus"}} onBlur={{action "onDateInputBlur"}}>
+    <input type="text" value={{if value (moment-format (moment value parsedDateTimeFormat) parsedDateTimeDisplayFormat)}} placeholder={{parsedDatepickerPlaceholder}} onChange={{action "onDateInputChange"}} onKeyUp={{action "onDateInputKeyUp"}} onFocus={{action "onDateInputFocus"}} onBlur={{action "onDateInputBlur"}} class={{triggerInputClass}} id={{triggerInputId}} data-test-id="power-datepicker-input">
   </dropdown.Trigger>
-  <dropdown.Content data-test-id="ecw-power-datepicker-dropdown" >
-    <div class={{dropdownClass}}>
+  <dropdown.Content data-test-id="ecw-power-datepicker-dropdown" class={{dropdownClass}}>
+    <div class={{dropdownInnerClass}}>
       <PowerCalendar 
         @minDate={{minDate}} 
         @maxDate={{maxDate}} 
@@ -25,10 +27,12 @@
         <Background::PowerCalendarNav 
           @calendar={{calendar}} 
           @calendarTitleFormat={{calendarTitleFormat}}
-          @moveCenter={{action calendar.actions.moveCenter}} />
+          @moveCenter={{action calendar.actions.moveCenter}}
+          class={{calendarNavClass}} />
         <calendar.days 
           @minDate={{minDate}} 
-          @maxDate={{maxDate}} />
+          @maxDate={{maxDate}} 
+           class={{calendarDaysClass}}/>
       </PowerCalendar>
       {{#if (and showTimeSelector value (not fixedTime))}}
         <div data-test-id="time-selector" class="time-select {{unless value "disabled"}} {{timeSelectorContainerClass}}">

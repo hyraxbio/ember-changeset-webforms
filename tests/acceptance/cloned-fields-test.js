@@ -12,6 +12,7 @@ module('Acceptance | Cloned fields', function (hooks) {
 
   test('Basics', async function (assert) {
     await visit('/docs/clonable-form-fields');
+    // await this.pauseTest();
     assert.notOk(cth.wasValidated(`${dummyEls.clonableFieldBasics} ${els.cloneSelector({fieldId:'emails', cloneId:0})}`), 'Clone is not validated on insert, when insert is a validationEvent, but the clone is empty.');
     assert.dom(`${dummyEls.clonableFieldBasics} ${els.cwfCloneWrapper}`).exists({ count: 2 }, 'Min clones setting of 2 results in two cloned fields on load.');
     assert.dom(`${dummyEls.clonableFieldBasics} ${els.cwfMaxClonesReached}`).doesNotExist('Max clones reached text does not display when the number of clones is below the value of the maxClones setting.');

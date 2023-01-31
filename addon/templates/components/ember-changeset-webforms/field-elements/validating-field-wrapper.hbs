@@ -1,7 +1,11 @@
 <EmberChangesetWebforms::FieldElements::FieldLabel 
   @formField={{formField}} 
-  @changesetWebform={{changesetWebform}} />
-<div class="{{ember-changeset-webforms/dynamic-class-names "fieldControls" changesetWebform formField formField.validationStatus}}">
+  @changesetWebform={{changesetWebform}}
+  @labelId={{labelId}} />
+<div class="{{ember-changeset-webforms/dynamic-class-names "fieldControls" changesetWebform formField formField.validationStatus}}" 
+  role={{if isGroup "group"}}   
+  ariaLabelledBy={{if isGroup ariaLabelledBy}} 
+  aria-label={{if isGroup ariaLabel}}>
   {{yield}}
 </div>
 <EmberChangesetWebforms::FieldElements::FieldErrors 
