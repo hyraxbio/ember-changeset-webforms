@@ -56,6 +56,7 @@ module('Acceptance | Power datepicker field', function(hooks) {
     const rawDateTimeElement = find(`${parentFieldSelector} ${dummyEls.rawDateTime}`);
     const fieldValueElement = find(`${parentFieldSelector} ${dummyEls.outputFieldValue}`);
     await clickTrigger(`${parentFieldSelector} ${dummyEls.startDateField}`);
+    await this.pauseTest();
     assert.dom(`${dummyEls.dataDate('2022-11-09')}:disabled`).exists('2022-11-09 is disabled in the calendar');
     assert.dom(`${dummyEls.dataDate('2022-11-17')}:disabled`).exists('2022-11-17 is disabled in the calendar');
     const calendarElement = find(dummyEls.ecwPowerDatepickerDropdown);

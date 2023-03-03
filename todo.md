@@ -44,6 +44,7 @@ valuetext
 
 Use aria-labelledBy if label is present, else use label
 role=group
+aria described by for error messages
 
 icons for next/prev month and year.
 define app wide icons for cross etc.

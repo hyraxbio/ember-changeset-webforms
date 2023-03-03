@@ -5,12 +5,12 @@ import { setupMirage } from 'ember-cli-mirage/test-support';
 import dummyEls from './test-selectors';
 import qUnitExtend from './test-helpers';
 
-module('Acceptance | Power datepicker field', function(hooks) {
+module('Acceptance | Single checkbox', function(hooks) {
   setupApplicationTest(hooks);
   qUnitExtend.qunitModuleHooks(hooks);
   setupMirage(hooks);
 
-  test('Date select', async function(assert) {
+  test('Basic', async function(assert) {
     await visit('/docs/built-in-fields');
     const parentFieldSelector = dummyEls.singleCheckboxBasicUse;
     assert.ok(true)
