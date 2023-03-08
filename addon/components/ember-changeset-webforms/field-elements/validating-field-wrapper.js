@@ -2,13 +2,12 @@ import Component from '@ember/component';
 import layout from '../../../templates/components/ember-changeset-webforms/field-elements/validating-field-wrapper';
 import { computed } from '@ember/object';
 import dynamicClassNames from 'ember-changeset-webforms/utils/dynamic-class-names';
-import formField from '../../../utils/form-field';
 
 export default Component.extend({
   layout,
-  classNameBindings: ['focussedClasses', 'requiredClasses', 'disabledClasses', 'validatesClasses', 'wasValidatedClasses', 'readonly:readonly', 'formField.hideSuccessValidation:hide-success-validation', 'fieldWrapperClassNames'],
+  classNameBindings: ['focussedClasses', 'requiredClasses', 'disabledClasses', 'validatesClasses', 'wasValidatedClasses', 'readonly:readonly', 'formField.hideSuccessValidation:hide-success-validation', 'fieldWrapperClassNames', 'typeClass'],
 
-  fieldWrapperClassNames: computed('changesetWebform', function() {
+  fieldWrapperClassNames: computed('changesetWebform', 'formField.validationStatus', function() {
     return dynamicClassNames('fieldWrapper', this.changesetWebform, this.formField);
   }),
 
@@ -43,6 +42,11 @@ export default Component.extend({
   'data-test-id': computed('dataTestFieldId', function() {
     if (!this.get('dataTestFieldId')) { return; }
     return `${this.get('dataTestFieldId')}-field`;
+  }),
+
+  'data-test-class': computed('typeClass', function() {
+    if (!this.get('typeClass')) { return; }
+    return `cwf-${this.get('typeClass')}`;
   }),
 
 });

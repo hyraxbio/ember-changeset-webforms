@@ -71,9 +71,9 @@ export default Component.extend({
   actions: {
     onClickAddCloneButton() {
       this.send('cloneField');
-      if (this.get('afterClickAddCloneButton')) {
-        this.afterClickAddCloneButton();
-      } 
+      if (this.onUserInteraction) {
+        this.onUserInteraction(this.masterFormField, 'addClone');
+      }
     },
     
     cloneField(opts = {}) {
@@ -100,8 +100,9 @@ export default Component.extend({
       }
       
       this.send('checkMinMaxClones', masterFormField);
+      // onUserInteraction is not fired here, as this function can be run automatically when inserting clones to match initial field data.
       if (this.get('afterAddClone')) {
-        this.afterAddClone(newField, masterFormField, this.changesetWebform.changeset);
+        this.afterAddClone(newField, masterFormField, this.changesetWebform);
       } 
     },
 
@@ -118,9 +119,8 @@ export default Component.extend({
       masterFormField.clonedFields.forEach((clone, index) => {
         clone.set('index', index);
       });
-
-      if (this.get('afterRemoveClone')) {
-        this.afterRemoveClone(clone, masterFormField, this.changesetWebform.changeset);
+      if (this.onUserInteraction) {
+        this.onUserInteraction(this.masterFormField, 'addClone');
       }
     },
 

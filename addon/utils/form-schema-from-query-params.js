@@ -3,9 +3,14 @@ export default function formSchemaFromQueryParams(queryParamsObject) {
     settings: {
       formName: `${queryParamsObject.name}Filters`,
       submitButtonText: 'Apply Filters',
+      clearFormButtonText: 'Reset filters',
       showClearFormButton: true,
       resetAfterSubmit: false,
       submitAfterClear: true
+    },
+    generalClassNames: {
+      clearFormButton: ['btn', 'btn-outline-gray-medium'],
+      submitButton: ['btn', 'btn-primary']
     },
     fields: []
   };

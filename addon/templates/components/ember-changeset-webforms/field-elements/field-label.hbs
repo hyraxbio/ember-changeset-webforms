@@ -1,4 +1,4 @@
-{{#unless formField.hideLabel}}
+{{#unless noLabel}}
   <label id={{labelId}} for={{formField.id}} class="{{ember-changeset-webforms/dynamic-class-names "labelElement,fieldLabel" changesetWebform formField formField.validationStatus}}">
     {{#if formField.labelComponent}}
       {{component formField.labelComponent}}

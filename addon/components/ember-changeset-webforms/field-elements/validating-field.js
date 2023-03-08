@@ -13,7 +13,7 @@ export default Component.extend({
     const changeset = this.changesetWebform.changeset;
     if (changeset.get(formField.propertyName)) {
       formField.eventLog.pushObject('insert');
-      this.send('validateField', changeset, formField);
+      this.send('validateField', formField);
     }
   },
 
@@ -82,9 +82,9 @@ export default Component.extend({
       this.onUserInteraction(formField, eventType, value, event)
     },
 
-    onUserInteractionClone(...args) {
-      this.onUserInteraction([args]);
-    },
+    // onUserInteractionClone(...args) {
+    //   this.onUserInteraction([args]);
+    // },
 
     setFieldValue: function (value, formField) {
       var changeset = this.changesetWebform.changeset;

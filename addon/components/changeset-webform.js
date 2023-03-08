@@ -76,27 +76,33 @@ export default Component.extend({
           changesetWebform.formSettings.set('requestInFlight', true);
           if (this.submitAction) {
               changeset.save().then(savedChangeset => {
-                var submitAction = this.submitAction(savedChangeset.data, changesetWebform);
-                if (isPromise(submitAction)) {
-                  submitAction.then(submitActionResponse => {
+                try {
+                  var submitAction = this.submitAction(savedChangeset.data, changesetWebform);
+                  if (isPromise(submitAction)) {
+                    submitAction.then(submitActionResponse => {
+                      changesetWebform.formSettings.set('requestInFlight', false);
+                      if (this.saveSuccess) {
+                        this.saveSuccess(submitActionResponse, changesetWebform);
+                      }
+                      if (this.get('formSettings.resetAfterSubmit')) {
+                        this.send('clearForm');
+                      }
+                    }).catch(error => {
+                      changesetWebform.formSettings.set('requestInFlight', false);
+                      if (this.get('saveFail')) {
+                        this.saveFail(error, changesetWebform);
+                      }
+                    });
+                  } else {
                     changesetWebform.formSettings.set('requestInFlight', false);
-                    if (this.saveSuccess) {
+                    var submitActionResponse = submitAction;
+                    if (this.get('saveSuccess')) {
                       this.saveSuccess(submitActionResponse, changesetWebform);
                     }
-                    if (this.get('formSettings.resetAfterSubmit')) {
-                      this.send('clearForm');
-                    }
-                  }).catch(error => {
-                    changesetWebform.formSettings.set('requestInFlight', false);
-                    if (this.get('saveFail')) {
-                      this.saveFail(error, changesetWebform);
-                    }
-                  });
-                } else {
-                  changesetWebform.formSettings.set('requestInFlight', false);
-                  var submitActionResponse = submitAction;
-                  if (this.get('saveSuccess')) {
-                    this.saveSuccess(submitActionResponse, changesetWebform);
+                  }
+                } catch (error) {
+                  if (this.get('saveFail')) {
+                    this.saveFail(error, changesetWebform);
                   }
                 }
               });
@@ -134,10 +140,10 @@ export default Component.extend({
 
     clearForm() {
       // TODO add option for suppress defaults
-      this.send('generateFormObject', this.get('formSchema'), this.get('fieldComponentsMap'));
-      this.send('generateChangeset', this.get('formSchema'), {});
+      // TODO test for this
+      this.send('generateChangesetWebform', this.get('formSchema'), null, this.get('customValidators'));
       if (this.get('formSettings.submitAfterClear')) {
-        this.send('submit', this.changesetWebform.changeset);
+        this.send('submit', this.changesetWebform);
       }
     }
   }

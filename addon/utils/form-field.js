@@ -26,7 +26,6 @@ export default EmberObject.extend({
       const changeset = this.changeset;
       if (!formField.validates) { return; }
       if (!validationEventLog(formField).length) { return }
-
       changeset.validate(formField.propertyName).then(() => {
         formField.set('wasValidated', true);
         const fieldValidationErrors = changeset.error[formField.propertyName];

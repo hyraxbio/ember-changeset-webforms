@@ -18,9 +18,9 @@ const addonDefaults = {
     // Generic field classes- apply to all fields
     disabledField: ['disabled'],
     focussedField: ['focussed'],
-    fieldWrapper: ['cwf-field'], 
-    fieldControls: ['field-controls', 'validation-icon', '$validationClassNames'],
-    fieldLabel: ['field-label', 'validation-icon', '$validationClassNames'],
+    fieldWrapper: ['cwf-field', '$validationClassNames'], 
+    fieldControls: ['field-controls', 'validation-icon'],
+    fieldLabel: ['field-label', '$validationClassNames'],
     requiredField: ['required'],
     // Generic validation related classes - apply to all fields
     validClassNames: ['is-valid'],
@@ -47,7 +47,7 @@ const addonDefaults = {
     fieldLabelInput: null,
     requiredFieldInput: null,
     // fieldType === 'clonable'
-    cloneField: ['cwf-clone-field'],
+    clonedFormField: ['cwf-clone-field-controls'],
     maxClonesReached: ['cwf-max-clones-reached'],
     addCloneButton: ['btn-secondary'],
     removeClone: ['hover-pointer', 'remove-clone', 'clone-actions', 'width-xl'],

@@ -3,8 +3,8 @@ import layout from '../../../templates/components/ember-changeset-webforms/clone
 
 export default Component.extend({
   layout,
-  classNames: ['cwf-field-clone'],
-  'data-test-class': 'cwf-clone-wrapper',
+  classNames: ['cwf-field-clone-wrapper'],
+  'data-test-class': 'cwf-field-clone-wrapper',
 
   didInsertElement: function() {
     var changeset = this.changesetWebform.changeset;
@@ -25,10 +25,9 @@ export default Component.extend({
         clonedFormField.set('focussed', true);
       }
       clonedFormField.eventLog.push(eventType);
-      this.masterFormField.eventLog.push('focusOutClone');
-      clonedFormField.updateValidationActivation(index, 'focusOut');
-      this.setFieldValue(this.updatedGroupValue(value, index), this.get('masterFormField'));
-      this.onUserInteractionClone(clonedFormField, `${eventType}Clone`, value, event);
+      this.masterFormField.eventLog.push(`${eventType}Clone`);
+      clonedFormField.updateValidationActivation(index, eventType);
+      this.onUserInteraction(clonedFormField, `${eventType}Clone`, value, event);
     },
 
     onChangeClone(index, clonedFormField, value, eventType = 'change') {

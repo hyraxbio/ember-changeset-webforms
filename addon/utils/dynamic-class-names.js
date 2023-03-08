@@ -28,6 +28,7 @@ export default function dynamicClassNames(elementTypesString, changesetWebform, 
       classNamesArray = classNameSettings[elementType] || [];
     }
     if (formField && (classNamesArray).indexOf('$validationClassNames') > -1) {
+      
       if (formField.validationStatus === 'valid') {
         classNames = classNames.concat(classNameSettings.validClassNames || []);
       } else if (formField.validationStatus === 'invalid') {
