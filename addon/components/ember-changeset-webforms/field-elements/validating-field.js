@@ -90,8 +90,8 @@ export default Component.extend({
       var changeset = this.changesetWebform.changeset;
       formField.set('previousValue', changeset.get(formField.propertyName));
       changeset.set(formField.propertyName, value);
-      if (this.afterFieldEdit) {
-        this.afterFieldEdit(formField, changeset);
+      if (this.onFieldValueChange) {
+        this.onFieldValueChange(formField, changeset);
       }
       this.send('validateField', formField);
     }

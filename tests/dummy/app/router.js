@@ -12,6 +12,7 @@ Router.map(function() {
     this.route('configuration-options');
     this.route('creating-custom-fields');
     this.route('action-handling');
+    this.route('form-submission');
     this.route('field-validation');
     this.route('integrating-custom-validators');
     this.route('clonable-form-fields');
@@ -21,6 +22,7 @@ Router.map(function() {
   this.route('not-found', { path: '/*path' });
 
 
+  this.route('form-submission');
 });
 
 export default Router;

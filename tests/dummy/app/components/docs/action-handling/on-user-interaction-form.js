@@ -1,8 +1,6 @@
 import Component from '@ember/component';
-import layout from '../../../templates/components/docs/action-handling/after-field-click-form';
 
 export default Component.extend({
-  layout,
 // BEGIN-SNIPPET after-field-click-action-form.js
 
   init() {
@@ -26,7 +24,6 @@ export default Component.extend({
         fieldId: 'toggleNicknameField',
         fieldType: 'clicker',
         clickerText: 'Show nickname field',
-        // displayComponent: null, // Document displayComponent
       }, {
         fieldId: 'nickName',
         fieldLabel: 'Nickname',
@@ -42,12 +39,15 @@ export default Component.extend({
   },
 
   actions: {
-    afterFieldClick(formField, changesetWebform) {
-      if (formField.fieldId === 'toggleNicknameField') {
-        const nickNameField = changesetWebform.fields.findBy('fieldId', 'nickName');
-        nickNameField.toggleProperty('hidden');
-        formField.set('clickerText', nickNameField.hidden ? 'Show nickname field' : 'Hide nickname field');
+    onUserInteraction(formField, changesetWebform, eventType) {
+      if (eventType === 'click') {
+        if (formField.fieldId === 'toggleNicknameField') {
+          const nickNameField = changesetWebform.fields.findBy('fieldId', 'nickName');
+          nickNameField.toggleProperty('hidden');
+          formField.set('clickerText', nickNameField.hidden ? 'Show nickname field' : 'Hide nickname field');
+        }
       }
+      
     }, 
 
     submitAction(data, changsetWebform) {

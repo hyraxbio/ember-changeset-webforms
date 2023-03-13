@@ -2,7 +2,7 @@
   {{#demo.example name="after-field-edit-action-form.hbs"}}
     <ChangesetWebform 
       @formSchema={{userNamesFormSchema}} 
-      @afterFieldEdit={{action "afterFieldEdit"}} 
+      @onFieldValueChange={{action "onFieldValueChange"}} 
       data-test-id="after-field-edit-form"
      />
     {{#if fullName}}

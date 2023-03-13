@@ -1,9 +1,6 @@
 import Component from '@ember/component';
-import layout from '../../../templates/components/docs/action-handling/after-field-edit-form';
-
 
 export default Component.extend({
-  layout,
   init: function() {
     this._super(...arguments);
 // BEGIN-SNIPPET after-field-edit-action-form.js
@@ -37,7 +34,7 @@ export default Component.extend({
   },
 
   actions: {
-    afterFieldEdit(formField, changesetWebform) {
+    onFieldValueChange(formField, changesetWebform) {
       this.set('fullName', `${changesetWebform.changeset.get('firstName') || ''} ${changesetWebform.changeset.get('lastName') || ''}`);
       this.set('lastUpdateField', formField.fieldLabel);
       this.set('formName', changesetWebform.formSettings.formName);

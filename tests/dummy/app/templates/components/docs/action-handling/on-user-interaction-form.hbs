@@ -9,7 +9,7 @@
     {{/if}}
     <ChangesetWebform 
       @formSchema={{formSchema}} 
-      @afterFieldClick={{action "afterFieldClick"}} 
+      @onUserInteraction={{action "onUserInteraction"}} 
       @formValidationFailed={{action "formValidationFailed"}}
       @submitAction={{action "submitAction"}}
       data-test-id="after-field-click-form"

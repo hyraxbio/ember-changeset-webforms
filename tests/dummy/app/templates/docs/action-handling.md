@@ -2,6 +2,8 @@
 
 ## submitAction
 
+When the user clicks the submit button, 
+
 Optional. Provides `(changeset.data, changesetWebform)` as arguments.
 
 The action you pass can either return a promise, or be a synchronous action. 
@@ -92,12 +94,17 @@ Where there are validation errors, the value of the `fieldValidationErrors` argu
 
 <Docs::ActionHandling::AfterFieldValidationForm />
 
+## afterValidateFields
 
+Provides `(changesetWebform, validationResult)` as arguments.
 
+Runs after validating all form fields which are not hidden or cast out. This occurs when the user clicks the submit button, but before submitting the form data.
 
---------
+Validation result is an array with one item for each validated field. For any fields which have validation errors, the item will be an object with the keys `value` and `validation` where validation is the validation error that resulted for that field.
 
-## afterFieldEdit
+For fields which passed validation, the item will be the value of the field as a string.
+
+## onFieldValueChange
 
 Fires every time a property in the changeset is updated.
 
@@ -105,54 +112,46 @@ It provides `(formField, ChangesetWebform, snapshot)` as arguments.
 
 <!-- TODO explain snapshot -->
 
-<Docs::ActionHandling::AfterFieldEditForm />
+<Docs::ActionHandling::onFieldValueChange />
 
+## afterFieldValidation
 
+Runs after an individual field is validated.
 
-## afterFieldValidation (From field)
+Provides `(formField, changesetWebform, fieldValidationErrors)` as arguments.
+## onUserInteraction
 
-afterFieldValidation(fieldValidationErrors, formField, changeset) {
+Fires after any individual field calls the `onUserInteraction` action in the `ValidatingField` component. This occurs anytime a user interacts with a field, whether or not that interaction updates the value of the field. 
 
+Examples include focussing in or out of an input, clicking a clicker element, or click the add clone or remove clone buttons for clonable fields.
 
+It provides `(formField, changesetWebform, eventType, event)` as arguments.
 
-## afterFieldClick
+`eventType` is a string, which is the name of the event. This is not necessarily the name of an evenet defined in the JavaScript spec, it is simply chosen so that the particular type of user interaction can be reacted to.
 
-Fires after any individual field calls the `onClick` action in the `ValidatingField` component. 
+<!-- TODO add all exisitng eventTypes in built in fields -->
 
-The `clicker` is the only default field which calls this action.
+`event` is the actual JavaScript event object, included where it exists.
 
-It provides `(formField, changesetWebform)` as arguments.
+<!-- TODO check if event cannot always be sent? -->
 
-<Docs::ActionHandling::AfterFieldClickForm />
+<Docs::ActionHandling::OnUserInteractionForm />
 
-## afterInputFocusOut
-
-It provides `(formField, changesetWebform)` as arguments.
-## afterInputFocusIn
-
-It provides `(formField, changesetWebform)` as arguments.
-## afterInputKeyUp
-
-It provides `(formField, changesetWebform, value, event)` as arguments.
-<!-- ## afterOrRemoveAddClone
-
-afterOrRemoveAddClone(clone, master, changeset) { -->
+--------
 
 ## beforeSubmitAction
 
-beforeSubmitAction() {
+Runs after the user clicks the submit button, but before the `submitAction` is run.
+
+Send `(changesetWebform)` as the only argument.
 
 ## beforeValidation
 
 beforeValidation(field) {
 
-## customValidations
-
-customValidations(field) {
-
 ## formValidationFailed
 
-formValidationFailed() {
+formValidationFailed(changesetWebform) {
 
 ## formValidationPassed
 

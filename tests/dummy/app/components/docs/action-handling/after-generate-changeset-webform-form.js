@@ -1,10 +1,8 @@
 // BEGIN-SNIPPET after-generate-changeset-webform-form.js
 import Component from '@ember/component';
-import layout from '../../../templates/components/docs/action-handling/after-generate-changeset-webform-form';
 import validateFields from 'ember-changeset-webforms/utils/validate-fields';
 
 export default Component.extend({
-  layout,
   step: 1,
 
   init: function() {

@@ -329,7 +329,7 @@ The value output by this field will also always be a formatted according to this
       <FormattedDatetimes @data={{dateTimeOutput1}} />
       <ChangesetWebform 
         @formSchema={{powerDatapickerExample1FormSchema}}
-        @afterFieldEdit={{action "afterDatetimeUpdated" "1"}} />
+        @onFieldValueChange={{action "afterDatetimeUpdated" "1"}} />
     </div>
   {{/demo.example}}
   {{demo.snippet "power-datepicker-example-1.js" label="Component JS" language="javascript"}}
@@ -349,7 +349,7 @@ Note that setting `showTimeSelector` to`true` will have no effect if `fixedTime`
       <FormattedDatetimes @data={{dateTimeOutput1b}} />
       <ChangesetWebform 
         @formSchema={{powerDatapickerExample1bFormSchema}}
-        @afterFieldEdit={{action "afterDatetimeUpdated" "1b"}} />
+        @onFieldValueChange={{action "afterDatetimeUpdated" "1b"}} />
     </div>
   {{/demo.example}}
   {{demo.snippet "power-datepicker-example-1b.js" label="Component JS" language="javascript"}}
@@ -369,7 +369,7 @@ If the user types a date into the trigger input which is before `minDate` or aft
       <FormattedDatetimes @data={{dateTimeOutput1c}} />
       <ChangesetWebform 
         @formSchema={{powerDatapickerExample1cFormSchema}}
-        @afterFieldEdit={{action "afterDatetimeUpdated" "1c"}} />
+        @onFieldValueChange={{action "afterDatetimeUpdated" "1c"}} />
     </div>
   {{/demo.example}}
   {{demo.snippet "power-datepicker-example-1c.js" label="Component JS" language="javascript"}}
@@ -397,7 +397,7 @@ If the user input is lower than the minimum value for the relevant time unit, th
       <FormattedDatetimes @data={{dateTimeOutput3}} />
       <ChangesetWebform 
         @formSchema={{powerDatapickerExample3FormSchema}}
-        @afterFieldEdit={{action "afterDatetimeUpdated" "3"}} />
+        @onFieldValueChange={{action "afterDatetimeUpdated" "3"}} />
     </div> 
   {{/demo.example}}
   {{demo.snippet "power-datepicker-example-3.js" label="Component JS" language="javascript"}}
@@ -419,7 +419,7 @@ The example below shows a time selector component with just hours and minutes.
       <FormattedDatetimes @data={{dateTimeOutput3a}} />
       <ChangesetWebform 
         @formSchema={{powerDatapickerExample3aFormSchema}}
-        @afterFieldEdit={{action "afterDatetimeUpdated" "3a"}} />
+        @onFieldValueChange={{action "afterDatetimeUpdated" "3a"}} />
     </div> 
   {{/demo.example}}
   {{demo.snippet "power-datepicker-example-3a.js" label="Component JS" language="javascript"}}
@@ -439,7 +439,7 @@ The AM/PM input can be updated wither by typing in the input, or using arrow up 
       <FormattedDatetimes @data={{dateTimeOutput4}} />
       <ChangesetWebform 
         @formSchema={{powerDatapickerExample4FormSchema}}
-        @afterFieldEdit={{action "afterDatetimeUpdated" "4"}} />
+        @onFieldValueChange={{action "afterDatetimeUpdated" "4"}} />
     </div>
   {{/demo.example}}
   {{demo.snippet "power-datepicker-example-4.js" label="Component JS" language="javascript"}}
@@ -461,7 +461,7 @@ This could be useful where your server requires one date format, but your users 
       <FormattedDatetimes @data={{dateTimeOutput5}} />
       <ChangesetWebform 
         @formSchema={{powerDatapickerExample5FormSchema}}
-        @afterFieldEdit={{action "afterDatetimeUpdated" "5"}} />
+        @onFieldValueChange={{action "afterDatetimeUpdated" "5"}} />
     </div> 
   {{/demo.example}}
   {{demo.snippet "power-datepicker-example-5.js" label="Component JS" language="javascript"}}

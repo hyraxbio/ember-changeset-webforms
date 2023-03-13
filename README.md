@@ -215,7 +215,7 @@ Include `horizontal` in `fieldClasses` for a horizontal layout.
 
 ## Additional
 
-Note `skipValidation` will skip validation even if rules are present. You would opnly use this to turn off validation based on some other state of the form- otherwise you would just not include any validation rules for the field.
+Note `skipValidation` will skip validation even if rules are present. You would only use this to turn off validation based on some other state of the form- otherwise you would just not include any validation rules for the field.
 
 `castOut` invokes `changeset.cast`. Note that this will revert any changes in your form to the value that was first given to the changeset. Note the implications for pre loaded models, eg in an edit account form- castOut will not remove the field altogether, it will just revert the value to what was originally loaded. This is technically correct, because not submitting that field should leave it alone, rather than overwrite it with null.
 
@@ -243,24 +243,24 @@ afterFieldValidation(validationResponse, formField, changeset, formFields, formS
 }
 ```
 
-`afterFieldEdit`
+`onFieldValueChange`
 
 Runs after any property in `changeset.data` is updated- ie when any field is edited by the user. Runs before the relevant field is validated.
 
 ```
-this.afterFieldEdit(formFields, fieldId, formSettings, changeset, snapshot) {
+this.onFieldValueChange(formFields, fieldId, formSettings, changeset, snapshot) {
   ...
 }
 ```
 
 ### Field
 
-`afterFieldEdit`
+`onFieldValueChange`
 
 Runs after the value of the data property of the changeset is updated, but before the field is validated.
 
 ```
-this.afterFieldEdit(fieldId, changeset, formField) {
+this.onFieldValueChange(fieldId, changeset, formField) {
   ...
 }
 ```

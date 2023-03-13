@@ -47,9 +47,9 @@ export default Component.extend({
       } 
     },
 
-    afterFieldEdit(formField, changeset, snapshot) {
-       if (this.get('afterFieldEdit')) {
-        this.afterFieldEdit(formField, this.get('changesetWebform'), snapshot);
+    onFieldValueChange(formField, changeset, snapshot) {
+       if (this.get('onFieldValueChange')) {
+        this.onFieldValueChange(formField, this.get('changesetWebform'), snapshot);
       }
     },
 
@@ -67,8 +67,14 @@ export default Component.extend({
    
     submit(changesetWebform) {
       const changeset = changesetWebform.changeset;
-      validateFields(changesetWebform).then(() => {
+      validateFields(changesetWebform).then((validationResult) => {
+        if (this.afterValidateFields) {
+          this.afterValidateFields(changesetWebform, validationResult);
+        }
         if (changeset.isValid) {
+          if (this.formValidationPassed) {
+            this.formValidationPassed(changesetWebform);
+          }
           if (this.beforeSubmitAction) {
             this.beforeSubmitAction(changesetWebform);
           }
@@ -128,9 +134,8 @@ export default Component.extend({
           }
         }
       }).catch(err => {
-        console.log(err)
-
-        this.formValidationFailed(err);
+        // TODO see how this is called
+        this.formValidationFailed(changesetWebform, err);
       });
     },
 

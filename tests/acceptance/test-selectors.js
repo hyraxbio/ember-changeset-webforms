@@ -14,8 +14,8 @@ export default {
   nextButton: '[data-test-id="next-button"]',
   previousButton: '[data-test-id="previous-button"]',
 
-  afterFieldEditForm: '[data-test-id="after-field-edit-form"]',
-  afterFieldEditFeedback: '[data-test-id="after-field-edit-feedback"]',
+  onFieldValueChangeForm: '[data-test-id="after-field-edit-form"]',
+  onFieldValueChangeFeedback: '[data-test-id="after-field-edit-feedback"]',
   afterFieldValidationForm: '[data-test-id="after-field-validation-form"]',
   afterFieldValidationFeedback: '[data-test-id="after-field-validation-feedback"]',
   integratingCustomValidatorsForm: '[data-test-id="integrating-custom-validators-form"]',
