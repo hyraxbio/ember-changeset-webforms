@@ -1,7 +1,3 @@
-// @import 'ember-code-example';
-
-// $body-content-text-font-size: 1em;
-
 body {
   position: relative;
 }
@@ -27,96 +23,17 @@ $spacer-md: 16px;
   color: #e6c07b;
 }
 
-// .ember-changeset-webforms {
-//   input {
-//     border: 1px solid #ccc;
-//     padding: 3px 10px;
-//   }
-//   button {
-//     // height: 40px;
-//     white-space: nowrap;
-//     // background: #999;
-//     color: #fff;
-//     border-width: 0;
-//     border-radius: 3px;
-//     display: flex;
-//     align-items: center;
-//     padding: 8px 16px;
-//     svg {
-//       margin-left: 10px;
-//       width: 20px;
-//     }
-//   }
-//  }
-
- .formatted-list {
+.formatted-list {
   padding-left: 1.5em;
-
-   ul {
+  ul {
     padding-left: 1.5em;
     list-style: inherit;
-   }
- 
-   li {
+  }
+  li {
     list-style: disc;
+  }
+}
 
-   }
- }
-// // @import "./bootstrap/bootstrap";
-
-// .ember-application {
-//     font-family: Arial;
-//     font-size: 62.5%;
-//     position: relative;
-  
-//   div.wrapper {
-//     font-size: 1.4em;
-//     input, textarea, select, button {
-//       font-size: 1em;
-//     }
-//   }
-  
-//   input:not([type=radio]):not([type=checkbox]), textarea {
-//     border: 1px solid #ccc;
-//     border-radius: 3px;
-//     height: 40px;
-//   }
-  
-//   textarea {
-//     min-height: 100px;
-//   }
-  
-//   button {
-//     height: 40px;
-//     background: #999;
-//     color: #fff;
-//     border-width: 0;
-//     border-radius: 3px;
-//   }
-  
-//   table {
-//     border-collapse: collapse;
-//     td, th {
-//       padding: 10px;
-//       border: 1px solid #ccc;
-//     }
-   
-//   }
-  
-//   .form-submit-button {
-//     display: flex;
-//     align-items: center;
-//   }
-  
-//   .form-submit-button svg {
-//     width: 20px;
-//     height: 20px;
-//     fill: #fff;
-//     margin-left: 10px
-//   }
-//   svg {
-//     display: none;
-//   }
 .flex {
   display: flex;
 }
@@ -129,55 +46,27 @@ $spacer-md: 16px;
   align-items: center;
 }
 
-// .ember-basic-dropdown-content {
-//   padding: 12px;
-//   border: 1px solid #ccc;
-//   border-radius: 5px;
-//   background: #eee;
-//   box-shadow: 0 1px 3px rgb(0 0 0 / 52%)
-// }
+.monospaced {
+  font-family:'Courier New', Courier, monospace;
+}
 
-  // @import "ember-changeset-webforms";
+.text-grey {
+  color: #777;
+}
 
+.element-classlist {
+  background: rgb(54, 158, 54);
+  color: #fff;
+}
 
-//   @import "ember-skeleton-variables";
-//   @import "ember-skeleton/generic/_buttons";
-//   // @import "ember-skeleton/generic/_box-arrows";
+.cwf-field {
+  margin-bottom: 30px;
+}
 
-// div.docs-rounded {
-//   font-size: 62.5%;
-//   // @import "ember-skeleton/layout/_layout-basics";
-//   // @import "ember-skeleton/generic/_spinning-animation";
-//   // @import "ember-skeleton/generic/_list-group";
-//   // @import "ember-skeleton/generic/_badge";
-//   @import "ember-skeleton/generic/_alert";
-//   // @import "ember-skeleton/generic/_misc";
-//   @import "ember-skeleton/generic/_text";
-//   @import "ember-skeleton/generic/_buttons";
-//   // @import "ember-skeleton/generic/_tables";
-//   // @import "ember-skeleton/generic/_inputs-and-labels";
-//   // @import "ember-skeleton/generic/_bootstrap-tooltips";
-//   // @import "ember-skeleton/generic/_box-arrows";
-//   @import "ember-skeleton/generic/_borders";
-//   @import "ember-skeleton/generic/_card-box-shadow";
-//   @import "ember-skeleton/generic/_svg.scss";
-//   @import "ember-skeleton/generic/_backgrounds.scss";
-//   @import "ember-skeleton/generic/_overlays.scss";
-//   @import "ember-skeleton/generic/_flexbox";
-//   @import "ember-skeleton/generic/_spacer-margin-padding";
-//   @import "ember-skeleton/generic/_spacer-height-width";
-// }
-
-
-// .submit-button-icon {
-//   width: 16px;
-//   display: inline-block;
-// }
 @import "bootstrap-5/functions";
 @import "bootstrap-5/variables";
 @import "bootstrap-5/mixins";
 @import "bootstrap-5/utilities";
-
 @import "_variables";
 @import "ember-power-select";
     
@@ -185,17 +74,9 @@ $spacer-md: 16px;
   border-color: transparent !important;
 }
 
-
 .docs-rounded {
   .docs-p-4 * {
-    // @import "ember-power-select";
-    
-    // .ember-power-select-trigger-multiple-input {
-    //   border-color: transparent !important;
-    // }
-    
     @import "bootstrap-5/bootstrap";
-
     @import "_power-datetime-picker";
     .clone-group {
       .form-field-clone {
@@ -211,11 +92,9 @@ $spacer-md: 16px;
           height: 20px;
         }
       }
-      
       .clone-group-actions {
         width: 100%;
         margin-top: 10px;
-        
       }
     }
   } 

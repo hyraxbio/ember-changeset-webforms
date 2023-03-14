@@ -207,17 +207,15 @@ In both cases the following applies, the object passed must take the following f
   {{demo.snippet "checkbox-group-example-2.hbs" label="Template" language="htmlbars"}}
 {{/docs-demo}}
 
-
-
 {{docs-snippet name="clicker-field-options.js"}}
-
-    this.staticContentExample1FormSchema = {
 
 ## Static content field
 
 This field can be used to static content in a form. It has no action handlers.
 
 If static text is sufficient, you can simply use the `text` prop to pass the static text to display, and the `textElement` prop to specify what element the text should be wrapped in.
+
+`textElementClass` can also be set to a string of class names to be added to the text element.
 
 {{#docs-demo as |demo|}}
   {{#demo.example name="static-content-example-1.hbs"}}

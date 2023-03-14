@@ -45,10 +45,10 @@
     }
   }
 }
-.clone-group {
-  .form-field-clone {
+.cwf-clone-group {
+  .cwf-field-clone-wrapper {
     display: flex;
-    .ember-changeset-webforms-field {
+    .cwf-field {
       flex-grow: 1;
     }
   }

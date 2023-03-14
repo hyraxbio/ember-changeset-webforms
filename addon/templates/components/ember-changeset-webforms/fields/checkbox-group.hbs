@@ -1,14 +1,16 @@
-{{#each options as |option|}}
-  <Background::LabelledCheckbox 
-    @dataTestId={{concat dataTestFieldId "-checkbox-option-" option.value}} 
-    @value={{readonly option.value}} 
-    @label={{option.label}} 
-    @labelComponent={{or option.labelComponent formField.optionLabelComponent}} 
-    @containerName={{formSettings.formName}}
-    @changedAction={{action "checkboxToggled" formField option.key}} 
-    @name={{formField.name}} 
-    @disabled={{or option.disabled formField.disabled (and formField.preventEmpty option.onlyCheckedOption)}} 
-    @option={{option}}
-    @changesetWebform={{changesetWebform}}
-    @formField={{formField}} />
-{{/each}}
+<div class="{{ember-changeset-webforms/dynamic-class-names "optionsWrapper" changesetWebform formField formField.validationStatus}}">
+  {{#each options as |option|}}
+    <Background::LabelledCheckbox 
+      @dataTestId={{concat dataTestFieldId "-checkbox-option-" option.value}} 
+      @value={{readonly option.value}} 
+      @label={{option.label}} 
+      @labelComponent={{or option.labelComponent formField.optionLabelComponent}} 
+      @containerName={{formSettings.formName}}
+      @changedAction={{action "checkboxToggled" formField option.key}} 
+      @name={{formField.name}} 
+      @disabled={{or option.disabled formField.disabled (and formField.preventEmpty option.onlyCheckedOption)}} 
+      @option={{option}}
+      @changesetWebform={{changesetWebform}}
+      @formField={{formField}} />
+  {{/each}}
+</div>

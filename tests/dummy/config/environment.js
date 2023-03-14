@@ -23,9 +23,22 @@ module.exports = function(environment) {
     }
   };
 
-  ENV.changesetWebformsDefaults = {
+  ENV.changesetWebformsDefaults = {};
+  // TODO write tests for these classnames being added correctly.
+  // BEGIN-SNIPPET app-wide-classes.js
+  ENV.changesetWebformsDefaults.generalClassNames = {
+    labelElement: ['$inherited', 'label-el'],
+  }
+  // END-SNIPPET
 
-  };
+  // BEGIN-SNIPPET app-wide-field-specific-classes.js
+  ENV.changesetWebformsDefaults.fieldTypes = [{
+    fieldType: 'radioButtonGroup',
+    classNames: {
+      labelElement: ['$inherited', 'radio-button-group-label'],
+    }
+  }]
+  // END-SNIPPET
 
   if (environment === 'development') {
     // ENV.APP.LOG_RESOLVER = true;

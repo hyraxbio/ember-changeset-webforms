@@ -1,33 +1,148 @@
 import Controller from '@ember/controller';
+import { addonDefaults } from 'ember-changeset-webforms/utils/get-with-default';
 
 export default Controller.extend({
   init() {
     this._super(...arguments);
-    const ENV = {
-      changesetWebformsDefaults: {}
-    }
+    this.fieldTypes = addonDefaults.fieldTypes.map(item => item.fieldType);
 
-    // BEGIN-SNIPPET class-name-config-inherit-defaults.js
-    // Addon default class names for labelElement === ['form-label']
-    // config/environment.js
-    ENV.changesetWebformsDefaults.generalClassNames = {
-      labelElement: ['$inherited', 'label-el'], // class="form-label label-el"
+    // BEGIN-SNIPPET app-wide-class-settings.js"
+    this.appWideClassesFormSchema = {
+      settings: {
+        formName: 'appClassNames',
+        hideSubmitButton: true
+      },
+      fields: [{
+        fieldId: 'name',
+        fieldType: 'input',
+        fieldLabel: 'Name',
+      }, {
+        fieldId: 'radioButtons1',
+        fieldType: 'radioButtonGroup',
+        fieldLabel: 'Basic usage',
+        options: [{
+          label: 'Option 1',
+          value: '1',
+        }, {
+          label: 'Option 2',
+          value: '2',
+        }]
+      }]
     }
     // END-SNIPPET
-    // BEGIN-SNIPPET class-name-config-ignore-defaults.js
-    // Addon default class names for labelElement === ['form-label']
-    // config/environment.js
-    ENV.changesetWebformsDefaults.generalClassNames = {
-      labelElement: ['label-el'], // class="label-el"
+
+    // BEGIN-SNIPPET form-wide-class-settings.js"
+    this.formWideClassesFormSchema = {
+      settings: {
+        formName: 'formClassNames',
+        hideSubmitButton: true
+      },
+      generalClassNames: {
+        labelElement: ['$inherited', 'form-wide-label-class']
+      },
+      fields: [{
+        fieldId: 'name',
+        fieldType: 'input',
+        fieldLabel: 'Name',
+      }, {
+        fieldId: 'radioButtons1',
+        fieldType: 'radioButtonGroup',
+        fieldLabel: 'Basic usage',
+        options: [{
+          label: 'Option 1',
+          value: '1',
+        }, {
+          label: 'Option 2',
+          value: '2',
+        }]
+      }]
     }
     // END-SNIPPET
-    // BEGIN-SNIPPET class-name-config-validation-classes.js
-    // config/environment.js
-    ENV.changesetWebformsDefaults.generalClassNames = {
-      // Field label class="is-valid" when field passed validation
-      // Field label class="is-invalid" when field failed validation
-      // Field label class="" when field is not yet validated
-      fieldLabel: ['$validationClassNames'], 
+
+    // BEGIN-SNIPPET field-specific-class-settings.js"
+    this.fieldSpecificClassesFormSchema = {
+      settings: {
+        formName: 'fieldClassNames',
+        hideSubmitButton: true
+      },
+      generalClassNames: {
+        labelElement: ['$inherited', 'form-wide-label-class']
+      },
+      fields: [{
+        fieldId: 'name',
+        fieldType: 'input',
+        fieldLabel: 'Name',
+      }, {
+        fieldId: 'radioButtons1',
+        fieldType: 'radioButtonGroup',
+        fieldLabel: 'Basic usage',
+        classNames: {
+          labelElement: ['$inherited', 'field-specific-class-names']
+        },
+        options: [{
+          label: 'Option 1',
+          value: '1',
+        }, {
+          label: 'Option 2',
+          value: '2',
+        }]
+      }]
+    }
+    // END-SNIPPET
+
+      // BEGIN-SNIPPET inherit-class-settings.js"
+      this.inheritClassesFormSchema = {
+        settings: {
+          formName: 'inheritClassNames',
+          hideSubmitButton: true
+        },
+        generalClassNames: {
+          labelElement: ['$inherited', 'form-wide-label-class']
+        },
+        fields: [{
+          fieldId: 'name',
+          fieldType: 'input',
+          fieldLabel: 'Name',
+        }]
+      }
+      // END-SNIPPET
+
+    // BEGIN-SNIPPET override-class-settings.js"
+    this.overrideClassesFormSchema = {
+      settings: {
+        formName: 'overrideClassNames',
+        hideSubmitButton: true
+      },
+      generalClassNames: {
+        labelElement: ['form-wide-label-class']
+      },
+      fields: [{
+        fieldId: 'name',
+        fieldType: 'input',
+        fieldLabel: 'Name',
+      }]
+    }
+    // END-SNIPPET
+
+    // BEGIN-SNIPPET validation-class-settings.js"
+    this.validationClassesFormSchema = {
+      settings: {
+        formName: 'validationClassNames',
+        hideSubmitButton: true
+      },
+      generalClassNames: {
+        labelElement: ['$validationClassNames']
+      },
+      fields: [{
+        fieldId: 'name',
+        fieldType: 'input',
+        fieldLabel: 'Name',
+        validationEvents: ['keyUp'],
+        validationRules: [{
+          validationMethod: 'validatePresence',
+          arguments: true
+        }],
+      }]
     }
     // END-SNIPPET
 

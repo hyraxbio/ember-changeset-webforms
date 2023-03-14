@@ -19,8 +19,8 @@ const addonDefaults = {
     disabledField: ['disabled'],
     focussedField: ['focussed'],
     fieldWrapper: ['cwf-field', '$validationClassNames'], 
-    fieldControls: ['field-controls', 'validation-icon'],
-    fieldLabel: ['field-label', '$validationClassNames'],
+    fieldControls: ['field-controls'],
+    fieldLabel: null,
     requiredField: ['required'],
     // Generic validation related classes - apply to all fields
     validClassNames: ['is-valid'],
@@ -41,40 +41,16 @@ const addonDefaults = {
     clearFormButton: ['btn-warning'],
     // fieldType === 'input
     fieldWrapperInput: ['cwf-field-input'],
-    disabledFieldInput: null,
-    focussedFieldInput: null,
-    fieldControlsInput: null,
-    fieldLabelInput: null,
-    requiredFieldInput: null,
     // fieldType === 'clonable'
     clonedFormField: ['cwf-clone-field-controls'],
     maxClonesReached: ['cwf-max-clones-reached'],
     addCloneButton: ['btn-secondary'],
     removeClone: ['hover-pointer', 'remove-clone', 'clone-actions', 'width-xl'],
-    fieldControlsCloneGroup: ['checkbox-group', 'validation-area'],
-    disabledFieldCloneGroup: null,
-    focussedFieldCloneGroup: null,
-    fieldWrapperCloneGroup: null,
-    fieldLabelCloneGroup: null,
-    requiredFieldCloneGroup: null,
-    //fieldType === 'textarea'
-    disabledFieldTextarea: null,
-    focussedFieldTextarea: null,
-    fieldWrapperTextarea: null,
-    fieldControlsTextarea: null,
-    fieldLabelTextarea: null,
-    requiredFieldTextarea: null,
     // fieldType === 'powerSelect'
-    powerSelectTrigger: ['validation-area', 'form-control', '$validationClassNames'],
-    disabledFieldPowerSelect: null,
-    focussedFieldPowerSelect: null,
-    fieldWrapperPowerSelect: null,
-    fieldControlsPowerSelect: null,
-    fieldLabelPowerSelect: null,
-    requiredFieldPowerSelect: null,   
+    powerSelectTrigger: ['form-control'], 
     // fieldType === powerDatePicker
-    powerDatePickerTriggerWrapper: ['validation-area', 'form-control', '$validationClassNames'],
-    powerDatePickerTriggerInput: [],
+    powerDatePickerTriggerWrapper: ['form-control'],
+    powerDatePickerTriggerInput: null,
     powerDatePickerDropdown: ['bg-transparent'],
     powerDatePickerDropdownInner: ['bg-white', 'p-2', 'border', 'rounded', 'd-flex', 'flex-column', 'align-items-center'],
     powerDatePickerCalendar: null,
@@ -84,46 +60,14 @@ const addonDefaults = {
     powerDatePickerCalendarIcon: ['calendar-icon', 'icon'],
     powerDatePickerCalendarNav: ['d-flex', 'align-items-center', 'bg-warning'],
     powerDatePickerCalendarDays: null, 
-    disabledFieldPowerDatePicker: null,
-    focussedFieldPowerDatePicker: null,
-    fieldWrapperPowerDatePicker: null,
-    fieldControlsPowerDatePicker: null,
-    fieldLabelPowerDatePicker: null,
-    requiredFieldPowerDatePicker: null,
     // fieldType === 'clicker';
     clickerElement: ['cwf-clicker'],
-    disabledFieldClicker: null,
-    fieldWrapperClicker: null,
-    fieldLabelClicker: null,
-    // fieldType === 'checkboxGroup'
-    fieldControlsCheckboxGroup: ['checkbox-group', 'validation-area', '$validationClassNames'],
-    disabledFieldCheckboxGroup: null,
-    focussedFieldCheckboxGroup: null,
-    fieldWrapperCheckboxGroup: null,
-    fieldLabelCheckboxGroup: null,
-    requiredFieldCheckboxGroup: null,
-    // fieldType === 'singleCheckbox
-    disabledFieldSingleCheckbox: null,
-    focussedFieldSingleCheckbox: null,
-    fieldWrapperSingleCheckbox: null,
-    fieldControlsSingleCheckbox: null,
-    fieldLabelSingleCheckbox: null,
-    requiredFieldSingleCheckbox: null,
     // fieldType === ('singleCheckBox' || 'checkBoxGroup)
     checkboxLabel: ['form-check-label'],
     labelledCheckbox: ['form-check', 'labelled-checkbox'],
     // fieldType === 'radioButtonGroup
     labelledRadioButton: ['form-check', 'labelled-radio-button'],
     radioButtonLabel: ['form-check-label'],
-    fieldControlsRadioButtonGroup: ['radio-button-group', 'validation-area', '$validationClassNames'],
-    disabledFieldRadioButtonGroup: null,
-    focussedFieldRadioButtonGroup: null,
-    fieldWrapperRadioButtonGroup: null,
-    fieldLabelRadioButtonGroup: null,
-    requiredFieldRadioButtonGroup: null,
-    // fieldType === 'staticContent
-    fieldWrapperStaticContent: null,
-    fieldLabelStaticContent: null,
     // END-SNIPPET
   },
   formSettings: {
@@ -137,7 +81,7 @@ const addonDefaults = {
     showClearFormButton: null, // Boolean - whether or not to show the button that will empty all fields TODO check if this works
     showClearFormButtonText: 'Clear', // String - text to show on the clear form button TODO implement
     novalidate: true, // Disable the browser's native validation feedback
-    submitButtonIcon: null, // String - path to the component icon to show on the submit form button
+    submitButtonIcon: null, // String - path to the component icon to show on the submit form button. Note that is null, an empty element will still appear on the submit button, wuith the classnames defined for submitButtonIcon.
     showDiscardChangesButton: null,
     showDiscardChangesButtonText: 'Reset',
     
@@ -145,7 +89,7 @@ const addonDefaults = {
     submitAfterClear: null // Boolean. If true submits the form after the clear form button is clicked. An example use case is a filters form with a clear filters button, where the desired behaviour is to clear the form fields, and then submit the empty form to reset the filters
     // END-SNIPPET
   },
-  fieldSettings: { // TODO document that these can all be included in a form in "fieldDefaults"
+  fieldSettings: { // TODO document that these can all be included in a form in "fieldSettings"
     // BEGIN-SNIPPET field-settings-options.js
     fieldId: null,
     propertyName: null, // Optional, defaults to the value oif fieldId if not set.
@@ -305,7 +249,6 @@ export default function getWithDefault(formSchema = {}) {
   const appDefaults = config.changesetWebformsDefaults || {};
   const formSettings = _mergeWith({}, addonDefaults.formSettings, appDefaults.formSettings, formSchema.settings);
   const classNameSettings = _mergeWith({}, addonDefaults.generalClassNames, appDefaults.generalClassNames, formSchema.generalClassNames, mergeWithDefaultClassNames);
-
   const addonFieldDefaults = addonDefaults.fieldSettings || {};
   const appConfigFieldDefaults = appDefaults.fieldSettings || {};
   const mergedFields = (formSchema.fields || []).map(field => {
