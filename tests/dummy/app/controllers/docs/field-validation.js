@@ -9,13 +9,13 @@ export default Controller.extend({
     this._super(...arguments);
     // BEGIN-SNIPPET signup-form.js
     this.signUpFormSchema = {
-      settings: {
+      formSettings: {
         formName: 'signup',
         submitSuccessMessage: 'Thank you for signing up.',
         submitButtonText: 'Sign up',
         modelName: 'user', // TODO required?
-        resetAfterSubmit: true,
-        showDiscardChangesButton: true,
+        clearFormAfterSubmit: true,
+        showRollbackChangesetButton: true,
         showClearFormButton: true,
       },
       fields: [{
@@ -144,7 +144,7 @@ export default Controller.extend({
 
     },
 
-    saveSuccess() {
+    submitSuccess() {
 
     }
   }

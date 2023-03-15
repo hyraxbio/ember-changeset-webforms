@@ -5,7 +5,7 @@ export default Component.extend({
   init() {
     this._super(...arguments);
     this.formSchema = {
-      settings: {
+      formSettings: {
         formName: 'forgotPasswordForm',
       },
       fields: [{
@@ -31,11 +31,11 @@ export default Component.extend({
       });
     },
 
-    saveSuccess(submitActionResponse, changesetWebform) {
+    submitSuccess(submitActionResponse, changesetWebform) {
       alert('Success');
     },
 
-    saveFail(error, chnagesetWebform) {
+    submitError(error, chnagesetWebform) {
       alert('Fail');
     }
   }

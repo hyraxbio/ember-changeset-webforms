@@ -22,7 +22,7 @@ export default Controller.extend({
     },
     // BEGIN-SNIPPET radio-button-group-example-1.js
     this.radioButtonGroupExample1FormSchema = {
-      settings: {
+      formSettings: {
         formName: 'radioButtonGroupExample1',
         hideSubmitButton: true,
       },
@@ -46,7 +46,7 @@ export default Controller.extend({
 
     //BEGIN-SNIPPET radio-button-group-example-2.js
     this.radioButtonGroupExample2FormSchema = {
-      settings: {
+      formSettings: {
         formName: 'radioButtonGroupExample2',
         hideSubmitButton: true,
       },
@@ -83,7 +83,7 @@ export default Controller.extend({
     // END-SNIPPET
     // BEGIN-SNIPPET checkbox-group-example-1.js
     this.checkboxGroupExample1FormSchema = {
-      settings: {
+      formSettings: {
         formName: 'checkboxGroupExample1',
         hideSubmitButton: true,
       },
@@ -107,7 +107,7 @@ export default Controller.extend({
 
     //BEGIN-SNIPPET checkbox-group-example-2.js
     this.checkboxGroupExample2FormSchema = {
-      settings: {
+      formSettings: {
         formName: 'checkboxGroupExample2',
         hideSubmitButton: true,
       },
@@ -144,7 +144,7 @@ export default Controller.extend({
     // END-SNIPPET
     // BEGIN-SNIPPET power-select-example-1.js
     this.powerSelectExample1FormSchema = {
-      settings: {
+      formSettings: {
         formName: 'powerSelectExample1',
         hideSubmitButton: true,
       },
@@ -161,7 +161,7 @@ export default Controller.extend({
     // END-SNIPPET
     // BEGIN-SNIPPET power-select-example-2.js
     this.powerSelectExample2FormSchema = {
-      settings: {
+      formSettings: {
         formName: 'powerSelectExample2',
         hideSubmitButton: true,
       },
@@ -195,7 +195,7 @@ export default Controller.extend({
     // END-SNIPPET
     // BEGIN-SNIPPET power-select-example-3.js
     this.powerSelectExample3FormSchema = {
-      settings: {
+      formSettings: {
         formName: 'powerSelectExample3',
         hideSubmitButton: true,
       },
@@ -212,7 +212,7 @@ export default Controller.extend({
 
     // BEGIN-SNIPPET power-select-multiple-example-1.js
     this.powerSelectMultipleExample1FormSchema = {
-      settings: {
+      formSettings: {
         formName: 'powerSelectMultipleExample1',
         hideSubmitButton: true,
       },
@@ -230,7 +230,7 @@ export default Controller.extend({
 
     // BEGIN-SNIPPET input-example-1.js
     this.inputExample1FormSchema = {
-      settings: {
+      formSettings: {
         formName: 'inputExample1',
         hideSubmitButton: true,
       },
@@ -243,7 +243,7 @@ export default Controller.extend({
     // END-SNIPPET
     // BEGIN-SNIPPET input-example-2.js
     this.inputExample2FormSchema = {
-      settings: {
+      formSettings: {
         formName: 'inputExample2',
         hideSubmitButton: true,
       },
@@ -258,7 +258,7 @@ export default Controller.extend({
     // END-SNIPPET
     // BEGIN-SNIPPET textarea-example-1.js
     this.textareaExample1FormSchema = {
-      settings: {
+      formSettings: {
         formName: 'textareaExample1',
         hideSubmitButton: true,
       },
@@ -272,7 +272,7 @@ export default Controller.extend({
     // END-SNIPPET
     // BEGIN-SNIPPET single-checkbox-example-1.js
     this.singleCheckboxExample1FormSchema = {
-      settings: {
+      formSettings: {
         formName: 'singleCheckboxExample1',
         hideSubmitButton: true,
       },
@@ -286,7 +286,7 @@ export default Controller.extend({
     
     // BEGIN-SNIPPET single-checkbox-example-2.js
     this.singleCheckboxExample2FormSchema = {
-      settings: {
+      formSettings: {
         formName: 'singleCheckboxExample2',
         hideSubmitButton: true,
       },
@@ -300,7 +300,7 @@ export default Controller.extend({
 
     // BEGIN-SNIPPET single-checkbox-example-3.js
     this.singleCheckboxExample3FormSchema = {
-      settings: {
+      formSettings: {
         formName: 'singleCheckboxExample3',
         hideSubmitButton: true,
       },
@@ -319,7 +319,7 @@ export default Controller.extend({
 
     // BEGIN-SNIPPET static-content-example-1.js
     this.staticContentExample1FormSchema = {
-      settings: {
+      formSettings: {
         formName: 'staticContentExample1',
         hideSubmitButton: true,
       },
@@ -335,7 +335,7 @@ export default Controller.extend({
 
     // BEGIN-SNIPPET static-content-example-2.js
     this.staticContentExample2FormSchema = {
-      settings: {
+      formSettings: {
         formName: 'staticContentExample2',
         hideSubmitButton: true,
       },
@@ -354,7 +354,7 @@ export default Controller.extend({
 
     // BEGIN-SNIPPET power-datepicker-example-1.js
     this.powerDatapickerExample1FormSchema = {
-      settings: {
+      formSettings: {
         formName: 'powerDatapickerExample1',
         hideSubmitButton: true,
       },
@@ -368,7 +368,7 @@ export default Controller.extend({
     // END-SNIPPET
     // BEGIN-SNIPPET power-datepicker-example-1b.js
     this.powerDatapickerExample1bFormSchema = {
-      settings: {
+      formSettings: {
         formName: 'powerDatapickerExample1b',
         hideSubmitButton: true,
       },
@@ -384,7 +384,7 @@ export default Controller.extend({
     // END-SNIPPET
     // BEGIN-SNIPPET power-datepicker-example-1c.js
     this.powerDatapickerExample1cFormSchema = {
-      settings: {
+      formSettings: {
         formName: 'powerDatapickerExample1c',
         hideSubmitButton: true,
       },
@@ -401,7 +401,7 @@ export default Controller.extend({
     // END-SNIPPET
     // BEGIN-SNIPPET power-datepicker-example-1d.js
     this.powerDatapickerExample1dFormSchema = {
-      settings: {
+      formSettings: {
         formName: 'powerDatapickerExample1d',
         hideSubmitButton: true,
       },
@@ -418,7 +418,7 @@ export default Controller.extend({
     // END-SNIPPET
     // BEGIN-SNIPPET power-datepicker-example-2.js
      this.powerDatapickerExample2FormSchema = {
-      settings: {
+      formSettings: {
         formName: 'powerDatapickerExample2',
         hideSubmitButton: true,
       },
@@ -448,7 +448,7 @@ export default Controller.extend({
     // END-SNIPPET
     // BEGIN-SNIPPET power-datepicker-example-3.js
     this.powerDatapickerExample3FormSchema = {
-      settings: {
+      formSettings: {
         formName: 'powerDatapickerExample3',
         hideSubmitButton: true,
       },
@@ -466,7 +466,7 @@ export default Controller.extend({
 
     // BEGIN-SNIPPET power-datepicker-example-3a.js
     this.powerDatapickerExample3aFormSchema = {
-      settings: {
+      formSettings: {
         formName: 'powerDatapickerExample3a',
         hideSubmitButton: true,
       },
@@ -484,7 +484,7 @@ export default Controller.extend({
     // END-SNIPPET
     // BEGIN-SNIPPET power-datepicker-example-4.js
     this.powerDatapickerExample4FormSchema = {
-      settings: {
+      formSettings: {
         formName: 'powerDatapickerExample4',
         hideSubmitButton: true,
       },
@@ -502,7 +502,7 @@ export default Controller.extend({
     // END-SNIPPET
     // BEGIN-SNIPPET power-datepicker-example-5.js
     this.powerDatapickerExample5FormSchema = {
-      settings: {
+      formSettings: {
         formName: 'powerDatapickerExample5',
         hideSubmitButton: true,
       },
@@ -521,7 +521,7 @@ export default Controller.extend({
     // END-SNIPPET
     // BEGIN-SNIPPET clicker-example-1.js
     this.clickerExample1FormSchema = {
-      settings: {
+      formSettings: {
         formName: 'clickerExample1',
         hideSubmitButton: true,
       },
@@ -543,7 +543,7 @@ export default Controller.extend({
     // END-SNIPPET
     // BEGIN-SNIPPET clicker-example-2.js
     this.clickerExample2FormSchema = {
-      settings: {
+      formSettings: {
         formName: 'clickerExample2',
         hideSubmitButton: true,
       },

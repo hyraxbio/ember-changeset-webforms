@@ -40,12 +40,10 @@ The {{fieldTypes.length}} built in fields have the following `fieldTypes`:
 {{/each}}
 </ul>
 
-### App wide class names example
-
 The two snippets from `config/environment.js` above, result in the following class names on the two label elements in the form below.
 
 {{#docs-demo as |demo|}}
-  {{#demo.example name="app-wide-class-settings.hbs"}}
+  {{#demo.example name="app-wide-class-settings.hbs" title="App wide class names example"}}
     <ChangesetWebform @formSchema={{appWideClassesFormSchema}} />
   {{/demo.example}}
 {{/docs-demo}}

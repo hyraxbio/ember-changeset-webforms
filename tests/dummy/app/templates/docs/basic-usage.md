@@ -6,7 +6,7 @@
       @formSchema={{formSchema}} 
       @data={{hash email="andrew.paterson@test.com"}}
       @submitAction={{action "submit"}} 
-      @saveSuccess={{action "saveSuccess"}} 
+      @submitSuccess={{action "submitSuccess"}} 
      />
   {{/demo.example}}
   {{demo.snippet "login-form.hbs" label="Template" language="htmlbars"}}
@@ -31,7 +31,7 @@ They can also be overridden for any individual form schema in the `settings` obj
       @formSchema={{formSchema}} 
       @data={{hash email="andrew.paterson@test.com"}}
       @submitAction={{action "submit"}} 
-      @saveSuccess={{action "saveSuccess"}} 
+      @submitSuccess={{action "submitSuccess"}} 
      />
   {{/demo.example}}
   {{demo.snippet "login-form.js" label="Component JS" language="javascript"}}

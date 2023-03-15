@@ -5,7 +5,7 @@ export default Controller.extend({
     this._super(...arguments);
     // BEGIN-SNIPPET field-settings-overridden.js
     this.formSchema = {
-      settings: {
+      formSettings: {
         formName: 'signIn',
         submitButtonText: 'Sign in',
       },

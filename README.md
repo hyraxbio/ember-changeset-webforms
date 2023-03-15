@@ -7,9 +7,9 @@ ember-changeset-webforms
 Compatibility
 ------------------------------------------------------------------------------
 
-* Ember.js v3.4 or above
-* Ember CLI v2.13 or above
-* Node.js v8 or above
+* Ember.js v3.12 or below
+* Ember CLI v3.12 or above
+* Node.js v12 or below
 
 
 Installation
@@ -62,7 +62,7 @@ https://offirgolan.github.io/ember-validators/docs/modules/Validators.html
 `hideSuccessValidation` // false
 `modelName`
 `recordToUpdate`
-`resetAfterSubmit`
+`clearFormAfterSubmit`
 `resetButtonClasses`
 `showResetButton`
 `submitAsync`
@@ -83,7 +83,7 @@ This is how you would create something like an edit account form, where the user
 ### Example
 
     this.set('formSchema', {
-      settings: {
+      formSettings: {
         formName: 'signup',
         modelName: 'user',
       },     
@@ -117,7 +117,7 @@ You should not use `props` to pass default values to form fields- those should b
 The `propsHash` property exists for the edge case in which you need to update a child property of `props` from outside the form, and you need the value of the form field to be updated accordingly.
 
     this.set('formSchema', {
-      settings: {
+      formSettings: {
         formName: 'signup',
         modelName: 'user',
       },     

@@ -8,7 +8,7 @@ export default Controller.extend({
 
     // BEGIN-SNIPPET app-wide-class-settings.js"
     this.appWideClassesFormSchema = {
-      settings: {
+      formSettings: {
         formName: 'appClassNames',
         hideSubmitButton: true
       },
@@ -33,7 +33,7 @@ export default Controller.extend({
 
     // BEGIN-SNIPPET form-wide-class-settings.js"
     this.formWideClassesFormSchema = {
-      settings: {
+      formSettings: {
         formName: 'formClassNames',
         hideSubmitButton: true
       },
@@ -61,7 +61,7 @@ export default Controller.extend({
 
     // BEGIN-SNIPPET field-specific-class-settings.js"
     this.fieldSpecificClassesFormSchema = {
-      settings: {
+      formSettings: {
         formName: 'fieldClassNames',
         hideSubmitButton: true
       },
@@ -92,7 +92,7 @@ export default Controller.extend({
 
       // BEGIN-SNIPPET inherit-class-settings.js"
       this.inheritClassesFormSchema = {
-        settings: {
+        formSettings: {
           formName: 'inheritClassNames',
           hideSubmitButton: true
         },
@@ -109,7 +109,7 @@ export default Controller.extend({
 
     // BEGIN-SNIPPET override-class-settings.js"
     this.overrideClassesFormSchema = {
-      settings: {
+      formSettings: {
         formName: 'overrideClassNames',
         hideSubmitButton: true
       },
@@ -126,7 +126,7 @@ export default Controller.extend({
 
     // BEGIN-SNIPPET validation-class-settings.js"
     this.validationClassesFormSchema = {
-      settings: {
+      formSettings: {
         formName: 'validationClassNames',
         hideSubmitButton: true
       },

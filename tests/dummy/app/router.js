@@ -12,6 +12,8 @@ Router.map(function() {
     this.route('configuration-options');
     this.route('creating-custom-fields');
     this.route('action-handling');
+    this.route('form-settings');
+    this.route('field-settings');
     this.route('form-submission');
     this.route('field-validation');
     this.route('integrating-custom-validators');
@@ -23,6 +25,8 @@ Router.map(function() {
 
 
   this.route('form-submission');
+  this.route('form-settings');
+  this.route('field-settings');
 });
 
 export default Router;

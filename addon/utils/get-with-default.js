@@ -72,28 +72,25 @@ const addonDefaults = {
   },
   formSettings: {
     // BEGIN-SNIPPET form-settings-options.js
-    formName: null, // String. Must be unique. Used as a namespace for things like input ID and 'for' attributes. TODO doc more.
-    clearFormButtonText: 'Cancel', // String - text to show in the clear form button, if enabled.
+    formName: null, // String. Must be unique. Used as a namespace for things like input ID and 'for' attributes..
+    novalidate: true, // Disable the browser's native validation feedback
     hideSubmitButton: null,  // Boolean - hides the submit button if true
     submitButtonText: 'Submit', // String - text to show on the submit form button
-    showResetButton: null, // Boolean - whether or not to show the reset form button
-    resetAfterSubmit: null, // Boolean - reset all fields to their defaults after a the form submitAction returns successfully
+    submitButtonIcon: null, // String - path to the component icon to show on the submit form button. Note that if null, an empty element will still appear on the submit button, with the class names defined for submitButtonIcon. If false, the element will not appear on the submit button.
+    clearFormAfterSubmit: null, // Boolean or string - if true, all fields are reset to their defaults after a the form submitAction returns successfully. If set to `suppressDefaultValues` all fields will br cleared.
     showClearFormButton: null, // Boolean - whether or not to show the button that will empty all fields TODO check if this works
-    showClearFormButtonText: 'Clear', // String - text to show on the clear form button TODO implement
-    novalidate: true, // Disable the browser's native validation feedback
-    submitButtonIcon: null, // String - path to the component icon to show on the submit form button. Note that is null, an empty element will still appear on the submit button, wuith the classnames defined for submitButtonIcon.
-    showDiscardChangesButton: null,
-    showDiscardChangesButtonText: 'Reset',
+    clearFormButtonText: 'Clear form', // String - text to show on the clear form button TODO implement
+    submitAfterClear: null, // Boolean. If true submits the form after the clear form button is clicked. An example use case is a filters form with a clear filters button, where the desired behaviour is to clear the form fields, and then submit the empty form to reset the filters
+    showRollbackChangesetButton: null, // Boolean - if true, a button is shown which call the changeset.rollback() method. See https://github.com/poteto/ember-changeset#rollback
+    showRollbackChangesetButtonText: 'Discard changes',
     
-    resetButtonClasses: null, // String - classes to show on the reset button
-    submitAfterClear: null // Boolean. If true submits the form after the clear form button is clicked. An example use case is a filters form with a clear filters button, where the desired behaviour is to clear the form fields, and then submit the empty form to reset the filters
     // END-SNIPPET
   },
   fieldSettings: { // TODO document that these can all be included in a form in "fieldSettings"
-    // BEGIN-SNIPPET field-settings-options.js
     fieldId: null,
     propertyName: null, // Optional, defaults to the value oif fieldId if not set.
     name: null, // String - defaults to the fieldId
+    // BEGIN-SNIPPET generic-field-settings.js
     validationRules: [], // Array of objects defining validation rules. See "Validation".
     validationEvents: [], // Array of strings, possible values include focusOut, keyUp, onChange // TODO check onChanger as validation event
     alwaysValidateOn: ['focusOut', 'change', 'submit', 'removeClone', 'optionSelected'], // Array of strings, possible values include focusOut, keyUp, onChange // TODO check onChange as validation event
@@ -102,10 +99,10 @@ const addonDefaults = {
     castOut: null, // Boolean - exclude the field from validation and submission
     defaultValue: null, // Any - auto set the changeset property for the field to this value when the ChangesetWebform component is rendered and the changeset is created. This value will be overridden by a corresponding property in the data object that is passed to the ChangesetWebform component.  
     fieldLabel: null, // String - the label to show on the field
-    labelComponent: null, // TODO props for this? String - path to a component to use as the label. If set, takes the place of fieldLabel 
+    labelComponent: null, // Object - path to a component to use as the label. If set, takes the place of fieldLabel 
     hideLabel: null, // Hide the label from the user
     disabled: null, // Boolean - disable the field, but do not hide it. It will still be validated [TODO check] and included when the form is submitted
-    classNames: {},
+    classNames: {}, // Object - keys can correspond to those in the classNames settings. See /docs/configure-classnames
     // END-SNIPPET
     eventLog: [],
   },
@@ -247,7 +244,7 @@ export {addonDefaults};
 export default function getWithDefault(formSchema = {}) {
 
   const appDefaults = config.changesetWebformsDefaults || {};
-  const formSettings = _mergeWith({}, addonDefaults.formSettings, appDefaults.formSettings, formSchema.settings);
+  const formSettings = _mergeWith({}, addonDefaults.formSettings, appDefaults.formSettings, formSchema.formSettings);
   const classNameSettings = _mergeWith({}, addonDefaults.generalClassNames, appDefaults.generalClassNames, formSchema.generalClassNames, mergeWithDefaultClassNames);
   const addonFieldDefaults = addonDefaults.fieldSettings || {};
   const appConfigFieldDefaults = appDefaults.fieldSettings || {};

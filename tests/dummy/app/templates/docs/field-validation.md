@@ -58,7 +58,7 @@ validationRules: [{
         recoveryEmail="test"
       }}
       @submitAction={{action "submit"}} 
-      @saveSuccess={{action "saveSuccess"}} 
+      @submitSuccess={{action "submitSuccess"}} 
      />
   {{/demo.example}}
   {{demo.snippet "signup-form.js" label="Component JS" language="javascript"}}

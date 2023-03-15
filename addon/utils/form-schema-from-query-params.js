@@ -1,11 +1,11 @@
 export default function formSchemaFromQueryParams(queryParamsObject) {
   var formSchema = {
-    settings: {
+    formSettings: {
       formName: `${queryParamsObject.name}Filters`,
       submitButtonText: 'Apply Filters',
       clearFormButtonText: 'Reset filters',
       showClearFormButton: true,
-      resetAfterSubmit: false,
+      clearFormAfterSubmit: false,
       submitAfterClear: true
     },
     generalClassNames: {

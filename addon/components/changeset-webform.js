@@ -40,8 +40,8 @@ export default Component.extend({
   }),
 
   actions: {
-    generateChangesetWebform(formSchema, data, customValidators) {
-      this.set('changesetWebform', createChangesetWebform(formSchema, data, customValidators));
+    generateChangesetWebform(formSchema, data, customValidators, opts) {
+      this.set('changesetWebform', createChangesetWebform(formSchema, data, customValidators, opts));
       if (this.get('afterGenerateChangesetWebform')) {
         this.afterGenerateChangesetWebform(this.get('changesetWebform'));
       } 
@@ -87,43 +87,52 @@ export default Component.extend({
                   if (isPromise(submitAction)) {
                     submitAction.then(submitActionResponse => {
                       changesetWebform.formSettings.set('requestInFlight', false);
-                      if (this.saveSuccess) {
-                        this.saveSuccess(submitActionResponse, changesetWebform);
+                      if (this.submitSuccess) {
+                        this.submitSuccess(submitActionResponse, changesetWebform);
                       }
-                      if (this.get('formSettings.resetAfterSubmit')) {
-                        this.send('clearForm');
+                      if (changesetWebform.formSettings.clearFormAfterSubmit) {
+                        this.send('clearForm', changesetWebform);
                       }
                     }).catch(error => {
                       changesetWebform.formSettings.set('requestInFlight', false);
-                      if (this.get('saveFail')) {
-                        this.saveFail(error, changesetWebform);
+                      if (this.get('submitError')) {
+                        this.submitError(error, changesetWebform);
                       }
                     });
                   } else {
                     changesetWebform.formSettings.set('requestInFlight', false);
                     var submitActionResponse = submitAction;
-                    if (this.get('saveSuccess')) {
-                      this.saveSuccess(submitActionResponse, changesetWebform);
+                    if (this.get('submitSuccess')) {
+                      this.submitSuccess(submitActionResponse, changesetWebform);
+                    }
+                    if (changesetWebform.formSettings.clearFormAfterSubmit) {
+                      this.send('clearForm', changesetWebform);
                     }
                   }
                 } catch (error) {
-                  if (this.get('saveFail')) {
-                    this.saveFail(error, changesetWebform);
+                  changesetWebform.formSettings.set('requestInFlight', false);
+                  if (this.get('submitError')) {
+                    this.submitError(error, changesetWebform);
                   }
+                }
+              }).catch(err => {
+                changesetWebform.formSettings.set('requestInFlight', false);
+                if (this.get('submitError')) {
+                  this.submitError(err, changesetWebform);
                 }
               });
           } else {
             changeset.save().then(saveChangesetResponse => {
               changesetWebform.formSettings.set('requestInFlight', false);
-              if (this.saveSuccess) {
-                this.saveSuccess(saveChangesetResponse, changesetWebform);
+              if (this.submitSuccess) {
+                this.submitSuccess(saveChangesetResponse, changesetWebform);
               }
-              if (changesetWebform.formSettings.resetAfterSubmit) {
-                this.send('resetForm');
+              if (changesetWebform.formSettings.clearFormAfterSubmit) {
+                this.send('clearForm', changesetWebform);
               }
             }).catch(error => {
-              if (this.saveFail) {
-                this.saveFail(error, changesetWebform);
+              if (this.submitError) {
+                this.submitError(error, changesetWebform);
               }
               changesetWebform.formSettings.set('requestInFlight', false);
             });
@@ -135,18 +144,23 @@ export default Component.extend({
         }
       }).catch(err => {
         // TODO see how this is called
+        changesetWebform.formSettings.set('requestInFlight', false);
         this.formValidationFailed(changesetWebform, err);
       });
     },
 
-    discardChanges(changeset) {
-      changeset.rollback();
+    discardChanges(changesetWebform) {
+      console.log('discardChanges');
+      console.log(changesetWebform.changeset.changes)
+      changesetWebform.changeset.rollback();
     },
 
-    clearForm() {
-      // TODO add option for suppress defaults
+    clearForm(changesetWebform) {
       // TODO test for this
-      this.send('generateChangesetWebform', this.get('formSchema'), null, this.get('customValidators'));
+      const opts = { 
+        suppressDefaults: (changesetWebform.formSettings.clearFormAfterSubmit === 'suppressDefaultValues')
+      }
+      this.send('generateChangesetWebform', this.get('formSchema'), null, this.get('customValidators'), opts);
       if (this.get('formSettings.submitAfterClear')) {
         this.send('submit', this.changesetWebform);
       }

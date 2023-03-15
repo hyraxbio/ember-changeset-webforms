@@ -55,6 +55,9 @@ export default {
 
   singleCheckboxBasicUse: '[data-test-id="single-checkbox-basic-use"]',
   
+  cwfSubmitFormButton: '[data-test-id="cwf-submit-form-button"]',
+
+
   dataDate(date) {
     return `[data-date="${date}"]`;
   }

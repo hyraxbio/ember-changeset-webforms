@@ -10,7 +10,7 @@ The action you pass can either return a promise, or be a synchronous action.
 
 ### Promise example
 
-In the case of a promise based action, return the promise so that the `ChangesetWebform` component can fire the `saveSuccess` or `saveFail` actions where they are passed (See below). 
+In the case of a promise based action, return the promise so that the `ChangesetWebform` component can fire the `submitSuccess` or `submitError` actions where they are passed (See below). 
 
 // TODO interactive
 
@@ -26,9 +26,9 @@ In this example, assume that `fetchPromise` returns a promise.
 
 ### Synchronous example
 
-Simply return after completing the synchronous operations, and the `ChnagesetWebform` component will fire the `saveSuccess` action if the operation runs successfully.
+Simply return after completing the synchronous operations, and the `ChnagesetWebform` component will fire the `submitSuccess` action if the operation runs successfully.
 
-If an error is encountered, the `saveFail` action will be fired. TODO test this.
+If an error is encountered, the `submitError` action will be fired. TODO test this.
 
 ```javascript
 submitAction(changesetData, changesetWebform) {
@@ -42,15 +42,15 @@ If `submitAction` is not passed, the fallback submit below code will run.
 ```javascript
 changeset.save().then(saveChangesetResponse => {
   changesetWebform.formSettings.set('requestInFlight', false);
-  if (this.saveSuccess) {
-    this.saveSuccess(saveChangesetResponse, changesetWebform);
+  if (this.submitSuccess) {
+    this.submitSuccess(saveChangesetResponse, changesetWebform);
   }
-  if (changesetWebform.formSettings.resetAfterSubmit) {
-    this.send('resetForm');
+  if (changesetWebform.formSettings.clearFormAfterSubmit) {
+    this.send('clearForm');
   }
 }).catch(error => {
-  if (this.saveFail) {
-    this.saveFail(error, changesetWebform);
+  if (this.submitError) {
+    this.submitError(error, changesetWebform);
   }
   changesetWebform.formSettings.set('requestInFlight', false);
 });
@@ -157,10 +157,10 @@ formValidationFailed(changesetWebform) {
 
 formValidationPassed() {
 
-## saveFail
+## submitError
 
-saveFail(error, formFields, formSettings, changeset) {
+submitError(error, formFields, formSettings, changeset) {
 
-## saveSuccess
+## submitSuccess
 
-saveSuccess(response, formFields, formMetaData, changeset) {
+submitSuccess(response, formFields, formMetaData, changeset) {

@@ -13,10 +13,10 @@ export default Controller.extend({
     // END-SNIPPET
     // BEGIN-SNIPPET clone-group-form.js
     this.formSchema = {
-      settings: {
+      formSettings: {
         formName: 'addEmailsForm',
         submitButtonText: 'Submit',
-        resetAfterSubmit: true
+        clearFormAfterSubmit: true
       },
       fields: [{
         fieldId: 'emails',
@@ -58,10 +58,10 @@ export default Controller.extend({
     //END-SNIPPET
     // BEGIN-SNIPPET clone-group-form-keyup.js
     this.formSchema2 = {
-      settings: {
+      formSettings: {
         formName: 'addEmailsForm',
         submitButtonText: 'Submit',
-        resetAfterSubmit: true
+        clearFormAfterSubmit: true
       },
 
       fields: [{

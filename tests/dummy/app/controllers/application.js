@@ -5,10 +5,9 @@ export default Controller.extend({
   init: function() {
     this._super(...arguments);
     this.loginFormSchema = {
-      settings: {
+      formSettings: {
         formName: 'login',
         submitButtonText: 'Log in',
-        showResetButton: false,
         hideSuccessValidation: true,
         hideLabels: true
       },
@@ -50,7 +49,7 @@ export default Controller.extend({
       })
     },
 
-    saveSuccess() {
+    submitSuccess() {
       console.log('Success!');
     }
   }
