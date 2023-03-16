@@ -37,8 +37,8 @@ const addonDefaults = {
         return classNameSettings.requestInFlight;
       }
     },
-    discardChangesButton: ['btn-success'],
-    clearFormButton: ['btn-warning'],
+    rollbackChangesetButton: ['btn-gray-medium'],
+    clearFormButton: ['btn-gray-medium'],
     // fieldType === 'input
     fieldWrapperInput: ['cwf-field-input'],
     // fieldType === 'clonable'
@@ -49,7 +49,7 @@ const addonDefaults = {
     // fieldType === 'powerSelect'
     powerSelectTrigger: ['form-control'], 
     // fieldType === powerDatePicker
-    powerDatePickerTriggerWrapper: ['form-control'],
+    powerDatePickerTriggerWrapper: ['form-control', 'input'],
     powerDatePickerTriggerInput: null,
     powerDatePickerDropdown: ['bg-transparent'],
     powerDatePickerDropdownInner: ['bg-white', 'p-2', 'border', 'rounded', 'd-flex', 'flex-column', 'align-items-center'],
@@ -58,7 +58,7 @@ const addonDefaults = {
     powerDatePickerTimeSelectorInput: ['inline'],
     powerDatePickerClearButton: ['clear-date-time-button', 'icon'],
     powerDatePickerCalendarIcon: ['calendar-icon', 'icon'],
-    powerDatePickerCalendarNav: ['d-flex', 'align-items-center', 'bg-warning'],
+    powerDatePickerCalendarNav: ['d-flex', 'align-items-center'],
     powerDatePickerCalendarDays: null, 
     // fieldType === 'clicker';
     clickerElement: ['cwf-clicker'],

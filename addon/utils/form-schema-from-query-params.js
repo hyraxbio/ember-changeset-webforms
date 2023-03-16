@@ -6,11 +6,11 @@ export default function formSchemaFromQueryParams(queryParamsObject) {
       clearFormButtonText: 'Reset filters',
       showClearFormButton: true,
       clearFormAfterSubmit: false,
-      submitAfterClear: true
+      submitAfterClear: true,
     },
     generalClassNames: {
       clearFormButton: ['btn', 'btn-outline-gray-medium'],
-      submitButton: ['btn', 'btn-primary']
+      submitButton: ['btn', 'btn-primary', 'cwf-form-submit-button']
     },
     fields: []
   };

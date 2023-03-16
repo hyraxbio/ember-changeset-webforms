@@ -31,7 +31,7 @@
         class="{{ember-changeset-webforms/dynamic-class-names "buttonElement,submitButton" changesetWebform}}" />
     {{/unless}}
     {{#if formSettings.showRollbackChangesetButton}}
-      <button class={{formSettings.showRollbackChangesetButtonClasses}} type="button" data-test-id="cwf-reset-form-button" {{action "discardChanges" changesetWebform}} class="{{ember-changeset-webforms/dynamic-class-names "buttonElement,discardChangesButton" changesetWebform}}">{{formSettings.showRollbackChangesetButtonText}}</button>
+      <button class={{formSettings.showRollbackChangesetButtonClasses}} type="button" data-test-id="cwf-reset-form-button" {{action "discardChanges" changesetWebform}} class="{{ember-changeset-webforms/dynamic-class-names "buttonElement,rollbackChangesetButton" changesetWebform}}">{{formSettings.showRollbackChangesetButtonText}}</button>
     {{/if}}
     {{#if formSettings.showClearFormButton}}
       <button type="button" data-test-id="cwf-reset-form-button" {{action "clearForm" changesetWebform}} class="{{ember-changeset-webforms/dynamic-class-names "buttonElement,clearFormButton" changesetWebform}}">{{formSettings.clearFormButtonText}}</button>
