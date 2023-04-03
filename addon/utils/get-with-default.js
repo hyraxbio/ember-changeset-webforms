@@ -22,6 +22,7 @@ const addonDefaults = {
     fieldControls: ['field-controls'],
     fieldLabel: null,
     requiredField: ['required'],
+    optionsWrapper: ['cwf-field-options'],
     // Generic validation related classes - apply to all fields
     validClassNames: ['is-valid'],
     invalidClassNames: ['is-invalid'],

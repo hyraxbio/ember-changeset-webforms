@@ -2,6 +2,14 @@
 
 .cwf-field {
   $cwf-field-power-select-max-width: 300px;
+  .cwf-field-options.horizontal {
+    display: flex;
+    .labelled-checkbox,
+    .labelled-radio-button {
+      margin: 0 20px 0 0;
+    }
+  }
+
   &.power-select {
     max-width: $cwf-field-power-select-max-width;
   }
