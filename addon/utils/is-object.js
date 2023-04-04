@@ -1,4 +1,3 @@
-
 import { typeOf } from '@ember/utils';
 
 export default function isObject(val) {
