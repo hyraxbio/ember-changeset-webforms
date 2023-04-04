@@ -3,7 +3,7 @@ import layout from '../templates/components/changeset-webform';
 import validateFields from 'ember-changeset-webforms/utils/validate-fields';
 import castAllowedFields from 'ember-changeset-webforms/utils/cast-allowed-fields';
 import createChangesetWebform from 'ember-changeset-webforms/utils/create-changeset-webform';
-import isPromise from 'ember-changeset/utils/is-promise';
+import isPromise from 'ember-changeset-webforms/utils/is-promise';
 
 export default Component.extend({
   layout,
