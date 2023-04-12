@@ -8,16 +8,17 @@ export default Component.extend({
   layout,
   classNames: ['clone-group', 'cwf-clone-group'],
   classNameBindings: ['cloneGroupNameClass', 'validationStatus', 'masterFormField.required:required', 'disabled:disabled', 'readonly:readonly', 'masterFormField.fieldClassNames', 'masterFormField.hideSuccessValidation:hide-success-validation', 'masterFormField.validates:validates', 'typeClass', 'masterFormField.focussed:focussed'],
+  attributeBindings: ['dataTestId:data-test-id', 'dataTestCwfFieldValidates:data-test-cwf-field-validates', 'dataTestCwfFieldRequired:data-test-cwf-field-required'],
 
-  'data-test-cwf-field-validates': computed('masterFormField.validates', function() {
+  dataTestCwfFieldValidates: computed('masterFormField.validates', function() {
     return this.get('masterFormField.validates');
   }),
 
-  'data-test-cwf-field-required': computed('masterFormField.required', function() {
+  dataTestCwfFieldRequired: computed('masterFormField.required', function() {
     return this.get('masterFormField.required');
   }),
 
-  'data-test-id': computed('masterFormField', function() {
+  dataTestId: computed('masterFormField', function() {
     return `clone-group-${this.get('masterFormField.fieldId')}`;
   }),
 

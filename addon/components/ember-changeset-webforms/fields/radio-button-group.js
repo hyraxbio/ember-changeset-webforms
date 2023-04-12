@@ -6,14 +6,12 @@ export default Component.extend({
   layout,
   tagName: '',
 
-  groupValue: computed('displayValue', function() {
-    return this.get('displayValue');
-  }),
+  groupValue: computed.reads('displayValue'),
 
   actions: {
-    onChange(formField, value) {
-      this.onUserInteraction(formField, 'radioOptionChanged', value)
-      this.onChange(formField, value);
+    onRadioChange(value) {
+      this.onUserInteraction(this.formField, 'radioOptionChanged', value)
+      this.onChange(this.formField, value);
     }
   }
 });

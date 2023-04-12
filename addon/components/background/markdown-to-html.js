@@ -2,7 +2,7 @@ import Component from '@ember/component';
 import layout from '../../templates/components/background/markdown-to-html';
 import MarkdownIt from 'markdown-it';
 import { computed } from '@ember/object';
-import { htmlSafe } from '@ember/string';
+import { htmlSafe } from '@ember/template';
 
 const md = new MarkdownIt({});
 

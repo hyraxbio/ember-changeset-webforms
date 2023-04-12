@@ -5,7 +5,18 @@ import dynamicClassNames from 'ember-changeset-webforms/utils/dynamic-class-name
 
 export default Component.extend({
   layout,
-  classNameBindings: ['focussedClasses', 'requiredClasses', 'disabledClasses', 'validatesClasses', 'wasValidatedClasses', 'readonly:readonly', 'formField.hideSuccessValidation:hide-success-validation', 'fieldWrapperClassNames', 'typeClass'],
+  classNameBindings: ['focussedClasses', 'requiredClasses', 'disabledClasses', 'validatesClasses', 'wasValidatedClasses', 'formField.readonly:readonly', 'formField.hideSuccessValidation:hide-success-validation', 'fieldWrapperClassNames', 'typeClass'],
+  attributeBindings: ['dataTestClass:data-test-class', 'formField.validates:data-test-cwf-field-validates', 'formField.required:data-test-cwf-field-required', 'dataTestId:data-test-id'],
+
+  'dataTestId': computed('dataTestFieldId', function() {
+    if (!this.dataTestFieldId) { return; }
+    return `${this.dataTestFieldId}-field`;
+  }),
+
+  'dataTestClass': computed('typeClass', function() {
+    if (!this.typeClass) { return; }
+    return `cwf-${this.typeClass}`;
+  }),
 
   fieldWrapperClassNames: computed('changesetWebform', 'formField.validationStatus', function() {
     return dynamicClassNames('fieldWrapper', this.changesetWebform, this.formField);
@@ -29,24 +40,5 @@ export default Component.extend({
 
   focussedClasses: computed('formField.focussed', function() {
     return this.formField.focussed ? dynamicClassNames('focussedField', this.changesetWebform, this.formField) : '';
-  }),
-
-  'data-test-cwf-field-validates': computed('formField.validates', function() {
-    return this.get('formField.validates');
-  }),
-
-  'data-test-cwf-field-required': computed('formField.required', function() {
-    return this.get('formField.required');
-  }),
-
-  'data-test-id': computed('dataTestFieldId', function() {
-    if (!this.get('dataTestFieldId')) { return; }
-    return `${this.get('dataTestFieldId')}-field`;
-  }),
-
-  'data-test-class': computed('typeClass', function() {
-    if (!this.get('typeClass')) { return; }
-    return `cwf-${this.get('typeClass')}`;
-  }),
-
+  })
 });

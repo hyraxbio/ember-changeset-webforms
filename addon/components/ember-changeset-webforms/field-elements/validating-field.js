@@ -54,12 +54,12 @@ export default Component.extend({
     },
 
     onChange(formField, value) {
-      formField.eventLog.push('change');
+      formField.eventLog.pushObject('change');
       this.send('setFieldValue', value, formField);
     },
 
     onUserInteraction(formField, eventType, value, event) {
-      formField.eventLog.push(eventType);
+      formField.eventLog.pushObject(eventType);
       if (eventType === 'keyUp') {
         if (formField.fieldType === 'input' && event.keyCode === 13) {
           if (this.submitForm) {
@@ -71,7 +71,7 @@ export default Component.extend({
         this.send('setFieldValue', value, formField);
       } else if (eventType === 'focusOut') {
         formField.set('focussed', false);
-        formField.eventLog.push('focusOut');
+        formField.eventLog.pushObject('focusOut');
         if (value && formField.trim && formField.inputType !== 'password' && typeof value === 'string') {
           value = value.trim();
         }

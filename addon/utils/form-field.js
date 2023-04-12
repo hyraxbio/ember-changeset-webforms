@@ -3,7 +3,7 @@ import { computed } from '@ember/object';
 import validationEventLog from 'ember-changeset-webforms/utils/validation-event-log';
 
 export default EmberObject.extend({
-  validationStatus: computed('changeset.error', 'focussed', 'eventLog.[]', function () {
+  validationStatus: computed('changeset.error', 'focussed', 'eventLog', 'eventLog.[]', function () {
     var formField = this;
     if (!formField) { return; }
     if (!formField.validates) { return; }

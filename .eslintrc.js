@@ -20,6 +20,11 @@ module.exports = {
     browser: true
   },
   rules: {
+    'ember/no-classic-classes': 0,
+    'ember/no-actions-hash': 0,
+    'ember/no-component-lifecycle-hooks': 0,
+    'ember/require-tagless-components': 0,
+    'ember/require-computed-property-dependencies': 0,
   },
   overrides: [
     // node files
