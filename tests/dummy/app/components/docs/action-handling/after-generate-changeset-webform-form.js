@@ -45,8 +45,8 @@ export default Component.extend({
     },
 
     next() {
-      const currentStep = this.get('step');
-      const changesetWebform = this.get('changesetWebform');
+      const currentStep = this.step;
+      const changesetWebform = this.changesetWebform;
       validateFields(changesetWebform).then(() => {
         if (changesetWebform.changeset.isValid) {
           this.set('step', currentStep + 1);
@@ -54,7 +54,7 @@ export default Component.extend({
       });
     },
     prev() {
-      const currentStep = this.get('step');
+      const currentStep = this.step;
       this.set('step', currentStep - 1);
     }
   }

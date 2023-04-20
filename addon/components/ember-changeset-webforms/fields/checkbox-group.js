@@ -7,7 +7,7 @@ export default Component.extend({
   tagName: '',
 
   options: computed('displayValue', function() {
-    var checkedItems = this.stringToArray(this.get('displayValue'));
+    var checkedItems = this.stringToArray(this.displayValue);
     var options = this.get('formField.options');
     options.forEach(function(option) {
       if (checkedItems.indexOf(option.key) > -1) {
@@ -26,7 +26,7 @@ export default Component.extend({
 
   actions: {
     checkboxToggled: function(formField, key, value, event) {
-      var checkedItems = this.stringToArray(this.get('displayValue'));
+      var checkedItems = this.stringToArray(this.displayValue);
       if (value === true) {
         checkedItems = checkedItems.concat([key]); // Use concat not push so that the computed property above can recognide whne a new item is checked.
       } else {
@@ -49,7 +49,7 @@ export default Component.extend({
     if (typeof value === 'string') {
       array = value.split(',');
     } else {
-      array = this.get('displayValue') || [];
+      array = this.displayValue || [];
     }
     array = array.map(item => {
       return item.trim();

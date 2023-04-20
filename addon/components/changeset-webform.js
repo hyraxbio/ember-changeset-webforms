@@ -18,7 +18,7 @@ export default Component.extend({
   
   formFields: computed.reads('formObject.formFields'),
 
-  needsValidation: computed('formFields', 'formFields.@each', function() {
+  needsValidation: computed('formFields', 'formFields.[]', function() {
     var formFields = this.formFields || [];
     return formFields.find(field => {
       field.set('validationRules', field.validationRules || []);
@@ -75,7 +75,11 @@ export default Component.extend({
           if (this.beforeSubmitAction) {
             this.beforeSubmitAction(changesetWebform);
           }
-          castAllowedFields(changesetWebform);
+          try {
+            castAllowedFields(changesetWebform); // TODO must bring this back when cast is fixed.
+          } catch(err) {
+            console.log(err);
+          }
           changesetWebform.formSettings.set('requestInFlight', true);
           if (this.submitAction) {
               changeset.save().then(savedChangeset => {
@@ -113,6 +117,7 @@ export default Component.extend({
                   }
                 }
               }).catch(err => {
+                console.log(err)
                 changesetWebform.formSettings.set('requestInFlight', false);
                 if (this.submitError) {
                   this.submitError(err, changesetWebform);
@@ -152,8 +157,12 @@ export default Component.extend({
 
     clearForm(changesetWebform) {
       // TODO test for this
+      console.log('clearForm')
       const opts = { 
         suppressDefaults: (changesetWebform.formSettings.clearFormAfterSubmit === 'suppressDefaultValues')
+      }
+      if (this.beforeReset) {
+        this.beforeReset(changesetWebform);
       }
       this.send('generateChangesetWebform', this.formSchema, null, this.customValidators, opts);
       if (this.formSettings.submitAfterClear) {

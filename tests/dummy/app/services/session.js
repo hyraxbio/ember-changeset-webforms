@@ -13,7 +13,7 @@ export default Service.extend({
       title: 'Sign up form',
       formName: 'signUpForm',
       modelName: 'user',
-      recordToUpdate: this.get('model'),
+      recordToUpdate: this.model,
       fields: [{
           fieldId: 'name',
           fieldLabel: 'Name',
@@ -21,7 +21,7 @@ export default Service.extend({
           validationRules: [{ 'validationMethod': 'required' }],
           validationEvents: ['focusOut', 'keyUp'],
           defaultValue: 'Foo',
-          dynamicValue: this.get('testDynamic'),
+          dynamicValue: this.testDynamic,
         },
         {
           fieldId: 'email',

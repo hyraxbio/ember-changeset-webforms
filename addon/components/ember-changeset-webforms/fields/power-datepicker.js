@@ -14,7 +14,7 @@ export default Component.extend({
     onSelectDateTime(dateTime) {
       var formField = this.formField;
       if (formField.dateRangeSettings) {
-        var rangePartner = this.get('formFields').findBy('fieldId', formField.dateRangeSettings.rangePartnerFieldId);
+        var rangePartner = this.formFields.findBy('fieldId', formField.dateRangeSettings.rangePartnerFieldId);
         if (rangePartner) {
           if (rangePartner.dateRangeSettings.rangePosition === 'start') {
             rangePartner.set('maxDate', dateTime);

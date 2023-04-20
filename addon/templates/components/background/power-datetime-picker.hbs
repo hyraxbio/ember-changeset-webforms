@@ -17,8 +17,8 @@
   <dropdown.Content data-test-id="ecw-power-datepicker-dropdown" class={{dropdownClass}}>
     <div class={{dropdownInnerClass}}>
       <PowerCalendar 
-        @minDate={{minDate}} 
-        @maxDate={{maxDate}} 
+        @minDate={{@minDate}} 
+        @maxDate={{@maxDate}} 
         @selected={{selectedDate}} 
         @onSelect={{action "dateClicked" dropdown}} 
         @onCenterChange={{action (mut center) value="date"}} 
@@ -29,10 +29,10 @@
           @calendarTitleFormat={{calendarTitleFormat}}
           @moveCenter={{action calendar.actions.moveCenter}}
           class={{calendarNavClass}} />
-        <calendar.days 
-          @minDate={{minDate}} 
-          @maxDate={{maxDate}} 
-           class={{calendarDaysClass}}/>
+        <calendar.Days 
+          @minDate={{@minDate}} 
+          @maxDate={{@maxDate}} 
+           class={{calendarDaysClass}} />
       </PowerCalendar>
       {{#if (and showTimeSelector value (not fixedTime))}}
         <div data-test-id="time-selector" class="time-select {{unless value "disabled"}} {{timeSelectorContainerClass}}">

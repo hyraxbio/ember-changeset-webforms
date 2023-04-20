@@ -8,18 +8,18 @@ export default Component.extend({
   classNames: ['power-datetime-picker'],
 
   defaultHour: computed('defaultTime', function() {
-    if (!this.get('defaultTime')) { return '00'; }
-    return this.get('defaultTime').split(':')[0] || '00';
+    if (!this.defaultTime) { return '00'; }
+    return this.defaultTime.split(':')[0] || '00';
   }),
 
   defaultMinute: computed('defaultTime', function() {
-    if (!this.get('defaultTime')) { return '00'; }
-    return this.get('defaultTime').split(':')[1] || '00';
+    if (!this.defaultTime) { return '00'; }
+    return this.defaultTime.split(':')[1] || '00';
   }),
 
   defaultSecond: computed('defaultTime', function() {
-    if (!this.get('defaultTime')) { return '00'; }
-    return this.get('defaultTime').split(':')[2] || '00';
+    if (!this.defaultTime) { return '00'; }
+    return this.defaultTime.split(':')[2] || '00';
   }),
 
   fixedTimeParsed: computed('fixedTime', function() {
@@ -36,16 +36,17 @@ export default Component.extend({
   }),
 
   didInsertElement: function() {
-    if (this.get('defaultDate')) {
-      this.set('selectedDate', this.get('defaultDate'));
+this._super(...arguments);
+    if (this.defaultDate) {
+      this.set('selectedDate', this.defaultDate);
     }
-    if (this.get('defaultTime')) {
-      this.set('selectedHour', this.get('defaultHour'));
-      this.set('selectedMinute', this.get('defaultMinute'));
-      this.set('selectedSecond', this.get('defaultSecond'));
+    if (this.defaultTime) {
+      this.set('selectedHour', this.defaultHour);
+      this.set('selectedMinute', this.defaultMinute);
+      this.set('selectedSecond', this.defaultSecond);
     }
-    if (this.get('calendarStartMonth')) {
-      var split = this.get('calendarStartMonth').split('/');
+    if (this.calendarStartMonth) {
+      var split = this.calendarStartMonth.split('/');
       this.set('calendarStartDate', moment().year(parseInt(split[1])).month(parseInt(split[0]) - 1).day(1));
     }
 
@@ -61,7 +62,7 @@ export default Component.extend({
   },
 
   navButtons: computed('center', function() {
-    var allowNavigationOutOfRange = this.get('allowNavigationOutOfRange');
+    var allowNavigationOutOfRange = this.allowNavigationOutOfRange;
     return {
       nextMonth: allowNavigationOutOfRange || this.targetInRange(1, 'months'),
       nextYear: allowNavigationOutOfRange || this.targetInRange(1, 'years'),
@@ -121,12 +122,10 @@ export default Component.extend({
     }).filter(item => item.label);
   }),
 
-  parsedDatepickerPlaceholder: computed('datepickerPlaceholder', 'parsedDateTimeDisplayFormat', function() {
-    return this.get('datepickerPlaceholder') || this.get('parsedDateTimeDisplayFormat');
-  }),
+  parsedDatepickerPlaceholder: computed.or('datepickerPlaceholder', 'parsedDateTimeDisplayFormat'),
 
   validMoment(event) {
-    var parsedDateTimeDisplayFormat = this.get('parsedDateTimeDisplayFormat');
+    var parsedDateTimeDisplayFormat = this.parsedDateTimeDisplayFormat;
     const value = event.target.value;
     const strictDateFormat = parsedDateTimeDisplayFormat.replace(/S{1,}/, 'SSSS');
     if (!moment(value, strictDateFormat, true).isValid()) {
@@ -149,7 +148,7 @@ export default Component.extend({
     if (currentDateTime) {
       newDateTime = moment(selectedDate).hour(currentHour).minute(currentMinute).second(currentSecond).toDate();
     } else {
-      newDateTime = moment(selectedDate).hour(this.get('defaultHour')).minute(this.get('defaultMinute')).second(this.get('defaultSecond')).toDate();
+      newDateTime = moment(selectedDate).hour(this.defaultHour).minute(this.defaultMinute).second(this.defaultSecond).toDate();
     }
     return newDateTime;
   },
@@ -208,7 +207,7 @@ export default Component.extend({
     },
 
     checkDateInputFocus() {
-      if (this.get('dateInputFocussed')) { return false;}
+      if (this.dateInputFocussed) { return false;}
       return true;
     },
 
@@ -235,7 +234,7 @@ export default Component.extend({
 
     dateClicked(dropdown, value) {
       this.send('setDate', value.date);
-      if (this.get('closeDatePickerOnSelect')) {
+      if (this.closeDatePickerOnSelect) {
         dropdown.actions.close();
       }
       if (this.onUserInteraction) {
@@ -369,48 +368,48 @@ export default Component.extend({
     },
 
     onTriggerFocus: function() {
-      if (this.get('center')) { return; }
-      var startDate = this.get('calendarStartDate') || moment().toDate()
-      if (this.get('maxDate') < moment().toDate()) {
-        startDate = this.get('maxDate');
+      if (this.center) { return; }
+      var startDate = this.calendarStartDate || moment().toDate()
+      if (this.maxDate < moment().toDate()) {
+        startDate = this.maxDate;
       }
-      if (this.get('minDate') > moment().toDate() ||
-        this.get('minDate') < moment().toDate() && this.get('maxDate') < moment().toDate() ||
-        this.get('minDate') > moment().toDate() && this.get('maxDate') > moment().toDate()) {
-        startDate = this.get('minDate');
+      if (this.minDate > moment().toDate() ||
+        this.minDate < moment().toDate() && this.maxDate < moment().toDate() ||
+        this.minDate > moment().toDate() && this.maxDate > moment().toDate()) {
+        startDate = this.minDate;
       }
       this.set('center', startDate);
     },
 
     navigate: function(datepicker, span, units) {
-      if (this.get('allowNavigationOutOfRange') || this.targetInRange(span, units)) {
+      if (this.allowNavigationOutOfRange || this.targetInRange(span, units)) {
         datepicker.actions.moveCenter(span, units);
       }
     },
 
     selectDay: function(datepicker, span, units) {
       var targetDay;
-      var startOfVisibleMonth = moment(this.get('center')).startOf('month').toDate();
-      var endOfVisibleMonth = moment(this.get('center')).endOf('month').toDate();
-      var currentSelected = moment(this.get('selectedDate'));
-      if (this.get('selectedDate') >= startOfVisibleMonth && this.get('selectedDate') <= endOfVisibleMonth) {
+      var startOfVisibleMonth = moment(this.center).startOf('month').toDate();
+      var endOfVisibleMonth = moment(this.center).endOf('month').toDate();
+      var currentSelected = moment(this.selectedDate);
+      if (this.selectedDate >= startOfVisibleMonth && this.selectedDate <= endOfVisibleMonth) {
         targetDay = currentSelected.add(span, units);
       } else {
         targetDay = startOfVisibleMonth;
       }
-      if (targetDay > this.get('maxDate')) {
-        targetDay = this.get('maxDate');
+      if (targetDay > this.maxDate) {
+        targetDay = this.maxDate;
       }
-      if (targetDay < this.get('minDate')) {
-        targetDay = this.get('minDate');
+      if (targetDay < this.minDate) {
+        targetDay = this.minDate;
       }
       this.set('selectedDate', targetDay);
-      this.set('center', this.get('selectedDate'));
+      this.set('center', this.selectedDate);
     },
 
     onTriggerKeydown(datepicker, e) {
       if (e.keyCode === 13) {
-        this.send('setDate', this.get('selectedDate'));
+        this.send('setDate', this.selectedDate);
         e.preventDefault();
       }
       if (e.keyCode === 39) {
@@ -459,9 +458,9 @@ export default Component.extend({
   },
 
   targetInRange: function(span, units) {
-    var firstOfTargetMonth = moment(this.get('center')).add(span, units).startOf('month').toDate();
-    var lastOfTargetMonth = moment(this.get('center')).add(span, units).endOf('month').toDate();
-    if (firstOfTargetMonth > this.get('maxDate') || lastOfTargetMonth < this.get('minDate')) {
+    var firstOfTargetMonth = moment(this.center).add(span, units).startOf('month').toDate();
+    var lastOfTargetMonth = moment(this.center).add(span, units).endOf('month').toDate();
+    if (firstOfTargetMonth > this.maxDate || lastOfTargetMonth < this.minDate) {
       return false;
     }
     return true;

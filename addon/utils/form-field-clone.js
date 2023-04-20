@@ -4,7 +4,7 @@ import validationEventLog from 'ember-changeset-webforms/utils/validation-event-
 
 export default EmberObject.extend({
   cloneValidationErrors: computed('changeset.error', 'focussed', 'eventLog.[]', function() {
-    var index = this.get('index');
+    var index = this.index;
     var validationErrors = ((this.get(`changeset.error.${this.get('masterFormField.fieldId')}.validation`)) || []);
     const cloneValidationErrors = [...validationErrors].find(item => {
       return typeof item === 'object' || item.clones;
@@ -20,7 +20,7 @@ export default EmberObject.extend({
       return;
     }   
     if (!validationEventLog(clonedFormField).length) { return; }
-    var clonedFieldValidationErrors = this.get('cloneValidationErrors') || [];
+    var clonedFieldValidationErrors = this.cloneValidationErrors || [];
     if (clonedFieldValidationErrors.length === 0) {
       return 'valid';
     } else {

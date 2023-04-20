@@ -39,7 +39,7 @@ export default Component.extend({
       if (event.keyCode === 13) {
         event.preventDefault();
         if (this.formField.multipleSelection && formField.allowFreeTyping && !primitiveOptions.find(primitiveOption => primitiveOption.toLowerCase().indexOf(event.target.value.toLowerCase()) > -1)) {
-          let value = this.get('displayValue') || [];
+          let value = this.displayValue || [];
           var newItem;
           if (this.formField.optionDisplayProp) {
             newItem = {};

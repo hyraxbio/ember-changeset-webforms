@@ -1,5 +1,5 @@
-{{#docs-demo as |demo|}}
-  {{#demo.example name="after-generate-changeset-webform-form.hbs"}}
+<DocsDemo as |demo|>
+  <demo.example @name="after-generate-changeset-webform-form.hbs">
     {{#if (eq step 2)}}
       <div data-test-id="step-2">
         <h2>Step 2</h2>
@@ -18,10 +18,10 @@
     <div class="external body-text" data-test-id="after-generate-changeset-webform-feedback">
       <h2>These buttons are not part of the ChangesetWebform component.</h2>
       <hr class="margin-top-lg">
-      <button class="btn btn-outline-gray-medium margin-top-lg" {{action "prev"}} data-test-id="previous-button">Previous step</button>
-      <button class="btn btn-outline-gray-medium margin-top-lg" {{action "next"}} data-test-id="next-button">Next step</button>
+      <button class="btn btn-outline-gray-medium margin-top-lg" data-test-id="previous-button" type="button" {{action "prev"}}>Previous step</button>
+      <button class="btn btn-outline-gray-medium margin-top-lg" data-test-id="next-button" type="button" {{action "next"}}>Next step</button>
     </div> 
-  {{/demo.example}}
+  </demo.example>
   {{demo.snippet "after-generate-changeset-webform-form.hbs" label="Component template" language="htmlbars"}}
   {{demo.snippet "after-generate-changeset-webform-form.js" label="Component JS" language="javascript"}}
-{{/docs-demo}}
+</DocsDemo>

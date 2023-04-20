@@ -1,5 +1,5 @@
-{{#docs-demo as |demo|}}
-  {{#demo.example name="after-field-validation-form.hbs"}}
+<DocsDemo as |demo|>
+  <demo.example @name="after-field-validation-form.hbs">
     <ChangesetWebform 
       @formSchema={{nameAndEmailFormSchema}} 
       @afterFieldValidation={{action "afterFieldValidation"}} 
@@ -20,7 +20,7 @@
         The value of settings.formName is {{formName}}.
       </div>
     {{/if}}
-  {{/demo.example}}
+  </demo.example>
   {{demo.snippet "after-field-validation-form.js" label="Component JS" language="javascript"}}
   {{demo.snippet "after-field-validation-form.hbs" label="Component template" language="htmlbars"}}
-{{/docs-demo}}
+</DocsDemo>

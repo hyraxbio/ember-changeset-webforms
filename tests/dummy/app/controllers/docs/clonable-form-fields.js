@@ -4,7 +4,7 @@ import { addonDefaults } from 'ember-changeset-webforms/utils/get-with-default';
 export default Controller.extend({
   init() {
     this._super(...arguments);
-    this.cloneGroupFieldAddonDefaults = addonDefaults.fieldTypes.find(item => item.fieldType === 'clone-group');;
+    this.cloneGroupFieldAddonDefaults = addonDefaults.fieldTypes.find(item => item.fieldType === 'clone-group');
 
     // BEGIN-SNIPPET clone-group-form-data.js
     this.data = {

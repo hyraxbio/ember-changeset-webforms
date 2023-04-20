@@ -1,5 +1,5 @@
-{{#docs-demo as |demo|}}
-  {{#demo.example name="after-field-edit-action-form.hbs"}}
+<DocsDemo as |demo|>
+  <demo.example @name="after-field-edit-action-form.hbs">
     <ChangesetWebform 
       @formSchema={{userNamesFormSchema}} 
       @onFieldValueChange={{action "onFieldValueChange"}} 
@@ -12,7 +12,7 @@
         The value of settings.formName is {{formName}}.
       </div>
     {{/if}}
-  {{/demo.example}}
+  </demo.example>
   {{demo.snippet "after-field-edit-action-form.js" label="Component JS" language="javascript"}}
   {{demo.snippet "after-field-edit-action-form.hbs" label="Component template" language="htmlbars"}}
-{{/docs-demo}}
+</DocsDemo>

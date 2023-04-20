@@ -1,5 +1,5 @@
-{{#docs-viewer as |viewer|}}
-  {{#viewer.nav as |nav|}}
+<DocsViewer as |viewer|>
+  <viewer.nav as |nav|>
     {{nav.section "Introduction"}}
     {{nav.item "Index" "docs.index"}}
     {{nav.item "Basic usage" "docs.basic-usage"}}
@@ -20,9 +20,9 @@
     {{nav.section "Configuration options"}}
     {{nav.item "Configuration options" "docs.configuration-options"}}
     {{nav.item "Configuring class names" "docs.configure-classnames"}}
-  {{/viewer.nav}}
+  </viewer.nav>
 
-  {{#viewer.main}}
+  <viewer.main>
     {{outlet}}
-  {{/viewer.main}}
-{{/docs-viewer}}
+  </viewer.main>
+</DocsViewer>

@@ -8,6 +8,7 @@ export default Component.extend({
   dataTestClass: 'cwf-field-clone-wrapper',
 
   didInsertElement: function() {
+this._super(...arguments);
     var changeset = this.changesetWebform.changeset;
     if (changeset.get(this.masterFormField.propertyName)[this.clonedFormField.index]) {
       this.clonedFormField.eventLog.pushObject('insert');
@@ -35,7 +36,7 @@ export default Component.extend({
       clonedFormField.eventLog.pushObject(eventType);
       this.masterFormField.eventLog.pushObject(`${eventType}Clone`);
       clonedFormField.updateValidationActivation(index, eventType);
-      this.setFieldValue(this.updatedGroupValue(value, index), this.get('masterFormField'));
+      this.setFieldValue(this.updatedGroupValue(value, index), this.masterFormField);
     },
   }
 });
