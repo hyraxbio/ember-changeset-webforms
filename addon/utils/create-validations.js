@@ -1,6 +1,7 @@
 import defaultValidators from 'ember-changeset-validations/validators';
 import clonedValidator from 'ember-changeset-webforms/validators/cloned';
 import uniqueCloneValidator from 'ember-changeset-webforms/validators/unique-clone';
+import { unflatten } from 'flat';
 
 export default function createValidations(fields, customValidators = {}) {
   defaultValidators.validateClone = clonedValidator;
@@ -35,5 +36,5 @@ export default function createValidations(fields, customValidators = {}) {
     });
     validations[field.propertyName] = fieldValidations;
   });
-  return validations;
+  return unflatten(validations);
 }

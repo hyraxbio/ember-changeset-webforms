@@ -1,4 +1,3 @@
-// import Changeset from 'ember-changeset';
 import { Changeset } from 'ember-changeset';
 import lookupValidator from 'ember-changeset-validations';
 import createValidations from './create-validations';

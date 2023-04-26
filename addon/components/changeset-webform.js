@@ -117,7 +117,6 @@ export default Component.extend({
                   }
                 }
               }).catch(err => {
-                console.log(err)
                 changesetWebform.formSettings.set('requestInFlight', false);
                 if (this.submitError) {
                   this.submitError(err, changesetWebform);
@@ -157,7 +156,6 @@ export default Component.extend({
 
     clearForm(changesetWebform) {
       // TODO test for this
-      console.log('clearForm')
       const opts = { 
         suppressDefaults: (changesetWebform.formSettings.clearFormAfterSubmit === 'suppressDefaultValues')
       }
