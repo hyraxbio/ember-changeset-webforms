@@ -19,7 +19,7 @@ export default Component.extend({
   }),
 
   didInsertElement() {
-this._super(...arguments);
+    this._super(...arguments);
     var masterFormField = this.masterFormField;
     const changeset = this.changesetWebform.changeset;
     var groupValue = changeset.get(masterFormField.propertyName) || [];

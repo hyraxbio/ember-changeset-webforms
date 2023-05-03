@@ -12,7 +12,7 @@
     {{else}}
       <div class="{{calendarIconClass}}"></div>
     {{/if}}
-    <input type="text" value={{if value (moment-format (moment value parsedDateTimeFormat) parsedDateTimeDisplayFormat)}} placeholder={{parsedDatepickerPlaceholder}} onChange={{action "onDateInputChange"}} onKeyUp={{action "onDateInputKeyUp"}} onFocus={{action "onDateInputFocus"}} onBlur={{action "onDateInputBlur"}} class={{triggerInputClass}} id={{triggerInputId}} data-test-id="power-datepicker-input">
+    <input type="text" value={{if value (ember-changeset-webforms/moment-format (ember-changeset-webforms/moment value parsedDateTimeFormat) parsedDateTimeDisplayFormat)}} placeholder={{parsedDatepickerPlaceholder}} onChange={{action "onDateInputChange"}} onKeyUp={{action "onDateInputKeyUp"}} onFocus={{action "onDateInputFocus"}} onBlur={{action "onDateInputBlur"}} class={{triggerInputClass}} id={{triggerInputId}} data-test-id="power-datepicker-input">
   </dropdown.Trigger>
   <dropdown.Content data-test-id="ecw-power-datepicker-dropdown" class={{dropdownClass}}>
     <div class={{dropdownInnerClass}}>
@@ -39,13 +39,13 @@
           {{#each timeFormatParts as | timeFormatPart| }}
             <div data-test-class="time-selector-field" data-test-id="time-selector-field-{{timeFormatPart.type}}" class="time-selector-field time-selector-field-{{timeFormatPart.type}}">
               <label for="time-selector-{{timeFormatPart.type}}" data-test-class="time-selector-field-label" data-test-id="time-selector-field-label-{{timeFormatPart.type}}" class={{timeInputLabelClass}}>{{timeFormatPart.label}}</label>
-              <input id="time-selector-{{timeFormatPart.type}}" data-test-class="time-selector-field-input" data-test-id="time-selector-field-input-{{timeFormatPart.type}}" type="number" max={{timeFormatPart.max}} min={{timeFormatPart.min}} value={{readonly (if value (moment-format (moment value parsedDateTimeFormat) timeFormatPart.formatChar))}} onChange={{action "setTime" timeFormatPart.formatChar}} onKeyDown={{action "onKeyDownTimeUnitInput" timeFormatPart.formatChar}} onKeyUp={{action "onKeyUpTimeUnitInput" timeFormatPart.formatChar}} class="time-selector-field-input-{{timeFormatPart.type}} {{timeInputClass}}">
+              <input id="time-selector-{{timeFormatPart.type}}" data-test-class="time-selector-field-input" data-test-id="time-selector-field-input-{{timeFormatPart.type}}" type="number" max={{timeFormatPart.max}} min={{timeFormatPart.min}} value={{readonly (if value (ember-changeset-webforms/moment-format (ember-changeset-webforms/moment value parsedDateTimeFormat) timeFormatPart.formatChar))}} onChange={{action "setTime" timeFormatPart.formatChar}} onKeyDown={{action "onKeyDownTimeUnitInput" timeFormatPart.formatChar}} onKeyUp={{action "onKeyUpTimeUnitInput" timeFormatPart.formatChar}} class="time-selector-field-input-{{timeFormatPart.type}} {{timeInputClass}}">
             </div>
           {{/each}}
           {{#if showAmPmInput}}
             <div>
               <label for="time-selector-am-pm" data-test-class="time-selector-field-label" data-test-id="time-selector-field-label-am-pm" class={{timeInputLabelClass}}>{{timeInputLabels.amPm}}</label>
-              <input type="text" id="time-selector-am-pm" value={{if value (moment-format (moment value parsedDateTimeFormat) "a")}} onChange={{action "onChangeAmPm"}} onFocus={{action "onFocusInAmPm"}} onBlur={{action "onChangeAmPm"}} onKeyUp={{action "onKeyUpAmPm"}} data-test-id="power-datepicker-am-pm-input" class={{timeInputClass}}>
+              <input type="text" id="time-selector-am-pm" value={{if value (ember-changeset-webforms/moment-format (ember-changeset-webforms/moment value parsedDateTimeFormat) "a")}} onChange={{action "onChangeAmPm"}} onFocus={{action "onFocusInAmPm"}} onBlur={{action "onChangeAmPm"}} onKeyUp={{action "onKeyUpAmPm"}} data-test-id="power-datepicker-am-pm-input" class={{timeInputClass}}>
             </div>
           {{/if}}
         </div>

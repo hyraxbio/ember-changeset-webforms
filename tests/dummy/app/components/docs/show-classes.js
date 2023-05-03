@@ -4,7 +4,7 @@ import layout from '../../templates/components/docs/show-classes';
 export default Component.extend({
   layout,
   didInsertElement() {
-this._super(...arguments);
+    this._super(...arguments);
     setTimeout(() => {
       this.doTheThing();
       document.querySelector('#validationClassNames-name').addEventListener('change', (event) => {

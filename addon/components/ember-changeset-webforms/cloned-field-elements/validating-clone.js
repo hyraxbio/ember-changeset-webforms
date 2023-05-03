@@ -8,7 +8,7 @@ export default Component.extend({
   dataTestClass: 'cwf-field-clone-wrapper',
 
   didInsertElement: function() {
-this._super(...arguments);
+    this._super(...arguments);
     var changeset = this.changesetWebform.changeset;
     if (changeset.get(this.masterFormField.propertyName)[this.clonedFormField.index]) {
       this.clonedFormField.eventLog.pushObject('insert');

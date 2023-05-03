@@ -8,7 +8,7 @@ export default Component.extend({
   tagName: '',
 
   didInsertElement: function () {
-this._super(...arguments);
+    this._super(...arguments);
     //Code below will maintain validation colours when component is re-rendered.
     var formField = this.formField;
     const changeset = this.changesetWebform.changeset;

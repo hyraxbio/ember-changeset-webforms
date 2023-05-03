@@ -36,7 +36,7 @@ export default Component.extend({
   }),
 
   didInsertElement: function() {
-this._super(...arguments);
+    this._super(...arguments);
     if (this.defaultDate) {
       this.set('selectedDate', this.defaultDate);
     }
