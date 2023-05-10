@@ -2,9 +2,8 @@ import Component from '@ember/component';
 import layout from '../../../templates/components/ember-changeset-webforms/cloned-field-elements/validating-clone';
 
 export default Component.extend({
+  tagName: "",
   layout,
-  classNames: ['cwf-field-clone-wrapper'],
-  attributeBindings: ['dataTestClass:data-test-class'],
   dataTestClass: 'cwf-field-clone-wrapper',
 
   didInsertElement: function() {

@@ -5,13 +5,9 @@ import FormFieldClone from 'ember-changeset-webforms/utils/form-field-clone';
 import validationEventLog from 'ember-changeset-webforms/utils/validation-event-log';
 
 export default Component.extend({
+  tagName: "",
   layout,
-  classNames: ['clone-group', 'cwf-clone-group'],
-  classNameBindings: ['cloneGroupNameClass', 'validationStatus', 'masterFormField.required:required', 'disabled:disabled', 'readonly:readonly', 'masterFormField.fieldClassNames', 'masterFormField.hideSuccessValidation:hide-success-validation', 'masterFormField.validates:validates', 'typeClass', 'masterFormField.focussed:focussed'],
-  attributeBindings: ['dataTestId:data-test-id', 'dataTestCwfFieldValidates:data-test-cwf-field-validates', 'dataTestCwfFieldRequired:data-test-cwf-field-required'],
-
   dataTestCwfFieldValidates: computed.reads('masterFormField.validates'),
-
   dataTestCwfFieldRequired: computed.reads('masterFormField.required'),
 
   dataTestId: computed('masterFormField', function() {
@@ -143,5 +139,5 @@ export default Component.extend({
     });
     groupValue[index] = value;
     return groupValue;
-  },
+  }
 });

@@ -29,6 +29,8 @@ const addonDefaults = {
     validationErrors: ['cwf-field-errors',  'invalid-feedback', '$validationClassNames'],
     fieldValidates: ['validates'],
     validatedField: ['was-validated'],
+    // Form wrapper
+    formWrapper: ['cwf-form-wrapper'],
     // Form action element element classes
     formFields: ['form-fields'],
     formActions: ['form-actions', 'mt-4'],

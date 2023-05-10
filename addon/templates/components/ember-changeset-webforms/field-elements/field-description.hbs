@@ -1,5 +1,7 @@
-{{#if EmberChangesetWebforms.settings.fieldDescriptionComponent}}
-  {{component EmberChangesetWebforms.settings.fieldDescriptionComponent}}
-{{else}}
-  {{formField.fieldDescription}}
-{{/if}}
+<div class="field-description" ...attributes>
+  {{#if EmberChangesetWebforms.settings.fieldDescriptionComponent}}
+    {{component EmberChangesetWebforms.settings.fieldDescriptionComponent}}
+  {{else}}
+    {{formField.fieldDescription}}
+  {{/if}}
+</div>

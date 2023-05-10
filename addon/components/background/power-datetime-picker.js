@@ -4,8 +4,8 @@ import { computed } from '@ember/object';
 import keyCodesMap from 'ember-changeset-webforms/utils/keycodes-map';
 
 export default Component.extend({
+  tagName: "",
   layout,
-  classNames: ['power-datetime-picker'],
 
   defaultHour: computed('defaultTime', function() {
     if (!this.defaultTime) { return '00'; }

@@ -4,9 +4,8 @@ import { computed } from '@ember/object';
 import dynamicClassNames from 'ember-changeset-webforms/utils/dynamic-class-names';
 
 export default Component.extend({
+  tagName: "",
   layout,
-  classNameBindings: ['focussedClasses', 'requiredClasses', 'disabledClasses', 'validatesClasses', 'wasValidatedClasses', 'formField.readonly:readonly', 'formField.hideSuccessValidation:hide-success-validation', 'fieldWrapperClassNames', 'typeClass'],
-  attributeBindings: ['dataTestClass:data-test-class', 'formField.validates:data-test-cwf-field-validates', 'formField.required:data-test-cwf-field-required', 'dataTestId:data-test-id'],
 
   'dataTestId': computed('dataTestFieldId', function() {
     if (!this.dataTestFieldId) { return; }

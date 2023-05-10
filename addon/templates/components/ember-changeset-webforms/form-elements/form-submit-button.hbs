@@ -1,10 +1,12 @@
-{{formSettings.submitButtonText}}
-{{#if changesetWebform.formSettings.requestInFlight}}
-  {{#if formSettings.submitButtonIcon}}
-    {{component formSettings.submitButtonIcon 
-      class=(ember-changeset-webforms/dynamic-class-names "buttonIcon,submitButtonIcon" changesetWebform)
-    }}
-  {{else}}
-    <div class={{ember-changeset-webforms/dynamic-class-names "buttonIcon,submitButtonIcon" changesetWebform}}></div>
+<button type={{this.customType}} data-test-id={{this.data-test-id}} disabled={{this.disabled}} ...attributes>
+  {{formSettings.submitButtonText}}
+  {{#if changesetWebform.formSettings.requestInFlight}}
+    {{#if formSettings.submitButtonIcon}}
+      {{component formSettings.submitButtonIcon 
+        class=(ember-changeset-webforms/dynamic-class-names "buttonIcon,submitButtonIcon" changesetWebform)
+      }}
+    {{else}}
+      <div class={{ember-changeset-webforms/dynamic-class-names "buttonIcon,submitButtonIcon" changesetWebform}}></div>
+    {{/if}}
   {{/if}}
-{{/if}}
+</button>

@@ -1,29 +1,31 @@
-<EmberChangesetWebforms::FieldElements::FieldLabel 
-  @formField={{masterFormField}} />
-<EmberChangesetWebforms::FieldElements::FieldErrors 
-  @formField={{masterFormField}}
-  @validationErrorsArray={{masterFormFieldValidationErrors}}
-  @class="clone-group-field-errors" />
-<div class="clone-group-items">
-  {{#each masterFormField.clonedFields as |clonedFormField| }}
-    <EmberChangesetWebforms::ClonedFieldElements::ValidatingClone 
-      @cloneField={{action "cloneField"}} 
-      @onUserInteraction={{action onUserInteraction}}
-      @setFieldValue={{action setFieldValue}} 
-      @validateField={{action validateField}} 
-      @removeClone={{action "removeClone"}}
-      @updatedGroupValue={{updatedGroupValue}} 
-      @groupValue={{groupValue}} 
-      @clonedFormField={{clonedFormField}} 
-      @masterFormField={{masterFormField}} 
-      @changesetWebform={{changesetWebform}}
-      data-test-id={{concat masterFormField.fieldId "-clone-" clonedFormField.cloneId "-wrapper"}} />
-  {{/each}}
-</div>
-<div class="clone-group-actions">
-  {{#if (eq masterFormField.cloneCountStatus "max")}}
-    <div class={{ember-changeset-webforms/dynamic-class-names "maxClonesReached" changesetWebform formField formField.validationStatus}} data-test-id="cwf-max-clones-reached">{{masterFormField.maxClonesReachedText}}</div>
-  {{else}}
-    {{component masterFormField.addCloneButtonComponent onClickAddCloneButton=(action "onClickAddCloneButton") formField=masterFormField cloneFieldLabel=masterFormField.clonedFields.firstObject.fieldLabel changesetWebform=changesetWebform}}
-  {{/if}}
+<div data-test-id={{this.dataTestId}} data-test-cwf-field-validates={{this.dataTestCwfFieldValidates}} data-test-cwf-field-required={{this.dataTestCwfFieldRequired}} class="clone-group cwf-clone-group {{this.cloneGroupNameClass}} {{this.validationStatus}} {{this.masterFormField.fieldClassNames}} {{this.typeClass}} {{if this.masterFormField.required "required"}} {{if this.disabled "disabled"}} {{if this.readonly "readonly"}} {{if this.masterFormField.hideSuccessValidation "hide-success-validation"}} {{if this.masterFormField.validates "validates"}} {{if this.masterFormField.focussed "focussed"}}" ...attributes>
+  <EmberChangesetWebforms::FieldElements::FieldLabel 
+    @formField={{masterFormField}} />
+  <EmberChangesetWebforms::FieldElements::FieldErrors 
+    @formField={{masterFormField}}
+    @validationErrorsArray={{masterFormFieldValidationErrors}}
+    @class="clone-group-field-errors" />
+  <div class="clone-group-items">
+    {{#each masterFormField.clonedFields as |clonedFormField| }}
+      <EmberChangesetWebforms::ClonedFieldElements::ValidatingClone 
+        @cloneField={{action "cloneField"}} 
+        @onUserInteraction={{action onUserInteraction}}
+        @setFieldValue={{action setFieldValue}} 
+        @validateField={{action validateField}} 
+        @removeClone={{action "removeClone"}}
+        @updatedGroupValue={{updatedGroupValue}} 
+        @groupValue={{groupValue}} 
+        @clonedFormField={{clonedFormField}} 
+        @masterFormField={{masterFormField}} 
+        @changesetWebform={{changesetWebform}}
+        data-test-id={{concat masterFormField.fieldId "-clone-" clonedFormField.cloneId "-wrapper"}} />
+    {{/each}}
+  </div>
+  <div class="clone-group-actions">
+    {{#if (eq masterFormField.cloneCountStatus "max")}}
+      <div class={{ember-changeset-webforms/dynamic-class-names "maxClonesReached" changesetWebform formField formField.validationStatus}} data-test-id="cwf-max-clones-reached">{{masterFormField.maxClonesReachedText}}</div>
+    {{else}}
+      {{component masterFormField.addCloneButtonComponent onClickAddCloneButton=(action "onClickAddCloneButton") formField=masterFormField cloneFieldLabel=masterFormField.clonedFields.firstObject.fieldLabel changesetWebform=changesetWebform}}
+    {{/if}}
+  </div>
 </div>

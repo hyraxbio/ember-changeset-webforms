@@ -6,8 +6,8 @@ import createChangesetWebform from 'ember-changeset-webforms/utils/create-change
 import isPromise from 'ember-changeset-webforms/utils/is-promise';
 
 export default Component.extend({
+  tagName: "",
   layout,
-  classNames: ['ember-changeset-webforms'],
 
   didInsertElement() {
     this._super(...arguments);

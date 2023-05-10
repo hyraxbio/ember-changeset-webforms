@@ -1,14 +1,16 @@
-<EmberChangesetWebforms::FieldElements::FieldLabel 
-  @formField={{formField}} 
-  @changesetWebform={{changesetWebform}}
-  @labelId={{labelId}} />
-<div class="{{ember-changeset-webforms/dynamic-class-names "fieldControls" changesetWebform formField formField.validationStatus}}" 
-  role={{if isGroup "group"}}   
-  ariaLabelledBy={{if isGroup ariaLabelledBy}} 
-  aria-label={{if isGroup ariaLabel}}>
-  {{yield}}
+<div data-test-class={{this.dataTestClass}} data-test-cwf-field-validates={{this.formField.validates}} data-test-cwf-field-required={{this.formField.required}} data-test-id={{this.dataTestId}} class="{{this.focussedClasses}} {{this.requiredClasses}} {{this.disabledClasses}} {{this.validatesClasses}} {{this.wasValidatedClasses}} {{this.fieldWrapperClassNames}} {{@typeClass}} {{if this.formField.readonly "readonly"}} {{if this.formField.hideSuccessValidation "hide-success-validation"}}" ...attributes>
+  <EmberChangesetWebforms::FieldElements::FieldLabel 
+    @formField={{formField}} 
+    @changesetWebform={{changesetWebform}}
+    @labelId={{labelId}} />
+  <div class="{{ember-changeset-webforms/dynamic-class-names "fieldControls" changesetWebform formField formField.validationStatus}}" 
+    role={{if isGroup "group"}}   
+    ariaLabelledBy={{if isGroup ariaLabelledBy}} 
+    aria-label={{if isGroup ariaLabel}}>
+    {{yield}}
+  </div>
+  <EmberChangesetWebforms::FieldElements::FieldErrors 
+    @formField={{formField}}
+    @changesetWebform={{changesetWebform}}
+    @validationErrorsArray={{validationErrorsArray}} />
 </div>
-<EmberChangesetWebforms::FieldElements::FieldErrors 
-  @formField={{formField}}
-  @changesetWebform={{changesetWebform}}
-  @validationErrorsArray={{validationErrorsArray}} />
