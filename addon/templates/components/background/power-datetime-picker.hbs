@@ -24,7 +24,7 @@
           @onSelect={{action "dateClicked" dropdown}} 
           @onCenterChange={{action (mut center) value="date"}} 
           @center={{center}} 
-          @class={{calendarClass}} as |calendar|>
+          class={{calendarClass}} as |calendar|>
           <Background::PowerCalendarNav 
             @calendar={{calendar}} 
             @calendarTitleFormat={{calendarTitleFormat}}

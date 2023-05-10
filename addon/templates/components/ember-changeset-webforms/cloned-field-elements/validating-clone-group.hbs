@@ -4,7 +4,7 @@
   <EmberChangesetWebforms::FieldElements::FieldErrors 
     @formField={{masterFormField}}
     @validationErrorsArray={{masterFormFieldValidationErrors}}
-    @class="clone-group-field-errors" />
+    class="clone-group-field-errors" />
   <div class="clone-group-items">
     {{#each masterFormField.clonedFields as |clonedFormField| }}
       <EmberChangesetWebforms::ClonedFieldElements::ValidatingClone 
