@@ -5,7 +5,8 @@ import validationEventLog from 'ember-changeset-webforms/utils/validation-event-
 export default EmberObject.extend({
   cloneValidationErrors: computed('changeset.error', 'focussed', 'eventLog.[]', function() {
     var index = this.index;
-    var validationErrors = ((this.get(`changeset.error.${this.get('masterFormField.fieldId')}.validation`)) || []);
+    const changeset = this.changeset;
+    var validationErrors = ((changeset.get(`error.${this.masterFormField.fieldId}.validation`)) || []);
     const cloneValidationErrors = [...validationErrors].find(item => {
       return typeof item === 'object' || item.clones;
     });

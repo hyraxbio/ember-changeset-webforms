@@ -11,8 +11,8 @@ export default EmberObject.extend({
       return;
     }
     if (!validationEventLog(formField).length) { return }
-
-    var validationErrors = (this.get(`changeset.error.${formField.propertyName}.validation`)) || [];
+    const changeset = this.changeset;
+    var validationErrors = (changeset.get(`error.${formField.propertyName}.validation`)) || [];
     if (validationErrors.length === 0) {
       return 'valid';
     } else {

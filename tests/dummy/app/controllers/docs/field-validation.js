@@ -80,7 +80,7 @@ export default Controller.extend({
           validationMethod: 'validatePresence',
           arguments: {presence: true, description: 'Nation of origin'}
         }],
-        options: this.get('globalVariables.countries'),
+        options: this.globalVariables.countries,
       },
       {
         fieldId: 'birthDate',

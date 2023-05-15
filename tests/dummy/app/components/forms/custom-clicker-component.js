@@ -8,7 +8,7 @@ export default Component.extend({
   tagName: '',
 
   icon: computed('formField.showAdvanced', function() {
-    return this.get('formField.showAdvanced') ? 'svg/icons/icon-arrow-up' : 'svg/icons/icon-arrow-down'
+    return this.formField.showAdvanced ? 'svg/icons/icon-arrow-up' : 'svg/icons/icon-arrow-down'
   }),
 });
 // END-SNIPPET

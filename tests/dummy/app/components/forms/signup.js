@@ -82,7 +82,7 @@ export default Component.extend({
           validationMethod: 'validatePresence',
           arguments: {presence: true, description: 'Country'}
         }],
-        options: this.get('globalVariables.countries'),
+        options: this.globalVariables.countries,
       },
       {
         fieldId: 'acceptTerms',

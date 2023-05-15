@@ -8,7 +8,7 @@ export default Component.extend({
 
   options: computed('displayValue', function() {
     var checkedItems = this.stringToArray(this.displayValue);
-    var options = this.get('formField.options');
+    var options = this.formField.options;
     options.forEach(function(option) {
       if (checkedItems.indexOf(option.key) > -1) {
         option.set('value', true);

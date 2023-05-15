@@ -8,7 +8,7 @@ export default Component.extend({
   tagName: '',
 
   allowClear: computed('formField.allowClear', function () {
-    if (this.get('formField.allowClear') === false) {
+    if (this.formField.allowClear === false) {
       return false;
     } else {
       return true;

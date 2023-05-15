@@ -11,7 +11,7 @@ export default Component.extend({
   dataTestCwfFieldRequired: computed.reads('masterFormField.required'),
 
   dataTestId: computed('masterFormField', function() {
-    return `clone-group-${this.get('masterFormField.fieldId')}`;
+    return `clone-group-${this.masterFormField.fieldId}`;
   }),
 
   didInsertElement() {
@@ -41,11 +41,12 @@ export default Component.extend({
   }),
 
   cloneGroupNameClass: computed('masterFormField.cloneGroupName', function() {
-    return `clone-group-${this.get('masterFormField.cloneGroupName')}`;
+    return `clone-group-${this.masterFormField.cloneGroupName}`;
   }),
 
   masterFormFieldValidationErrors: computed('changesetWebform.changeset.error', function() {
-    var validationErrors = ((this.get(`changesetWebform.changeset.error.${this.get('masterFormField.propertyName')}.validation`)) || []);
+    const changeset = this.changesetWebform.changeset;
+    var validationErrors = ((changeset.get(`error.${this.masterFormField.propertyName}.validation`)) || []);
     const masterFormFieldValidationErrors = [...validationErrors].filter(item => {
       return typeof item !== 'object' || !item.clones;
     });

@@ -152,7 +152,7 @@ However, updating a child property of model will have no effect.
 
 The field value will not update to _**Lesley Knope**_. Note that the below will also **not** work:
 
-    var object = this.get('model');
+    var object = this.model;
     object.name = 'Lesley Knope';
     this.set('model', object);
 
