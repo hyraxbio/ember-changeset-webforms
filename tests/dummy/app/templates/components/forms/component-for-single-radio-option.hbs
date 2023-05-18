@@ -1,13 +1,17 @@
 <div class="inline-flex flex-align-center">
-  <label for="{{radioId}}">This is a custom component for the label of one specific option&nbsp;&nbsp;</label>
+  <label for="{{radioId}}">This is a custom component for the label of one
+    specific option&nbsp;&nbsp;</label>
   <BasicDropdown as |Dropdown|>
     <Dropdown.Trigger>
       <button class="btn-primary btn-sm" type="button">More info</button>
     </Dropdown.Trigger>
     <Dropdown.Content class="box-arrow">
-      option.label = {{option.label}}<br>
-      option.value = {{option.value}}<br>
-      props.info = {{props.info}}
+      option.label =
+      {{option.label}}<br />
+      option.value =
+      {{option.value}}<br />
+      props.info =
+      {{props.info}}
     </Dropdown.Content>
   </BasicDropdown>
 </div>

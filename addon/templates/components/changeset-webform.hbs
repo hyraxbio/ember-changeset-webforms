@@ -1,6 +1,26 @@
-<div class="changeset-webform {{ember-changeset-webforms/dynamic-class-names "formWrapper" changesetWebform null requestInFlight}}" ...attributes>
-  <form {{action "submit" on="submit"}} class={{formValidationClass}} novalidate={{formSettings.novalidate}}>
-    <div class="{{ember-changeset-webforms/dynamic-class-names "formFields" changesetWebform null requestInFlight}}">
+<div
+  class="changeset-webform
+    {{ember-changeset-webforms/dynamic-class-names
+      'formWrapper'
+      changesetWebform
+      null
+      requestInFlight
+    }}"
+  ...attributes
+>
+  <form
+    {{action "submit" on="submit"}}
+    class={{formValidationClass}}
+    novalidate={{formSettings.novalidate}}
+  >
+    <div
+      class="{{ember-changeset-webforms/dynamic-class-names
+          'formFields'
+          changesetWebform
+          null
+          requestInFlight
+        }}"
+    >
       {{#each changesetWebform.fields as |formField|}}
         <EmberChangesetWebforms::FieldElements::ValidatingField
           @formField={{formField}}
@@ -11,7 +31,11 @@
           @afterRemoveClone={{afterRemoveClone}}
           @formSettings={{formSettings}}
           @formFields={{changesetWebform.fields}}
-          @submitForm={{action "submit" changesetWebform formSettings.modelName}}
+          @submitForm={{action
+            "submit"
+            changesetWebform
+            formSettings.modelName
+          }}
           @afterFieldValidation={{action "afterFieldValidation"}}
           @onFieldValueChange={{action "onFieldValueChange"}}
           @onUserInteraction={{action "onUserInteraction"}}
@@ -19,23 +43,51 @@
       {{/each}}
     </div>
     {{yield}}
-    <div class="{{ember-changeset-webforms/dynamic-class-names "formActions" changesetWebform null requestInFlight}}">
+    <div
+      class="{{ember-changeset-webforms/dynamic-class-names
+          'formActions'
+          changesetWebform
+          null
+          requestInFlight
+        }}"
+    >
       {{#unless formSettings.hideSubmitButton}}
-        <EmberChangesetWebforms::FormElements::FormSubmitButton 
-          onclick={{action "submit" changesetWebform formSettings.modelName}} 
-          @value={{formSettings.submitButtonText}} 
-          @requestInFlight={{requestInFlight}} 
-          data-test-id="cwf-submit-form-button" 
-          @disabled={{formSettings.submitDisabled}} 
-          @formSettings={{formSettings}} 
+        <EmberChangesetWebforms::FormElements::FormSubmitButton
+          onclick={{action "submit" changesetWebform formSettings.modelName}}
+          @value={{formSettings.submitButtonText}}
+          @requestInFlight={{requestInFlight}}
+          data-test-id="cwf-submit-form-button"
+          @disabled={{formSettings.submitDisabled}}
+          @formSettings={{formSettings}}
           @changesetWebform={{changesetWebform}}
-          class="{{ember-changeset-webforms/dynamic-class-names "buttonElement,submitButton" changesetWebform}}" />
+          class="{{ember-changeset-webforms/dynamic-class-names
+              'buttonElement,submitButton'
+              changesetWebform
+            }}"
+        />
       {{/unless}}
       {{#if formSettings.showRollbackChangesetButton}}
-        <button class={{formSettings.showRollbackChangesetButtonClasses}} type="button" data-test-id="cwf-reset-form-button" {{action "discardChanges" changesetWebform}} class="{{ember-changeset-webforms/dynamic-class-names "buttonElement,rollbackChangesetButton" changesetWebform}}">{{formSettings.showRollbackChangesetButtonText}}</button>
+        <button
+          class={{formSettings.showRollbackChangesetButtonClasses}}
+          type="button"
+          data-test-id="cwf-reset-form-button"
+          {{action "discardChanges" changesetWebform}}
+          class="{{ember-changeset-webforms/dynamic-class-names
+              'buttonElement,rollbackChangesetButton'
+              changesetWebform
+            }}"
+        >{{formSettings.showRollbackChangesetButtonText}}</button>
       {{/if}}
       {{#if formSettings.showClearFormButton}}
-        <button type="button" data-test-id="cwf-reset-form-button" {{action "clearForm" changesetWebform}} class="{{ember-changeset-webforms/dynamic-class-names "buttonElement,clearFormButton" changesetWebform}}">{{formSettings.clearFormButtonText}}</button>
+        <button
+          type="button"
+          data-test-id="cwf-reset-form-button"
+          {{action "clearForm" changesetWebform}}
+          class="{{ember-changeset-webforms/dynamic-class-names
+              'buttonElement,clearFormButton'
+              changesetWebform
+            }}"
+        >{{formSettings.clearFormButtonText}}</button>
       {{/if}}
     </div>
   </form>

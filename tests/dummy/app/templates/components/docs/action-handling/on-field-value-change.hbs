@@ -1,18 +1,28 @@
 <DocsDemo as |demo|>
   <demo.example @name="after-field-edit-action-form.hbs">
-    <ChangesetWebform 
-      @formSchema={{userNamesFormSchema}} 
-      @onFieldValueChange={{action "onFieldValueChange"}} 
+    <ChangesetWebform
+      @formSchema={{userNamesFormSchema}}
+      @onFieldValueChange={{action "onFieldValueChange"}}
       data-test-id="after-field-edit-form"
-     />
+    />
     {{#if fullName}}
       <div data-test-id="after-field-edit-feedback">
-        The user's full name is "{{fullName}}".<br>
-        The last updated field was {{lastUpdateField}}.<br>
-        The value of settings.formName is {{formName}}.
+        The user's full name is "{{fullName}}".<br />
+        The last updated field was
+        {{lastUpdateField}}.<br />
+        The value of settings.formName is
+        {{formName}}.
       </div>
     {{/if}}
   </demo.example>
-  {{demo.snippet "after-field-edit-action-form.js" label="Component JS" language="javascript"}}
-  {{demo.snippet "after-field-edit-action-form.hbs" label="Component template" language="htmlbars"}}
+  {{demo.snippet
+    "after-field-edit-action-form.js"
+    label="Component JS"
+    language="javascript"
+  }}
+  {{demo.snippet
+    "after-field-edit-action-form.hbs"
+    label="Component template"
+    language="htmlbars"
+  }}
 </DocsDemo>

@@ -1,15 +1,14 @@
-<Background::LabelledCheckbox 
-  @dataTestId={{concat dataTestFieldId "-checkbox-option-" option.value}} 
-  @value={{readonly displayValue}} 
-  @label={{formField.checkBoxLabel}} 
-  @labelComponent={{formField.checkBoxLabelComponent}} 
+<Background::LabelledCheckbox
+  @dataTestId={{concat dataTestFieldId "-checkbox-option-" option.value}}
+  @value={{readonly displayValue}}
+  @label={{formField.checkBoxLabel}}
+  @labelComponent={{formField.checkBoxLabelComponent}}
   @markdownLabel={{formField.checkBoxLabelMarkdown}}
-  @changedAction={{action "checkboxToggled" formField}} 
+  @changedAction={{action "checkboxToggled" formField}}
   @changesetWebform={{changesetWebform}}
   @formField={{formField}}
-  @name={{formField.name}} 
+  @name={{formField.name}}
   @containerName={{formSettings.formName}}
-  @disabled={{formField.disabled}} 
-  @option={{hash
-    key=formField.fieldId
-  }} />
+  @disabled={{formField.disabled}}
+  @option={{hash key=formField.fieldId}}
+/>

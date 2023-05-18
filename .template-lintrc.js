@@ -2,11 +2,22 @@
 'use strict';
 
 module.exports = {
-  extends: 'recommended',
+  // extends: 'recommended',
   rules: {
     'attribute-indentation': false,
     'no-inline-styles': {
-      'allowDynamicStyles': true
-    }
-  }
+      allowDynamicStyles: true,
+    },
+    'no-implicit-this': {
+      allow: [
+        'ember-changeset-webforms/array-join',
+        'ember-changeset-webforms/cloned-form-field-display-value',
+        'ember-changeset-webforms/dynamic-class-names',
+        'ember-changeset-webforms/moment-format',
+        'ember-changeset-webforms/moment',
+        'get-with-default',
+        'sanitise-classname',
+      ],
+    },
+  },
 };

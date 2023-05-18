@@ -1,24 +1,53 @@
-<div data-test-class={{this.dataTestClass}} class="cwf-field-clone-wrapper" ...attributes>
+<div
+  data-test-class={{this.dataTestClass}}
+  class="cwf-field-clone-wrapper"
+  ...attributes
+>
   {{#if (not-eq masterFormField.cloneCountStatus "min")}}
-      <div role="button" class="{{ember-changeset-webforms/dynamic-class-names "removeClone" changesetWebform}}" type="button" onclick={{action removeClone clonedFormField}} data-test-class="cwf-remove-clone-button" title="Remove {{formField.fieldId}}">{{component masterFormField.removeCloneComponent}}</div>
-    {{/if}}
-    <EmberChangesetWebforms::FieldElements::ValidatingFieldWrapper 
-      @formField={{clonedFormField}} 
-      @changesetWebform={{changesetWebform}} 
-      @typeClass={{typeClass}}
-      @validationErrorsArray={{clonedFormField.cloneValidationErrors}}
-      data-test-id={{concat masterFormField.fieldId "-clone-" clonedFormField.cloneId "-field"}}
-      class="{{ember-changeset-webforms/dynamic-class-names "clonedFormField" changesetWebform formField formField.validationStatus}}">
-      {{component clonedFormField.componentPath
-        formField=clonedFormField
-        clonedFormField=clonedFormField
-        masterFormField=masterFormField
-        onUserInteraction=(action "onUserInteractionClone" clonedFormField.index)
-        onChange=(action "onChangeClone" clonedFormField.index)
-        cloneField=(action cloneField)
-        removeClone=(action removeClone)
-        changesetWebform=changesetWebform
-        displayValue=(ember-changeset-webforms/cloned-form-field-display-value (get changesetWebform.changeset masterFormField.propertyName) clonedFormField.index)
-      }}
-    </EmberChangesetWebforms::FieldElements::ValidatingFieldWrapper>
+    <div
+      role="button"
+      class="{{ember-changeset-webforms/dynamic-class-names
+          'removeClone'
+          changesetWebform
+        }}"
+      type="button"
+      onclick={{action removeClone clonedFormField}}
+      data-test-class="cwf-remove-clone-button"
+      title="Remove {{formField.fieldId}}"
+    >{{component masterFormField.removeCloneComponent}}</div>
+  {{/if}}
+  <EmberChangesetWebforms::FieldElements::ValidatingFieldWrapper
+    @formField={{clonedFormField}}
+    @changesetWebform={{changesetWebform}}
+    @typeClass={{typeClass}}
+    @validationErrorsArray={{clonedFormField.cloneValidationErrors}}
+    data-test-id={{concat
+      masterFormField.fieldId
+      "-clone-"
+      clonedFormField.cloneId
+      "-field"
+    }}
+    class="{{ember-changeset-webforms/dynamic-class-names
+        'clonedFormField'
+        changesetWebform
+        formField
+        formField.validationStatus
+      }}"
+  >
+    {{component
+      clonedFormField.componentPath
+      formField=clonedFormField
+      clonedFormField=clonedFormField
+      masterFormField=masterFormField
+      onUserInteraction=(action "onUserInteractionClone" clonedFormField.index)
+      onChange=(action "onChangeClone" clonedFormField.index)
+      cloneField=(action cloneField)
+      removeClone=(action removeClone)
+      changesetWebform=changesetWebform
+      displayValue=(ember-changeset-webforms/cloned-form-field-display-value
+        (get changesetWebform.changeset masterFormField.propertyName)
+        clonedFormField.index
+      )
+    }}
+  </EmberChangesetWebforms::FieldElements::ValidatingFieldWrapper>
 </div>

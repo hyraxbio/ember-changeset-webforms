@@ -1,7 +1,13 @@
 {{#if labelComponent}}
   {{#if labelComponent.path}}
     {{#let (component labelComponent.path) as |LabelComponent|}}
-      <LabelComponent @props={{labelComponent.props}} @option={{option}} name={{@name}} @radioId={{radioId}} class={{class}} />
+      <LabelComponent
+        @props={{labelComponent.props}}
+        @option={{option}}
+        name={{@name}}
+        @radioId={{radioId}}
+        class={{class}}
+      />
     {{/let}}
   {{else}}
     {{#let (component labelComponent) as |LabelComponent|}}
@@ -9,7 +15,10 @@
     {{/let}}
   {{/if}}
 {{else if markdownLabel}}
-  <label for="{{for}}"><Background::MarkdownToHtml @source={{markdownLabel}} class={{class}} /></label>
+  <label for="{{for}}"><Background::MarkdownToHtml
+      @source={{markdownLabel}}
+      class={{class}}
+    /></label>
 {{else if label}}
   <label for="{{for}}" class={{class}}>{{label}}</label>
 {{/if}}

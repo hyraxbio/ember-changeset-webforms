@@ -1,10 +1,10 @@
 {{#if (and changesetWebform.changeset (not formField.hidden))}}
   {{#if formField.cloneGroupName}}
-    <EmberChangesetWebforms::ClonedFieldElements::ValidatingCloneGroup 
-      @masterFormField={{formField}} 
-      @setFieldValue={{action "setFieldValue"}} 
-      @validateField={{action "validateField"}} 
-      @afterAddClone={{afterAddClone}} 
+    <EmberChangesetWebforms::ClonedFieldElements::ValidatingCloneGroup
+      @masterFormField={{formField}}
+      @setFieldValue={{action "setFieldValue"}}
+      @validateField={{action "validateField"}}
+      @afterAddClone={{afterAddClone}}
       @afterRemoveClone={{afterRemoveClone}}
       @afterClickAddCloneButton={{afterClickAddCloneButton}}
       @onUserInteraction={{action "onUserInteraction"}}
@@ -12,9 +12,9 @@
       @changesetWebform={{changesetWebform}}
     />
   {{else}}
-    <EmberChangesetWebforms::FieldElements::ValidatingFieldWrapper 
-      @formField={{formField}} 
-      @typeClass={{typeClass}} 
+    <EmberChangesetWebforms::FieldElements::ValidatingFieldWrapper
+      @formField={{formField}}
+      @typeClass={{typeClass}}
       @dataTestFormName={{dataTestFormName}}
       @dataTestFieldId={{dataTestFieldId}}
       @changesetWebform={{changesetWebform}}
@@ -22,16 +22,23 @@
       @ariaLabelledBy={{ariaLabelledBy}}
       @ariaLabel={{ariaLabel}}
       @isGroup={{isGroup}}
-      @validationErrorsArray={{get (get changesetWebform.changeset.error formField.propertyName) "validation"}}
-      data-test-cwf-field >
-      {{component formField.componentPath
+      @validationErrorsArray={{get
+        (get changesetWebform.changeset.error formField.propertyName)
+        "validation"
+      }}
+      data-test-cwf-field
+    >
+      {{component
+        formField.componentPath
         formField=formField
         formFields=formFields
         formSettings=formSettings
         onChange=(action "onChange")
         onUserInteraction=(action "onUserInteraction")
         changesetWebform=changesetWebform
-        displayValue=(changeset-get changesetWebform.changeset formField.fieldId)
+        displayValue=(changeset-get
+          changesetWebform.changeset formField.fieldId
+        )
         dataTestFieldId=dataTestFieldId
         labelId=labelId
         ariaLabelledBy=ariaLabelledBy

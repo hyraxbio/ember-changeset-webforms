@@ -1,26 +1,41 @@
 <DocsDemo as |demo|>
   <demo.example @name="after-field-validation-form.hbs">
-    <ChangesetWebform 
-      @formSchema={{nameAndEmailFormSchema}} 
-      @afterFieldValidation={{action "afterFieldValidation"}} 
+    <ChangesetWebform
+      @formSchema={{nameAndEmailFormSchema}}
+      @afterFieldValidation={{action "afterFieldValidation"}}
       data-test-id="after-field-validation-form"
-     />
+    />
     {{#if lastValidatedField}}
       <div data-test-id="after-field-validation-feedback">
-        The user's name is "{{name}}".<br>
-        The last validated field was {{lastValidatedField}}.<br>
+        The user's name is "{{name}}".<br />
+        The last validated field was
+        {{lastValidatedField}}.<br />
         {{#if fieldValidationErrors.validation.length}}
-          The first argument to the afterFieldValidation argument has the following values:<br>
-          <code>value: "{{fieldValidationErrors.value}}"</code><br>
-          <code>validation: [{{fieldValidationErrors.validation}}]</code><br>
+          The first argument to the afterFieldValidation argument has the
+          following values:<br />
+          <code>value: "{{fieldValidationErrors.value}}"</code><br />
+          <code>validation: [{{fieldValidationErrors.validation}}]</code><br />
         {{else}}
-          The {{lastValidatedField}} has no validation errors when its value is {{lastUpdatedFieldValue}}.<br>
+          The
+          {{lastValidatedField}}
+          has no validation errors when its value is
+          {{lastUpdatedFieldValue}}.<br />
         {{/if}}
-        The form has the following fields: {{allFields}}.<br>
-        The value of settings.formName is {{formName}}.
+        The form has the following fields:
+        {{allFields}}.<br />
+        The value of settings.formName is
+        {{formName}}.
       </div>
     {{/if}}
   </demo.example>
-  {{demo.snippet "after-field-validation-form.js" label="Component JS" language="javascript"}}
-  {{demo.snippet "after-field-validation-form.hbs" label="Component template" language="htmlbars"}}
+  {{demo.snippet
+    "after-field-validation-form.js"
+    label="Component JS"
+    language="javascript"
+  }}
+  {{demo.snippet
+    "after-field-validation-form.hbs"
+    label="Component template"
+    language="htmlbars"
+  }}
 </DocsDemo>

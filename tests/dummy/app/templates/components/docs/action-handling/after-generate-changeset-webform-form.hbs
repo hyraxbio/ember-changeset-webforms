@@ -8,20 +8,43 @@
     {{else}}
       <div data-test-id="step-1">
         <h2>Step 1</h2>
-        <ChangesetWebform 
-        @formSchema={{formSchema}} 
-        @afterGenerateChangesetWebform={{action "afterGenerateChangesetWebform"}} 
-        data-test-id="after-generate-changeset-webform-form"
+        <ChangesetWebform
+          @formSchema={{formSchema}}
+          @afterGenerateChangesetWebform={{action
+            "afterGenerateChangesetWebform"
+          }}
+          data-test-id="after-generate-changeset-webform-form"
         />
       </div>
     {{/if}}
-    <div class="external body-text" data-test-id="after-generate-changeset-webform-feedback">
+    <div
+      class="external body-text"
+      data-test-id="after-generate-changeset-webform-feedback"
+    >
       <h2>These buttons are not part of the ChangesetWebform component.</h2>
-      <hr class="margin-top-lg">
-      <button class="btn btn-outline-gray-medium margin-top-lg" data-test-id="previous-button" type="button" {{action "prev"}}>Previous step</button>
-      <button class="btn btn-outline-gray-medium margin-top-lg" data-test-id="next-button" type="button" {{action "next"}}>Next step</button>
-    </div> 
+      <hr class="margin-top-lg" />
+      <button
+        class="btn btn-outline-gray-medium margin-top-lg"
+        data-test-id="previous-button"
+        type="button"
+        {{action "prev"}}
+      >Previous step</button>
+      <button
+        class="btn btn-outline-gray-medium margin-top-lg"
+        data-test-id="next-button"
+        type="button"
+        {{action "next"}}
+      >Next step</button>
+    </div>
   </demo.example>
-  {{demo.snippet "after-generate-changeset-webform-form.hbs" label="Component template" language="htmlbars"}}
-  {{demo.snippet "after-generate-changeset-webform-form.js" label="Component JS" language="javascript"}}
+  {{demo.snippet
+    "after-generate-changeset-webform-form.hbs"
+    label="Component template"
+    language="htmlbars"
+  }}
+  {{demo.snippet
+    "after-generate-changeset-webform-form.js"
+    label="Component JS"
+    language="javascript"
+  }}
 </DocsDemo>

@@ -1,9 +1,25 @@
-<EmberChangesetWebforms::FieldElements::FieldLabel 
-  @formField={{formField}} />
-  {{#if formField.displayComponent}}
-    {{component formField.displayComponent.path props=formField.displayComponent.props formField=formField 
-    clickerElementClass=(ember-changeset-webforms/dynamic-class-names "clickerElement" changesetWebform formField) 
-    changesetWebform=changesetWebform onClick=(action "onClick" formField)}}
-  {{else}}
-    <div role="button" class={{ember-changeset-webforms/dynamic-class-names "clickerElement" changesetWebform formField formField.validationStatus}}  onclick={{action "onClick" formField}} data-test-class="cwf-clicker-element">{{formField.clickerText}}</div>
-  {{/if}}
+<EmberChangesetWebforms::FieldElements::FieldLabel @formField={{formField}} />
+{{#if formField.displayComponent}}
+  {{component
+    formField.displayComponent.path
+    props=formField.displayComponent.props
+    formField=formField
+    clickerElementClass=(ember-changeset-webforms/dynamic-class-names
+      "clickerElement" changesetWebform formField
+    )
+    changesetWebform=changesetWebform
+    onClick=(action "onClick" formField)
+  }}
+{{else}}
+  <div
+    role="button"
+    class={{ember-changeset-webforms/dynamic-class-names
+      "clickerElement"
+      changesetWebform
+      formField
+      formField.validationStatus
+    }}
+    onclick={{action "onClick" formField}}
+    data-test-class="cwf-clicker-element"
+  >{{formField.clickerText}}</div>
+{{/if}}

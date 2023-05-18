@@ -1,16 +1,38 @@
- <div class="{{ember-changeset-webforms/dynamic-class-names "labelledRadioButton" changesetWebform formField formField.validationStatus}} {{if disabled "disabled"}}" data-test-id={{dataTestId}} data-test-test="eefadsf">
-  <RadioButton 
-    @value={{value}} 
-    @groupValue={{groupValue}} 
-    @name={{name}} 
-    @changed={{@changedAction}} 
-    @radioId={{radioId}} 
-    @disabled={{disabled}} 
-    @radioClass="{{ember-changeset-webforms/dynamic-class-names "radioButtonElement" changesetWebform formField formField.validationStatus}}" />
-  <Background::LabelComponent 
-    @labelComponent={{labelComponent}} 
-    @markdownLabel={{markdownLabel}} 
-    @label={{label}} 
-    @for={{radioId}} 
-    class={{ember-changeset-webforms/dynamic-class-names "radioButtonLabel" changesetWebform formField formField.validationStatus}} />
-</div> 
+<div
+  class="{{ember-changeset-webforms/dynamic-class-names
+      'labelledRadioButton'
+      changesetWebform
+      formField
+      formField.validationStatus
+    }}
+    {{if disabled 'disabled'}}"
+  data-test-id={{dataTestId}}
+  data-test-test="eefadsf"
+>
+  <RadioButton
+    @value={{value}}
+    @groupValue={{groupValue}}
+    @name={{name}}
+    @changed={{@changedAction}}
+    @radioId={{radioId}}
+    @disabled={{disabled}}
+    @radioClass="{{ember-changeset-webforms/dynamic-class-names
+      'radioButtonElement'
+      changesetWebform
+      formField
+      formField.validationStatus
+    }}"
+  />
+  <Background::LabelComponent
+    @labelComponent={{labelComponent}}
+    @markdownLabel={{markdownLabel}}
+    @label={{label}}
+    @for={{radioId}}
+    class={{ember-changeset-webforms/dynamic-class-names
+      "radioButtonLabel"
+      changesetWebform
+      formField
+      formField.validationStatus
+    }}
+  />
+</div>
