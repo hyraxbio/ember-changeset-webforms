@@ -1,29 +1,29 @@
 <div
   class="{{ember-changeset-webforms/dynamic-class-names
       'optionsWrapper'
-      changesetWebform
-      formField
-      formField.validationStatus
+      @changesetWebform
+      @formField
+      @formField.validationStatus
     }}"
 >
-  {{#each formField.options as |option|}}
+  {{#each @formField.options as |option|}}
     <Background::LabelledRadioButton
-      @dataTestId={{concat dataTestFieldId "-radio-option-" option.value}}
+      @dataTestId={{concat @dataTestFieldId "-radio-option-" option.value}}
       @value={{option.value}}
-      @groupValue={{displayValue}}
+      @groupValue={{@displayValue}}
       @required={{false}}
-      @name={{or formField.name formField.fieldId}}
-      @disabled={{if formField.disabled true option.disabled}}
+      @name={{or @formField.name @formField.fieldId}}
+      @disabled={{if @formField.disabled true option.disabled}}
       @label={{option.label}}
       @labelComponent={{or
         option.labelComponent
-        formField.optionLabelComponent
+        @formField.optionLabelComponent
       }}
-      @containerName={{formSettings.formName}}
+      @containerName={{@formSettings.formName}}
       @changedAction={{action "onRadioChange"}}
       @option={{option}}
-      @changesetWebform={{changesetWebform}}
-      @formField={{formField}}
+      @changesetWebform={{@changesetWebform}}
+      @formField={{@formField}}
     />
   {{/each}}
 </div>

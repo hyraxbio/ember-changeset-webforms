@@ -1,49 +1,49 @@
-{{#if (and changesetWebform.changeset (not formField.hidden))}}
-  {{#if formField.cloneGroupName}}
+{{#if (and @changesetWebform.changeset (not @formField.hidden))}}
+  {{#if @formField.cloneGroupName}}
     <EmberChangesetWebforms::ClonedFieldElements::ValidatingCloneGroup
-      @masterFormField={{formField}}
+      @masterFormField={{@formField}}
       @setFieldValue={{action "setFieldValue"}}
       @validateField={{action "validateField"}}
-      @afterAddClone={{afterAddClone}}
-      @afterRemoveClone={{afterRemoveClone}}
-      @afterClickAddCloneButton={{afterClickAddCloneButton}}
+      @afterAddClone={{@afterAddClone}}
+      @afterRemoveClone={{@afterRemoveClone}}
+      @afterClickAddCloneButton={{@afterClickAddCloneButton}}
       @onUserInteraction={{action "onUserInteraction"}}
-      @dataTestFieldId={{dataTestFieldId}}
-      @changesetWebform={{changesetWebform}}
+      @dataTestFieldId={{this.dataTestFieldId}}
+      @changesetWebform={{@changesetWebform}}
     />
   {{else}}
     <EmberChangesetWebforms::FieldElements::ValidatingFieldWrapper
-      @formField={{formField}}
-      @typeClass={{typeClass}}
-      @dataTestFormName={{dataTestFormName}}
-      @dataTestFieldId={{dataTestFieldId}}
-      @changesetWebform={{changesetWebform}}
-      @labelId={{labelId}}
-      @ariaLabelledBy={{ariaLabelledBy}}
-      @ariaLabel={{ariaLabel}}
-      @isGroup={{isGroup}}
+      @formField={{@formField}}
+      @typeClass={{this.typeClass}}
+      @dataTestFormName={{@dataTestFormName}}
+      @dataTestFieldId={{this.dataTestFieldId}}
+      @changesetWebform={{@changesetWebform}}
+      @labelId={{this.labelId}}
+      @ariaLabelledBy={{this.ariaLabelledBy}}
+      @ariaLabel={{this.ariaLabel}}
+      @isGroup={{this.isGroup}}
       @validationErrorsArray={{get
-        (get changesetWebform.changeset.error formField.propertyName)
+        (get @changesetWebform.changeset.error @formField.propertyName)
         "validation"
       }}
       data-test-cwf-field
     >
       {{component
-        formField.componentPath
-        formField=formField
-        formFields=formFields
-        formSettings=formSettings
+        @formField.componentPath
+        formField=@formField
+        formFields=@formFields
+        formSettings=@formSettings
         onChange=(action "onChange")
         onUserInteraction=(action "onUserInteraction")
-        changesetWebform=changesetWebform
+        changesetWebform=@changesetWebform
         displayValue=(changeset-get
-          changesetWebform.changeset formField.fieldId
+          @changesetWebform.changeset @formField.fieldId
         )
-        dataTestFieldId=dataTestFieldId
-        labelId=labelId
-        ariaLabelledBy=ariaLabelledBy
-        ariaLabel=ariaLabel
-        isGroup=isGroup
+        dataTestFieldId=this.dataTestFieldId
+        labelId=this.labelId
+        ariaLabelledBy=this.ariaLabelledBy
+        ariaLabel=this.ariaLabel
+        isGroup=this.isGroup
       }}
     </EmberChangesetWebforms::FieldElements::ValidatingFieldWrapper>
   {{/if}}

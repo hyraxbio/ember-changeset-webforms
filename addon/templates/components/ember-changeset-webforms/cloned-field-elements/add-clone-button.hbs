@@ -1,12 +1,12 @@
 <button
   class="{{ember-changeset-webforms/dynamic-class-names
       'buttonElement,addCloneButton'
-      changesetWebform
+      @changesetWebform
     }}"
   type="button"
-  onclick={{action onClickAddCloneButton formField.cloneGroupName}}
+  onclick={{action @onClickAddCloneButton @formField.cloneGroupName}}
   data-test-id="cwf-add-clone-button"
 >{{or
-    formField.cloneButtonText
-    (concat "Add " cloneFieldLabel " field")
+    @formField.cloneButtonText
+    (concat "Add " @cloneFieldLabel " field")
   }}</button>

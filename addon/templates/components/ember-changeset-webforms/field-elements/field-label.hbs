@@ -1,20 +1,20 @@
-{{#unless noLabel}}
+{{#unless this.noLabel}}
   <label
-    id={{labelId}}
-    for={{formField.id}}
+    id={{@labelId}}
+    for={{@formField.id}}
     class="{{ember-changeset-webforms/dynamic-class-names
         'labelElement,fieldLabel'
-        changesetWebform
-        formField
-        formField.validationStatus
+        @changesetWebform
+        @formField
+        @formField.validationStatus
       }}"
     data-test-class="cwf-field-label"
-    data-test-id="{{formField.id}}-label"
+    data-test-id="{{@formField.id}}-label"
   >
-    {{#if formField.labelComponent}}
-      {{component formField.labelComponent}}
-    {{else if formField.fieldLabel}}
-      {{formField.fieldLabel}}
+    {{#if @formField.labelComponent}}
+      {{component @formField.labelComponent}}
+    {{else if @formField.fieldLabel}}
+      {{@formField.fieldLabel}}
     {{/if}}
   </label>
 {{/unless}}

@@ -1,24 +1,24 @@
-{{#if labelComponent}}
-  {{#if labelComponent.path}}
-    {{#let (component labelComponent.path) as |LabelComponent|}}
+{{#if @labelComponent}}
+  {{#if @labelComponent.path}}
+    {{#let (component @labelComponent.path) as |LabelComponent|}}
       <LabelComponent
-        @props={{labelComponent.props}}
-        @option={{option}}
+        @props={{@labelComponent.props}}
+        @option={{@option}}
         name={{@name}}
-        @radioId={{radioId}}
-        class={{class}}
+        @radioId={{@radioId}}
+        class={{@class}}
       />
     {{/let}}
   {{else}}
-    {{#let (component labelComponent) as |LabelComponent|}}
-      <LabelComponent @option={{option}} class={{class}} />
+    {{#let (component @labelComponent) as |LabelComponent|}}
+      <LabelComponent @option={{@option}} class={{@class}} />
     {{/let}}
   {{/if}}
-{{else if markdownLabel}}
-  <label for="{{for}}"><Background::MarkdownToHtml
-      @source={{markdownLabel}}
-      class={{class}}
+{{else if @markdownLabel}}
+  <label for="{{@for}}"><Background::MarkdownToHtml
+      @source={{@markdownLabel}}
+      class={{@class}}
     /></label>
-{{else if label}}
-  <label for="{{for}}" class={{class}}>{{label}}</label>
+{{else if @label}}
+  <label for="{{@for}}" class={{@class}}>{{@label}}</label>
 {{/if}}

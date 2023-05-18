@@ -1,14 +1,14 @@
-{{#if (and (eq formField.validationStatus "invalid") validationErrorsArray)}}
+{{#if (and (eq @formField.validationStatus "invalid") @validationErrorsArray)}}
   <div
     class="{{ember-changeset-webforms/dynamic-class-names
         'validationErrors'
-        changesetWebform
-        formField
-        formField.validationStatus
+        @changesetWebform
+        @formField
+        @formField.validationStatus
       }}"
     data-test-class="cwf-field-errors"
   >
-    {{#each validationErrorsArray as |error|}}
+    {{#each @validationErrorsArray as |error|}}
       <div
         class="ember-changeset-webforms-field-error"
         data-test-class="cwf-field-error"

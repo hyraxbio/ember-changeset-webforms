@@ -4,20 +4,20 @@
   disabled={{this.disabled}}
   ...attributes
 >
-  {{formSettings.submitButtonText}}
-  {{#if changesetWebform.formSettings.requestInFlight}}
-    {{#if formSettings.submitButtonIcon}}
+  {{@formSettings.submitButtonText}}
+  {{#if @changesetWebform.formSettings.requestInFlight}}
+    {{#if @formSettings.submitButtonIcon}}
       {{component
-        formSettings.submitButtonIcon
+        @formSettings.submitButtonIcon
         class=(ember-changeset-webforms/dynamic-class-names
-          "buttonIcon,submitButtonIcon" changesetWebform
+          "buttonIcon,submitButtonIcon" @changesetWebform
         )
       }}
     {{else}}
       <div
         class={{ember-changeset-webforms/dynamic-class-names
           "buttonIcon,submitButtonIcon"
-          changesetWebform
+          @changesetWebform
         }}
       ></div>
     {{/if}}

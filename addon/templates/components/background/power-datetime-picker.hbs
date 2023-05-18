@@ -7,74 +7,74 @@
     <dropdown.Trigger
       @eventType="mousedown"
       onmousedown={{action "onTriggerFocus"}}
-      class={{triggerWrapperClass}}
-      ariaLabelledBy={{ariaLabelledBy}}
-      aria-label={{arialabel}}
+      class={{@triggerWrapperClass}}
+      ariaLabelledBy={{@ariaLabelledBy}}
+      aria-label={{@ariaLabel}}
     >
-      {{#if value}}
+      {{#if @value}}
         <button
           type="button"
-          class="{{clearDateTimeButtonClass}}"
+          class="{{@clearDateTimeButtonClass}}"
           data-test-id="datetime-picker-clear-datetime"
           onclick={{action "clearDateTime"}}
         >×</button>
       {{else}}
-        <div class="{{calendarIconClass}}"></div>
+        <div class="{{@calendarIconClass}}"></div>
       {{/if}}
       <input
         type="text"
         value={{if
-          value
+          @value
           (ember-changeset-webforms/moment-format
-            (ember-changeset-webforms/moment value parsedDateTimeFormat)
-            parsedDateTimeDisplayFormat
+            (ember-changeset-webforms/moment @value this.parsedDateTimeFormat)
+            this.parsedDateTimeDisplayFormat
           )
         }}
-        placeholder={{parsedDatepickerPlaceholder}}
+        placeholder={{this.parsedDatepickerPlaceholder}}
         onChange={{action "onDateInputChange"}}
         onKeyUp={{action "onDateInputKeyUp"}}
         onFocus={{action "onDateInputFocus"}}
         onBlur={{action "onDateInputBlur"}}
-        class={{triggerInputClass}}
-        id={{triggerInputId}}
+        class={{@triggerInputClass}}
+        id={{@triggerInputId}}
         data-test-id="power-datepicker-input"
       />
     </dropdown.Trigger>
     <dropdown.Content
       data-test-id="ecw-power-datepicker-dropdown"
-      class={{dropdownClass}}
+      class={{@dropdownClass}}
     >
-      <div class={{dropdownInnerClass}}>
+      <div class={{@dropdownInnerClass}}>
         <PowerCalendar
           @minDate={{@minDate}}
           @maxDate={{@maxDate}}
-          @selected={{selectedDate}}
+          @selected={{this.selectedDate}}
           @onSelect={{action "dateClicked" dropdown}}
-          @onCenterChange={{action (mut center) value="date"}}
-          @center={{center}}
-          class={{calendarClass}}
+          @onCenterChange={{action (mut this.center) value="date"}}
+          @center={{this.center}}
+          class={{@calendarClass}}
           as |calendar|
         >
           <Background::PowerCalendarNav
             @calendar={{calendar}}
-            @calendarTitleFormat={{calendarTitleFormat}}
+            @calendarTitleFormat={{@calendarTitleFormat}}
             @moveCenter={{action calendar.actions.moveCenter}}
-            class={{calendarNavClass}}
+            class={{@calendarNavClass}}
           />
           <calendar.Days
             @minDate={{@minDate}}
             @maxDate={{@maxDate}}
-            class={{calendarDaysClass}}
+            class={{@calendarDaysClass}}
           />
         </PowerCalendar>
-        {{#if (and showTimeSelector value (not fixedTime))}}
+        {{#if (and @showTimeSelector @value (not @fixedTime))}}
           <div
             data-test-id="time-selector"
             class="time-select
-              {{unless value 'disabled'}}
-              {{timeSelectorContainerClass}}"
+              {{unless @value 'disabled'}}
+              {{@timeSelectorContainerClass}}"
           >
-            {{#each timeFormatParts as |timeFormatPart|}}
+            {{#each this.timeFormatParts as |timeFormatPart|}}
               <div
                 data-test-class="time-selector-field"
                 data-test-id="time-selector-field-{{timeFormatPart.type}}"
@@ -84,7 +84,7 @@
                   for="time-selector-{{timeFormatPart.type}}"
                   data-test-class="time-selector-field-label"
                   data-test-id="time-selector-field-label-{{timeFormatPart.type}}"
-                  class={{timeInputLabelClass}}
+                  class={{@timeInputLabelClass}}
                 >{{timeFormatPart.label}}</label>
                 <input
                   id="time-selector-{{timeFormatPart.type}}"
@@ -95,10 +95,10 @@
                   min={{timeFormatPart.min}}
                   value={{readonly
                     (if
-                      value
+                      @value
                       (ember-changeset-webforms/moment-format
                         (ember-changeset-webforms/moment
-                          value parsedDateTimeFormat
+                          @value this.parsedDateTimeFormat
                         )
                         timeFormatPart.formatChar
                       )
@@ -114,26 +114,26 @@
                     timeFormatPart.formatChar
                   }}
                   class="time-selector-field-input-{{timeFormatPart.type}}
-                    {{timeInputClass}}"
+                    {{@timeInputClass}}"
                 />
               </div>
             {{/each}}
-            {{#if showAmPmInput}}
+            {{#if this.showAmPmInput}}
               <div>
                 <label
                   for="time-selector-am-pm"
                   data-test-class="time-selector-field-label"
                   data-test-id="time-selector-field-label-am-pm"
-                  class={{timeInputLabelClass}}
-                >{{timeInputLabels.amPm}}</label>
+                  class={{@timeInputLabelClass}}
+                >{{@timeInputLabels.amPm}}</label>
                 <input
                   type="text"
                   id="time-selector-am-pm"
                   value={{if
-                    value
+                    @value
                     (ember-changeset-webforms/moment-format
                       (ember-changeset-webforms/moment
-                        value parsedDateTimeFormat
+                        @value this.parsedDateTimeFormat
                       )
                       "a"
                     )
@@ -143,7 +143,7 @@
                   onBlur={{action "onChangeAmPm"}}
                   onKeyUp={{action "onKeyUpAmPm"}}
                   data-test-id="power-datepicker-am-pm-input"
-                  class={{timeInputClass}}
+                  class={{@timeInputClass}}
                 />
               </div>
             {{/if}}

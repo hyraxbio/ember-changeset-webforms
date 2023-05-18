@@ -15,26 +15,26 @@
   ...attributes
 >
   <EmberChangesetWebforms::FieldElements::FieldLabel
-    @formField={{formField}}
-    @changesetWebform={{changesetWebform}}
-    @labelId={{labelId}}
+    @formField={{@formField}}
+    @changesetWebform={{@changesetWebform}}
+    @labelId={{@labelId}}
   />
   <div
     class="{{ember-changeset-webforms/dynamic-class-names
         'fieldControls'
-        changesetWebform
-        formField
-        formField.validationStatus
+        @changesetWebform
+        @formField
+        @formField.validationStatus
       }}"
-    role={{if isGroup "group"}}
-    ariaLabelledBy={{if isGroup ariaLabelledBy}}
-    aria-label={{if isGroup ariaLabel}}
+    role={{if @isGroup "group"}}
+    ariaLabelledBy={{if @isGroup @ariaLabelledBy}}
+    aria-label={{if @isGroup @ariaLabel}}
   >
     {{yield}}
   </div>
   <EmberChangesetWebforms::FieldElements::FieldErrors
-    @formField={{formField}}
-    @changesetWebform={{changesetWebform}}
-    @validationErrorsArray={{validationErrorsArray}}
+    @formField={{@formField}}
+    @changesetWebform={{@changesetWebform}}
+    @validationErrorsArray={{@validationErrorsArray}}
   />
 </div>
