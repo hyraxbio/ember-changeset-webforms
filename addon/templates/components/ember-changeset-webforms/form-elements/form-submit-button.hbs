@@ -7,19 +7,16 @@
   {{@formSettings.submitButtonText}}
   {{#if @changesetWebform.formSettings.requestInFlight}}
     {{#if @formSettings.submitButtonIcon}}
-      {{component
-        @formSettings.submitButtonIcon
-        class=(ember-changeset-webforms/dynamic-class-names
-          "buttonIcon,submitButtonIcon" @changesetWebform
-        )
-      }}
+      {{#let (component @formSettings.submitButtonIcon) as |SubmitIcon|}}
+        <SubmitIcon
+          class={{ember-changeset-webforms/dynamic-class-names
+            "buttonIcon,submitButtonIcon"
+            @changesetWebform
+          }}
+        />
+      {{/let}}
     {{else}}
-      <div
-        class={{ember-changeset-webforms/dynamic-class-names
-          "buttonIcon,submitButtonIcon"
-          @changesetWebform
-        }}
-      ></div>
+      <div></div>
     {{/if}}
   {{/if}}
 </button>
