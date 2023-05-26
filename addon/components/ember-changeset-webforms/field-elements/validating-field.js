@@ -18,10 +18,22 @@ export default Component.extend({
     }
   },
 
-  dataTestFieldId: computed('dataTestId', 'dataTestFormName', 'formField.dataTestFieldName', function () {
-    if (this.dataTestId) { return this.dataTestId; }
-    return [this.dataTestFormName, this.formField.dataTestFieldName || this.formField.fieldId].filter(item => item).join('-');
-  }),
+  dataTestFieldId: computed(
+    'dataTestId',
+    'dataTestFormName',
+    'formField.dataTestFieldName',
+    function () {
+      if (this.dataTestId) {
+        return this.dataTestId;
+      }
+      return [
+        this.dataTestFormName,
+        this.formField.dataTestFieldName || this.formField.fieldId,
+      ]
+        .filter((item) => item)
+        .join('-');
+    }
+  ),
 
   typeClass: computed('formField.fieldType', function () {
     var myStr = this.formField.fieldType;
@@ -29,37 +41,47 @@ export default Component.extend({
     return `field-type-${myStr}`;
   }),
 
-  labelId: computed('formField.name', function() {
+  labelId: computed('formField.name', function () {
     return `${this.formField.name}-label`;
   }),
 
-  ariaLabelledBy: computed('labelId', function() {
+  ariaLabelledBy: computed('labelId', function () {
     if (!this.formField.hideLabel) {
       return this.labelId;
     }
   }),
 
-  ariaLabel: computed('formField.{hideLabel,fieldLabel}', function() {
+  ariaLabel: computed('formField.{hideLabel,fieldLabel}', function () {
     return this.formField.hideLabel ? this.formField.fieldLabel : null;
   }),
 
-  isGroup: computed('formField.options', function() {
+  isGroup: computed('formField.options', function () {
     return this.formField.options ? true : null;
   }),
 
   actions: {
     validateField(formField) {
-      formField.validate().then(fieldValidationErrors => {
-        this.afterFieldValidation(formField, formField.changeset, fieldValidationErrors);
+      formField.validate().then((fieldValidationErrors) => {
+        this.afterFieldValidation(
+          formField,
+          formField.changeset,
+          fieldValidationErrors
+        );
       });
     },
 
     onChange(formField, value) {
+      if (this.isDestroyed || this.isDestroying) {
+        return;
+      }
       formField.eventLog.pushObject('change');
       this.send('setFieldValue', value, formField);
     },
 
     onUserInteraction(formField, eventType, value, event) {
+      if (this.isDestroyed || this.isDestroying) {
+        return;
+      }
       formField.eventLog.pushObject(eventType);
       if (eventType === 'keyUp') {
         if (formField.fieldType === 'input' && event.keyCode === 13) {
@@ -73,14 +95,19 @@ export default Component.extend({
       } else if (eventType === 'focusOut') {
         formField.set('focussed', false);
         formField.eventLog.pushObject('focusOut');
-        if (value && formField.trim && formField.inputType !== 'password' && typeof value === 'string') {
+        if (
+          value &&
+          formField.trim &&
+          formField.inputType !== 'password' &&
+          typeof value === 'string'
+        ) {
           value = value.trim();
         }
         this.send('setFieldValue', value, formField);
       } else if (eventType === 'focusIn') {
         formField.set('focussed', true);
-      }  
-      this.onUserInteraction(formField, eventType, value, event)
+      }
+      this.onUserInteraction(formField, eventType, value, event);
     },
 
     // onUserInteractionClone(...args) {
@@ -88,6 +115,9 @@ export default Component.extend({
     // },
 
     setFieldValue: function (value, formField) {
+      if (this.isDestroyed || this.isDestroying) {
+        return;
+      }
       var changeset = this.changesetWebform.changeset;
       formField.set('previousValue', changeset.get(formField.propertyName));
       changeset.set(formField.propertyName, value);
@@ -95,6 +125,6 @@ export default Component.extend({
         this.onFieldValueChange(formField, changeset);
       }
       this.send('validateField', formField);
-    }
-  }
+    },
+  },
 });

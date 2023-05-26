@@ -1,16 +1,17 @@
 import Component from '@ember/component';
 import layout from '../../../templates/components/ember-changeset-webforms/cloned-field-elements/validating-clone-group';
 import { computed } from '@ember/object';
+import { reads } from '@ember/object/computed';
 import FormFieldClone from 'ember-changeset-webforms/utils/form-field-clone';
 import validationEventLog from 'ember-changeset-webforms/utils/validation-event-log';
 
 export default Component.extend({
-  tagName: "",
+  tagName: '',
   layout,
-  dataTestCwfFieldValidates: computed.reads('masterFormField.validates'),
-  dataTestCwfFieldRequired: computed.reads('masterFormField.required'),
+  dataTestCwfFieldValidates: reads('masterFormField.validates'),
+  dataTestCwfFieldRequired: reads('masterFormField.required'),
 
-  dataTestId: computed('masterFormField', function() {
+  dataTestId: computed('masterFormField', function () {
     return `clone-group-${this.masterFormField.fieldId}`;
   }),
 
@@ -20,38 +21,57 @@ export default Component.extend({
     const changeset = this.changesetWebform.changeset;
     var groupValue = changeset.get(masterFormField.propertyName) || [];
     groupValue.forEach(() => {
-      this.send('cloneField', {fromData: true});
+      this.send('cloneField', { fromData: true });
     });
     const emptyClones = masterFormField.minClones - groupValue.length;
     for (var i = 0; i < emptyClones; i++) {
       this.send('cloneField');
-    } 
+    }
   },
 
-  validationStatus: computed('masterFormFieldValidationErrors', 'masterFormField.{eventLog.[]}', function () {
-    var formField = this.masterFormField;
-    if (!formField) { return; }
-    if (!validationEventLog(formField).filter(item => !item.endsWith('Clone')).length) { return }
-    var validationErrors = this.masterFormFieldValidationErrors || [];
-    if (validationErrors.length === 0) {
-      return 'valid';
-    } else {
-      return 'invalid';
+  validationStatus: computed(
+    'masterFormFieldValidationErrors',
+    'masterFormField.{eventLog.[]}',
+    function () {
+      var formField = this.masterFormField;
+      if (!formField) {
+        return;
+      }
+      if (
+        !validationEventLog(formField).filter((item) => !item.endsWith('Clone'))
+          .length
+      ) {
+        return;
+      }
+      var validationErrors = this.masterFormFieldValidationErrors || [];
+      if (validationErrors.length === 0) {
+        return 'valid';
+      } else {
+        return 'invalid';
+      }
     }
-  }),
+  ),
 
-  cloneGroupNameClass: computed('masterFormField.cloneGroupName', function() {
+  cloneGroupNameClass: computed('masterFormField.cloneGroupName', function () {
     return `clone-group-${this.masterFormField.cloneGroupName}`;
   }),
 
-  masterFormFieldValidationErrors: computed('changesetWebform.changeset.error', function() {
-    const changeset = this.changesetWebform.changeset;
-    var validationErrors = ((changeset.get(`error.${this.masterFormField.propertyName}.validation`)) || []);
-    const masterFormFieldValidationErrors = [...validationErrors].filter(item => {
-      return typeof item !== 'object' || !item.clones;
-    });
-    return masterFormFieldValidationErrors;
-  }),
+  masterFormFieldValidationErrors: computed(
+    'changesetWebform.changeset.error',
+    function () {
+      const changeset = this.changesetWebform.changeset;
+      var validationErrors =
+        changeset.get(
+          `error.${this.masterFormField.propertyName}.validation`
+        ) || [];
+      const masterFormFieldValidationErrors = [...validationErrors].filter(
+        (item) => {
+          return typeof item !== 'object' || !item.clones;
+        }
+      );
+      return masterFormFieldValidationErrors;
+    }
+  ),
 
   cloneId(clonedFields) {
     if (!(clonedFields || []).length) {
@@ -70,11 +90,11 @@ export default Component.extend({
         this.onUserInteraction(this.masterFormField, 'addClone');
       }
     },
-    
+
     cloneField(opts = {}) {
       var masterFormField = this.masterFormField;
       masterFormField.set('clonedFields', masterFormField.clonedFields || []);
-      var newField = {...masterFormField.clonedFieldBlueprint};
+      var newField = { ...masterFormField.clonedFieldBlueprint };
       newField.isClone = true;
       newField.cloneId = this.cloneId(masterFormField.clonedFields);
       newField.eventLog = []; // BD must recreate this, otherwise all clones share the same instance of eventLog array.
@@ -83,22 +103,25 @@ export default Component.extend({
       clone.set('masterFormField', masterFormField);
       masterFormField.clonedFields.pushObject(clone);
       clone.set('index', masterFormField.clonedFields.indexOf(clone));
-      var lastIndex = masterFormField.clonedFields.length -1;
-      masterFormField.set('lastUpdatedClone', { // TODO does lastUpdatedClone do anything?
+      var lastIndex = masterFormField.clonedFields.length - 1;
+      masterFormField.set('lastUpdatedClone', {
+        // TODO does lastUpdatedClone do anything?
         index: lastIndex,
         previousValue: null,
       });
       if (!opts.fromData) {
-        var fieldValue = this.changesetWebform.changeset.get(masterFormField.propertyName) || [];
+        var fieldValue =
+          this.changesetWebform.changeset.get(masterFormField.propertyName) ||
+          [];
         fieldValue.push(opts.newCloneValue || newField.defaultValue);
         this.setFieldValue(fieldValue, masterFormField);
       }
-      
+
       this.send('checkMinMaxClones', masterFormField);
       // onUserInteraction is not fired here, as this function can be run automatically when inserting clones to match initial field data.
       if (this.afterAddClone) {
         this.afterAddClone(newField, masterFormField, this.changesetWebform);
-      } 
+      }
     },
 
     removeClone(clone) {
@@ -106,7 +129,8 @@ export default Component.extend({
       var index = masterFormField.clonedFields.indexOf(clone);
       masterFormField.clonedFields.removeObject(clone);
       this.send('checkMinMaxClones', masterFormField);
-      var groupValue = this.changesetWebform.changeset.get(masterFormField.propertyName) || []; //TODO check this.
+      var groupValue =
+        this.changesetWebform.changeset.get(masterFormField.propertyName) || []; //TODO check this.
       groupValue.splice(index, 1);
       masterFormField.eventLog.pushObject('removeClone');
       this.setFieldValue(groupValue, masterFormField);
@@ -120,9 +144,15 @@ export default Component.extend({
     },
 
     checkMinMaxClones(masterFormField) {
-      if (masterFormField.maxClones && masterFormField.clonedFields.length >= masterFormField.maxClones) {
+      if (
+        masterFormField.maxClones &&
+        masterFormField.clonedFields.length >= masterFormField.maxClones
+      ) {
         masterFormField.set('cloneCountStatus', 'max');
-      } else if (masterFormField.minClones && masterFormField.clonedFields.length === masterFormField.minClones) {
+      } else if (
+        masterFormField.minClones &&
+        masterFormField.clonedFields.length === masterFormField.minClones
+      ) {
         masterFormField.set('cloneCountStatus', 'min');
       } else {
         masterFormField.set('cloneCountStatus', null); // TODO install ember truth helpers as a dep.
@@ -132,13 +162,14 @@ export default Component.extend({
 
   updatedGroupValue(value, index) {
     var masterFormField = this.masterFormField;
-    var groupValue = this.changesetWebform.changeset.get(masterFormField.propertyName) || [];
+    var groupValue =
+      this.changesetWebform.changeset.get(masterFormField.propertyName) || [];
     masterFormField.set('lastUpdatedClone', {
       index: index,
       previousValue: groupValue[index],
-      previousLength: groupValue.length
+      previousLength: groupValue.length,
     });
     groupValue[index] = value;
     return groupValue;
-  }
+  },
 });
