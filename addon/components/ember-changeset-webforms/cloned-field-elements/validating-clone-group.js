@@ -15,20 +15,6 @@ export default Component.extend({
     return `clone-group-${this.masterFormField.fieldId}`;
   }),
 
-  didInsertElement() {
-    this._super(...arguments);
-    var masterFormField = this.masterFormField;
-    const changeset = this.changesetWebform.changeset;
-    var groupValue = changeset.get(masterFormField.propertyName) || [];
-    groupValue.forEach(() => {
-      this.send('cloneField', { fromData: true });
-    });
-    const emptyClones = masterFormField.minClones - groupValue.length;
-    for (var i = 0; i < emptyClones; i++) {
-      this.send('cloneField');
-    }
-  },
-
   validationStatus: computed(
     'masterFormFieldValidationErrors',
     'masterFormField.{eventLog.[]}',
@@ -84,6 +70,19 @@ export default Component.extend({
   },
 
   actions: {
+    didInsert() {
+      var masterFormField = this.masterFormField;
+      const changeset = this.changesetWebform.changeset;
+      var groupValue = changeset.get(masterFormField.propertyName) || [];
+      groupValue.forEach(() => {
+        this.send('cloneField', { fromData: true });
+      });
+      const emptyClones = masterFormField.minClones - groupValue.length;
+      for (var i = 0; i < emptyClones; i++) {
+        this.send('cloneField');
+      }
+    },
+
     onClickAddCloneButton() {
       this.send('cloneField');
       if (this.onUserInteraction) {

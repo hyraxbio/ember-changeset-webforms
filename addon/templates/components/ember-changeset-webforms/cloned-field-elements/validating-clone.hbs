@@ -1,7 +1,7 @@
 <div
   data-test-class={{this.dataTestClass}}
   class="cwf-field-clone-wrapper"
-  ...attributes
+   {{did-insert (action "didInsert")}} ...attributes
 >
   {{#if (not-eq @masterFormField.cloneCountStatus "min")}}
     <div

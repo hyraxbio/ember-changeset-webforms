@@ -11,16 +11,6 @@ export default Component.extend({
   tagName: '',
   layout,
 
-  didInsertElement() {
-    this._super(...arguments);
-    this.send(
-      'generateChangesetWebform',
-      this.formSchema,
-      this.data,
-      this.customValidators
-    );
-  },
-
   formSettings: reads('changesetWebform.formSettings'),
 
   formFields: reads('formObject.formFields'),
@@ -44,6 +34,15 @@ export default Component.extend({
   }),
 
   actions: {
+    didInsert() {
+      this.send(
+        'generateChangesetWebform',
+        this.formSchema,
+        this.data,
+        this.customValidators
+      );
+    },
+
     generateChangesetWebform(formSchema, data, customValidators, opts) {
       this.set(
         'changesetWebform',

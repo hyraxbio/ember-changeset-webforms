@@ -13,7 +13,7 @@
     {{if this.masterFormField.hideSuccessValidation 'hide-success-validation'}}
     {{if this.masterFormField.validates 'validates'}}
     {{if this.masterFormField.focussed 'focussed'}}"
-  ...attributes
+   {{did-insert (action "didInsert")}} ...attributes
 >
   <EmberChangesetWebforms::FieldElements::FieldLabel
     @formField={{@masterFormField}}

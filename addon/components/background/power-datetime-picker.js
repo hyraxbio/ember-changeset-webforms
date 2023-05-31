@@ -42,43 +42,6 @@ export default Component.extend({
     };
   }),
 
-  didInsertElement: function () {
-    this._super(...arguments);
-    if (this.defaultDate) {
-      this.set('selectedDate', this.defaultDate);
-    }
-    if (this.defaultTime) {
-      this.set('selectedHour', this.defaultHour);
-      this.set('selectedMinute', this.defaultMinute);
-      this.set('selectedSecond', this.defaultSecond);
-    }
-    if (this.calendarStartMonth) {
-      var split = this.calendarStartMonth.split('/');
-      this.set(
-        'calendarStartDate',
-        moment()
-          .year(parseInt(split[1]))
-          .month(parseInt(split[0]) - 1)
-          .day(1)
-      );
-    }
-
-    if (moment.isDate(this.value)) {
-      this.send('updateDateTime', this.value);
-    } else if (moment(this.value).isValid()) {
-      this.send(
-        'updateDateTime',
-        moment(this.value, this.parsedDateTimeFormat).toDate()
-      );
-    }
-
-    if (this.fixedTime && this.showTimeSelector) {
-      console.warn(
-        '[Ember Changeset Webforms] You have set showTimeSelector to true, but you have also passed fixedTime. fixedTime must be null in order to show the tine selector component.'
-      );
-    }
-  },
-
   navButtons: computed('center', function () {
     var allowNavigationOutOfRange = this.allowNavigationOutOfRange;
     return {
@@ -266,6 +229,42 @@ export default Component.extend({
   },
 
   actions: {
+    didInsert() {
+      if (this.defaultDate) {
+        this.set('selectedDate', this.defaultDate);
+      }
+      if (this.defaultTime) {
+        this.set('selectedHour', this.defaultHour);
+        this.set('selectedMinute', this.defaultMinute);
+        this.set('selectedSecond', this.defaultSecond);
+      }
+      if (this.calendarStartMonth) {
+        var split = this.calendarStartMonth.split('/');
+        this.set(
+          'calendarStartDate',
+          moment()
+            .year(parseInt(split[1]))
+            .month(parseInt(split[0]) - 1)
+            .day(1)
+        );
+      }
+
+      if (moment.isDate(this.value)) {
+        this.send('updateDateTime', this.value);
+      } else if (moment(this.value).isValid()) {
+        this.send(
+          'updateDateTime',
+          moment(this.value, this.parsedDateTimeFormat).toDate()
+        );
+      }
+
+      if (this.fixedTime && this.showTimeSelector) {
+        console.warn(
+          '[Ember Changeset Webforms] You have set showTimeSelector to true, but you have also passed fixedTime. fixedTime must be null in order to show the tine selector component.'
+        );
+      }
+    },
+
     onDateInputChange(event) {
       if (this.validMoment(event)) {
         this.send('updateDateTime', this.validMoment(event));

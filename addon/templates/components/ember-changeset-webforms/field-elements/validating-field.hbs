@@ -10,6 +10,7 @@
       @onUserInteraction={{action "onUserInteraction"}}
       @dataTestFieldId={{this.dataTestFieldId}}
       @changesetWebform={{@changesetWebform}}
+      {{did-insert (action "didInsert")}}
     />
   {{else}}
     <EmberChangesetWebforms::FieldElements::ValidatingFieldWrapper
@@ -27,6 +28,7 @@
         "validation"
       }}
       data-test-cwf-field
+      {{did-insert (action "didInsert")}}
     >
       {{component
         @formField.componentPath

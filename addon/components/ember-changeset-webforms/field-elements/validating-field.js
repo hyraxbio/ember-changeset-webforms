@@ -7,17 +7,6 @@ export default Component.extend({
   layout,
   tagName: '',
 
-  didInsertElement: function () {
-    this._super(...arguments);
-    //Code below will maintain validation colours when component is re-rendered.
-    var formField = this.formField;
-    const changeset = this.changesetWebform.changeset;
-    if (changeset.get(formField.propertyName)) {
-      formField.eventLog.pushObject('insert');
-      this.send('validateField', formField);
-    }
-  },
-
   dataTestFieldId: computed(
     'dataTestId',
     'dataTestFormName',
@@ -49,6 +38,7 @@ export default Component.extend({
     if (!this.formField.hideLabel) {
       return this.labelId;
     }
+    return;
   }),
 
   ariaLabel: computed('formField.{hideLabel,fieldLabel}', function () {
@@ -60,6 +50,16 @@ export default Component.extend({
   }),
 
   actions: {
+    didInsert() {
+      //Code below will maintain validation colours when component is re-rendered.
+      var formField = this.formField;
+      const changeset = this.changesetWebform.changeset;
+      if (changeset.get(formField.propertyName)) {
+        formField.eventLog.pushObject('insert');
+        this.send('validateField', formField);
+      }
+    },
+
     validateField(formField) {
       formField.validate().then((fieldValidationErrors) => {
         this.afterFieldValidation(

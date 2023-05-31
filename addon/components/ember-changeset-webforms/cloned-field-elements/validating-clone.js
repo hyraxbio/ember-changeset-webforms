@@ -6,19 +6,18 @@ export default Component.extend({
   layout,
   dataTestClass: 'cwf-field-clone-wrapper',
 
-  didInsertElement: function() {
-    this._super(...arguments);
-    var changeset = this.changesetWebform.changeset;
-    if (changeset.get(this.masterFormField.propertyName)[this.clonedFormField.index]) {
-      this.clonedFormField.eventLog.pushObject('insert');
-      this.masterFormField.eventLog.pushObject('insertClone');
-      this.clonedFormField.updateValidationActivation(this.clonedFormField.index, 'insert');
-
-      this.validateField(this.masterFormField);
-    }
-  },
-
   actions: {
+    didInsert() {
+      var changeset = this.changesetWebform.changeset;
+      if (changeset.get(this.masterFormField.propertyName)[this.clonedFormField.index]) {
+        this.clonedFormField.eventLog.pushObject('insert');
+        this.masterFormField.eventLog.pushObject('insertClone');
+        this.clonedFormField.updateValidationActivation(this.clonedFormField.index, 'insert');
+
+        this.validateField(this.masterFormField);
+      }
+    },
+
     onUserInteractionClone(index, clonedFormField, eventType, value, event) {
       if (eventType === 'focusOut') {
         clonedFormField.set('focussed', false);
