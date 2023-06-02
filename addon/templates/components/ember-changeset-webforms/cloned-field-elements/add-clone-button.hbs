@@ -4,7 +4,7 @@
       @changesetWebform
     }}"
   type="button"
-  onclick={{action @onClickAddCloneButton @formField.cloneGroupName}}
+  {{on "click" (fn @onClickAddCloneButton @formField.cloneGroupName)}}
   data-test-id="cwf-add-clone-button"
 >{{or
     @formField.cloneButtonText

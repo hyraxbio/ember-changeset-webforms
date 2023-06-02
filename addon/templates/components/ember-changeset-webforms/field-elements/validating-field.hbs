@@ -2,12 +2,12 @@
   {{#if @formField.cloneGroupName}}
     <EmberChangesetWebforms::ClonedFieldElements::ValidatingCloneGroup
       @masterFormField={{@formField}}
-      @setFieldValue={{action "setFieldValue"}}
-      @validateField={{action "validateField"}}
+      @setFieldValue={{fn (action "setFieldValue")}}
+      @validateField={{fn (action "validateField")}}
       @afterAddClone={{@afterAddClone}}
       @afterRemoveClone={{@afterRemoveClone}}
       @afterClickAddCloneButton={{@afterClickAddCloneButton}}
-      @onUserInteraction={{action "onUserInteraction"}}
+      @onUserInteraction={{fn (action "onUserInteraction")}}
       @dataTestFieldId={{this.dataTestFieldId}}
       @changesetWebform={{@changesetWebform}}
       {{did-insert (action "didInsert")}}

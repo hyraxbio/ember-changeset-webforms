@@ -4,7 +4,7 @@
   @label={{@formField.checkBoxLabel}}
   @labelComponent={{@formField.checkBoxLabelComponent}}
   @markdownLabel={{@formField.checkBoxLabelMarkdown}}
-  @changedAction={{action "checkboxToggled" @formField}}
+  @changedAction={{fn (action "checkboxToggled") @formField}}
   @changesetWebform={{@changesetWebform}}
   @formField={{@formField}}
   @name={{@formField.name}}

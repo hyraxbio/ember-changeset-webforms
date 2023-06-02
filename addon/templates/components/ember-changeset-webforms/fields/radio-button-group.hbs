@@ -20,7 +20,7 @@
         @formField.optionLabelComponent
       }}
       @containerName={{@formSettings.formName}}
-      @changedAction={{action "onRadioChange"}}
+      @changedAction={{fn (action "onRadioChange")}}
       @option={{option}}
       @changesetWebform={{@changesetWebform}}
       @formField={{@formField}}

@@ -16,7 +16,7 @@
         @formField.optionLabelComponent
       }}
       @containerName={{@formSettings.formName}}
-      @changedAction={{action "checkboxToggled" @formField option.key}}
+      @changedAction={{fn (action "checkboxToggled") @formField option.key}}
       @name={{@formField.name}}
       @disabled={{or
         option.disabled

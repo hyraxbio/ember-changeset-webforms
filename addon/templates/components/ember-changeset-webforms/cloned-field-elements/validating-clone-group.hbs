@@ -13,7 +13,8 @@
     {{if this.masterFormField.hideSuccessValidation 'hide-success-validation'}}
     {{if this.masterFormField.validates 'validates'}}
     {{if this.masterFormField.focussed 'focussed'}}"
-   {{did-insert (action "didInsert")}} ...attributes
+  {{did-insert (action "didInsert")}}
+  ...attributes
 >
   <EmberChangesetWebforms::FieldElements::FieldLabel
     @formField={{@masterFormField}}
@@ -26,11 +27,11 @@
   <div class="clone-group-items">
     {{#each @masterFormField.clonedFields as |clonedFormField|}}
       <EmberChangesetWebforms::ClonedFieldElements::ValidatingClone
-        @cloneField={{action "cloneField"}}
-        @onUserInteraction={{action @onUserInteraction}}
-        @setFieldValue={{action @setFieldValue}}
-        @validateField={{action @validateField}}
-        @removeClone={{action "removeClone"}}
+        @cloneField={{fn (action "cloneField")}}
+        @onUserInteraction={{@onUserInteraction}}
+        @setFieldValue={{@setFieldValue}}
+        @validateField={{@validateField}}
+        @removeClone={{fn (action "removeClone")}}
         @updatedGroupValue={{this.updatedGroupValue}}
         @groupValue={{@groupValue}}
         @clonedFormField={{clonedFormField}}

@@ -19,7 +19,7 @@
       @formField
       @formField.validationStatus
     }}
-    onclick={{action "onClick" @formField}}
+    {{on "click" (fn (action "onClick") @formField)}}
     data-test-class="cwf-clicker-element"
   >{{@formField.clickerText}}</div>
 {{/if}}

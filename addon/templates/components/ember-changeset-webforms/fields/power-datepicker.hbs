@@ -13,9 +13,9 @@
   @defaultTime={{@formField.defaultTime}}
   @fixedTime={{@formField.fixedTime}}
   @defaultDate={{@formField.defaultDate}}
-  @onChange={{action @onChange}}
-  @onUserInteraction={{action @onUserInteraction @formField}}
-  @onSelectDateTime={{action "onSelectDateTime"}}
+  @onChange={{@onChange}}
+  @onUserInteraction={{fn @onUserInteraction @formField}}
+  @onSelectDateTime={{fn (action "onSelectDateTime")}}
   @datepickerPlaceholder={{@formField.datepickerPlaceholder}}
   @closeDatePickerOnSelect={{@formField.closeDatePickerOnSelect}}
   @dateTimeFormat={{@formField.dateTimeFormat}}

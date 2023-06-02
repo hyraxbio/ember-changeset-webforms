@@ -1,7 +1,8 @@
 <div
   data-test-class={{this.dataTestClass}}
   class="cwf-field-clone-wrapper"
-   {{did-insert (action "didInsert")}} ...attributes
+  {{did-insert (action "didInsert")}}
+  ...attributes
 >
   {{#if (not-eq @masterFormField.cloneCountStatus "min")}}
     <div
@@ -11,7 +12,7 @@
           @changesetWebform
         }}"
       type="button"
-      onclick={{action @removeClone @clonedFormField}}
+      {{on "click" (fn @removeClone @clonedFormField)}}
       data-test-class="cwf-remove-clone-button"
       title="Remove {{@formField.fieldId}}"
     >{{component @masterFormField.removeCloneComponent}}</div>
