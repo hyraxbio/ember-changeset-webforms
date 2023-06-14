@@ -229,6 +229,11 @@ export default Component.extend({
   },
 
   actions: {
+    onCenterChange(newDate) {
+      let newCenter = newDate.date ? newDate.date : newDate;
+      this.set('center', newCenter);
+    },
+
     didInsert() {
       if (this.defaultDate) {
         this.set('selectedDate', this.defaultDate);
