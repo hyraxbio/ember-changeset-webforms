@@ -1,10 +1,8 @@
 //BEGIN-SNIPPET uniqueness-validator.js
 // validators/uniqueness.js
-import { assign } from '@ember/polyfills';
-
 export default function validateUniqueness(opts = {}) {
   return (key, newValue, _oldValue, changes, content) => {
-    var current = assign(content, changes);  
+    var current = Object.assign(content, changes);  
     var response = true; 
     opts.descriptionsMap = opts.descriptionsMap || {};
     const fieldName = opts.descriptionsMap[key] || key;

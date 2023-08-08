@@ -54,7 +54,7 @@
           @maxDate={{@maxDate}}
           @selected={{this.selectedDate}}
           @onSelect={{fn (action "dateClicked") dropdown}}
-          @onCenterChange={{fn (mut this.center) value="date"}}
+          @onCenterChange={{fn (action "onCenterChange")}}
           @center={{this.center}}
           class={{@calendarClass}}
           as |calendar|
