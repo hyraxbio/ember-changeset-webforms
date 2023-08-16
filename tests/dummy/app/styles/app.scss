@@ -4,11 +4,11 @@ body {
 $spacer-md: 16px;
 
 :root {
-  --brand-primary: #806CA5;
- }
+  --brand-primary: #806ca5;
+}
 
 .docs-rounded {
-  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
 }
 
 .docs-border-grey-lighter {
@@ -47,7 +47,7 @@ $spacer-md: 16px;
 }
 
 .monospaced {
-  font-family:'Courier New', Courier, monospace;
+  font-family: 'Courier New', Courier, monospace;
 }
 
 .text-grey {
@@ -63,21 +63,21 @@ $spacer-md: 16px;
   margin-bottom: 30px;
 }
 
-@import "bootstrap-5/functions";
-@import "bootstrap-5/variables";
-@import "bootstrap-5/mixins";
-@import "bootstrap-5/utilities";
-@import "_variables";
-@import "ember-power-select";
-    
+@import 'bootstrap-5/functions';
+@import 'bootstrap-5/variables';
+@import 'bootstrap-5/mixins';
+@import 'bootstrap-5/utilities';
+@import '_variables';
+@import 'ember-power-select';
+
 .ember-power-select-trigger-multiple-input {
   border-color: transparent !important;
 }
 
 .docs-rounded {
   .docs-p-4 * {
-    @import "bootstrap-5/bootstrap";
-    @import "_power-datetime-picker";
+    @import 'bootstrap-5/bootstrap';
+    @import '_power-datetime-picker';
     .clone-group {
       .form-field-clone {
         display: flex;
@@ -97,9 +97,5 @@ $spacer-md: 16px;
         margin-top: 10px;
       }
     }
-  } 
+  }
 }
-
-
-
-

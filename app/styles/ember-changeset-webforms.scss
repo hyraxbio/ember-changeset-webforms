@@ -1,14 +1,14 @@
-@import "_variables";
+@import '_variables';
 
-@import "ember-power-select";
+@import 'ember-power-select';
 .ember-power-select-trigger-multiple-input {
   border-color: transparent !important;
 }
 
-@import "_validating-form";
-@import "_validating-form-field";
-@import "_clone-group";
-@import "_power-datetime-picker";
+@import '_validating-form';
+@import '_validating-form-field';
+@import '_clone-group';
+@import '_power-datetime-picker';
 
 // Tests to add
 
@@ -26,6 +26,6 @@
 // Can you use pushObject if disablePrototype extensions is installed?
 
 // includeLabelOnSubmit must now update the changeset, which could cause validation and display issues, as a string becomes an object. Need to test on a field which does not reset after submit, and has validation as well as includeLabelOnSubmit.
-      // FIX
-      // All fields must have option of preper
+// FIX
+// All fields must have option of preper
 // Docs - excludekeys wins over Include Keys for keyup args.

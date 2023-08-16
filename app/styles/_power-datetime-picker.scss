@@ -1,4 +1,4 @@
-@import "ember-power-calendar";
+@import 'ember-power-calendar';
 .ember-power-calendar {
   @include ember-power-calendar($cell-size: 34px);
 }
@@ -16,7 +16,7 @@
       // color: $input-focus-color;
       // box-shadow: $input-focus-box-shadow;
     }
-  
+
     // position: relative;
     input {
       // padding-left: 40px;
@@ -36,7 +36,6 @@
     //   top: calc(50% - 10px);
     // }
   }
-  
 
   .ember-power-calendar-nav-control {
     width: 30px;
