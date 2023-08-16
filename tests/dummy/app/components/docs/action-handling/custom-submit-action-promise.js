@@ -8,26 +8,34 @@ export default Component.extend({
       formSettings: {
         formName: 'forgotPasswordForm',
       },
-      fields: [{
-        fieldId: 'email',
-        fieldLabel: 'Email',
-        fieldType: 'input',
-        validationRules: [{
-          validationMethod: 'validatePresence',
-          arguments: true
-        }, 
+      fields: [
         {
-          validationMethod: 'validateFormat',
-          arguments: { type: 'email' }
-        }]
-      }]
+          fieldId: 'email',
+          fieldLabel: 'Email',
+          fieldType: 'input',
+          validationRules: [
+            {
+              validationMethod: 'validatePresence',
+              arguments: true,
+            },
+            {
+              validationMethod: 'validateFormat',
+              arguments: { type: 'email' },
+            },
+          ],
+        },
+      ],
     };
   },
 
   actions: {
     submitAction(_changesetData, changesetWebform) {
-      return changesetWebform.changeset.save().then(response => {
-        return this.fetchPromise('/forgot-password' + '?email=' + encodeURIComponent(response.data.email));
+      return changesetWebform.changeset.save().then((response) => {
+        return this.fetchPromise(
+          '/forgot-password' +
+            '?email=' +
+            encodeURIComponent(response.data.email)
+        );
       });
     },
 
@@ -37,7 +45,7 @@ export default Component.extend({
 
     submitError(error, chnagesetWebform) {
       alert('Fail');
-    }
-  }
+    },
+  },
 });
 // END-SNIPPET

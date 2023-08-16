@@ -3,5 +3,5 @@ import layout from '../../templates/components/forms/component-for-all-radio-opt
 
 export default Component.extend({
   layout,
-  tagName: ''
+  tagName: '',
 });

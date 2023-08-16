@@ -6,9 +6,9 @@ export default Component.extend({
   tagName: '',
 
   actions: {
-    checkboxToggled: function(formField, value, event) {
+    checkboxToggled: function (formField, value, event) {
       this.onChange(formField, value);
       this.onUserInteraction(formField, 'checkboxToggled', value, event);
     },
-  }
+  },
 });

@@ -7,18 +7,24 @@ export default Component.extend({
     this._super(...arguments);
     setTimeout(() => {
       this.doTheThing();
-      document.querySelector('#validationClassNames-name').addEventListener('change', (event) => {
-        this.doTheThing();
-      });
-      document.querySelector('#validationClassNames-name').addEventListener('keyup', (event) => {
-        this.doTheThing();
-      })
+      document
+        .querySelector('#validationClassNames-name')
+        .addEventListener('change', (event) => {
+          this.doTheThing();
+        });
+      document
+        .querySelector('#validationClassNames-name')
+        .addEventListener('keyup', (event) => {
+          this.doTheThing();
+        });
     });
   },
 
   doTheThing() {
-  const labelEls = Array.from(document.querySelectorAll('[data-test-class="cwf-field-label"]'));
-    labelEls.forEach(labelEl => {
+    const labelEls = Array.from(
+      document.querySelectorAll('[data-test-class="cwf-field-label"]')
+    );
+    labelEls.forEach((labelEl) => {
       const newTextContent = `Class = "${labelEl.className}"`;
       const existing = labelEl.querySelector('.element-classlist');
       if (existing) {
@@ -37,5 +43,5 @@ export default Component.extend({
       newEl.classList.add('rounded');
       labelEl.appendChild(newEl);
     });
-  }
+  },
 });

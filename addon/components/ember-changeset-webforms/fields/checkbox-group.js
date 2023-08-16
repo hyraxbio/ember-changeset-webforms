@@ -6,10 +6,10 @@ export default Component.extend({
   layout,
   tagName: '',
 
-  options: computed('displayValue', function() {
+  options: computed('displayValue', function () {
     var checkedItems = this.stringToArray(this.displayValue);
     var options = this.formField.options;
-    options.forEach(function(option) {
+    options.forEach(function (option) {
       if (checkedItems.indexOf(option.key) > -1) {
         option.set('value', true);
       } else {
@@ -25,12 +25,12 @@ export default Component.extend({
   }),
 
   actions: {
-    checkboxToggled: function(formField, key, value, event) {
+    checkboxToggled: function (formField, key, value, event) {
       var checkedItems = this.stringToArray(this.displayValue);
       if (value === true) {
         checkedItems = checkedItems.concat([key]); // Use concat not push so that the computed property above can recognide whne a new item is checked.
       } else {
-        checkedItems = checkedItems.filter(item => {
+        checkedItems = checkedItems.filter((item) => {
           return item != key;
         });
       }
@@ -51,9 +51,9 @@ export default Component.extend({
     } else {
       array = this.displayValue || [];
     }
-    array = array.map(item => {
+    array = array.map((item) => {
       return item.trim();
     });
     return array;
-  }
+  },
 });

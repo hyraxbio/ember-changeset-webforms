@@ -10,38 +10,45 @@ export default Controller.extend({
     this.uniquenessFormSchema = {
       formSettings: {
         formName: 'unique',
-        submitButtonText: 'Submit'
+        submitButtonText: 'Submit',
       },
-      fields: [{
-        fieldId: 'primaryEmail',
-        fieldLabel: 'Primary Email',
-        fieldType: 'input',
-        validationRules: [{
-          validationMethod: 'validateUniqueness',
-          arguments: { 
-            descriptionsMap: {
-              primaryEmail: 'primary email',
-              recoveryEmail: 'recovery email' 
-            }
-          }
-        }],
-        inputType: 'email'
-      }, {
-        fieldId: 'recoveryEmail',
-        fieldLabel: 'Recovery Email',
-        fieldType: 'input',
-        validationRules: [{
-          validationMethod: 'validateUniqueness',
-          arguments: {
-            descriptionsMap: {
-              primaryEmail: 'primary email',
-              recoveryEmail: 'recovery email' 
-            }
-          }
-        }],
-        inputType: 'email'
-      }]
-    }
-  }
+      fields: [
+        {
+          fieldId: 'primaryEmail',
+          fieldLabel: 'Primary Email',
+          fieldType: 'input',
+          validationRules: [
+            {
+              validationMethod: 'validateUniqueness',
+              arguments: {
+                descriptionsMap: {
+                  primaryEmail: 'primary email',
+                  recoveryEmail: 'recovery email',
+                },
+              },
+            },
+          ],
+          inputType: 'email',
+        },
+        {
+          fieldId: 'recoveryEmail',
+          fieldLabel: 'Recovery Email',
+          fieldType: 'input',
+          validationRules: [
+            {
+              validationMethod: 'validateUniqueness',
+              arguments: {
+                descriptionsMap: {
+                  primaryEmail: 'primary email',
+                  recoveryEmail: 'recovery email',
+                },
+              },
+            },
+          ],
+          inputType: 'email',
+        },
+      ],
+    };
+  },
 });
 // END-SNIPPET

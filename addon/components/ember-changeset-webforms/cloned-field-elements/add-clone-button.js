@@ -3,5 +3,5 @@ import layout from '../../../templates/components/ember-changeset-webforms/clone
 
 export default Component.extend({
   layout,
-  tagName: ''
+  tagName: '',
 });

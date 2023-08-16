@@ -15,6 +15,6 @@ export default Component.extend({
       if (eventType === 'keyUp') {
         this.onChange(formField, event.target.value);
       }
-    }
-  }
+    },
+  },
 });

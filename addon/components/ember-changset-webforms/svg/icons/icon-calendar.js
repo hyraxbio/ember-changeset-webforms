@@ -3,5 +3,5 @@ import layout from '../../../../templates/components/ember-changset-webforms/svg
 
 export default Component.extend({
   layout,
-  tagName: ''
+  tagName: '',
 });

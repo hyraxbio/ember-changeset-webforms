@@ -12,23 +12,26 @@ export default Controller.extend({
       fieldSettings: {
         hideLabel: true,
       },
-      fields: [{
-        fieldId: 'firstName',
-        fieldLabel: 'First name',
-        fieldType: 'input',
-      }, {
-        fieldId: 'lastName',
-        fieldLabel: 'Last name',
-        fieldType: 'input',
-      }, {
-        fieldId: 'email',
-        fieldLabel: 'Email',
-        fieldType: 'input',
-        inputType: 'email',
-        hideLabel: false
-      }]
-    }
+      fields: [
+        {
+          fieldId: 'firstName',
+          fieldLabel: 'First name',
+          fieldType: 'input',
+        },
+        {
+          fieldId: 'lastName',
+          fieldLabel: 'Last name',
+          fieldType: 'input',
+        },
+        {
+          fieldId: 'email',
+          fieldLabel: 'Email',
+          fieldType: 'input',
+          inputType: 'email',
+          hideLabel: false,
+        },
+      ],
+    };
     // END-SNIPPET
-
-  }
+  },
 });

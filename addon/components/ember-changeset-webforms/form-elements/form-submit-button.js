@@ -5,10 +5,10 @@ import { computed } from '@ember/object';
 
 export default Component.extend({
   layout,
-  tagName: "",
+  tagName: '',
   customType: 'button',
 
-  requestInFlightClassNames: computed('changesetWebform', function() {
+  requestInFlightClassNames: computed('changesetWebform', function () {
     return dynamicClassNames('submitButton', this.changesetWebform);
-  })
+  }),
 });

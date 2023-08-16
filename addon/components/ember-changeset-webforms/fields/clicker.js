@@ -7,7 +7,7 @@ export default Component.extend({
 
   actions: {
     onClick(formField, event) {
-      this.onUserInteraction(formField, 'click', null, event)
-    }
-  }
+      this.onUserInteraction(formField, 'click', null, event);
+    },
+  },
 });

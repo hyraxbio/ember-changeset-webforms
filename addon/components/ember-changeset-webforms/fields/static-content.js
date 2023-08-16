@@ -7,7 +7,9 @@ export default Component.extend({
   layout,
   tagName: '',
 
-  textElement: computed('formField.{text,textElement}', function() {
-    return htmlSafe(`<${this.formField.textElement} class="${this.formField.textElementClass}">${this.formField.text}</${this.formField.textElement}>`)
+  textElement: computed('formField.{text,textElement}', function () {
+    return htmlSafe(
+      `<${this.formField.textElement} class="${this.formField.textElementClass}">${this.formField.text}</${this.formField.textElement}>`
+    );
   }),
 });

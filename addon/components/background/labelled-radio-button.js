@@ -7,10 +7,10 @@ export default Component.extend({
   layout,
   tagName: '',
 
-  radioId: computed('formField', 'option.value', function() {
+  radioId: computed('formField', 'option.value', function () {
     if (this.formField.fieldId === this.option.value) {
       return safeName(this.formField.id);
     }
-    return safeName(`${this.formField.id}-${this.option.value}`)
+    return safeName(`${this.formField.id}-${this.option.value}`);
   }),
 });

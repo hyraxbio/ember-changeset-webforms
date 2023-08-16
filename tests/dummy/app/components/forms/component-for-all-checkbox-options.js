@@ -3,5 +3,5 @@ import layout from '../../templates/components/forms/component-for-all-checkbox-
 
 export default Component.extend({
   layout,
-  tagName: ''
+  tagName: '',
 });

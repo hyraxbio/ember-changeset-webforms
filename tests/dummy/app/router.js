@@ -6,8 +6,8 @@ const Router = AddonDocsRouter.extend({
   rootURL: config.rootURL,
 });
 
-Router.map(function() {
-  docsRoute(this, function() { 
+Router.map(function () {
+  docsRoute(this, function () {
     this.route('basic-usage');
     this.route('configuration-options');
     this.route('creating-custom-fields');
@@ -22,7 +22,6 @@ Router.map(function() {
     this.route('configure-classnames');
   });
   this.route('not-found', { path: '/*path' });
-
 
   this.route('form-submission');
   this.route('form-settings');

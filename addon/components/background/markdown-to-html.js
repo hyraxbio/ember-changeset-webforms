@@ -11,7 +11,7 @@ export default Component.extend({
   tagName: '',
   classNames: 'markdown',
 
-  html: computed('source', function() {
+  html: computed('source', function () {
     return htmlSafe(md.renderInline(this.source));
-  })
+  }),
 });

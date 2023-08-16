@@ -3,5 +3,5 @@ import layout from '../../templates/components/background/label-component';
 
 export default Component.extend({
   layout,
-  tagName: ''
+  tagName: '',
 });

@@ -1,6 +1,6 @@
 import { helper } from '@ember/component/helper';
 
-export function sanitiseClassname(params/*, hash*/) {
+export function sanitiseClassname(params /*, hash*/) {
   return params;
 }
 

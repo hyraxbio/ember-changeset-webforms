@@ -7,8 +7,10 @@ export default Component.extend({
   layout,
   tagName: '',
 
-  icon: computed('formField.showAdvanced', function() {
-    return this.formField.showAdvanced ? 'svg/icons/icon-arrow-up' : 'svg/icons/icon-arrow-down'
+  icon: computed('formField.showAdvanced', function () {
+    return this.formField.showAdvanced
+      ? 'svg/icons/icon-arrow-up'
+      : 'svg/icons/icon-arrow-down';
   }),
 });
 // END-SNIPPET

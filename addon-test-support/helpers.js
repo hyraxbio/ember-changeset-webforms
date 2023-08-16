@@ -5,8 +5,10 @@ export default {
   fieldErrorText(arg) {
     const element = this.getElement(arg);
     const errors = element.querySelectorAll(els.cwfFieldError);
-    if (!errors) { return; }
-    return Array.from(errors).map(error => error.textContent.trim());
+    if (!errors) {
+      return;
+    }
+    return Array.from(errors).map((error) => error.textContent.trim());
   },
 
   getElement(arg) {
@@ -14,7 +16,7 @@ export default {
     if (typeof arg === 'string') {
       element = find(arg);
       if (!element) {
-        throw(`No element with selector ${arg} was found`);
+        throw `No element with selector ${arg} was found`;
       }
     } else {
       element = arg;
@@ -28,44 +30,55 @@ export default {
       elements = findAll(arg);
     } else {
       elements = arg;
-    } 
+    }
     if (indexes) {
-      elements = indexes.map(index => elements[index]);
+      elements = indexes.map((index) => elements[index]);
     }
     return elements;
   },
 
   passedValidation(arg) {
     const element = this.getElement(arg);
-    if (element.classList.contains('is-valid') || element.querySelector('.is-valid')) { return true; }
+    if (
+      element.classList.contains('is-valid') ||
+      element.querySelector('.is-valid')
+    ) {
+      return true;
+    }
     return false;
   },
 
   allPassedValidation(arg, indexes) {
     const elements = this.getElements(arg, indexes);
     let allPassed = true;
-    elements.forEach(el => {
+    elements.forEach((el) => {
       if (!this.passedValidation(el)) {
         allPassed = false;
       }
-    })
+    });
     return allPassed;
   },
 
   failedValidation(arg) {
     const element = this.getElement(arg);
-    if ((element.classList.contains('is-invalid') || element.querySelector('.is-invalid')) && element.querySelector(els.cwfFieldErrors)) { return true; }
+    if (
+      (element.classList.contains('is-invalid') ||
+        element.querySelector('.is-invalid')) &&
+      element.querySelector(els.cwfFieldErrors)
+    ) {
+      return true;
+    }
     return false;
   },
 
   allFailedValidation(arg, indexes) {
     const elements = this.getElements(arg, indexes);
     let allFailed = true;
-    elements.forEach(el => {
+    elements.forEach((el) => {
       if (!this.failedValidation(el)) {
         allFailed = false;
       }
-    })
+    });
     return allFailed;
   },
 
@@ -74,19 +87,25 @@ export default {
   },
 
   allValidated(arg, indexes) {
-    const els =  this.getElements(arg, indexes);
-    return els.map(el => this.wasValidated(el)).every(item => item === true);
+    const els = this.getElements(arg, indexes);
+    return els
+      .map((el) => this.wasValidated(el))
+      .every((item) => item === true);
   },
 
   noneValidated(arg, indexes) {
-    const els =  this.getElements(arg, indexes);
-    return !els.map(el => this.wasValidated(el)).filter(item => item === true);
+    const els = this.getElements(arg, indexes);
+    return !els
+      .map((el) => this.wasValidated(el))
+      .filter((item) => item === true);
   },
 
   async removeClone(arg, indexes) {
     const element = this.getElement(arg);
     if (indexes) {
-      const elementsToClick = indexes.map(index => element.querySelectorAll(els.cwfRemoveClone)[index]);
+      const elementsToClick = indexes.map(
+        (index) => element.querySelectorAll(els.cwfRemoveClone)[index]
+      );
       for (var el of elementsToClick) {
         await click(el);
       }
@@ -103,6 +122,5 @@ export default {
   async submitForm(arg) {
     const element = this.getElement(arg);
     await click(element.querySelector(els.cwfSubmitButton));
-
-  }
-}
+  },
+};

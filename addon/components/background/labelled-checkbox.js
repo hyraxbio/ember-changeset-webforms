@@ -7,18 +7,18 @@ export default Component.extend({
   layout,
   tagName: '',
 
-  checkboxId: computed('formField', 'option.key', function() {
+  checkboxId: computed('formField', 'option.key', function () {
     if (this.formField.fieldId === this.option.key) {
       return safeName(this.formField.id);
     }
-    return safeName(`${this.formField.id}-${this.option.key}`)
+    return safeName(`${this.formField.id}-${this.option.key}`);
   }),
-  
+
   actions: {
-    checkboxClicked: function(event) {
+    checkboxClicked: function (event) {
       if (this.changedAction) {
         this.changedAction(event.target.checked, event);
       }
-    }
-  }
+    },
+  },
 });

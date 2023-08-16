@@ -5,7 +5,14 @@ export default function updateTime(date, time) {
     var day = moment(date).date();
     var month = moment(date).month();
     var year = moment(date).year();
-    return moment().year(year).month(month).date(day).hour(hours).minute(minutes).second(0).toDate();
+    return moment()
+      .year(year)
+      .month(month)
+      .date(day)
+      .hour(hours)
+      .minute(minutes)
+      .second(0)
+      .toDate();
   }
   return date;
 }

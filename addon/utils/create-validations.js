@@ -6,10 +6,12 @@ import { unflatten } from 'flat';
 export default function createValidations(fields, customValidators = {}) {
   defaultValidators.validateClone = clonedValidator;
   defaultValidators.uniqueClone = uniqueCloneValidator;
-  
+
   var validations = {};
-  if (!fields) { return validations; }
-  fields.forEach(field => {
+  if (!fields) {
+    return validations;
+  }
+  fields.forEach((field) => {
     field.propertyName = field.propertyName || field.fieldId;
     // field.cloneFieldSchema = field.cloneFieldSchema || {};
     // if (field.cloneFieldSchema.validationRules) {
@@ -17,19 +19,23 @@ export default function createValidations(fields, customValidators = {}) {
     //   field.validationRules.push({
     //     validationMethod: 'validateClone',
     //     arguments: {
-    //       validationRules: field.cloneFieldSchema.validationRules, 
+    //       validationRules: field.cloneFieldSchema.validationRules,
     //       customValidators: customValidators
     //     }
     //   });
     // }
-    
-    if (!field.validationRules) { return; }
+
+    if (!field.validationRules) {
+      return;
+    }
 
     var fieldValidations = [];
-    
-    field.validationRules.forEach(rule => {
-      var validator = customValidators[rule.validationMethod] || defaultValidators[rule.validationMethod];
-      if (!validator) { 
+
+    field.validationRules.forEach((rule) => {
+      var validator =
+        customValidators[rule.validationMethod] ||
+        defaultValidators[rule.validationMethod];
+      if (!validator) {
         return;
       }
       fieldValidations.push(validator(rule.arguments));

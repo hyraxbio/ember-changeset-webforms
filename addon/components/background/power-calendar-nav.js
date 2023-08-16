@@ -3,5 +3,5 @@ import layout from '../../templates/components/background/power-calendar-nav';
 
 export default Component.extend({
   layout,
-  tagName: ""
+  tagName: '',
 });

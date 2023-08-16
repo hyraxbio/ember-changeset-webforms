@@ -3,5 +3,5 @@ import layout from '../../templates/components/forms/component-for-single-radio-
 
 export default Component.extend({
   layout,
-  tagName: ''
+  tagName: '',
 });

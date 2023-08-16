@@ -8,7 +8,7 @@ export default Route.extend({
     loading(transition) {
       var self = this;
       this.set('session.hideContent', true);
-      transition.promise.finally(function() {
+      transition.promise.finally(function () {
         self.set('session.hideContent', false);
       });
     },
@@ -16,13 +16,13 @@ export default Route.extend({
       this.refresh();
     },
 
-    saveNewRecord: function(values, modelName) {
+    saveNewRecord: function (values, modelName) {
       var record = this.store.createRecord(modelName, values);
       return record.save();
     },
 
-    updateRecord: function(record) {
+    updateRecord: function (record) {
       return record.save();
     },
-  }
+  },
 });

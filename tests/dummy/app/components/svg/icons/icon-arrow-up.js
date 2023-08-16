@@ -3,5 +3,5 @@ import layout from '../../../templates/components/svg/icons/icon-arrow-up';
 
 export default Component.extend({
   layout,
-  tagName: ''
+  tagName: '',
 });

@@ -2,13 +2,16 @@ const keys = Object;
 const CHANGES$1 = '_changes';
 
 export default function castAllowedFields(changesetWebform) {
-  var allKeys = (changesetWebform.changeset.changes || []).map(item => {
-    return item.key;
-  }).concat(keys(changesetWebform.changeset.data));
-  var allowedKeys = allKeys.filter(key => {
-    var relatedField = changesetWebform.fields.find(field => {
-      return field.propertyName === key;
-    }) || {};
+  var allKeys = (changesetWebform.changeset.changes || [])
+    .map((item) => {
+      return item.key;
+    })
+    .concat(keys(changesetWebform.changeset.data));
+  var allowedKeys = allKeys.filter((key) => {
+    var relatedField =
+      changesetWebform.fields.find((field) => {
+        return field.propertyName === key;
+      }) || {};
     return !(relatedField.hidden || relatedField.castOut);
   });
   return cast(changesetWebform.changeset, allowedKeys);
@@ -17,9 +20,9 @@ export default function castAllowedFields(changesetWebform) {
 function cast(changeset, allowed = []) {
   let changes = changeset[CHANGES$1];
   if (Array.isArray(allowed) && allowed.length === 0) {
-      return changeset;
+    return changeset;
   }
-  let changeKeys = changeset.changes.map(item => item.key);
+  let changeKeys = changeset.changes.map((item) => item.key);
   let validKeys = changeKeys.filter((key) => allowed.includes(key));
   let casted = take(changes, validKeys);
   // @tracked
@@ -36,7 +39,11 @@ function filterObjectByPath(object, filter) {
   const filteredObject = {};
   for (let key in object) {
     if (filter.hasOwnProperty(key)) {
-      if (typeof object[key] === "object" && typeof filter[key] === "object" && Object.keys(filter[key]).length > 0) {
+      if (
+        typeof object[key] === 'object' &&
+        typeof filter[key] === 'object' &&
+        Object.keys(filter[key]).length > 0
+      ) {
         filteredObject[key] = filterObjectByPath(object[key], filter[key]);
       } else {
         filteredObject[key] = object[key];
@@ -49,7 +56,7 @@ function filterObjectByPath(object, filter) {
 function expandPaths(paths) {
   const expandedObject = {};
   for (let i = 0; i < paths.length; i++) {
-    const path = paths[i].split(".");
+    const path = paths[i].split('.');
     let current = expandedObject;
     for (let j = 0; j < path.length; j++) {
       const key = path[j];

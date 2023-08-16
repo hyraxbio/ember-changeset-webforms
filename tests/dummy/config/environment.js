@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function(environment) {
+module.exports = function (environment) {
   let ENV = {
     modulePrefix: 'dummy',
     environment,
@@ -13,14 +13,14 @@ module.exports = function(environment) {
       },
       EXTEND_PROTOTYPES: {
         // Prevent Ember Data from overriding Date.parse.
-        Date: false
-      }
+        Date: false,
+      },
     },
 
     APP: {
       // Here you can pass flags/options to your application instance
       // when it is created
-    }
+    },
   };
 
   ENV.changesetWebformsDefaults = {};
@@ -28,16 +28,18 @@ module.exports = function(environment) {
   // BEGIN-SNIPPET app-wide-classes.js
   ENV.changesetWebformsDefaults.generalClassNames = {
     labelElement: ['$inherited', 'label-el'],
-  }
+  };
   // END-SNIPPET
 
   // BEGIN-SNIPPET app-wide-field-specific-classes.js
-  ENV.changesetWebformsDefaults.fieldTypes = [{
-    fieldType: 'radioButtonGroup',
-    classNames: {
-      labelElement: ['$inherited', 'radio-button-group-label'],
-    }
-  }]
+  ENV.changesetWebformsDefaults.fieldTypes = [
+    {
+      fieldType: 'radioButtonGroup',
+      classNames: {
+        labelElement: ['$inherited', 'radio-button-group-label'],
+      },
+    },
+  ];
   // END-SNIPPET
 
   if (environment === 'development') {
@@ -47,7 +49,7 @@ module.exports = function(environment) {
     // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
     ENV['ember-cli-mirage'] = {
-      enabled: true
+      enabled: true,
     };
   }
 
