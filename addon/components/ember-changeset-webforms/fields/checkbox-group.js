@@ -1,12 +1,13 @@
+import { layout as templateLayout, tagName } from '@ember-decorators/component';
+import { action, computed } from '@ember/object';
 import Component from '@ember/component';
 import layout from '../../../templates/components/ember-changeset-webforms/fields/checkbox-group';
-import { computed } from '@ember/object';
 
-export default Component.extend({
-  layout,
-  tagName: '',
-
-  options: computed('displayValue', function () {
+@templateLayout(layout)
+@tagName('')
+export default class CheckboxGroup extends Component {
+  @computed('displayValue')
+  get options() {
     var checkedItems = this.stringToArray(this.displayValue);
     var options = this.formField.options;
     options.forEach(function (option) {
@@ -22,27 +23,26 @@ export default Component.extend({
       options.findBy('key', checkedItems[0]).set('onlyCheckedOption', true);
     }
     return options;
-  }),
+  }
 
-  actions: {
-    checkboxToggled: function (formField, key, value, event) {
-      var checkedItems = this.stringToArray(this.displayValue);
-      if (value === true) {
-        checkedItems = checkedItems.concat([key]); // Use concat not push so that the computed property above can recognide whne a new item is checked.
-      } else {
-        checkedItems = checkedItems.filter((item) => {
-          return item != key;
-        });
-      }
-      if (checkedItems.length === 0) {
-        checkedItems = null;
-      } else {
-        checkedItems = checkedItems.sort();
-      }
-      this.onChange(formField, checkedItems);
-      this.onUserInteraction(formField, 'checkboxToggled', checkedItems, event);
-    },
-  },
+  @action
+  checkboxToggled(formField, key, value, event) {
+    var checkedItems = this.stringToArray(this.displayValue);
+    if (value === true) {
+      checkedItems = checkedItems.concat([key]); // Use concat not push so that the computed property above can recognise when a new item is checked.
+    } else {
+      checkedItems = checkedItems.filter((item) => {
+        return item != key;
+      });
+    }
+    if (checkedItems.length === 0) {
+      checkedItems = null;
+    } else {
+      checkedItems = checkedItems.sort();
+    }
+    this.onChange(formField, checkedItems);
+    this.onUserInteraction(formField, 'checkboxToggled', checkedItems, event);
+  }
 
   stringToArray(value) {
     var array;
@@ -55,5 +55,5 @@ export default Component.extend({
       return item.trim();
     });
     return array;
-  },
-});
+  }
+}

@@ -2,27 +2,23 @@ import EmberObject from '@ember/object';
 import { computed } from '@ember/object';
 import validationEventLog from 'ember-changeset-webforms/utils/validation-event-log';
 
-export default EmberObject.extend({
-  cloneValidationErrors: computed(
-    'changeset.error',
-    'focussed',
-    'eventLog.[]',
-    function () {
-      var index = this.index;
-      const changeset = this.changeset;
-      var validationErrors =
-        changeset.get(`error.${this.masterFormField.fieldId}.validation`) || [];
-      const cloneValidationErrors = [...validationErrors].find((item) => {
-        return typeof item === 'object' || item.clones;
-      });
-      if (!cloneValidationErrors) {
-        return;
-      }
-      return cloneValidationErrors.clones[index];
+export default class FormFieldClone extends EmberObject {
+  @computed('changeset.error', 'focussed', 'eventLog.[]', function () {
+    var index = this.index;
+    const changeset = this.changeset;
+    var validationErrors =
+      changeset.get(`error.${this.masterFormField.fieldId}.validation`) || [];
+    const cloneValidationErrors = [...validationErrors].find((item) => {
+      return typeof item === 'object' || item.clones;
+    });
+    if (!cloneValidationErrors) {
+      return;
     }
-  ),
+    return cloneValidationErrors.clones[index];
+  })
+  cloneValidationErrors;
 
-  validationStatus: computed(
+  @computed(
     'cloneValidationErrors',
     'changeset.error',
     'clonedFormField.{focussed,fieldErrors,fieldErrors.@each,eventLog.[]}',
@@ -47,13 +43,14 @@ export default EmberObject.extend({
         return 'invalid';
       }
     }
-  ),
+  )
+  validationStatus;
 
   validationEventObj(validationEvents, eventType) {
     return validationEvents.find((validationEvent) => {
       return validationEvent.event === eventType;
     });
-  },
+  }
 
   updateValidationActivation(index, eventType) {
     const clonedFormField = this;
@@ -63,5 +60,5 @@ export default EmberObject.extend({
         validationRules.activateValidation || [];
       validationRules.activateValidation.push(index); // clonedFormField.set()
     }
-  },
-});
+  }
+}

@@ -1,35 +1,39 @@
+import { layout as templateLayout, tagName } from '@ember-decorators/component';
+import { action, computed } from '@ember/object';
+import { or } from '@ember/object/computed';
 import Component from '@ember/component';
 import layout from '../../templates/components/background/power-datetime-picker';
-import { computed } from '@ember/object';
 import keyCodesMap from 'ember-changeset-webforms/utils/keycodes-map';
-import { or } from '@ember/object/computed';
 
-export default Component.extend({
-  tagName: '',
-  layout,
-
-  defaultHour: computed('defaultTime', function () {
+@tagName('')
+@templateLayout(layout)
+export default class PowerDatetimePicker extends Component {
+  @computed('defaultTime')
+  get defaultHour() {
     if (!this.defaultTime) {
       return '00';
     }
     return this.defaultTime.split(':')[0] || '00';
-  }),
+  }
 
-  defaultMinute: computed('defaultTime', function () {
+  @computed('defaultTime')
+  get defaultMinute() {
     if (!this.defaultTime) {
       return '00';
     }
     return this.defaultTime.split(':')[1] || '00';
-  }),
+  }
 
-  defaultSecond: computed('defaultTime', function () {
+  @computed('defaultTime')
+  get defaultSecond() {
     if (!this.defaultTime) {
       return '00';
     }
     return this.defaultTime.split(':')[2] || '00';
-  }),
+  }
 
-  fixedTimeParsed: computed('fixedTime', function () {
+  @computed('fixedTime')
+  get fixedTimeParsed() {
     if (!this.fixedTime) {
       return;
     }
@@ -40,9 +44,10 @@ export default Component.extend({
       ss: fixedTime.split(':')[2] || '00',
       SSS: fixedTime.split(':')[3] || '000',
     };
-  }),
+  }
 
-  navButtons: computed('center', function () {
+  @computed('center')
+  get navButtons() {
     var allowNavigationOutOfRange = this.allowNavigationOutOfRange;
     return {
       nextMonth: allowNavigationOutOfRange || this.targetInRange(1, 'months'),
@@ -52,30 +57,30 @@ export default Component.extend({
       previousYear:
         allowNavigationOutOfRange || this.targetInRange(-1, 'years'),
     };
-  }),
+  }
 
-  parsedDateTimeFormat: computed('dateTimeFormat', function () {
+  @computed('dateTimeFormat')
+  get parsedDateTimeFormat() {
     return this.dateTimeFormat.replace(/S{1,}/, 'SSS'); // TODO this must be a global option
-  }),
+  }
 
-  parsedDateTimeDisplayFormat: computed(
-    'parsedDateTimeFormat',
-    'dateTimeDisplayFormat',
-    function () {
-      return this.dateTimeDisplayFormat
-        ? this.dateTimeDisplayFormat.replace(/S{1,}/, 'SSS')
-        : this.parsedDateTimeFormat; // TODO this must be a global option
-    }
-  ),
+  @computed('parsedDateTimeFormat', 'dateTimeDisplayFormat')
+  get parsedDateTimeDisplayFormat() {
+    return this.dateTimeDisplayFormat
+      ? this.dateTimeDisplayFormat.replace(/S{1,}/, 'SSS')
+      : this.parsedDateTimeFormat; // TODO this must be a global option
+  }
 
-  showAmPmInput: computed('timeSelectorFields', function () {
+  @computed('timeSelectorFields')
+  get showAmPmInput() {
     return this.timeSelectorFields.filter((field) => field.startsWith('h'))
       .length
       ? true
       : false;
-  }),
+  }
 
-  timeFormatParts: computed('timeSelectorFields', function () {
+  @computed('timeSelectorFields')
+  get timeFormatParts() {
     return this.timeSelectorFields
       .map((item) => {
         const obj = {
@@ -113,12 +118,10 @@ export default Component.extend({
         return obj;
       })
       .filter((item) => item.label);
-  }),
+  }
 
-  parsedDatepickerPlaceholder: or(
-    'datepickerPlaceholder',
-    'parsedDateTimeDisplayFormat'
-  ),
+  @or('datepickerPlaceholder', 'parsedDateTimeDisplayFormat')
+  parsedDatepickerPlaceholder;
 
   validMoment(event) {
     var parsedDateTimeDisplayFormat = this.parsedDateTimeDisplayFormat;
@@ -145,7 +148,7 @@ export default Component.extend({
       return null;
     }
     return moment(value, parsedDateTimeDisplayFormat).toDate();
-  },
+  }
 
   updateDate(selectedDate, currentDateTime) {
     var currentHour = moment(currentDateTime).hour();
@@ -166,7 +169,7 @@ export default Component.extend({
         .toDate();
     }
     return newDateTime;
-  },
+  }
 
   updateTimeUnit(unit, value, currentDateTime) {
     let newDateTime;
@@ -226,354 +229,373 @@ export default Component.extend({
       }
     }
     return newDateTime.toDate();
-  },
+  }
 
-  actions: {
-    onCenterChange(newDate) {
-      let newCenter = newDate.date ? newDate.date : newDate;
-      this.set('center', newCenter);
-    },
+  @action
+  onCenterChange(newDate) {
+    let newCenter = newDate.date ? newDate.date : newDate;
+    this.set('center', newCenter);
+  }
 
-    didInsert() {
-      if (this.defaultDate) {
-        this.set('selectedDate', this.defaultDate);
-      }
-      if (this.defaultTime) {
-        this.set('selectedHour', this.defaultHour);
-        this.set('selectedMinute', this.defaultMinute);
-        this.set('selectedSecond', this.defaultSecond);
-      }
-      if (this.calendarStartMonth) {
-        var split = this.calendarStartMonth.split('/');
-        this.set(
-          'calendarStartDate',
-          moment()
-            .year(parseInt(split[1]))
-            .month(parseInt(split[0]) - 1)
-            .day(1)
-        );
-      }
+  @action
+  didInsert() {
+    if (this.defaultDate) {
+      this.set('selectedDate', this.defaultDate);
+    }
+    if (this.defaultTime) {
+      this.set('selectedHour', this.defaultHour);
+      this.set('selectedMinute', this.defaultMinute);
+      this.set('selectedSecond', this.defaultSecond);
+    }
+    if (this.calendarStartMonth) {
+      var split = this.calendarStartMonth.split('/');
+      this.set(
+        'calendarStartDate',
+        moment()
+          .year(parseInt(split[1]))
+          .month(parseInt(split[0]) - 1)
+          .day(1)
+      );
+    }
 
-      if (moment.isDate(this.value)) {
-        this.send('updateDateTime', this.value);
-      } else if (moment(this.value).isValid()) {
-        this.send(
-          'updateDateTime',
-          moment(this.value, this.parsedDateTimeFormat).toDate()
-        );
-      }
-
-      if (this.fixedTime && this.showTimeSelector) {
-        console.warn(
-          '[Ember Changeset Webforms] You have set showTimeSelector to true, but you have also passed fixedTime. fixedTime must be null in order to show the tine selector component.'
-        );
-      }
-    },
-
-    onDateInputChange(event) {
-      if (this.validMoment(event)) {
-        this.send('updateDateTime', this.validMoment(event));
-      } else {
-        event.target.value = this.value;
-      }
-    },
-
-    onDateInputKeyUp(event) {
-      if (this.validMoment(event)) {
-        this.send('updateDateTime', this.validMoment(event));
-      }
-      if (this.onUserInteraction) {
-        this.onUserInteraction('keyUpDateTimeInput', event.target.value, event);
-      }
-    },
-
-    checkDateInputFocus() {
-      if (this.dateInputFocussed) {
-        return false;
-      }
-      return true;
-    },
-
-    onDateInputFocus(event) {
-      this.set('dateInputFocussed', true);
-      if (this.onUserInteraction) {
-        this.onUserInteraction('focusDateTimeInput', event.target.value, event);
-      }
-    },
-
-    onDateInputBlur(event) {
-      this.set('dateInputFocussed', false);
-      if (this.onUserInteraction) {
-        this.onUserInteraction('blurDateTimeInput', event.target.value, event);
-      }
-    },
-
-    clearDateTime: function () {
-      this.onSelectDateTime(null);
-      if (this.onUserInteraction) {
-        this.onUserInteraction('clearDateTime', this.value);
-      }
-    },
-
-    dateClicked(dropdown, value) {
-      this.send('setDate', value.date);
-      if (this.closeDatePickerOnSelect) {
-        dropdown.actions.close();
-      }
-      if (this.onUserInteraction) {
-        this.onUserInteraction('dateSelected', value.date);
-      }
-    },
-
-    setDate: function (selectedDate) {
-      var currentDateTime = this.value;
+    if (moment.isDate(this.value)) {
+      this.send('updateDateTime', this.value);
+    } else if (moment(this.value).isValid()) {
       this.send(
         'updateDateTime',
-        this.updateDate(selectedDate, currentDateTime)
+        moment(this.value, this.parsedDateTimeFormat).toDate()
       );
-    },
+    }
 
-    setTime: function (unit, event) {
-      if (!event.target.value) {
-        return;
-      }
-      if (
-        event.target.getAttribute('min') &&
-        event.target.getAttribute('max')
-      ) {
-        event.target.value = this.conformBounds(event.target.value, {
-          min: event.target.getAttribute('min'),
-          max: event.target.getAttribute('max'),
-          length: unit.length,
-        });
-      }
-      let value = event.target.value;
-      var currentDateTime = this.value;
-      const newDateTime = this.updateTimeUnit(unit, value, currentDateTime);
-      this.send('updateDateTime', newDateTime);
-    },
+    if (this.fixedTime && this.showTimeSelector) {
+      console.warn(
+        '[Ember Changeset Webforms] You have set showTimeSelector to true, but you have also passed fixedTime. fixedTime must be null in order to show the tine selector component.'
+      );
+    }
+  }
 
-    onKeyDownTimeUnitInput(unit, event) {
-      const { keys } = keyCodesMap;
-      if (event.keyCode !== keys.arrowUp && event.keyCode !== keys.arrowDown) {
-        return;
-      }
-      event.preventDefault();
-      let newValue;
-      let increment;
-      if (event.keyCode === keys.arrowUp) {
-        increment = 1;
+  @action
+  onDateInputChange(event) {
+    if (this.validMoment(event)) {
+      this.send('updateDateTime', this.validMoment(event));
+    } else {
+      event.target.value = this.value;
+    }
+  }
 
-        if (event.shiftKey) {
-          increment = 10;
-        }
-        if (event.shiftKey && event.ctrlKey) {
-          increment = 100;
-        }
-        let initialValue = event.target.value
-          ? parseInt(event.target.value)
-          : 0;
-        newValue = initialValue += increment;
-      }
-      if (event.keyCode === keys.arrowDown) {
-        increment = 1;
+  @action
+  onDateInputKeyUp(event) {
+    if (this.validMoment(event)) {
+      this.send('updateDateTime', this.validMoment(event));
+    }
+    if (this.onUserInteraction) {
+      this.onUserInteraction('keyUpDateTimeInput', event.target.value, event);
+    }
+  }
 
-        if (event.shiftKey) {
-          increment = 10;
-        }
-        if (event.shiftKey && event.ctrlKey) {
-          increment = 100;
-        }
-        let initialValue = event.target.value
-          ? parseInt(event.target.value)
-          : 0;
-        newValue = initialValue = initialValue - increment;
-      }
-      if (!increment) {
-        return;
-      }
-      event.target.value = newValue;
+  @action
+  checkDateInputFocus() {
+    if (this.dateInputFocussed) {
+      return false;
+    }
+    return true;
+  }
 
+  @action
+  onDateInputFocus(event) {
+    this.set('dateInputFocussed', true);
+    if (this.onUserInteraction) {
+      this.onUserInteraction('focusDateTimeInput', event.target.value, event);
+    }
+  }
+
+  @action
+  onDateInputBlur(event) {
+    this.set('dateInputFocussed', false);
+    if (this.onUserInteraction) {
+      this.onUserInteraction('blurDateTimeInput', event.target.value, event);
+    }
+  }
+
+  @action
+  clearDateTime() {
+    this.onSelectDateTime(null);
+    if (this.onUserInteraction) {
+      this.onUserInteraction('clearDateTime', this.value);
+    }
+  }
+
+  @action
+  dateClicked(dropdown, value) {
+    this.send('setDate', value.date);
+    if (this.closeDatePickerOnSelect) {
+      dropdown.actions.close();
+    }
+    if (this.onUserInteraction) {
+      this.onUserInteraction('dateSelected', value.date);
+    }
+  }
+
+  @action
+  setDate(selectedDate) {
+    var currentDateTime = this.value;
+    this.send(
+      'updateDateTime',
+      this.updateDate(selectedDate, currentDateTime)
+    );
+  }
+
+  @action
+  setTime(unit, event) {
+    if (!event.target.value) {
+      return;
+    }
+    if (
+      event.target.getAttribute('min') &&
+      event.target.getAttribute('max')
+    ) {
+      event.target.value = this.conformBounds(event.target.value, {
+        min: event.target.getAttribute('min'),
+        max: event.target.getAttribute('max'),
+        length: unit.length,
+      });
+    }
+    let value = event.target.value;
+    var currentDateTime = this.value;
+    const newDateTime = this.updateTimeUnit(unit, value, currentDateTime);
+    this.send('updateDateTime', newDateTime);
+  }
+
+  @action
+  onKeyDownTimeUnitInput(unit, event) {
+    const { keys } = keyCodesMap;
+    if (event.keyCode !== keys.arrowUp && event.keyCode !== keys.arrowDown) {
+      return;
+    }
+    event.preventDefault();
+    let newValue;
+    let increment;
+    if (event.keyCode === keys.arrowUp) {
+      increment = 1;
+
+      if (event.shiftKey) {
+        increment = 10;
+      }
+      if (event.shiftKey && event.ctrlKey) {
+        increment = 100;
+      }
+      let initialValue = event.target.value
+        ? parseInt(event.target.value)
+        : 0;
+      newValue = initialValue += increment;
+    }
+    if (event.keyCode === keys.arrowDown) {
+      increment = 1;
+
+      if (event.shiftKey) {
+        increment = 10;
+      }
+      if (event.shiftKey && event.ctrlKey) {
+        increment = 100;
+      }
+      let initialValue = event.target.value
+        ? parseInt(event.target.value)
+        : 0;
+      newValue = initialValue = initialValue - increment;
+    }
+    if (!increment) {
+      return;
+    }
+    event.target.value = newValue;
+
+    this.send('setTime', unit, event);
+    if (this.onUserInteraction) {
+      this.onUserInteraction(
+        'keyDownTimeUnitInput',
+        event.target.value,
+        event
+      );
+    }
+  }
+
+  @action
+  onKeyUpTimeUnitInput(unit, event) {
+    if (event.target.value.length >= unit.length) {
       this.send('setTime', unit, event);
-      if (this.onUserInteraction) {
-        this.onUserInteraction(
-          'keyDownTimeUnitInput',
-          event.target.value,
-          event
-        );
-      }
-    },
+    }
+    if (this.onUserInteraction) {
+      this.onUserInteraction('keyUpTimeUnitInput', event.target.value, event);
+    }
+  }
 
-    onKeyUpTimeUnitInput(unit, event) {
-      if (event.target.value.length >= unit.length) {
-        this.send('setTime', unit, event);
-      }
-      if (this.onUserInteraction) {
-        this.onUserInteraction('keyUpTimeUnitInput', event.target.value, event);
-      }
-    },
+  @action
+  onFocusInAmPm(event) {
+    event.target.value = '';
+    if (this.onUserInteraction) {
+      this.onUserInteraction('focusAmPmInput', event.target.value, event);
+    }
+  }
 
-    onFocusInAmPm(event) {
-      event.target.value = '';
-      if (this.onUserInteraction) {
-        this.onUserInteraction('focusAmPmInput', event.target.value, event);
-      }
-    },
+  @action
+  onChangeAmPm(event) {
+    var currentDateTime = this.value;
+    const value = event.target.value.toLowerCase();
+    if (value !== 'am' && value !== 'pm') {
+      event.target.value = moment(
+        currentDateTime,
+        this.parsedDateTimeFormat
+      ).format('a');
+    }
+    this.send('setTime', 'a', event);
+  }
 
-    onChangeAmPm(event) {
-      var currentDateTime = this.value;
-      const value = event.target.value.toLowerCase();
-      if (value !== 'am' && value !== 'pm') {
-        event.target.value = moment(
-          currentDateTime,
-          this.parsedDateTimeFormat
-        ).format('a');
-      }
-      this.send('setTime', 'a', event);
-    },
-
-    onKeyUpAmPm(event) {
-      if (this.onUserInteraction) {
-        this.onUserInteraction('keyUpAmPmInput', event.target.value, event);
-      }
-      const { keys } = keyCodesMap;
-      const amKeyCodes = [keys.a, keys.arrowUp];
-      const pmKeyCodes = [keys.p, keys.arrowDown];
-      const clearKeyCodes = [keys.backspace, keys.delete];
-      if (event.keyCode === keys.m) {
-        if (event.target.value === 'amm') {
-          event.target.value = 'am';
-        }
-        if (event.target.value === 'pmm') {
-          event.target.value = 'pm';
-        }
-      }
-      if (amKeyCodes.indexOf(event.keyCode) > -1) {
+  @action
+  onKeyUpAmPm(event) {
+    if (this.onUserInteraction) {
+      this.onUserInteraction('keyUpAmPmInput', event.target.value, event);
+    }
+    const { keys } = keyCodesMap;
+    const amKeyCodes = [keys.a, keys.arrowUp];
+    const pmKeyCodes = [keys.p, keys.arrowDown];
+    const clearKeyCodes = [keys.backspace, keys.delete];
+    if (event.keyCode === keys.m) {
+      if (event.target.value === 'amm') {
         event.target.value = 'am';
       }
-      if (pmKeyCodes.indexOf(event.keyCode) > -1) {
+      if (event.target.value === 'pmm') {
         event.target.value = 'pm';
       }
-      if (clearKeyCodes.indexOf(event.keyCode) > -1) {
-        event.target.value = '';
-      }
-      if (event.target.value === 'am' || event.target.value === 'pm') {
-        this.send('setTime', 'a', event);
-      }
-    },
+    }
+    if (amKeyCodes.indexOf(event.keyCode) > -1) {
+      event.target.value = 'am';
+    }
+    if (pmKeyCodes.indexOf(event.keyCode) > -1) {
+      event.target.value = 'pm';
+    }
+    if (clearKeyCodes.indexOf(event.keyCode) > -1) {
+      event.target.value = '';
+    }
+    if (event.target.value === 'am' || event.target.value === 'pm') {
+      this.send('setTime', 'a', event);
+    }
+  }
 
-    updateDateTime(dateTime) {
-      this.set('center', dateTime);
-      if (this.fixedTimeParsed) {
-        for (const key in this.fixedTimeParsed) {
-          dateTime = this.updateTimeUnit(
-            key,
-            this.fixedTimeParsed[key],
-            dateTime
-          );
+  @action
+  updateDateTime(dateTime) {
+    this.set('center', dateTime);
+    if (this.fixedTimeParsed) {
+      for (const key in this.fixedTimeParsed) {
+        dateTime = this.updateTimeUnit(
+          key,
+          this.fixedTimeParsed[key],
+          dateTime
+        );
+      }
+    }
+    this.set('selectedDate', dateTime);
+    this.onSelectDateTime(dateTime);
+  }
+
+  @action
+  onTriggerFocus() {
+    if (this.center) {
+      return;
+    }
+    var startDate = this.calendarStartDate || moment().toDate();
+    if (this.maxDate < moment().toDate()) {
+      startDate = this.maxDate;
+    }
+    if (
+      this.minDate > moment().toDate() ||
+      (this.minDate < moment().toDate() &&
+        this.maxDate < moment().toDate()) ||
+      (this.minDate > moment().toDate() && this.maxDate > moment().toDate())
+    ) {
+      startDate = this.minDate;
+    }
+    this.set('center', startDate);
+  }
+
+  @action
+  navigate(datepicker, span, units) {
+    if (this.allowNavigationOutOfRange || this.targetInRange(span, units)) {
+      datepicker.actions.moveCenter(span, units);
+    }
+  }
+
+  @action
+  selectDay(datepicker, span, units) {
+    var targetDay;
+    var startOfVisibleMonth = moment(this.center).startOf('month').toDate();
+    var endOfVisibleMonth = moment(this.center).endOf('month').toDate();
+    var currentSelected = moment(this.selectedDate);
+    if (
+      this.selectedDate >= startOfVisibleMonth &&
+      this.selectedDate <= endOfVisibleMonth
+    ) {
+      targetDay = currentSelected.add(span, units);
+    } else {
+      targetDay = startOfVisibleMonth;
+    }
+    if (targetDay > this.maxDate) {
+      targetDay = this.maxDate;
+    }
+    if (targetDay < this.minDate) {
+      targetDay = this.minDate;
+    }
+    this.set('selectedDate', targetDay);
+    this.set('center', this.selectedDate);
+  }
+
+  @action
+  onTriggerKeydown(datepicker, e) {
+    if (e.keyCode === 13) {
+      this.send('setDate', this.selectedDate);
+      e.preventDefault();
+    }
+    if (e.keyCode === 39) {
+      if (e.metaKey) {
+        if (e.shiftKey) {
+          this.send('navigate', datepicker, 1, 'years');
+        } else {
+          this.send('navigate', datepicker, 1, 'months');
         }
-      }
-      this.set('selectedDate', dateTime);
-      this.onSelectDateTime(dateTime);
-    },
-
-    onTriggerFocus: function () {
-      if (this.center) {
-        return;
-      }
-      var startDate = this.calendarStartDate || moment().toDate();
-      if (this.maxDate < moment().toDate()) {
-        startDate = this.maxDate;
-      }
-      if (
-        this.minDate > moment().toDate() ||
-        (this.minDate < moment().toDate() &&
-          this.maxDate < moment().toDate()) ||
-        (this.minDate > moment().toDate() && this.maxDate > moment().toDate())
-      ) {
-        startDate = this.minDate;
-      }
-      this.set('center', startDate);
-    },
-
-    navigate: function (datepicker, span, units) {
-      if (this.allowNavigationOutOfRange || this.targetInRange(span, units)) {
-        datepicker.actions.moveCenter(span, units);
-      }
-    },
-
-    selectDay: function (datepicker, span, units) {
-      var targetDay;
-      var startOfVisibleMonth = moment(this.center).startOf('month').toDate();
-      var endOfVisibleMonth = moment(this.center).endOf('month').toDate();
-      var currentSelected = moment(this.selectedDate);
-      if (
-        this.selectedDate >= startOfVisibleMonth &&
-        this.selectedDate <= endOfVisibleMonth
-      ) {
-        targetDay = currentSelected.add(span, units);
       } else {
-        targetDay = startOfVisibleMonth;
+        this.send('selectDay', datepicker, 1, 'days');
       }
-      if (targetDay > this.maxDate) {
-        targetDay = this.maxDate;
+      e.preventDefault();
+    }
+    if (e.keyCode === 37) {
+      if (e.metaKey) {
+        if (e.shiftKey) {
+          this.send('navigate', datepicker, -1, 'years');
+        } else {
+          this.send('navigate', datepicker, -1, 'months');
+        }
+      } else {
+        this.send('selectDay', datepicker, -1, 'days');
       }
-      if (targetDay < this.minDate) {
-        targetDay = this.minDate;
+      e.preventDefault();
+    }
+    if (e.keyCode === 40) {
+      if (!datepicker.isOpen) {
+        datepicker.actions.open();
+      } else {
+        this.send('selectDay', datepicker, 7, 'days');
       }
-      this.set('selectedDate', targetDay);
-      this.set('center', this.selectedDate);
-    },
+      e.preventDefault();
+    }
+    if (e.keyCode === 38) {
+      if (!datepicker.isOpen) {
+        datepicker.actions.open();
+      } else {
+        this.send('selectDay', datepicker, -7, 'days');
+      }
+      e.preventDefault();
+    }
+  }
 
-    onTriggerKeydown(datepicker, e) {
-      if (e.keyCode === 13) {
-        this.send('setDate', this.selectedDate);
-        e.preventDefault();
-      }
-      if (e.keyCode === 39) {
-        if (e.metaKey) {
-          if (e.shiftKey) {
-            this.send('navigate', datepicker, 1, 'years');
-          } else {
-            this.send('navigate', datepicker, 1, 'months');
-          }
-        } else {
-          this.send('selectDay', datepicker, 1, 'days');
-        }
-        e.preventDefault();
-      }
-      if (e.keyCode === 37) {
-        if (e.metaKey) {
-          if (e.shiftKey) {
-            this.send('navigate', datepicker, -1, 'years');
-          } else {
-            this.send('navigate', datepicker, -1, 'months');
-          }
-        } else {
-          this.send('selectDay', datepicker, -1, 'days');
-        }
-        e.preventDefault();
-      }
-      if (e.keyCode === 40) {
-        if (!datepicker.isOpen) {
-          datepicker.actions.open();
-        } else {
-          this.send('selectDay', datepicker, 7, 'days');
-        }
-        e.preventDefault();
-      }
-      if (e.keyCode === 38) {
-        if (!datepicker.isOpen) {
-          datepicker.actions.open();
-        } else {
-          this.send('selectDay', datepicker, -7, 'days');
-        }
-        e.preventDefault();
-      }
-    },
-  },
-
-  targetInRange: function (span, units) {
+  targetInRange(span, units) {
     var firstOfTargetMonth = moment(this.center)
       .add(span, units)
       .startOf('month')
@@ -586,7 +608,7 @@ export default Component.extend({
       return false;
     }
     return true;
-  },
+  }
 
   conformBounds(value, opts) {
     const int = parseInt(value);
@@ -604,7 +626,7 @@ export default Component.extend({
       minimumIntegerDigits: opts.length,
       useGrouping: false,
     });
-  },
-});
+  }
+}
 // TODO
 // Bundle ember truth helpers or remove or statements

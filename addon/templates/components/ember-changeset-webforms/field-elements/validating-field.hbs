@@ -7,7 +7,7 @@
       @afterAddClone={{@afterAddClone}}
       @afterRemoveClone={{@afterRemoveClone}}
       @afterClickAddCloneButton={{@afterClickAddCloneButton}}
-      @onUserInteraction={{fn (action "onUserInteraction")}}
+      @onUserInteraction={{fn (action "onUserInteractionAction")}}
       @dataTestFieldId={{this.dataTestFieldId}}
       @changesetWebform={{@changesetWebform}}
       {{did-insert (action "didInsert")}}
@@ -35,8 +35,8 @@
         formField=@formField
         formFields=@formFields
         formSettings=@formSettings
-        onChange=(action "onChange")
-        onUserInteraction=(action "onUserInteraction")
+        onChange=(action "onChangeAction")
+        onUserInteraction=(action "onUserInteractionAction")
         changesetWebform=@changesetWebform
         displayValue=(changeset-get
           @changesetWebform.changeset @formField.fieldId

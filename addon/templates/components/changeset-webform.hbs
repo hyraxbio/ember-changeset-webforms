@@ -10,7 +10,7 @@
   ...attributes
 >
   <form
-    {{on "submit" (action "submit")}}
+    {{on "submit" (action "submitForm")}}
     class={{this.formValidationClass}}
     novalidate={{this.formSettings.novalidate}}
   >
@@ -33,13 +33,13 @@
           @formSettings={{this.formSettings}}
           @formFields={{this.changesetWebform.fields}}
           @submitForm={{fn
-            (action "submit")
+            (action "submitForm")
             this.changesetWebform
             this.formSettings.modelName
           }}
-          @afterFieldValidation={{fn (action "afterFieldValidation")}}
-          @onFieldValueChange={{fn (action "onFieldValueChange")}}
-          @onUserInteraction={{fn (action "onUserInteraction")}}
+          @afterFieldValidation={{fn (action "afterFieldValidationAction")}}
+          @onFieldValueChange={{fn (action "onFieldValueChangeAction")}}
+          @onUserInteraction={{fn (action "onUserInteractionAction")}}
         />
       {{/each}}
     </div>
@@ -57,7 +57,7 @@
           {{on
             "click"
             (fn
-              (action "submit")
+              (action "submitForm")
               this.changesetWebform
               this.formSettings.modelName
             )
