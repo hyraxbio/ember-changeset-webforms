@@ -8,7 +8,7 @@ module.exports = {
     ecmaVersion: 2018,
     sourceType: 'module',
   },
-  plugins: ['ember'],
+  plugins: ['ember', 'ember-es6-class'],
 
   extends: ['eslint:recommended', 'plugin:ember/recommended'],
   env: {

@@ -1,7 +1,10 @@
-export default function formSchemaFromQueryParams(queryParamsObject) {
+export default function formSchemaFromQueryParams(
+  queryParamsObjects,
+  formName
+) {
   var formSchema = {
     formSettings: {
-      formName: `${queryParamsObject.name}Filters`,
+      formName: formName,
       submitButtonText: 'Apply Filters',
       clearFormButtonText: 'Reset filters',
       showClearFormButton: true,
@@ -16,7 +19,7 @@ export default function formSchemaFromQueryParams(queryParamsObject) {
   };
 
   var dateRangeFieldLabels = [];
-  queryParamsObject.items.forEach((item) => {
+  queryParamsObjects.forEach((item) => {
     if (!item.filtersForm) {
       return;
     }
