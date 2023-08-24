@@ -12,12 +12,7 @@ export default class ValidatingField extends Component {
     if (this.dataTestId) {
       return this.dataTestId;
     }
-    return [
-      this.dataTestFormName,
-      this.formField.dataTestFieldName || this.formField.fieldId,
-    ]
-      .filter((item) => item)
-      .join('-');
+    return [this.dataTestFormName, this.formField.dataTestFieldName || this.formField.fieldId].filter((item) => item).join('-');
   }
 
   @computed('formField.fieldType')
@@ -64,11 +59,7 @@ export default class ValidatingField extends Component {
   @action
   validateField(formField) {
     formField.validate().then((fieldValidationErrors) => {
-      this.afterFieldValidation(
-        formField,
-        formField.changeset,
-        fieldValidationErrors
-      );
+      this.afterFieldValidation(formField, formField.changeset, fieldValidationErrors);
     });
   }
 
@@ -99,12 +90,7 @@ export default class ValidatingField extends Component {
     } else if (eventType === 'focusOut') {
       formField.set('focussed', false);
       formField.eventLog.pushObject('focusOut');
-      if (
-        value &&
-        formField.trim &&
-        formField.inputType !== 'password' &&
-        typeof value === 'string'
-      ) {
+      if (value && formField.trim && formField.inputType !== 'password' && typeof value === 'string') {
         value = value.trim();
       }
       this.send('setFieldValue', value, formField);

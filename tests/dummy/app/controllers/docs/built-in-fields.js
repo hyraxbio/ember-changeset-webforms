@@ -332,8 +332,7 @@ export default Controller.extend({
         {
           fieldId: 'acceptTerms',
           fieldType: 'singleCheckbox',
-          checkBoxLabelMarkdown:
-            'I agree to the __**[terms and conditions here](https://example.com)**__.',
+          checkBoxLabelMarkdown: 'I agree to the __**[terms and conditions here](https://example.com)**__.',
         },
       ],
     };
@@ -518,10 +517,7 @@ export default Controller.extend({
           dateTimeFormat: 'YYYY-MM-DD HH:mm:ss.SSS',
           closeDatePickerOnSelect: true,
           showTimeSelector: true,
-          defaultValue: moment(
-            '2022-11-03 14:42:19.23456',
-            'YYYY-MM-DD HH:mm:ss.SSS'
-          ),
+          defaultValue: moment('2022-11-03 14:42:19.23456', 'YYYY-MM-DD HH:mm:ss.SSS'),
         },
       ],
     };
@@ -583,10 +579,7 @@ export default Controller.extend({
           closeDatePickerOnSelect: true,
           showTimeSelector: true,
           timeSelectorFields: 'HH,mm,ss,SS',
-          defaultValue: moment(
-            '14:42:19.14223 03.11.2022',
-            'HH:mm:ss.SSSSS DD.MM.YYYY'
-          ),
+          defaultValue: moment('14:42:19.14223 03.11.2022', 'HH:mm:ss.SSSSS DD.MM.YYYY'),
         },
       ],
     };
@@ -665,10 +658,7 @@ export default Controller.extend({
     onUserInteractionClicker1(formField, changesetWebform, eventType) {
       if (formField.fieldId === 'toggleAdvanced' && eventType === 'click') {
         formField.toggleProperty('showAdvanced');
-        const advancedFields = changesetWebform.fields.filterBy(
-          'advancedSetting',
-          true
-        );
+        const advancedFields = changesetWebform.fields.filterBy('advancedSetting', true);
         advancedFields.forEach((field) => field.toggleProperty('hidden'));
       }
     },

@@ -1,4 +1,1 @@
-export {
-  default,
-  getWithDefault,
-} from 'ember-changeset-webforms/helpers/get-with-default';
+export { default, getWithDefault } from 'ember-changeset-webforms/helpers/get-with-default';

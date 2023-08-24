@@ -1,11 +1,7 @@
 import _mergeWith from 'lodash/mergeWith';
 import mergeWithDefaultClassNames from 'ember-changeset-webforms/utils/merge-with-default-class-names';
 
-export default function dynamicClassNames(
-  elementTypesString,
-  changesetWebform,
-  formField
-) {
+export default function dynamicClassNames(elementTypesString, changesetWebform, formField) {
   let classNames = [];
   if (!changesetWebform) {
     return;
@@ -13,26 +9,15 @@ export default function dynamicClassNames(
 
   const elementTypes = elementTypesString.split(',');
   elementTypes.forEach((elementType) => {
-    let classNameSettings =
-      changesetWebform.formSchemaWithDefaults.classNameSettings;
+    let classNameSettings = changesetWebform.formSchemaWithDefaults.classNameSettings;
     if (formField && (formField.classNames || {})[elementType]) {
       const objToMerge = {};
       objToMerge[elementType] = formField.classNames[elementType] || [];
-      classNameSettings = _mergeWith(
-        {},
-        classNameSettings,
-        objToMerge,
-        mergeWithDefaultClassNames
-      );
+      classNameSettings = _mergeWith({}, classNameSettings, objToMerge, mergeWithDefaultClassNames);
     }
     let classNamesArray;
     if (typeof classNameSettings[elementType] === 'function') {
-      classNamesArray =
-        classNameSettings[elementType](
-          classNameSettings,
-          changesetWebform,
-          formField
-        ) || [];
+      classNamesArray = classNameSettings[elementType](classNameSettings, changesetWebform, formField) || [];
     } else {
       classNamesArray = classNameSettings[elementType] || [];
     }
@@ -40,9 +25,7 @@ export default function dynamicClassNames(
       if (formField.validationStatus === 'valid') {
         classNames = classNames.concat(classNameSettings.validClassNames || []);
       } else if (formField.validationStatus === 'invalid') {
-        classNames = classNames.concat(
-          classNameSettings.invalidClassNames || []
-        );
+        classNames = classNames.concat(classNameSettings.invalidClassNames || []);
       }
     }
     classNames = classNames.concat(classNamesArray);

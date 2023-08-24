@@ -10,13 +10,9 @@ export default function validateClone(options = {}) {
       options.validationRules.forEach((cloneValidation) => {
         var func;
         if (defaultValidators[cloneValidation.validationMethod]) {
-          func = defaultValidators[cloneValidation.validationMethod](
-            cloneValidation.arguments
-          );
+          func = defaultValidators[cloneValidation.validationMethod](cloneValidation.arguments);
         } else {
-          func = options.customValidators[cloneValidation.validationMethod](
-            cloneValidation.arguments
-          );
+          func = options.customValidators[cloneValidation.validationMethod](cloneValidation.arguments);
         }
         var validationResult = func(key, item, oldValue, changes, content);
         if (validationResult !== true) {

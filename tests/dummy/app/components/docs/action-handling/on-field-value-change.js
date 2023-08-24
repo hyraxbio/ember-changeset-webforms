@@ -41,12 +41,7 @@ export default Component.extend({
 
   actions: {
     onFieldValueChange(formField, changesetWebform) {
-      this.set(
-        'fullName',
-        `${changesetWebform.changeset.get('firstName') || ''} ${
-          changesetWebform.changeset.get('lastName') || ''
-        }`
-      );
+      this.set('fullName', `${changesetWebform.changeset.get('firstName') || ''} ${changesetWebform.changeset.get('lastName') || ''}`);
       this.set('lastUpdateField', formField.fieldLabel);
       this.set('formName', changesetWebform.formSettings.formName);
     },

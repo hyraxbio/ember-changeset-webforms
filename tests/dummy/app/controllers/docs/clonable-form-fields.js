@@ -4,20 +4,11 @@ import { addonDefaults } from 'ember-changeset-webforms/utils/get-with-default';
 export default Controller.extend({
   init() {
     this._super(...arguments);
-    this.cloneGroupFieldAddonDefaults = addonDefaults.fieldTypes.find(
-      (item) => item.fieldType === 'clone-group'
-    );
+    this.cloneGroupFieldAddonDefaults = addonDefaults.fieldTypes.find((item) => item.fieldType === 'clone-group');
 
     // BEGIN-SNIPPET clone-group-form-data.js
     this.data = {
-      emails: [
-        'tobias@timosol.com',
-        'tobias@timosol.com',
-        null,
-        'lindsay@timosol.com',
-        'maeby@timosol.com',
-        'funke@timosil.com',
-      ],
+      emails: ['tobias@timosol.com', 'tobias@timosol.com', null, 'lindsay@timosol.com', 'maeby@timosol.com', 'funke@timosil.com'],
     };
     // END-SNIPPET
     // BEGIN-SNIPPET clone-group-form.js

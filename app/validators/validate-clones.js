@@ -8,9 +8,7 @@ export default function validateClones(options = {}) {
     newValue.forEach((item) => {
       var thisCloneValidations = [];
       options.cloneValidations.forEach((cloneValidation) => {
-        var func = defaultValidators[cloneValidation.validationMethod](
-          cloneValidation.arguments
-        );
+        var func = defaultValidators[cloneValidation.validationMethod](cloneValidation.arguments);
         var validationResult = func(key, item);
         if (validationResult !== true) {
           thisCloneValidations.push(validationResult);

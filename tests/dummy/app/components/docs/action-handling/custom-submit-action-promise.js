@@ -31,11 +31,7 @@ export default Component.extend({
   actions: {
     submitAction(_changesetData, changesetWebform) {
       return changesetWebform.changeset.save().then((response) => {
-        return this.fetchPromise(
-          '/forgot-password' +
-            '?email=' +
-            encodeURIComponent(response.data.email)
-        );
+        return this.fetchPromise('/forgot-password' + '?email=' + encodeURIComponent(response.data.email));
       });
     },
 

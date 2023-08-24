@@ -11,17 +11,10 @@ export default class ValidatingClone extends Component {
   @action
   didInsert() {
     var changeset = this.changesetWebform.changeset;
-    if (
-      changeset.get(this.masterFormField.propertyName)[
-        this.clonedFormField.index
-      ]
-    ) {
+    if (changeset.get(this.masterFormField.propertyName)[this.clonedFormField.index]) {
       this.clonedFormField.eventLog.pushObject('insert');
       this.masterFormField.eventLog.pushObject('insertClone');
-      this.clonedFormField.updateValidationActivation(
-        this.clonedFormField.index,
-        'insert'
-      );
+      this.clonedFormField.updateValidationActivation(this.clonedFormField.index, 'insert');
 
       this.validateField(this.masterFormField);
     }
@@ -37,12 +30,7 @@ export default class ValidatingClone extends Component {
     clonedFormField.eventLog.pushObject(eventType);
     this.masterFormField.eventLog.pushObject(`${eventType}Clone`);
     clonedFormField.updateValidationActivation(index, eventType);
-    this.onUserInteraction(
-      clonedFormField,
-      `${eventType}Clone`,
-      value,
-      event
-    );
+    this.onUserInteraction(clonedFormField, `${eventType}Clone`, value, event);
   }
 
   @action
@@ -50,9 +38,6 @@ export default class ValidatingClone extends Component {
     clonedFormField.eventLog.pushObject(eventType);
     this.masterFormField.eventLog.pushObject(`${eventType}Clone`);
     clonedFormField.updateValidationActivation(index, eventType);
-    this.setFieldValue(
-      this.updatedGroupValue(value, index),
-      this.masterFormField
-    );
+    this.setFieldValue(this.updatedGroupValue(value, index), this.masterFormField);
   }
 }

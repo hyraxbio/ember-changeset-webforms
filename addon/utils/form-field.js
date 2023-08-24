@@ -11,18 +11,14 @@ export default class FormField extends EmberObject {
     if (!formField.validates) {
       return;
     }
-    if (
-      !validationEventObj(formField.validationEvents, 'keyUp') &&
-      formField.get('focussed')
-    ) {
+    if (!validationEventObj(formField.validationEvents, 'keyUp') && formField.get('focussed')) {
       return;
     }
     if (!validationEventLog(formField).length) {
       return;
     }
     const changeset = this.changeset;
-    var validationErrors =
-      changeset.get(`error.${formField.propertyName}.validation`) || [];
+    var validationErrors = changeset.get(`error.${formField.propertyName}.validation`) || [];
     if (validationErrors.length === 0) {
       return 'valid';
     } else {

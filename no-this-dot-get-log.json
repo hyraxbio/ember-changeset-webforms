@@ -1,0 +1,20 @@
+[
+  {
+    "filepath": "/home/paddy/development/ember-addons/ember-changeset-webforms/addon/components/changeset-webform.js",
+    "items": [
+      {
+        "lineNumber": 47,
+        "from": "    this.set('changesetWebform', createChangesetWebform(formSchema, data, customValidators, opts));",
+        "to": "    this.changesetWebform = createChangesetWebform(formSchema, data, customValidators, opts);"
+      }
+    ]
+  },
+  {
+    "filepath": "/home/paddy/development/ember-addons/ember-changeset-webforms/addon/components/ember-changeset-webforms/cloned-field-elements/validating-clone-group.js",
+    "items": []
+  },
+  {
+    "filepath": "/home/paddy/development/ember-addons/ember-changeset-webforms/addon/components/ember-changeset-webforms/cloned-field-elements/validating-clone.js",
+    "items": []
+  }
+]

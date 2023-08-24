@@ -1,4 +1,1 @@
-export {
-  default,
-  sanitiseClassname,
-} from 'ember-changeset-webforms/helpers/sanitise-classname';
+export { default, sanitiseClassname } from 'ember-changeset-webforms/helpers/sanitise-classname';

@@ -26,10 +26,7 @@ export default class ValidatingCloneGroup extends Component {
     if (!formField) {
       return;
     }
-    if (
-      !validationEventLog(formField).filter((item) => !item.endsWith('Clone'))
-        .length
-    ) {
+    if (!validationEventLog(formField).filter((item) => !item.endsWith('Clone')).length) {
       return;
     }
     var validationErrors = this.masterFormFieldValidationErrors || [];
@@ -48,15 +45,10 @@ export default class ValidatingCloneGroup extends Component {
   @computed('changesetWebform.changeset.error')
   get masterFormFieldValidationErrors() {
     const changeset = this.changesetWebform.changeset;
-    var validationErrors =
-      changeset.get(
-        `error.${this.masterFormField.propertyName}.validation`
-      ) || [];
-    const masterFormFieldValidationErrors = [...validationErrors].filter(
-      (item) => {
-        return typeof item !== 'object' || !item.clones;
-      }
-    );
+    var validationErrors = changeset.get(`error.${this.masterFormField.propertyName}.validation`) || [];
+    const masterFormFieldValidationErrors = [...validationErrors].filter((item) => {
+      return typeof item !== 'object' || !item.clones;
+    });
     return masterFormFieldValidationErrors;
   }
 
@@ -112,9 +104,7 @@ export default class ValidatingCloneGroup extends Component {
       previousValue: null,
     });
     if (!opts.fromData) {
-      var fieldValue =
-        this.changesetWebform.changeset.get(masterFormField.propertyName) ||
-        [];
+      var fieldValue = this.changesetWebform.changeset.get(masterFormField.propertyName) || [];
       fieldValue.push(opts.newCloneValue || newField.defaultValue);
       this.setFieldValue(fieldValue, masterFormField);
     }
@@ -132,8 +122,7 @@ export default class ValidatingCloneGroup extends Component {
     var index = masterFormField.clonedFields.indexOf(clone);
     masterFormField.clonedFields.removeObject(clone);
     this.send('checkMinMaxClones', masterFormField);
-    var groupValue =
-      this.changesetWebform.changeset.get(masterFormField.propertyName) || []; //TODO check this.
+    var groupValue = this.changesetWebform.changeset.get(masterFormField.propertyName) || []; //TODO check this.
     groupValue.splice(index, 1);
     masterFormField.eventLog.pushObject('removeClone');
     this.setFieldValue(groupValue, masterFormField);
@@ -148,15 +137,9 @@ export default class ValidatingCloneGroup extends Component {
 
   @action
   checkMinMaxClones(masterFormField) {
-    if (
-      masterFormField.maxClones &&
-      masterFormField.clonedFields.length >= masterFormField.maxClones
-    ) {
+    if (masterFormField.maxClones && masterFormField.clonedFields.length >= masterFormField.maxClones) {
       masterFormField.set('cloneCountStatus', 'max');
-    } else if (
-      masterFormField.minClones &&
-      masterFormField.clonedFields.length === masterFormField.minClones
-    ) {
+    } else if (masterFormField.minClones && masterFormField.clonedFields.length === masterFormField.minClones) {
       masterFormField.set('cloneCountStatus', 'min');
     } else {
       masterFormField.set('cloneCountStatus', null); // TODO install ember truth helpers as a dep.
@@ -165,8 +148,7 @@ export default class ValidatingCloneGroup extends Component {
 
   updatedGroupValue(value, index) {
     var masterFormField = this.masterFormField;
-    var groupValue =
-      this.changesetWebform.changeset.get(masterFormField.propertyName) || [];
+    var groupValue = this.changesetWebform.changeset.get(masterFormField.propertyName) || [];
     masterFormField.set('lastUpdatedClone', {
       index: index,
       previousValue: groupValue[index],

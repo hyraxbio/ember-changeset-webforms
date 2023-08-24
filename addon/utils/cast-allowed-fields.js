@@ -39,11 +39,7 @@ function filterObjectByPath(object, filter) {
   const filteredObject = {};
   for (let key in object) {
     if (filter.hasOwnProperty(key)) {
-      if (
-        typeof object[key] === 'object' &&
-        typeof filter[key] === 'object' &&
-        Object.keys(filter[key]).length > 0
-      ) {
+      if (typeof object[key] === 'object' && typeof filter[key] === 'object' && Object.keys(filter[key]).length > 0) {
         filteredObject[key] = filterObjectByPath(object[key], filter[key]);
       } else {
         filteredObject[key] = object[key];

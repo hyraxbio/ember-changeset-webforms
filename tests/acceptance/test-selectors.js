@@ -17,28 +17,20 @@ export default {
   onFieldValueChangeForm: '[data-test-id="after-field-edit-form"]',
   onFieldValueChangeFeedback: '[data-test-id="after-field-edit-feedback"]',
   afterFieldValidationForm: '[data-test-id="after-field-validation-form"]',
-  afterFieldValidationFeedback:
-    '[data-test-id="after-field-validation-feedback"]',
-  integratingCustomValidatorsForm:
-    '[data-test-id="integrating-custom-validators-form"]',
-  afterGenerateChangesetWebformForm:
-    '[data-test-id="after-generate-changeset-webform-form"]',
-  afterGenerateChangesetWebformFeedback:
-    '[data-test-id="after-generate-changeset-webform-feedback"]',
+  afterFieldValidationFeedback: '[data-test-id="after-field-validation-feedback"]',
+  integratingCustomValidatorsForm: '[data-test-id="integrating-custom-validators-form"]',
+  afterGenerateChangesetWebformForm: '[data-test-id="after-generate-changeset-webform-form"]',
+  afterGenerateChangesetWebformFeedback: '[data-test-id="after-generate-changeset-webform-feedback"]',
   clonableFieldBasics: '[data-test-id="clonable-field-basics"]',
   clonableFieldWithData: '[data-test-id="clonable-field-with-data"]',
   cloneGroupEmails: '[data-test-id="clone-group-emails"]',
   clonableFieldCountries: '[data-test-id="clonable-field-countries"]',
 
   powerDatepickerInput: '[data-test-id="power-datepicker-input"]',
-  powerDatepicker24HourTimeSelect:
-    '[data-test-id="power-datepicker-24-hour-time-select"]',
-  powerDatepicker12HourTimeSelect:
-    '[data-test-id="power-datepicker-12-hour-time-select"]',
-  powerDatepickerUnusualFormat:
-    '[data-test-id="power-datepicker-unusual-format"]',
-  powerDatepickerCustomTimeSelect:
-    '[data-test-id="power-datepicker-custom-time-select"]',
+  powerDatepicker24HourTimeSelect: '[data-test-id="power-datepicker-24-hour-time-select"]',
+  powerDatepicker12HourTimeSelect: '[data-test-id="power-datepicker-12-hour-time-select"]',
+  powerDatepickerUnusualFormat: '[data-test-id="power-datepicker-unusual-format"]',
+  powerDatepickerCustomTimeSelect: '[data-test-id="power-datepicker-custom-time-select"]',
   powerDatepickerBasicUse: '[data-test-id="power-datepicker-basic-use"]',
   powerDatepickerAdvancedUse: '[data-test-id="power-datepicker-advanced-use"]',
   powerDatepickerMinMaxDate: '[data-test-id="power-datepicker-min-max-date"]',
@@ -54,18 +46,12 @@ export default {
   timeSelectorFieldInput: '[data-test-class="time-selector-field-input"]',
   timeSelectorFieldLabelHour: '[data-test-id="time-selector-field-label-hour"]',
   timeSelectorFieldInputHour: '[data-test-id="time-selector-field-input-hour"]',
-  timeSelectorFieldLabelMinutes:
-    '[data-test-id="time-selector-field-label-minutes"]',
-  timeSelectorFieldInputMinutes:
-    '[data-test-id="time-selector-field-input-minutes"]',
-  timeSelectorFieldLabelSeconds:
-    '[data-test-id="time-selector-field-label-seconds"]',
-  timeSelectorFieldInputSeconds:
-    '[data-test-id="time-selector-field-input-seconds"]',
-  timeSelectorFieldLabelMilliseconds:
-    '[data-test-id="time-selector-field-label-milliseconds"]',
-  timeSelectorFieldInputMilliseconds:
-    '[data-test-id="time-selector-field-input-milliseconds"]',
+  timeSelectorFieldLabelMinutes: '[data-test-id="time-selector-field-label-minutes"]',
+  timeSelectorFieldInputMinutes: '[data-test-id="time-selector-field-input-minutes"]',
+  timeSelectorFieldLabelSeconds: '[data-test-id="time-selector-field-label-seconds"]',
+  timeSelectorFieldInputSeconds: '[data-test-id="time-selector-field-input-seconds"]',
+  timeSelectorFieldLabelMilliseconds: '[data-test-id="time-selector-field-label-milliseconds"]',
+  timeSelectorFieldInputMilliseconds: '[data-test-id="time-selector-field-input-milliseconds"]',
 
   singleCheckboxBasicUse: '[data-test-id="single-checkbox-basic-use"]',
 

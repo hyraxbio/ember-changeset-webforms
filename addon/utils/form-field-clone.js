@@ -6,8 +6,7 @@ export default class FormFieldClone extends EmberObject {
   @computed('changeset.error', 'focussed', 'eventLog.[]', function () {
     var index = this.index;
     const changeset = this.changeset;
-    var validationErrors =
-      changeset.get(`error.${this.masterFormField.fieldId}.validation`) || [];
+    var validationErrors = changeset.get(`error.${this.masterFormField.fieldId}.validation`) || [];
     const cloneValidationErrors = [...validationErrors].find((item) => {
       return typeof item === 'object' || item.clones;
     });
@@ -18,32 +17,24 @@ export default class FormFieldClone extends EmberObject {
   })
   cloneValidationErrors;
 
-  @computed(
-    'cloneValidationErrors',
-    'changeset.error',
-    'clonedFormField.{focussed,fieldErrors,fieldErrors.@each,eventLog.[]}',
-    function () {
-      var clonedFormField = this;
-      if (!clonedFormField) {
-        return;
-      }
-      if (
-        !this.validationEventObj(clonedFormField.validationEvents, 'keyUp') &&
-        clonedFormField.get('focussed')
-      ) {
-        return;
-      }
-      if (!validationEventLog(clonedFormField).length) {
-        return;
-      }
-      var clonedFieldValidationErrors = this.cloneValidationErrors || [];
-      if (clonedFieldValidationErrors.length === 0) {
-        return 'valid';
-      } else {
-        return 'invalid';
-      }
+  @computed('cloneValidationErrors', 'changeset.error', 'clonedFormField.{focussed,fieldErrors,fieldErrors.@each,eventLog.[]}', function () {
+    var clonedFormField = this;
+    if (!clonedFormField) {
+      return;
     }
-  )
+    if (!this.validationEventObj(clonedFormField.validationEvents, 'keyUp') && clonedFormField.get('focussed')) {
+      return;
+    }
+    if (!validationEventLog(clonedFormField).length) {
+      return;
+    }
+    var clonedFieldValidationErrors = this.cloneValidationErrors || [];
+    if (clonedFieldValidationErrors.length === 0) {
+      return 'valid';
+    } else {
+      return 'invalid';
+    }
+  })
   validationStatus;
 
   validationEventObj(validationEvents, eventType) {
@@ -56,8 +47,7 @@ export default class FormFieldClone extends EmberObject {
     const clonedFormField = this;
     if (this.validationEventObj(clonedFormField.validationEvents, eventType)) {
       const validationRules = clonedFormField.validationRules[0];
-      validationRules.activateValidation =
-        validationRules.activateValidation || [];
+      validationRules.activateValidation = validationRules.activateValidation || [];
       validationRules.activateValidation.push(index); // clonedFormField.set()
     }
   }

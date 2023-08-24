@@ -9,8 +9,6 @@ import { htmlSafe } from '@ember/template';
 export default class StaticContent extends Component {
   @computed('formField.{text,textElement}')
   get textElement() {
-    return htmlSafe(
-      `<${this.formField.textElement} class="${this.formField.textElementClass}">${this.formField.text}</${this.formField.textElement}>`
-    );
+    return htmlSafe(`<${this.formField.textElement} class="${this.formField.textElementClass}">${this.formField.text}</${this.formField.textElement}>`);
   }
 }

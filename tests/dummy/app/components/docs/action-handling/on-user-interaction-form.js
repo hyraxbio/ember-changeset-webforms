@@ -49,15 +49,9 @@ export default Component.extend({
     onUserInteraction(formField, changesetWebform, eventType) {
       if (eventType === 'click') {
         if (formField.fieldId === 'toggleNicknameField') {
-          const nickNameField = changesetWebform.fields.findBy(
-            'fieldId',
-            'nickName'
-          );
+          const nickNameField = changesetWebform.fields.findBy('fieldId', 'nickName');
           nickNameField.toggleProperty('hidden');
-          formField.set(
-            'clickerText',
-            nickNameField.hidden ? 'Show nickname field' : 'Hide nickname field'
-          );
+          formField.set('clickerText', nickNameField.hidden ? 'Show nickname field' : 'Hide nickname field');
         }
       }
     },
@@ -69,9 +63,7 @@ export default Component.extend({
       }
       this.set('alert', {
         type: 'success',
-        message: `Validation passed, submit action fired with the following data: ${dataProps.join(
-          ', '
-        )}.`,
+        message: `Validation passed, submit action fired with the following data: ${dataProps.join(', ')}.`,
       });
       const changeset = changsetWebform.changeset;
       changsetWebform.formSettings.set('submitButtonText', 'Re-submit');
@@ -83,15 +75,11 @@ export default Component.extend({
       const validationError = changsetWebform.changeset.error;
       let errorProps = [];
       for (var key in validationError) {
-        errorProps.push(
-          `"${key}" => "${validationError[key].validation.join(', ')}"`
-        );
+        errorProps.push(`"${key}" => "${validationError[key].validation.join(', ')}"`);
       }
       this.set('alert', {
         type: 'danger',
-        message: `Validation failed, submit action not fired. The following validation errors exist:  ${errorProps.join(
-          ', '
-        )}`,
+        message: `Validation failed, submit action not fired. The following validation errors exist:  ${errorProps.join(', ')}`,
       });
     },
   },
