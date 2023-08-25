@@ -21,10 +21,11 @@ export default class CheckboxGroup extends Component {
         option.value = false;
       }
     });
-    options.setEach('onlyCheckedOption', false);
+    options.forEach((option) => (option.onlyCheckedOption = false));
     checkedItems = checkedItems || [];
     if (checkedItems.length === 1) {
-      options.findBy('key', checkedItems[0]).set('onlyCheckedOption', true);
+      const checkedOption = options.findBy('key', checkedItems[0]);
+      checkedOption.onlyCheckedOption = true;
     }
     return options;
   }

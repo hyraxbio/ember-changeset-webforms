@@ -104,11 +104,11 @@ export default class ValidatingCloneGroup extends Component {
     masterFormField.clonedFields.pushObject(clone);
     clone.index = masterFormField.clonedFields.indexOf(clone);
     var lastIndex = masterFormField.clonedFields.length - 1;
-    masterFormField.set('lastUpdatedClone', {
+    masterFormField.lastUpdatedClone = {
       // TODO does lastUpdatedClone do anything?
       index: lastIndex,
       previousValue: null,
-    });
+    };
     if (!opts.fromData) {
       var fieldValue = this.changesetWebform.changeset.get(masterFormField.propertyName) || [];
       fieldValue.push(opts.newCloneValue || newField.defaultValue);
@@ -155,11 +155,11 @@ export default class ValidatingCloneGroup extends Component {
   updatedGroupValue(value, index) {
     var masterFormField = this.masterFormField;
     var groupValue = this.changesetWebform.changeset.get(masterFormField.propertyName) || [];
-    masterFormField.set('lastUpdatedClone', {
+    masterFormField.lastUpdatedClone = {
       index: index,
       previousValue: groupValue[index],
       previousLength: groupValue.length,
-    });
+    };
     groupValue[index] = value;
     return groupValue;
   }
