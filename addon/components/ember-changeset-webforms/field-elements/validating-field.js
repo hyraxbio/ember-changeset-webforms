@@ -81,21 +81,21 @@ export default class ValidatingField extends Component {
     if (eventType === 'keyUp') {
       if (formField.fieldType === 'input' && event.keyCode === 13) {
         if (this.submitForm) {
-          formField.set('focussed', false);
+          formField.focussed = false;
           this.submitForm(this.changesetWebform.changeset);
         }
         return;
       }
       this.send('setFieldValue', value, formField);
     } else if (eventType === 'focusOut') {
-      formField.set('focussed', false);
+      formField.focussed = false;
       formField.eventLog.pushObject('focusOut');
       if (value && formField.trim && formField.inputType !== 'password' && typeof value === 'string') {
         value = value.trim();
       }
       this.send('setFieldValue', value, formField);
     } else if (eventType === 'focusIn') {
-      formField.set('focussed', true);
+      formField.focussed = true;
     }
     this.onUserInteraction(formField, eventType, value, event);
   }
@@ -110,7 +110,7 @@ export default class ValidatingField extends Component {
       return;
     }
     var changeset = this.changesetWebform.changeset;
-    formField.set('previousValue', changeset.get(formField.propertyName));
+    formField.previousValue = changeset.get(formField.propertyName);
     changeset.set(formField.propertyName, value);
     if (this.onFieldValueChange) {
       this.onFieldValueChange(formField, changeset);

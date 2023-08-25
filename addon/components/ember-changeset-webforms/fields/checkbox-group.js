@@ -2,19 +2,23 @@ import { layout as templateLayout, tagName } from '@ember-decorators/component';
 import { action, computed } from '@ember/object';
 import Component from '@ember/component';
 import layout from '../../../templates/components/ember-changeset-webforms/fields/checkbox-group';
+import { tracked } from '@glimmer/tracking';
 
 @templateLayout(layout)
 @tagName('')
 export default class CheckboxGroup extends Component {
+  @tracked value;
+  @tracked value;
+
   @computed('displayValue')
   get options() {
     var checkedItems = this.stringToArray(this.displayValue);
     var options = this.formField.options;
     options.forEach(function (option) {
       if (checkedItems.indexOf(option.key) > -1) {
-        option.set('value', true);
+        option.value = true;
       } else {
-        option.set('value', false);
+        option.value = false;
       }
     });
     options.setEach('onlyCheckedOption', false);

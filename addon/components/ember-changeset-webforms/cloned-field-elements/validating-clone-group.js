@@ -5,10 +5,16 @@ import Component from '@ember/component';
 import layout from '../../../templates/components/ember-changeset-webforms/cloned-field-elements/validating-clone-group';
 import FormFieldClone from 'ember-changeset-webforms/utils/form-field-clone';
 import validationEventLog from 'ember-changeset-webforms/utils/validation-event-log';
+import { tracked } from '@glimmer/tracking';
 
 @tagName('')
 @templateLayout(layout)
 export default class ValidatingCloneGroup extends Component {
+  @tracked clonedFields;
+  @tracked cloneCountStatus;
+  @tracked cloneCountStatus;
+  @tracked cloneCountStatus;
+
   @reads('masterFormField.validates')
   dataTestCwfFieldValidates;
 
@@ -87,16 +93,16 @@ export default class ValidatingCloneGroup extends Component {
   @action
   cloneField(opts = {}) {
     var masterFormField = this.masterFormField;
-    masterFormField.set('clonedFields', masterFormField.clonedFields || []);
+    masterFormField.clonedFields = masterFormField.clonedFields || [];
     var newField = { ...masterFormField.clonedFieldBlueprint };
     newField.isClone = true;
     newField.cloneId = this.cloneId(masterFormField.clonedFields);
     newField.eventLog = []; // BD must recreate this, otherwise all clones share the same instance of eventLog array.
     const clone = FormFieldClone.create(newField);
-    clone.set('changeset', this.changesetWebform.changeset);
-    clone.set('masterFormField', masterFormField);
+    clone.changeset = this.changesetWebform.changeset;
+    clone.masterFormField = masterFormField;
     masterFormField.clonedFields.pushObject(clone);
-    clone.set('index', masterFormField.clonedFields.indexOf(clone));
+    clone.index = masterFormField.clonedFields.indexOf(clone);
     var lastIndex = masterFormField.clonedFields.length - 1;
     masterFormField.set('lastUpdatedClone', {
       // TODO does lastUpdatedClone do anything?
@@ -128,7 +134,7 @@ export default class ValidatingCloneGroup extends Component {
     this.setFieldValue(groupValue, masterFormField);
 
     masterFormField.clonedFields.forEach((clone, index) => {
-      clone.set('index', index);
+      clone.index = index;
     });
     if (this.onUserInteraction) {
       this.onUserInteraction(this.masterFormField, 'addClone');
@@ -138,11 +144,11 @@ export default class ValidatingCloneGroup extends Component {
   @action
   checkMinMaxClones(masterFormField) {
     if (masterFormField.maxClones && masterFormField.clonedFields.length >= masterFormField.maxClones) {
-      masterFormField.set('cloneCountStatus', 'max');
+      masterFormField.cloneCountStatus = 'max';
     } else if (masterFormField.minClones && masterFormField.clonedFields.length === masterFormField.minClones) {
-      masterFormField.set('cloneCountStatus', 'min');
+      masterFormField.cloneCountStatus = 'min';
     } else {
-      masterFormField.set('cloneCountStatus', null); // TODO install ember truth helpers as a dep.
+      masterFormField.cloneCountStatus = null;
     }
   }
 

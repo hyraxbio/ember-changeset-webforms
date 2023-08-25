@@ -4,10 +4,19 @@ import { or } from '@ember/object/computed';
 import Component from '@ember/component';
 import layout from '../../templates/components/background/power-datetime-picker';
 import keyCodesMap from 'ember-changeset-webforms/utils/keycodes-map';
+import { tracked } from '@glimmer/tracking';
 
 @tagName('')
 @templateLayout(layout)
 export default class PowerDatetimePicker extends Component {
+  @tracked center;
+  @tracked selectedDate;
+  @tracked center;
+  @tracked selectedDate;
+  @tracked center;
+  @tracked selectedDate;
+  @tracked center;
+
   @computed('defaultTime')
   get defaultHour() {
     if (!this.defaultTime) {
@@ -182,18 +191,18 @@ export default class PowerDatetimePicker extends Component {
   @action
   onCenterChange(newDate) {
     let newCenter = newDate.date ? newDate.date : newDate;
-    this.set('center', newCenter);
+    this.center = newCenter;
   }
 
   @action
   didInsert() {
     if (this.defaultDate) {
-      this.set('selectedDate', this.defaultDate);
+      this.selectedDate = this.defaultDate;
     }
     if (this.defaultTime) {
-      this.set('selectedHour', this.defaultHour);
-      this.set('selectedMinute', this.defaultMinute);
-      this.set('selectedSecond', this.defaultSecond);
+      this.selectedHour = this.defaultHour;
+      this.selectedMinute = this.defaultMinute;
+      this.selectedSecond = this.defaultSecond;
     }
     if (this.calendarStartMonth) {
       var split = this.calendarStartMonth.split('/');
@@ -201,7 +210,7 @@ export default class PowerDatetimePicker extends Component {
         .year(parseInt(split[1]))
         .month(parseInt(split[0]) - 1)
         .day(1);
-      this.set('calendarStartDate', calendarStartDate);
+      this.calendarStartDate = calendarStartDate;
     }
 
     if (moment.isDate(this.value)) {
@@ -244,7 +253,7 @@ export default class PowerDatetimePicker extends Component {
 
   @action
   onDateInputFocus(event) {
-    this.set('dateInputFocussed', true);
+    this.dateInputFocussed = true;
     if (this.onUserInteraction) {
       this.onUserInteraction('focusDateTimeInput', event.target.value, event);
     }
@@ -252,7 +261,7 @@ export default class PowerDatetimePicker extends Component {
 
   @action
   onDateInputBlur(event) {
-    this.set('dateInputFocussed', false);
+    this.dateInputFocussed = false;
     if (this.onUserInteraction) {
       this.onUserInteraction('blurDateTimeInput', event.target.value, event);
     }
@@ -406,13 +415,13 @@ export default class PowerDatetimePicker extends Component {
 
   @action
   updateDateTime(dateTime) {
-    this.set('center', dateTime);
+    this.center = dateTime;
     if (this.fixedTimeParsed) {
       for (const key in this.fixedTimeParsed) {
         dateTime = this.updateTimeUnit(key, this.fixedTimeParsed[key], dateTime);
       }
     }
-    this.set('selectedDate', dateTime);
+    this.selectedDate = dateTime;
     this.onSelectDateTime(dateTime);
   }
 
@@ -428,7 +437,7 @@ export default class PowerDatetimePicker extends Component {
     if (this.minDate > moment().toDate() || (this.minDate < moment().toDate() && this.maxDate < moment().toDate()) || (this.minDate > moment().toDate() && this.maxDate > moment().toDate())) {
       startDate = this.minDate;
     }
-    this.set('center', startDate);
+    this.center = startDate;
   }
 
   @action
@@ -455,8 +464,8 @@ export default class PowerDatetimePicker extends Component {
     if (targetDay < this.minDate) {
       targetDay = this.minDate;
     }
-    this.set('selectedDate', targetDay);
-    this.set('center', this.selectedDate);
+    this.selectedDate = targetDay;
+    this.center = this.selectedDate;
   }
 
   @action

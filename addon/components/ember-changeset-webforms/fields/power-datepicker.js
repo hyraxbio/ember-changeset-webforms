@@ -18,9 +18,9 @@ export default class PowerDatepicker extends Component {
       var rangePartner = this.formFields.findBy('fieldId', formField.dateRangeSettings.rangePartnerFieldId);
       if (rangePartner) {
         if (rangePartner.dateRangeSettings.rangePosition === 'start') {
-          rangePartner.set('maxDate', dateTime);
+          rangePartner.maxDate = dateTime;
         } else if (rangePartner.dateRangeSettings.rangePosition === 'end') {
-          rangePartner.set('minDate', dateTime);
+          rangePartner.minDate = dateTime;
         }
       }
     }

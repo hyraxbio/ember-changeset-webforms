@@ -23,9 +23,9 @@ export default class ValidatingClone extends Component {
   @action
   onUserInteractionClone(index, clonedFormField, eventType, value, event) {
     if (eventType === 'focusOut') {
-      clonedFormField.set('focussed', false);
+      clonedFormField.focussed = false;
     } else if (eventType === 'focusIn') {
-      clonedFormField.set('focussed', true);
+      clonedFormField.focussed = true;
     }
     clonedFormField.eventLog.pushObject(eventType);
     this.masterFormField.eventLog.pushObject(`${eventType}Clone`);

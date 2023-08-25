@@ -40,7 +40,7 @@ export default class FormField extends EmberObject {
       changeset
         .validate(formField.propertyName)
         .then(() => {
-          formField.set('wasValidated', true);
+          formField.wasValidated = true;
           const fieldValidationErrors = changeset.error[formField.propertyName];
           resolve(fieldValidationErrors);
         })

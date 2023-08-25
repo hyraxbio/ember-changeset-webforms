@@ -7,10 +7,13 @@ import validateFields from 'ember-changeset-webforms/utils/validate-fields';
 import castAllowedFields from 'ember-changeset-webforms/utils/cast-allowed-fields';
 import createChangesetWebform from 'ember-changeset-webforms/utils/create-changeset-webform';
 import isPromise from 'ember-changeset-webforms/utils/is-promise';
+import { tracked } from '@glimmer/tracking';
 
 @tagName('')
 @templateLayout(layout)
 export default class ChangesetWebform extends Component {
+  @tracked changesetWebform;
+
   @reads('changesetWebform.formSettings')
   formSettings;
 
@@ -21,7 +24,7 @@ export default class ChangesetWebform extends Component {
   get needsValidation() {
     var formFields = this.formFields || [];
     return formFields.find((field) => {
-      field.set('validationRules', field.validationRules || []);
+      field.validationRules = field.validationRules || [];
       return field.validationRules.length > 0;
     });
   }
@@ -44,7 +47,7 @@ export default class ChangesetWebform extends Component {
 
   @action
   generateChangesetWebform(formSchema, data, customValidators, opts) {
-    this.set('changesetWebform', createChangesetWebform(formSchema, data, customValidators, opts));
+    this.changesetWebform = createChangesetWebform(formSchema, data, customValidators, opts);
     if (this.afterGenerateChangesetWebform) {
       this.afterGenerateChangesetWebform(this.changesetWebform);
     }
@@ -91,7 +94,7 @@ export default class ChangesetWebform extends Component {
           } catch (err) {
             console.log(err);
           }
-          changesetWebform.formSettings.set('requestInFlight', true);
+          changesetWebform.formSettings.requestInFlight = true;
           if (this.submitAction) {
             changeset
               .save()
@@ -101,7 +104,7 @@ export default class ChangesetWebform extends Component {
                   if (isPromise(submitAction)) {
                     submitAction
                       .then((submitActionResponse) => {
-                        changesetWebform.formSettings.set('requestInFlight', false);
+                        changesetWebform.formSettings.requestInFlight = false;
                         if (this.submitSuccess) {
                           this.submitSuccess(submitActionResponse, changesetWebform);
                         }
@@ -110,13 +113,13 @@ export default class ChangesetWebform extends Component {
                         }
                       })
                       .catch((error) => {
-                        changesetWebform.formSettings.set('requestInFlight', false);
+                        changesetWebform.formSettings.requestInFlight = false;
                         if (this.submitError) {
                           this.submitError(error, changesetWebform);
                         }
                       });
                   } else {
-                    changesetWebform.formSettings.set('requestInFlight', false);
+                    changesetWebform.formSettings.requestInFlight = false;
                     var submitActionResponse = submitAction;
                     if (this.submitSuccess) {
                       this.submitSuccess(submitActionResponse, changesetWebform);
@@ -126,14 +129,14 @@ export default class ChangesetWebform extends Component {
                     }
                   }
                 } catch (error) {
-                  changesetWebform.formSettings.set('requestInFlight', false);
+                  changesetWebform.formSettings.requestInFlight = false;
                   if (this.submitError) {
                     this.submitError(error, changesetWebform);
                   }
                 }
               })
               .catch((err) => {
-                changesetWebform.formSettings.set('requestInFlight', false);
+                changesetWebform.formSettings.requestInFlight = false;
                 if (this.submitError) {
                   this.submitError(err, changesetWebform);
                 }
@@ -142,7 +145,7 @@ export default class ChangesetWebform extends Component {
             changeset
               .save()
               .then((saveChangesetResponse) => {
-                changesetWebform.formSettings.set('requestInFlight', false);
+                changesetWebform.formSettings.requestInFlight = false;
                 if (this.submitSuccess) {
                   this.submitSuccess(saveChangesetResponse, changesetWebform);
                 }
@@ -154,7 +157,7 @@ export default class ChangesetWebform extends Component {
                 if (this.submitError) {
                   this.submitError(error, changesetWebform);
                 }
-                changesetWebform.formSettings.set('requestInFlight', false);
+                changesetWebform.formSettings.requestInFlight = false;
               });
           }
         } else {
@@ -165,7 +168,7 @@ export default class ChangesetWebform extends Component {
       })
       .catch((err) => {
         // TODO see how this is called
-        changesetWebform.formSettings.set('requestInFlight', false);
+        changesetWebform.formSettings.requestInFlight = false;
         this.formValidationFailed(changesetWebform, err);
       });
   }
