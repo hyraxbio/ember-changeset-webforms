@@ -61,7 +61,6 @@ module('Integration | Component | changeset-webform', function (hooks) {
     await fillIn(`${dummyEls.emailField} input`, 'test2@email.com');
     assert.equal(find(`${dummyEls.nameField} input`).value, 'Test', 'Name field has value "Test" after editing.');
     assert.equal(find(`${dummyEls.emailField} input`).value, 'test2@email.com', 'Email field has updated value "test2@email.com" after editing.');
-    // await this.pauseTest();
     await click(dummyEls.cwfSubmitFormButton);
     assert.equal(find(`${dummyEls.nameField} input`).value, 'Test', 'Name field is retains updated value "Test" after successful form submission.');
     assert.equal(find(`${dummyEls.emailField} input`).value, 'test2@email.com', 'Email field retains updated value "test2@email.com" after successful form submission.');

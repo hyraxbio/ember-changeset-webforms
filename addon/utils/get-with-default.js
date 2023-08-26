@@ -7,26 +7,38 @@ const addonDefaults = {
     // BEGIN-SNIPPET configurable-classnames.js
     // Generic element classes
     inputElement: ['form-control', 'validation-area', '$validationClassNames'],
-    textareaElement: ['form-control', 'validation-area', '$validationClassNames'],
+    textareaElement: [
+      'form-control',
+      'validation-area',
+      '$validationClassNames',
+    ],
     labelElement: ['form-label'],
     checkboxElement: ['form-check-input', '$validationClassNames'],
     radioButtonElement: ['form-check-input', '$validationClassNames'],
     buttonElement: ['btn', '$validationClassNames'],
     buttonIcon: ['ms-1'],
     // Request in flight
-    requestInFlight: ['request-in-flight', 'spinner-border', 'spinner-border-sm'],
+    requestInFlight: [
+      'request-in-flight',
+      'spinner-border',
+      'spinner-border-sm',
+    ],
     // Generic field classes- apply to all fields
     disabledField: ['disabled'],
     focussedField: ['focussed'],
-    fieldWrapper: ['cwf-field', '$validationClassNames'],
-    fieldControls: ['field-controls'],
+    fieldWrapper: ['cwf-field', 'test', '$validationClassNames'],
+    fieldControls: ['field-controls', '$validationClassNames'],
     fieldLabel: null,
     requiredField: ['required'],
     optionsWrapper: ['cwf-field-options'],
     // Generic validation related classes - apply to all fields
     validClassNames: ['is-valid'],
     invalidClassNames: ['is-invalid'],
-    validationErrors: ['cwf-field-errors', 'invalid-feedback', '$validationClassNames'],
+    validationErrors: [
+      'cwf-field-errors',
+      'invalid-feedback',
+      '$validationClassNames',
+    ],
     fieldValidates: ['validates'],
     validatedField: ['was-validated'],
     // Form wrapper
@@ -55,7 +67,15 @@ const addonDefaults = {
     powerDatePickerTriggerWrapper: ['form-control', 'input'],
     powerDatePickerTriggerInput: null,
     powerDatePickerDropdown: ['bg-transparent'],
-    powerDatePickerDropdownInner: ['bg-white', 'p-2', 'border', 'rounded', 'd-flex', 'flex-column', 'align-items-center'],
+    powerDatePickerDropdownInner: [
+      'bg-white',
+      'p-2',
+      'border',
+      'rounded',
+      'd-flex',
+      'flex-column',
+      'align-items-center',
+    ],
     powerDatePickerCalendar: null,
     powerDatePickerTimeSelectorContainer: ['cwf-time-selector', 'mt-2'],
     powerDatePickerTimeSelectorInput: ['inline'],
@@ -97,7 +117,13 @@ const addonDefaults = {
     // BEGIN-SNIPPET generic-field-settings.js
     validationRules: [], // Array of objects defining validation rules. See "Validation".
     validationEvents: [], // Array of strings, possible values include focusOut, keyUp, onChange // TODO check onChanger as validation event
-    alwaysValidateOn: ['focusOut', 'change', 'submit', 'removeClone', 'optionSelected'], // Array of strings, possible values include focusOut, keyUp, onChange // TODO check onChange as validation event
+    alwaysValidateOn: [
+      'focusOut',
+      'change',
+      'submit',
+      'removeClone',
+      'optionSelected',
+    ], // Array of strings, possible values include focusOut, keyUp, onChange // TODO check onChange as validation event
     hideSuccessValidation: null, // Boolean - only show validation colours when field validation fails
     hidden: null, // Boolean - if true, the field is hidden and also ignored when validating or submitting the form
     castOut: null, // Boolean - exclude the field from validation and submission
@@ -107,6 +133,7 @@ const addonDefaults = {
     hideLabel: null, // Hide the label from the user
     disabled: null, // Boolean - disable the field, but do not hide it. It will still be validated [TODO check] and included when the form is submitted
     classNames: {}, // Object - keys can correspond to those in the classNames settings. See /docs/configure-classnames
+    externalProps: {}, // Object - a tracked property which can be used to set custom properties on a field or cloned field, and trigger template updates with field.externalProps = field.externalProps.
     // END-SNIPPET
     eventLog: [],
   },
@@ -126,14 +153,16 @@ const addonDefaults = {
       fieldType: 'clone-group',
       maxClonesReachedText: 'Max clones reached.', // String
       removeCloneComponent: 'svg-repo/icons/icon-trash', // String - path to the component to use as the remove clone element
-      addCloneButtonComponent: 'ember-changeset-webforms/cloned-field-elements/add-clone-button', // String - path to the component to use as the add clone element
+      addCloneButtonComponent:
+        'ember-changeset-webforms/cloned-field-elements/add-clone-button', // String - path to the component to use as the add clone element
       hideSuccessValidation: true,
       minClones: 1, // Number - minimum number of clones allowed.
       maxClones: null, // Number - maximum number of clones allowed.
       cloneButtonText: null, // String - text to show in the add clone button. Defaults to `Add ${clonedField.fieldLabel} field`
       cloneFieldSchema: {}, // Object - the field definition of the clones, defined in the same way that you would define the field as a one off field.
       // END-SNIPPET
-      componentPath: 'ember-changeset-webforms/cloned-form-fields/validating-form-field-clone-group',
+      componentPath:
+        'ember-changeset-webforms/cloned-form-fields/validating-form-field-clone-group',
     },
     {
       // BEGIN-SNIPPET textarea-field-options.js
@@ -246,18 +275,57 @@ export { addonDefaults };
 
 export default function getWithDefault(formSchema = {}) {
   const appDefaults = config.changesetWebformsDefaults || {};
-  const formSettings = _mergeWith({}, addonDefaults.formSettings, appDefaults.formSettings, formSchema.formSettings);
-  const classNameSettings = _mergeWith({}, addonDefaults.generalClassNames, appDefaults.generalClassNames, formSchema.generalClassNames, mergeWithDefaultClassNames);
+  const formSettings = _mergeWith(
+    {},
+    addonDefaults.formSettings,
+    appDefaults.formSettings,
+    formSchema.formSettings
+  );
+  const classNameSettings = _mergeWith(
+    {},
+    addonDefaults.generalClassNames,
+    appDefaults.generalClassNames,
+    formSchema.generalClassNames,
+    mergeWithDefaultClassNames
+  );
   const addonFieldDefaults = addonDefaults.fieldSettings || {};
   const appConfigFieldDefaults = appDefaults.fieldSettings || {};
   const mergedFields = (formSchema.fields || []).map((field) => {
-    const addonFieldTypeDefaults = addonDefaults.fieldTypes.find((addonFieldType) => addonFieldType.fieldType === field.fieldType);
-    const appConfigFieldTypeDefaults = (appDefaults.fieldTypes || []).find((appConfigFieldType) => appConfigFieldType.fieldType === field.fieldType);
-    const mergedField = _mergeWith({}, addonFieldDefaults, addonFieldTypeDefaults, appConfigFieldDefaults, appConfigFieldTypeDefaults, formSchema.fieldSettings, field);
+    const addonFieldTypeDefaults = addonDefaults.fieldTypes.find(
+      (addonFieldType) => addonFieldType.fieldType === field.fieldType
+    );
+    const appConfigFieldTypeDefaults = (appDefaults.fieldTypes || []).find(
+      (appConfigFieldType) => appConfigFieldType.fieldType === field.fieldType
+    );
+    const mergedField = _mergeWith(
+      {},
+      addonFieldDefaults,
+      addonFieldTypeDefaults,
+      appConfigFieldDefaults,
+      appConfigFieldTypeDefaults,
+      formSchema.fieldSettings,
+      field
+    );
     if (field.cloneFieldSchema) {
-      const cloneAddonFieldTypeDefaults = addonDefaults.fieldTypes.find((addonFieldType) => addonFieldType.fieldType === field.cloneFieldSchema.fieldType);
-      const appConfigCloneFieldTypeDefaults = (appDefaults.fieldTypes || []).find((appConfigFieldType) => appConfigFieldType.fieldType === field.cloneFieldSchema.fieldType);
-      const mergedCloneField = _mergeWith({}, addonFieldDefaults, cloneAddonFieldTypeDefaults, appConfigFieldDefaults, appConfigCloneFieldTypeDefaults, formSchema.fieldSettings, field.cloneFieldSchema);
+      const cloneAddonFieldTypeDefaults = addonDefaults.fieldTypes.find(
+        (addonFieldType) =>
+          addonFieldType.fieldType === field.cloneFieldSchema.fieldType
+      );
+      const appConfigCloneFieldTypeDefaults = (
+        appDefaults.fieldTypes || []
+      ).find(
+        (appConfigFieldType) =>
+          appConfigFieldType.fieldType === field.cloneFieldSchema.fieldType
+      );
+      const mergedCloneField = _mergeWith(
+        {},
+        addonFieldDefaults,
+        cloneAddonFieldTypeDefaults,
+        appConfigFieldDefaults,
+        appConfigCloneFieldTypeDefaults,
+        formSchema.fieldSettings,
+        field.cloneFieldSchema
+      );
       mergedField.cloneFieldSchema = mergedCloneField;
     }
     return mergedField;

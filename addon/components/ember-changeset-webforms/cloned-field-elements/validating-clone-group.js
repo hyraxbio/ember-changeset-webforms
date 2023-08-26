@@ -10,10 +10,7 @@ import { tracked } from '@glimmer/tracking';
 @tagName('')
 @templateLayout(layout)
 export default class ValidatingCloneGroup extends Component {
-  @tracked clonedFields;
-  @tracked cloneCountStatus;
-  @tracked cloneCountStatus;
-  @tracked cloneCountStatus;
+  @tracked masterFormField;
 
   @reads('masterFormField.validates')
   dataTestCwfFieldValidates;
@@ -46,16 +43,6 @@ export default class ValidatingCloneGroup extends Component {
   @computed('masterFormField.cloneGroupName')
   get cloneGroupNameClass() {
     return `clone-group-${this.masterFormField.cloneGroupName}`;
-  }
-
-  @computed('changesetWebform.changeset.error')
-  get masterFormFieldValidationErrors() {
-    const changeset = this.changesetWebform.changeset;
-    var validationErrors = changeset.get(`error.${this.masterFormField.propertyName}.validation`) || [];
-    const masterFormFieldValidationErrors = [...validationErrors].filter((item) => {
-      return typeof item !== 'object' || !item.clones;
-    });
-    return masterFormFieldValidationErrors;
   }
 
   cloneId(clonedFields) {
@@ -93,15 +80,17 @@ export default class ValidatingCloneGroup extends Component {
   @action
   cloneField(opts = {}) {
     var masterFormField = this.masterFormField;
+    // masterFormField.set('clonedFields', masterFormField.clonedFields || []);
     masterFormField.clonedFields = masterFormField.clonedFields || [];
     var newField = { ...masterFormField.clonedFieldBlueprint };
     newField.isClone = true;
     newField.cloneId = this.cloneId(masterFormField.clonedFields);
     newField.eventLog = []; // BD must recreate this, otherwise all clones share the same instance of eventLog array.
-    const clone = FormFieldClone.create(newField);
+    const clone = new FormFieldClone(newField);
     clone.changeset = this.changesetWebform.changeset;
     clone.masterFormField = masterFormField;
     masterFormField.clonedFields.pushObject(clone);
+    masterFormField.clonedFields = masterFormField.clonedFields;
     clone.index = masterFormField.clonedFields.indexOf(clone);
     var lastIndex = masterFormField.clonedFields.length - 1;
     masterFormField.lastUpdatedClone = {
@@ -120,6 +109,7 @@ export default class ValidatingCloneGroup extends Component {
     if (this.afterAddClone) {
       this.afterAddClone(newField, masterFormField, this.changesetWebform);
     }
+    this.masterFormField = masterFormField;
   }
 
   @action
@@ -137,7 +127,7 @@ export default class ValidatingCloneGroup extends Component {
       clone.index = index;
     });
     if (this.onUserInteraction) {
-      this.onUserInteraction(this.masterFormField, 'addClone');
+      this.onUserInteraction(this.masterFormField, 'removeClone');
     }
   }
 

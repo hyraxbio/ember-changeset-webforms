@@ -14,6 +14,12 @@ The following default field settings can also be overridden:
 
 <InterpolatedSimpleJsSnippet @object={{cloneGroupFieldAddonDefaults}} @excludeKeys={{array "fieldType" "componentPath" "cloneFieldSchema"}} />
 
+## Tracked clone settings
+
+The following field settings are tracked, and so updating them for a clone in an action will result in a template update. 
+
+{{docs-snippet name="cloned-field-settings-tracked-props.js" title="Tracked settings for a field clone"}}
+
 ## Example 1
 
 The example below allows the user to add email addresses, with a minimum of 2 and a maximum of 4.

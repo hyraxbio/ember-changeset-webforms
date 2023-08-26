@@ -23,10 +23,7 @@
       @ariaLabelledBy={{this.ariaLabelledBy}}
       @ariaLabel={{this.ariaLabel}}
       @isGroup={{this.isGroup}}
-      @validationErrorsArray={{get
-        (get @changesetWebform.changeset.error @formField.propertyName)
-        "validation"
-      }}
+      @validationErrorsArray={{@formField.validationErrors}}
       data-test-cwf-field
       {{did-insert (action "didInsert")}}
     >

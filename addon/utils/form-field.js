@@ -1,31 +1,54 @@
-import EmberObject from '@ember/object';
-import { computed } from '@ember/object';
 import validationEventLog from 'ember-changeset-webforms/utils/validation-event-log';
+import { tracked } from '@glimmer/tracking';
+export default class FormField {
+  @tracked cloneCountStatus;
+  @tracked clonedFields;
+  @tracked eventLog = [];
+  @tracked focussed;
+  @tracked changeset;
+  @tracked validationEvents = [];
+  @tracked wasValidated;
+  // BEGIN-SNIPPET field-settings-tracked-props.js
+  @tracked hidden;
+  @tracked disabled;
+  @tracked externalProps = {};
+  // END-SNIPPET
+  constructor(args) {
+    for (const key in args) {
+      this[key] = args[key];
+    }
+  }
 
-export default class FormField extends EmberObject {
-  @computed('changeset.error', 'focussed', 'eventLog', 'eventLog.[]', function () {
-    var formField = this;
-    if (!formField) {
-      return;
+  get validationErrors() {
+    return this.changeset.get(`error.${this.fieldId}.validation`) || [];
+  }
+
+  get masterFormFieldValidationErrors() {
+    const masterFormFieldValidationErrors = this.validationErrors.filter(
+      (item) => {
+        return typeof item !== 'object' || !item.clones;
+      }
+    );
+    return masterFormFieldValidationErrors;
+  }
+
+  get validationStatus() {
+    if (!this.validates) {
+      return null;
     }
-    if (!formField.validates) {
-      return;
+    if (!validationEventObj(this.validationEvents, 'keyUp') && this.focussed) {
+      return null;
     }
-    if (!validationEventObj(formField.validationEvents, 'keyUp') && formField.get('focussed')) {
-      return;
+    if (!validationEventLog(this).length) {
+      return null;
     }
-    if (!validationEventLog(formField).length) {
-      return;
-    }
-    const changeset = this.changeset;
-    var validationErrors = changeset.get(`error.${formField.propertyName}.validation`) || [];
-    if (validationErrors.length === 0) {
+
+    if (this.validationErrors.length === 0) {
       return 'valid';
     } else {
       return 'invalid';
     }
-  })
-  validationStatus;
+  }
 
   validate() {
     return new Promise((resolve, reject) => {

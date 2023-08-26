@@ -26,3 +26,10 @@ The only required setting is `formName` which must be unique from that of any ot
   {{demo.snippet "clear-after-submit-form-schema.hbs" label="Template" language="htmlbars"}}
 {{/docs-demo}}
 
+## Tracked form settings
+
+The following form settings are tracked, and so updating them in an action will result in a template update. 
+
+{{docs-snippet name="form-settings-tracked-props.js" title="Tracked form settings"}}
+
+

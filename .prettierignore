@@ -5,3 +5,4 @@ package-lock.json
 dist
 vendor
 addon-test-support/test-helpers/htmlminifier.min.js
+tests/dummy/app/templates/docs/**

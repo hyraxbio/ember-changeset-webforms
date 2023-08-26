@@ -6,6 +6,11 @@
       @formField.validationStatus
     }}"
 >
+  {{!-- @dataTestId={{concat
+        @dataTestFieldId
+        "-checkbox-option-"
+        (ember-changeset-webforms/safe-name option.key)
+      }} --}}
   {{#each this.options as |option|}}
     <Background::LabelledCheckbox
       @dataTestId={{concat @dataTestFieldId "-checkbox-option-" option.value}}

@@ -3,13 +3,42 @@
   data-test-cwf-field-validates={{this.formField.validates}}
   data-test-cwf-field-required={{this.formField.required}}
   data-test-id={{this.dataTestId}}
-  class="{{this.focussedClasses}}
-    {{this.requiredClasses}}
-    {{this.disabledClasses}}
-    {{this.validatesClasses}}
-    {{this.wasValidatedClasses}}
-    {{this.fieldWrapperClassNames}}
-    {{@typeClass}}
+  class="{{@typeClass}}
+    {{ember-changeset-webforms/dynamic-class-names
+      'fieldWrapper'
+      @changesetWebform
+      @formField
+    }}
+    {{if
+      @formField.focussed
+      (ember-changeset-webforms/dynamic-class-names
+        'focussedField' @changesetWebform @formField
+      )
+    }}
+    {{if
+      @formField.disabled
+      (ember-changeset-webforms/dynamic-class-names
+        'disabledField' @changesetWebform @formField
+      )
+    }}
+    {{if
+      @formField.validates
+      (ember-changeset-webforms/dynamic-class-names
+        'fieldValidates' @changesetWebform @formField
+      )
+    }}
+    {{if
+      @formField.wasValidated
+      (ember-changeset-webforms/dynamic-class-names
+        'validatedField' @changesetWebform @formField
+      )
+    }}
+    {{if
+      @formField.required
+      (ember-changeset-webforms/dynamic-class-names
+        'requiredField' @changesetWebform @formField
+      )
+    }}
     {{if this.formField.readonly 'readonly'}}
     {{if this.formField.hideSuccessValidation 'hide-success-validation'}}"
   ...attributes

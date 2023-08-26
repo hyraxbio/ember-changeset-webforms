@@ -7,11 +7,11 @@ export default {
   cwfFieldRequired: '[data-test-cwf-field-required]',
   cwfFieldValidates: '[data-test-cwf-field-validates]',
 
-  cwfCloneWrapper: '[data-test-class="cwf-clone-wrapper"]',
+  cwfCloneWrapper: '[data-test-class="cwf-field-clone-wrapper"]',
   cwfCloneField: '[data-test-cwf-clone-field]',
 
-  cwfAddClone: '[data-test-id="add-clone"]',
-  cwfRemoveClone: '[data-test-class="cwf-remove-clone"]',
+  cwfAddClone: '[data-test-id="cwf-add-clone-button"]',
+  cwfRemoveClone: '[data-test-class="cwf-remove-clone-button"]',
   cwfMaxClonesReached: '[data-test-id="cwf-max-clones-reached"]',
 
   cloneField(opts) {

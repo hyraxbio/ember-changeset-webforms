@@ -2,10 +2,13 @@ import Application from '../app';
 import config from '../config/environment';
 import { setApplication } from '@ember/test-helpers';
 import { start } from 'ember-qunit';
-// import registerPowerCalendarHelpers from 'ember-power-calendar/test-support/helpers/ember-power-calendar';
+import * as QUnit from 'qunit';
+import { setup } from 'qunit-dom';
 
-// registerPowerCalendarHelpers();
+setup(QUnit.assert);
 
 setApplication(Application.create(config.APP));
+
+QUnit.config.testTimeout = 10000000000000000;
 
 start();

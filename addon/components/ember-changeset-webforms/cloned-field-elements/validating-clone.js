@@ -2,11 +2,12 @@ import { action } from '@ember/object';
 import { layout as templateLayout, tagName } from '@ember-decorators/component';
 import Component from '@ember/component';
 import layout from '../../../templates/components/ember-changeset-webforms/cloned-field-elements/validating-clone';
-
+import { tracked } from '@glimmer/tracking';
 @tagName('')
 @templateLayout(layout)
 export default class ValidatingClone extends Component {
   dataTestClass = 'cwf-field-clone-wrapper';
+  @tracked masterFormField;
 
   @action
   didInsert() {
@@ -15,7 +16,6 @@ export default class ValidatingClone extends Component {
       this.clonedFormField.eventLog.pushObject('insert');
       this.masterFormField.eventLog.pushObject('insertClone');
       this.clonedFormField.updateValidationActivation(this.clonedFormField.index, 'insert');
-
       this.validateField(this.masterFormField);
     }
   }
@@ -24,6 +24,9 @@ export default class ValidatingClone extends Component {
   onUserInteractionClone(index, clonedFormField, eventType, value, event) {
     if (eventType === 'focusOut') {
       clonedFormField.focussed = false;
+      if (!this.isDestroyed && !this.isDestroying) {
+        this.send('onChangeClone', index, clonedFormField, value);
+      }
     } else if (eventType === 'focusIn') {
       clonedFormField.focussed = true;
     }

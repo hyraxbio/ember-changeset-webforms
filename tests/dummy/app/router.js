@@ -22,10 +22,6 @@ Router.map(function () {
     this.route('configure-classnames');
   });
   this.route('not-found', { path: '/*path' });
-
-  this.route('form-submission');
-  this.route('form-settings');
-  this.route('field-settings');
 });
 
 export default Router;

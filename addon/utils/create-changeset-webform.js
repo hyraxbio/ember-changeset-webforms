@@ -1,7 +1,7 @@
 import createChangeset from 'ember-changeset-webforms/utils/create-changeset';
 import getWithDefaultUtil from 'ember-changeset-webforms/utils/get-with-default';
 import parseChangesetWebformField from 'ember-changeset-webforms/utils/parse-changeset-webform-field';
-import EmberObject from '@ember/object';
+import FormSettings from 'ember-changeset-webforms/utils/form-settings';
 
 export default function createChangesetWebform(formSchema, data, customValidators, opts) {
   const formSchemaWithDefaults = getWithDefaultUtil(formSchema);
@@ -13,7 +13,7 @@ export default function createChangesetWebform(formSchema, data, customValidator
   return {
     changeset: changeset,
     fields: parsedFields,
-    formSettings: EmberObject.create(formSchemaWithDefaults.formSettings),
+    formSettings: new FormSettings(formSchemaWithDefaults.formSettings),
     formSchema: { ...formSchema },
     formSchemaWithDefaults: { ...formSchemaWithDefaults },
   };

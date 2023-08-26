@@ -1,8 +1,11 @@
+[ ] Docs for custom fields
+[ ] default styles for remove clone button
+
 ## Power selct
 
 All actions emitted as userInteraction and onChnage
 All options integrated
-        
+
 [x] containerName for checkbox group and radio button group
 
 Do labelComponent, checkboxLabelComponent, optionLabelComponent, contentComponent allow strings?
@@ -11,7 +14,7 @@ All IDs must use formName as namespace
 
 Tech debt
 
-All classes and data attrs with ember-changeset-webforms replaced by cwf 
+All classes and data attrs with ember-changeset-webforms replaced by cwf
 
 change defaultValue to autoFill
 

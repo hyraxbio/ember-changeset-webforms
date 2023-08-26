@@ -4,6 +4,7 @@ module.exports = {
     moment: true,
   },
   root: true,
+  parser: 'babel-eslint',
   parserOptions: {
     ecmaVersion: 2018,
     sourceType: 'module',
