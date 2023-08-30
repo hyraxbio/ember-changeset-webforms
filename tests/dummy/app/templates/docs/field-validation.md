@@ -49,10 +49,10 @@ validationRules: [{
 ```
 ## Example
 
-{{#docs-demo as |demo|}}
-  {{#demo.example name="signup-form.hbs"}}
+<DocsDemo as |demo|>
+  <demo.example @name="signup-form.hbs">
     <ChangesetWebform 
-      @formSchema={{signUpFormSchema}} 
+      @formSchema={{this.signUpFormSchema}} 
       @data={{hash 
         email="tobias@bluthcompany.com"
         recoveryEmail="test"
@@ -60,7 +60,7 @@ validationRules: [{
       @submitAction={{action "submit"}} 
       @submitSuccess={{action "submitSuccess"}} 
      />
-  {{/demo.example}}
-  {{demo.snippet "signup-form.js" label="Component JS" language="javascript"}}
-  {{demo.snippet "signup-form.hbs" label="Template" language="htmlbars"}}
-{{/docs-demo}}
+  </demo.example>
+  <demo.snippet @name="signup-form.js" @label="Component JS" @language="javascript" />
+  <demo.snippet @name="signup-form.hbs" @label="Template" @language="htmlbars" />
+</DocsDemo>

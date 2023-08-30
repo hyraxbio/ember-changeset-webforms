@@ -6,21 +6,21 @@ Creating custom fields content
 
 Emit the userInteraction actions with eventType
 
-id={{formField.id}}
-ariaLabelledBy={{ariaLabelledBy}}
-aria-label={{ariaLabel}}
+id={{this.formField.id}}
+ariaLabelledBy={{this.ariaLabelledBy}}
+aria-label={{this.ariaLabel}}
 
 # Custom tracked props
 
 The underlying classes for `formSettings`, and `fields` (as well as cloned fields) have a tracked property `externalProps` which is an empty object.
 
-{{#docs-demo as |demo|}}
-  {{#demo.example name="external-props-form.hbs"}}
+<DocsDemo as |demo|>
+  <demo.example @name="external-props-form.hbs">
     <ChangesetWebform 
-      @formSchema={{formSchema}} 
+      @formSchema={{this.formSchema}} 
       @onUserInteraction={{action "updateExternalProps"}} 
      />
-  {{/demo.example}}
-  {{demo.snippet "external-props-form.js" label="Component JS" language="javascript"}}
-  {{demo.snippet "external-props-form.hbs" label="Template" language="htmlbars"}}
-{{/docs-demo}}
+  </demo.example>
+  <demo.snippet @name="external-props-form.js" @label="Component JS" @language="javascript" />
+  <demo.snippet @name="external-props-form.hbs" @label="Template" @language="htmlbars" />
+</DocsDemo>

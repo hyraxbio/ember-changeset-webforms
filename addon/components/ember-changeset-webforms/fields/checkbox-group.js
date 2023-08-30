@@ -1,5 +1,5 @@
 import { layout as templateLayout, tagName } from '@ember-decorators/component';
-import { action, computed } from '@ember/object';
+import { action } from '@ember/object';
 import Component from '@ember/component';
 import layout from '../../../templates/components/ember-changeset-webforms/fields/checkbox-group';
 import { tracked } from '@glimmer/tracking';
@@ -9,8 +9,8 @@ import { tracked } from '@glimmer/tracking';
 export default class CheckboxGroup extends Component {
   @tracked value;
   @tracked value;
+  @tracked displayValue;
 
-  @computed('displayValue')
   get options() {
     var checkedItems = this.stringToArray(this.displayValue);
     var options = this.formField.options;
@@ -34,7 +34,7 @@ export default class CheckboxGroup extends Component {
   checkboxToggled(formField, key, value, event) {
     var checkedItems = this.stringToArray(this.displayValue);
     if (value === true) {
-      checkedItems = checkedItems.concat([key]); // Use concat not push so that the computed property above can recognise when a new item is checked.
+      checkedItems = checkedItems.concat([key]); // TODO can pushObject work with tracked props?
     } else {
       checkedItems = checkedItems.filter((item) => {
         return item != key;

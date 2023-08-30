@@ -65,6 +65,7 @@ export default class FormField {
         .then(() => {
           formField.wasValidated = true;
           const fieldValidationErrors = changeset.error[formField.propertyName];
+
           resolve(fieldValidationErrors);
         })
         .catch((err) => {

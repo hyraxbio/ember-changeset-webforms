@@ -32,67 +32,67 @@ For example, the snippet below would add the class `radio-button-group-label` to
 
 {{docs-snippet name="app-wide-field-specific-classes.js" title="config/environment.js"}}
 
-The {{fieldTypes.length}} built in fields have the following `fieldTypes`:
+The {{this.fieldTypes.length}} built in fields have the following `fieldTypes`:
 
 <ul>
-{{#each fieldTypes as |fieldType|}}
+{{#each this.fieldTypes as |fieldType|}}
   <code style="display: inline-block; margin: 0 20px 10px 0;">{{fieldType}}</code>
 {{/each}}
 </ul>
 
 The two snippets from `config/environment.js` above, result in the following class names on the two label elements in the form below.
 
-{{#docs-demo as |demo|}}
-  {{#demo.example name="app-wide-class-settings.hbs" title="App wide class names example"}}
-    <ChangesetWebform @formSchema={{appWideClassesFormSchema}} />
-  {{/demo.example}}
-{{/docs-demo}}
+<DocsDemo as |demo|>
+  <demo.example @name="app-wide-class-settings.hbs" @title="App wide class names example">
+    <ChangesetWebform @formSchema={{this.appWideClassesFormSchema}} />
+  </demo.example>
+</DocsDemo>
 
 ## Customising class names for an element throughout a single instance of the ChangesetWebform component
 
 Class names can be customised within any particular instance of a `ChangesetWebform` object, in the `generalClassNames` property of `formSchema`. These settings will then apply throughout the particular form.
 
-{{#docs-demo as |demo|}}
-  {{#demo.example name="form-wide-class-settings.hbs"}}
-    <ChangesetWebform @formSchema={{formWideClassesFormSchema}} />
-  {{/demo.example}}
-  {{demo.snippet "form-wide-class-settings.js" label="Component JS" language="javascript"}}
-  {{demo.snippet "form-wide-class-settings.hbs" label="Template" language="htmlbars"}}
-{{/docs-demo}}
+<DocsDemo as |demo|>
+  <demo.example @name="form-wide-class-settings.hbs">
+    <ChangesetWebform @formSchema={{this.formWideClassesFormSchema}} />
+  </demo.example>
+  <demo.snippet @name="form-wide-class-settings.js" @label="Component JS" @language="javascript" />
+  <demo.snippet @name="form-wide-class-settings.hbs" @label="Template" @language="htmlbars" />
+</DocsDemo>
 
 ## Customising class names for an element in a specific instance of a form field
 
 Class names can be customised for an individual form field using the `classNames` property of the relevant `field` object in `formSchema.fields`. 
 
-{{#docs-demo as |demo|}}
-  {{#demo.example name="field-specific-class-settings.hbs"}}
-    <ChangesetWebform @formSchema={{fieldSpecificClassesFormSchema}} />
-  {{/demo.example}}
-  {{demo.snippet "field-specific-class-settings.js" label="Component JS" language="javascript"}}
-  {{demo.snippet "field-specific-class-settings.hbs" label="Template" language="htmlbars"}}
-{{/docs-demo}}
+<DocsDemo as |demo|>
+  <demo.example @name="field-specific-class-settings.hbs">
+    <ChangesetWebform @formSchema={{this.fieldSpecificClassesFormSchema}} />
+  </demo.example>
+  <demo.snippet @name="field-specific-class-settings.js" @label="Component JS" @language="javascript" />
+  <demo.snippet @name="field-specific-class-settings.hbs" @label="Template" @language="htmlbars" />
+</DocsDemo>
 
 ## Inheriting vs overriding class names settings from higher levels
 
 Include  `$inherited` in the array of class names for an element as a placeholder for the class names inherited from the next level up.
 
-{{#docs-demo as |demo|}}
-  {{#demo.example name="inherit-class-settings.hbs"}}
-    <ChangesetWebform @formSchema={{inheritClassesFormSchema}} />
-  {{/demo.example}}
-  {{demo.snippet "inherit-class-settings.js" label="Component JS" language="javascript"}}
-  {{demo.snippet "inherit-class-settings.hbs" label="Template" language="htmlbars"}}
-{{/docs-demo}}
+<DocsDemo as |demo|>
+  <demo.example @name="inherit-class-settings.hbs">
+    <ChangesetWebform @formSchema={{this.inheritClassesFormSchema}} />
+  </demo.example>
+  <demo.snippet @name="inherit-class-settings.js" @label="Component JS" @language="javascript" />
+  <demo.snippet @name="inherit-class-settings.hbs" @label="Template" @language="htmlbars" />
+</DocsDemo>
 
 Alternatively, exclude `$inherited` in order to completely override the value.
 
-{{#docs-demo as |demo|}}
-  {{#demo.example name="override-class-settings.hbs"}}
-    <ChangesetWebform @formSchema={{overrideClassesFormSchema}} />
-  {{/demo.example}}
-  {{demo.snippet "override-class-settings.js" label="Component JS" language="javascript"}}
-  {{demo.snippet "override-class-settings.hbs" label="Template" language="htmlbars"}}
-{{/docs-demo}}
+<DocsDemo as |demo|>
+  <demo.example @name="override-class-settings.hbs">
+    <ChangesetWebform @formSchema={{this.overrideClassesFormSchema}} />
+  </demo.example>
+  <demo.snippet @name="override-class-settings.js" @label="Component JS" @language="javascript" />
+  <demo.snippet @name="override-class-settings.hbs" @label="Template" @language="htmlbars" />
+</DocsDemo>
 
 ## Including dynamic validation class names
 
@@ -100,13 +100,13 @@ The class names applied to elements as a result of wither passing or failing val
 
 You may wish to customise which elements within a form field receive those classes once a field has been validated. This can be done by adding `$validationClassNames` as an class name for any element which should receive those class names. 
 
-{{#docs-demo as |demo|}}
-  {{#demo.example name="validation-class-settings.hbs"}}
-    <ChangesetWebform @formSchema={{validationClassesFormSchema}} />
-  {{/demo.example}}
-  {{demo.snippet "validation-class-settings.js" label="Component JS" language="javascript"}}
-  {{demo.snippet "validation-class-settings.hbs" label="Template" language="htmlbars"}}
-{{/docs-demo}}
+<DocsDemo as |demo|>
+  <demo.example @name="validation-class-settings.hbs">
+    <ChangesetWebform @formSchema={{this.validationClassesFormSchema}} />
+  </demo.example>
+  <demo.snippet @name="validation-class-settings.js" @label="Component JS" @language="javascript" />
+  <demo.snippet @name="validation-class-settings.hbs" @label="Template" @language="htmlbars" />
+</DocsDemo>
 ## Passing a function for dynamic class names
 <!-- TODO document when this runs -->
 

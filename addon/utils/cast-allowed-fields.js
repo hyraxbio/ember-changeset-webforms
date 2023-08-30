@@ -25,8 +25,7 @@ function cast(changeset, allowed = []) {
   let changeKeys = changeset.changes.map((item) => item.key);
   let validKeys = changeKeys.filter((key) => allowed.includes(key));
   let casted = take(changes, validKeys);
-  // @tracked
-  changeset[CHANGES$1] = casted;
+  // @tracked changeset[CHANGES$1] = casted;
   return changeset;
 }
 

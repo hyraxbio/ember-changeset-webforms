@@ -1,5 +1,5 @@
 import { layout as templateLayout, tagName } from '@ember-decorators/component';
-import { action, computed } from '@ember/object';
+import { action } from '@ember/object';
 import Component from '@ember/component';
 // import validationEventLog from 'ember-changeset-webforms/utils/validation-event-log';
 import layout from '../../../templates/components/ember-changeset-webforms/field-elements/validating-field';
@@ -7,40 +7,39 @@ import layout from '../../../templates/components/ember-changeset-webforms/field
 @templateLayout(layout)
 @tagName('')
 export default class ValidatingField extends Component {
-  @computed('dataTestId', 'dataTestFormName', 'formField.dataTestFieldName')
   get dataTestFieldId() {
     if (this.dataTestId) {
       return this.dataTestId;
     }
-    return [this.dataTestFormName, this.formField.dataTestFieldName || this.formField.fieldId].filter((item) => item).join('-');
+    return [
+      this.dataTestFormName,
+      this.formField.dataTestFieldName || this.formField.fieldId,
+    ]
+      .filter((item) => item)
+      .join('-');
   }
 
-  @computed('formField.fieldType')
   get typeClass() {
     var myStr = this.formField.fieldType;
     myStr = myStr.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
     return `field-type-${myStr}`;
   }
 
-  @computed('formField.name')
   get labelId() {
     return `${this.formField.name}-label`;
   }
 
-  @computed('labelId')
   get ariaLabelledBy() {
     if (!this.formField.hideLabel) {
       return this.labelId;
     }
-    return;
+    return null;
   }
 
-  @computed('formField.{hideLabel,fieldLabel}')
   get ariaLabel() {
     return this.formField.hideLabel ? this.formField.fieldLabel : null;
   }
 
-  @computed('formField.options')
   get isGroup() {
     return this.formField.options ? true : null;
   }
@@ -59,7 +58,11 @@ export default class ValidatingField extends Component {
   @action
   validateField(formField) {
     formField.validate().then((fieldValidationErrors) => {
-      this.afterFieldValidation(formField, formField.changeset, fieldValidationErrors);
+      this.afterFieldValidation(
+        formField,
+        formField.changeset,
+        fieldValidationErrors
+      );
     });
   }
 
@@ -90,7 +93,12 @@ export default class ValidatingField extends Component {
     } else if (eventType === 'focusOut') {
       formField.focussed = false;
       formField.eventLog.pushObject('focusOut');
-      if (value && formField.trim && formField.inputType !== 'password' && typeof value === 'string') {
+      if (
+        value &&
+        formField.trim &&
+        formField.inputType !== 'password' &&
+        typeof value === 'string'
+      ) {
         value = value.trim();
       }
       this.send('setFieldValue', value, formField);

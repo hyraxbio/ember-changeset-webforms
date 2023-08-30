@@ -1,15 +1,20 @@
-export default function () {
-  // this.logging = true;
-  this.urlPrefix = ''; // make this `http://localhost:8080`, for example, if your API is on a different server
-  this.namespace = ''; // make this `/api`, for example, if your API is namespaced
-  // this.timing = 400;      // delay for each request, automatically set to 0 during testing
+import { discoverEmberDataModels } from 'ember-cli-mirage';
+import { createServer } from 'miragejs';
 
-  // this.get('versions.json', function(schema, request) {
-  //   return {test: 'test'}
-  // });
+export default function (config) {
+  let finalConfig = {
+    ...config,
+    models: { ...discoverEmberDataModels(), ...config.models },
+    routes() {
+      this.urlPrefix = '';
+      this.namespace = '';
 
-  this.passthrough();
-  this.urlPrefix = '';
-  this.namespace = '';
-  this.passthrough();
+      this.get('/versions.json', () => {});
+      this.passthrough();
+      this.urlPrefix = '';
+      this.namespace = '';
+      this.passthrough();
+    },
+  };
+  return createServer(finalConfig);
 }

@@ -1,16 +1,20 @@
 <DocsDemo as |demo|>
   <demo.example @name="signup-form.hbs">
     <ChangesetWebform
-      @formSchema={{signUpFormSchema}}
+      @formSchema={{@signUpFormSchema}}
       @data={{hash email="buster@bluthcompany.com"}}
       @submitAction={{action "submit"}}
       @submitSuccess={{action "submitSuccess"}}
     />
   </demo.example>
-  {{demo.snippet
-    "signup-form.hbs"
-    label="Component template"
-    language="htmlbars"
-  }}
-  {{demo.snippet "signup-form.js" label="Component JS" language="javascript"}}
+  <demo.snippet
+    @name="signup-form.hbs"
+    @label="Component template"
+    @language="htmlbars"
+  />
+  <demo.snippet
+    @name="signup-form.js"
+    @label="Component JS"
+    @language="javascript"
+  />
 </DocsDemo>

@@ -16,13 +16,13 @@ In the case of a promise based action, return the promise so that the `Changeset
 
 In this example, assume that `fetchPromise` returns a promise.
 
-{{#docs-demo as |demo|}}
-  {{#demo.example name="test.hbs"}}
+<DocsDemo as |demo|>
+  <demo.example @name="test.hbs">
     <Docs::ActionHandling::CustomSubmitActionPromise />
-  {{/demo.example}}
-  {{demo.snippet "forgot-password-form.js" label="Component JS" language="javascript"}}
-  {{demo.snippet "custom-submit-promise.hbs" label="Template" language="htmlbars"}}
-{{/docs-demo}}
+  </demo.example>
+  <demo.snippet @name="forgot-password-form.js" @label="Component JS" @language="javascript" />
+  <demo.snippet @name="custom-submit-promise.hbs" @label="Template" @language="htmlbars" />
+</DocsDemo>
 
 ### Synchronous example
 

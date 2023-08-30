@@ -1,12 +1,11 @@
 import { layout as templateLayout, tagName } from '@ember-decorators/component';
-import { action, computed } from '@ember/object';
+import { action } from '@ember/object';
 import Component from '@ember/component';
 import layout from '../../../templates/components/ember-changeset-webforms/fields/power-datepicker';
 
 @templateLayout(layout)
 @tagName('')
 export default class PowerDatepicker extends Component {
-  @computed('formField.timeSelectorFields')
   get timeSelectorFields() {
     return (this.formField.timeSelectorFields || '').split(',');
   }
@@ -15,7 +14,10 @@ export default class PowerDatepicker extends Component {
   onSelectDateTime(dateTime) {
     var formField = this.formField;
     if (formField.dateRangeSettings) {
-      var rangePartner = this.formFields.findBy('fieldId', formField.dateRangeSettings.rangePartnerFieldId);
+      var rangePartner = this.formFields.findBy(
+        'fieldId',
+        formField.dateRangeSettings.rangePartnerFieldId
+      );
       if (rangePartner) {
         if (rangePartner.dateRangeSettings.rangePosition === 'start') {
           rangePartner.maxDate = dateTime;

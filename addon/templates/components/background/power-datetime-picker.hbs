@@ -35,10 +35,10 @@
           )
         }}
         placeholder={{this.parsedDatepickerPlaceholder}}
-        onChange={{fn (action "onDateInputChange")}}
-        onKeyUp={{fn (action "onDateInputKeyUp")}}
-        onFocus={{fn (action "onDateInputFocus")}}
-        onBlur={{fn (action "onDateInputBlur")}}
+        {{on "change" (fn (action "onDateInputChange"))}}
+        {{on "keyup" (fn (action "onDateInputKeyUp"))}}
+        {{on "focus" (fn (action "onDateInputFocus"))}}
+        {{on "blur" (fn (action "onDateInputBlur"))}}
         class={{@triggerInputClass}}
         id={{@triggerInputId}}
         data-test-id="power-datepicker-input"
@@ -78,50 +78,42 @@
               {{unless @value 'disabled'}}
               {{@timeSelectorContainerClass}}"
           >
-            {{#each this.timeFormatParts as |timeFormatPart|}}
-              <div
-                data-test-class="time-selector-field"
-                data-test-id="time-selector-field-{{timeFormatPart.type}}"
-                class="time-selector-field time-selector-field-{{timeFormatPart.type}}"
-              >
-                <label
-                  for="time-selector-{{timeFormatPart.type}}"
-                  data-test-class="time-selector-field-label"
-                  data-test-id="time-selector-field-label-{{timeFormatPart.type}}"
-                  class={{@timeInputLabelClass}}
-                >{{timeFormatPart.label}}</label>
-                <input
-                  id="time-selector-{{timeFormatPart.type}}"
-                  data-test-class="time-selector-field-input"
-                  data-test-id="time-selector-field-input-{{timeFormatPart.type}}"
-                  type="number"
-                  max={{timeFormatPart.max}}
-                  min={{timeFormatPart.min}}
-                  value={{readonly
-                    (if
-                      @value
-                      (ember-changeset-webforms/moment-format
-                        (ember-changeset-webforms/moment
-                          @value this.parsedDateTimeFormat
-                        )
-                        timeFormatPart.formatChar
-                      )
-                    )
-                  }}
-                  onChange={{fn (action "setTime") timeFormatPart.formatChar}}
-                  onKeyDown={{fn
-                    (action "onKeyDownTimeUnitInput")
-                    timeFormatPart.formatChar
-                  }}
-                  onKeyUp={{fn
-                    (action "onKeyUpTimeUnitInput")
-                    timeFormatPart.formatChar
-                  }}
-                  class="time-selector-field-input-{{timeFormatPart.type}}
-                    {{@timeInputClass}}"
-                />
-              </div>
-            {{/each}}
+            <Background::TimePartInput
+              @value={{@value}}
+              @parsedDateTimeFormat={{this.parsedDateTimeFormat}}
+              @timeInputLabelClass={{@timeInputLabelClass}}
+              @keyupAction={{action "onKeyUpTimeUnitInput"}}
+              @keydownAction={{action "onKeyDownTimeUnitInput"}}
+              @changeAction={{action "setTime"}}
+              @timeFormatPart={{get this.timeFormatParts 0}}
+            />
+            <Background::TimePartInput
+              @value={{@value}}
+              @parsedDateTimeFormat={{this.parsedDateTimeFormat}}
+              @timeInputLabelClass={{@timeInputLabelClass}}
+              @keyupAction={{action "onKeyUpTimeUnitInput"}}
+              @keydownAction={{action "onKeyDownTimeUnitInput"}}
+              @changeAction={{action "setTime"}}
+              @timeFormatPart={{get this.timeFormatParts 1}}
+            />
+            <Background::TimePartInput
+              @value={{@value}}
+              @parsedDateTimeFormat={{this.parsedDateTimeFormat}}
+              @timeInputLabelClass={{@timeInputLabelClass}}
+              @keyupAction={{action "onKeyUpTimeUnitInput"}}
+              @keydownAction={{action "onKeyDownTimeUnitInput"}}
+              @changeAction={{action "setTime"}}
+              @timeFormatPart={{get this.timeFormatParts 2}}
+            />
+            <Background::TimePartInput
+              @value={{@value}}
+              @parsedDateTimeFormat={{this.parsedDateTimeFormat}}
+              @timeInputLabelClass={{@timeInputLabelClass}}
+              @keyupAction={{action "onKeyUpTimeUnitInput"}}
+              @keydownAction={{action "onKeyDownTimeUnitInput"}}
+              @changeAction={{action "setTime"}}
+              @timeFormatPart={{get this.timeFormatParts 3}}
+            />
             {{#if this.showAmPmInput}}
               <div>
                 <label
@@ -142,10 +134,10 @@
                       "a"
                     )
                   }}
-                  onChange={{fn (action "onChangeAmPm")}}
-                  onFocus={{fn (action "onFocusInAmPm")}}
-                  onBlur={{fn (action "onChangeAmPm")}}
-                  onKeyUp={{fn (action "onKeyUpAmPm")}}
+                  {{on "change" (fn (action "onChangeAmPm"))}}
+                  {{on "focus" (fn (action "onFocusInAmPm"))}}
+                  {{on "blur" (fn (action "onChangeAmPm"))}}
+                  {{on "keyup" (fn (action "onKeyUpAmPm"))}}
                   data-test-id="power-datepicker-am-pm-input"
                   class={{@timeInputClass}}
                 />

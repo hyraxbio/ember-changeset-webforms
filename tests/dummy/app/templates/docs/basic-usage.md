@@ -1,17 +1,19 @@
 # Basic usage
 
-{{#docs-demo as |demo|}}
-  {{#demo.example name="login-form.hbs"}}
-    <ChangesetWebform 
-      @formSchema={{formSchema}} 
-      @data={{hash email="andrew.paterson@test.com"}}
-      @submitAction={{action "submit"}} 
-      @submitSuccess={{action "submitSuccess"}} 
-     />
-  {{/demo.example}}
-  {{demo.snippet "login-form.hbs" label="Template" language="htmlbars"}}
-  {{demo.snippet "login-form.js" label="Component JS" language="javascript"}}
-{{/docs-demo}}
+<DocsDemo as |demo|>
+  <demo.example @name="login-form.hbs">
+  <ChangesetWebform 
+    @formSchema={{this.formSchema}} 
+    @data={{hash email="andrew.paterson@test.com"}}
+    @submitAction={{action "submit"}} 
+    @submitSuccess={{action "submitSuccess"}} 
+    />
+    </demo.example>
+  <demo.snippet @name="login-form.hbs" @label="Template" @language="htmlbars" />
+  <demo.snippet @name="login-form.js" @label="Component JS" @language="javascript" />
+</DocsDemo>
+
+
 
 ## Form settings
 
@@ -25,15 +27,15 @@ Note that these options can be overridden for an entire consuming app in `ENV.ch
 
 They can also be overridden for any individual form schema in the `settings` object. 
 
-{{#docs-demo as |demo|}}
-  {{#demo.example name="login-form-2.hbs"}}
+<DocsDemo as |demo|>
+  <demo.example @name="login-form-2.hbs">
     <ChangesetWebform 
-      @formSchema={{formSchema}} 
+      @formSchema={{this.formSchema}} 
       @data={{hash email="andrew.paterson@test.com"}}
       @submitAction={{action "submit"}} 
       @submitSuccess={{action "submitSuccess"}} 
      />
-  {{/demo.example}}
-  {{demo.snippet "login-form.js" label="Component JS" language="javascript"}}
-  {{demo.snippet "login-form.hbs" label="Template" language="htmlbars"}}
-{{/docs-demo}}
+  </demo.example>
+  <demo.snippet @name="login-form.js" @label="Component JS" @language="javascript" />
+  <demo.snippet @name="login-form.hbs" @label="Template" @language="htmlbars" />
+</DocsDemo>

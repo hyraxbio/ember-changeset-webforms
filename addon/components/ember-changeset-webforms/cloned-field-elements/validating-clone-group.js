@@ -1,6 +1,5 @@
 import { layout as templateLayout, tagName } from '@ember-decorators/component';
-import { action, computed } from '@ember/object';
-import { reads } from '@ember/object/computed';
+import { action } from '@ember/object';
 import Component from '@ember/component';
 import layout from '../../../templates/components/ember-changeset-webforms/cloned-field-elements/validating-clone-group';
 import FormFieldClone from 'ember-changeset-webforms/utils/form-field-clone';
@@ -12,24 +11,27 @@ import { tracked } from '@glimmer/tracking';
 export default class ValidatingCloneGroup extends Component {
   @tracked masterFormField;
 
-  @reads('masterFormField.validates')
-  dataTestCwfFieldValidates;
+  get dataTestCwfFieldValidates() {
+    return this.masterFormField.validates;
+  }
 
-  @reads('masterFormField.required')
-  dataTestCwfFieldRequired;
+  get dataTestCwfFieldRequired() {
+    return this.masterFormField.required;
+  }
 
-  @computed('masterFormField')
   get dataTestId() {
     return `clone-group-${this.masterFormField.fieldId}`;
   }
 
-  @computed('masterFormFieldValidationErrors', 'masterFormField.{eventLog.[]}')
   get validationStatus() {
     var formField = this.masterFormField;
     if (!formField) {
       return;
     }
-    if (!validationEventLog(formField).filter((item) => !item.endsWith('Clone')).length) {
+    if (
+      !validationEventLog(formField).filter((item) => !item.endsWith('Clone'))
+        .length
+    ) {
       return;
     }
     var validationErrors = this.masterFormFieldValidationErrors || [];
@@ -40,7 +42,6 @@ export default class ValidatingCloneGroup extends Component {
     }
   }
 
-  @computed('masterFormField.cloneGroupName')
   get cloneGroupNameClass() {
     return `clone-group-${this.masterFormField.cloneGroupName}`;
   }
@@ -99,7 +100,8 @@ export default class ValidatingCloneGroup extends Component {
       previousValue: null,
     };
     if (!opts.fromData) {
-      var fieldValue = this.changesetWebform.changeset.get(masterFormField.propertyName) || [];
+      var fieldValue =
+        this.changesetWebform.changeset.get(masterFormField.propertyName) || [];
       fieldValue.push(opts.newCloneValue || newField.defaultValue);
       this.setFieldValue(fieldValue, masterFormField);
     }
@@ -118,7 +120,8 @@ export default class ValidatingCloneGroup extends Component {
     var index = masterFormField.clonedFields.indexOf(clone);
     masterFormField.clonedFields.removeObject(clone);
     this.send('checkMinMaxClones', masterFormField);
-    var groupValue = this.changesetWebform.changeset.get(masterFormField.propertyName) || []; //TODO check this.
+    var groupValue =
+      this.changesetWebform.changeset.get(masterFormField.propertyName) || []; //TODO check this.
     groupValue.splice(index, 1);
     masterFormField.eventLog.pushObject('removeClone');
     this.setFieldValue(groupValue, masterFormField);
@@ -133,9 +136,15 @@ export default class ValidatingCloneGroup extends Component {
 
   @action
   checkMinMaxClones(masterFormField) {
-    if (masterFormField.maxClones && masterFormField.clonedFields.length >= masterFormField.maxClones) {
+    if (
+      masterFormField.maxClones &&
+      masterFormField.clonedFields.length >= masterFormField.maxClones
+    ) {
       masterFormField.cloneCountStatus = 'max';
-    } else if (masterFormField.minClones && masterFormField.clonedFields.length === masterFormField.minClones) {
+    } else if (
+      masterFormField.minClones &&
+      masterFormField.clonedFields.length === masterFormField.minClones
+    ) {
       masterFormField.cloneCountStatus = 'min';
     } else {
       masterFormField.cloneCountStatus = null;
@@ -144,7 +153,8 @@ export default class ValidatingCloneGroup extends Component {
 
   updatedGroupValue(value, index) {
     var masterFormField = this.masterFormField;
-    var groupValue = this.changesetWebform.changeset.get(masterFormField.propertyName) || [];
+    var groupValue =
+      this.changesetWebform.changeset.get(masterFormField.propertyName) || [];
     masterFormField.lastUpdatedClone = {
       index: index,
       previousValue: groupValue[index],

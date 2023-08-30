@@ -12,7 +12,7 @@ The `cloneFieldSchema` property behaves exactly as the field Schema on any other
 
 The following default field settings can also be overridden:
 
-<InterpolatedSimpleJsSnippet @object={{cloneGroupFieldAddonDefaults}} @excludeKeys={{array "fieldType" "componentPath" "cloneFieldSchema"}} />
+<InterpolatedSimpleJsSnippet @object={{this.cloneGroupFieldAddonDefaults}} @excludeKeys={{array "fieldType" "componentPath" "cloneFieldSchema"}} /> 
 
 ## Tracked clone settings
 
@@ -24,17 +24,17 @@ The following field settings are tracked, and so updating them for a clone in an
 
 The example below allows the user to add email addresses, with a minimum of 2 and a maximum of 4.
 
-{{#docs-demo as |demo|}}
-  {{#demo.example name="clone-group-form.hbs"}}
+<DocsDemo as |demo|>
+  <demo.example @name="clone-group-form.hbs">
     <ChangesetWebform 
-      @formSchema={{formSchema}} 
+      @formSchema={{this.formSchema}} 
       @submitAction={{action "submit"}} 
       data-test-id="clonable-field-basics"
     />
-  {{/demo.example}}
-  {{demo.snippet "clone-group-form.js" label="Component JS" language="javascript"}}
-  {{demo.snippet "clone-group-form.hbs" label="Template" language="htmlbars"}}
-{{/docs-demo}}
+  </demo.example>
+  <demo.snippet @name="clone-group-form.js" @label="Component JS" @language="javascript" />
+  <demo.snippet @name="clone-group-form.hbs" @label="Template" @language="htmlbars" />
+</DocsDemo>
 ## Example 2 - with preloaded data
 
 The data object passed to the `ChangesetWebform` component may pass an array of values for a clonable field, as below.
@@ -45,36 +45,36 @@ Note also that if the array is longer than the `maxClones` setting, the clonable
 
 In order to validate on the length of the array, add the `validateLength` validation rule to the `clone-group` field as shown in the component JS in the example below. Note that the validation for the clone group displays below the field label. Clicking submit below will result in the length validation error showing under the main field label.
 
-{{#docs-demo as |demo|}}
-  {{#demo.example name="clone-group-form-with-data.hbs"}}
+<DocsDemo as |demo|>
+  <demo.example @name="clone-group-form-with-data.hbs">
     <ChangesetWebform 
-      @formSchema={{formSchema}} 
-      @data={{data}}
+      @formSchema={{this.formSchema}} 
+      @data={{this.data}}
       @submitAction={{action "submit"}} 
       data-test-id="clonable-field-with-data"
     />
-  {{/demo.example}}
-  {{demo.snippet "clone-group-form-data.js" label="Data" language="javascript"}}
-  {{demo.snippet "clone-group-form-with-data.hbs" label="Template" language="htmlbars"}}
-  {{demo.snippet "clone-group-form.js" label="Component JS" language="javascript"}}
-{{/docs-demo}}
+  </demo.example>
+  <demo.snippet @name="clone-group-form-data.js" @label="Data" @language="javascript" />
+  <demo.snippet @name="clone-group-form-with-data.hbs" @label="Template" @language="htmlbars" />
+  <demo.snippet @name="clone-group-form.js" @label="Component JS" @language="javascript" />
+</DocsDemo>
 
 Note that when the array of data passed to a `clone-group` field is longer than the `maxClones` setting, the component will still insert one clone for each item in the array. In this case, the add clone button will not be available until the user has removed clones until the total is less than the `maxClones` setting.
 
 
 ## Example 3 - misc TODO not required in docs 
 
-{{#docs-demo as |demo|}}
-  {{#demo.example name="clone-group-form-with-keyup.hbs"}}
+<DocsDemo as |demo|>
+  <demo.example @name="clone-group-form-with-keyup.hbs">
     <ChangesetWebform 
-      @formSchema={{formSchema2}} 
+      @formSchema={{this.formSchema2}} 
       @submitAction={{action "submit"}} 
       data-test-id="clonable-field-countries"
     />
-  {{/demo.example}}
-  {{demo.snippet "clone-group-form-with-keyup.hbs" label="Template" language="htmlbars"}}
-  {{demo.snippet "clone-group-form-keyup.js" label="Data" language="javascript"}}
-{{/docs-demo}}
+  </demo.example>
+  <demo.snippet @name="clone-group-form-with-keyup.hbs" @label="Template" @language="htmlbars" />
+  <demo.snippet @name="clone-group-form-keyup.js" @label="Data" @language="javascript" />
+</DocsDemo>
 
 
 ## Validation notes

@@ -55,10 +55,10 @@ Then the internal `castAllowedFields` action is triggered. This action runs the 
 
 
 
-{{#docs-demo as |demo|}}
-  {{#demo.example name="clear-form-form-schema.hbs"}}
-    <ChangesetWebform @formSchema={{clearFormSchema}} @submitAction={{action "doSubmit"}} />
-  {{/demo.example}}
-  {{demo.snippet "clear-form-form-schema.js" label="Component JS" language="javascript"}}
-  {{demo.snippet "clear-form-form-schema.hbs" label="Template" language="htmlbars"}}
-{{/docs-demo}}
+<DocsDemo as |demo|>
+  <demo.example @name="clear-form-form-schema.hbs">
+    <ChangesetWebform @formSchema={{this.clearFormSchema}} @submitAction={{action "doSubmit"}} />
+  </demo.example>
+  <demo.snippet @name="clear-form-form-schema.js" @label="Component JS" @language="javascript" />
+  <demo.snippet @name="clear-form-form-schema.hbs" @label="Template" @language="htmlbars" />
+</DocsDemo>

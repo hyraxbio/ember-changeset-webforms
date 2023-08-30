@@ -1,37 +1,37 @@
 <DocsDemo as |demo|>
   <demo.example @name="after-field-click-action-form.hbs">
-    {{#if alert}}
+    {{#if this.alert}}
       <div class="external">
-        <div class="alert alert-{{alert.type}}">
-          {{alert.message}}
+        <div class="alert alert-{{this.alert.type}}">
+          {{this.alert.message}}
         </div>
       </div>
     {{/if}}
     <ChangesetWebform
-      @formSchema={{formSchema}}
+      @formSchema={{this.formSchema}}
       @onUserInteraction={{action "onUserInteraction"}}
       @formValidationFailed={{action "formValidationFailed"}}
       @submitAction={{action "submitAction"}}
       data-test-id="after-field-click-form"
     />
-    {{#if fullName}}
+    {{#if this.fullName}}
       <div data-test-id="after-field-click-feedback">
-        The user's full name is "{{fullName}}".<br />
+        The user's full name is "{{this.fullName}}".<br />
         The last updated field was
-        {{lastUpdateField}}.<br />
+        {{this.lastUpdateField}}.<br />
         The value of settings.formName is
-        {{formName}}.
+        {{this.formName}}.
       </div>
     {{/if}}
   </demo.example>
-  {{demo.snippet
-    "after-field-click-action-form.js"
-    label="Component JS"
-    language="javascript"
-  }}
-  {{demo.snippet
-    "after-field-click-action-form.hbs"
-    label="Component template"
-    language="htmlbars"
-  }}
+  <demo.snippet
+    @name="after-field-click-action-form.js"
+    @label="Component JS"
+    @language="javascript"
+  />
+  <demo.snippet
+    @name="after-field-click-action-form.hbs"
+    @label="Component template"
+    @language="htmlbars"
+  />
 </DocsDemo>

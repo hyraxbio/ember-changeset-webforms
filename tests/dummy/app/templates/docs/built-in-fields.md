@@ -12,22 +12,22 @@ Calls the `keyUp`, `focusIn` and `focusOut` actions when the corresponding event
 
 {{docs-snippet name="input-field-options.js"}}
 
-{{#docs-demo as |demo|}}
-  {{#demo.example name="input-example-1.hbs"}}
-    <ChangesetWebform @formSchema={{inputExample1FormSchema}} 
+<DocsDemo as |demo|>
+  <demo.example @name="input-example-1.hbs">
+    <ChangesetWebform @formSchema={{this.inputExample1FormSchema}} 
     @onUserInteraction={{action "onUserInteraction" }}/>
-  {{/demo.example}}
-  {{demo.snippet "input-example-1.js" label="Component JS" language="javascript"}}
-  {{demo.snippet "input-example-1.hbs" label="Template" language="htmlbars"}}
-{{/docs-demo}}
+  </demo.example>
+  <demo.snippet @name="input-example-1.js" @label="Component JS" @language="javascript" />
+  <demo.snippet @name="input-example-1.hbs" @label="Template" @language="htmlbars" />
+</DocsDemo>
 
-{{#docs-demo as |demo|}}
-  {{#demo.example name="input-example-2.hbs"}}
-    <ChangesetWebform @formSchema={{inputExample2FormSchema}} />
-  {{/demo.example}}
-  {{demo.snippet "input-example-2.js" label="Component JS" language="javascript"}}
-  {{demo.snippet "input-example-2.hbs" label="Template" language="htmlbars"}}
-{{/docs-demo}}
+<DocsDemo as |demo|>
+  <demo.example @name="input-example-2.hbs">
+    <ChangesetWebform @formSchema={{this.inputExample2FormSchema}} />
+  </demo.example>
+  <demo.snippet @name="input-example-2.js" @label="Component JS" @language="javascript" />
+  <demo.snippet @name="input-example-2.hbs" @label="Template" @language="htmlbars" />
+</DocsDemo>
 
 ## Textarea
 
@@ -39,13 +39,13 @@ Calls the `keyUp`, `focusIn` and `focusOut` actions when the corresponding event
 
 {{docs-snippet name="textarea-field-options.js"}}
 
-{{#docs-demo as |demo|}}
-  {{#demo.example name="textarea-example-1.hbs"}}
-    <ChangesetWebform @formSchema={{textareaExample1FormSchema}} />
-  {{/demo.example}}
-  {{demo.snippet "textarea-example-1.js" label="Component JS" language="javascript"}}
-  {{demo.snippet "textarea-example-1.hbs" label="Template" language="htmlbars"}}
-{{/docs-demo}}
+<DocsDemo as |demo|>
+  <demo.example @name="textarea-example-1.hbs">
+    <ChangesetWebform @formSchema={{this.textareaExample1FormSchema}} />
+  </demo.example>
+  <demo.snippet @name="textarea-example-1.js" @label="Component JS" @language="javascript" />
+  <demo.snippet @name="textarea-example-1.hbs" @label="Template" @language="htmlbars" />
+</DocsDemo>
 ## Single checkbox
 
 Renders a single checkbox with a label.
@@ -58,31 +58,31 @@ The field ID is set to `true` or `false` depending on whether the checkbox is ch
 
 ### Single checkbox basic usage
 
-{{#docs-demo as |demo|}}
-  {{#demo.example name="single-checkbox-example-1.hbs"}}
+<DocsDemo as |demo|>
+  <demo.example @name="single-checkbox-example-1.hbs">
     <div data-test-id="single-checkbox-basic-use">
-      <ChangesetWebform @formSchema={{singleCheckboxExample1FormSchema}} />
+      <ChangesetWebform @formSchema={{this.singleCheckboxExample1FormSchema}} />
     </div>
 
-  {{/demo.example}}
-  {{demo.snippet "single-checkbox-example-1.js" label="Component JS" language="javascript"}}
-  {{demo.snippet "single-checkbox-example-1.hbs" label="Template" language="htmlbars"}}
-{{/docs-demo}}
+  </demo.example>
+  <demo.snippet @name="single-checkbox-example-1.js" @label="Component JS" @language="javascript" />
+  <demo.snippet @name="single-checkbox-example-1.hbs" @label="Template" @language="htmlbars" />
+</DocsDemo>
 
 ### Single checkbox markdown checkbox label
 
 You can also pass a markdown string to the `checkboxLabelMarkdown` prop. This will bne rendered as HTML inside a `label` element.
 
-{{#docs-demo as |demo|}}
-  {{#demo.example name="single-checkbox-example-2.hbs"}}
+<DocsDemo as |demo|>
+  <demo.example @name="single-checkbox-example-2.hbs">
     <div data-test-id="single-checkbox-markdown-label">
-      <ChangesetWebform @formSchema={{singleCheckboxExample2FormSchema}} />
+      <ChangesetWebform @formSchema={{this.singleCheckboxExample2FormSchema}} />
     </div>
 
-  {{/demo.example}}
-  {{demo.snippet "single-checkbox-example-2.js" label="Component JS" language="javascript"}}
-  {{demo.snippet "single-checkbox-example-2.hbs" label="Template" language="htmlbars"}}
-{{/docs-demo}}
+  </demo.example>
+  <demo.snippet @name="single-checkbox-example-2.js" @label="Component JS" @language="javascript" />
+  <demo.snippet @name="single-checkbox-example-2.hbs" @label="Template" @language="htmlbars" />
+</DocsDemo>
 
 ### Single checkbox custom component for checkbox label
 
@@ -100,16 +100,16 @@ The object passed must take the following form.
 * The component will also have access to an `option` prop, with the data for that option.
 * The component will also have access to the `checkboxId` property. Set the label elements `for` attribute to this value to match it to the related checkbox.
 
-{{#docs-demo as |demo|}}
-  {{#demo.example name="single-checkbox-example-3.hbs"}}
+<DocsDemo as |demo|>
+  <demo.example @name="single-checkbox-example-3.hbs">
     <div data-test-id="single-checkbox-component-label">
-      <ChangesetWebform @formSchema={{singleCheckboxExample3FormSchema}} />
+      <ChangesetWebform @formSchema={{this.singleCheckboxExample3FormSchema}} />
     </div>
 
-  {{/demo.example}}
-  {{demo.snippet "single-checkbox-example-3.js" label="Component JS" language="javascript"}}
-  {{demo.snippet "single-checkbox-example-3.hbs" label="Template" language="htmlbars"}}
-{{/docs-demo}}
+  </demo.example>
+  <demo.snippet @name="single-checkbox-example-3.js" @label="Component JS" @language="javascript" />
+  <demo.snippet @name="single-checkbox-example-3.hbs" @label="Template" @language="htmlbars" />
+</DocsDemo>
 
 ## Radio button group
 
@@ -125,13 +125,13 @@ Each option in the `options` property of field with type `radioButtonGroup` can 
 
 {{docs-snippet name="radio-button-group-option.js"}}
 
-{{#docs-demo as |demo|}}
-  {{#demo.example name="radio-button-group-example-1.hbs"}}
-    <ChangesetWebform @formSchema={{radioButtonGroupExample1FormSchema}} />
-  {{/demo.example}}
-  {{demo.snippet "radio-button-group-example-1.js" label="Component JS" language="javascript"}}
-  {{demo.snippet "radio-button-group-example-1.hbs" label="Template" language="htmlbars"}}
-{{/docs-demo}}
+<DocsDemo as |demo|>
+  <demo.example @name="radio-button-group-example-1.hbs">
+    <ChangesetWebform @formSchema={{this.radioButtonGroupExample1FormSchema}} />
+  </demo.example>
+  <demo.snippet @name="radio-button-group-example-1.js" @label="Component JS" @language="javascript" />
+  <demo.snippet @name="radio-button-group-example-1.hbs" @label="Template" @language="htmlbars" />
+</DocsDemo>
 
 ### Custom components for Radio button group options
 
@@ -152,13 +152,13 @@ In both cases the following applies, the object passed must take the following f
 * The component will also have access to an `option` prop, with the data for that option.
 * The component will also have access to the `radioId` property. Set the label elements `for` attribute to this value to match it to the related checkbox.
 
-{{#docs-demo as |demo|}}
-  {{#demo.example name="radio-button-group-example-2.hbs"}}
-    <ChangesetWebform @formSchema={{radioButtonGroupExample2FormSchema}} />
-  {{/demo.example}}
-  {{demo.snippet "radio-button-group-example-2.js" label="Component JS" language="javascript"}}
-  {{demo.snippet "radio-button-group-example-2.hbs" label="Template" language="htmlbars"}}
-{{/docs-demo}}
+<DocsDemo as |demo|>
+  <demo.example @name="radio-button-group-example-2.hbs">
+    <ChangesetWebform @formSchema={{this.radioButtonGroupExample2FormSchema}} />
+  </demo.example>
+  <demo.snippet @name="radio-button-group-example-2.js" @label="Component JS" @language="javascript" />
+  <demo.snippet @name="radio-button-group-example-2.hbs" @label="Template" @language="htmlbars" />
+</DocsDemo>
 
 ## Checkbox group
 
@@ -172,13 +172,13 @@ Each option in the `options` property of field with type `checkboxGroup` can hav
 
 {{docs-snippet name="checkbox-group-option.js"}}
 
-{{#docs-demo as |demo|}}
-  {{#demo.example name="checkbox-group-example-1.hbs"}}
-    <ChangesetWebform @formSchema={{checkboxGroupExample1FormSchema}} />
-  {{/demo.example}}
-  {{demo.snippet "checkbox-group-example-1.js" label="Component JS" language="javascript"}}
-  {{demo.snippet "checkbox-group-example-1.hbs" label="Template" language="htmlbars"}}
-{{/docs-demo}}
+<DocsDemo as |demo|>
+  <demo.example @name="checkbox-group-example-1.hbs">
+    <ChangesetWebform @formSchema={{this.checkboxGroupExample1FormSchema}} />
+  </demo.example>
+  <demo.snippet @name="checkbox-group-example-1.js" @label="Component JS" @language="javascript" />
+  <demo.snippet @name="checkbox-group-example-1.hbs" @label="Template" @language="htmlbars" />
+</DocsDemo>
 
 ### Custom components for Checkbox group options
 
@@ -199,13 +199,13 @@ In both cases the following applies, the object passed must take the following f
 * The component will also have access to an `option` prop, with the data for that option.
 * The component will also have access to the `checkboxId` property. Set the label elements `for` attribute to this value to match it to the related checkbox.
 
-{{#docs-demo as |demo|}}
-  {{#demo.example name="checkbox-group-example-2.hbs"}}
-    <ChangesetWebform @formSchema={{checkboxGroupExample2FormSchema}} />
-  {{/demo.example}}
-  {{demo.snippet "checkbox-group-example-2.js" label="Component JS" language="javascript"}}
-  {{demo.snippet "checkbox-group-example-2.hbs" label="Template" language="htmlbars"}}
-{{/docs-demo}}
+<DocsDemo as |demo|>
+  <demo.example @name="checkbox-group-example-2.hbs">
+    <ChangesetWebform @formSchema={{this.checkboxGroupExample2FormSchema}} />
+  </demo.example>
+  <demo.snippet @name="checkbox-group-example-2.js" @label="Component JS" @language="javascript" />
+  <demo.snippet @name="checkbox-group-example-2.hbs" @label="Template" @language="htmlbars" />
+</DocsDemo>
 
 {{docs-snippet name="clicker-field-options.js"}}
 
@@ -217,27 +217,27 @@ If static text is sufficient, you can simply use the `text` prop to pass the sta
 
 `textElementClass` can also be set to a string of class names to be added to the text element.
 
-{{#docs-demo as |demo|}}
-  {{#demo.example name="static-content-example-1.hbs"}}
+<DocsDemo as |demo|>
+  <demo.example @name="static-content-example-1.hbs">
     <div data-test-id="static-content-basic-use">
-      <ChangesetWebform @formSchema={{staticContentExample1FormSchema}} />
+      <ChangesetWebform @formSchema={{this.staticContentExample1FormSchema}} />
     </div>
-  {{/demo.example}}
-  {{demo.snippet "static-content-example-1.js" label="Component JS" language="javascript"}}
-  {{demo.snippet "static-content-example-1.hbs" label="Template" language="htmlbars"}}
-{{/docs-demo}}
+  </demo.example>
+  <demo.snippet @name="static-content-example-1.js" @label="Component JS" @language="javascript" />
+  <demo.snippet @name="static-content-example-1.hbs" @label="Template" @language="htmlbars" />
+</DocsDemo>
 
 ### Static content field with custom content component
 
-{{#docs-demo as |demo|}}
-  {{#demo.example name="static-content-example-2.hbs"}}
+<DocsDemo as |demo|>
+  <demo.example @name="static-content-example-2.hbs">
     <div data-test-id="static-content-custom-content-component">
-      <ChangesetWebform @formSchema={{staticContentExample2FormSchema}} />
+      <ChangesetWebform @formSchema={{this.staticContentExample2FormSchema}} />
     </div>
-  {{/demo.example}}
-  {{demo.snippet "static-content-example-2.js" label="Component JS" language="javascript"}}
-  {{demo.snippet "static-content-example-2.hbs" label="Template" language="htmlbars"}}
-{{/docs-demo}}
+  </demo.example>
+  <demo.snippet @name="static-content-example-2.js" @label="Component JS" @language="javascript" />
+  <demo.snippet @name="static-content-example-2.hbs" @label="Template" @language="htmlbars" />
+</DocsDemo>
 
 Alternatively, you can pass `
 
@@ -255,13 +255,13 @@ Note also that if passed, value of `placeholder` will display as the placeholder
 
 ### Power select where options is an array of strings
 
-{{#docs-demo as |demo|}}
-  {{#demo.example name="power-select-example-1.hbs"}}
-    <ChangesetWebform @formSchema={{powerSelectExample1FormSchema}} />
-  {{/demo.example}}
-  {{demo.snippet "power-select-example-1.js" label="Component JS" language="javascript"}}
-  {{demo.snippet "power-select-example-1.hbs" label="Template" language="htmlbars"}}
-{{/docs-demo}}
+<DocsDemo as |demo|>
+  <demo.example @name="power-select-example-1.hbs">
+    <ChangesetWebform @formSchema={{this.powerSelectExample1FormSchema}} />
+  </demo.example>
+  <demo.snippet @name="power-select-example-1.js" @label="Component JS" @language="javascript" />
+  <demo.snippet @name="power-select-example-1.hbs" @label="Template" @language="htmlbars" />
+</DocsDemo>
 
 ### Power select where options is an array of objects
 
@@ -269,13 +269,13 @@ Where an array of objects is passed to `options`, `optionDisplayProp` must be se
 
 In the example below, the user only sees the country names, but the value of the field will be set to an object with the country ID and name when a country is selcted.
 
-{{#docs-demo as |demo|}}
-  {{#demo.example name="power-select-example-2.hbs"}}
-    <ChangesetWebform @formSchema={{powerSelectExample2FormSchema}} />
-  {{/demo.example}}
-  {{demo.snippet "power-select-example-2.js" label="Component JS" language="javascript"}}
-  {{demo.snippet "power-select-example-2.hbs" label="Template" language="htmlbars"}}
-{{/docs-demo}}
+<DocsDemo as |demo|>
+  <demo.example @name="power-select-example-2.hbs">
+    <ChangesetWebform @formSchema={{this.powerSelectExample2FormSchema}} />
+  </demo.example>
+  <demo.snippet @name="power-select-example-2.js" @label="Component JS" @language="javascript" />
+  <demo.snippet @name="power-select-example-2.hbs" @label="Template" @language="htmlbars" />
+</DocsDemo>
 
 ### Power select with custom components for the options and selected item
 
@@ -285,26 +285,26 @@ We thus pass an array of country code strings as options, but then use custom co
 
 When the user clicks a country name, the value of the field will be set to the 3 letter id.
 
-{{#docs-demo as |demo|}}
-  {{#demo.example name="power-select-example-3.hbs"}}
-    <ChangesetWebform @formSchema={{powerSelectExample3FormSchema}} />
-  {{/demo.example}}
-  {{demo.snippet "power-select-example-3.js" label="Component JS" language="javascript"}}
-  {{demo.snippet "power-select-example-3.hbs" label="Template" language="htmlbars"}}
-{{/docs-demo}}
+<DocsDemo as |demo|>
+  <demo.example @name="power-select-example-3.hbs">
+    <ChangesetWebform @formSchema={{this.powerSelectExample3FormSchema}} />
+  </demo.example>
+  <demo.snippet @name="power-select-example-3.js" @label="Component JS" @language="javascript" />
+  <demo.snippet @name="power-select-example-3.hbs" @label="Template" @language="htmlbars" />
+</DocsDemo>
 ### Power select with multiple selection
 
 Passing `multipleSelection: true` will render a [Power select multiple component](https://ember-power-select.com/docs/multiple-selection).
 
-{{#docs-demo as |demo|}}
-  {{#demo.example name="power-select-multiple-example-1.hbs"}}
+<DocsDemo as |demo|>
+  <demo.example @name="power-select-multiple-example-1.hbs">
     <div data-test-id="power-select-multiple-selector-example-1">
-      <ChangesetWebform @formSchema={{powerSelectMultipleExample1FormSchema}} />
+      <ChangesetWebform @formSchema={{this.powerSelectMultipleExample1FormSchema}} />
     </div>
-  {{/demo.example}}
-  {{demo.snippet "power-select-multiple-example-1.js" label="Component JS" language="javascript"}}
-  {{demo.snippet "power-select-multiple-example-1.hbs" label="Template" language="htmlbars"}}
-{{/docs-demo}}
+  </demo.example>
+  <demo.snippet @name="power-select-multiple-example-1.js" @label="Component JS" @language="javascript" />
+  <demo.snippet @name="power-select-multiple-example-1.hbs" @label="Template" @language="htmlbars" />
+</DocsDemo>
 ## Power datepicker
 
 Displays an input which shows the current selected date or datetime. When the input is focussed, a dropdown shows, including an [Ember Power Calendar](https://ember-power-calendar.com) component, and optionally a time selection component below that. 
@@ -321,19 +321,19 @@ The value output by this field will also always be a formatted according to this
 
 ### Basic usage - date only selection
 
-{{#docs-demo as |demo|}}
-  {{#demo.example name="power-datepicker-example-1.hbs"}}
+<DocsDemo as |demo|>
+  <demo.example @name="power-datepicker-example-1.hbs">
     <div data-test-id="power-datepicker-basic-use">
-      <FormattedDatetimes @data={{dateTimeOutput1}} />
+      <FormattedDatetimes @data={{this.dateTimeOutput1}} />
       <ChangesetWebform 
-        @formSchema={{powerDatapickerExample1FormSchema}}
+        @formSchema={{this.powerDatapickerExample1FormSchema}}
         @onFieldValueChange={{action "afterDatetimeUpdated" "1"}} />
     </div>
-  {{/demo.example}}
-  {{demo.snippet "power-datepicker-example-1.js" label="Component JS" language="javascript"}}
-  {{demo.snippet "power-datepicker-example-1.hbs" label="Template" language="htmlbars"}}
-  {{demo.snippet "after-datetime-updated-action.js" label="Action handing" language="javascript"}}
-{{/docs-demo}}
+  </demo.example>
+  <demo.snippet @name="power-datepicker-example-1.js" @label="Component JS" @language="javascript" />
+  <demo.snippet @name="power-datepicker-example-1.hbs" @label="Template" @language="htmlbars" />
+  <demo.snippet @name="after-datetime-updated-action.js" @label="Action handing" @language="javascript" />
+</DocsDemo>
 
 ### With fixed time
 
@@ -341,19 +341,19 @@ The value output by this field will also always be a formatted according to this
 
 Note that setting `showTimeSelector` to`true` will have no effect if `fixedTime` is passed.
 
-{{#docs-demo as |demo|}}
-  {{#demo.example name="power-datepicker-example-1b.hbs"}}
+<DocsDemo as |demo|>
+  <demo.example @name="power-datepicker-example-1b.hbs">
     <div data-test-id="power-datepicker-advanced-use">
-      <FormattedDatetimes @data={{dateTimeOutput1b}} />
+      <FormattedDatetimes @data={{this.dateTimeOutput1b}} />
       <ChangesetWebform 
-        @formSchema={{powerDatapickerExample1bFormSchema}}
+        @formSchema={{this.powerDatapickerExample1bFormSchema}}
         @onFieldValueChange={{action "afterDatetimeUpdated" "1b"}} />
     </div>
-  {{/demo.example}}
-  {{demo.snippet "power-datepicker-example-1b.js" label="Component JS" language="javascript"}}
-  {{demo.snippet "power-datepicker-example-1b.hbs" label="Template" language="htmlbars"}}
-  {{demo.snippet "after-datetime-updated-action.js" label="Action handing" language="javascript"}}
-{{/docs-demo}}
+  </demo.example>
+  <demo.snippet @name="power-datepicker-example-1b.js" @label="Component JS" @language="javascript" />
+  <demo.snippet @name="power-datepicker-example-1b.hbs" @label="Template" @language="htmlbars" />
+  <demo.snippet @name="after-datetime-updated-action.js" @label="Action handing" @language="javascript" />
+</DocsDemo>
 
 ### With minDate and maxDate
 
@@ -361,19 +361,19 @@ Note that setting `showTimeSelector` to`true` will have no effect if `fixedTime`
 
 If the user types a date into the trigger input which is before `minDate` or after `maxDate`, then when the `onChnage` event fires, the value will be ignored and the trigger will be reset to its previous value.
 
-{{#docs-demo as |demo|}}
-  {{#demo.example name="power-datepicker-example-1c.hbs"}}
+<DocsDemo as |demo|>
+  <demo.example @name="power-datepicker-example-1c.hbs">
     <div data-test-id="power-datepicker-min-max-date">
-      <FormattedDatetimes @data={{dateTimeOutput1c}} />
+      <FormattedDatetimes @data={{this.dateTimeOutput1c}} />
       <ChangesetWebform 
-        @formSchema={{powerDatapickerExample1cFormSchema}}
+        @formSchema={{this.powerDatapickerExample1cFormSchema}}
         @onFieldValueChange={{action "afterDatetimeUpdated" "1c"}} />
     </div>
-  {{/demo.example}}
-  {{demo.snippet "power-datepicker-example-1c.js" label="Component JS" language="javascript"}}
-  {{demo.snippet "power-datepicker-example-1c.hbs" label="Template" language="htmlbars"}}
-  {{demo.snippet "after-datetime-updated-action.js" label="Action handing" language="javascript"}}
-{{/docs-demo}}
+  </demo.example>
+  <demo.snippet @name="power-datepicker-example-1c.js" @label="Component JS" @language="javascript" />
+  <demo.snippet @name="power-datepicker-example-1c.hbs" @label="Template" @language="htmlbars" />
+  <demo.snippet @name="after-datetime-updated-action.js" @label="Action handing" @language="javascript" />
+</DocsDemo>
 
 ### With time selector using default units
 
@@ -389,19 +389,19 @@ If the user input exceeds the maximum value for the relevant time unit, the valu
 
 If the user input is lower than the minimum value for the relevant time unit, the value will be forcibly set to the minimum value. 
 
-{{#docs-demo as |demo|}}
-  {{#demo.example name="power-datepicker-example-3.hbs"}}
+<DocsDemo as |demo|>
+  <demo.example @name="power-datepicker-example-3.hbs">
     <div data-test-id="power-datepicker-24-hour-time-select">
-      <FormattedDatetimes @data={{dateTimeOutput3}} />
+      <FormattedDatetimes @data={{this.dateTimeOutput3}} />
       <ChangesetWebform 
-        @formSchema={{powerDatapickerExample3FormSchema}}
+        @formSchema={{this.powerDatapickerExample3FormSchema}}
         @onFieldValueChange={{action "afterDatetimeUpdated" "3"}} />
     </div> 
-  {{/demo.example}}
-  {{demo.snippet "power-datepicker-example-3.js" label="Component JS" language="javascript"}}
-  {{demo.snippet "power-datepicker-example-3.hbs" label="Template" language="htmlbars"}}
-  {{demo.snippet "after-datetime-updated-action.js" label="Action handing" language="javascript"}}
-{{/docs-demo}}
+  </demo.example>
+  <demo.snippet @name="power-datepicker-example-3.js" @label="Component JS" @language="javascript" />
+  <demo.snippet @name="power-datepicker-example-3.hbs" @label="Template" @language="htmlbars" />
+  <demo.snippet @name="after-datetime-updated-action.js" @label="Action handing" @language="javascript" />
+</DocsDemo>
 
 ### With time selector using custom format
 
@@ -411,19 +411,19 @@ The related fields will be displayed in the order that they are listed.
 
 The example below shows a time selector component with just hours and minutes.
 
-{{#docs-demo as |demo|}}
-  {{#demo.example name="power-datepicker-example-3a.hbs"}}
+<DocsDemo as |demo|>
+  <demo.example @name="power-datepicker-example-3a.hbs">
     <div data-test-id="power-datepicker-custom-time-select">
-      <FormattedDatetimes @data={{dateTimeOutput3a}} />
+      <FormattedDatetimes @data={{this.dateTimeOutput3a}} />
       <ChangesetWebform 
-        @formSchema={{powerDatapickerExample3aFormSchema}}
+        @formSchema={{this.powerDatapickerExample3aFormSchema}}
         @onFieldValueChange={{action "afterDatetimeUpdated" "3a"}} />
     </div> 
-  {{/demo.example}}
-  {{demo.snippet "power-datepicker-example-3a.js" label="Component JS" language="javascript"}}
-  {{demo.snippet "power-datepicker-example-3a.hbs" label="Template" language="htmlbars"}}
-  {{demo.snippet "after-datetime-updated-action.js" label="Action handing" language="javascript"}}
-{{/docs-demo}}
+  </demo.example>
+  <demo.snippet @name="power-datepicker-example-3a.js" @label="Component JS" @language="javascript" />
+  <demo.snippet @name="power-datepicker-example-3a.hbs" @label="Template" @language="htmlbars" />
+  <demo.snippet @name="after-datetime-updated-action.js" @label="Action handing" @language="javascript" />
+</DocsDemo>
 
 ### With time selector using 12 hour format
 
@@ -431,19 +431,19 @@ If `h` or `hh` is passed as the hour format for the time selector component, the
 
 The AM/PM input can be updated wither by typing in the input, or using arrow up to select AM or arrow down to select PM.
 
-{{#docs-demo as |demo|}}
-  {{#demo.example name="power-datepicker-example-4.hbs"}}
+<DocsDemo as |demo|>
+  <demo.example @name="power-datepicker-example-4.hbs">
     <div data-test-id="power-datepicker-12-hour-time-select">
-      <FormattedDatetimes @data={{dateTimeOutput4}} />
+      <FormattedDatetimes @data={{this.dateTimeOutput4}} />
       <ChangesetWebform 
-        @formSchema={{powerDatapickerExample4FormSchema}}
+        @formSchema={{this.powerDatapickerExample4FormSchema}}
         @onFieldValueChange={{action "afterDatetimeUpdated" "4"}} />
     </div>
-  {{/demo.example}}
-  {{demo.snippet "power-datepicker-example-4.js" label="Component JS" language="javascript"}}
-  {{demo.snippet "power-datepicker-example-4.hbs" label="Template" language="htmlbars"}}
-  {{demo.snippet "after-datetime-updated-action.js" label="Action handing" language="javascript"}}
-{{/docs-demo}}
+  </demo.example>
+  <demo.snippet @name="power-datepicker-example-4.js" @label="Component JS" @language="javascript" />
+  <demo.snippet @name="power-datepicker-example-4.hbs" @label="Template" @language="htmlbars" />
+  <demo.snippet @name="after-datetime-updated-action.js" @label="Action handing" @language="javascript" />
+</DocsDemo>
 
 ### With a different display format from the underlying date value format
 
@@ -453,19 +453,20 @@ In this case, the field value will still be formattd according to `dateTimeForma
 
 This could be useful where your server requires one date format, but your users would expect another format.
 
-{{#docs-demo as |demo|}}
-  {{#demo.example name="power-datepicker-example-5.hbs"}}
+<DocsDemo as |demo|>
+  <demo.example @name="power-datepicker-example-5.hbs">
     <div data-test-id="power-datepicker-unusual-format">
-      <FormattedDatetimes @data={{dateTimeOutput5}} />
+      <FormattedDatetimes @data={{this.dateTimeOutput5}} />
       <ChangesetWebform 
-        @formSchema={{powerDatapickerExample5FormSchema}}
-        @onFieldValueChange={{action "afterDatetimeUpdated" "5"}} />
+        @formSchema={{this.powerDatapickerExample5FormSchema}}
+        @onFieldValueChange={{action "afterDatetimeUpdated" "5"}}
+       />
     </div> 
-  {{/demo.example}}
-  {{demo.snippet "power-datepicker-example-5.js" label="Component JS" language="javascript"}}
-  {{demo.snippet "power-datepicker-example-5.hbs" label="Template" language="htmlbars"}}
-  {{demo.snippet "after-datetime-updated-action.js" label="Action handing" language="javascript"}}
-{{/docs-demo}}
+  </demo.example>
+  <demo.snippet @name="power-datepicker-example-5.js" @label="Component JS" @language="javascript" />
+  <demo.snippet @name="power-datepicker-example-5.hbs" @label="Template" @language="htmlbars" />
+  <demo.snippet @name="after-datetime-updated-action.js" @label="Action handing" @language="javascript" />
+</DocsDemo>
 
 ## Clicker
 
@@ -479,18 +480,18 @@ Pass `clickerText` and optionally `clickerElementClassNames`.
 
 Renders a `div` element with `role="button"` the classNames provided. The inner text of the element is what is passed to `clickerText`.
 
-{{#docs-demo as |demo|}}
-  {{#demo.example name="clicker-example-1.hbs"}}
+<DocsDemo as |demo|>
+  <demo.example @name="clicker-example-1.hbs">
     <div data-test-id="clicker-example-1">
       <ChangesetWebform 
-        @formSchema={{clickerExample1FormSchema}} 
+        @formSchema={{this.clickerExample1FormSchema}} 
         @onUserInteraction={{action "onUserInteractionClicker1"}}/>
     </div> 
-  {{/demo.example}}
-  {{demo.snippet "clicker-example-1.js" label="Component JS" language="javascript"}}
-  {{demo.snippet "clicker-example-1.hbs" label="Template" language="htmlbars"}}
-  {{demo.snippet "clicker-example-action.js" label="Action handing" language="javascript"}}
-{{/docs-demo}}
+  </demo.example>
+  <demo.snippet @name="clicker-example-1.js" @label="Component JS" @language="javascript" />
+  <demo.snippet @name="clicker-example-1.hbs" @label="Template" @language="htmlbars" />
+  <demo.snippet @name="clicker-example-action.js" @label="Action handing" @language="javascript" />
+</DocsDemo>
 
 ### Clicker field with a custom component
 
@@ -517,20 +518,20 @@ Pass `displayComponent` as an object containing:
 If using a `button` element in your custom clicker component, bear in mind that the default `type` of a button is `submit`. Thus, if you don't add a type to your button, clicking it will result in a form submission. Setting `type="button"` is recommended.
 
 {{#docs-snippet name="custom-clicker-component.hbs"}}
-<button type="button" onclick={{action onClick}} class={{classNames}}><b>{{formField.clickerText}}</b> {{component icon}}</button>
+<button type="button" onclick={{action this.onClick}} class={{this.classNames}}><b>{{this.formField.clickerText}}</b> {{component this.icon}}</button>
 {{/docs-snippet}}
 
-{{#docs-demo as |demo|}}
-  {{#demo.example name="clicker-example-2.hbs"}}
+<DocsDemo as |demo|>
+  <demo.example @name="clicker-example-2.hbs">
     <div data-test-id="clicker-example-2">
       <ChangesetWebform 
-        @formSchema={{clickerExample2FormSchema}} 
+        @formSchema={{this.clickerExample2FormSchema}} 
         @onUserInteraction={{action "onUserInteractionClicker1"}}/>
     </div> 
-  {{/demo.example}}
-  {{demo.snippet "clicker-example-2.js" label="Component JS" language="javascript"}}
-  {{demo.snippet "clicker-example-2.hbs" label="Template" language="htmlbars"}}
-  {{demo.snippet "clicker-example-action.js" label="Action handing" language="javascript"}}
-  {{demo.snippet "custom-clicker-component.js" label="Custom clicker JS" language="javascript"}}
-  {{demo.snippet "custom-clicker-component.hbs" label="Custom clicker HBS" language="htmlbars"}}
-{{/docs-demo}}
+  </demo.example>
+  <demo.snippet @name="clicker-example-2.js" @label="Component JS" @language="javascript" />
+  <demo.snippet @name="clicker-example-2.hbs" @label="Template" @language="htmlbars" />
+  <demo.snippet @name="clicker-example-action.js" @label="Action handing" @language="javascript" />
+  <demo.snippet @name="custom-clicker-component.js" @label="Custom clicker JS" @language="javascript" />
+  <demo.snippet @name="custom-clicker-component.hbs" @label="Custom clicker HBS" @language="htmlbars" />
+</DocsDemo>

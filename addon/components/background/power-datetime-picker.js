@@ -1,6 +1,5 @@
 import { layout as templateLayout, tagName } from '@ember-decorators/component';
-import { action, computed } from '@ember/object';
-import { or } from '@ember/object/computed';
+import { action } from '@ember/object';
 import Component from '@ember/component';
 import layout from '../../templates/components/background/power-datetime-picker';
 import keyCodesMap from 'ember-changeset-webforms/utils/keycodes-map';
@@ -11,13 +10,12 @@ import { tracked } from '@glimmer/tracking';
 export default class PowerDatetimePicker extends Component {
   @tracked center;
   @tracked selectedDate;
-  @tracked center;
-  @tracked selectedDate;
-  @tracked center;
-  @tracked selectedDate;
-  @tracked center;
+  @tracked defaultTime;
+  @tracked fixedTime;
+  @tracked dateTimeFormat;
+  @tracked dateTimeDisplayFormat;
+  @tracked timeSelectorFields;
 
-  @computed('defaultTime')
   get defaultHour() {
     if (!this.defaultTime) {
       return '00';
@@ -25,7 +23,6 @@ export default class PowerDatetimePicker extends Component {
     return this.defaultTime.split(':')[0] || '00';
   }
 
-  @computed('defaultTime')
   get defaultMinute() {
     if (!this.defaultTime) {
       return '00';
@@ -33,7 +30,6 @@ export default class PowerDatetimePicker extends Component {
     return this.defaultTime.split(':')[1] || '00';
   }
 
-  @computed('defaultTime')
   get defaultSecond() {
     if (!this.defaultTime) {
       return '00';
@@ -41,7 +37,6 @@ export default class PowerDatetimePicker extends Component {
     return this.defaultTime.split(':')[2] || '00';
   }
 
-  @computed('fixedTime')
   get fixedTimeParsed() {
     if (!this.fixedTime) {
       return;
@@ -55,33 +50,35 @@ export default class PowerDatetimePicker extends Component {
     };
   }
 
-  @computed('center')
   get navButtons() {
     var allowNavigationOutOfRange = this.allowNavigationOutOfRange;
     return {
       nextMonth: allowNavigationOutOfRange || this.targetInRange(1, 'months'),
       nextYear: allowNavigationOutOfRange || this.targetInRange(1, 'years'),
-      previousMonth: allowNavigationOutOfRange || this.targetInRange(-1, 'months'),
-      previousYear: allowNavigationOutOfRange || this.targetInRange(-1, 'years'),
+      previousMonth:
+        allowNavigationOutOfRange || this.targetInRange(-1, 'months'),
+      previousYear:
+        allowNavigationOutOfRange || this.targetInRange(-1, 'years'),
     };
   }
 
-  @computed('dateTimeFormat')
   get parsedDateTimeFormat() {
     return this.dateTimeFormat.replace(/S{1,}/, 'SSS'); // TODO this must be a global option
   }
 
-  @computed('parsedDateTimeFormat', 'dateTimeDisplayFormat')
   get parsedDateTimeDisplayFormat() {
-    return this.dateTimeDisplayFormat ? this.dateTimeDisplayFormat.replace(/S{1,}/, 'SSS') : this.parsedDateTimeFormat; // TODO this must be a global option
+    return this.dateTimeDisplayFormat
+      ? this.dateTimeDisplayFormat.replace(/S{1,}/, 'SSS')
+      : this.parsedDateTimeFormat; // TODO this must be a global option
   }
 
-  @computed('timeSelectorFields')
   get showAmPmInput() {
-    return this.timeSelectorFields.filter((field) => field.startsWith('h')).length ? true : false;
+    return this.timeSelectorFields.filter((field) => field.startsWith('h'))
+      .length
+      ? true
+      : false;
   }
 
-  @computed('timeSelectorFields')
   get timeFormatParts() {
     return this.timeSelectorFields
       .map((item) => {
@@ -122,20 +119,32 @@ export default class PowerDatetimePicker extends Component {
       .filter((item) => item.label);
   }
 
-  @or('datepickerPlaceholder', 'parsedDateTimeDisplayFormat')
-  parsedDatepickerPlaceholder;
+  get parsedDatepickerPlaceholder() {
+    return this.datepickerPlaceholder || this.parsedDateTimeDisplayFormat;
+  }
 
   validMoment(event) {
     var parsedDateTimeDisplayFormat = this.parsedDateTimeDisplayFormat;
     const value = event.target.value;
-    const strictDateFormat = parsedDateTimeDisplayFormat.replace(/S{1,}/, 'SSSS');
+    const strictDateFormat = parsedDateTimeDisplayFormat.replace(
+      /S{1,}/,
+      'SSSS'
+    );
     if (!moment(value, strictDateFormat, true).isValid()) {
       return null;
     }
-    if (moment(value, parsedDateTimeDisplayFormat).isBefore(moment(this.minDate, 'YYYY-MM-DD'))) {
+    if (
+      moment(value, parsedDateTimeDisplayFormat).isBefore(
+        moment(this.minDate, 'YYYY-MM-DD')
+      )
+    ) {
       return null;
     }
-    if (moment(value, parsedDateTimeDisplayFormat).isAfter(moment(this.maxDate, 'YYYY-MM-DD'))) {
+    if (
+      moment(value, parsedDateTimeDisplayFormat).isAfter(
+        moment(this.maxDate, 'YYYY-MM-DD')
+      )
+    ) {
       return null;
     }
     return moment(value, parsedDateTimeDisplayFormat).toDate();
@@ -147,9 +156,17 @@ export default class PowerDatetimePicker extends Component {
     var currentSecond = moment(currentDateTime).second();
     var newDateTime;
     if (currentDateTime) {
-      newDateTime = moment(selectedDate).hour(currentHour).minute(currentMinute).second(currentSecond).toDate();
+      newDateTime = moment(selectedDate)
+        .hour(currentHour)
+        .minute(currentMinute)
+        .second(currentSecond)
+        .toDate();
     } else {
-      newDateTime = moment(selectedDate).hour(this.defaultHour).minute(this.defaultMinute).second(this.defaultSecond).toDate();
+      newDateTime = moment(selectedDate)
+        .hour(this.defaultHour)
+        .minute(this.defaultMinute)
+        .second(this.defaultSecond)
+        .toDate();
     }
     return newDateTime;
   }
@@ -157,30 +174,56 @@ export default class PowerDatetimePicker extends Component {
   updateTimeUnit(unit, value, currentDateTime) {
     let newDateTime;
     if (unit.startsWith('h')) {
-      if (moment(currentDateTime, this.parsedDateTimeFormat).format('a') === 'pm' && parseInt(value) < 12) {
+      if (
+        moment(currentDateTime, this.parsedDateTimeFormat).format('a') ===
+          'pm' &&
+        parseInt(value) < 12
+      ) {
         value = parseInt(value) + 12;
-      } else if (moment(currentDateTime, this.parsedDateTimeFormat).format('a') === 'am' && parseInt(value) === 12) {
+      } else if (
+        moment(currentDateTime, this.parsedDateTimeFormat).format('a') ===
+          'am' &&
+        parseInt(value) === 12
+      ) {
         value = 0;
       }
-      newDateTime = moment(currentDateTime, this.parsedDateTimeFormat).hour(value);
+      newDateTime = moment(currentDateTime, this.parsedDateTimeFormat).hour(
+        value
+      );
     } else if (unit.startsWith('H')) {
-      newDateTime = moment(currentDateTime, this.parsedDateTimeFormat).hour(value);
+      newDateTime = moment(currentDateTime, this.parsedDateTimeFormat).hour(
+        value
+      );
     } else if (unit.startsWith('m')) {
-      newDateTime = moment(currentDateTime, this.parsedDateTimeFormat).minute(value);
+      newDateTime = moment(currentDateTime, this.parsedDateTimeFormat).minute(
+        value
+      );
     } else if (unit.startsWith('s')) {
-      newDateTime = moment(currentDateTime, this.parsedDateTimeFormat).second(value);
+      newDateTime = moment(currentDateTime, this.parsedDateTimeFormat).second(
+        value
+      );
     } else if (unit.startsWith('S')) {
-      newDateTime = moment(currentDateTime, this.parsedDateTimeFormat).millisecond(value);
+      newDateTime = moment(
+        currentDateTime,
+        this.parsedDateTimeFormat
+      ).millisecond(value);
     } else if (unit.toLowerCase().startsWith('a')) {
-      if (moment(currentDateTime, this.parsedDateTimeFormat).format('a') !== value) {
-        const currentHour = moment(currentDateTime, this.parsedDateTimeFormat).hour();
+      if (
+        moment(currentDateTime, this.parsedDateTimeFormat).format('a') !== value
+      ) {
+        const currentHour = moment(
+          currentDateTime,
+          this.parsedDateTimeFormat
+        ).hour();
         let newHour;
         if (value === 'am') {
           newHour = currentHour - 12;
         } else if (value === 'pm') {
           newHour = currentHour + 12;
         }
-        newDateTime = moment(currentDateTime, this.parsedDateTimeFormat).hour(newHour);
+        newDateTime = moment(currentDateTime, this.parsedDateTimeFormat).hour(
+          newHour
+        );
       } else {
         newDateTime = moment(currentDateTime, this.parsedDateTimeFormat);
       }
@@ -216,11 +259,16 @@ export default class PowerDatetimePicker extends Component {
     if (moment.isDate(this.value)) {
       this.send('updateDateTime', this.value);
     } else if (moment(this.value).isValid()) {
-      this.send('updateDateTime', moment(this.value, this.parsedDateTimeFormat).toDate());
+      this.send(
+        'updateDateTime',
+        moment(this.value, this.parsedDateTimeFormat).toDate()
+      );
     }
 
     if (this.fixedTime && this.showTimeSelector) {
-      console.warn('[Ember Changeset Webforms] You have set showTimeSelector to true, but you have also passed fixedTime. fixedTime must be null in order to show the tine selector component.');
+      console.warn(
+        '[Ember Changeset Webforms] You have set showTimeSelector to true, but you have also passed fixedTime. fixedTime must be null in order to show the tine selector component.'
+      );
     }
   }
 
@@ -307,6 +355,7 @@ export default class PowerDatetimePicker extends Component {
     let value = event.target.value;
     var currentDateTime = this.value;
     const newDateTime = this.updateTimeUnit(unit, value, currentDateTime);
+
     this.send('updateDateTime', newDateTime);
   }
 
@@ -316,7 +365,6 @@ export default class PowerDatetimePicker extends Component {
     if (event.keyCode !== keys.arrowUp && event.keyCode !== keys.arrowDown) {
       return;
     }
-    event.preventDefault();
     let newValue;
     let increment;
     if (event.keyCode === keys.arrowUp) {
@@ -377,7 +425,10 @@ export default class PowerDatetimePicker extends Component {
     var currentDateTime = this.value;
     const value = event.target.value.toLowerCase();
     if (value !== 'am' && value !== 'pm') {
-      event.target.value = moment(currentDateTime, this.parsedDateTimeFormat).format('a');
+      event.target.value = moment(
+        currentDateTime,
+        this.parsedDateTimeFormat
+      ).format('a');
     }
     this.send('setTime', 'a', event);
   }
@@ -415,10 +466,18 @@ export default class PowerDatetimePicker extends Component {
 
   @action
   updateDateTime(dateTime) {
-    this.center = dateTime;
+    // TODO why is typeof this,value sometimes an object and sometimes a string?
+    if (moment(this.value).isSame(moment(dateTime))) {
+      return;
+    }
+    // this.center = dateTime;
     if (this.fixedTimeParsed) {
       for (const key in this.fixedTimeParsed) {
-        dateTime = this.updateTimeUnit(key, this.fixedTimeParsed[key], dateTime);
+        dateTime = this.updateTimeUnit(
+          key,
+          this.fixedTimeParsed[key],
+          dateTime
+        );
       }
     }
     this.selectedDate = dateTime;
@@ -434,7 +493,11 @@ export default class PowerDatetimePicker extends Component {
     if (this.maxDate < moment().toDate()) {
       startDate = this.maxDate;
     }
-    if (this.minDate > moment().toDate() || (this.minDate < moment().toDate() && this.maxDate < moment().toDate()) || (this.minDate > moment().toDate() && this.maxDate > moment().toDate())) {
+    if (
+      this.minDate > moment().toDate() ||
+      (this.minDate < moment().toDate() && this.maxDate < moment().toDate()) ||
+      (this.minDate > moment().toDate() && this.maxDate > moment().toDate())
+    ) {
       startDate = this.minDate;
     }
     this.center = startDate;
@@ -453,7 +516,10 @@ export default class PowerDatetimePicker extends Component {
     var startOfVisibleMonth = moment(this.center).startOf('month').toDate();
     var endOfVisibleMonth = moment(this.center).endOf('month').toDate();
     var currentSelected = moment(this.selectedDate);
-    if (this.selectedDate >= startOfVisibleMonth && this.selectedDate <= endOfVisibleMonth) {
+    if (
+      this.selectedDate >= startOfVisibleMonth &&
+      this.selectedDate <= endOfVisibleMonth
+    ) {
       targetDay = currentSelected.add(span, units);
     } else {
       targetDay = startOfVisibleMonth;
@@ -517,8 +583,14 @@ export default class PowerDatetimePicker extends Component {
   }
 
   targetInRange(span, units) {
-    var firstOfTargetMonth = moment(this.center).add(span, units).startOf('month').toDate();
-    var lastOfTargetMonth = moment(this.center).add(span, units).endOf('month').toDate();
+    var firstOfTargetMonth = moment(this.center)
+      .add(span, units)
+      .startOf('month')
+      .toDate();
+    var lastOfTargetMonth = moment(this.center)
+      .add(span, units)
+      .endOf('month')
+      .toDate();
     if (firstOfTargetMonth > this.maxDate || lastOfTargetMonth < this.minDate) {
       return false;
     }

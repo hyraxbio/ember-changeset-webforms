@@ -2,7 +2,7 @@
 
 The [Ember Changeset Validations docs on writing your own validators](https://github.com/poteto/ember-changeset-validations#writing-your-own-validators) outlines how to write your own synchronous or asynchronous validators.
 
-The method for creating custom validators in **Ember Changeset Webforms** is identical, but in order to use them, you must pass your custom validators to the `<ChangesetWebform>` component as the `@customValidators` property.
+The method for creating custom validators in **Ember Changeset Webforms** is identical, but in order to use them, you must pass your custom validators to the `ChangesetWebform` component as the `@customValidators` property.
 
 The format of the `@customValidators` property should be a javascript object with a named method for each custom validator that you would like to use in the component.
 
@@ -15,19 +15,19 @@ The example below shows how to:
 3. Import your validators into a controller as `customValidators`, and declare them as a controller property, so that they can be used in the corresponding template. Use the `validateUniqueness` custom validator when defining form fields.
 4. Pass the `@customValidators` property to the 
 
-{{#docs-demo as |demo|}}
-  {{#demo.example name="custom-validators-form.hbs"}}
+<DocsDemo as |demo|>
+  <demo.example @name="custom-validators-form.hbs">
     <ChangesetWebform 
-      @formSchema={{uniquenessFormSchema}} 
-      @customValidators={{customValidators}} 
+      @formSchema={{this.uniquenessFormSchema}} 
+      @customValidators={{this.customValidators}} 
       data-test-id="integrating-custom-validators-form"
      />
-  {{/demo.example}}
-  {{demo.snippet "uniqueness-validator.js" label="1. Custom Validator" language="javascript"}}
-  {{demo.snippet "export-validators.js" label="2. Export custom validators" language="javascript"}}
-  {{demo.snippet "custom-validators-form.js" label="3. Import and use custom validators" language="javascript"}}
-  {{demo.snippet "custom-validators-form.hbs" label="4. Template" language="html"}}
-{{/docs-demo}}
+  </demo.example>
+  <demo.snippet @name="uniqueness-validator.js" @label="1. Custom Validator" @language="javascript" />
+  <demo.snippet @name="export-validators.js" @label="2. Export custom validators" @language="javascript" />
+  <demo.snippet @name="custom-validators-form.js" @label="3. Import and use custom validators" @language="javascript" />
+  <demo.snippet @name="custom-validators-form.hbs" @label="4. Template" @language="html" />
+</DocsDemo>
 
 ## Additional notes
 

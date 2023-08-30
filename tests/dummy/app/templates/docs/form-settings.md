@@ -8,23 +8,23 @@ Form level settings can be tweaked for each instance of a `changesetWebform` com
 
 The only required setting is `formName` which must be unique from that of any other form rendered on th page. This is to avoid the browser error from attempting to add multiple elements to the DOM with the same ID.
 
-{{#docs-demo as |demo|}}
-  {{#demo.example name="no-form-settings-form-schema.hbs" title="Default form settings"}}
-    <ChangesetWebform @formSchema={{nothingSpecialFormSchema}} @submitAction={{action "doSubmit"}} />
-  {{/demo.example}}
-  {{demo.snippet "no-form-settings-form-schema.js" label="Component JS" language="javascript"}}
-  {{demo.snippet "no-form-settings-form-schema.hbs" label="Template" language="htmlbars"}}
-{{/docs-demo}}
+<DocsDemo as |demo|>
+  <demo.example @name="no-form-settings-form-schema.hbs" @title="Default form settings">
+    <ChangesetWebform @formSchema={{this.nothingSpecialFormSchema}} @submitAction={{action "doSubmit"}} />
+  </demo.example>
+  <demo.snippet @name="no-form-settings-form-schema.js" @label="Component JS" @language="javascript" />
+  <demo.snippet @name="no-form-settings-form-schema.hbs" @label="Template" @language="htmlbars" />
+</DocsDemo>
 
 
 
-{{#docs-demo as |demo|}}
-  {{#demo.example name="clear-after-submit-form-schema.hbs"}}
-    <ChangesetWebform @formSchema={{clearFormSchema}} @submitAction={{action "doSubmit"}} />
-  {{/demo.example}}
-  {{demo.snippet "clear-after-submit-form-schema.js" label="Component JS" language="javascript"}}
-  {{demo.snippet "clear-after-submit-form-schema.hbs" label="Template" language="htmlbars"}}
-{{/docs-demo}}
+<DocsDemo as |demo|>
+  <demo.example @name="clear-after-submit-form-schema.hbs">
+    <ChangesetWebform @formSchema={{this.clearFormSchema}} @submitAction={{action "doSubmit"}} />
+  </demo.example>
+  <demo.snippet @name="clear-after-submit-form-schema.js" @label="Component JS" @language="javascript" />
+  <demo.snippet @name="clear-after-submit-form-schema.hbs" @label="Template" @language="htmlbars" />
+</DocsDemo>
 
 ## Tracked form settings
 

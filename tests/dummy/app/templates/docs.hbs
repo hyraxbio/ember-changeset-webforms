@@ -1,28 +1,40 @@
 <DocsViewer as |viewer|>
   <viewer.nav as |nav|>
-    {{nav.section "Introduction"}}
-    {{nav.item "Index" "docs.index"}}
-    {{nav.item "Basic usage" "docs.basic-usage"}}
-    {{nav.section "Validation"}}
-    {{nav.item "Field validation" "docs.field-validation"}}
-    {{nav.item
-      "Integrating custom validators"
-      "docs.integrating-custom-validators"
-    }}
-    {{nav.section "Form & field settings"}}
-    {{nav.item "Form settings" "docs.form-settings"}}
-    {{nav.section "Form fields"}}
-    {{nav.item "Field settings" "docs.field-settings"}}
-    {{nav.item "Built in fields" "docs.built-in-fields"}}
-    {{nav.item "Clonable form fields" "docs.clonable-form-fields"}}
-    {{nav.item "Creating custom fields" "docs.creating-custom-fields"}}
-    {{nav.section "Form submission"}}
-    {{nav.item "Form submission" "docs.form-submission"}}
-    {{nav.section "Action handling"}}
-    {{nav.item "Action handling" "docs.action-handling"}}
-    {{nav.section "Configuration options"}}
-    {{nav.item "Configuration options" "docs.configuration-options"}}
-    {{nav.item "Configuring class names" "docs.configure-classnames"}}
+    <nav.section @label="Introduction" />
+    <nav.item @label="Index" @route="docs.index" />
+    <nav.item @label="Basic usage" @route="docs.basic-usage" />
+    <nav.section @label="Validation" />
+    <nav.item @label="Field validation" @route="docs.field-validation" />
+    <nav.item
+      @label="Integrating custom validators"
+      @route="docs.integrating-custom-validators"
+    />
+    <nav.section @label="Form & field settings" />
+    <nav.item @label="Form settings" @route="docs.form-settings" />
+    <nav.section @label="Form fields" />
+    <nav.item @label="Field settings" @route="docs.field-settings" />
+    <nav.item @label="Built in fields" @route="docs.built-in-fields" />
+    <nav.item
+      @label="Clonable form fields"
+      @route="docs.clonable-form-fields"
+    />
+    <nav.item
+      @label="Creating custom fields"
+      @route="docs.creating-custom-fields"
+    />
+    <nav.section @label="Form submission" />
+    <nav.item @label="Form submission" @route="docs.form-submission" />
+    <nav.section @label="Action handling" />
+    <nav.item @label="Action handling" @route="docs.action-handling" />
+    <nav.section @label="Configuration options" />
+    <nav.item
+      @label="Configuration options"
+      @route="docs.configuration-options"
+    />
+    <nav.item
+      @label="Configuring class names"
+      @route="docs.configure-classnames"
+    />
   </viewer.nav>
 
   <viewer.main>

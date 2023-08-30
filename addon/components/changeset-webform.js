@@ -1,6 +1,5 @@
 import { layout as templateLayout, tagName } from '@ember-decorators/component';
-import { action, computed } from '@ember/object';
-import { reads } from '@ember/object/computed';
+import { action } from '@ember/object';
 import Component from '@ember/component';
 import layout from '../templates/components/changeset-webform';
 import validateFields from 'ember-changeset-webforms/utils/validate-fields';
@@ -13,14 +12,22 @@ import { tracked } from '@glimmer/tracking';
 @templateLayout(layout)
 export default class ChangesetWebform extends Component {
   @tracked changesetWebform;
+  @tracked formFields;
 
-  @reads('changesetWebform.formSettings')
-  formSettings;
+  get formSettings() {
+    if (!this.changesetWebform) {
+      return;
+    }
+    return this.changesetWebform.formSettings;
+  }
 
-  @reads('formObject.formFields')
-  formFields;
+  get formFields() {
+    if (!this.formObject) {
+      return;
+    }
+    return this.formObject.formFields;
+  }
 
-  @computed('formFields', 'formFields.[]')
   get needsValidation() {
     var formFields = this.formFields || [];
     return formFields.find((field) => {
@@ -29,25 +36,41 @@ export default class ChangesetWebform extends Component {
     });
   }
 
-  @computed('changeset.{isInvalid,isValid}')
+  get changeset() {
+    return (this.changesetWebform || {}).changeset;
+  }
+
   get formValidationClass() {
-    if (this.get('changeset.isInvalid')) {
+    if (!this.changeset) {
+      return null;
+    }
+    if (this.changeset.get('isInvalid')) {
       return 'validation-failed';
     }
-    if (this.get('changeset.isValid')) {
+    if (this.changeset.get('isValid')) {
       return 'validation-passed';
     }
-    return;
+    return null;
   }
 
   @action
   didInsert() {
-    this.send('generateChangesetWebform', this.formSchema, this.data, this.customValidators);
+    this.send(
+      'generateChangesetWebform',
+      this.formSchema,
+      this.data,
+      this.customValidators
+    );
   }
 
   @action
   generateChangesetWebform(formSchema, data, customValidators, opts) {
-    this.changesetWebform = createChangesetWebform(formSchema, data, customValidators, opts);
+    this.changesetWebform = createChangesetWebform(
+      formSchema,
+      data,
+      customValidators,
+      opts
+    );
     if (this.afterGenerateChangesetWebform) {
       this.afterGenerateChangesetWebform(this.changesetWebform);
     }
@@ -63,14 +86,24 @@ export default class ChangesetWebform extends Component {
   @action
   afterFieldValidationAction(formField, _changeset, fieldValidationErrors) {
     if (this.afterFieldValidation) {
-      this.afterFieldValidation(formField, this.changesetWebform, fieldValidationErrors);
+      this.afterFieldValidation(
+        formField,
+        this.changesetWebform,
+        fieldValidationErrors
+      );
     }
   }
 
   @action
   onUserInteractionAction(formField, eventType, value, event) {
     if (this.onUserInteraction) {
-      this.onUserInteraction(formField, this.changesetWebform, eventType, value, event);
+      this.onUserInteraction(
+        formField,
+        this.changesetWebform,
+        eventType,
+        value,
+        event
+      );
     }
   }
 
@@ -100,15 +133,23 @@ export default class ChangesetWebform extends Component {
               .save()
               .then((savedChangeset) => {
                 try {
-                  var submitAction = this.submitAction(savedChangeset.data, changesetWebform);
+                  var submitAction = this.submitAction(
+                    savedChangeset.data,
+                    changesetWebform
+                  );
                   if (isPromise(submitAction)) {
                     submitAction
                       .then((submitActionResponse) => {
                         changesetWebform.formSettings.requestInFlight = false;
                         if (this.submitSuccess) {
-                          this.submitSuccess(submitActionResponse, changesetWebform);
+                          this.submitSuccess(
+                            submitActionResponse,
+                            changesetWebform
+                          );
                         }
-                        if (changesetWebform.formSettings.clearFormAfterSubmit) {
+                        if (
+                          changesetWebform.formSettings.clearFormAfterSubmit
+                        ) {
                           this.send('clearForm', changesetWebform);
                         }
                       })
@@ -122,7 +163,10 @@ export default class ChangesetWebform extends Component {
                     changesetWebform.formSettings.requestInFlight = false;
                     var submitActionResponse = submitAction;
                     if (this.submitSuccess) {
-                      this.submitSuccess(submitActionResponse, changesetWebform);
+                      this.submitSuccess(
+                        submitActionResponse,
+                        changesetWebform
+                      );
                     }
                     if (changesetWebform.formSettings.clearFormAfterSubmit) {
                       this.send('clearForm', changesetWebform);
@@ -182,13 +226,21 @@ export default class ChangesetWebform extends Component {
   clearForm(changesetWebform) {
     // TODO test for this
     const opts = {
-      suppressDefaults: changesetWebform.formSettings.clearFormAfterSubmit === 'suppressDefaultValues',
+      suppressDefaults:
+        changesetWebform.formSettings.clearFormAfterSubmit ===
+        'suppressDefaultValues',
     };
     if (this.beforeReset) {
       this.beforeReset(changesetWebform);
     }
-    this.send('generateChangesetWebform', this.formSchema, null, this.customValidators, opts);
-    if (this.formSettings.submitAfterClear) {
+    this.send(
+      'generateChangesetWebform',
+      this.formSchema,
+      null,
+      this.customValidators,
+      opts
+    );
+    if (changesetWebform.formSettings.submitAfterClear) {
       this.send('submitForm', this.changesetWebform);
     }
   }

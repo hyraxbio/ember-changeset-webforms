@@ -1,4 +1,15 @@
-import { visit, focus, find, blur, click, findAll, typeIn, fillIn, currentURL, triggerKeyEvent } from '@ember/test-helpers';
+import {
+  visit,
+  focus,
+  find,
+  blur,
+  click,
+  findAll,
+  typeIn,
+  fillIn,
+  currentURL,
+  triggerKeyEvent,
+} from '@ember/test-helpers';
 import { module, test } from 'qunit';
 import { clickTrigger } from 'ember-basic-dropdown/test-support/helpers';
 import { setupApplicationTest } from 'ember-qunit';
@@ -16,14 +27,30 @@ module('Acceptance | Power datepicker field', function (hooks) {
   test('Date select', async function (assert) {
     await visit('/docs/built-in-fields');
     const parentFieldSelector = dummyEls.powerDatepickerBasicUse;
-    const dateTimeInput = find(`${parentFieldSelector} ${dummyEls.powerDatepickerInput}`);
-    const rawDateTimeElement = find(`${parentFieldSelector} ${dummyEls.rawDateTime}`);
-    const fieldValueElement = find(`${parentFieldSelector} ${dummyEls.outputFieldValue}`);
+    const dateTimeInput = find(
+      `${parentFieldSelector} ${dummyEls.powerDatepickerInput}`
+    );
+    const rawDateTimeElement = find(
+      `${parentFieldSelector} ${dummyEls.rawDateTime}`
+    );
+    const fieldValueElement = find(
+      `${parentFieldSelector} ${dummyEls.outputFieldValue}`
+    );
     await clickTrigger(`${parentFieldSelector} ${dummyEls.startDateField}`);
     const calendarElement = find(dummyEls.ecwPowerDatepickerDropdown);
-    await calendarSelect(parentFieldSelector, moment('2022-11-13', 'YYYY-MM-DD').toDate());
-    assert.dom(dummyEls.ecwPowerDatepickerDropdown).exists('Calendar is set to not close after date select by default.');
-    assert.ok(find(dummyEls.dataDate('2022-11-13')).classList.contains('ember-power-calendar-day--selected'), 'The selected date is 2022-11-13.');
+    await calendarSelect(
+      parentFieldSelector,
+      moment('2022-11-13', 'YYYY-MM-DD').toDate()
+    );
+    assert
+      .dom(dummyEls.ecwPowerDatepickerDropdown)
+      .exists('Calendar is set to not close after date select by default.');
+    assert.ok(
+      find(dummyEls.dataDate('2022-11-13')).classList.contains(
+        'ember-power-calendar-day--selected'
+      ),
+      'The selected date is 2022-11-13.'
+    );
 
     await check(assert, {
       parentFieldSelector: parentFieldSelector,
@@ -36,7 +63,8 @@ module('Acceptance | Power datepicker field', function (hooks) {
         {
           textElement: rawDateTimeElement,
           description: 'Native JS date format',
-          value: 'Sun Nov 13 2022 00:00:00 GMT+0200 (South Africa Standard Time)',
+          value:
+            'Sun Nov 13 2022 00:00:00 GMT+0200 (South Africa Standard Time)',
         },
         {
           textElement: fieldValueElement,
@@ -56,12 +84,22 @@ module('Acceptance | Power datepicker field', function (hooks) {
     await visit('/docs/built-in-fields');
     // TODO write test to check that calendarStartMonth works and is overridden by defaultValue or data passed in.
     const parentFieldSelector = dummyEls.powerDatepickerMinMaxDate;
-    const dateTimeInput = find(`${parentFieldSelector} ${dummyEls.powerDatepickerInput}`);
-    const rawDateTimeElement = find(`${parentFieldSelector} ${dummyEls.rawDateTime}`);
-    const fieldValueElement = find(`${parentFieldSelector} ${dummyEls.outputFieldValue}`);
+    const dateTimeInput = find(
+      `${parentFieldSelector} ${dummyEls.powerDatepickerInput}`
+    );
+    const rawDateTimeElement = find(
+      `${parentFieldSelector} ${dummyEls.rawDateTime}`
+    );
+    const fieldValueElement = find(
+      `${parentFieldSelector} ${dummyEls.outputFieldValue}`
+    );
     await clickTrigger(`${parentFieldSelector} ${dummyEls.startDateField}`);
-    assert.dom(`${dummyEls.dataDate('2022-11-09')}:disabled`).exists('2022-11-09 is disabled in the calendar');
-    assert.dom(`${dummyEls.dataDate('2022-11-17')}:disabled`).exists('2022-11-17 is disabled in the calendar');
+    assert
+      .dom(`${dummyEls.dataDate('2022-11-09')}:disabled`)
+      .exists('2022-11-09 is disabled in the calendar');
+    assert
+      .dom(`${dummyEls.dataDate('2022-11-17')}:disabled`)
+      .exists('2022-11-17 is disabled in the calendar');
 
     await check(assert, {
       parentFieldSelector: parentFieldSelector,
@@ -89,7 +127,10 @@ module('Acceptance | Power datepicker field', function (hooks) {
       ],
     });
 
-    await calendarSelect(parentFieldSelector, moment('2022-11-13', 'YYYY-MM-DD').toDate());
+    await calendarSelect(
+      parentFieldSelector,
+      moment('2022-11-13', 'YYYY-MM-DD').toDate()
+    );
 
     await check(assert, {
       parentFieldSelector: parentFieldSelector,
@@ -102,7 +143,8 @@ module('Acceptance | Power datepicker field', function (hooks) {
         {
           textElement: rawDateTimeElement,
           description: 'Native JS date format',
-          value: 'Sun Nov 13 2022 00:00:00 GMT+0200 (South Africa Standard Time)',
+          value:
+            'Sun Nov 13 2022 00:00:00 GMT+0200 (South Africa Standard Time)',
         },
         {
           textElement: fieldValueElement,
@@ -121,14 +163,30 @@ module('Acceptance | Power datepicker field', function (hooks) {
   test('Date select with advanced', async function (assert) {
     await visit('/docs/built-in-fields');
     const parentFieldSelector = dummyEls.powerDatepickerAdvancedUse;
-    const dateTimeInput = find(`${parentFieldSelector} ${dummyEls.powerDatepickerInput}`);
-    const rawDateTimeElement = find(`${parentFieldSelector} ${dummyEls.rawDateTime}`);
-    const fieldValueElement = find(`${parentFieldSelector} ${dummyEls.outputFieldValue}`);
+    const dateTimeInput = find(
+      `${parentFieldSelector} ${dummyEls.powerDatepickerInput}`
+    );
+    const rawDateTimeElement = find(
+      `${parentFieldSelector} ${dummyEls.rawDateTime}`
+    );
+    const fieldValueElement = find(
+      `${parentFieldSelector} ${dummyEls.outputFieldValue}`
+    );
     await clickTrigger(`${parentFieldSelector} ${dummyEls.startDateField}`);
     const calendarElement = find(dummyEls.ecwPowerDatepickerDropdown);
-    await calendarSelect(parentFieldSelector, moment('2022-11-13', 'YYYY-MM-DD').toDate());
-    assert.dom(dummyEls.ecwPowerDatepickerDropdown).exists('Calendar is set to not close after date select by default.');
-    assert.ok(find(dummyEls.dataDate('2022-11-13')).classList.contains('ember-power-calendar-day--selected'), 'The selected date is 2022-11-13.');
+    await calendarSelect(
+      parentFieldSelector,
+      moment('2022-11-13', 'YYYY-MM-DD').toDate()
+    );
+    assert
+      .dom(dummyEls.ecwPowerDatepickerDropdown)
+      .exists('Calendar is set to not close after date select by default.');
+    assert.ok(
+      find(dummyEls.dataDate('2022-11-13')).classList.contains(
+        'ember-power-calendar-day--selected'
+      ),
+      'The selected date is 2022-11-13.'
+    );
 
     await check(assert, {
       parentFieldSelector: parentFieldSelector,
@@ -141,7 +199,8 @@ module('Acceptance | Power datepicker field', function (hooks) {
         {
           textElement: rawDateTimeElement,
           description: 'Native JS date format',
-          value: 'Sun Nov 13 2022 23:59:59 GMT+0200 (South Africa Standard Time)',
+          value:
+            'Sun Nov 13 2022 23:59:59 GMT+0200 (South Africa Standard Time)',
         },
         {
           textElement: fieldValueElement,
@@ -160,42 +219,58 @@ module('Acceptance | Power datepicker field', function (hooks) {
   test('Main input (24 hour format)', async function (assert) {
     await visit('/docs/built-in-fields');
     const parentFieldSelector = dummyEls.powerDatepicker24HourTimeSelect;
-    const dateTimeInput = find(`${parentFieldSelector} ${dummyEls.powerDatepickerInput}`);
-    const rawDateTimeElement = find(`${parentFieldSelector} ${dummyEls.rawDateTime}`);
+    const dateTimeInput = find(
+      `${parentFieldSelector} ${dummyEls.powerDatepickerInput}`
+    );
+    const rawDateTimeElement = find(
+      `${parentFieldSelector} ${dummyEls.rawDateTime}`
+    );
     await clickTrigger(`${parentFieldSelector} ${dummyEls.startDateField}`);
-    assert.dom(dummyEls.powerDatepickerAmPmInput).doesNotExist('AM/PM input not shown when HH passed as the hour input format.');
-
+    assert
+      .dom(dummyEls.powerDatepickerAmPmInput)
+      .doesNotExist(
+        'AM/PM input not shown when HH passed as the hour input format.'
+      );
     const timeSelectorHourInput = find(dummyEls.timeSelectorFieldInputHour);
-    const timeSelectorMinutesInput = find(dummyEls.timeSelectorFieldInputMinutes);
-    const timeSelectorSecondsInput = find(dummyEls.timeSelectorFieldInputSeconds);
-    const timeSelectorMillisecondsInput = find(dummyEls.timeSelectorFieldInputMilliseconds);
-
-    await check(assert, {
-      parentFieldSelector: parentFieldSelector,
-      inputToUpdate: {
-        element: dateTimeInput,
-        description: 'Datetime',
-      },
-      fillIn: '2022-11-03 16:42:19.234',
-      expectedInputValuesAfterKeyUp: [
-        {
-          textElement: rawDateTimeElement,
-          description: 'Native JS date format',
-          value: 'Thu Nov 03 2022 16:42:19 GMT+0200 (South Africa Standard Time)',
-        },
-        {
-          input: dateTimeInput,
+    const timeSelectorMinutesInput = find(
+      dummyEls.timeSelectorFieldInputMinutes
+    );
+    const timeSelectorSecondsInput = find(
+      dummyEls.timeSelectorFieldInputSeconds
+    );
+    const timeSelectorMillisecondsInput = find(
+      dummyEls.timeSelectorFieldInputMilliseconds
+    );
+    await check(
+      assert,
+      {
+        parentFieldSelector: parentFieldSelector,
+        inputToUpdate: {
+          element: dateTimeInput,
           description: 'Datetime',
-          value: '2022-11-03 16:42:19.234',
         },
-        {
-          input: timeSelectorHourInput,
-          description: 'Hours',
-          value: '16',
-        },
-      ],
-    });
-
+        fillIn: '2022-11-03 16:42:19.234',
+        expectedInputValuesAfterKeyUp: [
+          {
+            textElement: rawDateTimeElement,
+            description: 'Native JS date format',
+            value:
+              'Thu Nov 03 2022 16:42:19 GMT+0200 (South Africa Standard Time)',
+          },
+          {
+            input: dateTimeInput,
+            description: 'Datetime',
+            value: '2022-11-03 16:42:19.234',
+          },
+          {
+            input: timeSelectorHourInput,
+            description: 'Hours',
+            value: '16',
+          },
+        ],
+      },
+      this
+    );
     await check(assert, {
       parentFieldSelector: parentFieldSelector,
       inputToUpdate: {
@@ -207,7 +282,8 @@ module('Acceptance | Power datepicker field', function (hooks) {
         {
           textElement: rawDateTimeElement,
           description: 'Native JS date format',
-          value: 'Thu Nov 03 2022 16:51:19 GMT+0200 (South Africa Standard Time)',
+          value:
+            'Thu Nov 03 2022 16:51:19 GMT+0200 (South Africa Standard Time)',
         },
         {
           input: dateTimeInput,
@@ -233,7 +309,8 @@ module('Acceptance | Power datepicker field', function (hooks) {
         {
           textElement: rawDateTimeElement,
           description: 'Native JS date format',
-          value: 'Thu Nov 03 2022 16:51:19 GMT+0200 (South Africa Standard Time)',
+          value:
+            'Thu Nov 03 2022 16:51:19 GMT+0200 (South Africa Standard Time)',
         },
         {
           input: dateTimeInput,
@@ -259,7 +336,8 @@ module('Acceptance | Power datepicker field', function (hooks) {
         {
           textElement: rawDateTimeElement,
           description: 'Native JS date format',
-          value: 'Thu Nov 03 2022 16:51:19 GMT+0200 (South Africa Standard Time)',
+          value:
+            'Thu Nov 03 2022 16:51:19 GMT+0200 (South Africa Standard Time)',
         },
         {
           input: dateTimeInput,
@@ -285,7 +363,8 @@ module('Acceptance | Power datepicker field', function (hooks) {
         {
           textElement: rawDateTimeElement,
           description: 'Native JS date format',
-          value: 'Thu Nov 03 2022 16:51:57 GMT+0200 (South Africa Standard Time)',
+          value:
+            'Thu Nov 03 2022 16:51:57 GMT+0200 (South Africa Standard Time)',
         },
         {
           input: dateTimeInput,
@@ -311,7 +390,8 @@ module('Acceptance | Power datepicker field', function (hooks) {
         {
           textElement: rawDateTimeElement,
           description: 'Native JS date format',
-          value: 'Thu Nov 03 2022 16:51:57 GMT+0200 (South Africa Standard Time)',
+          value:
+            'Thu Nov 03 2022 16:51:57 GMT+0200 (South Africa Standard Time)',
         },
         {
           input: dateTimeInput,
@@ -337,7 +417,8 @@ module('Acceptance | Power datepicker field', function (hooks) {
         {
           textElement: rawDateTimeElement,
           description: 'Native JS date format',
-          value: 'Thu Nov 03 2022 16:51:57 GMT+0200 (South Africa Standard Time)',
+          value:
+            'Thu Nov 03 2022 16:51:57 GMT+0200 (South Africa Standard Time)',
         },
         {
           input: dateTimeInput,
@@ -363,7 +444,8 @@ module('Acceptance | Power datepicker field', function (hooks) {
         {
           textElement: rawDateTimeElement,
           description: 'Native JS date format',
-          value: 'Thu Nov 03 2022 16:51:57 GMT+0200 (South Africa Standard Time)',
+          value:
+            'Thu Nov 03 2022 16:51:57 GMT+0200 (South Africa Standard Time)',
         },
         {
           input: dateTimeInput,
@@ -389,7 +471,8 @@ module('Acceptance | Power datepicker field', function (hooks) {
         {
           textElement: rawDateTimeElement,
           description: 'Native JS date format',
-          value: 'Thu Nov 03 2022 16:51:57 GMT+0200 (South Africa Standard Time)',
+          value:
+            'Thu Nov 03 2022 16:51:57 GMT+0200 (South Africa Standard Time)',
         },
         {
           input: dateTimeInput,
@@ -415,7 +498,8 @@ module('Acceptance | Power datepicker field', function (hooks) {
         {
           textElement: rawDateTimeElement,
           description: 'Native JS date format',
-          value: 'Thu Nov 03 2022 16:51:57 GMT+0200 (South Africa Standard Time)',
+          value:
+            'Thu Nov 03 2022 16:51:57 GMT+0200 (South Africa Standard Time)',
         },
         {
           input: dateTimeInput,
@@ -441,7 +525,8 @@ module('Acceptance | Power datepicker field', function (hooks) {
         {
           textElement: rawDateTimeElement,
           description: 'Native JS date format',
-          value: 'Sat Dec 03 2022 16:51:19 GMT+0200 (South Africa Standard Time)',
+          value:
+            'Sat Dec 03 2022 16:51:19 GMT+0200 (South Africa Standard Time)',
         },
         {
           input: dateTimeInput,
@@ -462,7 +547,8 @@ module('Acceptance | Power datepicker field', function (hooks) {
         {
           textElement: rawDateTimeElement,
           description: 'Native JS date format',
-          value: 'Sat Dec 31 2022 16:51:19 GMT+0200 (South Africa Standard Time)',
+          value:
+            'Sat Dec 31 2022 16:51:19 GMT+0200 (South Africa Standard Time)',
         },
         {
           input: dateTimeInput,
@@ -483,7 +569,8 @@ module('Acceptance | Power datepicker field', function (hooks) {
         {
           textElement: rawDateTimeElement,
           description: 'Native JS date format',
-          value: 'Sun Dec 31 2028 16:51:19 GMT+0200 (South Africa Standard Time)',
+          value:
+            'Sun Dec 31 2028 16:51:19 GMT+0200 (South Africa Standard Time)',
         },
         {
           input: dateTimeInput,
@@ -504,7 +591,8 @@ module('Acceptance | Power datepicker field', function (hooks) {
         {
           textElement: rawDateTimeElement,
           description: 'Native JS date format',
-          value: 'Sun Dec 31 2028 16:51:19 GMT+0200 (South Africa Standard Time)',
+          value:
+            'Sun Dec 31 2028 16:51:19 GMT+0200 (South Africa Standard Time)',
         },
         {
           input: dateTimeInput,
@@ -518,14 +606,24 @@ module('Acceptance | Power datepicker field', function (hooks) {
   test('Main input (12 hour format)', async function (assert) {
     await visit('/docs/built-in-fields');
     const parentFieldSelector = dummyEls.powerDatepicker12HourTimeSelect;
-    const dateTimeInput = find(`${parentFieldSelector} ${dummyEls.powerDatepickerInput}`);
-    const rawDateTimeElement = find(`${parentFieldSelector} ${dummyEls.rawDateTime}`);
+    const dateTimeInput = find(
+      `${parentFieldSelector} ${dummyEls.powerDatepickerInput}`
+    );
+    const rawDateTimeElement = find(
+      `${parentFieldSelector} ${dummyEls.rawDateTime}`
+    );
     await clickTrigger(`${parentFieldSelector} ${dummyEls.startDateField}`);
-    assert.dom(dummyEls.powerDatepickerAmPmInput).exists('AM/PM input shown when h passed as the hour input format.');
+    assert
+      .dom(dummyEls.powerDatepickerAmPmInput)
+      .exists('AM/PM input shown when h passed as the hour input format.');
 
     const timeSelectorHourInput = find(dummyEls.timeSelectorFieldInputHour);
-    const timeSelectorMinutesInput = find(dummyEls.timeSelectorFieldInputMinutes);
-    const timeSelectorSecondsInput = find(dummyEls.timeSelectorFieldInputSeconds);
+    const timeSelectorMinutesInput = find(
+      dummyEls.timeSelectorFieldInputMinutes
+    );
+    const timeSelectorSecondsInput = find(
+      dummyEls.timeSelectorFieldInputSeconds
+    );
     const timeSelectorAmPmInput = find(dummyEls.powerDatepickerAmPmInput);
 
     await check(assert, {
@@ -539,7 +637,8 @@ module('Acceptance | Power datepicker field', function (hooks) {
         {
           textElement: rawDateTimeElement,
           description: 'Native JS date format',
-          value: 'Thu Nov 03 2022 16:42:19 GMT+0200 (South Africa Standard Time)',
+          value:
+            'Thu Nov 03 2022 16:42:19 GMT+0200 (South Africa Standard Time)',
         },
         {
           input: dateTimeInput,
@@ -565,7 +664,8 @@ module('Acceptance | Power datepicker field', function (hooks) {
         {
           textElement: rawDateTimeElement,
           description: 'Native JS date format',
-          value: 'Thu Nov 03 2022 14:51:19 GMT+0200 (South Africa Standard Time)',
+          value:
+            'Thu Nov 03 2022 14:51:19 GMT+0200 (South Africa Standard Time)',
         },
         {
           input: dateTimeInput,
@@ -591,7 +691,8 @@ module('Acceptance | Power datepicker field', function (hooks) {
         {
           textElement: rawDateTimeElement,
           description: 'Native JS date format',
-          value: 'Thu Nov 03 2022 14:51:19 GMT+0200 (South Africa Standard Time)',
+          value:
+            'Thu Nov 03 2022 14:51:19 GMT+0200 (South Africa Standard Time)',
         },
         {
           input: dateTimeInput,
@@ -617,7 +718,8 @@ module('Acceptance | Power datepicker field', function (hooks) {
         {
           textElement: rawDateTimeElement,
           description: 'Native JS date format',
-          value: 'Thu Nov 03 2022 14:51:19 GMT+0200 (South Africa Standard Time)',
+          value:
+            'Thu Nov 03 2022 14:51:19 GMT+0200 (South Africa Standard Time)',
         },
         {
           input: dateTimeInput,
@@ -643,7 +745,8 @@ module('Acceptance | Power datepicker field', function (hooks) {
         {
           textElement: rawDateTimeElement,
           description: 'Native JS date format',
-          value: 'Thu Nov 03 2022 14:51:57 GMT+0200 (South Africa Standard Time)',
+          value:
+            'Thu Nov 03 2022 14:51:57 GMT+0200 (South Africa Standard Time)',
         },
         {
           input: dateTimeInput,
@@ -669,7 +772,8 @@ module('Acceptance | Power datepicker field', function (hooks) {
         {
           textElement: rawDateTimeElement,
           description: 'Native JS date format',
-          value: 'Thu Nov 03 2022 14:51:57 GMT+0200 (South Africa Standard Time)',
+          value:
+            'Thu Nov 03 2022 14:51:57 GMT+0200 (South Africa Standard Time)',
         },
         {
           input: dateTimeInput,
@@ -695,7 +799,8 @@ module('Acceptance | Power datepicker field', function (hooks) {
         {
           textElement: rawDateTimeElement,
           description: 'Native JS date format',
-          value: 'Thu Nov 03 2022 14:51:57 GMT+0200 (South Africa Standard Time)',
+          value:
+            'Thu Nov 03 2022 14:51:57 GMT+0200 (South Africa Standard Time)',
         },
         {
           input: dateTimeInput,
@@ -721,7 +826,8 @@ module('Acceptance | Power datepicker field', function (hooks) {
         {
           textElement: rawDateTimeElement,
           description: 'Native JS date format',
-          value: 'Thu Nov 03 2022 02:51:57 GMT+0200 (South Africa Standard Time)',
+          value:
+            'Thu Nov 03 2022 02:51:57 GMT+0200 (South Africa Standard Time)',
         },
         {
           input: dateTimeInput,
@@ -747,7 +853,8 @@ module('Acceptance | Power datepicker field', function (hooks) {
         {
           textElement: rawDateTimeElement,
           description: 'Native JS date format',
-          value: 'Thu Nov 03 2022 02:51:57 GMT+0200 (South Africa Standard Time)',
+          value:
+            'Thu Nov 03 2022 02:51:57 GMT+0200 (South Africa Standard Time)',
         },
         {
           input: dateTimeInput,
@@ -773,7 +880,8 @@ module('Acceptance | Power datepicker field', function (hooks) {
         {
           textElement: rawDateTimeElement,
           description: 'Native JS date format',
-          value: 'Thu Nov 03 2022 02:51:57 GMT+0200 (South Africa Standard Time)',
+          value:
+            'Thu Nov 03 2022 02:51:57 GMT+0200 (South Africa Standard Time)',
         },
         {
           input: dateTimeInput,
@@ -799,7 +907,8 @@ module('Acceptance | Power datepicker field', function (hooks) {
         {
           textElement: rawDateTimeElement,
           description: 'Native JS date format',
-          value: 'Sat Dec 03 2022 14:51:19 GMT+0200 (South Africa Standard Time)',
+          value:
+            'Sat Dec 03 2022 14:51:19 GMT+0200 (South Africa Standard Time)',
         },
         {
           input: dateTimeInput,
@@ -820,7 +929,8 @@ module('Acceptance | Power datepicker field', function (hooks) {
         {
           textElement: rawDateTimeElement,
           description: 'Native JS date format',
-          value: 'Sat Dec 31 2022 14:51:19 GMT+0200 (South Africa Standard Time)',
+          value:
+            'Sat Dec 31 2022 14:51:19 GMT+0200 (South Africa Standard Time)',
         },
         {
           input: dateTimeInput,
@@ -841,7 +951,8 @@ module('Acceptance | Power datepicker field', function (hooks) {
         {
           textElement: rawDateTimeElement,
           description: 'Native JS date format',
-          value: 'Sun Dec 31 2028 14:51:19 GMT+0200 (South Africa Standard Time)',
+          value:
+            'Sun Dec 31 2028 14:51:19 GMT+0200 (South Africa Standard Time)',
         },
         {
           input: dateTimeInput,
@@ -862,7 +973,8 @@ module('Acceptance | Power datepicker field', function (hooks) {
         {
           textElement: rawDateTimeElement,
           description: 'Native JS date format',
-          value: 'Sun Dec 31 2028 14:51:19 GMT+0200 (South Africa Standard Time)',
+          value:
+            'Sun Dec 31 2028 14:51:19 GMT+0200 (South Africa Standard Time)',
         },
         {
           input: dateTimeInput,
@@ -876,8 +988,12 @@ module('Acceptance | Power datepicker field', function (hooks) {
   test('Arrow keys - hour controls (24 hours format)', async function (assert) {
     await visit('/docs/built-in-fields');
     const parentFieldSelector = dummyEls.powerDatepicker24HourTimeSelect;
-    const dateTimeInput = find(`${parentFieldSelector} ${dummyEls.powerDatepickerInput}`);
-    const rawDateTimeElement = find(`${parentFieldSelector} ${dummyEls.rawDateTime}`);
+    const dateTimeInput = find(
+      `${parentFieldSelector} ${dummyEls.powerDatepickerInput}`
+    );
+    const rawDateTimeElement = find(
+      `${parentFieldSelector} ${dummyEls.rawDateTime}`
+    );
     await clickTrigger(`${parentFieldSelector} ${dummyEls.startDateField}`);
     const timeSelectorHourInput = find(dummyEls.timeSelectorFieldInputHour);
 
@@ -911,8 +1027,12 @@ module('Acceptance | Power datepicker field', function (hooks) {
   test('Arrow keys - hour controls (12 hour format)', async function (assert) {
     await visit('/docs/built-in-fields');
     const parentFieldSelector = dummyEls.powerDatepicker12HourTimeSelect;
-    const dateTimeInput = find(`${parentFieldSelector} ${dummyEls.powerDatepickerInput}`);
-    const rawDateTimeElement = find(`${parentFieldSelector} ${dummyEls.rawDateTime}`);
+    const dateTimeInput = find(
+      `${parentFieldSelector} ${dummyEls.powerDatepickerInput}`
+    );
+    const rawDateTimeElement = find(
+      `${parentFieldSelector} ${dummyEls.rawDateTime}`
+    );
     await clickTrigger(`${parentFieldSelector} ${dummyEls.startDateField}`);
     const timeSelectorHourInput = find(dummyEls.timeSelectorFieldInputHour);
 
@@ -955,7 +1075,8 @@ module('Acceptance | Power datepicker field', function (hooks) {
         {
           textElement: rawDateTimeElement,
           description: 'Native JS date format',
-          value: 'Thu Nov 03 2022 14:42:19 GMT+0200 (South Africa Standard Time)',
+          value:
+            'Thu Nov 03 2022 14:42:19 GMT+0200 (South Africa Standard Time)',
         },
         {
           input: timeSelectorHourInput,
@@ -969,10 +1090,16 @@ module('Acceptance | Power datepicker field', function (hooks) {
   test('Arrow keys - minute controls', async function (assert) {
     await visit('/docs/built-in-fields');
     const parentFieldSelector = dummyEls.powerDatepicker24HourTimeSelect;
-    const dateTimeInput = find(`${parentFieldSelector} ${dummyEls.powerDatepickerInput}`);
-    const rawDateTimeElement = find(`${parentFieldSelector} ${dummyEls.rawDateTime}`);
+    const dateTimeInput = find(
+      `${parentFieldSelector} ${dummyEls.powerDatepickerInput}`
+    );
+    const rawDateTimeElement = find(
+      `${parentFieldSelector} ${dummyEls.rawDateTime}`
+    );
     await clickTrigger(`${parentFieldSelector} ${dummyEls.startDateField}`);
-    const timeSelectorMinuteInput = find(dummyEls.timeSelectorFieldInputMinutes);
+    const timeSelectorMinuteInput = find(
+      dummyEls.timeSelectorFieldInputMinutes
+    );
 
     await checkIncrements(assert, {
       iterations: 12,
@@ -1006,10 +1133,16 @@ module('Acceptance | Power datepicker field', function (hooks) {
   test('Arrow keys - second controls', async function (assert) {
     await visit('/docs/built-in-fields');
     const parentFieldSelector = dummyEls.powerDatepicker24HourTimeSelect;
-    const dateTimeInput = find(`${parentFieldSelector} ${dummyEls.powerDatepickerInput}`);
-    const rawDateTimeElement = find(`${parentFieldSelector} ${dummyEls.rawDateTime}`);
+    const dateTimeInput = find(
+      `${parentFieldSelector} ${dummyEls.powerDatepickerInput}`
+    );
+    const rawDateTimeElement = find(
+      `${parentFieldSelector} ${dummyEls.rawDateTime}`
+    );
     await clickTrigger(`${parentFieldSelector} ${dummyEls.startDateField}`);
-    const timeSelectorSecondsInput = find(dummyEls.timeSelectorFieldInputSeconds);
+    const timeSelectorSecondsInput = find(
+      dummyEls.timeSelectorFieldInputSeconds
+    );
 
     await checkIncrements(assert, {
       iterations: 12,
@@ -1043,10 +1176,16 @@ module('Acceptance | Power datepicker field', function (hooks) {
   test('Arrow keys - millisecond controls', async function (assert) {
     await visit('/docs/built-in-fields');
     const parentFieldSelector = dummyEls.powerDatepicker24HourTimeSelect;
-    const dateTimeInput = find(`${parentFieldSelector} ${dummyEls.powerDatepickerInput}`);
-    const rawDateTimeElement = find(`${parentFieldSelector} ${dummyEls.rawDateTime}`);
+    const dateTimeInput = find(
+      `${parentFieldSelector} ${dummyEls.powerDatepickerInput}`
+    );
+    const rawDateTimeElement = find(
+      `${parentFieldSelector} ${dummyEls.rawDateTime}`
+    );
     await clickTrigger(`${parentFieldSelector} ${dummyEls.startDateField}`);
-    const timeSelectorMillisecondsInput = find(dummyEls.timeSelectorFieldInputMilliseconds);
+    const timeSelectorMillisecondsInput = find(
+      dummyEls.timeSelectorFieldInputMilliseconds
+    );
 
     await checkIncrements(assert, {
       iterations: 12,
@@ -1102,8 +1241,12 @@ module('Acceptance | Power datepicker field', function (hooks) {
   test('Typed input - hour controls (12 hour clock)', async function (assert) {
     await visit('/docs/built-in-fields');
     const parentFieldSelector = dummyEls.powerDatepicker12HourTimeSelect;
-    const dateTimeInput = find(`${parentFieldSelector} ${dummyEls.powerDatepickerInput}`);
-    const rawDateTimeElement = find(`${parentFieldSelector} ${dummyEls.rawDateTime}`);
+    const dateTimeInput = find(
+      `${parentFieldSelector} ${dummyEls.powerDatepickerInput}`
+    );
+    const rawDateTimeElement = find(
+      `${parentFieldSelector} ${dummyEls.rawDateTime}`
+    );
     await clickTrigger(`${parentFieldSelector} ${dummyEls.startDateField}`);
     const timeSelectorHourInput = find(dummyEls.timeSelectorFieldInputHour);
 
@@ -1118,7 +1261,8 @@ module('Acceptance | Power datepicker field', function (hooks) {
         {
           textElement: rawDateTimeElement,
           description: 'Native JS date format',
-          value: 'Thu Nov 03 2022 12:42:19 GMT+0200 (South Africa Standard Time)',
+          value:
+            'Thu Nov 03 2022 12:42:19 GMT+0200 (South Africa Standard Time)',
         },
         {
           input: dateTimeInput,
@@ -1144,7 +1288,8 @@ module('Acceptance | Power datepicker field', function (hooks) {
         {
           textElement: rawDateTimeElement,
           description: 'Native JS date format',
-          value: 'Thu Nov 03 2022 13:42:19 GMT+0200 (South Africa Standard Time)',
+          value:
+            'Thu Nov 03 2022 13:42:19 GMT+0200 (South Africa Standard Time)',
         },
         {
           input: dateTimeInput,
@@ -1170,7 +1315,8 @@ module('Acceptance | Power datepicker field', function (hooks) {
         {
           textElement: rawDateTimeElement,
           description: 'Native JS date format',
-          value: 'Thu Nov 03 2022 20:42:19 GMT+0200 (South Africa Standard Time)',
+          value:
+            'Thu Nov 03 2022 20:42:19 GMT+0200 (South Africa Standard Time)',
         },
         {
           input: dateTimeInput,
@@ -1189,8 +1335,12 @@ module('Acceptance | Power datepicker field', function (hooks) {
   test('Typed input - hour controls (24 hour clock)', async function (assert) {
     await visit('/docs/built-in-fields');
     const parentFieldSelector = dummyEls.powerDatepicker24HourTimeSelect;
-    const dateTimeInput = find(`${parentFieldSelector} ${dummyEls.powerDatepickerInput}`);
-    const rawDateTimeElement = find(`${parentFieldSelector} ${dummyEls.rawDateTime}`);
+    const dateTimeInput = find(
+      `${parentFieldSelector} ${dummyEls.powerDatepickerInput}`
+    );
+    const rawDateTimeElement = find(
+      `${parentFieldSelector} ${dummyEls.rawDateTime}`
+    );
     await clickTrigger(`${parentFieldSelector} ${dummyEls.startDateField}`);
     const timeSelectorHourInput = find(dummyEls.timeSelectorFieldInputHour);
 
@@ -1205,7 +1355,8 @@ module('Acceptance | Power datepicker field', function (hooks) {
         {
           textElement: rawDateTimeElement,
           description: 'Native JS date format',
-          value: 'Thu Nov 03 2022 23:42:19 GMT+0200 (South Africa Standard Time)',
+          value:
+            'Thu Nov 03 2022 23:42:19 GMT+0200 (South Africa Standard Time)',
         },
         {
           input: dateTimeInput,
@@ -1231,7 +1382,8 @@ module('Acceptance | Power datepicker field', function (hooks) {
         {
           textElement: rawDateTimeElement,
           description: 'Native JS date format',
-          value: 'Thu Nov 03 2022 00:42:19 GMT+0200 (South Africa Standard Time)',
+          value:
+            'Thu Nov 03 2022 00:42:19 GMT+0200 (South Africa Standard Time)',
         },
         {
           input: dateTimeInput,
@@ -1257,7 +1409,8 @@ module('Acceptance | Power datepicker field', function (hooks) {
         {
           textElement: rawDateTimeElement,
           description: 'Native JS date format',
-          value: 'Thu Nov 03 2022 21:42:19 GMT+0200 (South Africa Standard Time)',
+          value:
+            'Thu Nov 03 2022 21:42:19 GMT+0200 (South Africa Standard Time)',
         },
         {
           input: dateTimeInput,
@@ -1283,7 +1436,8 @@ module('Acceptance | Power datepicker field', function (hooks) {
         {
           textElement: rawDateTimeElement,
           description: 'Native JS date format',
-          value: 'Thu Nov 03 2022 08:42:19 GMT+0200 (South Africa Standard Time)',
+          value:
+            'Thu Nov 03 2022 08:42:19 GMT+0200 (South Africa Standard Time)',
         },
         {
           input: dateTimeInput,
@@ -1302,10 +1456,16 @@ module('Acceptance | Power datepicker field', function (hooks) {
   test('Typed input - minute controls', async function (assert) {
     await visit('/docs/built-in-fields');
     const parentFieldSelector = dummyEls.powerDatepicker24HourTimeSelect;
-    const dateTimeInput = find(`${parentFieldSelector} ${dummyEls.powerDatepickerInput}`);
-    const rawDateTimeElement = find(`${parentFieldSelector} ${dummyEls.rawDateTime}`);
+    const dateTimeInput = find(
+      `${parentFieldSelector} ${dummyEls.powerDatepickerInput}`
+    );
+    const rawDateTimeElement = find(
+      `${parentFieldSelector} ${dummyEls.rawDateTime}`
+    );
     await clickTrigger(`${parentFieldSelector} ${dummyEls.startDateField}`);
-    const timeSelectorMinutesInput = find(dummyEls.timeSelectorFieldInputMinutes);
+    const timeSelectorMinutesInput = find(
+      dummyEls.timeSelectorFieldInputMinutes
+    );
 
     await check(assert, {
       parentFieldSelector: parentFieldSelector,
@@ -1318,7 +1478,8 @@ module('Acceptance | Power datepicker field', function (hooks) {
         {
           textElement: rawDateTimeElement,
           description: 'Native JS date format',
-          value: 'Thu Nov 03 2022 14:59:19 GMT+0200 (South Africa Standard Time)',
+          value:
+            'Thu Nov 03 2022 14:59:19 GMT+0200 (South Africa Standard Time)',
         },
         {
           input: dateTimeInput,
@@ -1344,7 +1505,8 @@ module('Acceptance | Power datepicker field', function (hooks) {
         {
           textElement: rawDateTimeElement,
           description: 'Native JS date format',
-          value: 'Thu Nov 03 2022 14:00:19 GMT+0200 (South Africa Standard Time)',
+          value:
+            'Thu Nov 03 2022 14:00:19 GMT+0200 (South Africa Standard Time)',
         },
         {
           input: dateTimeInput,
@@ -1370,7 +1532,8 @@ module('Acceptance | Power datepicker field', function (hooks) {
         {
           textElement: rawDateTimeElement,
           description: 'Native JS date format',
-          value: 'Thu Nov 03 2022 14:34:19 GMT+0200 (South Africa Standard Time)',
+          value:
+            'Thu Nov 03 2022 14:34:19 GMT+0200 (South Africa Standard Time)',
         },
         {
           input: dateTimeInput,
@@ -1389,10 +1552,16 @@ module('Acceptance | Power datepicker field', function (hooks) {
   test('Typed input - second controls', async function (assert) {
     await visit('/docs/built-in-fields');
     const parentFieldSelector = dummyEls.powerDatepicker24HourTimeSelect;
-    const dateTimeInput = find(`${parentFieldSelector} ${dummyEls.powerDatepickerInput}`);
-    const rawDateTimeElement = find(`${parentFieldSelector} ${dummyEls.rawDateTime}`);
+    const dateTimeInput = find(
+      `${parentFieldSelector} ${dummyEls.powerDatepickerInput}`
+    );
+    const rawDateTimeElement = find(
+      `${parentFieldSelector} ${dummyEls.rawDateTime}`
+    );
     await clickTrigger(`${parentFieldSelector} ${dummyEls.startDateField}`);
-    const timeSelectorSecondsInput = find(dummyEls.timeSelectorFieldInputSeconds);
+    const timeSelectorSecondsInput = find(
+      dummyEls.timeSelectorFieldInputSeconds
+    );
 
     await check(assert, {
       parentFieldSelector: parentFieldSelector,
@@ -1405,7 +1574,8 @@ module('Acceptance | Power datepicker field', function (hooks) {
         {
           textElement: rawDateTimeElement,
           description: 'Native JS date format',
-          value: 'Thu Nov 03 2022 14:42:59 GMT+0200 (South Africa Standard Time)',
+          value:
+            'Thu Nov 03 2022 14:42:59 GMT+0200 (South Africa Standard Time)',
         },
         {
           input: dateTimeInput,
@@ -1431,7 +1601,8 @@ module('Acceptance | Power datepicker field', function (hooks) {
         {
           textElement: rawDateTimeElement,
           description: 'Native JS date format',
-          value: 'Thu Nov 03 2022 14:42:00 GMT+0200 (South Africa Standard Time)',
+          value:
+            'Thu Nov 03 2022 14:42:00 GMT+0200 (South Africa Standard Time)',
         },
         {
           input: dateTimeInput,
@@ -1457,7 +1628,8 @@ module('Acceptance | Power datepicker field', function (hooks) {
         {
           textElement: rawDateTimeElement,
           description: 'Native JS date format',
-          value: 'Thu Nov 03 2022 14:42:34 GMT+0200 (South Africa Standard Time)',
+          value:
+            'Thu Nov 03 2022 14:42:34 GMT+0200 (South Africa Standard Time)',
         },
         {
           input: dateTimeInput,
@@ -1476,10 +1648,16 @@ module('Acceptance | Power datepicker field', function (hooks) {
   test('Typed input - millisecond controls', async function (assert) {
     await visit('/docs/built-in-fields');
     const parentFieldSelector = dummyEls.powerDatepicker24HourTimeSelect;
-    const dateTimeInput = find(`${parentFieldSelector} ${dummyEls.powerDatepickerInput}`);
-    const rawDateTimeElement = find(`${parentFieldSelector} ${dummyEls.rawDateTime}`);
+    const dateTimeInput = find(
+      `${parentFieldSelector} ${dummyEls.powerDatepickerInput}`
+    );
+    const rawDateTimeElement = find(
+      `${parentFieldSelector} ${dummyEls.rawDateTime}`
+    );
     await clickTrigger(`${parentFieldSelector} ${dummyEls.startDateField}`);
-    const timeSelectorMillisecondsInput = find(dummyEls.timeSelectorFieldInputMilliseconds);
+    const timeSelectorMillisecondsInput = find(
+      dummyEls.timeSelectorFieldInputMilliseconds
+    );
 
     await check(assert, {
       parentFieldSelector: parentFieldSelector,
@@ -1492,7 +1670,8 @@ module('Acceptance | Power datepicker field', function (hooks) {
         {
           textElement: rawDateTimeElement,
           description: 'Native JS date format',
-          value: 'Thu Nov 03 2022 14:42:19 GMT+0200 (South Africa Standard Time)',
+          value:
+            'Thu Nov 03 2022 14:42:19 GMT+0200 (South Africa Standard Time)',
         },
         {
           input: dateTimeInput,
@@ -1518,7 +1697,8 @@ module('Acceptance | Power datepicker field', function (hooks) {
         {
           textElement: rawDateTimeElement,
           description: 'Native JS date format',
-          value: 'Thu Nov 03 2022 14:42:19 GMT+0200 (South Africa Standard Time)',
+          value:
+            'Thu Nov 03 2022 14:42:19 GMT+0200 (South Africa Standard Time)',
         },
         {
           input: dateTimeInput,
@@ -1544,7 +1724,8 @@ module('Acceptance | Power datepicker field', function (hooks) {
         {
           textElement: rawDateTimeElement,
           description: 'Native JS date format',
-          value: 'Thu Nov 03 2022 14:42:19 GMT+0200 (South Africa Standard Time)',
+          value:
+            'Thu Nov 03 2022 14:42:19 GMT+0200 (South Africa Standard Time)',
         },
         {
           input: dateTimeInput,
@@ -1563,15 +1744,22 @@ module('Acceptance | Power datepicker field', function (hooks) {
   test('AM PM controls', async function (assert) {
     await visit('/docs/built-in-fields');
     const parentFieldSelector = dummyEls.powerDatepicker12HourTimeSelect;
-    const dateTimeInput = find(`${parentFieldSelector} ${dummyEls.powerDatepickerInput}`);
-    const rawDateTimeElement = find(`${parentFieldSelector} ${dummyEls.rawDateTime}`);
+    const dateTimeInput = find(
+      `${parentFieldSelector} ${dummyEls.powerDatepickerInput}`
+    );
+    const rawDateTimeElement = find(
+      `${parentFieldSelector} ${dummyEls.rawDateTime}`
+    );
     await clickTrigger(`${parentFieldSelector} ${dummyEls.startDateField}`);
     await focus(dateTimeInput);
-    const amPmInput = find(`${parentFieldSelector} ${dummyEls.powerDatepickerAmPmInput}`);
+    const amPmInput = find(
+      `${parentFieldSelector} ${dummyEls.powerDatepickerAmPmInput}`
+    );
     assert.equal(amPmInput.value, 'pm', 'AM/PM input begins with value "pm".');
 
     await check(assert, {
-      expectedRawDateTimeAfterBlur: 'Thu Nov 03 2022 14:42:19 GMT+0200 (South Africa Standard Time)',
+      expectedRawDateTimeAfterBlur:
+        'Thu Nov 03 2022 14:42:19 GMT+0200 (South Africa Standard Time)',
       parentFieldSelector: parentFieldSelector,
       inputToUpdate: {
         element: amPmInput,
@@ -1602,7 +1790,8 @@ module('Acceptance | Power datepicker field', function (hooks) {
         {
           textElement: rawDateTimeElement,
           description: 'Native JS date format',
-          value: 'Thu Nov 03 2022 02:42:19 GMT+0200 (South Africa Standard Time)',
+          value:
+            'Thu Nov 03 2022 02:42:19 GMT+0200 (South Africa Standard Time)',
         },
         {
           input: dateTimeInput,
@@ -1628,7 +1817,8 @@ module('Acceptance | Power datepicker field', function (hooks) {
         {
           textElement: rawDateTimeElement,
           description: 'Native JS date format',
-          value: 'Thu Nov 03 2022 14:42:19 GMT+0200 (South Africa Standard Time)',
+          value:
+            'Thu Nov 03 2022 14:42:19 GMT+0200 (South Africa Standard Time)',
         },
         {
           input: dateTimeInput,
@@ -1654,7 +1844,8 @@ module('Acceptance | Power datepicker field', function (hooks) {
         {
           textElement: rawDateTimeElement,
           description: 'Native JS date format',
-          value: 'Thu Nov 03 2022 02:42:19 GMT+0200 (South Africa Standard Time)',
+          value:
+            'Thu Nov 03 2022 02:42:19 GMT+0200 (South Africa Standard Time)',
         },
         {
           input: dateTimeInput,
@@ -1680,7 +1871,8 @@ module('Acceptance | Power datepicker field', function (hooks) {
         {
           textElement: rawDateTimeElement,
           description: 'Native JS date format',
-          value: 'Thu Nov 03 2022 14:42:19 GMT+0200 (South Africa Standard Time)',
+          value:
+            'Thu Nov 03 2022 14:42:19 GMT+0200 (South Africa Standard Time)',
         },
         {
           input: dateTimeInput,
@@ -1706,7 +1898,8 @@ module('Acceptance | Power datepicker field', function (hooks) {
         {
           textElement: rawDateTimeElement,
           description: 'Native JS date format',
-          value: 'Thu Nov 03 2022 14:42:19 GMT+0200 (South Africa Standard Time)',
+          value:
+            'Thu Nov 03 2022 14:42:19 GMT+0200 (South Africa Standard Time)',
         },
         {
           input: dateTimeInput,
@@ -1732,7 +1925,8 @@ module('Acceptance | Power datepicker field', function (hooks) {
         {
           textElement: rawDateTimeElement,
           description: 'Native JS date format',
-          value: 'Thu Nov 03 2022 02:42:19 GMT+0200 (South Africa Standard Time)',
+          value:
+            'Thu Nov 03 2022 02:42:19 GMT+0200 (South Africa Standard Time)',
         },
         {
           input: dateTimeInput,
@@ -1758,7 +1952,8 @@ module('Acceptance | Power datepicker field', function (hooks) {
         {
           textElement: rawDateTimeElement,
           description: 'Native JS date format',
-          value: 'Thu Nov 03 2022 14:42:19 GMT+0200 (South Africa Standard Time)',
+          value:
+            'Thu Nov 03 2022 14:42:19 GMT+0200 (South Africa Standard Time)',
         },
         {
           input: dateTimeInput,
@@ -1784,7 +1979,8 @@ module('Acceptance | Power datepicker field', function (hooks) {
         {
           textElement: rawDateTimeElement,
           description: 'Native JS date format',
-          value: 'Thu Nov 03 2022 14:42:19 GMT+0200 (South Africa Standard Time)',
+          value:
+            'Thu Nov 03 2022 14:42:19 GMT+0200 (South Africa Standard Time)',
         },
         {
           input: dateTimeInput,
@@ -1810,7 +2006,8 @@ module('Acceptance | Power datepicker field', function (hooks) {
         {
           textElement: rawDateTimeElement,
           description: 'Native JS date format',
-          value: 'Thu Nov 03 2022 14:42:19 GMT+0200 (South Africa Standard Time)',
+          value:
+            'Thu Nov 03 2022 14:42:19 GMT+0200 (South Africa Standard Time)',
         },
         {
           input: dateTimeInput,
@@ -1829,38 +2026,97 @@ module('Acceptance | Power datepicker field', function (hooks) {
   test('Millisecond digits', async function (assert) {
     await visit('/docs/built-in-fields');
     const parentFieldSelector = dummyEls.powerDatepickerUnusualFormat;
-    const dateTimeInput = find(`${parentFieldSelector} ${dummyEls.powerDatepickerInput}`);
+    const dateTimeInput = find(
+      `${parentFieldSelector} ${dummyEls.powerDatepickerInput}`
+    );
     await clickTrigger(`${parentFieldSelector} ${dummyEls.startDateField}`);
-    const timeSelectorMillisecondsInput = find(dummyEls.timeSelectorFieldInputMilliseconds);
-    assert.equal(dateTimeInput.value, '03/11/2022 14:42:19.142', 'Fractional seconds in the date time input are trimmed to 3 decimals where format and passed data specifies more than 3 decimals');
+    const timeSelectorMillisecondsInput = find(
+      dummyEls.timeSelectorFieldInputMilliseconds
+    );
+    assert.equal(
+      dateTimeInput.value,
+      '03/11/2022 14:42:19.142',
+      'Fractional seconds in the date time input are trimmed to 3 decimals where format and passed data specifies more than 3 decimals'
+    );
     await focus(dateTimeInput);
-    assert.equal(timeSelectorMillisecondsInput.value, '142', 'Milliseconds input forced top 3 digits where format for milliseconds input specifies less than 3 digits.');
+    assert.equal(
+      timeSelectorMillisecondsInput.value,
+      '142',
+      'Milliseconds input forced top 3 digits where format for milliseconds input specifies less than 3 digits.'
+    );
   });
 
   test('Custom timeSelectorFields HH:mm', async function (assert) {
     await visit('/docs/built-in-fields');
     const parentFieldSelector = dummyEls.powerDatepickerCustomTimeSelect;
     await clickTrigger(`${parentFieldSelector} ${dummyEls.startDateField}`);
-    assert.dom(dummyEls.timeSelectorField).exists({ count: 2 }, 'Two time selector inputs exist');
-    assert.equal(findAll(dummyEls.timeSelectorFieldLabel)[0].textContent, 'Hour', 'First time selector field has label "Hour"');
-    assert.equal(findAll(dummyEls.timeSelectorFieldLabel)[1].textContent, 'Min', 'Second time selector field has label "Min"');
+    assert
+      .dom(dummyEls.timeSelectorField)
+      .exists({ count: 2 }, 'Two time selector inputs exist');
+    assert.equal(
+      findAll(dummyEls.timeSelectorFieldLabel)[0].textContent,
+      'Hour',
+      'First time selector field has label "Hour"'
+    );
+    assert.equal(
+      findAll(dummyEls.timeSelectorFieldLabel)[1].textContent,
+      'Min',
+      'Second time selector field has label "Min"'
+    );
   }),
     test('Display date format differs from date format', async function (assert) {
       await visit('/docs/built-in-fields');
       const parentFieldSelector = dummyEls.powerDatepickerUnusualFormat;
-      const dateTimeInput = find(`${parentFieldSelector} ${dummyEls.powerDatepickerInput}`);
-      const rawDateTimeElement = find(`${parentFieldSelector} ${dummyEls.rawDateTime}`);
-      const fieldValueElement = find(`${parentFieldSelector} ${dummyEls.outputFieldValue}`);
+      const dateTimeInput = find(
+        `${parentFieldSelector} ${dummyEls.powerDatepickerInput}`
+      );
+      const rawDateTimeElement = find(
+        `${parentFieldSelector} ${dummyEls.rawDateTime}`
+      );
+      const fieldValueElement = find(
+        `${parentFieldSelector} ${dummyEls.outputFieldValue}`
+      );
       await clickTrigger(`${parentFieldSelector} ${dummyEls.startDateField}`);
-      const timeSelectorMinutesInput = find(dummyEls.timeSelectorFieldInputMinutes);
-      assert.dom(`${parentFieldSelector} ${dummyEls.outputFieldValue}`).hasText('14:42:19.142 03.11.2022', 'Value output by the field is [14:42:19.142 03.11.2022]');
-      assert.equal(dateTimeInput.value, '03/11/2022 14:42:19.142', 'Value of the date input field is [03/11/2022 14:42:19.142]');
-      assert.dom(`${parentFieldSelector} ${dummyEls.rawDateTime}`).hasText('Thu Nov 03 2022 14:42:19 GMT+0200 (South Africa Standard Time)', 'Field value is [Thu Nov 03 2022 14:42:19 GMT+0200 (South Africa Standard Time)].');
+      const timeSelectorMinutesInput = find(
+        dummyEls.timeSelectorFieldInputMinutes
+      );
+
+      assert
+        .dom(`${parentFieldSelector} ${dummyEls.outputFieldValue}`)
+        .hasText(
+          '14:42:19.142 03.11.2022',
+          'Value output by the field is [14:42:19.142 03.11.2022]'
+        );
+      assert.equal(
+        dateTimeInput.value,
+        '03/11/2022 14:42:19.142',
+        'Value of the date input field is [03/11/2022 14:42:19.142]'
+      );
+      assert
+        .dom(`${parentFieldSelector} ${dummyEls.rawDateTime}`)
+        .hasText(
+          'Thu Nov 03 2022 14:42:19 GMT+0200 (South Africa Standard Time)',
+          'Field value is [Thu Nov 03 2022 14:42:19 GMT+0200 (South Africa Standard Time)].'
+        );
       await fillIn(dateTimeInput, '03/11/2022 14:41:19.142');
       await triggerKeyEvent(dateTimeInput, 'keyup', '1');
-      assert.dom(`${parentFieldSelector} ${dummyEls.outputFieldValue}`).hasText('14:41:19.142 03.11.2022', 'Value output by the field is [14:41:19.142 03.11.2022]');
-      assert.equal(dateTimeInput.value, '03/11/2022 14:41:19.142', 'Value of the date input field is [03/11/2022 14:41:19.142]');
-      assert.dom(`${parentFieldSelector} ${dummyEls.rawDateTime}`).hasText('Thu Nov 03 2022 14:41:19 GMT+0200 (South Africa Standard Time)', 'Field value is [Thu Nov 03 2022 14:41:19 GMT+0200 (South Africa Standard Time)].');
+      assert
+        .dom(`${parentFieldSelector} ${dummyEls.outputFieldValue}`)
+        .hasText(
+          '14:41:19.142 03.11.2022',
+          'Value output by the field is [14:41:19.142 03.11.2022]'
+        );
+      assert.equal(
+        dateTimeInput.value,
+        '03/11/2022 14:41:19.142',
+        'Value of the date input field is [03/11/2022 14:41:19.142]'
+      );
+      assert
+        .dom(`${parentFieldSelector} ${dummyEls.rawDateTime}`)
+        .hasText(
+          'Thu Nov 03 2022 14:41:19 GMT+0200 (South Africa Standard Time)',
+          'Field value is [Thu Nov 03 2022 14:41:19 GMT+0200 (South Africa Standard Time)].'
+        );
 
       await check(assert, {
         parentFieldSelector: parentFieldSelector,
@@ -1873,7 +2129,8 @@ module('Acceptance | Power datepicker field', function (hooks) {
           {
             textElement: rawDateTimeElement,
             description: 'Native JS date format',
-            value: 'Thu Nov 03 2022 14:59:19 GMT+0200 (South Africa Standard Time)',
+            value:
+              'Thu Nov 03 2022 14:59:19 GMT+0200 (South Africa Standard Time)',
           },
           {
             textElement: fieldValueElement,
@@ -1890,7 +2147,7 @@ module('Acceptance | Power datepicker field', function (hooks) {
     });
 });
 
-async function check(assert, opts) {
+async function check(assert, opts, env) {
   const { keys } = keyCodesMap;
   const element = opts.inputToUpdate.element;
 
@@ -1912,7 +2169,10 @@ async function check(assert, opts) {
   }
 
   if (opts.dateSelect) {
-    await calendarSelect(opts.parentFieldSelector, moment(opts.dateSelect, 'YYYY-MM-DD').toDate());
+    await calendarSelect(
+      opts.parentFieldSelector,
+      moment(opts.dateSelect, 'YYYY-MM-DD').toDate()
+    );
     assertionPrefix = `Select "${opts.dateSelect}" in ${opts.inputToUpdate.description}`;
   } else if (opts.typeInVal) {
     await fillIn(element, '');
@@ -1920,11 +2180,17 @@ async function check(assert, opts) {
     await typeIn(element, opts.typeInVal);
     assertionPrefix = `Type in "${opts.typeInVal}" in ${opts.inputToUpdate.description} input`;
   } else if (opts.fillIn) {
+    await focus(element);
     await fillIn(element, opts.fillIn);
-    await triggerKeyEvent(element, 'keyup', '1');
+    await triggerKeyEvent(element, 'keyup', 1);
     assertionPrefix = `Fill in "${opts.fillIn}" in ${opts.inputToUpdate.description} input`;
   } else if (opts.keyName) {
-    await triggerKeyEvent(element, 'keydown', keys[opts.keyName], opts.modifiers);
+    await triggerKeyEvent(
+      element,
+      'keydown',
+      keys[opts.keyName],
+      opts.modifiers
+    );
     await triggerKeyEvent(element, 'keyup', keys[opts.keyName], opts.modifiers);
     let keysDescription = '';
     for (const key in opts.modifiers || {}) {
@@ -1936,6 +2202,7 @@ async function check(assert, opts) {
     assertionPrefix = `Focus in and blur of ${opts.inputToUpdate.description} input`;
   }
 
+  // TODO this should cbe clearer in the test when it fails
   const valueComparison = (initial, after) => {
     if (!initial) {
       return `IS SET TO ${after}`;
@@ -1950,9 +2217,25 @@ async function check(assert, opts) {
   const checkExpectedVals = (event) => {
     for (const item of opts[`expectedInputValuesAfter${event}`] || []) {
       if (item.input) {
-        assert.equal(item.input.value, item.value, `[${assertionPrefix} => ${event}] ${item.description} input ${valueComparison(item.initialValue, item.input.value)}`);
+        assert.equal(
+          item.input.value,
+          item.value,
+          `[${assertionPrefix} => ${event}] ${
+            item.description
+          } input ${valueComparison(item.initialValue, item.input.value)}`
+        );
       } else if (item.textElement) {
-        assert.dom(item.textElement).hasText(item.value, `[${assertionPrefix} => ${event}] ${item.description} element ${valueComparison(item.initialValue, item.textElement.textContent)}`);
+        assert
+          .dom(item.textElement)
+          .hasText(
+            item.value,
+            `[${assertionPrefix} => ${event}] ${
+              item.description
+            } element ${valueComparison(
+              item.initialValue,
+              item.textElement.textContent
+            )}`
+          );
       }
     }
   };
@@ -1985,7 +2268,8 @@ async function checkIncrements(assert, opts) {
 
   for (const _iteration of iterations) {
     const currentValue = parseInt(opts.inputToUpdate.element.value);
-    const expectedValue = currentValue + increment > opts.max ? opts.max : currentValue + increment;
+    const expectedValue =
+      currentValue + increment > opts.max ? opts.max : currentValue + increment;
     await check(assert, {
       parentFieldSelector: opts.parentFieldSelector,
       inputToUpdate: opts.inputToUpdate,
@@ -2011,7 +2295,8 @@ async function checkIncrements(assert, opts) {
 
   for (const _iteration of iterations) {
     const currentValue = parseInt(opts.inputToUpdate.element.value);
-    const expectedValue = currentValue - increment < opts.min ? opts.min : currentValue - increment;
+    const expectedValue =
+      currentValue - increment < opts.min ? opts.min : currentValue - increment;
     await check(assert, {
       parentFieldSelector: opts.parentFieldSelector,
       inputToUpdate: opts.inputToUpdate,

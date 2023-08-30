@@ -1,6 +1,6 @@
 <DocsDemo as |demo|>
   <demo.example @name="after-generate-changeset-webform-form.hbs">
-    {{#if (eq step 2)}}
+    {{#if (eq this.step 2)}}
       <div data-test-id="step-2">
         <h2>Step 2</h2>
         <div>Step 2 content</div>
@@ -9,7 +9,7 @@
       <div data-test-id="step-1">
         <h2>Step 1</h2>
         <ChangesetWebform
-          @formSchema={{formSchema}}
+          @formSchema={{this.formSchema}}
           @afterGenerateChangesetWebform={{action
             "afterGenerateChangesetWebform"
           }}
@@ -37,14 +37,14 @@
       >Next step</button>
     </div>
   </demo.example>
-  {{demo.snippet
-    "after-generate-changeset-webform-form.hbs"
-    label="Component template"
-    language="htmlbars"
-  }}
-  {{demo.snippet
-    "after-generate-changeset-webform-form.js"
-    label="Component JS"
-    language="javascript"
-  }}
+  <demo.snippet
+    @name="after-generate-changeset-webform-form.hbs"
+    @label="Component template"
+    @language="htmlbars"
+  />
+  <demo.snippet
+    @name="after-generate-changeset-webform-form.js"
+    @label="Component JS"
+    @language="javascript"
+  />
 </DocsDemo>

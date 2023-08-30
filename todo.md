@@ -1,5 +1,6 @@
 [ ] Docs for custom fields
 [ ] default styles for remove clone button
+[ ] Docs for power date picker must show defaultDate outside the input on load.
 
 ## Power selct
 

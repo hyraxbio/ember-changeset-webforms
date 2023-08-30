@@ -7,11 +7,11 @@
       @formField.validationStatus
     }}"
   value={{@displayValue}}
-  onkeyup={{fn (action "onUserInteractionAction") @formField "keyUp"}}
-  onkeyup={{fn (action "onUserInteractionAction") @formField "keyDown"}}
-  onblur={{fn (action "onUserInteractionAction") @formField "focusOut"}}
-  onfocus={{fn (action "onUserInteractionAction") @formField "focusIn"}}
-  onchange={{fn (action "onChangeAction") @formField}}
+  {{on "keyup" (fn (action "onUserInteractionAction") @formField "keyUp")}}
+  {{on "keyup" (fn (action "onUserInteractionAction") @formField "keyDown")}}
+  {{on "blur" (fn (action "onUserInteractionAction") @formField "focusOut")}}
+  {{on "focus" (fn (action "onUserInteractionAction") @formField "focusIn")}}
+  {{on "change" (fn (action "onChangeAction") @formField)}}
   placeholder={{@formField.placeholder}}
   autofocus={{@formField.autofocus}}
   readonly={{@formField.readonly}}
