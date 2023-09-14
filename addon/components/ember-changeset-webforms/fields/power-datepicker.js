@@ -1,10 +1,6 @@
-import { layout as templateLayout, tagName } from '@ember-decorators/component';
 import { action } from '@ember/object';
-import Component from '@ember/component';
-import layout from '../../../templates/components/ember-changeset-webforms/fields/power-datepicker';
+import Component from '@glimmer/component';
 
-@templateLayout(layout)
-@tagName('')
 export default class PowerDatepicker extends Component {
   get timeSelectorFields() {
     return (this.formField.timeSelectorFields || '').split(',');

@@ -1,64 +1,60 @@
-import { layout as templateLayout, tagName } from '@ember-decorators/component';
 import { action } from '@ember/object';
-import Component from '@ember/component';
+import Component from '@glimmer/component';
 // import validationEventLog from 'ember-changeset-webforms/utils/validation-event-log';
-import layout from '../../../templates/components/ember-changeset-webforms/field-elements/validating-field';
 
-@templateLayout(layout)
-@tagName('')
 export default class ValidatingField extends Component {
   get dataTestFieldId() {
     if (this.dataTestId) {
       return this.dataTestId;
     }
     return [
-      this.dataTestFormName,
-      this.formField.dataTestFieldName || this.formField.fieldId,
+      this.args.dataTestFormName,
+      this.args.formField.dataTestFieldName || this.args.formField.fieldId,
     ]
       .filter((item) => item)
       .join('-');
   }
 
   get typeClass() {
-    var myStr = this.formField.fieldType;
+    var myStr = this.args.formField.fieldType;
     myStr = myStr.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
     return `field-type-${myStr}`;
   }
 
   get labelId() {
-    return `${this.formField.name}-label`;
+    return `${this.args.formField.name}-label`;
   }
 
   get ariaLabelledBy() {
-    if (!this.formField.hideLabel) {
+    if (!this.args.formField.hideLabel) {
       return this.labelId;
     }
     return null;
   }
 
   get ariaLabel() {
-    return this.formField.hideLabel ? this.formField.fieldLabel : null;
+    return this.args.formField.hideLabel ? this.args.formField.fieldLabel : null;
   }
 
   get isGroup() {
-    return this.formField.options ? true : null;
+    return this.args.formField.options ? true : null;
   }
 
   @action
   didInsert() {
     //Code below will maintain validation colours when component is re-rendered.
-    var formField = this.formField;
-    const changeset = this.changesetWebform.changeset;
+    var formField = this.args.formField;
+    const changeset = this.args.changesetWebform.changeset;
     if (changeset.get(formField.propertyName)) {
       formField.eventLog.pushObject('insert');
-      this.send('validateField', formField);
+      this.validateField(formField); // this.send
     }
   }
 
   @action
   validateField(formField) {
     formField.validate().then((fieldValidationErrors) => {
-      this.afterFieldValidation(
+      this.args.afterFieldValidation(
         formField,
         formField.changeset,
         fieldValidationErrors
@@ -83,9 +79,9 @@ export default class ValidatingField extends Component {
     formField.eventLog.pushObject(eventType);
     if (eventType === 'keyUp') {
       if (formField.fieldType === 'input' && event.keyCode === 13) {
-        if (this.submitForm) {
+        if (this.args.submitForm) {
           formField.focussed = false;
-          this.submitForm(this.changesetWebform.changeset);
+          this.args.submitForm(this.args.changesetWebform.changeset);
         }
         return;
       }
@@ -105,11 +101,11 @@ export default class ValidatingField extends Component {
     } else if (eventType === 'focusIn') {
       formField.focussed = true;
     }
-    this.onUserInteraction(formField, eventType, value, event);
+    this.args.onUserInteraction(formField, eventType, value, event);
   }
 
   // onUserInteractionClone(...args) {
-  //   this.onUserInteraction([args]);
+  //   this.args.onUserInteraction([args]);
   // },
 
   @action
@@ -117,11 +113,11 @@ export default class ValidatingField extends Component {
     if (this.isDestroyed || this.isDestroying) {
       return;
     }
-    var changeset = this.changesetWebform.changeset;
+    var changeset = this.args.changesetWebform.changeset;
     formField.previousValue = changeset.get(formField.propertyName);
     changeset.set(formField.propertyName, value);
-    if (this.onFieldValueChange) {
-      this.onFieldValueChange(formField, changeset);
+    if (this.args.onFieldValueChange) {
+      this.args.onFieldValueChange(formField, changeset);
     }
     this.send('validateField', formField);
   }

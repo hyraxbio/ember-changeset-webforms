@@ -1,15 +1,11 @@
-import { layout as templateLayout, tagName } from '@ember-decorators/component';
 import { action } from '@ember/object';
-import Component from '@ember/component';
-import layout from '../templates/components/changeset-webform';
+import Component from '@glimmer/component';
 import validateFields from 'ember-changeset-webforms/utils/validate-fields';
 import castAllowedFields from 'ember-changeset-webforms/utils/cast-allowed-fields';
 import createChangesetWebform from 'ember-changeset-webforms/utils/create-changeset-webform';
 import isPromise from 'ember-changeset-webforms/utils/is-promise';
 import { tracked } from '@glimmer/tracking';
 
-@tagName('')
-@templateLayout(layout)
 export default class ChangesetWebform extends Component {
   @tracked changesetWebform;
   @tracked formFields;
@@ -150,7 +146,7 @@ export default class ChangesetWebform extends Component {
                         if (
                           changesetWebform.formSettings.clearFormAfterSubmit
                         ) {
-                          this.send('clearForm', changesetWebform);
+                          this.clearForm(changesetWebform); // this.send
                         }
                       })
                       .catch((error) => {

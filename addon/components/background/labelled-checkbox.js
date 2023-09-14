@@ -1,23 +1,19 @@
-import { layout as templateLayout, tagName } from '@ember-decorators/component';
 import { action } from '@ember/object';
-import Component from '@ember/component';
-import layout from '../../templates/components/background/labelled-checkbox';
+import Component from '@glimmer/component';
 import safeName from 'ember-changeset-webforms/utils/safe-name';
 
-@templateLayout(layout)
-@tagName('')
 export default class LabelledCheckbox extends Component {
   get checkboxId() {
-    if (this.formField.fieldId === this.option.key) {
-      return safeName(this.formField.id);
+    if (this.args.formField.fieldId === this.args.option.key) {
+      return safeName(this.args.formField.id);
     }
-    return safeName(`${this.formField.id}-${this.option.key}`);
+    return safeName(`${this.args.formField.id}-${this.args.option.key}`);
   }
 
   @action
   checkboxClicked(event) {
-    if (this.changedAction) {
-      this.changedAction(event.target.checked, event);
+    if (this.args.changedAction) {
+      this.args.changedAction(event.target.checked, event);
     }
   }
 }

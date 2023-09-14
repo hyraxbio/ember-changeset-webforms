@@ -1,10 +1,6 @@
-import { layout as templateLayout, tagName } from '@ember-decorators/component';
 import { action } from '@ember/object';
-import Component from '@ember/component';
-import layout from '../../../templates/components/ember-changeset-webforms/fields/power-select';
+import Component from '@glimmer/component';
 import { typeOf as emberTypeOf } from '@ember/utils';
-@templateLayout(layout)
-@tagName('')
 export default class PowerSelect extends Component {
   get componentName() {
     return this.formField.multipleSelection

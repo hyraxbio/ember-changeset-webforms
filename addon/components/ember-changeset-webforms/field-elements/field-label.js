@@ -1,12 +1,8 @@
-import { layout as templateLayout, tagName } from '@ember-decorators/component';
-import Component from '@ember/component';
-import layout from '../../../templates/components/ember-changeset-webforms/field-elements/field-label';
+import Component from '@glimmer/component';
 
-@templateLayout(layout)
-@tagName('')
 export default class FieldLabel extends Component {
   get noLabel() {
-    const formField = this.formField;
+    const formField = this.args.formField;
     if (formField.hideLabel) {
       return true;
     }

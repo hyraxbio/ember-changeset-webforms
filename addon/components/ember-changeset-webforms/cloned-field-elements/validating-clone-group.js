@@ -1,30 +1,26 @@
-import { layout as templateLayout, tagName } from '@ember-decorators/component';
 import { action } from '@ember/object';
-import Component from '@ember/component';
-import layout from '../../../templates/components/ember-changeset-webforms/cloned-field-elements/validating-clone-group';
+import Component from '@glimmer/component';
 import FormFieldClone from 'ember-changeset-webforms/utils/form-field-clone';
 import validationEventLog from 'ember-changeset-webforms/utils/validation-event-log';
 import { tracked } from '@glimmer/tracking';
 
-@tagName('')
-@templateLayout(layout)
 export default class ValidatingCloneGroup extends Component {
   @tracked masterFormField;
 
   get dataTestCwfFieldValidates() {
-    return this.masterFormField.validates;
+    return this.args.masterFormField.validates;
   }
 
   get dataTestCwfFieldRequired() {
-    return this.masterFormField.required;
+    return this.args.masterFormField.required;
   }
 
   get dataTestId() {
-    return `clone-group-${this.masterFormField.fieldId}`;
+    return `clone-group-${this.args.masterFormField.fieldId}`;
   }
 
   get validationStatus() {
-    var formField = this.masterFormField;
+    var formField = this.args.masterFormField;
     if (!formField) {
       return;
     }
@@ -34,7 +30,7 @@ export default class ValidatingCloneGroup extends Component {
     ) {
       return;
     }
-    var validationErrors = this.masterFormFieldValidationErrors || [];
+    var validationErrors = this.args.masterFormFieldValidationErrors || [];
     if (validationErrors.length === 0) {
       return 'valid';
     } else {
@@ -43,7 +39,7 @@ export default class ValidatingCloneGroup extends Component {
   }
 
   get cloneGroupNameClass() {
-    return `clone-group-${this.masterFormField.cloneGroupName}`;
+    return `clone-group-${this.args.masterFormField.cloneGroupName}`;
   }
 
   cloneId(clonedFields) {
@@ -58,29 +54,29 @@ export default class ValidatingCloneGroup extends Component {
 
   @action
   didInsert() {
-    var masterFormField = this.masterFormField;
-    const changeset = this.changesetWebform.changeset;
+    var masterFormField = this.args.masterFormField;
+    const changeset = this.args.changesetWebform.changeset;
     var groupValue = changeset.get(masterFormField.propertyName) || [];
     groupValue.forEach(() => {
-      this.send('cloneField', { fromData: true });
+      this.cloneField({ fromData: true }); // this.send
     });
     const emptyClones = masterFormField.minClones - groupValue.length;
     for (var i = 0; i < emptyClones; i++) {
-      this.send('cloneField');
+      this.cloneField(); // this.send
     }
   }
 
   @action
   onClickAddCloneButton() {
     this.send('cloneField');
-    if (this.onUserInteraction) {
-      this.onUserInteraction(this.masterFormField, 'addClone');
+    if (this.args.onUserInteraction) {
+      this.args.onUserInteraction(this.args.masterFormField, 'addClone');
     }
   }
 
   @action
   cloneField(opts = {}) {
-    var masterFormField = this.masterFormField;
+    var masterFormField = this.args.masterFormField;
     // masterFormField.set('clonedFields', masterFormField.clonedFields || []);
     masterFormField.clonedFields = masterFormField.clonedFields || [];
     var newField = { ...masterFormField.clonedFieldBlueprint };
@@ -88,7 +84,7 @@ export default class ValidatingCloneGroup extends Component {
     newField.cloneId = this.cloneId(masterFormField.clonedFields);
     newField.eventLog = []; // BD must recreate this, otherwise all clones share the same instance of eventLog array.
     const clone = new FormFieldClone(newField);
-    clone.changeset = this.changesetWebform.changeset;
+    clone.changeset = this.args.changesetWebform.changeset;
     clone.masterFormField = masterFormField;
     masterFormField.clonedFields.pushObject(clone);
     masterFormField.clonedFields = masterFormField.clonedFields;
@@ -101,36 +97,36 @@ export default class ValidatingCloneGroup extends Component {
     };
     if (!opts.fromData) {
       var fieldValue =
-        this.changesetWebform.changeset.get(masterFormField.propertyName) || [];
+        this.args.changesetWebform.changeset.get(masterFormField.propertyName) || [];
       fieldValue.push(opts.newCloneValue || newField.defaultValue);
-      this.setFieldValue(fieldValue, masterFormField);
+      this.args.setFieldValue(fieldValue, masterFormField);
     }
 
     this.send('checkMinMaxClones', masterFormField);
     // onUserInteraction is not fired here, as this function can be run automatically when inserting clones to match initial field data.
-    if (this.afterAddClone) {
-      this.afterAddClone(newField, masterFormField, this.changesetWebform);
+    if (this.args.afterAddClone) {
+      this.args.afterAddClone(newField, masterFormField, this.args.changesetWebform);
     }
-    this.masterFormField = masterFormField;
+    this.args.masterFormField = masterFormField;
   }
 
   @action
   removeClone(clone) {
-    var masterFormField = this.masterFormField;
+    var masterFormField = this.args.masterFormField;
     var index = masterFormField.clonedFields.indexOf(clone);
     masterFormField.clonedFields.removeObject(clone);
     this.send('checkMinMaxClones', masterFormField);
     var groupValue =
-      this.changesetWebform.changeset.get(masterFormField.propertyName) || []; //TODO check this.
+      this.args.changesetWebform.changeset.get(masterFormField.propertyName) || []; //TODO check this.
     groupValue.splice(index, 1);
     masterFormField.eventLog.pushObject('removeClone');
-    this.setFieldValue(groupValue, masterFormField);
+    this.args.setFieldValue(groupValue, masterFormField);
 
     masterFormField.clonedFields.forEach((clone, index) => {
       clone.index = index;
     });
-    if (this.onUserInteraction) {
-      this.onUserInteraction(this.masterFormField, 'removeClone');
+    if (this.args.onUserInteraction) {
+      this.args.onUserInteraction(this.args.masterFormField, 'removeClone');
     }
   }
 
@@ -152,9 +148,9 @@ export default class ValidatingCloneGroup extends Component {
   }
 
   updatedGroupValue(value, index) {
-    var masterFormField = this.masterFormField;
+    var masterFormField = this.args.masterFormField;
     var groupValue =
-      this.changesetWebform.changeset.get(masterFormField.propertyName) || [];
+      this.args.changesetWebform.changeset.get(masterFormField.propertyName) || [];
     masterFormField.lastUpdatedClone = {
       index: index,
       previousValue: groupValue[index],

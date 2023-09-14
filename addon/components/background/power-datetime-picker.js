@@ -1,12 +1,8 @@
-import { layout as templateLayout, tagName } from '@ember-decorators/component';
 import { action } from '@ember/object';
-import Component from '@ember/component';
-import layout from '../../templates/components/background/power-datetime-picker';
+import Component from '@glimmer/component';
 import keyCodesMap from 'ember-changeset-webforms/utils/keycodes-map';
 import { tracked } from '@glimmer/tracking';
 
-@tagName('')
-@templateLayout(layout)
 export default class PowerDatetimePicker extends Component {
   @tracked center;
   @tracked selectedDate;
@@ -17,31 +13,31 @@ export default class PowerDatetimePicker extends Component {
   @tracked timeSelectorFields;
 
   get defaultHour() {
-    if (!this.defaultTime) {
+    if (!this.args.defaultTime) {
       return '00';
     }
-    return this.defaultTime.split(':')[0] || '00';
+    return this.args.defaultTime.split(':')[0] || '00';
   }
 
   get defaultMinute() {
-    if (!this.defaultTime) {
+    if (!this.args.defaultTime) {
       return '00';
     }
-    return this.defaultTime.split(':')[1] || '00';
+    return this.args.defaultTime.split(':')[1] || '00';
   }
 
   get defaultSecond() {
-    if (!this.defaultTime) {
+    if (!this.args.defaultTime) {
       return '00';
     }
-    return this.defaultTime.split(':')[2] || '00';
+    return this.args.defaultTime.split(':')[2] || '00';
   }
 
   get fixedTimeParsed() {
-    if (!this.fixedTime) {
+    if (!this.args.fixedTime) {
       return;
     }
-    const fixedTime = this.fixedTime.replace('.', ':');
+    const fixedTime = this.args.fixedTime.replace('.', ':');
     return {
       HH: fixedTime.split(':')[0],
       mm: fixedTime.split(':')[1] || '00',
@@ -51,7 +47,7 @@ export default class PowerDatetimePicker extends Component {
   }
 
   get navButtons() {
-    var allowNavigationOutOfRange = this.allowNavigationOutOfRange;
+    var allowNavigationOutOfRange = this.args.allowNavigationOutOfRange;
     return {
       nextMonth: allowNavigationOutOfRange || this.targetInRange(1, 'months'),
       nextYear: allowNavigationOutOfRange || this.targetInRange(1, 'years'),
@@ -63,24 +59,24 @@ export default class PowerDatetimePicker extends Component {
   }
 
   get parsedDateTimeFormat() {
-    return this.dateTimeFormat.replace(/S{1,}/, 'SSS'); // TODO this must be a global option
+    return this.args.dateTimeFormat.replace(/S{1,}/, 'SSS'); // TODO this must be a global option
   }
 
   get parsedDateTimeDisplayFormat() {
-    return this.dateTimeDisplayFormat
-      ? this.dateTimeDisplayFormat.replace(/S{1,}/, 'SSS')
+    return this.args.dateTimeDisplayFormat
+      ? this.args.dateTimeDisplayFormat.replace(/S{1,}/, 'SSS')
       : this.parsedDateTimeFormat; // TODO this must be a global option
   }
 
   get showAmPmInput() {
-    return this.timeSelectorFields.filter((field) => field.startsWith('h'))
+    return this.args.timeSelectorFields.filter((field) => field.startsWith('h'))
       .length
       ? true
       : false;
   }
 
   get timeFormatParts() {
-    return this.timeSelectorFields
+    return this.args.timeSelectorFields
       .map((item) => {
         const obj = {
           formatChar: item,
@@ -89,29 +85,29 @@ export default class PowerDatetimePicker extends Component {
         if (item.startsWith('h')) {
           obj.min = '1';
           obj.max = '12';
-          obj.label = this.timeInputLabels.hours;
+          obj.label = this.args.timeInputLabels.hours;
           obj.type = 'hour';
         } else if (item.startsWith('H')) {
           obj.max = '23';
-          obj.label = this.timeInputLabels.hours;
+          obj.label = this.args.timeInputLabels.hours;
           obj.type = 'hour';
         } else if (item.startsWith('k')) {
           obj.min = '1';
           obj.max = '24';
-          obj.label = this.timeInputLabels.hours;
+          obj.label = this.args.timeInputLabels.hours;
           obj.type = 'hour';
         } else if (item.startsWith('m')) {
           obj.max = '59';
-          obj.label = this.timeInputLabels.minutes;
+          obj.label = this.args.timeInputLabels.minutes;
           obj.type = 'minutes';
         } else if (item.startsWith('s')) {
           obj.max = '59';
-          obj.label = this.timeInputLabels.seconds;
+          obj.label = this.args.timeInputLabels.seconds;
           obj.type = 'seconds';
         } else if (item.startsWith('S')) {
           obj.formatChar = 'SSS';
           obj.max = '999';
-          obj.label = this.timeInputLabels.milliseconds;
+          obj.label = this.args.timeInputLabels.milliseconds;
           obj.type = 'milliseconds';
         }
         return obj;
@@ -120,7 +116,7 @@ export default class PowerDatetimePicker extends Component {
   }
 
   get parsedDatepickerPlaceholder() {
-    return this.datepickerPlaceholder || this.parsedDateTimeDisplayFormat;
+    return this.args.datepickerPlaceholder || this.parsedDateTimeDisplayFormat;
   }
 
   validMoment(event) {
@@ -135,14 +131,14 @@ export default class PowerDatetimePicker extends Component {
     }
     if (
       moment(value, parsedDateTimeDisplayFormat).isBefore(
-        moment(this.minDate, 'YYYY-MM-DD')
+        moment(this.args.minDate, 'YYYY-MM-DD')
       )
     ) {
       return null;
     }
     if (
       moment(value, parsedDateTimeDisplayFormat).isAfter(
-        moment(this.maxDate, 'YYYY-MM-DD')
+        moment(this.args.maxDate, 'YYYY-MM-DD')
       )
     ) {
       return null;
@@ -239,16 +235,16 @@ export default class PowerDatetimePicker extends Component {
 
   @action
   didInsert() {
-    if (this.defaultDate) {
-      this.selectedDate = this.defaultDate;
+    if (this.args.defaultDate) {
+      this.selectedDate = this.args.defaultDate;
     }
-    if (this.defaultTime) {
+    if (this.args.defaultTime) {
       this.selectedHour = this.defaultHour;
       this.selectedMinute = this.defaultMinute;
       this.selectedSecond = this.defaultSecond;
     }
-    if (this.calendarStartMonth) {
-      var split = this.calendarStartMonth.split('/');
+    if (this.args.calendarStartMonth) {
+      var split = this.args.calendarStartMonth.split('/');
       const calendarStartDate = moment()
         .year(parseInt(split[1]))
         .month(parseInt(split[0]) - 1)
@@ -256,16 +252,16 @@ export default class PowerDatetimePicker extends Component {
       this.calendarStartDate = calendarStartDate;
     }
 
-    if (moment.isDate(this.value)) {
-      this.send('updateDateTime', this.value);
-    } else if (moment(this.value).isValid()) {
+    if (moment.isDate(this.args.value)) {
+      this.updateDateTime(this.args.value); // this.send
+    } else if (moment(this.args.value).isValid()) {
       this.send(
         'updateDateTime',
-        moment(this.value, this.parsedDateTimeFormat).toDate()
+        moment(this.args.value, this.parsedDateTimeFormat).toDate()
       );
     }
 
-    if (this.fixedTime && this.showTimeSelector) {
+    if (this.args.fixedTime && this.args.showTimeSelector) {
       console.warn(
         '[Ember Changeset Webforms] You have set showTimeSelector to true, but you have also passed fixedTime. fixedTime must be null in order to show the tine selector component.'
       );
@@ -275,19 +271,23 @@ export default class PowerDatetimePicker extends Component {
   @action
   onDateInputChange(event) {
     if (this.validMoment(event)) {
-      this.send('updateDateTime', this.validMoment(event));
+      this.updateDateTime(this.validMoment(event)); // this.send
     } else {
-      event.target.value = this.value;
+      event.target.value = this.args.value;
     }
   }
 
   @action
   onDateInputKeyUp(event) {
     if (this.validMoment(event)) {
-      this.send('updateDateTime', this.validMoment(event));
+      this.updateDateTime(this.validMoment(event)); // this.send
     }
-    if (this.onUserInteraction) {
-      this.onUserInteraction('keyUpDateTimeInput', event.target.value, event);
+    if (this.args.onUserInteraction) {
+      this.args.onUserInteraction(
+        'keyUpDateTimeInput',
+        event.target.value,
+        event
+      );
     }
   }
 
@@ -302,41 +302,49 @@ export default class PowerDatetimePicker extends Component {
   @action
   onDateInputFocus(event) {
     this.dateInputFocussed = true;
-    if (this.onUserInteraction) {
-      this.onUserInteraction('focusDateTimeInput', event.target.value, event);
+    if (this.args.onUserInteraction) {
+      this.args.onUserInteraction(
+        'focusDateTimeInput',
+        event.target.value,
+        event
+      );
     }
   }
 
   @action
   onDateInputBlur(event) {
     this.dateInputFocussed = false;
-    if (this.onUserInteraction) {
-      this.onUserInteraction('blurDateTimeInput', event.target.value, event);
+    if (this.args.onUserInteraction) {
+      this.args.onUserInteraction(
+        'blurDateTimeInput',
+        event.target.value,
+        event
+      );
     }
   }
 
   @action
   clearDateTime() {
-    this.onSelectDateTime(null);
-    if (this.onUserInteraction) {
-      this.onUserInteraction('clearDateTime', this.value);
+    this.args.onSelectDateTime(null);
+    if (this.args.onUserInteraction) {
+      this.args.onUserInteraction('clearDateTime', this.args.value);
     }
   }
 
   @action
   dateClicked(dropdown, value) {
     this.send('setDate', value.date);
-    if (this.closeDatePickerOnSelect) {
+    if (this.args.closeDatePickerOnSelect) {
       dropdown.actions.close();
     }
-    if (this.onUserInteraction) {
-      this.onUserInteraction('dateSelected', value.date);
+    if (this.args.onUserInteraction) {
+      this.args.onUserInteraction('dateSelected', value.date);
     }
   }
 
   @action
   setDate(selectedDate) {
-    var currentDateTime = this.value;
+    var currentDateTime = this.args.value;
     this.send('updateDateTime', this.updateDate(selectedDate, currentDateTime));
   }
 
@@ -353,7 +361,7 @@ export default class PowerDatetimePicker extends Component {
       });
     }
     let value = event.target.value;
-    var currentDateTime = this.value;
+    var currentDateTime = this.args.value;
     const newDateTime = this.updateTimeUnit(unit, value, currentDateTime);
 
     this.send('updateDateTime', newDateTime);
@@ -397,8 +405,12 @@ export default class PowerDatetimePicker extends Component {
     event.target.value = newValue;
 
     this.send('setTime', unit, event);
-    if (this.onUserInteraction) {
-      this.onUserInteraction('keyDownTimeUnitInput', event.target.value, event);
+    if (this.args.onUserInteraction) {
+      this.args.onUserInteraction(
+        'keyDownTimeUnitInput',
+        event.target.value,
+        event
+      );
     }
   }
 
@@ -407,22 +419,26 @@ export default class PowerDatetimePicker extends Component {
     if (event.target.value.length >= unit.length) {
       this.send('setTime', unit, event);
     }
-    if (this.onUserInteraction) {
-      this.onUserInteraction('keyUpTimeUnitInput', event.target.value, event);
+    if (this.args.onUserInteraction) {
+      this.args.onUserInteraction(
+        'keyUpTimeUnitInput',
+        event.target.value,
+        event
+      );
     }
   }
 
   @action
   onFocusInAmPm(event) {
     event.target.value = '';
-    if (this.onUserInteraction) {
-      this.onUserInteraction('focusAmPmInput', event.target.value, event);
+    if (this.args.onUserInteraction) {
+      this.args.onUserInteraction('focusAmPmInput', event.target.value, event);
     }
   }
 
   @action
   onChangeAmPm(event) {
-    var currentDateTime = this.value;
+    var currentDateTime = this.args.value;
     const value = event.target.value.toLowerCase();
     if (value !== 'am' && value !== 'pm') {
       event.target.value = moment(
@@ -435,8 +451,8 @@ export default class PowerDatetimePicker extends Component {
 
   @action
   onKeyUpAmPm(event) {
-    if (this.onUserInteraction) {
-      this.onUserInteraction('keyUpAmPmInput', event.target.value, event);
+    if (this.args.onUserInteraction) {
+      this.args.onUserInteraction('keyUpAmPmInput', event.target.value, event);
     }
     const { keys } = keyCodesMap;
     const amKeyCodes = [keys.a, keys.arrowUp];
@@ -466,22 +482,22 @@ export default class PowerDatetimePicker extends Component {
 
   @action
   updateDateTime(dateTime) {
-    // TODO why is typeof this,value sometimes an object and sometimes a string?
-    if (moment(this.value).isSame(moment(dateTime))) {
+    // TODO why is typeof this.args.value sometimes an object and sometimes a string?
+    if (moment(this.args.value).isSame(moment(dateTime))) {
       return;
     }
     // this.center = dateTime;
-    if (this.fixedTimeParsed) {
-      for (const key in this.fixedTimeParsed) {
+    if (this.args.fixedTimeParsed) {
+      for (const key in this.args.fixedTimeParsed) {
         dateTime = this.updateTimeUnit(
           key,
-          this.fixedTimeParsed[key],
+          this.args.fixedTimeParsed[key],
           dateTime
         );
       }
     }
     this.selectedDate = dateTime;
-    this.onSelectDateTime(dateTime);
+    this.args.onSelectDateTime(dateTime);
   }
 
   @action
@@ -490,22 +506,27 @@ export default class PowerDatetimePicker extends Component {
       return;
     }
     var startDate = this.calendarStartDate || moment().toDate();
-    if (this.maxDate < moment().toDate()) {
-      startDate = this.maxDate;
+    if (this.args.maxDate < moment().toDate()) {
+      startDate = this.args.maxDate;
     }
     if (
-      this.minDate > moment().toDate() ||
-      (this.minDate < moment().toDate() && this.maxDate < moment().toDate()) ||
-      (this.minDate > moment().toDate() && this.maxDate > moment().toDate())
+      this.args.minDate > moment().toDate() ||
+      (this.args.minDate < moment().toDate() &&
+        this.args.maxDate < moment().toDate()) ||
+      (this.args.minDate > moment().toDate() &&
+        this.args.maxDate > moment().toDate())
     ) {
-      startDate = this.minDate;
+      startDate = this.args.minDate;
     }
     this.center = startDate;
   }
 
   @action
   navigate(datepicker, span, units) {
-    if (this.allowNavigationOutOfRange || this.targetInRange(span, units)) {
+    if (
+      this.args.allowNavigationOutOfRange ||
+      this.targetInRange(span, units)
+    ) {
       datepicker.actions.moveCenter(span, units);
     }
   }
@@ -524,11 +545,11 @@ export default class PowerDatetimePicker extends Component {
     } else {
       targetDay = startOfVisibleMonth;
     }
-    if (targetDay > this.maxDate) {
-      targetDay = this.maxDate;
+    if (targetDay > this.args.maxDate) {
+      targetDay = this.args.maxDate;
     }
-    if (targetDay < this.minDate) {
-      targetDay = this.minDate;
+    if (targetDay < this.args.minDate) {
+      targetDay = this.args.minDate;
     }
     this.selectedDate = targetDay;
     this.center = this.selectedDate;
@@ -543,12 +564,12 @@ export default class PowerDatetimePicker extends Component {
     if (e.keyCode === 39) {
       if (e.metaKey) {
         if (e.shiftKey) {
-          this.send('navigate', datepicker, 1, 'years');
+          this.navigate(datepicker, 1, 'years'); // this.send
         } else {
-          this.send('navigate', datepicker, 1, 'months');
+          this.navigate(datepicker, 1, 'months'); // this.send
         }
       } else {
-        this.send('selectDay', datepicker, 1, 'days');
+        this.selectDay(datepicker, 1, 'days'); // this.send
       }
       e.preventDefault();
     }
@@ -591,7 +612,10 @@ export default class PowerDatetimePicker extends Component {
       .add(span, units)
       .endOf('month')
       .toDate();
-    if (firstOfTargetMonth > this.maxDate || lastOfTargetMonth < this.minDate) {
+    if (
+      firstOfTargetMonth > this.args.maxDate ||
+      lastOfTargetMonth < this.args.minDate
+    ) {
       return false;
     }
     return true;

@@ -1,11 +1,7 @@
-import { layout as templateLayout, tagName } from '@ember-decorators/component';
 import { action } from '@ember/object';
-import Component from '@ember/component';
-import layout from '../../../templates/components/ember-changeset-webforms/fields/checkbox-group';
+import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 
-@templateLayout(layout)
-@tagName('')
 export default class CheckboxGroup extends Component {
   @tracked value;
   @tracked value;
