@@ -8,7 +8,6 @@ import { tracked } from '@glimmer/tracking';
 
 export default class ChangesetWebform extends Component {
   @tracked changesetWebform;
-  @tracked formFields;
 
   get formSettings() {
     if (!this.changesetWebform) {
@@ -51,11 +50,10 @@ export default class ChangesetWebform extends Component {
 
   @action
   didInsert() {
-    this.send(
-      'generateChangesetWebform',
-      this.formSchema,
-      this.data,
-      this.customValidators
+    this.generateChangesetWebform(
+      this.args.formSchema,
+      this.args.data,
+      this.args.customValidators
     );
   }
 
@@ -67,22 +65,22 @@ export default class ChangesetWebform extends Component {
       customValidators,
       opts
     );
-    if (this.afterGenerateChangesetWebform) {
-      this.afterGenerateChangesetWebform(this.changesetWebform);
+    if (this.args.afterGenerateChangesetWebform) {
+      this.args.afterGenerateChangesetWebform(this.changesetWebform);
     }
   }
 
   @action
   onFieldValueChangeAction(formField, changeset, snapshot) {
-    if (this.onFieldValueChange) {
-      this.onFieldValueChange(formField, this.changesetWebform, snapshot);
+    if (this.args.onFieldValueChange) {
+      this.args.onFieldValueChange(formField, this.changesetWebform, snapshot);
     }
   }
 
   @action
   afterFieldValidationAction(formField, _changeset, fieldValidationErrors) {
-    if (this.afterFieldValidation) {
-      this.afterFieldValidation(
+    if (this.args.afterFieldValidation) {
+      this.args.afterFieldValidation(
         formField,
         this.changesetWebform,
         fieldValidationErrors
@@ -92,8 +90,8 @@ export default class ChangesetWebform extends Component {
 
   @action
   onUserInteractionAction(formField, eventType, value, event) {
-    if (this.onUserInteraction) {
-      this.onUserInteraction(
+    if (this.args.onUserInteraction) {
+      this.args.onUserInteraction(
         formField,
         this.changesetWebform,
         eventType,
@@ -108,15 +106,15 @@ export default class ChangesetWebform extends Component {
     const changeset = changesetWebform.changeset;
     validateFields(changesetWebform)
       .then((validationResult) => {
-        if (this.afterValidateFields) {
-          this.afterValidateFields(changesetWebform, validationResult);
+        if (this.args.afterValidateFields) {
+          this.args.afterValidateFields(changesetWebform, validationResult);
         }
         if (changeset.isValid) {
-          if (this.formValidationPassed) {
-            this.formValidationPassed(changesetWebform);
+          if (this.args.formValidationPassed) {
+            this.args.formValidationPassed(changesetWebform);
           }
-          if (this.beforeSubmitAction) {
-            this.beforeSubmitAction(changesetWebform);
+          if (this.args.beforeSubmitAction) {
+            this.args.beforeSubmitAction(changesetWebform);
           }
           try {
             castAllowedFields(changesetWebform); // TODO must bring this back when cast is fixed.
@@ -124,12 +122,12 @@ export default class ChangesetWebform extends Component {
             console.log(err);
           }
           changesetWebform.formSettings.requestInFlight = true;
-          if (this.submitAction) {
+          if (this.args.submitAction) {
             changeset
               .save()
               .then((savedChangeset) => {
                 try {
-                  var submitAction = this.submitAction(
+                  var submitAction = this.args.submitAction(
                     savedChangeset.data,
                     changesetWebform
                   );
@@ -137,8 +135,8 @@ export default class ChangesetWebform extends Component {
                     submitAction
                       .then((submitActionResponse) => {
                         changesetWebform.formSettings.requestInFlight = false;
-                        if (this.submitSuccess) {
-                          this.submitSuccess(
+                        if (this.args.submitSuccess) {
+                          this.args.submitSuccess(
                             submitActionResponse,
                             changesetWebform
                           );
@@ -151,34 +149,34 @@ export default class ChangesetWebform extends Component {
                       })
                       .catch((error) => {
                         changesetWebform.formSettings.requestInFlight = false;
-                        if (this.submitError) {
-                          this.submitError(error, changesetWebform);
+                        if (this.args.submitError) {
+                          this.args.submitError(error, changesetWebform);
                         }
                       });
                   } else {
                     changesetWebform.formSettings.requestInFlight = false;
                     var submitActionResponse = submitAction;
-                    if (this.submitSuccess) {
-                      this.submitSuccess(
+                    if (this.args.submitSuccess) {
+                      this.args.submitSuccess(
                         submitActionResponse,
                         changesetWebform
                       );
                     }
                     if (changesetWebform.formSettings.clearFormAfterSubmit) {
-                      this.send('clearForm', changesetWebform);
+                      this.clearForm(changesetWebform); // this.send
                     }
                   }
                 } catch (error) {
                   changesetWebform.formSettings.requestInFlight = false;
-                  if (this.submitError) {
-                    this.submitError(error, changesetWebform);
+                  if (this.args.submitError) {
+                    this.args.submitError(error, changesetWebform);
                   }
                 }
               })
               .catch((err) => {
                 changesetWebform.formSettings.requestInFlight = false;
-                if (this.submitError) {
-                  this.submitError(err, changesetWebform);
+                if (this.args.submitError) {
+                  this.args.submitError(err, changesetWebform);
                 }
               });
           } else {
@@ -186,30 +184,35 @@ export default class ChangesetWebform extends Component {
               .save()
               .then((saveChangesetResponse) => {
                 changesetWebform.formSettings.requestInFlight = false;
-                if (this.submitSuccess) {
-                  this.submitSuccess(saveChangesetResponse, changesetWebform);
+                if (this.args.submitSuccess) {
+                  this.args.submitSuccess(
+                    saveChangesetResponse,
+                    changesetWebform
+                  );
                 }
                 if (changesetWebform.formSettings.clearFormAfterSubmit) {
-                  this.send('clearForm', changesetWebform);
+                  this.clearForm(changesetWebform); // this.send
                 }
               })
               .catch((error) => {
-                if (this.submitError) {
-                  this.submitError(error, changesetWebform);
+                if (this.args.submitError) {
+                  this.args.submitError(error, changesetWebform);
                 }
                 changesetWebform.formSettings.requestInFlight = false;
               });
           }
         } else {
-          if (this.formValidationFailed) {
-            this.formValidationFailed(changesetWebform);
+          if (this.args.formValidationFailed) {
+            this.args.formValidationFailed(changesetWebform);
           }
         }
       })
       .catch((err) => {
         // TODO see how this is called
         changesetWebform.formSettings.requestInFlight = false;
-        this.formValidationFailed(changesetWebform, err);
+        if (this.args.formValidationFailed) {
+          this.args.formValidationFailed(changesetWebform, err);
+        }
       });
   }
 
@@ -226,18 +229,17 @@ export default class ChangesetWebform extends Component {
         changesetWebform.formSettings.clearFormAfterSubmit ===
         'suppressDefaultValues',
     };
-    if (this.beforeReset) {
-      this.beforeReset(changesetWebform);
+    if (this.args.beforeReset) {
+      this.args.beforeReset(changesetWebform);
     }
-    this.send(
-      'generateChangesetWebform',
-      this.formSchema,
+    this.generateChangesetWebform(
+      this.args.formSchema,
       null,
-      this.customValidators,
+      this.args.customValidators,
       opts
     );
     if (changesetWebform.formSettings.submitAfterClear) {
-      this.send('submitForm', this.changesetWebform);
+      this.submitForm(this.changesetWebform); // this.send
     }
   }
 }

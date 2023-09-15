@@ -4,8 +4,8 @@ import Component from '@glimmer/component';
 
 export default class ValidatingField extends Component {
   get dataTestFieldId() {
-    if (this.dataTestId) {
-      return this.dataTestId;
+    if (this.args.dataTestId) {
+      return this.args.dataTestId;
     }
     return [
       this.args.dataTestFormName,
@@ -33,7 +33,9 @@ export default class ValidatingField extends Component {
   }
 
   get ariaLabel() {
-    return this.args.formField.hideLabel ? this.args.formField.fieldLabel : null;
+    return this.args.formField.hideLabel
+      ? this.args.formField.fieldLabel
+      : null;
   }
 
   get isGroup() {
@@ -68,7 +70,7 @@ export default class ValidatingField extends Component {
       return;
     }
     formField.eventLog.pushObject('change');
-    this.send('setFieldValue', value, formField);
+    this.setFieldValue(value, formField); // this.send
   }
 
   @action
@@ -85,7 +87,7 @@ export default class ValidatingField extends Component {
         }
         return;
       }
-      this.send('setFieldValue', value, formField);
+      this.setFieldValue(value, formField); // this.send
     } else if (eventType === 'focusOut') {
       formField.focussed = false;
       formField.eventLog.pushObject('focusOut');
@@ -97,16 +99,12 @@ export default class ValidatingField extends Component {
       ) {
         value = value.trim();
       }
-      this.send('setFieldValue', value, formField);
+      this.setFieldValue(value, formField); // this.send
     } else if (eventType === 'focusIn') {
       formField.focussed = true;
     }
     this.args.onUserInteraction(formField, eventType, value, event);
   }
-
-  // onUserInteractionClone(...args) {
-  //   this.args.onUserInteraction([args]);
-  // },
 
   @action
   setFieldValue(value, formField) {
@@ -119,6 +117,6 @@ export default class ValidatingField extends Component {
     if (this.args.onFieldValueChange) {
       this.args.onFieldValueChange(formField, changeset);
     }
-    this.send('validateField', formField);
+    this.validateField(formField); // this.send
   }
 }

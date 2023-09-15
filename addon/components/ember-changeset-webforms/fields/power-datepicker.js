@@ -3,14 +3,14 @@ import Component from '@glimmer/component';
 
 export default class PowerDatepicker extends Component {
   get timeSelectorFields() {
-    return (this.formField.timeSelectorFields || '').split(',');
+    return (this.args.formField.timeSelectorFields || '').split(',');
   }
 
   @action
   onSelectDateTime(dateTime) {
-    var formField = this.formField;
+    var formField = this.args.formField;
     if (formField.dateRangeSettings) {
-      var rangePartner = this.formFields.findBy(
+      var rangePartner = this.args.formFields.findBy(
         'fieldId',
         formField.dateRangeSettings.rangePartnerFieldId
       );
@@ -24,9 +24,11 @@ export default class PowerDatepicker extends Component {
     }
     const formatted = dateTime
       ? moment(dateTime)
-          .format(`${this.formField.dateTimeFormat.replace(/S{1,}/, 'SSS')}`)
+          .format(
+            `${this.args.formField.dateTimeFormat.replace(/S{1,}/, 'SSS')}`
+          )
           .toString()
       : null; // TODO this must default simply to moment(dateTime).toDate() to accommodate ember attr 'date', and allow user to specify output function to override this when defining field.
-    this.onChange(formField, formatted);
+    this.args.onChange(formField, formatted);
   }
 }

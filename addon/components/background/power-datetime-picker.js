@@ -255,8 +255,7 @@ export default class PowerDatetimePicker extends Component {
     if (moment.isDate(this.args.value)) {
       this.updateDateTime(this.args.value); // this.send
     } else if (moment(this.args.value).isValid()) {
-      this.send(
-        'updateDateTime',
+      this.updateDateTime(
         moment(this.args.value, this.parsedDateTimeFormat).toDate()
       );
     }
@@ -333,7 +332,7 @@ export default class PowerDatetimePicker extends Component {
 
   @action
   dateClicked(dropdown, value) {
-    this.send('setDate', value.date);
+    this.setDate(value.date); // this.send
     if (this.args.closeDatePickerOnSelect) {
       dropdown.actions.close();
     }
@@ -345,7 +344,7 @@ export default class PowerDatetimePicker extends Component {
   @action
   setDate(selectedDate) {
     var currentDateTime = this.args.value;
-    this.send('updateDateTime', this.updateDate(selectedDate, currentDateTime));
+    this.updateDateTime(this.updateDate(selectedDate, currentDateTime)); // this.send
   }
 
   @action
@@ -364,7 +363,7 @@ export default class PowerDatetimePicker extends Component {
     var currentDateTime = this.args.value;
     const newDateTime = this.updateTimeUnit(unit, value, currentDateTime);
 
-    this.send('updateDateTime', newDateTime);
+    this.updateDateTime(newDateTime); // this.send
   }
 
   @action
@@ -404,7 +403,7 @@ export default class PowerDatetimePicker extends Component {
     }
     event.target.value = newValue;
 
-    this.send('setTime', unit, event);
+    this.setTime(unit, event); // this.send
     if (this.args.onUserInteraction) {
       this.args.onUserInteraction(
         'keyDownTimeUnitInput',
@@ -417,7 +416,7 @@ export default class PowerDatetimePicker extends Component {
   @action
   onKeyUpTimeUnitInput(unit, event) {
     if (event.target.value.length >= unit.length) {
-      this.send('setTime', unit, event);
+      this.setTime(unit, event); // this.send
     }
     if (this.args.onUserInteraction) {
       this.args.onUserInteraction(
@@ -446,7 +445,7 @@ export default class PowerDatetimePicker extends Component {
         this.parsedDateTimeFormat
       ).format('a');
     }
-    this.send('setTime', 'a', event);
+    this.setTime('a', event); // this.send
   }
 
   @action
@@ -476,7 +475,7 @@ export default class PowerDatetimePicker extends Component {
       event.target.value = '';
     }
     if (event.target.value === 'am' || event.target.value === 'pm') {
-      this.send('setTime', 'a', event);
+      this.setTime('a', event); // this.send
     }
   }
 
@@ -487,11 +486,11 @@ export default class PowerDatetimePicker extends Component {
       return;
     }
     // this.center = dateTime;
-    if (this.args.fixedTimeParsed) {
-      for (const key in this.args.fixedTimeParsed) {
+    if (this.fixedTimeParsed) {
+      for (const key in this.fixedTimeParsed) {
         dateTime = this.updateTimeUnit(
           key,
-          this.args.fixedTimeParsed[key],
+          this.fixedTimeParsed[key],
           dateTime
         );
       }
@@ -558,7 +557,7 @@ export default class PowerDatetimePicker extends Component {
   @action
   onTriggerKeydown(datepicker, e) {
     if (e.keyCode === 13) {
-      this.send('setDate', this.selectedDate);
+      this.setDate(this.selectedDate); // this.send
       e.preventDefault();
     }
     if (e.keyCode === 39) {
@@ -576,12 +575,12 @@ export default class PowerDatetimePicker extends Component {
     if (e.keyCode === 37) {
       if (e.metaKey) {
         if (e.shiftKey) {
-          this.send('navigate', datepicker, -1, 'years');
+          this.navigate(datepicker, -1, 'years'); // this.send
         } else {
-          this.send('navigate', datepicker, -1, 'months');
+          this.navigate(datepicker, -1, 'months'); // this.send
         }
       } else {
-        this.send('selectDay', datepicker, -1, 'days');
+        this.selectDay(datepicker, -1, 'days'); // this.send
       }
       e.preventDefault();
     }
@@ -589,7 +588,7 @@ export default class PowerDatetimePicker extends Component {
       if (!datepicker.isOpen) {
         datepicker.actions.open();
       } else {
-        this.send('selectDay', datepicker, 7, 'days');
+        this.selectDay(datepicker, 7, 'days'); // this.send
       }
       e.preventDefault();
     }
@@ -597,7 +596,7 @@ export default class PowerDatetimePicker extends Component {
       if (!datepicker.isOpen) {
         datepicker.actions.open();
       } else {
-        this.send('selectDay', datepicker, -7, 'days');
+        this.selectDay(datepicker, -7, 'days'); // this.send
       }
       e.preventDefault();
     }

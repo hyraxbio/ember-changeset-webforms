@@ -3,7 +3,7 @@ import Component from '@glimmer/component';
 import { typeOf as emberTypeOf } from '@ember/utils';
 export default class PowerSelect extends Component {
   get componentName() {
-    return this.formField.multipleSelection
+    return this.args.formField.multipleSelection
       ? 'power-select-multiple'
       : 'power-select';
   }
@@ -13,8 +13,8 @@ export default class PowerSelect extends Component {
     if ((value || []).length === 0) {
       value = null;
     }
-    this.onChange(formField, value);
-    this.onUserInteraction(formField, value, 'optionSelected', event);
+    this.args.onChange(formField, value);
+    this.args.onUserInteraction(formField, value, 'optionSelected', event);
   }
 
   @action
@@ -22,9 +22,9 @@ export default class PowerSelect extends Component {
     const primitiveOptions = dropdown.options.map((option) => {
       if (
         emberTypeOf(option) === 'object' &&
-        this.formField.optionDisplayProp
+        this.args.formField.optionDisplayProp
       ) {
-        return option[this.formField.optionDisplayProp];
+        return option[this.args.formField.optionDisplayProp];
       } else {
         return option;
       }
@@ -32,7 +32,7 @@ export default class PowerSelect extends Component {
     if (event.keyCode === 13) {
       event.preventDefault();
       if (
-        this.formField.multipleSelection &&
+        formField.multipleSelection &&
         formField.allowFreeTyping &&
         !primitiveOptions.find(
           (primitiveOption) =>
@@ -43,22 +43,27 @@ export default class PowerSelect extends Component {
       ) {
         let value = this.displayValue || [];
         var newItem;
-        if (this.formField.optionDisplayProp) {
+        if (this.args.formField.optionDisplayProp) {
           newItem = {};
-          newItem[this.formField.optionDisplayProp] = event.target.value;
+          newItem[this.args.formField.optionDisplayProp] = event.target.value;
         } else {
           newItem = event.target.value;
         }
         value.push(newItem);
-        this.onUserInteraction(
+        this.args.onUserInteraction(
           formField,
           newItem,
           'keyDownEnterPowerSelectMultiple',
           event
         );
-        this.onChange(formField, value, 'keyDownPowerSelect', event);
+        this.args.onChange(formField, value, 'keyDownPowerSelect', event);
       }
-      this.onUserInteraction(formField, newItem, 'keyDownPowerSelect', event);
+      this.args.onUserInteraction(
+        formField,
+        newItem,
+        'keyDownPowerSelect',
+        event
+      );
     }
   }
 }

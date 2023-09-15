@@ -15,6 +15,6 @@ export default class MarkdownToHtml extends Component {
   @tracked source;
 
   get html() {
-    return htmlSafe(md.renderInline(this.source));
+    return htmlSafe(md.renderInline(this.args.source));
   }
 }

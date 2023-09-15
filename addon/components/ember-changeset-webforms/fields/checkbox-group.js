@@ -8,8 +8,8 @@ export default class CheckboxGroup extends Component {
   @tracked displayValue;
 
   get options() {
-    var checkedItems = this.stringToArray(this.displayValue);
-    var options = this.formField.options;
+    var checkedItems = this.stringToArray(this.args.displayValue);
+    var options = this.args.formField.options;
     options.forEach(function (option) {
       if (checkedItems.indexOf(option.key) > -1) {
         option.value = true;
@@ -41,8 +41,13 @@ export default class CheckboxGroup extends Component {
     } else {
       checkedItems = checkedItems.sort();
     }
-    this.onChange(formField, checkedItems);
-    this.onUserInteraction(formField, 'checkboxToggled', checkedItems, event);
+    this.args.onChange(formField, checkedItems);
+    this.args.onUserInteraction(
+      formField,
+      'checkboxToggled',
+      checkedItems,
+      event
+    );
   }
 
   stringToArray(value) {
@@ -50,7 +55,7 @@ export default class CheckboxGroup extends Component {
     if (typeof value === 'string') {
       array = value.split(',');
     } else {
-      array = this.displayValue || [];
+      array = value || [];
     }
     array = array.map((item) => {
       return item.trim();

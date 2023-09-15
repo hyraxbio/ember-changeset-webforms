@@ -35,20 +35,24 @@
         @formField.validationStatus
       }}"
   >
-    {{component
-      @clonedFormField.componentPath
-      formField=@clonedFormField
-      clonedFormField=@clonedFormField
-      masterFormField=@masterFormField
-      onUserInteraction=(action "onUserInteractionClone" @clonedFormField.index)
-      onChange=(action "onChangeClone" @clonedFormField.index)
-      cloneField=(action @cloneField)
-      removeClone=(action @removeClone)
-      changesetWebform=@changesetWebform
-      displayValue=(ember-changeset-webforms/cloned-form-field-display-value
-        (get @changesetWebform.changeset @masterFormField.propertyName)
-        @clonedFormField.index
-      )
-    }}
+    {{#let (component @clonedFormField.componentPath) as |FieldComponent|}}
+      <FieldComponent
+        @formField={{@clonedFormField}}
+        @clonedFormField={{@clonedFormField}}
+        @masterFormField={{@masterFormField}}
+        @onUserInteraction={{fn
+          (action "onUserInteractionClone")
+          @clonedFormField
+        }}
+        @onChange={{fn (action "onChangeClone") @clonedFormField}}
+        @cloneField={{action @cloneField}}
+        @removeClone={{action @removeClone}}
+        @changesetWebform={{@changesetWebform}}
+        @displayValue={{ember-changeset-webforms/cloned-form-field-display-value
+          (get @changesetWebform.changeset @masterFormField.propertyName)
+          @clonedFormField.index
+        }}
+      />
+    {{/let}}
   </EmberChangesetWebforms::FieldElements::ValidatingFieldWrapper>
 </div>

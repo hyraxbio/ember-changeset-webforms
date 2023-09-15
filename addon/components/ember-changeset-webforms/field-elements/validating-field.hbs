@@ -27,7 +27,26 @@
       data-test-cwf-field
       {{did-insert (action "didInsert")}}
     >
-      {{component
+      {{#let (component @formField.componentPath) as |FieldComponent|}}
+        <FieldComponent
+          @formField={{@formField}}
+          @formFields={{@formFields}}
+          @formSettings={{@formSettings}}
+          @onChange={{fn (action "onChangeAction")}}
+          @onUserInteraction={{fn (action "onUserInteractionAction")}}
+          @changesetWebform={{@changesetWebform}}
+          @displayValue={{changeset-get
+            @changesetWebform.changeset
+            @formField.fieldId
+          }}
+          @dataTestFieldId={{this.dataTestFieldId}}
+          @labelId={{this.labelId}}
+          @ariaLabelledBy={{this.ariaLabelledBy}}
+          @ariaLabel={{this.ariaLabel}}
+          @isGroup={{this.isGroup}}
+        />
+      {{/let}}
+      {{!-- {{component
         @formField.componentPath
         formField=@formField
         formFields=@formFields
@@ -43,7 +62,7 @@
         ariaLabelledBy=this.ariaLabelledBy
         ariaLabel=this.ariaLabel
         isGroup=this.isGroup
-      }}
+      }} --}}
     </EmberChangesetWebforms::FieldElements::ValidatingFieldWrapper>
   {{/if}}
 {{/if}}
