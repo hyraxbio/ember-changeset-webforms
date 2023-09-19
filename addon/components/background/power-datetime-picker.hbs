@@ -1,16 +1,12 @@
-<div
-  class="power-datetime-picker"
-  {{did-insert (action "didInsert")}}
-  ...attributes
->
+<div class="power-datetime-picker" {{did-insert this.didInsert}} ...attributes>
   <BasicDropdown
     @renderInPlace={{true}}
-    @onClose={{fn (action "checkDateInputFocus")}}
+    @onClose={{this.checkDateInputFocus}}
     as |dropdown|
   >
     <dropdown.Trigger
       @eventType="mousedown"
-      onmousedown={{fn (action "onTriggerFocus")}}
+      onmousedown={{this.onTriggerFocus}}
       class={{@triggerWrapperClass}}
       ariaLabelledBy={{@ariaLabelledBy}}
       aria-label={{@ariaLabel}}
@@ -20,7 +16,7 @@
           type="button"
           class="{{@clearDateTimeButtonClass}}"
           data-test-id="datetime-picker-clear-datetime"
-          {{on "click" (action "clearDateTime")}}
+          {{on "click" this.clearDateTime}}
         >×</button>
       {{else}}
         <div class="{{@calendarIconClass}}"></div>
@@ -35,10 +31,10 @@
           )
         }}
         placeholder={{this.parsedDatepickerPlaceholder}}
-        {{on "change" (fn (action "onDateInputChange"))}}
-        {{on "keyup" (fn (action "onDateInputKeyUp"))}}
-        {{on "focus" (fn (action "onDateInputFocus"))}}
-        {{on "blur" (fn (action "onDateInputBlur"))}}
+        {{on "change" this.onDateInputChange}}
+        {{on "keyup" this.onDateInputKeyUp}}
+        {{on "focus" this.onDateInputFocus}}
+        {{on "blur" this.onDateInputBlur}}
         class={{@triggerInputClass}}
         id={{@triggerInputId}}
         data-test-id="power-datepicker-input"
@@ -53,8 +49,8 @@
           @minDate={{@minDate}}
           @maxDate={{@maxDate}}
           @selected={{this.selectedDate}}
-          @onSelect={{fn (action "dateClicked") dropdown}}
-          @onCenterChange={{fn (action "onCenterChange")}}
+          @onSelect={{fn this.dateClicked dropdown}}
+          @onCenterChange={{this.onCenterChange}}
           @center={{this.center}}
           class={{@calendarClass}}
           as |calendar|
@@ -62,7 +58,7 @@
           <Background::PowerCalendarNav
             @calendar={{calendar}}
             @calendarTitleFormat={{@calendarTitleFormat}}
-            @moveCenter={{fn calendar.actions.moveCenter}}
+            @moveCenter={{calendar.actions.moveCenter}}
             class={{@calendarNavClass}}
           />
           <calendar.Days
@@ -82,36 +78,36 @@
               @value={{@value}}
               @parsedDateTimeFormat={{this.parsedDateTimeFormat}}
               @timeInputLabelClass={{@timeInputLabelClass}}
-              @keyupAction={{action "onKeyUpTimeUnitInput"}}
-              @keydownAction={{action "onKeyDownTimeUnitInput"}}
-              @changeAction={{action "setTime"}}
+              @keyupAction={{this.onKeyUpTimeUnitInput}}
+              @keydownAction={{this.onKeyDownTimeUnitInput}}
+              @changeAction={{this.setTime}}
               @timeFormatPart={{get this.timeFormatParts 0}}
             />
             <Background::TimePartInput
               @value={{@value}}
               @parsedDateTimeFormat={{this.parsedDateTimeFormat}}
               @timeInputLabelClass={{@timeInputLabelClass}}
-              @keyupAction={{action "onKeyUpTimeUnitInput"}}
-              @keydownAction={{action "onKeyDownTimeUnitInput"}}
-              @changeAction={{action "setTime"}}
+              @keyupAction={{this.onKeyUpTimeUnitInput}}
+              @keydownAction={{this.onKeyDownTimeUnitInput}}
+              @changeAction={{this.setTime}}
               @timeFormatPart={{get this.timeFormatParts 1}}
             />
             <Background::TimePartInput
               @value={{@value}}
               @parsedDateTimeFormat={{this.parsedDateTimeFormat}}
               @timeInputLabelClass={{@timeInputLabelClass}}
-              @keyupAction={{action "onKeyUpTimeUnitInput"}}
-              @keydownAction={{action "onKeyDownTimeUnitInput"}}
-              @changeAction={{action "setTime"}}
+              @keyupAction={{this.onKeyUpTimeUnitInput}}
+              @keydownAction={{this.onKeyDownTimeUnitInput}}
+              @changeAction={{this.setTime}}
               @timeFormatPart={{get this.timeFormatParts 2}}
             />
             <Background::TimePartInput
               @value={{@value}}
               @parsedDateTimeFormat={{this.parsedDateTimeFormat}}
               @timeInputLabelClass={{@timeInputLabelClass}}
-              @keyupAction={{action "onKeyUpTimeUnitInput"}}
-              @keydownAction={{action "onKeyDownTimeUnitInput"}}
-              @changeAction={{action "setTime"}}
+              @keyupAction={{this.onKeyUpTimeUnitInput}}
+              @keydownAction={{this.onKeyDownTimeUnitInput}}
+              @changeAction={{this.setTime}}
               @timeFormatPart={{get this.timeFormatParts 3}}
             />
             {{#if this.showAmPmInput}}
@@ -134,10 +130,10 @@
                       "a"
                     )
                   }}
-                  {{on "change" (fn (action "onChangeAmPm"))}}
-                  {{on "focus" (fn (action "onFocusInAmPm"))}}
-                  {{on "blur" (fn (action "onChangeAmPm"))}}
-                  {{on "keyup" (fn (action "onKeyUpAmPm"))}}
+                  {{on "change" this.onChangeAmPm}}
+                  {{on "focus" this.onFocusInAmPm}}
+                  {{on "blur" this.onChangeAmPm}}
+                  {{on "keyup" this.onKeyUpAmPm}}
                   data-test-id="power-datepicker-am-pm-input"
                   class={{@timeInputClass}}
                 />

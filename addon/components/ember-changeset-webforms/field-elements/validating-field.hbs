@@ -2,15 +2,15 @@
   {{#if @formField.cloneGroupName}}
     <EmberChangesetWebforms::ClonedFieldElements::ValidatingCloneGroup
       @masterFormField={{@formField}}
-      @setFieldValue={{fn (action "setFieldValue")}}
-      @validateField={{fn (action "validateField")}}
+      @setFieldValue={{this.setFieldValue}}
+      @validateField={{this.validateField}}
       @afterAddClone={{@afterAddClone}}
       @afterRemoveClone={{@afterRemoveClone}}
       @afterClickAddCloneButton={{@afterClickAddCloneButton}}
-      @onUserInteraction={{fn (action "onUserInteractionAction")}}
+      @onUserInteraction={{this.onUserInteractionAction}}
       @dataTestFieldId={{this.dataTestFieldId}}
       @changesetWebform={{@changesetWebform}}
-      {{did-insert (action "didInsert")}}
+      {{did-insert this.didInsert}}
     />
   {{else}}
     <EmberChangesetWebforms::FieldElements::ValidatingFieldWrapper
@@ -25,15 +25,15 @@
       @isGroup={{this.isGroup}}
       @validationErrorsArray={{@formField.validationErrors}}
       data-test-cwf-field
-      {{did-insert (action "didInsert")}}
+      {{did-insert this.didInsert}}
     >
       {{#let (component @formField.componentPath) as |FieldComponent|}}
         <FieldComponent
           @formField={{@formField}}
           @formFields={{@formFields}}
           @formSettings={{@formSettings}}
-          @onChange={{fn (action "onChangeAction")}}
-          @onUserInteraction={{fn (action "onUserInteractionAction")}}
+          @onChange={{this.onChangeAction}}
+          @onUserInteraction={{this.onUserInteractionAction}}
           @changesetWebform={{@changesetWebform}}
           @displayValue={{changeset-get
             @changesetWebform.changeset
@@ -51,8 +51,8 @@
         formField=@formField
         formFields=@formFields
         formSettings=@formSettings
-        onChange=(action "onChangeAction")
-        onUserInteraction=(action "onUserInteractionAction")
+        onChange=this.onChangeAction
+        onUserInteraction=this.onUserInteractionAction
         changesetWebform=@changesetWebform
         displayValue=(changeset-get
           @changesetWebform.changeset @formField.fieldId

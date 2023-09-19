@@ -2,12 +2,8 @@
 'use strict';
 
 module.exports = {
-  // extends: 'recommended',
+  extends: 'recommended',
   rules: {
-    // 'attribute-indentation': false,
-    // 'no-inline-styles': {
-    //   allowDynamicStyles: true,
-    // },
     'no-implicit-this': {
       allow: [
         'ember-changeset-webforms/array-join',

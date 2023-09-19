@@ -6,12 +6,12 @@
       null
       @requestInFlight
     }}"
-  {{did-insert (action "didInsert")}}
+  {{did-insert this.didInsert}}
   ...attributes
 >
   {{! TODO implement this.formValidationClass with dynamic class names }}
   <form
-    {{on "submit" (action "submitForm")}}
+    {{on "submit" this.submitForm}}
     class={{this.formValidationClass}}
     novalidate={{this.formSettings.novalidate}}
   >
@@ -34,13 +34,13 @@
           @formSettings={{this.formSettings}}
           @formFields={{this.changesetWebform.fields}}
           @submitForm={{fn
-            (action "submitForm")
+            this.submitForm
             this.changesetWebform
             this.formSettings.modelName
           }}
-          @afterFieldValidation={{fn (action "afterFieldValidationAction")}}
-          @onFieldValueChange={{fn (action "onFieldValueChangeAction")}}
-          @onUserInteraction={{fn (action "onUserInteractionAction")}}
+          @afterFieldValidation={{this.afterFieldValidationAction}}
+          @onFieldValueChange={{this.onFieldValueChangeAction}}
+          @onUserInteraction={{this.onUserInteractionAction}}
         />
       {{/each}}
     </div>
@@ -58,7 +58,7 @@
           {{on
             "click"
             (fn
-              (action "submitForm")
+              this.submitForm
               this.changesetWebform
               this.formSettings.modelName
             )
@@ -80,7 +80,7 @@
           class={{this.formSettings.showRollbackChangesetButtonClasses}}
           type="button"
           data-test-id="cwf-reset-form-button"
-          {{on "click" (fn (action "discardChanges") this.changesetWebform)}}
+          {{on "click" (fn this.discardChanges this.changesetWebform)}}
           class="{{ember-changeset-webforms/dynamic-class-names
               'buttonElement,rollbackChangesetButton'
               this.changesetWebform
@@ -91,7 +91,7 @@
         <button
           type="button"
           data-test-id="cwf-reset-form-button"
-          {{on "click" (fn (action "clearForm") this.changesetWebform)}}
+          {{on "click" (fn this.clearForm this.changesetWebform)}}
           class="{{ember-changeset-webforms/dynamic-class-names
               'buttonElement,clearFormButton'
               this.changesetWebform

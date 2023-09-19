@@ -16,8 +16,8 @@
     @allowClear={{@formField.allowClear}}
     @searchEnabled={{@formField.searchEnabled}}
     @placeholder={{@formField.placeholder}}
-    @onChange={{fn (action "onChangeAction") @formField}}
-    @onKeydown={{fn (action "onKeydown") @formField}}
+    @onChange={{fn this.onChangeAction @formField}}
+    @onKeydown={{fn this.onKeydown @formField}}
     @onclose={{@onclose}}
     @triggerId={{@formField.name}}
     @disabled={{@formField.disabled}}

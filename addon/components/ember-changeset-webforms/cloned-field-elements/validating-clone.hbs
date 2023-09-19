@@ -1,7 +1,7 @@
 <div
   data-test-class={{this.dataTestClass}}
   class="cwf-field-clone-wrapper"
-  {{did-insert (action "didInsert")}}
+  {{did-insert this.didInsert}}
   ...attributes
 >
   {{#if (not-eq @masterFormField.cloneCountStatus "min")}}
@@ -41,12 +41,12 @@
         @clonedFormField={{@clonedFormField}}
         @masterFormField={{@masterFormField}}
         @onUserInteraction={{fn
-          (action "onUserInteractionClone")
+          this.onUserInteractionClone
           @clonedFormField
         }}
-        @onChange={{fn (action "onChangeClone") @clonedFormField}}
-        @cloneField={{action @cloneField}}
-        @removeClone={{action @removeClone}}
+        @onChange={{fn this.onChangeClone @clonedFormField}}
+        @cloneField={{@cloneField}}
+        @removeClone={{@removeClone}}
         @changesetWebform={{@changesetWebform}}
         @displayValue={{ember-changeset-webforms/cloned-form-field-display-value
           (get @changesetWebform.changeset @masterFormField.propertyName)

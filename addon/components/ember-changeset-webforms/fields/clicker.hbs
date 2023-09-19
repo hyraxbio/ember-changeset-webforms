@@ -8,7 +8,7 @@
       "clickerElement" @changesetWebform @formField
     )
     changesetWebform=@changesetWebform
-    onClick=(action "onClick" @formField)
+    onClick=(fn this.onClick @formField)
   }}
 {{else}}
   <div
@@ -19,7 +19,7 @@
       @formField
       @formField.validationStatus
     }}
-    {{on "click" (fn (action "onClick") @formField)}}
+    {{on "click" (fn this.onClick @formField)}}
     data-test-class="cwf-clicker-element"
   >{{@formField.clickerText}}</div>
 {{/if}}
