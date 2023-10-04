@@ -9,6 +9,7 @@ export default class FormSettings {
   @tracked clearFormButtonText;
   @tracked showRollbackChangesetButton;
   @tracked showRollbackChangesetButtonText;
+  @tracked requestInFlight;
   // END-SNIPPET
   constructor(args) {
     for (const key in args) {

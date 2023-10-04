@@ -16,12 +16,10 @@ import { setupApplicationTest } from 'ember-qunit';
 import { setupMirage } from 'ember-cli-mirage/test-support';
 import dummyEls from './test-selectors';
 import keyCodesMap from 'ember-changeset-webforms/utils/keycodes-map';
-import qUnitExtend from './test-helpers';
 import { calendarSelect } from 'ember-power-calendar/test-support';
 
 module('Acceptance | Power datepicker field', function (hooks) {
   setupApplicationTest(hooks);
-  qUnitExtend.qunitModuleHooks(hooks);
   setupMirage(hooks);
 
   test('Date select', async function (assert) {

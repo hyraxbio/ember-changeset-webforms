@@ -40,11 +40,8 @@
         @formField={{@clonedFormField}}
         @clonedFormField={{@clonedFormField}}
         @masterFormField={{@masterFormField}}
-        @onUserInteraction={{fn
-          this.onUserInteractionClone
-          @clonedFormField
-        }}
-        @onChange={{fn this.onChangeClone @clonedFormField}}
+        @onUserInteraction={{this.onUserInteractionClone}}
+        @onChange={{this.onChangeClone}}
         @cloneField={{@cloneField}}
         @removeClone={{@removeClone}}
         @changesetWebform={{@changesetWebform}}

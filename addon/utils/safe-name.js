@@ -1,6 +1,9 @@
 import { dasherize } from '@ember/string';
 
 export default function safeName(str) {
+  if (!str) {
+    return;
+  }
   str = dasherize(str);
   str = str
     .replace(/\s/g, '-')

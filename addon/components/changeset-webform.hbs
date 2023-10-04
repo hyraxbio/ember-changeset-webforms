@@ -14,6 +14,9 @@
     {{on "submit" this.submitForm}}
     class={{this.formValidationClass}}
     novalidate={{this.formSettings.novalidate}}
+    data-test-id={{ember-changeset-webforms/safe-name
+      this.formSettings.formName
+    }}
   >
     <div
       class="{{ember-changeset-webforms/dynamic-class-names
@@ -58,9 +61,7 @@
           {{on
             "click"
             (fn
-              this.submitForm
-              this.changesetWebform
-              this.formSettings.modelName
+              this.submitForm this.changesetWebform this.formSettings.modelName
             )
           }}
           @value={{this.formSettings.submitButtonText}}

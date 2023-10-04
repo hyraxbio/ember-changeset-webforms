@@ -244,11 +244,10 @@ export default class PowerDatetimePicker extends Component {
       this.selectedSecond = this.defaultSecond;
     }
     if (this.args.calendarStartMonth) {
-      var split = this.args.calendarStartMonth.split('/');
-      const calendarStartDate = moment()
-        .year(parseInt(split[1]))
-        .month(parseInt(split[0]) - 1)
-        .day(1);
+      const calendarStartDate = moment(
+        `01/${this.args.calendarStartMonth}`,
+        'DD/MM/YYYY'
+      );
       this.calendarStartDate = calendarStartDate;
     }
 
