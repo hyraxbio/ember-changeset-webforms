@@ -79,4 +79,11 @@ export default {
   checkboxes1CheckboxOption1: '[data-test-id="checkboxes1-checkbox-option-1"]',
   checkboxes1CheckboxOption2: '[data-test-id="checkboxes1-checkbox-option-2"]',
   checkboxes1CheckboxOption3: '[data-test-id="checkboxes1-checkbox-option-3"]',
+
+  clickerExample1: '[data-test-id="clicker-example1"]',
+  clickerExample2: '[data-test-id="clicker-example2"]',
+
+  toggleAdvancedField: '[data-test-id="toggleAdvanced-field"]',
+  cwfClickerElement: '[data-test-class="cwf-clicker-element"]',
+  advancedField: '[data-test-id="advanced-field"]',
 };

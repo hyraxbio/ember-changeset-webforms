@@ -46,23 +46,6 @@
           @isGroup={{this.isGroup}}
         />
       {{/let}}
-      {{!-- {{component
-        @formField.componentPath
-        formField=@formField
-        formFields=@formFields
-        formSettings=@formSettings
-        onChange=this.onChangeAction
-        onUserInteraction=this.onUserInteractionAction
-        changesetWebform=@changesetWebform
-        displayValue=(changeset-get
-          @changesetWebform.changeset @formField.fieldId
-        )
-        dataTestFieldId=this.dataTestFieldId
-        labelId=this.labelId
-        ariaLabelledBy=this.ariaLabelledBy
-        ariaLabel=this.ariaLabel
-        isGroup=this.isGroup
-      }} --}}
     </EmberChangesetWebforms::FieldElements::ValidatingFieldWrapper>
   {{/if}}
 {{/if}}

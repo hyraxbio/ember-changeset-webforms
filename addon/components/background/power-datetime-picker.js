@@ -252,7 +252,7 @@ export default class PowerDatetimePicker extends Component {
     }
 
     if (moment.isDate(this.args.value)) {
-      this.updateDateTime(this.args.value); // this.send
+      this.updateDateTime(this.args.value);
     } else if (moment(this.args.value).isValid()) {
       this.updateDateTime(
         moment(this.args.value, this.parsedDateTimeFormat).toDate()
@@ -480,11 +480,7 @@ export default class PowerDatetimePicker extends Component {
 
   @action
   updateDateTime(dateTime) {
-    // TODO why is typeof this.args.value sometimes an object and sometimes a string?
-    if (moment(this.args.value).isSame(moment(dateTime))) {
-      return;
-    }
-    // this.center = dateTime;
+    this.center = dateTime;
     if (this.fixedTimeParsed) {
       for (const key in this.fixedTimeParsed) {
         dateTime = this.updateTimeUnit(

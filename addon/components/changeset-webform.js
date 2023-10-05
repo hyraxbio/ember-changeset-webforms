@@ -78,6 +78,13 @@ export default class ChangesetWebform extends Component {
   }
 
   @action
+  onFieldInsertedAction(formField) {
+    if (this.args.onFieldInserted) {
+      this.args.onFieldInserted(formField, this.changesetWebform);
+    }
+  }
+
+  @action
   afterFieldValidationAction(formField, _changeset, fieldValidationErrors) {
     if (this.args.afterFieldValidation) {
       this.args.afterFieldValidation(

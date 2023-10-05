@@ -2078,7 +2078,6 @@ module('Acceptance | Power datepicker field', function (hooks) {
       const timeSelectorMinutesInput = find(
         dummyEls.timeSelectorFieldInputMinutes
       );
-
       assert
         .dom(`${parentFieldSelector} ${dummyEls.outputFieldValue}`)
         .hasText(
@@ -2098,6 +2097,7 @@ module('Acceptance | Power datepicker field', function (hooks) {
         );
       await fillIn(dateTimeInput, '03/11/2022 14:41:19.142');
       await triggerKeyEvent(dateTimeInput, 'keyup', '1');
+
       assert
         .dom(`${parentFieldSelector} ${dummyEls.outputFieldValue}`)
         .hasText(

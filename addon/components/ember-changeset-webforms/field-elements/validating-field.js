@@ -51,6 +51,7 @@ export default class ValidatingField extends Component {
       formField.eventLog.pushObject('insert');
       this.validateField(formField); // this.send
     }
+    this.args.onFieldInserted(this.args.formField);
   }
 
   @action

@@ -10,7 +10,14 @@ Calls the `keyUp`, `focusIn` and `focusOut` actions when the corresponding event
 
 ### Input field props
 
+The props specific to this field are shown with their default values below.
+
 {{docs-snippet name="input-field-options.js"}}
+
+The above props are in addition to the generic field props shown with their default values below.
+
+{{docs-snippet name="generic-field-settings.js" title="Default generic field settings and their values"}}
+
 
 <DocsDemo as |demo|>
   <demo.example @name="input-example-1.hbs">
@@ -37,7 +44,14 @@ Calls the `keyUp`, `focusIn` and `focusOut` actions when the corresponding event
 
 ### Textarea field props
 
+The props specific to this field are shown with their default values below.
+
 {{docs-snippet name="textarea-field-options.js"}}
+
+The above props are in addition to the generic field props shown with their default values below.
+
+{{docs-snippet name="generic-field-settings.js" title="Default generic field settings and their values"}}
+
 
 <DocsDemo as |demo|>
   <demo.example @name="textarea-example-1.hbs">
@@ -54,7 +68,14 @@ The field ID is set to `true` or `false` depending on whether the checkbox is ch
 
 ### Single checkbox props
 
+The props specific to this field are shown with their default values below.
+
 {{docs-snippet name="singleCheckbox-field-options.js"}}
+
+The above props are in addition to the generic field props shown with their default values below.
+
+{{docs-snippet name="generic-field-settings.js" title="Default generic field settings and their values"}}
+
 
 ### Single checkbox basic usage
 
@@ -117,13 +138,27 @@ Renders a radio button group. The value of the field as a whole is the `value` p
 
 ### Radio button group props
 
+The props specific to this field are shown with their default values below.
+
 {{docs-snippet name="radioButtonGroup-field-options.js"}}
+
+The above props are in addition to the generic field props shown with their default values below.
+
+{{docs-snippet name="generic-field-settings.js" title="Default generic field settings and their values"}}
+
 
 ### Radio button group `options` prop
 
 Each option in the `options` property of field with type `radioButtonGroup` can have the following properties.
 
+The props specific to this field are shown with their default values below.
+
 {{docs-snippet name="radio-button-group-option.js"}}
+
+The above props are in addition to the generic field props shown with their default values below.
+
+{{docs-snippet name="generic-field-settings.js" title="Default generic field settings and their values"}}
+
 
 <DocsDemo as |demo|>
   <demo.example @name="radio-button-group-example-1.hbs">
@@ -164,13 +199,27 @@ In both cases the following applies, the object passed must take the following f
 
 Renders a checkbox group. The value of the field as a whole is an array which will include the value of `key` for each option that is currently selected.
 
+The props specific to this field are shown with their default values below.
+
 {{docs-snippet name="checkboxGroup-field-options.js"}}
+
+The above props are in addition to the generic field props shown with their default values below.
+
+{{docs-snippet name="generic-field-settings.js" title="Default generic field settings and their values"}}
+
 
 ### Checkbox group options
 
 Each option in the `options` property of field with type `checkboxGroup` can have the following properties.
 
+The props specific to this field are shown with their default values below.
+
 {{docs-snippet name="checkbox-group-option.js"}}
+
+The above props are in addition to the generic field props shown with their default values below.
+
+{{docs-snippet name="generic-field-settings.js" title="Default generic field settings and their values"}}
+
 
 <DocsDemo as |demo|>
   <demo.example @name="checkbox-group-example-1.hbs">
@@ -207,7 +256,14 @@ In both cases the following applies, the object passed must take the following f
   <demo.snippet @name="checkbox-group-example-2.hbs" @label="Template" @language="htmlbars" />
 </DocsDemo>
 
+The props specific to this field are shown with their default values below.
+
 {{docs-snippet name="clicker-field-options.js"}}
+
+The above props are in addition to the generic field props shown with their default values below.
+
+{{docs-snippet name="generic-field-settings.js" title="Default generic field settings and their values"}}
+
 
 ## Static content field
 
@@ -241,7 +297,14 @@ If static text is sufficient, you can simply use the `text` prop to pass the sta
 
 Alternatively, you can pass `
 
+The props specific to this field are shown with their default values below.
+
 {{docs-snippet name="staticContent-field-options.js"}}
+
+The above props are in addition to the generic field props shown with their default values below.
+
+{{docs-snippet name="generic-field-settings.js" title="Default generic field settings and their values"}}
+
 
 ## Power select
 
@@ -249,7 +312,14 @@ Renders an [ember-power-select](https://ember-power-select.com) component.
 
 ### Power select field props
 
+The props specific to this field are shown with their default values below.
+
 {{docs-snippet name="powerSelect-field-options.js"}}
+
+The above props are in addition to the generic field props shown with their default values below.
+
+{{docs-snippet name="generic-field-settings.js" title="Default generic field settings and their values"}}
+
 
 Note also that if passed, value of `placeholder` will display as the placeholder in the select box until an option is selected.
 
@@ -317,7 +387,22 @@ The value output by this field will also always be a formatted according to this
 
 ### Power datepicker field props
 
+Below are all of the props specific to the power datepicker field, shown with their default values. 
+
+The props specific to this field are shown with their default values below.
+
 {{docs-snippet name="powerDatePicker-field-options.js"}}
+
+The above props are in addition to the generic field props shown with their default values below.
+
+{{docs-snippet name="generic-field-settings.js" title="Default generic field settings and their values"}}
+
+
+### defaultValue
+
+`defaultValue` can be passed as a native JavaScript date object, a `moment` object, or a string in the format of `dateTimeFormat`.
+
+When the field is inersted, it will parse the supplied datetime into the format of the fields `dateTimeFormat` property, and set the value of the field to the resulting string.
 
 ### Basic usage - date only selection
 
@@ -334,6 +419,8 @@ The value output by this field will also always be a formatted according to this
   <demo.snippet @name="power-datepicker-example-1.hbs" @label="Template" @language="htmlbars" />
   <demo.snippet @name="after-datetime-updated-action.js" @label="Action handing" @language="javascript" />
 </DocsDemo>
+
+
 
 ### With fixed time
 
@@ -518,7 +605,7 @@ Pass `displayComponent` as an object containing:
 If using a `button` element in your custom clicker component, bear in mind that the default `type` of a button is `submit`. Thus, if you don't add a type to your button, clicking it will result in a form submission. Setting `type="button"` is recommended.
 
 {{#docs-snippet name="custom-clicker-component.hbs"}}
-<button type="button" onclick={{action this.onClick}} class={{this.classNames}}><b>{{this.formField.clickerText}}</b> {{component this.icon}}</button>
+<button data-test-class="cwf-clicker-element" type="button" onclick={{action this.onClick}} class={{this.classNames}}><b>{{this.formField.clickerText}}</b> {{component this.icon}}</button>
 {{/docs-snippet}}
 
 <DocsDemo as |demo|>

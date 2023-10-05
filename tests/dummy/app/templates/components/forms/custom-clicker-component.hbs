@@ -1,5 +1,6 @@
 <button
+  data-test-class="cwf-clicker-element"
   type="button"
   onclick={{action @onClick}}
-  class={{concat @classNames " btn-" @props.buttonType}}
+  class={{concat @clickerElementClass " btn-" @props.buttonType}}
 ><b>{{@formField.clickerText}}</b> {{component @icon}}</button>

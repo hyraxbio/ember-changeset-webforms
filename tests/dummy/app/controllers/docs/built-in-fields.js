@@ -583,10 +583,13 @@ export default Controller.extend({
           closeDatePickerOnSelect: true,
           showTimeSelector: true,
           timeSelectorFields: 'HH,mm,ss,SS',
-          defaultValue: moment(
-            '14:42:19.14223 03.11.2022',
-            'HH:mm:ss.SSSSS DD.MM.YYYY'
-          ),
+          defaultValue: '14:42:19.14223 03.11.2022',
+          // defaultValue: moment(
+          //   '14:42:19.14223 03.11.2022',
+          //   'HH:mm:ss.SSSSS DD.MM.YYYY'
+          // ),
+          // defaultValue: new Date(2022, 10, 3, 14, 42, 19, 142),
+          // TODO docs
         },
       ],
     };
@@ -664,12 +667,11 @@ export default Controller.extend({
     // BEGIN-SNIPPET clicker-example-action.js
     onUserInteractionClicker1(formField, changesetWebform, eventType) {
       if (formField.fieldId === 'toggleAdvanced' && eventType === 'click') {
-        formField.toggleProperty('showAdvanced');
-        const advancedFields = changesetWebform.fields.filterBy(
-          'advancedSetting',
-          true
+        formField.showAdvanced = !formField.showAdvanced;
+        const advancedFields = changesetWebform.fields.filter(
+          (field) => field.advancedSetting
         );
-        advancedFields.forEach((field) => field.toggleProperty('hidden'));
+        advancedFields.forEach((field) => (field.hidden = !field.hidden));
       }
     },
     // END-SNIPPET
