@@ -152,7 +152,7 @@ const addonDefaults = {
       // BEGIN-SNIPPET clone-group-field-options.js
       fieldType: 'clone-group',
       maxClonesReachedText: 'Max clones reached.', // String
-      removeCloneComponent: 'svg-repo/icons/icon-trash', // String - path to the component to use as the remove clone element
+      removeCloneComponent: 'icons/icon-trash', // String - path to the component to use as the remove clone element
       addCloneButtonComponent:
         'ember-changeset-webforms/cloned-field-elements/add-clone-button', // String - path to the component to use as the add clone element
       hideSuccessValidation: true,
@@ -279,23 +279,23 @@ export default function getWithDefault(formSchema = {}) {
     {},
     addonDefaults.formSettings,
     appDefaults.formSettings,
-    formSchema.formSettings
+    formSchema.formSettings,
   );
   const classNameSettings = _mergeWith(
     {},
     addonDefaults.generalClassNames,
     appDefaults.generalClassNames,
     formSchema.generalClassNames,
-    mergeWithDefaultClassNames
+    mergeWithDefaultClassNames,
   );
   const addonFieldDefaults = addonDefaults.fieldSettings || {};
   const appConfigFieldDefaults = appDefaults.fieldSettings || {};
   const mergedFields = (formSchema.fields || []).map((field) => {
     const addonFieldTypeDefaults = addonDefaults.fieldTypes.find(
-      (addonFieldType) => addonFieldType.fieldType === field.fieldType
+      (addonFieldType) => addonFieldType.fieldType === field.fieldType,
     );
     const appConfigFieldTypeDefaults = (appDefaults.fieldTypes || []).find(
-      (appConfigFieldType) => appConfigFieldType.fieldType === field.fieldType
+      (appConfigFieldType) => appConfigFieldType.fieldType === field.fieldType,
     );
     const mergedField = _mergeWith(
       {},
@@ -304,18 +304,18 @@ export default function getWithDefault(formSchema = {}) {
       appConfigFieldDefaults,
       appConfigFieldTypeDefaults,
       formSchema.fieldSettings,
-      field
+      field,
     );
     if (field.cloneFieldSchema) {
       const cloneAddonFieldTypeDefaults = addonDefaults.fieldTypes.find(
         (addonFieldType) =>
-          addonFieldType.fieldType === field.cloneFieldSchema.fieldType
+          addonFieldType.fieldType === field.cloneFieldSchema.fieldType,
       );
       const appConfigCloneFieldTypeDefaults = (
         appDefaults.fieldTypes || []
       ).find(
         (appConfigFieldType) =>
-          appConfigFieldType.fieldType === field.cloneFieldSchema.fieldType
+          appConfigFieldType.fieldType === field.cloneFieldSchema.fieldType,
       );
       const mergedCloneField = _mergeWith(
         {},
@@ -324,7 +324,7 @@ export default function getWithDefault(formSchema = {}) {
         appConfigFieldDefaults,
         appConfigCloneFieldTypeDefaults,
         formSchema.fieldSettings,
-        field.cloneFieldSchema
+        field.cloneFieldSchema,
       );
       mergedField.cloneFieldSchema = mergedCloneField;
     }

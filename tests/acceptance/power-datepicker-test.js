@@ -26,28 +26,28 @@ module('Acceptance | Power datepicker field', function (hooks) {
     await visit('/docs/built-in-fields');
     const parentFieldSelector = dummyEls.powerDatepickerBasicUse;
     const dateTimeInput = find(
-      `${parentFieldSelector} ${dummyEls.powerDatepickerInput}`
+      `${parentFieldSelector} ${dummyEls.powerDatepickerInput}`,
     );
     const rawDateTimeElement = find(
-      `${parentFieldSelector} ${dummyEls.rawDateTime}`
+      `${parentFieldSelector} ${dummyEls.rawDateTime}`,
     );
     const fieldValueElement = find(
-      `${parentFieldSelector} ${dummyEls.outputFieldValue}`
+      `${parentFieldSelector} ${dummyEls.outputFieldValue}`,
     );
     await clickTrigger(`${parentFieldSelector} ${dummyEls.startDateField}`);
     const calendarElement = find(dummyEls.ecwPowerDatepickerDropdown);
     await calendarSelect(
       parentFieldSelector,
-      moment('2022-11-13', 'YYYY-MM-DD').toDate()
+      moment('2022-11-13', 'YYYY-MM-DD').toDate(),
     );
     assert
       .dom(dummyEls.ecwPowerDatepickerDropdown)
       .exists('Calendar is set to not close after date select by default.');
     assert.ok(
       find(dummyEls.dataDate('2022-11-13')).classList.contains(
-        'ember-power-calendar-day--selected'
+        'ember-power-calendar-day--selected',
       ),
-      'The selected date is 2022-11-13.'
+      'The selected date is 2022-11-13.',
     );
 
     await check(assert, {
@@ -83,13 +83,13 @@ module('Acceptance | Power datepicker field', function (hooks) {
     // TODO write test to check that calendarStartMonth works and is overridden by defaultValue or data passed in.
     const parentFieldSelector = dummyEls.powerDatepickerMinMaxDate;
     const dateTimeInput = find(
-      `${parentFieldSelector} ${dummyEls.powerDatepickerInput}`
+      `${parentFieldSelector} ${dummyEls.powerDatepickerInput}`,
     );
     const rawDateTimeElement = find(
-      `${parentFieldSelector} ${dummyEls.rawDateTime}`
+      `${parentFieldSelector} ${dummyEls.rawDateTime}`,
     );
     const fieldValueElement = find(
-      `${parentFieldSelector} ${dummyEls.outputFieldValue}`
+      `${parentFieldSelector} ${dummyEls.outputFieldValue}`,
     );
     await clickTrigger(`${parentFieldSelector} ${dummyEls.startDateField}`);
     assert
@@ -127,7 +127,7 @@ module('Acceptance | Power datepicker field', function (hooks) {
 
     await calendarSelect(
       parentFieldSelector,
-      moment('2022-11-13', 'YYYY-MM-DD').toDate()
+      moment('2022-11-13', 'YYYY-MM-DD').toDate(),
     );
 
     await check(assert, {
@@ -162,28 +162,28 @@ module('Acceptance | Power datepicker field', function (hooks) {
     await visit('/docs/built-in-fields');
     const parentFieldSelector = dummyEls.powerDatepickerAdvancedUse;
     const dateTimeInput = find(
-      `${parentFieldSelector} ${dummyEls.powerDatepickerInput}`
+      `${parentFieldSelector} ${dummyEls.powerDatepickerInput}`,
     );
     const rawDateTimeElement = find(
-      `${parentFieldSelector} ${dummyEls.rawDateTime}`
+      `${parentFieldSelector} ${dummyEls.rawDateTime}`,
     );
     const fieldValueElement = find(
-      `${parentFieldSelector} ${dummyEls.outputFieldValue}`
+      `${parentFieldSelector} ${dummyEls.outputFieldValue}`,
     );
     await clickTrigger(`${parentFieldSelector} ${dummyEls.startDateField}`);
     const calendarElement = find(dummyEls.ecwPowerDatepickerDropdown);
     await calendarSelect(
       parentFieldSelector,
-      moment('2022-11-13', 'YYYY-MM-DD').toDate()
+      moment('2022-11-13', 'YYYY-MM-DD').toDate(),
     );
     assert
       .dom(dummyEls.ecwPowerDatepickerDropdown)
       .exists('Calendar is set to not close after date select by default.');
     assert.ok(
       find(dummyEls.dataDate('2022-11-13')).classList.contains(
-        'ember-power-calendar-day--selected'
+        'ember-power-calendar-day--selected',
       ),
-      'The selected date is 2022-11-13.'
+      'The selected date is 2022-11-13.',
     );
 
     await check(assert, {
@@ -218,26 +218,26 @@ module('Acceptance | Power datepicker field', function (hooks) {
     await visit('/docs/built-in-fields');
     const parentFieldSelector = dummyEls.powerDatepicker24HourTimeSelect;
     const dateTimeInput = find(
-      `${parentFieldSelector} ${dummyEls.powerDatepickerInput}`
+      `${parentFieldSelector} ${dummyEls.powerDatepickerInput}`,
     );
     const rawDateTimeElement = find(
-      `${parentFieldSelector} ${dummyEls.rawDateTime}`
+      `${parentFieldSelector} ${dummyEls.rawDateTime}`,
     );
     await clickTrigger(`${parentFieldSelector} ${dummyEls.startDateField}`);
     assert
       .dom(dummyEls.powerDatepickerAmPmInput)
       .doesNotExist(
-        'AM/PM input not shown when HH passed as the hour input format.'
+        'AM/PM input not shown when HH passed as the hour input format.',
       );
     const timeSelectorHourInput = find(dummyEls.timeSelectorFieldInputHour);
     const timeSelectorMinutesInput = find(
-      dummyEls.timeSelectorFieldInputMinutes
+      dummyEls.timeSelectorFieldInputMinutes,
     );
     const timeSelectorSecondsInput = find(
-      dummyEls.timeSelectorFieldInputSeconds
+      dummyEls.timeSelectorFieldInputSeconds,
     );
     const timeSelectorMillisecondsInput = find(
-      dummyEls.timeSelectorFieldInputMilliseconds
+      dummyEls.timeSelectorFieldInputMilliseconds,
     );
     await check(
       assert,
@@ -267,7 +267,7 @@ module('Acceptance | Power datepicker field', function (hooks) {
           },
         ],
       },
-      this
+      this,
     );
     await check(assert, {
       parentFieldSelector: parentFieldSelector,
@@ -605,10 +605,10 @@ module('Acceptance | Power datepicker field', function (hooks) {
     await visit('/docs/built-in-fields');
     const parentFieldSelector = dummyEls.powerDatepicker12HourTimeSelect;
     const dateTimeInput = find(
-      `${parentFieldSelector} ${dummyEls.powerDatepickerInput}`
+      `${parentFieldSelector} ${dummyEls.powerDatepickerInput}`,
     );
     const rawDateTimeElement = find(
-      `${parentFieldSelector} ${dummyEls.rawDateTime}`
+      `${parentFieldSelector} ${dummyEls.rawDateTime}`,
     );
     await clickTrigger(`${parentFieldSelector} ${dummyEls.startDateField}`);
     assert
@@ -617,10 +617,10 @@ module('Acceptance | Power datepicker field', function (hooks) {
 
     const timeSelectorHourInput = find(dummyEls.timeSelectorFieldInputHour);
     const timeSelectorMinutesInput = find(
-      dummyEls.timeSelectorFieldInputMinutes
+      dummyEls.timeSelectorFieldInputMinutes,
     );
     const timeSelectorSecondsInput = find(
-      dummyEls.timeSelectorFieldInputSeconds
+      dummyEls.timeSelectorFieldInputSeconds,
     );
     const timeSelectorAmPmInput = find(dummyEls.powerDatepickerAmPmInput);
 
@@ -987,10 +987,10 @@ module('Acceptance | Power datepicker field', function (hooks) {
     await visit('/docs/built-in-fields');
     const parentFieldSelector = dummyEls.powerDatepicker24HourTimeSelect;
     const dateTimeInput = find(
-      `${parentFieldSelector} ${dummyEls.powerDatepickerInput}`
+      `${parentFieldSelector} ${dummyEls.powerDatepickerInput}`,
     );
     const rawDateTimeElement = find(
-      `${parentFieldSelector} ${dummyEls.rawDateTime}`
+      `${parentFieldSelector} ${dummyEls.rawDateTime}`,
     );
     await clickTrigger(`${parentFieldSelector} ${dummyEls.startDateField}`);
     const timeSelectorHourInput = find(dummyEls.timeSelectorFieldInputHour);
@@ -1026,10 +1026,10 @@ module('Acceptance | Power datepicker field', function (hooks) {
     await visit('/docs/built-in-fields');
     const parentFieldSelector = dummyEls.powerDatepicker12HourTimeSelect;
     const dateTimeInput = find(
-      `${parentFieldSelector} ${dummyEls.powerDatepickerInput}`
+      `${parentFieldSelector} ${dummyEls.powerDatepickerInput}`,
     );
     const rawDateTimeElement = find(
-      `${parentFieldSelector} ${dummyEls.rawDateTime}`
+      `${parentFieldSelector} ${dummyEls.rawDateTime}`,
     );
     await clickTrigger(`${parentFieldSelector} ${dummyEls.startDateField}`);
     const timeSelectorHourInput = find(dummyEls.timeSelectorFieldInputHour);
@@ -1089,14 +1089,14 @@ module('Acceptance | Power datepicker field', function (hooks) {
     await visit('/docs/built-in-fields');
     const parentFieldSelector = dummyEls.powerDatepicker24HourTimeSelect;
     const dateTimeInput = find(
-      `${parentFieldSelector} ${dummyEls.powerDatepickerInput}`
+      `${parentFieldSelector} ${dummyEls.powerDatepickerInput}`,
     );
     const rawDateTimeElement = find(
-      `${parentFieldSelector} ${dummyEls.rawDateTime}`
+      `${parentFieldSelector} ${dummyEls.rawDateTime}`,
     );
     await clickTrigger(`${parentFieldSelector} ${dummyEls.startDateField}`);
     const timeSelectorMinuteInput = find(
-      dummyEls.timeSelectorFieldInputMinutes
+      dummyEls.timeSelectorFieldInputMinutes,
     );
 
     await checkIncrements(assert, {
@@ -1132,14 +1132,14 @@ module('Acceptance | Power datepicker field', function (hooks) {
     await visit('/docs/built-in-fields');
     const parentFieldSelector = dummyEls.powerDatepicker24HourTimeSelect;
     const dateTimeInput = find(
-      `${parentFieldSelector} ${dummyEls.powerDatepickerInput}`
+      `${parentFieldSelector} ${dummyEls.powerDatepickerInput}`,
     );
     const rawDateTimeElement = find(
-      `${parentFieldSelector} ${dummyEls.rawDateTime}`
+      `${parentFieldSelector} ${dummyEls.rawDateTime}`,
     );
     await clickTrigger(`${parentFieldSelector} ${dummyEls.startDateField}`);
     const timeSelectorSecondsInput = find(
-      dummyEls.timeSelectorFieldInputSeconds
+      dummyEls.timeSelectorFieldInputSeconds,
     );
 
     await checkIncrements(assert, {
@@ -1175,14 +1175,14 @@ module('Acceptance | Power datepicker field', function (hooks) {
     await visit('/docs/built-in-fields');
     const parentFieldSelector = dummyEls.powerDatepicker24HourTimeSelect;
     const dateTimeInput = find(
-      `${parentFieldSelector} ${dummyEls.powerDatepickerInput}`
+      `${parentFieldSelector} ${dummyEls.powerDatepickerInput}`,
     );
     const rawDateTimeElement = find(
-      `${parentFieldSelector} ${dummyEls.rawDateTime}`
+      `${parentFieldSelector} ${dummyEls.rawDateTime}`,
     );
     await clickTrigger(`${parentFieldSelector} ${dummyEls.startDateField}`);
     const timeSelectorMillisecondsInput = find(
-      dummyEls.timeSelectorFieldInputMilliseconds
+      dummyEls.timeSelectorFieldInputMilliseconds,
     );
 
     await checkIncrements(assert, {
@@ -1240,10 +1240,10 @@ module('Acceptance | Power datepicker field', function (hooks) {
     await visit('/docs/built-in-fields');
     const parentFieldSelector = dummyEls.powerDatepicker12HourTimeSelect;
     const dateTimeInput = find(
-      `${parentFieldSelector} ${dummyEls.powerDatepickerInput}`
+      `${parentFieldSelector} ${dummyEls.powerDatepickerInput}`,
     );
     const rawDateTimeElement = find(
-      `${parentFieldSelector} ${dummyEls.rawDateTime}`
+      `${parentFieldSelector} ${dummyEls.rawDateTime}`,
     );
     await clickTrigger(`${parentFieldSelector} ${dummyEls.startDateField}`);
     const timeSelectorHourInput = find(dummyEls.timeSelectorFieldInputHour);
@@ -1334,10 +1334,10 @@ module('Acceptance | Power datepicker field', function (hooks) {
     await visit('/docs/built-in-fields');
     const parentFieldSelector = dummyEls.powerDatepicker24HourTimeSelect;
     const dateTimeInput = find(
-      `${parentFieldSelector} ${dummyEls.powerDatepickerInput}`
+      `${parentFieldSelector} ${dummyEls.powerDatepickerInput}`,
     );
     const rawDateTimeElement = find(
-      `${parentFieldSelector} ${dummyEls.rawDateTime}`
+      `${parentFieldSelector} ${dummyEls.rawDateTime}`,
     );
     await clickTrigger(`${parentFieldSelector} ${dummyEls.startDateField}`);
     const timeSelectorHourInput = find(dummyEls.timeSelectorFieldInputHour);
@@ -1455,14 +1455,14 @@ module('Acceptance | Power datepicker field', function (hooks) {
     await visit('/docs/built-in-fields');
     const parentFieldSelector = dummyEls.powerDatepicker24HourTimeSelect;
     const dateTimeInput = find(
-      `${parentFieldSelector} ${dummyEls.powerDatepickerInput}`
+      `${parentFieldSelector} ${dummyEls.powerDatepickerInput}`,
     );
     const rawDateTimeElement = find(
-      `${parentFieldSelector} ${dummyEls.rawDateTime}`
+      `${parentFieldSelector} ${dummyEls.rawDateTime}`,
     );
     await clickTrigger(`${parentFieldSelector} ${dummyEls.startDateField}`);
     const timeSelectorMinutesInput = find(
-      dummyEls.timeSelectorFieldInputMinutes
+      dummyEls.timeSelectorFieldInputMinutes,
     );
 
     await check(assert, {
@@ -1551,14 +1551,14 @@ module('Acceptance | Power datepicker field', function (hooks) {
     await visit('/docs/built-in-fields');
     const parentFieldSelector = dummyEls.powerDatepicker24HourTimeSelect;
     const dateTimeInput = find(
-      `${parentFieldSelector} ${dummyEls.powerDatepickerInput}`
+      `${parentFieldSelector} ${dummyEls.powerDatepickerInput}`,
     );
     const rawDateTimeElement = find(
-      `${parentFieldSelector} ${dummyEls.rawDateTime}`
+      `${parentFieldSelector} ${dummyEls.rawDateTime}`,
     );
     await clickTrigger(`${parentFieldSelector} ${dummyEls.startDateField}`);
     const timeSelectorSecondsInput = find(
-      dummyEls.timeSelectorFieldInputSeconds
+      dummyEls.timeSelectorFieldInputSeconds,
     );
 
     await check(assert, {
@@ -1647,14 +1647,14 @@ module('Acceptance | Power datepicker field', function (hooks) {
     await visit('/docs/built-in-fields');
     const parentFieldSelector = dummyEls.powerDatepicker24HourTimeSelect;
     const dateTimeInput = find(
-      `${parentFieldSelector} ${dummyEls.powerDatepickerInput}`
+      `${parentFieldSelector} ${dummyEls.powerDatepickerInput}`,
     );
     const rawDateTimeElement = find(
-      `${parentFieldSelector} ${dummyEls.rawDateTime}`
+      `${parentFieldSelector} ${dummyEls.rawDateTime}`,
     );
     await clickTrigger(`${parentFieldSelector} ${dummyEls.startDateField}`);
     const timeSelectorMillisecondsInput = find(
-      dummyEls.timeSelectorFieldInputMilliseconds
+      dummyEls.timeSelectorFieldInputMilliseconds,
     );
 
     await check(assert, {
@@ -1743,15 +1743,15 @@ module('Acceptance | Power datepicker field', function (hooks) {
     await visit('/docs/built-in-fields');
     const parentFieldSelector = dummyEls.powerDatepicker12HourTimeSelect;
     const dateTimeInput = find(
-      `${parentFieldSelector} ${dummyEls.powerDatepickerInput}`
+      `${parentFieldSelector} ${dummyEls.powerDatepickerInput}`,
     );
     const rawDateTimeElement = find(
-      `${parentFieldSelector} ${dummyEls.rawDateTime}`
+      `${parentFieldSelector} ${dummyEls.rawDateTime}`,
     );
     await clickTrigger(`${parentFieldSelector} ${dummyEls.startDateField}`);
     await focus(dateTimeInput);
     const amPmInput = find(
-      `${parentFieldSelector} ${dummyEls.powerDatepickerAmPmInput}`
+      `${parentFieldSelector} ${dummyEls.powerDatepickerAmPmInput}`,
     );
     assert.equal(amPmInput.value, 'pm', 'AM/PM input begins with value "pm".');
 
@@ -2025,22 +2025,22 @@ module('Acceptance | Power datepicker field', function (hooks) {
     await visit('/docs/built-in-fields');
     const parentFieldSelector = dummyEls.powerDatepickerUnusualFormat;
     const dateTimeInput = find(
-      `${parentFieldSelector} ${dummyEls.powerDatepickerInput}`
+      `${parentFieldSelector} ${dummyEls.powerDatepickerInput}`,
     );
     await clickTrigger(`${parentFieldSelector} ${dummyEls.startDateField}`);
     const timeSelectorMillisecondsInput = find(
-      dummyEls.timeSelectorFieldInputMilliseconds
+      dummyEls.timeSelectorFieldInputMilliseconds,
     );
     assert.equal(
       dateTimeInput.value,
       '03/11/2022 14:42:19.142',
-      'Fractional seconds in the date time input are trimmed to 3 decimals where format and passed data specifies more than 3 decimals'
+      'Fractional seconds in the date time input are trimmed to 3 decimals where format and passed data specifies more than 3 decimals',
     );
     await focus(dateTimeInput);
     assert.equal(
       timeSelectorMillisecondsInput.value,
       '142',
-      'Milliseconds input forced top 3 digits where format for milliseconds input specifies less than 3 digits.'
+      'Milliseconds input forced top 3 digits where format for milliseconds input specifies less than 3 digits.',
     );
   });
 
@@ -2054,46 +2054,46 @@ module('Acceptance | Power datepicker field', function (hooks) {
     assert.equal(
       findAll(dummyEls.timeSelectorFieldLabel)[0].textContent,
       'Hour',
-      'First time selector field has label "Hour"'
+      'First time selector field has label "Hour"',
     );
     assert.equal(
       findAll(dummyEls.timeSelectorFieldLabel)[1].textContent,
       'Min',
-      'Second time selector field has label "Min"'
+      'Second time selector field has label "Min"',
     );
   }),
     test('Display date format differs from date format', async function (assert) {
       await visit('/docs/built-in-fields');
       const parentFieldSelector = dummyEls.powerDatepickerUnusualFormat;
       const dateTimeInput = find(
-        `${parentFieldSelector} ${dummyEls.powerDatepickerInput}`
+        `${parentFieldSelector} ${dummyEls.powerDatepickerInput}`,
       );
       const rawDateTimeElement = find(
-        `${parentFieldSelector} ${dummyEls.rawDateTime}`
+        `${parentFieldSelector} ${dummyEls.rawDateTime}`,
       );
       const fieldValueElement = find(
-        `${parentFieldSelector} ${dummyEls.outputFieldValue}`
+        `${parentFieldSelector} ${dummyEls.outputFieldValue}`,
       );
       await clickTrigger(`${parentFieldSelector} ${dummyEls.startDateField}`);
       const timeSelectorMinutesInput = find(
-        dummyEls.timeSelectorFieldInputMinutes
+        dummyEls.timeSelectorFieldInputMinutes,
       );
       assert
         .dom(`${parentFieldSelector} ${dummyEls.outputFieldValue}`)
         .hasText(
           '14:42:19.142 03.11.2022',
-          'Value output by the field is [14:42:19.142 03.11.2022]'
+          'Value output by the field is [14:42:19.142 03.11.2022]',
         );
       assert.equal(
         dateTimeInput.value,
         '03/11/2022 14:42:19.142',
-        'Value of the date input field is [03/11/2022 14:42:19.142]'
+        'Value of the date input field is [03/11/2022 14:42:19.142]',
       );
       assert
         .dom(`${parentFieldSelector} ${dummyEls.rawDateTime}`)
         .hasText(
           'Thu Nov 03 2022 14:42:19 GMT+0200 (South Africa Standard Time)',
-          'Field value is [Thu Nov 03 2022 14:42:19 GMT+0200 (South Africa Standard Time)].'
+          'Field value is [Thu Nov 03 2022 14:42:19 GMT+0200 (South Africa Standard Time)].',
         );
       await fillIn(dateTimeInput, '03/11/2022 14:41:19.142');
       await triggerKeyEvent(dateTimeInput, 'keyup', '1');
@@ -2102,18 +2102,18 @@ module('Acceptance | Power datepicker field', function (hooks) {
         .dom(`${parentFieldSelector} ${dummyEls.outputFieldValue}`)
         .hasText(
           '14:41:19.142 03.11.2022',
-          'Value output by the field is [14:41:19.142 03.11.2022]'
+          'Value output by the field is [14:41:19.142 03.11.2022]',
         );
       assert.equal(
         dateTimeInput.value,
         '03/11/2022 14:41:19.142',
-        'Value of the date input field is [03/11/2022 14:41:19.142]'
+        'Value of the date input field is [03/11/2022 14:41:19.142]',
       );
       assert
         .dom(`${parentFieldSelector} ${dummyEls.rawDateTime}`)
         .hasText(
           'Thu Nov 03 2022 14:41:19 GMT+0200 (South Africa Standard Time)',
-          'Field value is [Thu Nov 03 2022 14:41:19 GMT+0200 (South Africa Standard Time)].'
+          'Field value is [Thu Nov 03 2022 14:41:19 GMT+0200 (South Africa Standard Time)].',
         );
 
       await check(assert, {
@@ -2169,7 +2169,7 @@ async function check(assert, opts, env) {
   if (opts.dateSelect) {
     await calendarSelect(
       opts.parentFieldSelector,
-      moment(opts.dateSelect, 'YYYY-MM-DD').toDate()
+      moment(opts.dateSelect, 'YYYY-MM-DD').toDate(),
     );
     assertionPrefix = `Select "${opts.dateSelect}" in ${opts.inputToUpdate.description}`;
   } else if (opts.typeInVal) {
@@ -2187,7 +2187,7 @@ async function check(assert, opts, env) {
       element,
       'keydown',
       keys[opts.keyName],
-      opts.modifiers
+      opts.modifiers,
     );
     await triggerKeyEvent(element, 'keyup', keys[opts.keyName], opts.modifiers);
     let keysDescription = '';
@@ -2220,7 +2220,7 @@ async function check(assert, opts, env) {
           item.value,
           `[${assertionPrefix} => ${event}] ${
             item.description
-          } input ${valueComparison(item.initialValue, item.input.value)}`
+          } input ${valueComparison(item.initialValue, item.input.value)}`,
         );
       } else if (item.textElement) {
         assert
@@ -2231,8 +2231,8 @@ async function check(assert, opts, env) {
               item.description
             } element ${valueComparison(
               item.initialValue,
-              item.textElement.textContent
-            )}`
+              item.textElement.textContent,
+            )}`,
           );
       }
     }

@@ -7,7 +7,7 @@ App wide defaults for form settings can be overridden in the `ENV.changesetWebfo
 
 The internal defaults are as below.
 
-{{docs-snippet name="form-settings-options.js"}}
+<DocsSnippet @name="form-settings-options.js" />
 
 The above options can also be for all the fields in a particular form in the `settings` object in your `formSchema`.
 
@@ -33,7 +33,7 @@ App wide defaults for field settings can be overridden in the `ENV.changesetWebf
 
 The internal defaults are as below.
 
-{{docs-snippet name="generic-field-settings.js" title="Default field settings" }}
+<DocsSnippet @name="generic-field-settings.js" @title="Default field settings"/>
 
 The above options can also be for all the fields in a particular form in the `fieldSettings` object in your `formSchema`.
 

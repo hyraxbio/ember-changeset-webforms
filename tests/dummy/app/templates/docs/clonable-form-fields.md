@@ -18,7 +18,7 @@ The following default field settings can also be overridden:
 
 The following field settings are tracked, and so updating them for a clone in an action will result in a template update. 
 
-{{docs-snippet name="cloned-field-settings-tracked-props.js" title="Tracked settings for a field clone"}}
+<DocsSnippet @name="cloned-field-settings-tracked-props.js" @title="Tracked settings for a field clone" />
 
 ## Example 1
 

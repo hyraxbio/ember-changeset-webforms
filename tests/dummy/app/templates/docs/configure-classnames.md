@@ -14,7 +14,7 @@ Each property name is chosen to indicate which element it targets.
 
 These properties can be modified at the app, form and field level, as outlined below.
 
-{{docs-snippet name="configurable-classnames.js" title="Internal class name defaults"}}
+<DocsSnippet @name="configurable-classnames.js" @title="Internal class name defaults" />
 
 ## Customising class names for an element throughout your app
 
@@ -22,7 +22,7 @@ App wide class name settings can be set in the `ENV.changesetWebformsDefaults.ge
 
 For example, the snippet below would add the class `label-el` to all label elements rendered by the `ChangesetWebform` component. 
 
-{{docs-snippet name="app-wide-classes.js" title="config/environment.js"}}
+<DocsSnippet @name="app-wide-classes.js" @title="config/environment.js" />
 
 ## Customising class names for an element throughout your app, but only within in a specific type of form field
 
@@ -30,7 +30,7 @@ App wide class name settings for a specific type of field can be set by adding a
 
 For example, the snippet below would add the class `radio-button-group-label` to label elements rendered in all `radioButtonGroup` fields throughout the app.
 
-{{docs-snippet name="app-wide-field-specific-classes.js" title="config/environment.js"}}
+<DocsSnippet @name="app-wide-field-specific-classes.js" @title="config/environment.js" />
 
 The {{this.fieldTypes.length}} built in fields have the following `fieldTypes`:
 

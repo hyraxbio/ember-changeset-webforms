@@ -10,9 +10,7 @@ Calls the `keyUp`, `focusIn` and `focusOut` actions when the corresponding event
 
 ### Input field props
 
-The props specific to this field are shown with their default values below.
-
-{{docs-snippet name="input-field-options.js"}}
+<DocsSnippet @name="input-field-options.js" />
 
 The above props are in addition to the generic field props shown with their default values below.
 
@@ -44,9 +42,7 @@ Calls the `keyUp`, `focusIn` and `focusOut` actions when the corresponding event
 
 ### Textarea field props
 
-The props specific to this field are shown with their default values below.
-
-{{docs-snippet name="textarea-field-options.js"}}
+<DocsSnippet @name="textarea-field-options.js" />
 
 The above props are in addition to the generic field props shown with their default values below.
 
@@ -68,9 +64,7 @@ The field ID is set to `true` or `false` depending on whether the checkbox is ch
 
 ### Single checkbox props
 
-The props specific to this field are shown with their default values below.
-
-{{docs-snippet name="singleCheckbox-field-options.js"}}
+<DocsSnippet @name="singleCheckbox-field-options.js" />
 
 The above props are in addition to the generic field props shown with their default values below.
 
@@ -138,9 +132,7 @@ Renders a radio button group. The value of the field as a whole is the `value` p
 
 ### Radio button group props
 
-The props specific to this field are shown with their default values below.
-
-{{docs-snippet name="radioButtonGroup-field-options.js"}}
+<DocsSnippet @name="radioButtonGroup-field-options.js" />
 
 The above props are in addition to the generic field props shown with their default values below.
 
@@ -151,9 +143,7 @@ The above props are in addition to the generic field props shown with their defa
 
 Each option in the `options` property of field with type `radioButtonGroup` can have the following properties.
 
-The props specific to this field are shown with their default values below.
-
-{{docs-snippet name="radio-button-group-option.js"}}
+<DocsSnippet @name="radio-button-group-option.js" />
 
 The above props are in addition to the generic field props shown with their default values below.
 
@@ -199,9 +189,7 @@ In both cases the following applies, the object passed must take the following f
 
 Renders a checkbox group. The value of the field as a whole is an array which will include the value of `key` for each option that is currently selected.
 
-The props specific to this field are shown with their default values below.
-
-{{docs-snippet name="checkboxGroup-field-options.js"}}
+<DocsSnippet @name="checkboxGroup-field-options.js" />
 
 The above props are in addition to the generic field props shown with their default values below.
 
@@ -212,9 +200,7 @@ The above props are in addition to the generic field props shown with their defa
 
 Each option in the `options` property of field with type `checkboxGroup` can have the following properties.
 
-The props specific to this field are shown with their default values below.
-
-{{docs-snippet name="checkbox-group-option.js"}}
+<DocsSnippet @name="checkbox-group-option.js" />
 
 The above props are in addition to the generic field props shown with their default values below.
 
@@ -256,9 +242,7 @@ In both cases the following applies, the object passed must take the following f
   <demo.snippet @name="checkbox-group-example-2.hbs" @label="Template" @language="htmlbars" />
 </DocsDemo>
 
-The props specific to this field are shown with their default values below.
-
-{{docs-snippet name="clicker-field-options.js"}}
+<DocsSnippet @name="clicker-field-options.js" />
 
 The above props are in addition to the generic field props shown with their default values below.
 
@@ -297,9 +281,7 @@ If static text is sufficient, you can simply use the `text` prop to pass the sta
 
 Alternatively, you can pass `
 
-The props specific to this field are shown with their default values below.
-
-{{docs-snippet name="staticContent-field-options.js"}}
+<DocsSnippet @name="staticContent-field-options.js" />
 
 The above props are in addition to the generic field props shown with their default values below.
 
@@ -312,9 +294,7 @@ Renders an [ember-power-select](https://ember-power-select.com) component.
 
 ### Power select field props
 
-The props specific to this field are shown with their default values below.
-
-{{docs-snippet name="powerSelect-field-options.js"}}
+<DocsSnippet @name="powerSelect-field-options.js" />
 
 The above props are in addition to the generic field props shown with their default values below.
 
@@ -387,11 +367,7 @@ The value output by this field will also always be a formatted according to this
 
 ### Power datepicker field props
 
-Below are all of the props specific to the power datepicker field, shown with their default values. 
-
-The props specific to this field are shown with their default values below.
-
-{{docs-snippet name="powerDatePicker-field-options.js"}}
+<DocsSnippet @name="powerDatePicker-field-options.js" />
 
 The above props are in addition to the generic field props shown with their default values below.
 

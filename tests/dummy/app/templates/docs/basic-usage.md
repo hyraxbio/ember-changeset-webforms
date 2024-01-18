@@ -13,8 +13,6 @@
   <demo.snippet @name="login-form.js" @label="Component JS" @language="javascript" />
 </DocsDemo>
 
-
-
 ## Form settings
 
 Every `formSchema` has a set of options which relate to the form as a whole.
@@ -23,7 +21,7 @@ The snippet below shows the available options, with the default value and an exp
 
 Note that these options can be overridden for an entire consuming app in `ENV.changesetWebformsDefaults.formSettings` in  `config/environment.js`.
 
-{{docs-snippet name="form-settings-options.js"}}
+<DocsSnippet @name="form-settings-options.js" />
 
 They can also be overridden for any individual form schema in the `settings` object. 
 

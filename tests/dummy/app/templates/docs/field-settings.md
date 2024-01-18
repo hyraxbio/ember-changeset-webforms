@@ -10,10 +10,10 @@ Generic field settings can be tweaked for all the fields in one instance of a `c
 
 Note that any of these settings can be overridden in one of the field objects in the `formSchema.fields` array.
 
-{{docs-snippet name="generic-field-settings.js" title="Default generic field settings and their values"}}
+<DocsSnippet @name="generic-field-settings.js" @title="Default generic field settings and their values" />
 
 ## Tracked field settings
 
 The following field settings are tracked, and so updating them in an action will result in a template update. 
 
-{{docs-snippet name="field-settings-tracked-props.js" title="Tracked field settings"}}
+<DocsSnippet @name="field-settings-tracked-props.js" @title="Tracked field settings" />
