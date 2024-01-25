@@ -13,14 +13,12 @@ import {
 import { module, test } from 'qunit';
 import { clickTrigger } from 'ember-basic-dropdown/test-support/helpers';
 import { setupApplicationTest } from 'ember-qunit';
-import { setupMirage } from 'ember-cli-mirage/test-support';
 import dummyEls from './test-selectors';
 import keyCodesMap from 'ember-changeset-webforms/utils/keycodes-map';
 import { calendarSelect } from 'ember-power-calendar/test-support';
 
 module('Acceptance | Power datepicker field', function (hooks) {
   setupApplicationTest(hooks);
-  setupMirage(hooks);
 
   test('Date select', async function (assert) {
     await visit('/docs/built-in-fields');

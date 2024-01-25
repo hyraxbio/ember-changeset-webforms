@@ -10,7 +10,6 @@ import {
 } from '@ember/test-helpers';
 import { module, test } from 'qunit';
 import { setupApplicationTest } from 'ember-qunit';
-import { setupMirage } from 'ember-cli-mirage/test-support';
 import dummyEls from './test-selectors';
 import els from 'ember-changeset-webforms/test-support/element-selectors';
 import cth from 'ember-changeset-webforms/test-support/helpers';
@@ -18,7 +17,6 @@ import { selectChoose } from 'ember-power-select/test-support/helpers';
 
 module('Acceptance | Field validation', function (hooks) {
   setupApplicationTest(hooks);
-  setupMirage(hooks);
 
   test('Validation events', async function (assert) {
     await visit('/docs/field-validation');

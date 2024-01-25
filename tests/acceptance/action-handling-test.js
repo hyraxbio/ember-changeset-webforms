@@ -8,14 +8,12 @@ import {
 } from '@ember/test-helpers';
 import { module, test } from 'qunit';
 import { setupApplicationTest } from 'ember-qunit';
-import { setupMirage } from 'ember-cli-mirage/test-support';
 import cth from 'ember-changeset-webforms/test-support/helpers';
 import dummyEls from './test-selectors';
 import els from 'ember-changeset-webforms/test-support/element-selectors';
 
 module('Acceptance | Action handling', function (hooks) {
   setupApplicationTest(hooks);
-  setupMirage(hooks);
 
   test('onFieldValueChange', async function (assert) {
     await visit('/docs/action-handling');
