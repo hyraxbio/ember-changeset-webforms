@@ -20,8 +20,8 @@ In this example, assume that `fetchPromise` returns a promise.
   <demo.example @name="test.hbs">
     <Docs::ActionHandling::CustomSubmitActionPromise />
   </demo.example>
-  <demo.snippet @name="forgot-password-form.js" @label="Component JS" @language="javascript" />
-  <demo.snippet @name="custom-submit-promise.hbs" @label="Template" @language="htmlbars" />
+  <demo.snippet @name="forgot-password-form.js" @label="component js" @language="javascript" />
+  <demo.snippet @name="custom-submit-promise.hbs" @label="template" @language="htmlbars" />
 </DocsDemo>
 
 ### Synchronous example

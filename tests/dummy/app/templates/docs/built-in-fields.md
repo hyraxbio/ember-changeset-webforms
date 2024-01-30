@@ -22,16 +22,16 @@ The above props are in addition to the generic field props shown with their defa
     <ChangesetWebform @formSchema={{this.inputExample1FormSchema}} 
     @onUserInteraction={{action "onUserInteraction" }}/>
   </demo.example>
-  <demo.snippet @name="input-example-1.js" @label="Component JS" @language="javascript" />
-  <demo.snippet @name="input-example-1.hbs" @label="Template" @language="htmlbars" />
+  <demo.snippet @name="input-example-1.js" @label="component js" @language="javascript" />
+  <demo.snippet @name="input-example-1.hbs" @label="template" @language="htmlbars" />
 </DocsDemo>
 
 <DocsDemo as |demo|>
   <demo.example @name="input-example-2.hbs">
     <ChangesetWebform @formSchema={{this.inputExample2FormSchema}} />
   </demo.example>
-  <demo.snippet @name="input-example-2.js" @label="Component JS" @language="javascript" />
-  <demo.snippet @name="input-example-2.hbs" @label="Template" @language="htmlbars" />
+  <demo.snippet @name="input-example-2.js" @label="component js" @language="javascript" />
+  <demo.snippet @name="input-example-2.hbs" @label="template" @language="htmlbars" />
 </DocsDemo>
 
 ## Textarea
@@ -53,8 +53,8 @@ The above props are in addition to the generic field props shown with their defa
   <demo.example @name="textarea-example-1.hbs">
     <ChangesetWebform @formSchema={{this.textareaExample1FormSchema}} />
   </demo.example>
-  <demo.snippet @name="textarea-example-1.js" @label="Component JS" @language="javascript" />
-  <demo.snippet @name="textarea-example-1.hbs" @label="Template" @language="htmlbars" />
+  <demo.snippet @name="textarea-example-1.js" @label="component js" @language="javascript" />
+  <demo.snippet @name="textarea-example-1.hbs" @label="template" @language="htmlbars" />
 </DocsDemo>
 ## Single checkbox
 
@@ -80,8 +80,8 @@ The above props are in addition to the generic field props shown with their defa
     </div>
 
   </demo.example>
-  <demo.snippet @name="single-checkbox-example-1.js" @label="Component JS" @language="javascript" />
-  <demo.snippet @name="single-checkbox-example-1.hbs" @label="Template" @language="htmlbars" />
+  <demo.snippet @name="single-checkbox-example-1.js" @label="component js" @language="javascript" />
+  <demo.snippet @name="single-checkbox-example-1.hbs" @label="template" @language="htmlbars" />
 </DocsDemo>
 
 ### Single checkbox markdown checkbox label
@@ -95,8 +95,8 @@ You can also pass a markdown string to the `checkboxLabelMarkdown` prop. This wi
     </div>
 
   </demo.example>
-  <demo.snippet @name="single-checkbox-example-2.js" @label="Component JS" @language="javascript" />
-  <demo.snippet @name="single-checkbox-example-2.hbs" @label="Template" @language="htmlbars" />
+  <demo.snippet @name="single-checkbox-example-2.js" @label="component js" @language="javascript" />
+  <demo.snippet @name="single-checkbox-example-2.hbs" @label="template" @language="htmlbars" />
 </DocsDemo>
 
 ### Single checkbox custom component for checkbox label
@@ -122,8 +122,8 @@ The object passed must take the following form.
     </div>
 
   </demo.example>
-  <demo.snippet @name="single-checkbox-example-3.js" @label="Component JS" @language="javascript" />
-  <demo.snippet @name="single-checkbox-example-3.hbs" @label="Template" @language="htmlbars" />
+  <demo.snippet @name="single-checkbox-example-3.js" @label="component js" @language="javascript" />
+  <demo.snippet @name="single-checkbox-example-3.hbs" @label="template" @language="htmlbars" />
 </DocsDemo>
 
 ## Radio button group
@@ -154,8 +154,8 @@ The above props are in addition to the generic field props shown with their defa
   <demo.example @name="radio-button-group-example-1.hbs">
     <ChangesetWebform @formSchema={{this.radioButtonGroupExample1FormSchema}} />
   </demo.example>
-  <demo.snippet @name="radio-button-group-example-1.js" @label="Component JS" @language="javascript" />
-  <demo.snippet @name="radio-button-group-example-1.hbs" @label="Template" @language="htmlbars" />
+  <demo.snippet @name="radio-button-group-example-1.js" @label="component js" @language="javascript" />
+  <demo.snippet @name="radio-button-group-example-1.hbs" @label="template" @language="htmlbars" />
 </DocsDemo>
 
 ### Custom components for Radio button group options
@@ -181,8 +181,8 @@ In both cases the following applies, the object passed must take the following f
   <demo.example @name="radio-button-group-example-2.hbs">
     <ChangesetWebform @formSchema={{this.radioButtonGroupExample2FormSchema}} />
   </demo.example>
-  <demo.snippet @name="radio-button-group-example-2.js" @label="Component JS" @language="javascript" />
-  <demo.snippet @name="radio-button-group-example-2.hbs" @label="Template" @language="htmlbars" />
+  <demo.snippet @name="radio-button-group-example-2.js" @label="component js" @language="javascript" />
+  <demo.snippet @name="radio-button-group-example-2.hbs" @label="template" @language="htmlbars" />
 </DocsDemo>
 
 ## Checkbox group
@@ -211,8 +211,8 @@ The above props are in addition to the generic field props shown with their defa
   <demo.example @name="checkbox-group-example-1.hbs">
     <ChangesetWebform @formSchema={{this.checkboxGroupExample1FormSchema}} />
   </demo.example>
-  <demo.snippet @name="checkbox-group-example-1.js" @label="Component JS" @language="javascript" />
-  <demo.snippet @name="checkbox-group-example-1.hbs" @label="Template" @language="htmlbars" />
+  <demo.snippet @name="checkbox-group-example-1.js" @label="component js" @language="javascript" />
+  <demo.snippet @name="checkbox-group-example-1.hbs" @label="template" @language="htmlbars" />
 </DocsDemo>
 
 ### Custom components for Checkbox group options
@@ -238,8 +238,8 @@ In both cases the following applies, the object passed must take the following f
   <demo.example @name="checkbox-group-example-2.hbs">
     <ChangesetWebform @formSchema={{this.checkboxGroupExample2FormSchema}} />
   </demo.example>
-  <demo.snippet @name="checkbox-group-example-2.js" @label="Component JS" @language="javascript" />
-  <demo.snippet @name="checkbox-group-example-2.hbs" @label="Template" @language="htmlbars" />
+  <demo.snippet @name="checkbox-group-example-2.js" @label="component js" @language="javascript" />
+  <demo.snippet @name="checkbox-group-example-2.hbs" @label="template" @language="htmlbars" />
 </DocsDemo>
 
 <DocsSnippet @name="clicker-field-options.js" />
@@ -263,8 +263,8 @@ If static text is sufficient, you can simply use the `text` prop to pass the sta
       <ChangesetWebform @formSchema={{this.staticContentExample1FormSchema}} />
     </div>
   </demo.example>
-  <demo.snippet @name="static-content-example-1.js" @label="Component JS" @language="javascript" />
-  <demo.snippet @name="static-content-example-1.hbs" @label="Template" @language="htmlbars" />
+  <demo.snippet @name="static-content-example-1.js" @label="component js" @language="javascript" />
+  <demo.snippet @name="static-content-example-1.hbs" @label="template" @language="htmlbars" />
 </DocsDemo>
 
 ### Static content field with custom content component
@@ -275,8 +275,8 @@ If static text is sufficient, you can simply use the `text` prop to pass the sta
       <ChangesetWebform @formSchema={{this.staticContentExample2FormSchema}} />
     </div>
   </demo.example>
-  <demo.snippet @name="static-content-example-2.js" @label="Component JS" @language="javascript" />
-  <demo.snippet @name="static-content-example-2.hbs" @label="Template" @language="htmlbars" />
+  <demo.snippet @name="static-content-example-2.js" @label="component js" @language="javascript" />
+  <demo.snippet @name="static-content-example-2.hbs" @label="template" @language="htmlbars" />
 </DocsDemo>
 
 Alternatively, you can pass `
@@ -309,8 +309,8 @@ Note also that if passed, value of `placeholder` will display as the placeholder
   <demo.example @name="power-select-example-1.hbs">
     <ChangesetWebform @formSchema={{this.powerSelectExample1FormSchema}} />
   </demo.example>
-  <demo.snippet @name="power-select-example-1.js" @label="Component JS" @language="javascript" />
-  <demo.snippet @name="power-select-example-1.hbs" @label="Template" @language="htmlbars" />
+  <demo.snippet @name="power-select-example-1.js" @label="component js" @language="javascript" />
+  <demo.snippet @name="power-select-example-1.hbs" @label="template" @language="htmlbars" />
 </DocsDemo>
 
 ### Power select where options is an array of objects
@@ -323,8 +323,8 @@ In the example below, the user only sees the country names, but the value of the
   <demo.example @name="power-select-example-2.hbs">
     <ChangesetWebform @formSchema={{this.powerSelectExample2FormSchema}} />
   </demo.example>
-  <demo.snippet @name="power-select-example-2.js" @label="Component JS" @language="javascript" />
-  <demo.snippet @name="power-select-example-2.hbs" @label="Template" @language="htmlbars" />
+  <demo.snippet @name="power-select-example-2.js" @label="component js" @language="javascript" />
+  <demo.snippet @name="power-select-example-2.hbs" @label="template" @language="htmlbars" />
 </DocsDemo>
 
 ### Power select with custom components for the options and selected item
@@ -339,8 +339,8 @@ When the user clicks a country name, the value of the field will be set to the 3
   <demo.example @name="power-select-example-3.hbs">
     <ChangesetWebform @formSchema={{this.powerSelectExample3FormSchema}} />
   </demo.example>
-  <demo.snippet @name="power-select-example-3.js" @label="Component JS" @language="javascript" />
-  <demo.snippet @name="power-select-example-3.hbs" @label="Template" @language="htmlbars" />
+  <demo.snippet @name="power-select-example-3.js" @label="component js" @language="javascript" />
+  <demo.snippet @name="power-select-example-3.hbs" @label="template" @language="htmlbars" />
 </DocsDemo>
 ### Power select with multiple selection
 
@@ -352,8 +352,8 @@ Passing `multipleSelection: true` will render a [Power select multiple component
       <ChangesetWebform @formSchema={{this.powerSelectMultipleExample1FormSchema}} />
     </div>
   </demo.example>
-  <demo.snippet @name="power-select-multiple-example-1.js" @label="Component JS" @language="javascript" />
-  <demo.snippet @name="power-select-multiple-example-1.hbs" @label="Template" @language="htmlbars" />
+  <demo.snippet @name="power-select-multiple-example-1.js" @label="component js" @language="javascript" />
+  <demo.snippet @name="power-select-multiple-example-1.hbs" @label="template" @language="htmlbars" />
 </DocsDemo>
 ## Power datepicker
 
@@ -391,9 +391,9 @@ When the field is inersted, it will parse the supplied datetime into the format 
         @onFieldValueChange={{action "afterDatetimeUpdated" "1"}} />
     </div>
   </demo.example>
-  <demo.snippet @name="power-datepicker-example-1.js" @label="Component JS" @language="javascript" />
-  <demo.snippet @name="power-datepicker-example-1.hbs" @label="Template" @language="htmlbars" />
-  <demo.snippet @name="after-datetime-updated-action.js" @label="Action handing" @language="javascript" />
+  <demo.snippet @name="power-datepicker-example-1.js" @label="component js" @language="javascript" />
+  <demo.snippet @name="power-datepicker-example-1.hbs" @label="template" @language="htmlbars" />
+  <demo.snippet @name="after-datetime-updated-action.js" @label="action handing" @language="javascript" />
 </DocsDemo>
 
 
@@ -413,9 +413,9 @@ Note that setting `showTimeSelector` to`true` will have no effect if `fixedTime`
         @onFieldValueChange={{action "afterDatetimeUpdated" "1b"}} />
     </div>
   </demo.example>
-  <demo.snippet @name="power-datepicker-example-1b.js" @label="Component JS" @language="javascript" />
-  <demo.snippet @name="power-datepicker-example-1b.hbs" @label="Template" @language="htmlbars" />
-  <demo.snippet @name="after-datetime-updated-action.js" @label="Action handing" @language="javascript" />
+  <demo.snippet @name="power-datepicker-example-1b.js" @label="component js" @language="javascript" />
+  <demo.snippet @name="power-datepicker-example-1b.hbs" @label="template" @language="htmlbars" />
+  <demo.snippet @name="after-datetime-updated-action.js" @label="action handing" @language="javascript" />
 </DocsDemo>
 
 ### With minDate and maxDate
@@ -433,9 +433,9 @@ If the user types a date into the trigger input which is before `minDate` or aft
         @onFieldValueChange={{action "afterDatetimeUpdated" "1c"}} />
     </div>
   </demo.example>
-  <demo.snippet @name="power-datepicker-example-1c.js" @label="Component JS" @language="javascript" />
-  <demo.snippet @name="power-datepicker-example-1c.hbs" @label="Template" @language="htmlbars" />
-  <demo.snippet @name="after-datetime-updated-action.js" @label="Action handing" @language="javascript" />
+  <demo.snippet @name="power-datepicker-example-1c.js" @label="component js" @language="javascript" />
+  <demo.snippet @name="power-datepicker-example-1c.hbs" @label="template" @language="htmlbars" />
+  <demo.snippet @name="after-datetime-updated-action.js" @label="action handing" @language="javascript" />
 </DocsDemo>
 
 ### With time selector using default units
@@ -461,9 +461,9 @@ If the user input is lower than the minimum value for the relevant time unit, th
         @onFieldValueChange={{action "afterDatetimeUpdated" "3"}} />
     </div> 
   </demo.example>
-  <demo.snippet @name="power-datepicker-example-3.js" @label="Component JS" @language="javascript" />
-  <demo.snippet @name="power-datepicker-example-3.hbs" @label="Template" @language="htmlbars" />
-  <demo.snippet @name="after-datetime-updated-action.js" @label="Action handing" @language="javascript" />
+  <demo.snippet @name="power-datepicker-example-3.js" @label="component js" @language="javascript" />
+  <demo.snippet @name="power-datepicker-example-3.hbs" @label="template" @language="htmlbars" />
+  <demo.snippet @name="after-datetime-updated-action.js" @label="action handing" @language="javascript" />
 </DocsDemo>
 
 ### With time selector using custom format
@@ -483,9 +483,9 @@ The example below shows a time selector component with just hours and minutes.
         @onFieldValueChange={{action "afterDatetimeUpdated" "3a"}} />
     </div> 
   </demo.example>
-  <demo.snippet @name="power-datepicker-example-3a.js" @label="Component JS" @language="javascript" />
-  <demo.snippet @name="power-datepicker-example-3a.hbs" @label="Template" @language="htmlbars" />
-  <demo.snippet @name="after-datetime-updated-action.js" @label="Action handing" @language="javascript" />
+  <demo.snippet @name="power-datepicker-example-3a.js" @label="component js" @language="javascript" />
+  <demo.snippet @name="power-datepicker-example-3a.hbs" @label="template" @language="htmlbars" />
+  <demo.snippet @name="after-datetime-updated-action.js" @label="action handing" @language="javascript" />
 </DocsDemo>
 
 ### With time selector using 12 hour format
@@ -503,9 +503,9 @@ The AM/PM input can be updated wither by typing in the input, or using arrow up 
         @onFieldValueChange={{action "afterDatetimeUpdated" "4"}} />
     </div>
   </demo.example>
-  <demo.snippet @name="power-datepicker-example-4.js" @label="Component JS" @language="javascript" />
-  <demo.snippet @name="power-datepicker-example-4.hbs" @label="Template" @language="htmlbars" />
-  <demo.snippet @name="after-datetime-updated-action.js" @label="Action handing" @language="javascript" />
+  <demo.snippet @name="power-datepicker-example-4.js" @label="component js" @language="javascript" />
+  <demo.snippet @name="power-datepicker-example-4.hbs" @label="template" @language="htmlbars" />
+  <demo.snippet @name="after-datetime-updated-action.js" @label="action handing" @language="javascript" />
 </DocsDemo>
 
 ### With a different display format from the underlying date value format
@@ -526,9 +526,9 @@ This could be useful where your server requires one date format, but your users 
        />
     </div> 
   </demo.example>
-  <demo.snippet @name="power-datepicker-example-5.js" @label="Component JS" @language="javascript" />
-  <demo.snippet @name="power-datepicker-example-5.hbs" @label="Template" @language="htmlbars" />
-  <demo.snippet @name="after-datetime-updated-action.js" @label="Action handing" @language="javascript" />
+  <demo.snippet @name="power-datepicker-example-5.js" @label="component js" @language="javascript" />
+  <demo.snippet @name="power-datepicker-example-5.hbs" @label="template" @language="htmlbars" />
+  <demo.snippet @name="after-datetime-updated-action.js" @label="action handing" @language="javascript" />
 </DocsDemo>
 
 ## Clicker
@@ -551,9 +551,9 @@ Renders a `div` element with `role="button"` the classNames provided. The inner 
         @onUserInteraction={{action "onUserInteractionClicker1"}}/>
     </div> 
   </demo.example>
-  <demo.snippet @name="clicker-example-1.js" @label="Component JS" @language="javascript" />
-  <demo.snippet @name="clicker-example-1.hbs" @label="Template" @language="htmlbars" />
-  <demo.snippet @name="clicker-example-action.js" @label="Action handing" @language="javascript" />
+  <demo.snippet @name="clicker-example-1.js" @label="component js" @language="javascript" />
+  <demo.snippet @name="clicker-example-1.hbs" @label="template" @language="htmlbars" />
+  <demo.snippet @name="clicker-example-action.js" @label="action handing" @language="javascript" />
 </DocsDemo>
 
 ### Clicker field with a custom component
@@ -592,9 +592,9 @@ If using a `button` element in your custom clicker component, bear in mind that 
         @onUserInteraction={{action "onUserInteractionClicker1"}}/>
     </div> 
   </demo.example>
-  <demo.snippet @name="clicker-example-2.js" @label="Component JS" @language="javascript" />
-  <demo.snippet @name="clicker-example-2.hbs" @label="Template" @language="htmlbars" />
-  <demo.snippet @name="clicker-example-action.js" @label="Action handing" @language="javascript" />
-  <demo.snippet @name="custom-clicker-component.js" @label="Custom clicker JS" @language="javascript" />
-  <demo.snippet @name="custom-clicker-component.hbs" @label="Custom clicker HBS" @language="htmlbars" />
+  <demo.snippet @name="clicker-example-2.js" @label="component js" @language="javascript" />
+  <demo.snippet @name="clicker-example-2.hbs" @label="template" @language="htmlbars" />
+  <demo.snippet @name="clicker-example-action.js" @label="action handing" @language="javascript" />
+  <demo.snippet @name="custom-clicker-component.js" @label="custom clicker js" @language="javascript" />
+  <demo.snippet @name="custom-clicker-component.hbs" @label="custom clicker hbs" @language="htmlbars" />
 </DocsDemo>

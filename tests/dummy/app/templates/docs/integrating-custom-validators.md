@@ -23,10 +23,10 @@ The example below shows how to:
       data-test-id="integrating-custom-validators-form"
      />
   </demo.example>
-  <demo.snippet @name="uniqueness-validator.js" @label="1. Custom Validator" @language="javascript" />
-  <demo.snippet @name="export-validators.js" @label="2. Export custom validators" @language="javascript" />
-  <demo.snippet @name="custom-validators-form.js" @label="3. Import and use custom validators" @language="javascript" />
-  <demo.snippet @name="custom-validators-form.hbs" @label="4. Template" @language="html" />
+  <demo.snippet @name="uniqueness-validator.js" @label="1. custom validator" @language="javascript" />
+  <demo.snippet @name="export-validators.js" @label="2. export custom validators" @language="javascript" />
+  <demo.snippet @name="custom-validators-form.js" @label="3. import and use custom validators" @language="javascript" />
+  <demo.snippet @name="custom-validators-form.hbs" @label="4. template" @language="html" />
 </DocsDemo>
 
 ## Additional notes

@@ -56,8 +56,8 @@ Class names can be customised within any particular instance of a `ChangesetWebf
   <demo.example @name="form-wide-class-settings.hbs">
     <ChangesetWebform @formSchema={{this.formWideClassesFormSchema}} />
   </demo.example>
-  <demo.snippet @name="form-wide-class-settings.js" @label="Component JS" @language="javascript" />
-  <demo.snippet @name="form-wide-class-settings.hbs" @label="Template" @language="htmlbars" />
+  <demo.snippet @name="form-wide-class-settings.js" @label="component js" @language="javascript" />
+  <demo.snippet @name="form-wide-class-settings.hbs" @label="template" @language="htmlbars" />
 </DocsDemo>
 
 ## Customising class names for an element in a specific instance of a form field
@@ -68,8 +68,8 @@ Class names can be customised for an individual form field using the `classNames
   <demo.example @name="field-specific-class-settings.hbs">
     <ChangesetWebform @formSchema={{this.fieldSpecificClassesFormSchema}} />
   </demo.example>
-  <demo.snippet @name="field-specific-class-settings.js" @label="Component JS" @language="javascript" />
-  <demo.snippet @name="field-specific-class-settings.hbs" @label="Template" @language="htmlbars" />
+  <demo.snippet @name="field-specific-class-settings.js" @label="component js" @language="javascript" />
+  <demo.snippet @name="field-specific-class-settings.hbs" @label="template" @language="htmlbars" />
 </DocsDemo>
 
 ## Inheriting vs overriding class names settings from higher levels
@@ -80,8 +80,8 @@ Include  `$inherited` in the array of class names for an element as a placeholde
   <demo.example @name="inherit-class-settings.hbs">
     <ChangesetWebform @formSchema={{this.inheritClassesFormSchema}} />
   </demo.example>
-  <demo.snippet @name="inherit-class-settings.js" @label="Component JS" @language="javascript" />
-  <demo.snippet @name="inherit-class-settings.hbs" @label="Template" @language="htmlbars" />
+  <demo.snippet @name="inherit-class-settings.js" @label="component js" @language="javascript" />
+  <demo.snippet @name="inherit-class-settings.hbs" @label="template" @language="htmlbars" />
 </DocsDemo>
 
 Alternatively, exclude `$inherited` in order to completely override the value.
@@ -90,8 +90,8 @@ Alternatively, exclude `$inherited` in order to completely override the value.
   <demo.example @name="override-class-settings.hbs">
     <ChangesetWebform @formSchema={{this.overrideClassesFormSchema}} />
   </demo.example>
-  <demo.snippet @name="override-class-settings.js" @label="Component JS" @language="javascript" />
-  <demo.snippet @name="override-class-settings.hbs" @label="Template" @language="htmlbars" />
+  <demo.snippet @name="override-class-settings.js" @label="component js" @language="javascript" />
+  <demo.snippet @name="override-class-settings.hbs" @label="template" @language="htmlbars" />
 </DocsDemo>
 
 ## Including dynamic validation class names
@@ -104,8 +104,8 @@ You may wish to customise which elements within a form field receive those class
   <demo.example @name="validation-class-settings.hbs">
     <ChangesetWebform @formSchema={{this.validationClassesFormSchema}} />
   </demo.example>
-  <demo.snippet @name="validation-class-settings.js" @label="Component JS" @language="javascript" />
-  <demo.snippet @name="validation-class-settings.hbs" @label="Template" @language="htmlbars" />
+  <demo.snippet @name="validation-class-settings.js" @label="component js" @language="javascript" />
+  <demo.snippet @name="validation-class-settings.hbs" @label="template" @language="htmlbars" />
 </DocsDemo>
 ## Passing a function for dynamic class names
 <!-- TODO document when this runs -->

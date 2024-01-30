@@ -21,8 +21,8 @@ In the example below, `submitButtonText` is set to `Sign in` as a form specific 
       />
     </div> 
   </demo.example>
-  <demo.snippet @name="field-settings-overridden.js" @label="Component JS" @language="javascript" />
-  <demo.snippet @name="field-settings-overridden-1.hbs" @label="Template" @language="htmlbars" />
+  <demo.snippet @name="field-settings-overridden.js" @label="component js" @language="javascript" />
+  <demo.snippet @name="field-settings-overridden-1.hbs" @label="template" @language="htmlbars" />
 </DocsDemo>
 
 ### Default field settings
@@ -49,6 +49,6 @@ In the example below, `hideLabel` is set to `true` as a form specific default, b
       />
     </div> 
   </demo.example>
-  <demo.snippet @name="field-settings-overridden.js" @label="Component JS" @language="javascript" />
-  <demo.snippet @name="field-settings-overridden.hbs" @label="Template" @language="htmlbars" />
+  <demo.snippet @name="field-settings-overridden.js" @label="component js" @language="javascript" />
+  <demo.snippet @name="field-settings-overridden.hbs" @label="template" @language="htmlbars" />
 </DocsDemo>

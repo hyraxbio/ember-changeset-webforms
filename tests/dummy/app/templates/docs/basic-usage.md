@@ -9,8 +9,8 @@
     @submitSuccess={{action "submitSuccess"}} 
     />
     </demo.example>
-  <demo.snippet @name="login-form.hbs" @label="Template" @language="htmlbars" />
-  <demo.snippet @name="login-form.js" @label="Component JS" @language="javascript" />
+  <demo.snippet @name="login-form.hbs" @label="template" @language="htmlbars" />
+  <demo.snippet @name="login-form.js" @label="component js" @language="javascript" />
 </DocsDemo>
 
 ## Form settings
@@ -34,6 +34,6 @@ They can also be overridden for any individual form schema in the `settings` obj
       @submitSuccess={{action "submitSuccess"}} 
      />
   </demo.example>
-  <demo.snippet @name="login-form.js" @label="Component JS" @language="javascript" />
-  <demo.snippet @name="login-form.hbs" @label="Template" @language="htmlbars" />
+  <demo.snippet @name="login-form.js" @label="component js" @language="javascript" />
+  <demo.snippet @name="login-form.hbs" @label="template" @language="htmlbars" />
 </DocsDemo>

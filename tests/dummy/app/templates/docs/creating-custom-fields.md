@@ -21,6 +21,6 @@ The underlying classes for `formSettings`, and `fields` (as well as cloned field
       @onUserInteraction={{action "updateExternalProps"}} 
      />
   </demo.example>
-  <demo.snippet @name="external-props-form.js" @label="Component JS" @language="javascript" />
-  <demo.snippet @name="external-props-form.hbs" @label="Template" @language="htmlbars" />
+  <demo.snippet @name="external-props-form.js" @label="component js" @language="javascript" />
+  <demo.snippet @name="external-props-form.hbs" @label="template" @language="htmlbars" />
 </DocsDemo>

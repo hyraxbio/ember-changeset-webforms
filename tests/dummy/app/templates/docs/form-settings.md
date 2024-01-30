@@ -12,8 +12,8 @@ The only required setting is `formName` which must be unique from that of any ot
   <demo.example @name="no-form-settings-form-schema.hbs" @title="Default form settings">
     <ChangesetWebform @formSchema={{this.nothingSpecialFormSchema}} @submitAction={{action "doSubmit"}} />
   </demo.example>
-  <demo.snippet @name="no-form-settings-form-schema.js" @label="Component JS" @language="javascript" />
-  <demo.snippet @name="no-form-settings-form-schema.hbs" @label="Template" @language="htmlbars" />
+  <demo.snippet @name="no-form-settings-form-schema.js" @label="component js" @language="javascript" />
+  <demo.snippet @name="no-form-settings-form-schema.hbs" @label="template" @language="htmlbars" />
 </DocsDemo>
 
 
@@ -22,8 +22,8 @@ The only required setting is `formName` which must be unique from that of any ot
   <demo.example @name="clear-after-submit-form-schema.hbs">
     <ChangesetWebform @formSchema={{this.clearFormSchema}} @submitAction={{action "doSubmit"}} />
   </demo.example>
-  <demo.snippet @name="clear-after-submit-form-schema.js" @label="Component JS" @language="javascript" />
-  <demo.snippet @name="clear-after-submit-form-schema.hbs" @label="Template" @language="htmlbars" />
+  <demo.snippet @name="clear-after-submit-form-schema.js" @label="component js" @language="javascript" />
+  <demo.snippet @name="clear-after-submit-form-schema.hbs" @label="template" @language="htmlbars" />
 </DocsDemo>
 
 ## Tracked form settings
