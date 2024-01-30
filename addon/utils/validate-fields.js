@@ -7,7 +7,8 @@ export default function validateAllowedFields(changesetWebform) {
       allowedField.eventLog.pushObject('submit');
       if (allowedField.clonedFields) {
         // TODO does this really belong in a util.
-        allowedField.clonedFields.forEach((clonedField) => {
+        allowedField.clonedFields.forEach((clonedField, index) => {
+          clonedField.validationRules[0].activateValidation.push(index);
           clonedField.eventLog.pushObject('submit');
         });
       }

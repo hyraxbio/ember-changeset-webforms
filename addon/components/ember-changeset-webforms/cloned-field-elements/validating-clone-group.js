@@ -98,7 +98,7 @@ export default class ValidatingCloneGroup extends Component {
     if (!opts.fromData) {
       var fieldValue =
         this.args.changesetWebform.changeset.get(
-          masterFormField.propertyName
+          masterFormField.propertyName,
         ) || [];
       fieldValue.push(opts.newCloneValue || newField.defaultValue);
       this.args.setFieldValue(fieldValue, masterFormField);
@@ -110,7 +110,7 @@ export default class ValidatingCloneGroup extends Component {
       this.args.afterAddClone(
         newField,
         masterFormField,
-        this.args.changesetWebform
+        this.args.changesetWebform,
       );
     }
     // this.args.masterFormField = masterFormField; // TODO refactor
@@ -120,6 +120,7 @@ export default class ValidatingCloneGroup extends Component {
   removeClone(clone) {
     var masterFormField = this.args.masterFormField;
     var index = masterFormField.clonedFields.indexOf(clone);
+
     masterFormField.clonedFields.removeObject(clone);
     this.checkMinMaxClones(masterFormField); // this.send
     var groupValue =

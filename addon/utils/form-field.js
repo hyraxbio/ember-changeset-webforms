@@ -27,7 +27,7 @@ export default class FormField {
     const masterFormFieldValidationErrors = this.validationErrors.filter(
       (item) => {
         return typeof item !== 'object' || !item.clones;
-      }
+      },
     );
     return masterFormFieldValidationErrors;
   }
@@ -65,7 +65,6 @@ export default class FormField {
         .then(() => {
           formField.wasValidated = true;
           const fieldValidationErrors = changeset.error[formField.propertyName];
-
           resolve(fieldValidationErrors);
         })
         .catch((err) => {

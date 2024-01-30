@@ -53,7 +53,7 @@ export default class ChangesetWebform extends Component {
     this.generateChangesetWebform(
       this.args.formSchema,
       this.args.data,
-      this.args.customValidators
+      this.args.customValidators,
     );
   }
 
@@ -63,7 +63,7 @@ export default class ChangesetWebform extends Component {
       formSchema,
       data,
       customValidators,
-      opts
+      opts,
     );
     if (this.args.afterGenerateChangesetWebform) {
       this.args.afterGenerateChangesetWebform(this.changesetWebform);
@@ -90,7 +90,7 @@ export default class ChangesetWebform extends Component {
       this.args.afterFieldValidation(
         formField,
         this.changesetWebform,
-        fieldValidationErrors
+        fieldValidationErrors,
       );
     }
   }
@@ -103,7 +103,7 @@ export default class ChangesetWebform extends Component {
         this.changesetWebform,
         eventType,
         value,
-        event
+        event,
       );
     }
   }
@@ -136,7 +136,7 @@ export default class ChangesetWebform extends Component {
                 try {
                   var submitAction = this.args.submitAction(
                     savedChangeset.data,
-                    changesetWebform
+                    changesetWebform,
                   );
                   if (isPromise(submitAction)) {
                     submitAction
@@ -145,7 +145,7 @@ export default class ChangesetWebform extends Component {
                         if (this.args.submitSuccess) {
                           this.args.submitSuccess(
                             submitActionResponse,
-                            changesetWebform
+                            changesetWebform,
                           );
                         }
                         if (
@@ -166,7 +166,7 @@ export default class ChangesetWebform extends Component {
                     if (this.args.submitSuccess) {
                       this.args.submitSuccess(
                         submitActionResponse,
-                        changesetWebform
+                        changesetWebform,
                       );
                     }
                     if (changesetWebform.formSettings.clearFormAfterSubmit) {
@@ -194,7 +194,7 @@ export default class ChangesetWebform extends Component {
                 if (this.args.submitSuccess) {
                   this.args.submitSuccess(
                     saveChangesetResponse,
-                    changesetWebform
+                    changesetWebform,
                   );
                 }
                 if (changesetWebform.formSettings.clearFormAfterSubmit) {
@@ -243,7 +243,7 @@ export default class ChangesetWebform extends Component {
       this.args.formSchema,
       null,
       this.args.customValidators,
-      opts
+      opts,
     );
     if (changesetWebform.formSettings.submitAfterClear) {
       this.submitForm(this.changesetWebform); // this.send

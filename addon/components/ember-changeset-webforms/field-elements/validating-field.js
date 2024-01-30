@@ -60,7 +60,7 @@ export default class ValidatingField extends Component {
       this.args.afterFieldValidation(
         formField,
         formField.changeset,
-        fieldValidationErrors
+        fieldValidationErrors,
       );
     });
   }
