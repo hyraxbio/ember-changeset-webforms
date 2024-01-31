@@ -127,7 +127,10 @@ export default {
     return key >= this.keys.a && key <= this.keys.z;
   },
   isNumber(key) {
-    return (key >= this.keys.num0 && key <= this.keys.num9) || (key >= this.keys.numpad0 && key <= this.keys.numpad9);
+    return (
+      (key >= this.keys.num0 && key <= this.keys.num9) ||
+      (key >= this.keys.numpad0 && key <= this.keys.numpad9)
+    );
   },
   isAlphanumeric(key) {
     return this.isNumber(key) || this.isLetter(key);

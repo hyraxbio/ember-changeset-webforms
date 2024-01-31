@@ -49,9 +49,17 @@ export default Component.extend({
     onUserInteraction(formField, changesetWebform, eventType) {
       if (eventType === 'click') {
         if (formField.fieldId === 'toggleNicknameField') {
-          const nickNameField = changesetWebform.fields.findBy('fieldId', 'nickName');
+          const nickNameField = changesetWebform.fields.findBy(
+            'fieldId',
+            'nickName',
+          );
           nickNameField.toggleProperty('hidden');
-          formField.set('clickerText', nickNameField.hidden ? 'Show nickname field' : 'Hide nickname field');
+          formField.set(
+            'clickerText',
+            nickNameField.hidden
+              ? 'Show nickname field'
+              : 'Hide nickname field',
+          );
         }
       }
     },
@@ -75,7 +83,9 @@ export default Component.extend({
       const validationError = changsetWebform.changeset.error;
       let errorProps = [];
       for (var key in validationError) {
-        errorProps.push(`"${key}" => "${validationError[key].validation.join(', ')}"`);
+        errorProps.push(
+          `"${key}" => "${validationError[key].validation.join(', ')}"`,
+        );
       }
       this.set('alert', {
         type: 'danger',

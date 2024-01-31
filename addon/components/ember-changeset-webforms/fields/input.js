@@ -13,7 +13,7 @@ export default class Input extends Component {
       formField,
       eventType,
       event.target.value,
-      event
+      event,
     );
     if (eventType === 'keyUp') {
       this.args.onChange(formField, event.target.value);

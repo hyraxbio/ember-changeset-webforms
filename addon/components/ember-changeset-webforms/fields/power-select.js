@@ -38,7 +38,7 @@ export default class PowerSelect extends Component {
           (primitiveOption) =>
             primitiveOption
               .toLowerCase()
-              .indexOf(event.target.value.toLowerCase()) > -1
+              .indexOf(event.target.value.toLowerCase()) > -1,
         )
       ) {
         let value = this.displayValue || [];
@@ -54,7 +54,7 @@ export default class PowerSelect extends Component {
           formField,
           newItem,
           'keyDownEnterPowerSelectMultiple',
-          event
+          event,
         );
         this.args.onChange(formField, value, 'keyDownPowerSelect', event);
       }
@@ -62,7 +62,7 @@ export default class PowerSelect extends Component {
         formField,
         newItem,
         'keyDownPowerSelect',
-        event
+        event,
       );
     }
   }

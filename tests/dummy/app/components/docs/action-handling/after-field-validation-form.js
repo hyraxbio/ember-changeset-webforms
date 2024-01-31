@@ -52,9 +52,15 @@ export default Component.extend({
       this.set('name', changesetWebform.changeset.get('name'));
       this.set('email', changesetWebform.changeset.get('email'));
       this.set('lastValidatedField', formField.fieldLabel);
-      this.set('lastUpdatedFieldValue', changesetWebform.changeset.get(formField.propertyName));
+      this.set(
+        'lastUpdatedFieldValue',
+        changesetWebform.changeset.get(formField.propertyName),
+      );
       this.set('fieldValidationErrors', fieldValidationErrors);
-      this.set('allFields', changesetWebform.fields.map((field) => field.fieldId).join(', '));
+      this.set(
+        'allFields',
+        changesetWebform.fields.map((field) => field.fieldId).join(', '),
+      );
       this.set('formName', changesetWebform.formSettings.formName);
     },
   },

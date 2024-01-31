@@ -31,7 +31,9 @@ export default Component.extend({
   },
 
   displayCountry: computed('option', function () {
-    const related = this.countries.find((country) => country.id === this.option);
+    const related = this.countries.find(
+      (country) => country.id === this.option,
+    );
     return related.name;
   }),
 });

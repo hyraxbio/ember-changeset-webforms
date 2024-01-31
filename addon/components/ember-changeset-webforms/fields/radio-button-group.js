@@ -13,7 +13,7 @@ export default class RadioButtonGroup extends Component {
     this.args.onUserInteraction(
       this.args.formField,
       'radioOptionChanged',
-      value
+      value,
     );
     this.args.onChange(this.args.formField, value);
   }

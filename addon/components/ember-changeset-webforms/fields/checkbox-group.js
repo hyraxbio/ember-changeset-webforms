@@ -44,7 +44,7 @@ export default class CheckboxGroup extends Component {
       formField,
       'checkboxToggled',
       checkedItems,
-      event
+      event,
     );
   }
 

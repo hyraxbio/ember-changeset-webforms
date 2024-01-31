@@ -39,7 +39,10 @@ export default {
 
   passedValidation(arg) {
     const element = this.getElement(arg);
-    if (element.classList.contains('is-valid') || element.querySelector('.is-valid')) {
+    if (
+      element.classList.contains('is-valid') ||
+      element.querySelector('.is-valid')
+    ) {
       return true;
     }
     return false;
@@ -58,7 +61,11 @@ export default {
 
   failedValidation(arg) {
     const element = this.getElement(arg);
-    if ((element.classList.contains('is-invalid') || element.querySelector('.is-invalid')) && element.querySelector(els.cwfFieldErrors)) {
+    if (
+      (element.classList.contains('is-invalid') ||
+        element.querySelector('.is-invalid')) &&
+      element.querySelector(els.cwfFieldErrors)
+    ) {
       return true;
     }
     return false;
@@ -81,18 +88,24 @@ export default {
 
   allValidated(arg, indexes) {
     const els = this.getElements(arg, indexes);
-    return els.map((el) => this.wasValidated(el)).every((item) => item === true);
+    return els
+      .map((el) => this.wasValidated(el))
+      .every((item) => item === true);
   },
 
   noneValidated(arg, indexes) {
     const els = this.getElements(arg, indexes);
-    return !els.map((el) => this.wasValidated(el)).filter((item) => item === true);
+    return !els
+      .map((el) => this.wasValidated(el))
+      .filter((item) => item === true);
   },
 
   async removeClone(arg, indexes) {
     const element = this.getElement(arg);
     if (indexes) {
-      const elementsToClick = indexes.map((index) => element.querySelectorAll(els.cwfRemoveClone)[index]);
+      const elementsToClick = indexes.map(
+        (index) => element.querySelectorAll(els.cwfRemoveClone)[index],
+      );
       for (var el of elementsToClick) {
         await click(el);
       }

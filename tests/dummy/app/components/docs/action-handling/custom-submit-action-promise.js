@@ -34,7 +34,7 @@ export default Component.extend({
         return this.fetchPromise(
           '/forgot-password' +
             '?email=' +
-            encodeURIComponent(response.data.email)
+            encodeURIComponent(response.data.email),
         );
       });
     },

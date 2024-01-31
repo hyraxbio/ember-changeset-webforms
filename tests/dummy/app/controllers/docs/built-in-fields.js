@@ -520,7 +520,7 @@ export default Controller.extend({
           showTimeSelector: true,
           defaultValue: moment(
             '2022-11-03 14:42:19.23456',
-            'YYYY-MM-DD HH:mm:ss.SSS'
+            'YYYY-MM-DD HH:mm:ss.SSS',
           ),
         },
       ],
@@ -669,7 +669,7 @@ export default Controller.extend({
       if (formField.fieldId === 'toggleAdvanced' && eventType === 'click') {
         formField.showAdvanced = !formField.showAdvanced;
         const advancedFields = changesetWebform.fields.filter(
-          (field) => field.advancedSetting
+          (field) => field.advancedSetting,
         );
         advancedFields.forEach((field) => (field.hidden = !field.hidden));
       }

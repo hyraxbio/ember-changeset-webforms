@@ -1,4 +1,7 @@
-export default function formSchemaFromQueryParams(queryParamsObjects, formName) {
+export default function formSchemaFromQueryParams(
+  queryParamsObjects,
+  formName,
+) {
   var formSchema = {
     formSettings: {
       formName: formName,

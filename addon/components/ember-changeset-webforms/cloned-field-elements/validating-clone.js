@@ -17,7 +17,7 @@ export default class ValidatingClone extends Component {
       this.args.masterFormField.eventLog.pushObject('insertClone');
       this.args.clonedFormField.updateValidationActivation(
         this.args.clonedFormField.index,
-        'insert'
+        'insert',
       );
       this.args.validateField(this.args.masterFormField);
     }
@@ -37,13 +37,13 @@ export default class ValidatingClone extends Component {
     this.args.masterFormField.eventLog.pushObject(`${eventType}Clone`);
     clonedFormField.updateValidationActivation(
       clonedFormField.index,
-      eventType
+      eventType,
     );
     this.args.onUserInteraction(
       clonedFormField,
       `${eventType}Clone`,
       value,
-      event
+      event,
     );
   }
 
@@ -53,15 +53,15 @@ export default class ValidatingClone extends Component {
     this.args.masterFormField.eventLog.pushObject(`${eventType}Clone`);
     clonedFormField.updateValidationActivation(
       clonedFormField.index,
-      eventType
+      eventType,
     );
     this.args.setFieldValue(
       this.updatedGroupValue(
         value,
         clonedFormField.index,
-        this.args.masterFormField
+        this.args.masterFormField,
       ),
-      this.args.masterFormField
+      this.args.masterFormField,
     );
   }
 

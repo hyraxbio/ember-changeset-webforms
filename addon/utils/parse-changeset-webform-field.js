@@ -6,14 +6,14 @@ import Option from 'ember-changeset-webforms/utils/option-class';
 export default function parseChangesetWebformField(
   field,
   customValidators,
-  formSettings
+  formSettings,
 ) {
   if (!field) {
     return;
   }
   if (!field.fieldId) {
     throw Error(
-      `[Ember validating field] fieldId is a required field for each field in a validating form.`
+      `[Ember validating field] fieldId is a required field for each field in a validating form.`,
     );
   }
   const parsedField = parse(field, customValidators, formSettings);
@@ -41,7 +41,7 @@ function parse(fieldSchema, customValidators, formSettings) {
     field.clonedFieldBlueprint = parse(
       field.cloneFieldSchema,
       customValidators,
-      formSettings
+      formSettings,
     );
   }
 

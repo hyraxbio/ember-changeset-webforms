@@ -124,21 +124,21 @@ export default class PowerDatetimePicker extends Component {
     const value = event.target.value;
     const strictDateFormat = parsedDateTimeDisplayFormat.replace(
       /S{1,}/,
-      'SSSS'
+      'SSSS',
     );
     if (!moment(value, strictDateFormat, true).isValid()) {
       return null;
     }
     if (
       moment(value, parsedDateTimeDisplayFormat).isBefore(
-        moment(this.args.minDate, 'YYYY-MM-DD')
+        moment(this.args.minDate, 'YYYY-MM-DD'),
       )
     ) {
       return null;
     }
     if (
       moment(value, parsedDateTimeDisplayFormat).isAfter(
-        moment(this.args.maxDate, 'YYYY-MM-DD')
+        moment(this.args.maxDate, 'YYYY-MM-DD'),
       )
     ) {
       return null;
@@ -184,24 +184,24 @@ export default class PowerDatetimePicker extends Component {
         value = 0;
       }
       newDateTime = moment(currentDateTime, this.parsedDateTimeFormat).hour(
-        value
+        value,
       );
     } else if (unit.startsWith('H')) {
       newDateTime = moment(currentDateTime, this.parsedDateTimeFormat).hour(
-        value
+        value,
       );
     } else if (unit.startsWith('m')) {
       newDateTime = moment(currentDateTime, this.parsedDateTimeFormat).minute(
-        value
+        value,
       );
     } else if (unit.startsWith('s')) {
       newDateTime = moment(currentDateTime, this.parsedDateTimeFormat).second(
-        value
+        value,
       );
     } else if (unit.startsWith('S')) {
       newDateTime = moment(
         currentDateTime,
-        this.parsedDateTimeFormat
+        this.parsedDateTimeFormat,
       ).millisecond(value);
     } else if (unit.toLowerCase().startsWith('a')) {
       if (
@@ -209,7 +209,7 @@ export default class PowerDatetimePicker extends Component {
       ) {
         const currentHour = moment(
           currentDateTime,
-          this.parsedDateTimeFormat
+          this.parsedDateTimeFormat,
         ).hour();
         let newHour;
         if (value === 'am') {
@@ -218,7 +218,7 @@ export default class PowerDatetimePicker extends Component {
           newHour = currentHour + 12;
         }
         newDateTime = moment(currentDateTime, this.parsedDateTimeFormat).hour(
-          newHour
+          newHour,
         );
       } else {
         newDateTime = moment(currentDateTime, this.parsedDateTimeFormat);
@@ -246,7 +246,7 @@ export default class PowerDatetimePicker extends Component {
     if (this.args.calendarStartMonth) {
       const calendarStartDate = moment(
         `01/${this.args.calendarStartMonth}`,
-        'DD/MM/YYYY'
+        'DD/MM/YYYY',
       );
       this.calendarStartDate = calendarStartDate;
     }
@@ -255,13 +255,13 @@ export default class PowerDatetimePicker extends Component {
       this.updateDateTime(this.args.value);
     } else if (moment(this.args.value).isValid()) {
       this.updateDateTime(
-        moment(this.args.value, this.parsedDateTimeFormat).toDate()
+        moment(this.args.value, this.parsedDateTimeFormat).toDate(),
       );
     }
 
     if (this.args.fixedTime && this.args.showTimeSelector) {
       console.warn(
-        '[Ember Changeset Webforms] You have set showTimeSelector to true, but you have also passed fixedTime. fixedTime must be null in order to show the tine selector component.'
+        '[Ember Changeset Webforms] You have set showTimeSelector to true, but you have also passed fixedTime. fixedTime must be null in order to show the tine selector component.',
       );
     }
   }
@@ -284,7 +284,7 @@ export default class PowerDatetimePicker extends Component {
       this.args.onUserInteraction(
         'keyUpDateTimeInput',
         event.target.value,
-        event
+        event,
       );
     }
   }
@@ -304,7 +304,7 @@ export default class PowerDatetimePicker extends Component {
       this.args.onUserInteraction(
         'focusDateTimeInput',
         event.target.value,
-        event
+        event,
       );
     }
   }
@@ -316,7 +316,7 @@ export default class PowerDatetimePicker extends Component {
       this.args.onUserInteraction(
         'blurDateTimeInput',
         event.target.value,
-        event
+        event,
       );
     }
   }
@@ -407,7 +407,7 @@ export default class PowerDatetimePicker extends Component {
       this.args.onUserInteraction(
         'keyDownTimeUnitInput',
         event.target.value,
-        event
+        event,
       );
     }
   }
@@ -421,7 +421,7 @@ export default class PowerDatetimePicker extends Component {
       this.args.onUserInteraction(
         'keyUpTimeUnitInput',
         event.target.value,
-        event
+        event,
       );
     }
   }
@@ -441,7 +441,7 @@ export default class PowerDatetimePicker extends Component {
     if (value !== 'am' && value !== 'pm') {
       event.target.value = moment(
         currentDateTime,
-        this.parsedDateTimeFormat
+        this.parsedDateTimeFormat,
       ).format('a');
     }
     this.setTime('a', event); // this.send
@@ -486,7 +486,7 @@ export default class PowerDatetimePicker extends Component {
         dateTime = this.updateTimeUnit(
           key,
           this.fixedTimeParsed[key],
-          dateTime
+          dateTime,
         );
       }
     }

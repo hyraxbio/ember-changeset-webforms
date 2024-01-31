@@ -32,7 +32,9 @@ export default function createValidations(fields, customValidators = {}) {
     var fieldValidations = [];
 
     field.validationRules.forEach((rule) => {
-      var validator = customValidators[rule.validationMethod] || defaultValidators[rule.validationMethod];
+      var validator =
+        customValidators[rule.validationMethod] ||
+        defaultValidators[rule.validationMethod];
       if (!validator) {
         return;
       }

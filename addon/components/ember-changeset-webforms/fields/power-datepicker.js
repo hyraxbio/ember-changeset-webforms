@@ -12,7 +12,7 @@ export default class PowerDatepicker extends Component {
     if (formField.dateRangeSettings) {
       var rangePartner = this.args.formFields.findBy(
         'fieldId',
-        formField.dateRangeSettings.rangePartnerFieldId
+        formField.dateRangeSettings.rangePartnerFieldId,
       );
       if (rangePartner) {
         if (rangePartner.dateRangeSettings.rangePosition === 'start') {
@@ -25,7 +25,7 @@ export default class PowerDatepicker extends Component {
     const formatted = dateTime
       ? moment(dateTime)
           .format(
-            `${this.args.formField.dateTimeFormat.replace(/S{1,}/, 'SSS')}`
+            `${this.args.formField.dateTimeFormat.replace(/S{1,}/, 'SSS')}`,
           )
           .toString()
       : null; // TODO this must default simply to moment(dateTime).toDate() to accommodate ember attr 'date', and allow user to specify output function to override this when defining field.
