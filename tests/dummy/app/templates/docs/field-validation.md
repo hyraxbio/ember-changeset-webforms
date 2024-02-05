@@ -55,13 +55,13 @@ validationRules: [{
 <DocsDemo as |demo|>
 <demo.example @name="signup-form.hbs">
 <ChangesetWebform
-@formSchema={{this.signUpFormSchema}}
-@data={{hash
-        email="tobias@bluthcompany.com"
-        recoveryEmail="test"
-      }}
-@submitAction={{action "submit"}}
-@submitSuccess={{action "submitSuccess"}}
+  @formSchema={{this.signupFormSchema}}
+  @data={{hash
+    email="tobias@bluthcompany.com"
+    recoveryEmail="test"
+  }}
+  @submitAction={{this.submit}}
+  @submitSuccess={{this.submitSuccess}}
 />
 </demo.example>
 <demo.snippet @name="signup-form.js" @label="component js" @language="javascript" />

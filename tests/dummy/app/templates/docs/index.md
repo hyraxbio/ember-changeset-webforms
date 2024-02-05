@@ -10,7 +10,22 @@ The component can also accept POJO, Ember object or Ember model as its `@data` p
 
 ## Example
 
-<Forms::Signup />
+
+<DocsDemo as |demo|>
+  <demo.example @name="signup-form.hbs">
+    <ChangesetWebform
+      @formSchema={{this.signupFormSchema}}
+      @data={{hash
+        email="tobias@bluthcompany.com"
+        recoveryEmail="test"
+      }}
+      @submitAction={{action "submit"}}
+      @submitSuccess={{action "submitSuccess"}}
+    />
+  </demo.example>
+  <demo.snippet @name="signup-form.js" @label="component js" @language="javascript" />
+  <demo.snippet @name="signup-form.hbs" @label="template" @language="htmlbars" />
+</DocsDemo>
 
 ## Features
 
@@ -25,17 +40,5 @@ The component can also accept POJO, Ember object or Ember model as its `@data` p
 * Fine grained configuration control. Configuration options can be set at the app level, form level and, where appropriate, at field level. 
 * Configurable CSS class names - configure the classnames applied to form controls such as inputs or buttons, to alow for seamless styling integration with libraries such as Bootstrap.
 
-TODO - stop sending both fieldId and field from action hooks
-TODO - exclude fields from changeset altogether, bot just castOut on submit. Set this is form when using field, or on field definition as a default.
-TODO - disable single option where things have options.
-TODO allowed and disallowed char patterns for all fields.
-TOTO doc name prop for field
 
-Classes
 
-Document that ember test selectors is advised.
-Requires `markdown-it`
-
-formName is required
-
-All checkBox => checkbox
