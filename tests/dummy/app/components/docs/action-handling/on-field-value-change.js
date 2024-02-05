@@ -1,8 +1,9 @@
+import { action } from '@ember/object';
 import Component from '@ember/component';
 
-export default Component.extend({
-  init: function () {
-    this._super(...arguments);
+export default class OnFieldValueChange extends Component {
+  init() {
+    super.init(...arguments);
     // BEGIN-SNIPPET after-field-edit-action-form.js
     this.userNamesFormSchema = {
       formSettings: {
@@ -37,18 +38,17 @@ export default Component.extend({
         },
       ],
     };
-  },
+  }
 
-  actions: {
-    onFieldValueChange(formField, changesetWebform) {
-      this.set(
-        'fullName',
-        `${changesetWebform.changeset.get('firstName') || ''} ${changesetWebform.changeset.get('lastName') || ''}`,
-      );
-      this.set('lastUpdateField', formField.fieldLabel);
-      this.set('formName', changesetWebform.formSettings.formName);
-    },
-  },
-});
+  @action
+  onFieldValueChange(formField, changesetWebform) {
+    this.set(
+      'fullName',
+      `${changesetWebform.changeset.get('firstName') || ''} ${changesetWebform.changeset.get('lastName') || ''}`,
+    );
+    this.set('lastUpdateField', formField.fieldLabel);
+    this.set('formName', changesetWebform.formSettings.formName);
+  }
+}
 //END-SNIPPET
 // TODO formSettings should be editable- ie should pass the class.

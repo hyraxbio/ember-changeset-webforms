@@ -1,10 +1,11 @@
+import { action } from '@ember/object';
 import Component from '@ember/component';
 
-export default Component.extend({
+export default class OnUserInteractionForm extends Component {
   // BEGIN-SNIPPET after-field-click-action-form.js
 
   init() {
-    this._super(...arguments);
+    super.init(...arguments);
     this.formSchema = {
       formSettings: {
         formName: 'names',
@@ -43,55 +44,54 @@ export default Component.extend({
         },
       ],
     };
-  },
+  }
 
-  actions: {
-    onUserInteraction(formField, changesetWebform, eventType) {
-      if (eventType === 'click') {
-        if (formField.fieldId === 'toggleNicknameField') {
-          const nickNameField = changesetWebform.fields.findBy(
-            'fieldId',
-            'nickName',
-          );
-          nickNameField.toggleProperty('hidden');
-          formField.set(
-            'clickerText',
-            nickNameField.hidden
-              ? 'Show nickname field'
-              : 'Hide nickname field',
-          );
-        }
-      }
-    },
-
-    submitAction(data, changsetWebform) {
-      let dataProps = [];
-      for (var key in data) {
-        dataProps.push(`"${key}" => "${data[key]}"`);
-      }
-      this.set('alert', {
-        type: 'success',
-        message: `Validation passed, submit action fired with the following data: ${dataProps.join(', ')}.`,
-      });
-      const changeset = changsetWebform.changeset;
-      changsetWebform.formSettings.set('submitButtonText', 'Re-submit');
-      changeset.set('name', '');
-      changeset.set('nickName', '');
-    },
-
-    formValidationFailed(changsetWebform) {
-      const validationError = changsetWebform.changeset.error;
-      let errorProps = [];
-      for (var key in validationError) {
-        errorProps.push(
-          `"${key}" => "${validationError[key].validation.join(', ')}"`,
+  @action
+  onUserInteraction(formField, changesetWebform, eventType) {
+    if (eventType === 'click') {
+      if (formField.fieldId === 'toggleNicknameField') {
+        const nickNameField = changesetWebform.fields.findBy(
+          'fieldId',
+          'nickName',
+        );
+        nickNameField.toggleProperty('hidden');
+        formField.set(
+          'clickerText',
+          nickNameField.hidden ? 'Show nickname field' : 'Hide nickname field',
         );
       }
-      this.set('alert', {
-        type: 'danger',
-        message: `Validation failed, submit action not fired. The following validation errors exist:  ${errorProps.join(', ')}`,
-      });
-    },
-  },
+    }
+  }
+
+  @action
+  submitAction(data, changsetWebform) {
+    let dataProps = [];
+    for (var key in data) {
+      dataProps.push(`"${key}" => "${data[key]}"`);
+    }
+    this.set('alert', {
+      type: 'success',
+      message: `Validation passed, submit action fired with the following data: ${dataProps.join(', ')}.`,
+    });
+    const changeset = changsetWebform.changeset;
+    changsetWebform.formSettings.set('submitButtonText', 'Re-submit');
+    changeset.set('name', '');
+    changeset.set('nickName', '');
+  }
+
+  @action
+  formValidationFailed(changsetWebform) {
+    const validationError = changsetWebform.changeset.error;
+    let errorProps = [];
+    for (var key in validationError) {
+      errorProps.push(
+        `"${key}" => "${validationError[key].validation.join(', ')}"`,
+      );
+    }
+    this.set('alert', {
+      type: 'danger',
+      message: `Validation failed, submit action not fired. The following validation errors exist:  ${errorProps.join(', ')}`,
+    });
+  }
   // END-SNIPPET
-});
+}

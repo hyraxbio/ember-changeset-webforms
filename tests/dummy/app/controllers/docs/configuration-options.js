@@ -1,8 +1,8 @@
 import Controller from '@ember/controller';
 
-export default Controller.extend({
+export default class ConfigurationOptions extends Controller {
   init() {
-    this._super(...arguments);
+    super.init(...arguments);
     // BEGIN-SNIPPET field-settings-overridden.js
     this.formSchema = {
       formSettings: {
@@ -33,5 +33,5 @@ export default Controller.extend({
       ],
     };
     // END-SNIPPET
-  },
-});
+  }
+}

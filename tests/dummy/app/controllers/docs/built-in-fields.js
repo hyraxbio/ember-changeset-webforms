@@ -1,9 +1,10 @@
+import { action } from '@ember/object';
 import Controller from '@ember/controller';
 import moment from 'moment';
 
-export default Controller.extend({
+export default class BuiltInFields extends Controller {
   init() {
-    this._super(...arguments);
+    super.init(...arguments);
     this.radioButtonGroupOption = {
       // BEGIN-SNIPPET radio-button-group-option.js
       value: null, //
@@ -651,30 +652,34 @@ export default Controller.extend({
       ],
     };
     // END-SNIPPET
-  },
-  actions: {
-    // BEGIN-SNIPPET after-datetime-updated-action.js
-    afterDatetimeUpdated(prop, formField, ChangesetWebform) {
-      const dateTime = ChangesetWebform.changeset.get('startDate');
-      this.set(`dateTimeOutput${prop}`, {
-        nativeJSFormat: moment(dateTime, formField.dateTimeFormat).toDate(),
-        fieldValue: dateTime,
-      });
-    },
-    // END-SNIPPET
-    onUserInteraction(...args) {
-      console.log(args);
-    },
-    // BEGIN-SNIPPET clicker-example-action.js
-    onUserInteractionClicker1(formField, changesetWebform, eventType) {
-      if (formField.fieldId === 'toggleAdvanced' && eventType === 'click') {
-        formField.showAdvanced = !formField.showAdvanced;
-        const advancedFields = changesetWebform.fields.filter(
-          (field) => field.advancedSetting,
-        );
-        advancedFields.forEach((field) => (field.hidden = !field.hidden));
-      }
-    },
-    // END-SNIPPET
-  },
-});
+  }
+
+  // BEGIN-SNIPPET after-datetime-updated-action.js
+  @action
+  afterDatetimeUpdated(prop, formField, ChangesetWebform) {
+    const dateTime = ChangesetWebform.changeset.get('startDate');
+    this.set(`dateTimeOutput${prop}`, {
+      nativeJSFormat: moment(dateTime, formField.dateTimeFormat).toDate(),
+      fieldValue: dateTime,
+    });
+  }
+
+  // END-SNIPPET
+  @action
+  onUserInteraction(...args) {
+    console.log(args);
+  }
+
+  // BEGIN-SNIPPET clicker-example-action.js
+  @action
+  onUserInteractionClicker1(formField, changesetWebform, eventType) {
+    if (formField.fieldId === 'toggleAdvanced' && eventType === 'click') {
+      formField.showAdvanced = !formField.showAdvanced;
+      const advancedFields = changesetWebform.fields.filter(
+        (field) => field.advancedSetting,
+      );
+      advancedFields.forEach((field) => (field.hidden = !field.hidden));
+    }
+  }
+  // END-SNIPPET
+}

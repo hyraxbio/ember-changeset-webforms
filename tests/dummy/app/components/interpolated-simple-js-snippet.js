@@ -1,10 +1,12 @@
+import { layout as templateLayout } from '@ember-decorators/component';
+import { computed } from '@ember/object';
 import Component from '@ember/component';
 import layout from '../templates/components/interpolated-simple-js-snippet';
-import { computed } from '@ember/object';
 
-export default Component.extend({
-  layout,
-  string: computed('object', 'excludeKeys', function () {
+@templateLayout(layout)
+export default class InterpolatedSimpleJsSnippet extends Component {
+  @computed('object', 'excludeKeys')
+  get string() {
     if (!this.object) {
       return;
     }
@@ -23,5 +25,5 @@ export default Component.extend({
         return `${parts[0].replace(/"/g, ``)}: ${parts[1].replace(/"/g, `'`)}`;
       })
       .join('\n');
-  }),
-});
+  }
+}

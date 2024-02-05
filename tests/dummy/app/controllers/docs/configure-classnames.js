@@ -1,9 +1,9 @@
 import Controller from '@ember/controller';
 import { addonDefaults } from 'ember-changeset-webforms/utils/get-with-default';
 
-export default Controller.extend({
+export default class ConfigureClassnames extends Controller {
   init() {
-    this._super(...arguments);
+    super.init(...arguments);
     this.fieldTypes = addonDefaults.fieldTypes.map((item) => item.fieldType);
 
     // BEGIN-SNIPPET app-wide-class-settings.js"
@@ -171,5 +171,5 @@ export default Controller.extend({
       ],
     };
     // END-SNIPPET
-  },
-});
+  }
+}

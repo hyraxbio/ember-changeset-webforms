@@ -2,11 +2,11 @@
 import Controller from '@ember/controller';
 import customValidators from '../../validators';
 
-export default Controller.extend({
-  customValidators,
+export default class IntegratingCustomValidators extends Controller {
+  customValidators = customValidators;
 
   init() {
-    this._super(...arguments);
+    super.init(...arguments);
     this.uniquenessFormSchema = {
       formSettings: {
         formName: 'unique',
@@ -49,6 +49,6 @@ export default Controller.extend({
         },
       ],
     };
-  },
-});
+  }
+}
 // END-SNIPPET

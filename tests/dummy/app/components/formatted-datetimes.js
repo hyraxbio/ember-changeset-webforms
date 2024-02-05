@@ -1,6 +1,6 @@
+import { layout as templateLayout } from '@ember-decorators/component';
 import Component from '@ember/component';
 import layout from '../templates/components/formatted-datetimes';
 
-export default Component.extend({
-  layout,
-});
+@templateLayout(layout)
+export default class FormattedDatetimes extends Component {}

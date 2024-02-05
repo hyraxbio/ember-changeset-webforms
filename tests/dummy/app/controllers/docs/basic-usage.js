@@ -1,7 +1,7 @@
 import ApplicationController from '../application';
 
-export default ApplicationController.extend({
+export default class BasicUsage extends ApplicationController {
   get formSchema() {
     return this.loginFormSchema;
-  },
-});
+  }
+}

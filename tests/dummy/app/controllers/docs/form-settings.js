@@ -1,8 +1,9 @@
+import { action } from '@ember/object';
 import Controller from '@ember/controller';
 
-export default Controller.extend({
+export default class FormSettings extends Controller {
   init() {
-    this._super(...arguments);
+    super.init(...arguments);
     // BEGIN-SNIPPET no-form-settings-form-schema.js
     this.nothingSpecialFormSchema = {
       formSettings: {
@@ -47,14 +48,14 @@ export default Controller.extend({
       ],
     };
     // END-SNIPPET
-  },
-  actions: {
-    doSubmit(data) {
-      return new Promise((resolve, reject) => {
-        setTimeout(() => {
-          resolve(data);
-        }, 500);
-      });
-    },
-  },
-});
+  }
+
+  @action
+  doSubmit(data) {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve(data);
+      }, 500);
+    });
+  }
+}

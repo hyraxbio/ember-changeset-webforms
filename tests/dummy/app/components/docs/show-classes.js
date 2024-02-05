@@ -1,10 +1,11 @@
+import { layout as templateLayout } from '@ember-decorators/component';
 import Component from '@ember/component';
 import layout from '../../templates/components/docs/show-classes';
 
-export default Component.extend({
-  layout,
+@templateLayout(layout)
+export default class ShowClasses extends Component {
   didInsertElement() {
-    this._super(...arguments);
+    super.didInsertElement(...arguments);
     setTimeout(() => {
       this.doTheThing();
       document
@@ -18,7 +19,7 @@ export default Component.extend({
           this.doTheThing();
         });
     });
-  },
+  }
 
   doTheThing() {
     const labelEls = Array.from(
@@ -43,5 +44,5 @@ export default Component.extend({
       newEl.classList.add('rounded');
       labelEl.appendChild(newEl);
     });
-  },
-});
+  }
+}

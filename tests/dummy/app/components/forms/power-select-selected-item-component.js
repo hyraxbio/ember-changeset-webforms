@@ -1,11 +1,12 @@
+import { layout as templateLayout } from '@ember-decorators/component';
+import { computed } from '@ember/object';
 import Component from '@ember/component';
 import layout from '../../templates/components/forms/power-select-selected-item-component';
-import { computed } from '@ember/object';
 
-export default Component.extend({
-  layout,
+@templateLayout(layout)
+export default class PowerSelectSelectedItemComponent extends Component {
   init() {
-    this._super(arguments);
+    super.init(arguments);
     this.countries = [
       {
         id: 'ABW',
@@ -28,12 +29,13 @@ export default Component.extend({
         name: 'Andorra',
       },
     ];
-  },
+  }
 
-  displayCountry: computed('option', function () {
+  @computed('option')
+  get displayCountry() {
     const related = this.countries.find(
       (country) => country.id === this.option,
     );
     return related.name;
-  }),
-});
+  }
+}

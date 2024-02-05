@@ -1,9 +1,10 @@
+import { action } from '@ember/object';
 // BEGIN-SNIPPET forgot-password-form.js
 import Component from '@ember/component';
 
-export default Component.extend({
+export default class CustomSubmitActionPromise extends Component {
   init() {
-    this._super(...arguments);
+    super.init(...arguments);
     this.formSchema = {
       formSettings: {
         formName: 'forgotPasswordForm',
@@ -26,26 +27,27 @@ export default Component.extend({
         },
       ],
     };
-  },
+  }
 
-  actions: {
-    submitAction(_changesetData, changesetWebform) {
-      return changesetWebform.changeset.save().then((response) => {
-        return this.fetchPromise(
-          '/forgot-password' +
-            '?email=' +
-            encodeURIComponent(response.data.email),
-        );
-      });
-    },
+  @action
+  submitAction(_changesetData, changesetWebform) {
+    return changesetWebform.changeset.save().then((response) => {
+      return this.fetchPromise(
+        '/forgot-password' +
+          '?email=' +
+          encodeURIComponent(response.data.email),
+      );
+    });
+  }
 
-    submitSuccess(submitActionResponse, changesetWebform) {
-      alert('Success');
-    },
+  @action
+  submitSuccess(submitActionResponse, changesetWebform) {
+    alert('Success');
+  }
 
-    submitError(error, chnagesetWebform) {
-      alert('Fail');
-    },
-  },
-});
+  @action
+  submitError(error, chnagesetWebform) {
+    alert('Fail');
+  }
+}
 // END-SNIPPET

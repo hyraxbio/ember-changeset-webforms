@@ -1,12 +1,13 @@
+import { action } from '@ember/object';
 // BEGIN-SNIPPET after-generate-changeset-webform-form.js
 import Component from '@ember/component';
 import validateFields from 'ember-changeset-webforms/utils/validate-fields';
 
-export default Component.extend({
-  step: 1,
+export default class AfterGenerateChangesetWebformForm extends Component {
+  step = 1;
 
-  init: function () {
-    this._super(...arguments);
+  init() {
+    super.init(...arguments);
     this.formSchema = {
       formSettings: {
         formName: 'nameAndEmail',
@@ -45,26 +46,28 @@ export default Component.extend({
         },
       ],
     };
-  },
+  }
 
-  actions: {
-    afterGenerateChangesetWebform(changesetWebform) {
-      this.set('changesetWebform', changesetWebform);
-    },
+  @action
+  afterGenerateChangesetWebform(changesetWebform) {
+    this.set('changesetWebform', changesetWebform);
+  }
 
-    next() {
-      const currentStep = this.step;
-      const changesetWebform = this.changesetWebform;
-      validateFields(changesetWebform).then(() => {
-        if (changesetWebform.changeset.isValid) {
-          this.set('step', currentStep + 1);
-        }
-      });
-    },
-    prev() {
-      const currentStep = this.step;
-      this.set('step', currentStep - 1);
-    },
-  },
-});
+  @action
+  next() {
+    const currentStep = this.step;
+    const changesetWebform = this.changesetWebform;
+    validateFields(changesetWebform).then(() => {
+      if (changesetWebform.changeset.isValid) {
+        this.set('step', currentStep + 1);
+      }
+    });
+  }
+
+  @action
+  prev() {
+    const currentStep = this.step;
+    this.set('step', currentStep - 1);
+  }
+}
 //END-SNIPPET
