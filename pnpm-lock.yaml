@@ -24,8 +24,8 @@ dependencies:
     specifier: ^6.3.0
     version: 6.3.0
   ember-power-calendar:
-    specifier: ^0.19.0
-    version: 0.19.0(@babel/core@7.23.7)(ember-source@5.5.0)
+    specifier: ^0.21.0
+    version: 0.21.0(@babel/core@7.23.7)(ember-power-calendar-moment@0.5.1)(ember-source@5.5.0)(webpack@5.89.0)
   ember-power-select:
     specifier: ^7.0.0
     version: 7.2.0(@babel/core@7.23.7)(ember-source@5.5.0)(webpack@5.89.0)
@@ -131,8 +131,8 @@ devDependencies:
     specifier: ^8.1.0
     version: 8.2.0(ember-source@5.5.0)
   ember-power-calendar-moment:
-    specifier: ^0.2.0
-    version: 0.2.0(moment@2.30.1)(webpack@5.89.0)
+    specifier: ^0.5.1
+    version: 0.5.1(ember-source@5.5.0)(moment@2.30.1)
   ember-qunit:
     specifier: ^8.0.2
     version: 8.0.2(@ember/test-helpers@3.2.1)(ember-source@5.5.0)(qunit@2.20.0)
@@ -7325,23 +7325,6 @@ packages:
       - supports-color
     dev: true
 
-  /ember-concurrency@2.3.7(@babel/core@7.23.7):
-    resolution: {integrity: sha512-sz6sTIXN/CuLb5wdpauFa+rWXuvXXSnSHS4kuNzU5GSMDX1pLBWSuovoUk61FUe6CYRqBmT1/UushObwBGickQ==}
-    engines: {node: 10.* || 12.* || 14.* || >= 16}
-    dependencies:
-      '@babel/helper-plugin-utils': 7.22.5
-      '@babel/types': 7.23.6
-      '@glimmer/tracking': 1.1.2
-      ember-cli-babel: 7.26.11
-      ember-cli-babel-plugin-helpers: 1.1.1
-      ember-cli-htmlbars: 5.7.2
-      ember-compatibility-helpers: 1.2.7(@babel/core@7.23.7)
-      ember-destroyable-polyfill: 2.0.3(@babel/core@7.23.7)
-    transitivePeerDependencies:
-      - '@babel/core'
-      - supports-color
-    dev: false
-
   /ember-concurrency@3.1.1(@babel/core@7.23.7)(ember-source@5.5.0):
     resolution: {integrity: sha512-doXFYYfy1C7jez+jDDlfahTp03QdjXeSY/W3Zbnx/q3UNJ9g10Shf2d7M/HvWo/TC22eU+6dPLIpqd/6q4pR+Q==}
     engines: {node: 16.* || >= 18}
@@ -7418,22 +7401,7 @@ packages:
     transitivePeerDependencies:
       - '@babel/core'
       - supports-color
-
-  /ember-element-helper@0.6.1(ember-source@5.5.0):
-    resolution: {integrity: sha512-YiOdAMlzYul4ulkIoNp8z7iHDfbT1fbut/9xGFRfxDwU/FmF8HtAUB2f1veu/w50HTeZNopa1OV2PCloZ76XlQ==}
-    engines: {node: 12.* || 14.* || >= 16}
-    peerDependencies:
-      ember-source: ^3.8 || 4
-    dependencies:
-      '@embroider/util': 1.12.1(ember-source@5.5.0)
-      ember-cli-babel: 7.26.11
-      ember-cli-htmlbars: 6.3.0
-      ember-source: 5.5.0(@babel/core@7.23.7)(@glimmer/component@1.1.2)(rsvp@4.8.5)(webpack@5.89.0)
-    transitivePeerDependencies:
-      - '@glint/environment-ember-loose'
-      - '@glint/template'
-      - supports-color
-    dev: false
+    dev: true
 
   /ember-element-helper@0.8.5(ember-source@5.5.0):
     resolution: {integrity: sha512-yZYzuasn6ZC8Nwv0MpaLYGtm68ZxIBSNSe/CYxNWkDdgcuAb2lAG1gx37XkwBIiwPQET0W2agwq7++/HwdMF8g==}
@@ -7631,45 +7599,56 @@ packages:
       - supports-color
     dev: true
 
-  /ember-power-calendar-moment@0.2.0(moment@2.30.1)(webpack@5.89.0):
-    resolution: {integrity: sha512-8CL2o4KScrNOhmVAgoFEgdDy3K0k8+4DjRHeXcX6PstxOj9/ZDU+/ST2XUrDRBDSLfzaf3WIhr3siPPwh0LY9A==}
-    engines: {node: 12.* || 14.* || >= 16}
+  /ember-power-calendar-moment@0.5.1(ember-source@5.5.0)(moment@2.30.1):
+    resolution: {integrity: sha512-l8poQV9/8XVsZvQHXhUDNSC7aGwCR5fnphpswm/83UvSK7iNCf2cVTmfDFZk7GCG2oPhgyX+IF2J1pUc8gQvjQ==}
     peerDependencies:
-      moment: ^2
-      moment-timezone: ^0.5.34
+      ember-source: ^3.28.0 || ^4.0.0 || >=5.0.0
+      moment: ^2.30.1
+      moment-timezone: ^0.5.44
     peerDependenciesMeta:
       moment:
         optional: true
       moment-timezone:
         optional: true
     dependencies:
-      broccoli-funnel: 2.0.2
-      ember-auto-import: 2.7.2(webpack@5.89.0)
-      ember-cli-babel: 7.26.11
-      ember-cli-htmlbars: 5.7.2
+      '@embroider/addon-shim': 1.8.7
+      '@embroider/macros': 1.13.4
+      ember-source: 5.5.0(@babel/core@7.23.7)(@glimmer/component@1.1.2)(rsvp@4.8.5)(webpack@5.89.0)
       moment: 2.30.1
     transitivePeerDependencies:
       - '@glint/template'
       - supports-color
-      - webpack
-    dev: true
 
-  /ember-power-calendar@0.19.0(@babel/core@7.23.7)(ember-source@5.5.0):
-    resolution: {integrity: sha512-TWALBr0aZcA4po+QU13U+ejRe9nrRgS9qWMot7Mce5onV5T82XkGtQM8NK2dzB0oSBghvvLOybCvSS+o+hJrEg==}
-    engines: {node: 10.* || >= 12}
+  /ember-power-calendar@0.21.0(@babel/core@7.23.7)(ember-power-calendar-moment@0.5.1)(ember-source@5.5.0)(webpack@5.89.0):
+    resolution: {integrity: sha512-vrMgArTuU5pg/WO2zkuyzd/ROHOhq2gobKG41GkT5DkveRBSD71NOUHC2Y69ZEg8fTBuXceFWidCfoduUM9kFA==}
+    engines: {node: 16.* || >= 18}
+    peerDependencies:
+      ember-power-calendar-luxon: ^0.6.0
+      ember-power-calendar-moment: ^0.4.0
+      ember-source: ^3.28.0 || ^4.0.0 || >=5.0.0
+    peerDependenciesMeta:
+      ember-power-calendar-luxon:
+        optional: true
+      ember-power-calendar-moment:
+        optional: true
     dependencies:
+      '@ember/render-modifiers': 2.1.0(@babel/core@7.23.7)(ember-source@5.5.0)
+      '@embroider/macros': 1.13.4
       ember-assign-helper: 0.4.0
+      ember-auto-import: 2.7.2(webpack@5.89.0)
       ember-cli-babel: 7.26.11
       ember-cli-htmlbars: 6.3.0
-      ember-concurrency: 2.3.7(@babel/core@7.23.7)
-      ember-element-helper: 0.6.1(ember-source@5.5.0)
-      ember-truth-helpers: 3.1.1
+      ember-concurrency: 3.1.1(@babel/core@7.23.7)(ember-source@5.5.0)
+      ember-element-helper: 0.8.5(ember-source@5.5.0)
+      ember-power-calendar-moment: 0.5.1(ember-source@5.5.0)(moment@2.30.1)
+      ember-source: 5.5.0(@babel/core@7.23.7)(@glimmer/component@1.1.2)(rsvp@4.8.5)(webpack@5.89.0)
+      ember-truth-helpers: 4.0.3(ember-source@5.5.0)
     transitivePeerDependencies:
       - '@babel/core'
       - '@glint/environment-ember-loose'
       - '@glint/template'
-      - ember-source
       - supports-color
+      - webpack
     dev: false
 
   /ember-power-select@7.2.0(@babel/core@7.23.7)(ember-source@5.5.0)(webpack@5.89.0):
@@ -8000,15 +7979,6 @@ packages:
     dependencies:
       ember-cli-babel: 7.26.11
       ember-cli-htmlbars: 4.5.0
-    transitivePeerDependencies:
-      - supports-color
-    dev: false
-
-  /ember-truth-helpers@3.1.1:
-    resolution: {integrity: sha512-FHwJAx77aA5q27EhdaaiBFuy9No+8yaWNT5A7zs0sIFCmf14GbcLn69vJEp6mW7vkITezizGAWhw7gL0Wbk7DA==}
-    engines: {node: 10.* || >= 12}
-    dependencies:
-      ember-cli-babel: 7.26.11
     transitivePeerDependencies:
       - supports-color
     dev: false
@@ -11471,7 +11441,6 @@ packages:
 
   /moment@2.30.1:
     resolution: {integrity: sha512-uEmtNhbDOrWPFS+hdjFCBfy9f2YoyzRpwcl+DqpC6taX21FzsTLQVbMV/W7PzNSX6x/bhC1zA3c2UQ5NzH6how==}
-    dev: true
 
   /morgan@1.10.0:
     resolution: {integrity: sha512-AbegBVI4sh6El+1gNwvD5YIck7nSA36weD7xvIxG4in80j/UoK8AEGaWnnz8v1GxonMCltmlNs5ZKbGvl9b1XQ==}
