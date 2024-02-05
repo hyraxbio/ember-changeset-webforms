@@ -1,5 +1,6 @@
 import { action } from '@ember/object';
 import Component from '@glimmer/component';
+import moment from 'moment';
 
 export default class PowerDatepicker extends Component {
   get timeSelectorFields() {

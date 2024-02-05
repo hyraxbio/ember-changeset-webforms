@@ -1,7 +1,7 @@
 <DocsDemo as |demo|>
   <demo.example @name="signup-form.hbs">
     <ChangesetWebform
-      @formSchema={{@signUpFormSchema}}
+      @formSchema={{this.signUpFormSchema}}
       @data={{hash email="buster@bluthcompany.com"}}
       @submitAction={{action "submit"}}
       @submitSuccess={{action "submitSuccess"}}

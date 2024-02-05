@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 export default function updateTime(date, time) {
   if (date && time) {
     var hours = time.split(':')[0] || 0;

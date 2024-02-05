@@ -1,5 +1,5 @@
 import config from 'ember-get-config';
-import _mergeWith from 'lodash/mergeWith';
+import _mergeWith from 'lodash.mergewith';
 import mergeWithDefaultClassNames from 'ember-changeset-webforms/utils/merge-with-default-class-names';
 
 const addonDefaults = {

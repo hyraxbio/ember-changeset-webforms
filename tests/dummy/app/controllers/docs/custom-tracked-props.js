@@ -24,7 +24,6 @@ export default Controller.extend({
     updateExternalProps(formField, changesetWebform) {
       this.formSettings = changesetWebform.formSettings;
       this.formField = formField;
-      console.log(formField);
       formField.externalProps.foo = 'bar';
       formField.externalProps = formField.externalProps;
       changesetWebform.formSettings.externalProps.foo = 'bar';

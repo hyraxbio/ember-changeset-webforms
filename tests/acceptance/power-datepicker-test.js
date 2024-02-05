@@ -16,6 +16,7 @@ import { setupApplicationTest } from 'ember-qunit';
 import dummyEls from './test-selectors';
 import keyCodesMap from 'ember-changeset-webforms/utils/keycodes-map';
 import { calendarSelect } from 'ember-power-calendar/test-support';
+import moment from 'moment';
 
 module('Acceptance | Power datepicker field', function (hooks) {
   setupApplicationTest(hooks);
