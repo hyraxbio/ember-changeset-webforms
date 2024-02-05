@@ -1,45 +1,42 @@
-module.exports = {
-  globals: {
-    server: true,
-    moment: true,
-  },
-  root: true,
-  parser: 'babel-eslint',
-  parserOptions: {
-    ecmaVersion: 2018,
-    sourceType: 'module',
-  },
-  plugins: ['ember', 'ember-es6-class'],
+'use strict';
 
-  extends: ['eslint:recommended', 'plugin:ember/recommended'],
+module.exports = {
+  root: true,
+  parser: '@babel/eslint-parser',
+  parserOptions: {
+    ecmaVersion: 'latest',
+    sourceType: 'module',
+    requireConfigFile: false,
+    babelOptions: {
+      plugins: [
+        ['@babel/plugin-proposal-decorators', { decoratorsBeforeExport: true }],
+      ],
+    },
+  },
+  plugins: ['ember'],
+  extends: [
+    'eslint:recommended',
+    'plugin:ember/recommended',
+    'plugin:prettier/recommended',
+  ],
   env: {
     browser: true,
   },
-  rules: {
-    'ember/no-classic-classes': 0,
-    'ember/no-actions-hash': 0,
-    'ember/no-component-lifecycle-hooks': 0,
-    'ember/require-tagless-components': 0,
-    'ember/require-computed-property-dependencies': 0,
-  },
+  rules: {},
   overrides: [
     // node files
     {
       files: [
-        '.eslintrc.js',
-        '.template-lintrc.js',
-        'ember-cli-build.js',
-        'index.js',
-        'testem.js',
-        'blueprints/*/index.js',
-        'config/**/*.js',
-        'tests/dummy/config/**/*.js',
-      ],
-      excludedFiles: [
-        'addon/**',
-        'addon-test-support/**',
-        'app/**',
-        'tests/dummy/app/**',
+        './.eslintrc.js',
+        './.prettierrc.js',
+        './.stylelintrc.js',
+        './.template-lintrc.js',
+        './ember-cli-build.js',
+        './index.js',
+        './testem.js',
+        './blueprints/*/index.js',
+        './config/**/*.js',
+        './tests/dummy/config/**/*.js',
       ],
       parserOptions: {
         sourceType: 'script',
@@ -48,14 +45,12 @@ module.exports = {
         browser: false,
         node: true,
       },
-      plugins: ['node'],
-      rules: Object.assign(
-        {},
-        require('eslint-plugin-node').configs.recommended.rules,
-        {
-          // add your custom rules and overrides for node files here
-        },
-      ),
+      extends: ['plugin:n/recommended'],
+    },
+    {
+      // test files
+      files: ['tests/**/*-test.{js,ts}'],
+      extends: ['plugin:qunit/recommended'],
     },
   ],
 };
