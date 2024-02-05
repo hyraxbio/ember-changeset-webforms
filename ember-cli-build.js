@@ -10,6 +10,11 @@ module.exports = function (defaults) {
       'addon/utils',
       'tests/dummy/config',
     ],
+
+    'ember-bootstrap': {
+      bootstrapVersion: 5,
+      importBootstrapCSS: false
+    }
   });
 
   /*
