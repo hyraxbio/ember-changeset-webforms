@@ -9,7 +9,7 @@ Form level settings can be tweaked for each instance of a `changesetWebform` com
 The only required setting is `formName` which must be unique from that of any other form rendered on th page. This is to avoid the browser error from attempting to add multiple elements to the DOM with the same ID.
 
 <DocsDemo as |demo|>
-  <demo.example @name="no-form-settings-form-schema.hbs" @title="Default form settings">
+  <demo.example @title="Default form settings" @name="no-form-settings-form-schema.hbs" >
     <ChangesetWebform @formSchema={{this.nothingSpecialFormSchema}} @submitAction={{this.doSubmit}} />
   </demo.example>
   <demo.snippet @name="no-form-settings-form-schema.js" @label="component js" @language="javascript" />

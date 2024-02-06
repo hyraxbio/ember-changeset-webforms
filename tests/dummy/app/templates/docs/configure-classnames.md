@@ -22,7 +22,7 @@ App wide class name settings can be set in the `ENV.changesetWebformsDefaults.ge
 
 For example, the snippet below would add the class `label-el` to all label elements rendered by the `ChangesetWebform` component. 
 
-<DocsSnippet @name="app-wide-classes.js" @title="config/environment.js" />
+<DocsSnippet @title="config/environment.js" @name="app-wide-classes.js" />
 
 ## Customising class names for an element throughout your app, but only within in a specific type of form field
 
@@ -30,7 +30,7 @@ App wide class name settings for a specific type of field can be set by adding a
 
 For example, the snippet below would add the class `radio-button-group-label` to label elements rendered in all `radioButtonGroup` fields throughout the app.
 
-<DocsSnippet @name="app-wide-field-specific-classes.js" @title="config/environment.js" />
+<DocsSnippet @title="config/environment.js" @name="app-wide-field-specific-classes.js" />
 
 The {{this.fieldTypes.length}} built in fields have the following `fieldTypes`:
 
@@ -43,7 +43,7 @@ The {{this.fieldTypes.length}} built in fields have the following `fieldTypes`:
 The two snippets from `config/environment.js` above, result in the following class names on the two label elements in the form below.
 
 <DocsDemo as |demo|>
-  <demo.example @name="app-wide-class-settings.hbs" @title="App wide class names example">
+  <demo.example  @title="App wide class names example" @name="app-wide-class-settings.hbs">
     <ChangesetWebform @formSchema={{this.appWideClassesFormSchema}} />
   </demo.example>
 </DocsDemo>
