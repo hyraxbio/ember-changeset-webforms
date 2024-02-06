@@ -11,21 +11,7 @@ The component can also accept POJO, Ember object or Ember model as its `@data` p
 ## Example
 
 
-<DocsDemo as |demo|>
-  <demo.example @name="signup-form.hbs">
-    <ChangesetWebform
-      @formSchema={{this.signupFormSchema}}
-      @data={{hash
-        email="tobias@bluthcompany.com"
-        recoveryEmail="test"
-      }}
-      @submitAction={{this.submit}}
-      @submitSuccess={{this.submitSuccess}}
-    />
-  </demo.example>
-  <demo.snippet @name="signup-form.js" @label="component js" @language="javascript" />
-  <demo.snippet @name="signup-form.hbs" @label="template" @language="htmlbars" />
-</DocsDemo>
+<Demos::SignupForm />
 
 ## Features
 

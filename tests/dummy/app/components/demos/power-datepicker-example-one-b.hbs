@@ -1,0 +1,13 @@
+<DocsDemo as |demo|>
+  <demo.example @name="power-datepicker-example-1b.hbs">
+    <div data-test-id="power-datepicker-advanced-use">
+      <FormattedDatetimes @data={{this.dateTimeOutput1b}} />
+      <ChangesetWebform 
+        @formSchema={{this.powerDatapickerExample1bFormSchema}}
+        @onFieldValueChange={{fn this.afterDatetimeUpdated "1b"}} />
+    </div>
+  </demo.example>
+  <demo.snippet @name="power-datepicker-example-1b.js" @label="component js" @language="javascript" />
+  <demo.snippet @name="power-datepicker-example-1b.hbs" @label="template" @language="htmlbars" />
+  <demo.snippet @name="after-datetime-updated-action.js" @label="action handing" @language="javascript" />
+</DocsDemo>

@@ -28,9 +28,7 @@
       }}
       {{on "keyup" (fn @keyupAction @timeFormatPart.formatChar)}}
       {{on "keydown" (fn @keydownAction @timeFormatPart.formatChar)}}
-      {{on "change" (fn @changeAction @timeFormatPart.formatChar)}}
-      data-test-id="time-selector-field-input-{{@timeFormatPart.type}}"
-      class="time-selector-field-input-{{@timeFormatPart.type}}
+      {{on "change" (fn @changeAction @timeFormatPart.formatChar)}} class="time-selector-field-input-{{@timeFormatPart.type}}
         {{@timeInputClass}}"
     />
   </div>

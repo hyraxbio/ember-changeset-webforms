@@ -15,19 +15,7 @@ The example below shows how to:
 3. Import your validators into a controller as `customValidators`, and declare them as a controller property, so that they can be used in the corresponding template. Use the `validateUniqueness` custom validator when defining form fields.
 4. Pass the `@customValidators` property to the 
 
-<DocsDemo as |demo|>
-  <demo.example @name="custom-validators-form.hbs">
-    <ChangesetWebform 
-      @formSchema={{this.uniquenessFormSchema}} 
-      @customValidators={{this.customValidators}} 
-      data-test-id="integrating-custom-validators-form"
-     />
-  </demo.example>
-  <demo.snippet @name="uniqueness-validator.js" @label="1. custom validator" @language="javascript" />
-  <demo.snippet @name="export-validators.js" @label="2. export custom validators" @language="javascript" />
-  <demo.snippet @name="custom-validators-form.js" @label="3. import and use custom validators" @language="javascript" />
-  <demo.snippet @name="custom-validators-form.hbs" @label="4. template" @language="html" />
-</DocsDemo>
+<Demos::CustomValidatorsForm />
 
 ## Additional notes
 

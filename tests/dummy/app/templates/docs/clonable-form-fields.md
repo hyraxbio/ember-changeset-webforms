@@ -24,17 +24,7 @@ The following field settings are tracked, and so updating them for a clone in an
 
 The example below allows the user to add email addresses, with a minimum of 2 and a maximum of 4.
 
-<DocsDemo as |demo|>
-<demo.example @name="clone-group-form.hbs">
-<ChangesetWebform
-@formSchema={{this.formSchema}}
-@submitAction={{this.submit}}
-data-test-id="clonable-field-basics"
-/>
-</demo.example>
-<demo.snippet @name="clone-group-form.js" @label="component js" @language="javascript" />
-<demo.snippet @name="clone-group-form.hbs" @label="template" @language="htmlbars" />
-</DocsDemo>
+<Demos::CloneGroupForm />
 
 ## Example 2 - with preloaded data
 
@@ -46,35 +36,13 @@ Note also that if the array is longer than the `maxClones` setting, the clonable
 
 In order to validate on the length of the array, add the `validateLength` validation rule to the `clone-group` field as shown in the component JS in the example below. Note that the validation for the clone group displays below the field label. Clicking submit below will result in the length validation error showing under the main field label.
 
-<DocsDemo as |demo|>
-<demo.example @name="clone-group-form-with-data.hbs">
-<ChangesetWebform
-@formSchema={{this.formSchema}}
-@data={{this.data}}
-@submitAction={{this.submit}}
-data-test-id="clonable-field-with-data"
-/>
-</demo.example>
-<demo.snippet @name="clone-group-form-data.js" @label="data" @language="javascript" />
-<demo.snippet @name="clone-group-form-with-data.hbs" @label="template" @language="htmlbars" />
-<demo.snippet @name="clone-group-form.js" @label="component js" @language="javascript" />
-</DocsDemo>
+<Demos::CloneGroupFormWithData />
 
 Note that when the array of data passed to a `clone-group` field is longer than the `maxClones` setting, the component will still insert one clone for each item in the array. In this case, the add clone button will not be available until the user has removed clones until the total is less than the `maxClones` setting.
 
 ## Example 3 - misc TODO not required in docs
 
-<DocsDemo as |demo|>
-<demo.example @name="clone-group-form-with-keyup.hbs">
-<ChangesetWebform
-@formSchema={{this.formSchema2}}
-@submitAction={{this.submit}}
-data-test-id="clonable-field-countries"
-/>
-</demo.example>
-<demo.snippet @name="clone-group-form-with-keyup.hbs" @label="template" @language="htmlbars" />
-<demo.snippet @name="clone-group-form-keyup.js" @label="data" @language="javascript" />
-</DocsDemo>
+<Demos::CloneGroupFormWithKeyup />
 
 ## Validation notes
 

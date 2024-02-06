@@ -1,17 +1,6 @@
 # Basic usage
 
-<DocsDemo as |demo|>
-  <demo.example @name="login-form.hbs">
-  <ChangesetWebform 
-    @formSchema={{this.formSchema}} 
-    @data={{hash email="andrew.paterson@test.com"}}
-    @submitAction={{this.submit}} 
-    @submitSuccess={{this.submitSuccess}} 
-    />
-    </demo.example>
-  <demo.snippet @name="login-form.hbs" @label="template" @language="htmlbars" />
-  <demo.snippet @name="login-form.js" @label="component js" @language="javascript" />
-</DocsDemo>
+<Demos::LoginForm />
 
 ## Form settings
 
@@ -25,15 +14,4 @@ Note that these options can be overridden for an entire consuming app in `ENV.ch
 
 They can also be overridden for any individual form schema in the `settings` object. 
 
-<DocsDemo as |demo|>
-  <demo.example @name="login-form-2.hbs">
-    <ChangesetWebform 
-      @formSchema={{this.formSchema}} 
-      @data={{hash email="andrew.paterson@test.com"}}
-      @submitAction={{this.submit}} 
-      @submitSuccess={{this.submitSuccess}} 
-     />
-  </demo.example>
-  <demo.snippet @name="login-form.js" @label="component js" @language="javascript" />
-  <demo.snippet @name="login-form.hbs" @label="template" @language="htmlbars" />
-</DocsDemo>
+<Demos::LoginFormTwo />

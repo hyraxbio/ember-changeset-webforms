@@ -83,10 +83,6 @@
           type="button"
           data-test-id="cwf-reset-form-button"
           {{on "click" (fn this.discardChanges this.changesetWebform)}}
-          class="{{ember-changeset-webforms/dynamic-class-names
-              'buttonElement,rollbackChangesetButton'
-              this.changesetWebform
-            }}"
         >{{this.formSettings.showRollbackChangesetButtonText}}</button>
       {{/if}}
       {{#if this.formSettings.showClearFormButton}}

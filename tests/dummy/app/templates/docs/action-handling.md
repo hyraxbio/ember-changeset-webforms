@@ -16,13 +16,7 @@ In the case of a promise based action, return the promise so that the `Changeset
 
 In this example, assume that `fetchPromise` returns a promise.
 
-<DocsDemo as |demo|>
-  <demo.example @name="test.hbs">
-    <Docs::ActionHandling::CustomSubmitActionPromise />
-  </demo.example>
-  <demo.snippet @name="forgot-password-form.js" @label="component js" @language="javascript" />
-  <demo.snippet @name="custom-submit-promise.hbs" @label="template" @language="htmlbars" />
-</DocsDemo>
+<Demos::Test />
 
 ### Synchronous example
 

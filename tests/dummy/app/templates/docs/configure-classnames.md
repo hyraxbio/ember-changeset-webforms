@@ -42,57 +42,29 @@ The {{this.fieldTypes.length}} built in fields have the following `fieldTypes`:
 
 The two snippets from `config/environment.js` above, result in the following class names on the two label elements in the form below.
 
-<DocsDemo as |demo|>
-  <demo.example  @title="App wide class names example" @name="app-wide-class-settings.hbs">
-    <ChangesetWebform @formSchema={{this.appWideClassesFormSchema}} />
-  </demo.example>
-</DocsDemo>
+<Demos::FieldSettingsOverridden />
 
 ## Customising class names for an element throughout a single instance of the ChangesetWebform component
 
 Class names can be customised within any particular instance of a `ChangesetWebform` object, in the `generalClassNames` property of `formSchema`. These settings will then apply throughout the particular form.
 
-<DocsDemo as |demo|>
-  <demo.example @name="form-wide-class-settings.hbs">
-    <ChangesetWebform @formSchema={{this.formWideClassesFormSchema}} />
-  </demo.example>
-  <demo.snippet @name="form-wide-class-settings.js" @label="component js" @language="javascript" />
-  <demo.snippet @name="form-wide-class-settings.hbs" @label="template" @language="htmlbars" />
-</DocsDemo>
+<Demos::FormWideClassSettings />
 
 ## Customising class names for an element in a specific instance of a form field
 
 Class names can be customised for an individual form field using the `classNames` property of the relevant `field` object in `formSchema.fields`. 
 
-<DocsDemo as |demo|>
-  <demo.example @name="field-specific-class-settings.hbs">
-    <ChangesetWebform @formSchema={{this.fieldSpecificClassesFormSchema}} />
-  </demo.example>
-  <demo.snippet @name="field-specific-class-settings.js" @label="component js" @language="javascript" />
-  <demo.snippet @name="field-specific-class-settings.hbs" @label="template" @language="htmlbars" />
-</DocsDemo>
+<Demos::FieldSpecificClassSettings />
 
 ## Inheriting vs overriding class names settings from higher levels
 
 Include  `$inherited` in the array of class names for an element as a placeholder for the class names inherited from the next level up.
 
-<DocsDemo as |demo|>
-  <demo.example @name="inherit-class-settings.hbs">
-    <ChangesetWebform @formSchema={{this.inheritClassesFormSchema}} />
-  </demo.example>
-  <demo.snippet @name="inherit-class-settings.js" @label="component js" @language="javascript" />
-  <demo.snippet @name="inherit-class-settings.hbs" @label="template" @language="htmlbars" />
-</DocsDemo>
+<Demos::InheritClassSettings />
 
 Alternatively, exclude `$inherited` in order to completely override the value.
 
-<DocsDemo as |demo|>
-  <demo.example @name="override-class-settings.hbs">
-    <ChangesetWebform @formSchema={{this.overrideClassesFormSchema}} />
-  </demo.example>
-  <demo.snippet @name="override-class-settings.js" @label="component js" @language="javascript" />
-  <demo.snippet @name="override-class-settings.hbs" @label="template" @language="htmlbars" />
-</DocsDemo>
+<Demos::OverrideClassSettings />
 
 ## Including dynamic validation class names
 
@@ -100,13 +72,7 @@ The class names applied to elements as a result of wither passing or failing val
 
 You may wish to customise which elements within a form field receive those classes once a field has been validated. This can be done by adding `$validationClassNames` as an class name for any element which should receive those class names. 
 
-<DocsDemo as |demo|>
-  <demo.example @name="validation-class-settings.hbs">
-    <ChangesetWebform @formSchema={{this.validationClassesFormSchema}} />
-  </demo.example>
-  <demo.snippet @name="validation-class-settings.js" @label="component js" @language="javascript" />
-  <demo.snippet @name="validation-class-settings.hbs" @label="template" @language="htmlbars" />
-</DocsDemo>
+<Demos::ValidationClassSettings />
 ## Passing a function for dynamic class names
 <!-- TODO document when this runs -->
 

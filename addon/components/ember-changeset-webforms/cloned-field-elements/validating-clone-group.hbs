@@ -61,7 +61,7 @@
         @masterFormField.addCloneButtonComponent
         onClickAddCloneButton=this.onClickAddCloneButton
         formField=@masterFormField
-        cloneFieldLabel=@masterFormField.clonedFields.firstObject.fieldLabel
+        cloneFieldLabel=(get @masterFormField.clonedFields "0.fieldLabel")
         changesetWebform=@changesetWebform
       }}
     {{/if}}
