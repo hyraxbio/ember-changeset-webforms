@@ -543,18 +543,8 @@ Pass `clickerText` and optionally `clickerElementClassNames`.
 
 Renders a `div` element with `role="button"` the classNames provided. The inner text of the element is what is passed to `clickerText`.
 
-<DocsDemo as |demo|>
-  <demo.example @name="clicker-example-1.hbs">
-    <div data-test-id="clicker-example-1">
-      <ChangesetWebform 
-        @formSchema={{this.clickerExample1FormSchema}} 
-        @onUserInteraction={{this.onUserInteractionClicker1}}/>
-    </div> 
-  </demo.example>
-  <demo.snippet @name="clicker-example-1.js" @label="component js" @language="javascript" />
-  <demo.snippet @name="clicker-example-1.hbs" @label="template" @language="htmlbars" />
-  <demo.snippet @name="clicker-example-action.js" @label="action handing" @language="javascript" />
-</DocsDemo>
+<Forms::ClickerExampleOneFormSchema />
+
 
 ### Clicker field with a custom component
 
@@ -584,17 +574,4 @@ If using a `button` element in your custom clicker component, bear in mind that 
 <button data-test-class="cwf-clicker-element" type="button" onclick={{action this.onClick}} class={{this.classNames}}><b>{{this.formField.clickerText}}</b> {{component this.icon}}</button>
 {{/docs-snippet}}
 
-<DocsDemo as |demo|>
-  <demo.example @name="clicker-example-2.hbs">
-    <div data-test-id="clicker-example-2">
-      <ChangesetWebform 
-        @formSchema={{this.clickerExample2FormSchema}} 
-        @onUserInteraction={{this.onUserInteractionClicker1}}/>
-    </div> 
-  </demo.example>
-  <demo.snippet @name="clicker-example-2.js" @label="component js" @language="javascript" />
-  <demo.snippet @name="clicker-example-2.hbs" @label="template" @language="htmlbars" />
-  <demo.snippet @name="clicker-example-action.js" @label="action handing" @language="javascript" />
-  <demo.snippet @name="custom-clicker-component.js" @label="custom clicker js" @language="javascript" />
-  <demo.snippet @name="custom-clicker-component.hbs" @label="custom clicker hbs" @language="htmlbars" />
-</DocsDemo>
+<Forms::ClickerExampleTwoFormSchema />

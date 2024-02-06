@@ -3,7 +3,7 @@ import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 export default class RadioButtonGroup extends Component {
   @tracked displayValue;
-  groupValue;
+
   get groupValue() {
     return this.displayValue;
   }

@@ -21,7 +21,6 @@ export default function parseChangesetWebformField(
 
 function parse(fieldSchema, customValidators, formSettings) {
   const field = { ...fieldSchema };
-  console.log(field);
   if (field.validationRules) {
     var requiredRule = field.validationRules.find(function (rule) {
       return (

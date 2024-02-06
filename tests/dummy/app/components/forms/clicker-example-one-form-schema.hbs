@@ -1,0 +1,25 @@
+<DocsDemo as |demo|>
+  <demo.example @name="clicker-example-1.hbs">
+    <div data-test-id="clicker-example-1">
+      <ChangesetWebform
+        @formSchema={{this.clickerExample1FormSchema}}
+        @onUserInteraction={{this.onUserInteractionClicker1}}
+      />
+    </div>
+  </demo.example>
+  <demo.snippet
+    @name="clicker-example-1.js"
+    @label="component js"
+    @language="javascript"
+  />
+  <demo.snippet
+    @name="clicker-example-1.hbs"
+    @label="template"
+    @language="htmlbars"
+  />
+  <demo.snippet
+    @name="clicker-example-action.js"
+    @label="action handing"
+    @language="javascript"
+  />
+</DocsDemo>

@@ -133,7 +133,6 @@ const addonDefaults = {
     hideLabel: null, // Hide the label from the user
     disabled: null, // Boolean - disable the field, but do not hide it. It will still be validated [TODO check] and included when the form is submitted
     classNames: {}, // Object - keys can correspond to those in the classNames settings. See /docs/configure-classnames
-    externalProps: {}, // Object - a tracked property which can be used to set custom properties on a field or cloned field. Can be a PJO or a class with tracked properties.
     // END-SNIPPET
     eventLog: [],
   },

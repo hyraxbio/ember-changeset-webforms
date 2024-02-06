@@ -11,7 +11,7 @@ export default class Fieldvalidation extends Controller {
   signupFormSchema = this.session.signupFormSchema;
 
   @action
-  submit(data) {}
+  submit() {}
 
   @action
   submitSuccess() {}

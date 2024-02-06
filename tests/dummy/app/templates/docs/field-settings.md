@@ -17,3 +17,15 @@ Note that any of these settings can be overridden in one of the field objects in
 The following field settings are tracked, and so updating them in an action will result in a template update. 
 
 <DocsSnippet @name="field-settings-tracked-props.js" @title="Tracked field settings" />
+
+## Custom tracked props
+
+If you need to add custom tracked properties to a field, you can add them to a class definition, and then add an instance of that class as a property of a field definition in your form schema.
+
+In the example below, we need a tracked property `showAdvanced` in ourt form field, so that we can update the custom clicker component to toggle between an up and down arrow when the button is clicked.
+
+In the case we've created a class definition called `customProps` with a tracked property of `showAdvanced`.
+
+<Forms::ClickerExampleTwoFormSchema />
+
+

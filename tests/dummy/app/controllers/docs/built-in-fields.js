@@ -2,10 +2,8 @@ import { action } from '@ember/object';
 import Controller from '@ember/controller';
 import moment from 'moment';
 import { tracked } from '@glimmer/tracking';
+import { inject as service } from '@ember/service';
 
-class externalProps {
-  @tracked showAdvanced = false;
-}
 class DateOutput {
   @tracked nativeJSFormat;
   @tracked fieldValue;
@@ -16,6 +14,7 @@ class DateOutput {
   }
 }
 export default class BuiltInFields extends Controller {
+  @service session;
   @tracked dateTimeOutput1;
   @tracked dateTimeOutput1a;
   @tracked dateTimeOutput1b;
@@ -617,63 +616,8 @@ export default class BuiltInFields extends Controller {
     ],
   };
   // END-SNIPPET
-  // BEGIN-SNIPPET clicker-example-1.js
-  clickerExample1FormSchema = {
-    formSettings: {
-      formName: 'clickerExample1',
-      hideSubmitButton: true,
-    },
-    fields: [
-      {
-        fieldId: 'toggleAdvanced',
-        fieldType: 'clicker',
-        classNames: {
-          clickerElement: ['$inherited', 'btn', 'btn-primary'],
-        },
-        clickerText: 'Advanced options',
-      },
-      {
-        fieldId: 'advanced',
-        fieldType: 'input',
-        fieldLabel: 'Advanced setting',
-        hidden: true,
-        advancedSetting: true,
-      },
-    ],
-  };
-  // END-SNIPPET
-  // BEGIN-SNIPPET clicker-example-2.js
-  clickerExample2FormSchema = {
-    formSettings: {
-      formName: 'clickerExample2',
-      hideSubmitButton: true,
-    },
-    fields: [
-      {
-        fieldId: 'toggleAdvanced',
-        fieldType: 'clicker',
-        classNames: {
-          clickerElement: ['$inherited', 'btn'],
-        },
-        clickerText: 'Advanced options',
-        displayComponent: {
-          path: 'forms/custom-clicker-component',
-          props: {
-            buttonType: 'danger',
-          },
-        },
-        externalProps: new externalProps(),
-      },
-      {
-        fieldId: 'advanced',
-        fieldType: 'input',
-        fieldLabel: 'Advanced setting',
-        hidden: true,
-        advancedSetting: true,
-      },
-    ],
-  };
-  // END-SNIPPET
+
+  clickerExample2FormSchema = this.session.clickerExample2FormSchema;
 
   // BEGIN-SNIPPET after-datetime-updated-action.js
   @action
@@ -690,19 +634,4 @@ export default class BuiltInFields extends Controller {
   onUserInteraction(...args) {
     console.log(args);
   }
-
-  // BEGIN-SNIPPET clicker-example-action.js
-  @action
-  onUserInteractionClicker1(formField, changesetWebform, eventType) {
-    if (formField.fieldId === 'toggleAdvanced' && eventType === 'click') {
-      console.log(formField.externalProps);
-      formField.externalProps.showAdvanced =
-        !formField.externalProps.showAdvanced;
-      const advancedFields = changesetWebform.fields.filter(
-        (field) => field.advancedSetting,
-      );
-      advancedFields.forEach((field) => (field.hidden = !field.hidden));
-    }
-  }
-  // END-SNIPPET
 }
