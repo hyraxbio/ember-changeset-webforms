@@ -2,6 +2,10 @@ import { action } from '@ember/object';
 import Controller from '@ember/controller';
 import moment from 'moment';
 import { tracked } from '@glimmer/tracking';
+
+class externalProps {
+  @tracked showAdvanced = false;
+}
 class DateOutput {
   @tracked nativeJSFormat;
   @tracked fieldValue;
@@ -658,6 +662,7 @@ export default class BuiltInFields extends Controller {
             buttonType: 'danger',
           },
         },
+        externalProps: new externalProps(),
       },
       {
         fieldId: 'advanced',
@@ -690,7 +695,9 @@ export default class BuiltInFields extends Controller {
   @action
   onUserInteractionClicker1(formField, changesetWebform, eventType) {
     if (formField.fieldId === 'toggleAdvanced' && eventType === 'click') {
-      formField.showAdvanced = !formField.showAdvanced;
+      console.log(formField.externalProps);
+      formField.externalProps.showAdvanced =
+        !formField.externalProps.showAdvanced;
       const advancedFields = changesetWebform.fields.filter(
         (field) => field.advancedSetting,
       );

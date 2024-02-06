@@ -24,9 +24,12 @@ module('Acceptance | Clicker', function (hooks) {
       'Clicker button has correct inherited classes classes on load.',
     );
     assert.ok(
-      clickerEl.classList.contains('btn-primary') &&
-        clickerEl.classList.contains('btn'),
-      'Clicker button has correct custom classes on load.',
+      clickerEl.classList.contains('btn-primary'),
+      'Clicker button has custom class "btn-primary" on load.',
+    );
+    assert.ok(
+      clickerEl.classList.contains('btn'),
+      'Clicker button has custom class "btn" on load.',
     );
     await click(`${dummyEls.clickerExample1} ${dummyEls.cwfClickerElement} `);
     assert
@@ -62,8 +65,8 @@ module('Acceptance | Clicker', function (hooks) {
       'Clicker button has correct custom classes on load.',
     );
     assert.ok(
-      clickerEl.classList.contains('btn-danger') &&
-        'Clicker button has correct classes based on props passed to the custom clicker component.',
+      clickerEl.classList.contains('btn-danger'),
+      'Clicker button has correct classes based on props passed to the custom clicker component.',
     );
     await click(`${dummyEls.clickerExample2} ${dummyEls.cwfClickerElement} `);
     assert

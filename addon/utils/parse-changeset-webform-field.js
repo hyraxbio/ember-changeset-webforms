@@ -1,4 +1,3 @@
-import EmberObject from '@ember/object';
 import FormField from 'ember-changeset-webforms/utils/form-field';
 import { typeOf as emberTypeOf } from '@ember/utils';
 import Option from 'ember-changeset-webforms/utils/option-class';
@@ -22,6 +21,7 @@ export default function parseChangesetWebformField(
 
 function parse(fieldSchema, customValidators, formSettings) {
   const field = { ...fieldSchema };
+  console.log(field);
   if (field.validationRules) {
     var requiredRule = field.validationRules.find(function (rule) {
       return (

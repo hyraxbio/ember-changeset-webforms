@@ -1,3 +1,5 @@
-import Component from '@glimmer/component';
+import templateOnly from '@ember/component/template-only';
 
-export default class TimePartInput extends Component {}
+const TimePartInput = templateOnly();
+
+export default TimePartInput;

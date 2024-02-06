@@ -1,23 +1,28 @@
 import Component from '@glimmer/component';
-
+import { action } from '@ember/object';
 export default class ShowClasses extends Component {
-  didInsertElement() {
-    super.didInsertElement(...arguments);
+  @action
+  didInsert() {
     setTimeout(() => {
       this.doTheThing();
       document
         .querySelector('#validationClassNames-name')
-        .addEventListener('change', (event) => {
+        .addEventListener('change', () => {
           this.doTheThing();
         });
       document
         .querySelector('#validationClassNames-name')
-        .addEventListener('keyup', (event) => {
+        .addEventListener('keyup', () => {
+          this.doTheThing();
+        });
+      document
+        .querySelector('#validationClassNames-name')
+        .addEventListener('blur', () => {
           this.doTheThing();
         });
     });
   }
-
+  @action
   doTheThing() {
     const labelEls = Array.from(
       document.querySelectorAll('[data-test-class="cwf-field-label"]'),

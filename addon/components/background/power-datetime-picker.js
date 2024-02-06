@@ -36,7 +36,7 @@ export default class PowerDatetimePicker extends Component {
 
   get fixedTimeParsed() {
     if (!this.args.fixedTime) {
-      return;
+      return null;
     }
     const fixedTime = this.args.fixedTime.replace('.', ':');
     return {

@@ -41,16 +41,16 @@ export default class FormFieldClone {
   get validationStatus() {
     var clonedFormField = this;
     if (!clonedFormField) {
-      return;
+      return null;
     }
     if (
       !this.validationEventObj(clonedFormField.validationEvents, 'keyUp') &&
       clonedFormField.focussed
     ) {
-      return;
+      return null;
     }
     if (!validationEventLog(clonedFormField).length) {
-      return;
+      return null;
     }
     var clonedFieldValidationErrors = this.cloneValidationErrors || [];
     if (clonedFieldValidationErrors.length === 0) {

@@ -34,7 +34,7 @@ module('Acceptance | Field validation', function (hooks) {
       'Field without validation event "keyUp" loses validation when focussed.',
     );
     await blur(`${dummyEls.nameField} input`);
-    assert.equal(
+    assert.strictEqual(
       cth.fieldErrorText(`${dummyEls.nameField}`).join(''),
       `Name can't be blank`,
       'Correct default error message shows for empty name field after focus out.',
@@ -90,24 +90,24 @@ module('Acceptance | Field validation', function (hooks) {
   test('Validation messages', async function (assert) {
     await visit('/docs/field-validation');
     await click(els.cwfSubmitButton);
-    assert.equal(
+    assert.strictEqual(
       findAll(els.cwfFieldErrors).length,
       8,
       'All fields with validation rules are validated when user clicks submit button.',
     );
-    assert.equal(
+    assert.strictEqual(
       cth.fieldErrorText(dummyEls.countryField).join(''),
       `Nation of origin can't be blank`,
       'Passing "description" as an argument to validationRules replaces the default validation description ("Details.country) with the description provided.',
     );
-    assert.equal(
+    assert.strictEqual(
       cth.fieldErrorText(dummyEls.acceptTermsField).join(''),
       'You must accept the terms to continue.',
       'Passing "message" as an argument to validationRules replaces the default validation message with the message provided.',
     );
     await fillIn(`${dummyEls.emailField} input`, '');
     await blur(`${dummyEls.emailField} input`);
-    assert.equal(
+    assert.strictEqual(
       findAll(`${dummyEls.emailField} ${els.cwfFieldError}`).length,
       2,
       'Multiple errors display where multiple exist.',
@@ -120,7 +120,7 @@ module('Acceptance | Field validation', function (hooks) {
     const fields = findAll(
       `${dummyEls.integratingCustomValidatorsForm} ${els.cwfField}`,
     );
-    assert.equal(
+    assert.strictEqual(
       cth
         .fieldErrorText(fields[0])
         .concat(cth.fieldErrorText(fields[1]))

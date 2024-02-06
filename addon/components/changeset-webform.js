@@ -11,14 +11,14 @@ export default class ChangesetWebform extends Component {
 
   get formSettings() {
     if (!this.changesetWebform) {
-      return;
+      return null;
     }
     return this.changesetWebform.formSettings;
   }
 
   get formFields() {
     if (!this.formObject) {
-      return;
+      return null;
     }
     return this.formObject.formFields;
   }

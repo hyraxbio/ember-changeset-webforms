@@ -9,6 +9,6 @@ export default class FieldLabel extends Component {
     if (!formField.fieldLabel && !formField.labelComponent) {
       return true;
     }
-    return;
+    return null;
   }
 }

@@ -175,12 +175,12 @@ module('Acceptance | Cloned fields', function (hooks) {
         cloneId: 0,
       })}`,
     );
-    assert.equal(
+    assert.strictEqual(
       findAll(els.cwfCloneWrapper)[0].getAttribute('data-test-id'),
       'emails-clone-1-wrapper',
       'Second clone correctly becomes first clone, after first clone is removed.',
     );
-    assert.equal(
+    assert.strictEqual(
       findAll(els.cwfCloneWrapper)[1].getAttribute('data-test-id'),
       'emails-clone-2-wrapper',
       'Third clone correctly becomes second clone, after first clone is removed.',

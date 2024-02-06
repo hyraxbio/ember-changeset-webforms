@@ -98,14 +98,14 @@ module('Acceptance | Action handling', function (hooks) {
     await click(
       `${dummyEls.afterGenerateChangesetWebformFeedback} ${dummyEls.nextButton}`,
     );
-    assert.equal(
+    assert.strictEqual(
       findAll(
         `${dummyEls.afterGenerateChangesetWebformForm} ${dummyEls.nameField} ${els.cwfFieldError}`,
       ).length,
       1,
       'One error message shows for empty name field after user clicks next button.',
     );
-    assert.equal(
+    assert.strictEqual(
       findAll(
         `${dummyEls.afterGenerateChangesetWebformForm} ${dummyEls.nameField} ${els.cwfFieldError}`,
       )[0].textContent,
@@ -118,14 +118,14 @@ module('Acceptance | Action handling', function (hooks) {
       ),
       'Empty name field gets fails validation when user clicks next button.',
     );
-    assert.equal(
+    assert.strictEqual(
       findAll(
         `${dummyEls.afterGenerateChangesetWebformForm} ${dummyEls.emailField} ${els.cwfFieldError}`,
       ).length,
       2,
       'Two error messages show for empty email field after user clicks next button.',
     );
-    assert.equal(
+    assert.strictEqual(
       cth
         .fieldErrorText(
           `${dummyEls.afterGenerateChangesetWebformForm} ${dummyEls.emailField}`,

@@ -22,13 +22,13 @@ export default class ValidatingCloneGroup extends Component {
   get validationStatus() {
     var formField = this.args.masterFormField;
     if (!formField) {
-      return;
+      return null;
     }
     if (
       !validationEventLog(formField).filter((item) => !item.endsWith('Clone'))
         .length
     ) {
-      return;
+      return null;
     }
     var validationErrors = this.args.masterFormFieldValidationErrors || [];
     if (validationErrors.length === 0) {

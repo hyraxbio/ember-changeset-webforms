@@ -7,14 +7,14 @@ export default class ValidatingFieldWrapper extends Component {
 
   get dataTestId() {
     if (!this.args.dataTestFieldId) {
-      return;
+      return null;
     }
     return `${this.args.dataTestFieldId}-field`;
   }
 
   get dataTestClass() {
     if (!this.args.typeClass) {
-      return;
+      return null;
     }
     return `cwf-${this.args.typeClass}`;
   }

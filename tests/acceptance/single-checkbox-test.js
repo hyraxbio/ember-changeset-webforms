@@ -1,15 +1,4 @@
-import {
-  visit,
-  focus,
-  find,
-  blur,
-  click,
-  findAll,
-  typeIn,
-  fillIn,
-  currentURL,
-  triggerKeyEvent,
-} from '@ember/test-helpers';
+import { visit } from '@ember/test-helpers';
 import { module, test } from 'qunit';
 import { setupApplicationTest } from 'ember-qunit';
 import dummyEls from './test-selectors';

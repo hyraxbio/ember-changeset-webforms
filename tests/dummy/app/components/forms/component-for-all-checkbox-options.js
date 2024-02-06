@@ -1,3 +1,5 @@
-import Component from '@glimmer/component';
+import templateOnly from '@ember/component/template-only';
 
-export default class ComponentForAllCheckboxOptions extends Component {}
+const ComponentForAllCheckboxOptions = templateOnly();
+
+export default ComponentForAllCheckboxOptions;

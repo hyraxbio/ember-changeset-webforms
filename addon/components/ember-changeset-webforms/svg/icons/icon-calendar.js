@@ -1,3 +1,5 @@
-import Component from '@glimmer/component';
+import templateOnly from '@ember/component/template-only';
 
-export default class IconCalendar extends Component {}
+const IconCalendar = templateOnly();
+
+export default IconCalendar;

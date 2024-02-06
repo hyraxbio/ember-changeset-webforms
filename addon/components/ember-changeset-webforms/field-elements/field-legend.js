@@ -1,3 +1,5 @@
-import Component from '@glimmer/component';
+import templateOnly from '@ember/component/template-only';
 
-export default class FieldLegend extends Component {}
+const FieldLegend = templateOnly();
+
+export default FieldLegend;

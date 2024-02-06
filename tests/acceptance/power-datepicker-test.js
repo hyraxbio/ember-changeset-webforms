@@ -3,11 +3,9 @@ import {
   focus,
   find,
   blur,
-  click,
   findAll,
   typeIn,
   fillIn,
-  currentURL,
   triggerKeyEvent,
 } from '@ember/test-helpers';
 import { module, test } from 'qunit';
@@ -624,7 +622,7 @@ module('Acceptance | Power datepicker field', function (hooks) {
     const timeSelectorAmPmInput = find(dummyEls.powerDatepickerAmPmInput);
     await fillIn(dateTimeInput, '2022-11-03 03:42:19 pm');
     await triggerKeyEvent(dateTimeInput, 'keyup', 1);
-    assert.equal(
+    assert.strictEqual(
       find(dateTimeInput).value,
       '2022-11-03 2:42:19 pm',
       'Date input rejects input with invalid format',
@@ -998,12 +996,6 @@ module('Acceptance | Power datepicker field', function (hooks) {
   test('Arrow keys - hour controls (24 hours format)', async function (assert) {
     await visit('/docs/built-in-fields');
     const parentFieldSelector = dummyEls.powerDatepicker24HourTimeSelect;
-    const dateTimeInput = find(
-      `${parentFieldSelector} ${dummyEls.powerDatepickerInput}`,
-    );
-    const rawDateTimeElement = find(
-      `${parentFieldSelector} ${dummyEls.rawDateTime}`,
-    );
     await clickTrigger(`${parentFieldSelector} ${dummyEls.startDateField}`);
     const timeSelectorHourInput = find(dummyEls.timeSelectorFieldInputHour);
 
@@ -1037,9 +1029,6 @@ module('Acceptance | Power datepicker field', function (hooks) {
   test('Arrow keys - hour controls (12 hour format)', async function (assert) {
     await visit('/docs/built-in-fields');
     const parentFieldSelector = dummyEls.powerDatepicker12HourTimeSelect;
-    const dateTimeInput = find(
-      `${parentFieldSelector} ${dummyEls.powerDatepickerInput}`,
-    );
     const rawDateTimeElement = find(
       `${parentFieldSelector} ${dummyEls.rawDateTime}`,
     );
@@ -1100,12 +1089,6 @@ module('Acceptance | Power datepicker field', function (hooks) {
   test('Arrow keys - minute controls', async function (assert) {
     await visit('/docs/built-in-fields');
     const parentFieldSelector = dummyEls.powerDatepicker24HourTimeSelect;
-    const dateTimeInput = find(
-      `${parentFieldSelector} ${dummyEls.powerDatepickerInput}`,
-    );
-    const rawDateTimeElement = find(
-      `${parentFieldSelector} ${dummyEls.rawDateTime}`,
-    );
     await clickTrigger(`${parentFieldSelector} ${dummyEls.startDateField}`);
     const timeSelectorMinuteInput = find(
       dummyEls.timeSelectorFieldInputMinutes,
@@ -1143,12 +1126,6 @@ module('Acceptance | Power datepicker field', function (hooks) {
   test('Arrow keys - second controls', async function (assert) {
     await visit('/docs/built-in-fields');
     const parentFieldSelector = dummyEls.powerDatepicker24HourTimeSelect;
-    const dateTimeInput = find(
-      `${parentFieldSelector} ${dummyEls.powerDatepickerInput}`,
-    );
-    const rawDateTimeElement = find(
-      `${parentFieldSelector} ${dummyEls.rawDateTime}`,
-    );
     await clickTrigger(`${parentFieldSelector} ${dummyEls.startDateField}`);
     const timeSelectorSecondsInput = find(
       dummyEls.timeSelectorFieldInputSeconds,
@@ -1186,12 +1163,6 @@ module('Acceptance | Power datepicker field', function (hooks) {
   test('Arrow keys - millisecond controls', async function (assert) {
     await visit('/docs/built-in-fields');
     const parentFieldSelector = dummyEls.powerDatepicker24HourTimeSelect;
-    const dateTimeInput = find(
-      `${parentFieldSelector} ${dummyEls.powerDatepickerInput}`,
-    );
-    const rawDateTimeElement = find(
-      `${parentFieldSelector} ${dummyEls.rawDateTime}`,
-    );
     await clickTrigger(`${parentFieldSelector} ${dummyEls.startDateField}`);
     const timeSelectorMillisecondsInput = find(
       dummyEls.timeSelectorFieldInputMilliseconds,
@@ -1765,7 +1736,11 @@ module('Acceptance | Power datepicker field', function (hooks) {
     const amPmInput = find(
       `${parentFieldSelector} ${dummyEls.powerDatepickerAmPmInput}`,
     );
-    assert.equal(amPmInput.value, 'pm', 'AM/PM input begins with value "pm".');
+    assert.strictEqual(
+      amPmInput.value,
+      'pm',
+      'AM/PM input begins with value "pm".',
+    );
 
     await check(assert, {
       expectedRawDateTimeAfterBlur:
@@ -2043,13 +2018,13 @@ module('Acceptance | Power datepicker field', function (hooks) {
     const timeSelectorMillisecondsInput = find(
       dummyEls.timeSelectorFieldInputMilliseconds,
     );
-    assert.equal(
+    assert.strictEqual(
       dateTimeInput.value,
       '03/11/2022 14:42:19.142',
       'Fractional seconds in the date time input are trimmed to 3 decimals where format and passed data specifies more than 3 decimals',
     );
     await focus(dateTimeInput);
-    assert.equal(
+    assert.strictEqual(
       timeSelectorMillisecondsInput.value,
       '142',
       'Milliseconds input forced top 3 digits where format for milliseconds input specifies less than 3 digits.',
@@ -2063,12 +2038,12 @@ module('Acceptance | Power datepicker field', function (hooks) {
     assert
       .dom(dummyEls.timeSelectorField)
       .exists({ count: 2 }, 'Two time selector inputs exist');
-    assert.equal(
+    assert.strictEqual(
       findAll(dummyEls.timeSelectorFieldLabel)[0].textContent,
       'Hour',
       'First time selector field has label "Hour"',
     );
-    assert.equal(
+    assert.strictEqual(
       findAll(dummyEls.timeSelectorFieldLabel)[1].textContent,
       'Min',
       'Second time selector field has label "Min"',
@@ -2096,7 +2071,7 @@ module('Acceptance | Power datepicker field', function (hooks) {
           '14:42:19.142 03.11.2022',
           'Value output by the field is [14:42:19.142 03.11.2022]',
         );
-      assert.equal(
+      assert.strictEqual(
         dateTimeInput.value,
         '03/11/2022 14:42:19.142',
         'Value of the date input field is [03/11/2022 14:42:19.142]',
@@ -2116,7 +2091,7 @@ module('Acceptance | Power datepicker field', function (hooks) {
           '14:41:19.142 03.11.2022',
           'Value output by the field is [14:41:19.142 03.11.2022]',
         );
-      assert.equal(
+      assert.strictEqual(
         dateTimeInput.value,
         '03/11/2022 14:41:19.142',
         'Value of the date input field is [03/11/2022 14:41:19.142]',
@@ -2157,7 +2132,7 @@ module('Acceptance | Power datepicker field', function (hooks) {
     });
 });
 
-async function check(assert, opts, env) {
+async function check(assert, opts) {
   const { keys } = keyCodesMap;
   const element = opts.inputToUpdate.element;
 
@@ -2227,7 +2202,7 @@ async function check(assert, opts, env) {
   const checkExpectedVals = (event) => {
     for (const item of opts[`expectedInputValuesAfter${event}`] || []) {
       if (item.input) {
-        assert.equal(
+        assert.strictEqual(
           item.input.value,
           item.value,
           `[${assertionPrefix} => ${event}] ${

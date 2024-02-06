@@ -1,3 +1,5 @@
-import Component from '@glimmer/component';
+import templateOnly from '@ember/component/template-only';
 
-export default class PowerSelectOption extends Component {}
+const PowerSelectOption = templateOnly();
+
+export default PowerSelectOption;

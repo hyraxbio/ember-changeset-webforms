@@ -65,6 +65,19 @@ $spacer-md: 16px;
   margin-bottom: 30px;
 }
 
+.width-lg {
+  width: 24px;
+}
+
+.height-lg {
+  height: 24px;
+}
+
+.btn {
+  align-items: center;
+  justify-content: space-between;
+}
+
 @import '_variables';
 @import 'ember-bootstrap/bootstrap';
 @import 'ember-power-select';
