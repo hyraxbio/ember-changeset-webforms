@@ -32,7 +32,7 @@ If an error is encountered, the `submitError` action will be fired. TODO test th
 
 ```javascript
 submitAction(changesetData, changesetWebform) {
-  this.set('prop', changesetData.email);
+  this.prop = changesetData.email;
   return;
 }
 ```

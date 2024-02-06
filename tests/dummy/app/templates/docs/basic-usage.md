@@ -5,8 +5,8 @@
   <ChangesetWebform 
     @formSchema={{this.formSchema}} 
     @data={{hash email="andrew.paterson@test.com"}}
-    @submitAction={{action "submit"}} 
-    @submitSuccess={{action "submitSuccess"}} 
+    @submitAction={{this.submit}} 
+    @submitSuccess={{this.submitSuccess}} 
     />
     </demo.example>
   <demo.snippet @name="login-form.hbs" @label="template" @language="htmlbars" />
@@ -30,8 +30,8 @@ They can also be overridden for any individual form schema in the `settings` obj
     <ChangesetWebform 
       @formSchema={{this.formSchema}} 
       @data={{hash email="andrew.paterson@test.com"}}
-      @submitAction={{action "submit"}} 
-      @submitSuccess={{action "submitSuccess"}} 
+      @submitAction={{this.submit}} 
+      @submitSuccess={{this.submitSuccess}} 
      />
   </demo.example>
   <demo.snippet @name="login-form.js" @label="component js" @language="javascript" />

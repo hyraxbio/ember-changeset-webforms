@@ -1,50 +1,48 @@
 import { action } from '@ember/object';
-import Component from '@ember/component';
-
+import Component from '@glimmer/component';
+import { tracked } from '@glimmer/tracking';
 export default class OnUserInteractionForm extends Component {
   // BEGIN-SNIPPET after-field-click-action-form.js
+  @tracked alert;
 
-  init() {
-    super.init(...arguments);
-    this.formSchema = {
-      formSettings: {
-        formName: 'names',
-        submitButtonText: 'Submit',
+  formSchema = {
+    formSettings: {
+      formName: 'names',
+      submitButtonText: 'Submit',
+    },
+    fields: [
+      {
+        fieldId: 'name',
+        fieldLabel: 'Name',
+        fieldType: 'input',
+        validationRules: [
+          {
+            validationMethod: 'validatePresence',
+            arguments: true,
+          },
+        ],
+        inputType: 'text',
       },
-      fields: [
-        {
-          fieldId: 'name',
-          fieldLabel: 'Name',
-          fieldType: 'input',
-          validationRules: [
-            {
-              validationMethod: 'validatePresence',
-              arguments: true,
-            },
-          ],
-          inputType: 'text',
-        },
-        {
-          fieldId: 'toggleNicknameField',
-          fieldType: 'clicker',
-          clickerText: 'Show nickname field',
-        },
-        {
-          fieldId: 'nickName',
-          fieldLabel: 'Nickname',
-          fieldType: 'input',
-          inputType: 'text',
-          hidden: true,
-          validationRules: [
-            {
-              validationMethod: 'validatePresence',
-              arguments: { presence: true, description: 'Nickname' },
-            },
-          ],
-        },
-      ],
-    };
-  }
+      {
+        fieldId: 'toggleNicknameField',
+        fieldType: 'clicker',
+        clickerText: 'Show nickname field',
+      },
+      {
+        fieldId: 'nickName',
+        fieldLabel: 'Nickname',
+        fieldType: 'input',
+        inputType: 'text',
+        hidden: true,
+        validationRules: [
+          {
+            validationMethod: 'validatePresence',
+            arguments: { presence: true, description: 'Nickname' },
+          },
+        ],
+      },
+    ],
+  };
 
   @action
   onUserInteraction(formField, changesetWebform, eventType) {
@@ -69,12 +67,12 @@ export default class OnUserInteractionForm extends Component {
     for (var key in data) {
       dataProps.push(`"${key}" => "${data[key]}"`);
     }
-    this.set('alert', {
+    this.alert = {
       type: 'success',
       message: `Validation passed, submit action fired with the following data: ${dataProps.join(', ')}.`,
-    });
+    };
     const changeset = changsetWebform.changeset;
-    changsetWebform.formSettings.set('submitButtonText', 'Re-submit');
+    changsetWebform.formSettings.submitButtonText = 'Re-submit';
     changeset.set('name', '');
     changeset.set('nickName', '');
   }
@@ -88,10 +86,10 @@ export default class OnUserInteractionForm extends Component {
         `"${key}" => "${validationError[key].validation.join(', ')}"`,
       );
     }
-    this.set('alert', {
+    this.alert = {
       type: 'danger',
       message: `Validation failed, submit action not fired. The following validation errors exist:  ${errorProps.join(', ')}`,
-    });
+    };
   }
   // END-SNIPPET
 }

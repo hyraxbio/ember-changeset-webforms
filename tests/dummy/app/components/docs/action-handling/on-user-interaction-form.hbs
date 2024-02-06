@@ -9,9 +9,9 @@
     {{/if}}
     <ChangesetWebform
       @formSchema={{this.formSchema}}
-      @onUserInteraction={{action "onUserInteraction"}}
-      @formValidationFailed={{action "formValidationFailed"}}
-      @submitAction={{action "submitAction"}}
+      @onUserInteraction={{this.onUserInteraction}}
+      @formValidationFailed={{this.formValidationFailed}}
+      @submitAction={{this.submitAction}}
       data-test-id="after-field-click-form"
     />
     {{#if this.fullName}}

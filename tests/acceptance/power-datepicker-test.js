@@ -622,6 +622,19 @@ module('Acceptance | Power datepicker field', function (hooks) {
       dummyEls.timeSelectorFieldInputSeconds,
     );
     const timeSelectorAmPmInput = find(dummyEls.powerDatepickerAmPmInput);
+    await fillIn(dateTimeInput, '2022-11-03 03:42:19 pm');
+    await triggerKeyEvent(dateTimeInput, 'keyup', 1);
+    assert.equal(
+      find(dateTimeInput).value,
+      '2022-11-03 2:42:19 pm',
+      'Date input rejects input with invalid format',
+    );
+    assert
+      .dom(rawDateTimeElement)
+      .hasText(
+        'Thu Nov 03 2022 14:42:19 GMT+0200 (South Africa Standard Time)',
+        'Action to update date does not fire when input is invalid',
+      );
 
     await check(assert, {
       parentFieldSelector: parentFieldSelector,
@@ -629,7 +642,7 @@ module('Acceptance | Power datepicker field', function (hooks) {
         element: dateTimeInput,
         description: 'Datetime',
       },
-      fillIn: '2022-11-03 04:42:19 pm',
+      fillIn: '2022-11-03 4:42:19 pm',
       expectedInputValuesAfterKeyUp: [
         {
           textElement: rawDateTimeElement,

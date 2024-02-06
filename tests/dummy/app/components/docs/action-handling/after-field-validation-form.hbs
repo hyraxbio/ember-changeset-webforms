@@ -2,7 +2,7 @@
   <demo.example @name="after-field-validation-form.hbs">
     <ChangesetWebform
       @formSchema={{this.nameAndEmailFormSchema}}
-      @afterFieldValidation={{action "afterFieldValidation"}}
+      @afterFieldValidation={{this.afterFieldValidation}}
       data-test-id="after-field-validation-form"
     />
     {{#if this.lastValidatedField}}

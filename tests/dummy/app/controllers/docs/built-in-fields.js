@@ -1,664 +1,680 @@
 import { action } from '@ember/object';
 import Controller from '@ember/controller';
 import moment from 'moment';
+import { tracked } from '@glimmer/tracking';
+class DateOutput {
+  @tracked nativeJSFormat;
+  @tracked fieldValue;
 
+  constructor(props) {
+    this.nativeJSFormat = props.nativeJSFormat;
+    this.fieldValue = props.fieldValue;
+  }
+}
 export default class BuiltInFields extends Controller {
-  init() {
-    super.init(...arguments);
-    this.radioButtonGroupOption = {
-      // BEGIN-SNIPPET radio-button-group-option.js
-      value: null, //
-      // Either one of labelComponent or label must be passed.
-      label: null, // String to display as the label of the option.
-      labelComponent: null, // Optional. Component to replace the standard label element for a single option.
-      // END-SNIPPET
-    };
+  @tracked dateTimeOutput1;
+  @tracked dateTimeOutput1a;
+  @tracked dateTimeOutput1b;
+  @tracked dateTimeOutput1c;
+  @tracked dateTimeOutput2;
+  @tracked dateTimeOutput3;
+  @tracked dateTimeOutput3a;
+  @tracked dateTimeOutput4;
+  @tracked dateTimeOutput5;
 
-    (this.checkboxGroupOption = {
-      // BEGIN-SNIPPET checkbox-group-option.js
-      key: null,
-      // Either one of labelComponent or label must be passed.
-      label: null, // String to display as the label of the option.
-      labelComponent: null, // Optional. Component to replace the standard label element for a single option
-      // END-SNIPPET
-    }),
-      // BEGIN-SNIPPET radio-button-group-example-1.js
-      (this.radioButtonGroupExample1FormSchema = {
-        formSettings: {
-          formName: 'radioButtonGroupExample1',
-          hideSubmitButton: true,
-        },
-        fields: [
+  radioButtonGroupOption = {
+    // BEGIN-SNIPPET radio-button-group-option.js
+    value: null, //
+    // Either one of labelComponent or label must be passed.
+    label: null, // String to display as the label of the option.
+    labelComponent: null, // Optional. Component to replace the standard label element for a single option.
+    // END-SNIPPET
+  };
+
+  checkboxGroupOption = {
+    // BEGIN-SNIPPET checkbox-group-option.js
+    key: null,
+    // Either one of labelComponent or label must be passed.
+    label: null, // String to display as the label of the option.
+    labelComponent: null, // Optional. Component to replace the standard label element for a single option
+    // END-SNIPPET
+  };
+  // BEGIN-SNIPPET radio-button-group-example-1.js
+  radioButtonGroupExample1FormSchema = {
+    formSettings: {
+      formName: 'radioButtonGroupExample1',
+      hideSubmitButton: true,
+    },
+    fields: [
+      {
+        fieldId: 'radioButtons1',
+        fieldType: 'radioButtonGroup',
+        fieldLabel: 'Basic usage',
+        options: [
           {
-            fieldId: 'radioButtons1',
-            fieldType: 'radioButtonGroup',
-            fieldLabel: 'Basic usage',
-            options: [
-              {
-                label: 'Option 1',
-                value: '1',
-              },
-              {
-                label: 'Option 2',
-                value: '2',
-              },
-              {
-                label: 'Option 3',
-                value: '3',
-              },
-            ],
+            label: 'Option 1',
+            value: '1',
+          },
+          {
+            label: 'Option 2',
+            value: '2',
+          },
+          {
+            label: 'Option 3',
+            value: '3',
           },
         ],
-      });
-    // END-SNIPPET
-
-    //BEGIN-SNIPPET radio-button-group-example-2.js
-    this.radioButtonGroupExample2FormSchema = {
-      formSettings: {
-        formName: 'radioButtonGroupExample2',
-        hideSubmitButton: true,
       },
-      fields: [
-        {
-          fieldId: 'radioButtons2',
-          fieldType: 'radioButtonGroup',
-          fieldLabel: 'Custom label components',
-          optionLabelComponent: {
-            path: 'forms/component-for-all-radio-options',
-            props: {
-              infoLink: 'https://example.com',
-            },
+    ],
+  };
+  // END-SNIPPET
+
+  //BEGIN-SNIPPET radio-button-group-example-2.js
+  radioButtonGroupExample2FormSchema = {
+    formSettings: {
+      formName: 'radioButtonGroupExample2',
+      hideSubmitButton: true,
+    },
+    fields: [
+      {
+        fieldId: 'radioButtons2',
+        fieldType: 'radioButtonGroup',
+        fieldLabel: 'Custom label components',
+        optionLabelComponent: {
+          path: 'forms/component-for-all-radio-options',
+          props: {
+            infoLink: 'https://example.com',
           },
-          options: [
-            {
-              label: 'Option 1',
-              value: '1',
-            },
-            {
-              label: 'Option 2',
-              value: '2',
-            },
-            {
-              label: 'Option 3',
-              value: '3',
-              labelComponent: {
-                path: 'forms/component-for-single-radio-option',
-                props: {
-                  info: 'Some additional info',
-                },
+        },
+        options: [
+          {
+            label: 'Option 1',
+            value: '1',
+          },
+          {
+            label: 'Option 2',
+            value: '2',
+          },
+          {
+            label: 'Option 3',
+            value: '3',
+            labelComponent: {
+              path: 'forms/component-for-single-radio-option',
+              props: {
+                info: 'Some additional info',
               },
             },
-          ],
-        },
-      ],
-    };
-    // END-SNIPPET
-    // BEGIN-SNIPPET checkbox-group-example-1.js
-    this.checkboxGroupExample1FormSchema = {
-      formSettings: {
-        formName: 'checkboxGroupExample1',
-        hideSubmitButton: true,
-      },
-      fields: [
-        {
-          fieldId: 'checkboxes1',
-          fieldType: 'checkboxGroup',
-          fieldLabel: 'Basic usage',
-          options: [
-            {
-              label: 'Option 1',
-              key: '1',
-            },
-            {
-              label: 'Option 2',
-              key: '2',
-            },
-            {
-              label: 'Option 3',
-              key: '3',
-            },
-          ],
-        },
-      ],
-    };
-    // END-SNIPPET
-
-    //BEGIN-SNIPPET checkbox-group-example-2.js
-    this.checkboxGroupExample2FormSchema = {
-      formSettings: {
-        formName: 'checkboxGroupExample2',
-        hideSubmitButton: true,
-      },
-      fields: [
-        {
-          fieldId: 'checkboxes2',
-          fieldType: 'checkboxGroup',
-          fieldLabel: 'Custom label components',
-          optionLabelComponent: {
-            path: 'forms/component-for-all-checkbox-options',
-            props: {
-              infoLink: 'https://example.com',
-            },
           },
-          options: [
-            {
-              label: 'Option 1',
-              key: '1',
-            },
-            {
-              label: 'Option 2',
-              key: '2',
-            },
-            {
-              label: 'Option 3',
-              key: '3',
-              labelComponent: {
-                path: 'forms/component-for-single-checkbox-option',
-                props: {
-                  info: 'Some additional info',
-                },
+        ],
+      },
+    ],
+  };
+  // END-SNIPPET
+  // BEGIN-SNIPPET checkbox-group-example-1.js
+  checkboxGroupExample1FormSchema = {
+    formSettings: {
+      formName: 'checkboxGroupExample1',
+      hideSubmitButton: true,
+    },
+    fields: [
+      {
+        fieldId: 'checkboxes1',
+        fieldType: 'checkboxGroup',
+        fieldLabel: 'Basic usage',
+        options: [
+          {
+            label: 'Option 1',
+            key: '1',
+          },
+          {
+            label: 'Option 2',
+            key: '2',
+          },
+          {
+            label: 'Option 3',
+            key: '3',
+          },
+        ],
+      },
+    ],
+  };
+  // END-SNIPPET
+
+  //BEGIN-SNIPPET checkbox-group-example-2.js
+  checkboxGroupExample2FormSchema = {
+    formSettings: {
+      formName: 'checkboxGroupExample2',
+      hideSubmitButton: true,
+    },
+    fields: [
+      {
+        fieldId: 'checkboxes2',
+        fieldType: 'checkboxGroup',
+        fieldLabel: 'Custom label components',
+        optionLabelComponent: {
+          path: 'forms/component-for-all-checkbox-options',
+          props: {
+            infoLink: 'https://example.com',
+          },
+        },
+        options: [
+          {
+            label: 'Option 1',
+            key: '1',
+          },
+          {
+            label: 'Option 2',
+            key: '2',
+          },
+          {
+            label: 'Option 3',
+            key: '3',
+            labelComponent: {
+              path: 'forms/component-for-single-checkbox-option',
+              props: {
+                info: 'Some additional info',
               },
             },
-          ],
-        },
-      ],
-    };
-    // END-SNIPPET
-    // BEGIN-SNIPPET power-select-example-1.js
-    this.powerSelectExample1FormSchema = {
-      formSettings: {
-        formName: 'powerSelectExample1',
-        hideSubmitButton: true,
+          },
+        ],
       },
-      fields: [
-        {
-          fieldId: 'country',
-          fieldType: 'powerSelect',
-          fieldLabel: 'Select country',
-          placeholder: 'This is where the placeholder goes',
-          searchPlaceholder: 'Custom placeholder for search box',
-          allowClear: true,
-          options: ['Aruba', 'Afghanistan', 'Angola', 'Albania', 'Andorra'],
-        },
-      ],
-    };
-    // END-SNIPPET
-    // BEGIN-SNIPPET power-select-example-2.js
-    this.powerSelectExample2FormSchema = {
-      formSettings: {
-        formName: 'powerSelectExample2',
-        hideSubmitButton: true,
+    ],
+  };
+  // END-SNIPPET
+  // BEGIN-SNIPPET power-select-example-1.js
+  powerSelectExample1FormSchema = {
+    formSettings: {
+      formName: 'powerSelectExample1',
+      hideSubmitButton: true,
+    },
+    fields: [
+      {
+        fieldId: 'country',
+        fieldType: 'powerSelect',
+        fieldLabel: 'Select country',
+        placeholder: 'This is where the placeholder goes',
+        searchPlaceholder: 'Custom placeholder for search box',
+        allowClear: true,
+        options: ['Aruba', 'Afghanistan', 'Angola', 'Albania', 'Andorra'],
       },
-      fields: [
-        {
-          fieldId: 'country',
-          fieldType: 'powerSelect',
-          fieldLabel: 'Select country',
-          optionDisplayProp: 'name',
-          options: [
-            {
-              id: 'ABW',
-              name: 'Aruba',
-            },
-            {
-              id: 'AFG',
-              name: 'Afghanistan',
-            },
-            {
-              id: 'AGO',
-              name: 'Angola',
-            },
-            {
-              id: 'ALB',
-              name: 'Albania',
-            },
-            {
-              id: 'AND',
-              name: 'Andorra',
-            },
-          ],
-        },
-      ],
-    };
-    // END-SNIPPET
-    // BEGIN-SNIPPET power-select-example-3.js
-    this.powerSelectExample3FormSchema = {
-      formSettings: {
-        formName: 'powerSelectExample3',
-        hideSubmitButton: true,
+    ],
+  };
+  // END-SNIPPET
+  // BEGIN-SNIPPET power-select-example-2.js
+  powerSelectExample2FormSchema = {
+    formSettings: {
+      formName: 'powerSelectExample2',
+      hideSubmitButton: true,
+    },
+    fields: [
+      {
+        fieldId: 'country',
+        fieldType: 'powerSelect',
+        fieldLabel: 'Select country',
+        optionDisplayProp: 'name',
+        options: [
+          {
+            id: 'ABW',
+            name: 'Aruba',
+          },
+          {
+            id: 'AFG',
+            name: 'Afghanistan',
+          },
+          {
+            id: 'AGO',
+            name: 'Angola',
+          },
+          {
+            id: 'ALB',
+            name: 'Albania',
+          },
+          {
+            id: 'AND',
+            name: 'Andorra',
+          },
+        ],
       },
-      fields: [
-        {
-          fieldId: 'country',
-          fieldType: 'powerSelect',
-          fieldLabel: 'Select country',
-          optionComponent: 'forms/power-select-option-component',
-          selectedItemComponent: 'forms/power-select-selected-item-component',
-          options: ['ABW', 'AFG', 'AGO', 'ALB', 'AND'],
-        },
-      ],
-    };
-    // END-SNIPPET
+    ],
+  };
+  // END-SNIPPET
+  // BEGIN-SNIPPET power-select-example-3.js
+  powerSelectExample3FormSchema = {
+    formSettings: {
+      formName: 'powerSelectExample3',
+      hideSubmitButton: true,
+    },
+    fields: [
+      {
+        fieldId: 'country',
+        fieldType: 'powerSelect',
+        fieldLabel: 'Select country',
+        optionComponent: 'forms/power-select-option-component',
+        selectedItemComponent: 'forms/power-select-selected-item-component',
+        options: ['ABW', 'AFG', 'AGO', 'ALB', 'AND'],
+      },
+    ],
+  };
+  // END-SNIPPET
 
-    // BEGIN-SNIPPET power-select-multiple-example-1.js
-    this.powerSelectMultipleExample1FormSchema = {
-      formSettings: {
-        formName: 'powerSelectMultipleExample1',
-        hideSubmitButton: true,
+  // BEGIN-SNIPPET power-select-multiple-example-1.js
+  powerSelectMultipleExample1FormSchema = {
+    formSettings: {
+      formName: 'powerSelectMultipleExample1',
+      hideSubmitButton: true,
+    },
+    fields: [
+      {
+        searchEnabled: true,
+        fieldId: 'country',
+        fieldType: 'powerSelect',
+        multipleSelection: true,
+        allowFreeTyping: true,
+        fieldLabel: 'Select countries',
+        options: ['ABW', 'AFG', 'AGO', 'ALB', 'AND'],
       },
-      fields: [
-        {
-          searchEnabled: true,
-          fieldId: 'country',
-          fieldType: 'powerSelect',
-          multipleSelection: true,
-          allowFreeTyping: true,
-          fieldLabel: 'Select countries',
-          options: ['ABW', 'AFG', 'AGO', 'ALB', 'AND'],
-        },
-      ],
-    };
-    // END-SNIPPET
+    ],
+  };
+  // END-SNIPPET
 
-    // BEGIN-SNIPPET input-example-1.js
-    this.inputExample1FormSchema = {
-      formSettings: {
-        formName: 'inputExample1',
-        hideSubmitButton: true,
+  // BEGIN-SNIPPET input-example-1.js
+  inputExample1FormSchema = {
+    formSettings: {
+      formName: 'inputExample1',
+      hideSubmitButton: true,
+    },
+    fields: [
+      {
+        fieldId: 'name',
+        fieldType: 'input',
+        fieldLabel: 'Name',
       },
-      fields: [
-        {
-          fieldId: 'name',
-          fieldType: 'input',
-          fieldLabel: 'Name',
-        },
-      ],
-    };
-    // END-SNIPPET
-    // BEGIN-SNIPPET input-example-2.js
-    this.inputExample2FormSchema = {
-      formSettings: {
-        formName: 'inputExample2',
-        hideSubmitButton: true,
+    ],
+  };
+  // END-SNIPPET
+  // BEGIN-SNIPPET input-example-2.js
+  inputExample2FormSchema = {
+    formSettings: {
+      formName: 'inputExample2',
+      hideSubmitButton: true,
+    },
+    fields: [
+      {
+        fieldId: 'password',
+        fieldType: 'input',
+        inputType: 'password',
+        fieldLabel: 'Password',
+        placeholder: 'Enter your password here',
       },
-      fields: [
-        {
-          fieldId: 'password',
-          fieldType: 'input',
-          inputType: 'password',
-          fieldLabel: 'Password',
-          placeholder: 'Enter your password here',
-        },
-      ],
-    };
-    // END-SNIPPET
-    // BEGIN-SNIPPET textarea-example-1.js
-    this.textareaExample1FormSchema = {
-      formSettings: {
-        formName: 'textareaExample1',
-        hideSubmitButton: true,
+    ],
+  };
+  // END-SNIPPET
+  // BEGIN-SNIPPET textarea-example-1.js
+  textareaExample1FormSchema = {
+    formSettings: {
+      formName: 'textareaExample1',
+      hideSubmitButton: true,
+    },
+    fields: [
+      {
+        fieldId: 'description',
+        fieldType: 'textarea',
+        fieldLabel: 'Description',
+        placeholder: 'Enter your description here',
       },
-      fields: [
-        {
-          fieldId: 'description',
-          fieldType: 'textarea',
-          fieldLabel: 'Description',
-          placeholder: 'Enter your description here',
-        },
-      ],
-    };
-    // END-SNIPPET
-    // BEGIN-SNIPPET single-checkbox-example-1.js
-    this.singleCheckboxExample1FormSchema = {
-      formSettings: {
-        formName: 'singleCheckboxExample1',
-        hideSubmitButton: true,
+    ],
+  };
+  // END-SNIPPET
+  // BEGIN-SNIPPET single-checkbox-example-1.js
+  singleCheckboxExample1FormSchema = {
+    formSettings: {
+      formName: 'singleCheckboxExample1',
+      hideSubmitButton: true,
+    },
+    fields: [
+      {
+        fieldId: 'acceptTerms',
+        fieldType: 'singleCheckbox',
+        checkBoxLabel: 'I agree to the terms and conditions',
       },
-      fields: [
-        {
-          fieldId: 'acceptTerms',
-          fieldType: 'singleCheckbox',
-          checkBoxLabel: 'I agree to the terms and conditions',
-        },
-      ],
-    };
-    // END-SNIPPET
+    ],
+  };
+  // END-SNIPPET
 
-    // BEGIN-SNIPPET single-checkbox-example-2.js
-    this.singleCheckboxExample2FormSchema = {
-      formSettings: {
-        formName: 'singleCheckboxExample2',
-        hideSubmitButton: true,
+  // BEGIN-SNIPPET single-checkbox-example-2.js
+  singleCheckboxExample2FormSchema = {
+    formSettings: {
+      formName: 'singleCheckboxExample2',
+      hideSubmitButton: true,
+    },
+    fields: [
+      {
+        fieldId: 'acceptTerms',
+        fieldType: 'singleCheckbox',
+        checkBoxLabelMarkdown:
+          'I agree to the __**[terms and conditions here](https://example.com)**__.',
       },
-      fields: [
-        {
-          fieldId: 'acceptTerms',
-          fieldType: 'singleCheckbox',
-          checkBoxLabelMarkdown:
-            'I agree to the __**[terms and conditions here](https://example.com)**__.',
-        },
-      ],
-    };
-    // END-SNIPPET
+    ],
+  };
+  // END-SNIPPET
 
-    // BEGIN-SNIPPET single-checkbox-example-3.js
-    this.singleCheckboxExample3FormSchema = {
-      formSettings: {
-        formName: 'singleCheckboxExample3',
-        hideSubmitButton: true,
-      },
-      fields: [
-        {
-          fieldId: 'acceptTerms',
-          fieldType: 'singleCheckbox',
-          checkBoxLabelComponent: {
-            path: 'forms/component-for-single-checkbox-option',
-            props: {
-              info: 'Some additional info',
-            },
+  // BEGIN-SNIPPET single-checkbox-example-3.js
+  singleCheckboxExample3FormSchema = {
+    formSettings: {
+      formName: 'singleCheckboxExample3',
+      hideSubmitButton: true,
+    },
+    fields: [
+      {
+        fieldId: 'acceptTerms',
+        fieldType: 'singleCheckbox',
+        checkBoxLabelComponent: {
+          path: 'forms/component-for-single-checkbox-option',
+          props: {
+            info: 'Some additional info',
           },
         },
-      ],
-    };
-    // END-SNIPPET
+      },
+    ],
+  };
+  // END-SNIPPET
 
-    // BEGIN-SNIPPET static-content-example-1.js
-    this.staticContentExample1FormSchema = {
-      formSettings: {
-        formName: 'staticContentExample1',
-        hideSubmitButton: true,
+  // BEGIN-SNIPPET static-content-example-1.js
+  staticContentExample1FormSchema = {
+    formSettings: {
+      formName: 'staticContentExample1',
+      hideSubmitButton: true,
+    },
+    fields: [
+      {
+        fieldId: 'staticContent',
+        fieldType: 'staticContent',
+        text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero similique, repellat fuga ad enim eveniet exercitationem earum et commodi necessitatibus doloremque saepe veniam consequuntur maxime a soluta ea perferendis sit.',
+        textElement: 'p',
+        textElementClass: 'bg-success text-white p-2 rounded',
       },
-      fields: [
-        {
-          fieldId: 'staticContent',
-          fieldType: 'staticContent',
-          text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero similique, repellat fuga ad enim eveniet exercitationem earum et commodi necessitatibus doloremque saepe veniam consequuntur maxime a soluta ea perferendis sit.',
-          textElement: 'p',
-          textElementClass: 'bg-success text-white p-2 rounded',
-        },
-      ],
-    };
-    // END-SNIPPET
+    ],
+  };
+  // END-SNIPPET
 
-    // BEGIN-SNIPPET static-content-example-2.js
-    this.staticContentExample2FormSchema = {
-      formSettings: {
-        formName: 'staticContentExample2',
-        hideSubmitButton: true,
-      },
-      fields: [
-        {
-          fieldId: 'staticContent',
-          fieldType: 'staticContent',
-          contentComponent: {
-            path: 'forms/component-for-single-checkbox-option',
-            props: {
-              info: 'Some additional info',
-            },
+  // BEGIN-SNIPPET static-content-example-2.js
+  staticContentExample2FormSchema = {
+    formSettings: {
+      formName: 'staticContentExample2',
+      hideSubmitButton: true,
+    },
+    fields: [
+      {
+        fieldId: 'staticContent',
+        fieldType: 'staticContent',
+        contentComponent: {
+          path: 'forms/component-for-single-checkbox-option',
+          props: {
+            info: 'Some additional info',
           },
         },
-      ],
-    };
-    // END-SNIPPET
+      },
+    ],
+  };
+  // END-SNIPPET
 
-    // BEGIN-SNIPPET power-datepicker-example-1.js
-    this.powerDatapickerExample1FormSchema = {
-      formSettings: {
-        formName: 'powerDatapickerExample1',
-        hideSubmitButton: true,
+  // BEGIN-SNIPPET power-datepicker-example-1.js
+  powerDatapickerExample1FormSchema = {
+    formSettings: {
+      formName: 'powerDatapickerExample1',
+      hideSubmitButton: true,
+    },
+    fields: [
+      {
+        fieldId: 'startDate',
+        fieldLabel: 'First day',
+        fieldType: 'powerDatePicker',
+        dateTimeFormat: 'YYYY-MM-DD',
       },
-      fields: [
-        {
-          fieldId: 'startDate',
-          fieldLabel: 'First day',
-          fieldType: 'powerDatePicker',
-          dateTimeFormat: 'YYYY-MM-DD',
-        },
-      ],
-    };
-    // END-SNIPPET
-    // BEGIN-SNIPPET power-datepicker-example-1b.js
-    this.powerDatapickerExample1bFormSchema = {
-      formSettings: {
-        formName: 'powerDatapickerExample1b',
-        hideSubmitButton: true,
+    ],
+  };
+  // END-SNIPPET
+  // BEGIN-SNIPPET power-datepicker-example-1b.js
+  powerDatapickerExample1bFormSchema = {
+    formSettings: {
+      formName: 'powerDatapickerExample1b',
+      hideSubmitButton: true,
+    },
+    fields: [
+      {
+        fieldId: 'startDate',
+        fieldLabel: 'First day',
+        fieldType: 'powerDatePicker',
+        dateTimeFormat: 'YYYY-MM-DD HH:mm:ss',
+        fixedTime: '23:59:59.999',
+        dateTimeDisplayFormat: 'YYYY-MM-DD',
       },
-      fields: [
-        {
-          fieldId: 'startDate',
-          fieldLabel: 'First day',
-          fieldType: 'powerDatePicker',
-          dateTimeFormat: 'YYYY-MM-DD HH:mm:ss',
-          fixedTime: '23:59:59.999',
-          dateTimeDisplayFormat: 'YYYY-MM-DD',
-        },
-      ],
-    };
-    // END-SNIPPET
-    // BEGIN-SNIPPET power-datepicker-example-1c.js
-    this.powerDatapickerExample1cFormSchema = {
-      formSettings: {
-        formName: 'powerDatapickerExample1c',
-        hideSubmitButton: true,
+    ],
+  };
+  // END-SNIPPET
+  // BEGIN-SNIPPET power-datepicker-example-1c.js
+  powerDatapickerExample1cFormSchema = {
+    formSettings: {
+      formName: 'powerDatapickerExample1c',
+      hideSubmitButton: true,
+    },
+    fields: [
+      {
+        fieldId: 'startDate',
+        fieldLabel: 'First day',
+        fieldType: 'powerDatePicker',
+        dateTimeFormat: 'YYYY-MM-DD',
+        minDate: '2022-11-10',
+        maxDate: '2022-11-16',
+        calendarStartMonth: '11/2022',
       },
-      fields: [
-        {
-          fieldId: 'startDate',
-          fieldLabel: 'First day',
-          fieldType: 'powerDatePicker',
-          dateTimeFormat: 'YYYY-MM-DD',
-          minDate: '2022-11-10',
-          maxDate: '2022-11-16',
-          calendarStartMonth: '11/2022',
-        },
-      ],
-    };
-    // END-SNIPPET
-    // BEGIN-SNIPPET power-datepicker-example-1d.js
-    this.powerDatapickerExample1dFormSchema = {
-      formSettings: {
-        formName: 'powerDatapickerExample1d',
-        hideSubmitButton: true,
+    ],
+  };
+  // END-SNIPPET
+  // BEGIN-SNIPPET power-datepicker-example-1d.js
+  powerDatapickerExample1dFormSchema = {
+    formSettings: {
+      formName: 'powerDatapickerExample1d',
+      hideSubmitButton: true,
+    },
+    fields: [
+      {
+        fieldId: 'startDate',
+        fieldLabel: 'First day',
+        fieldType: 'powerDatePicker',
+        dateTimeFormat: 'YYYY-MM-DD HH:mm:ss',
+        dateTimeDisplayFormat: 'YYYY-MM-DD',
+        minDate: '2022-11-10',
+        maxDate: '2022-11-16',
       },
-      fields: [
-        {
-          fieldId: 'startDate',
-          fieldLabel: 'First day',
-          fieldType: 'powerDatePicker',
-          dateTimeFormat: 'YYYY-MM-DD HH:mm:ss',
-          dateTimeDisplayFormat: 'YYYY-MM-DD',
-          minDate: '2022-11-10',
-          maxDate: '2022-11-16',
+    ],
+  };
+  // END-SNIPPET
+  // BEGIN-SNIPPET power-datepicker-example-2.js
+  powerDatapickerExample2FormSchema = {
+    formSettings: {
+      formName: 'powerDatapickerExample2',
+      hideSubmitButton: true,
+    },
+    fields: [
+      {
+        fieldId: 'startDate',
+        fieldLabel: 'First day',
+        fieldType: 'powerDatePicker',
+        dateTimeFormat: 'YYYY-MM-DD HH:mm:ss',
+        closeDatePickerOnSelect: true,
+        dateRangeSettings: {
+          rangePosition: 'start',
+          rangePartnerFieldId: 'endDate',
         },
-      ],
-    };
-    // END-SNIPPET
-    // BEGIN-SNIPPET power-datepicker-example-2.js
-    this.powerDatapickerExample2FormSchema = {
-      formSettings: {
-        formName: 'powerDatapickerExample2',
-        hideSubmitButton: true,
       },
-      fields: [
-        {
-          fieldId: 'startDate',
-          fieldLabel: 'First day',
-          fieldType: 'powerDatePicker',
-          dateTimeFormat: 'YYYY-MM-DD HH:mm:ss',
-          closeDatePickerOnSelect: true,
-          dateRangeSettings: {
-            rangePosition: 'start',
-            rangePartnerFieldId: 'endDate',
-          },
+      {
+        fieldId: 'endDate',
+        fieldLabel: 'Last day',
+        fieldType: 'powerDatePicker',
+        dateTimeFormat: 'YYYY-MM-DD HH:mm:ss',
+        defaultTime: '23:59:59',
+        closeDatePickerOnSelect: true,
+        dateRangeSettings: {
+          rangePosition: 'end',
+          rangePartnerFieldId: 'startDate',
         },
-        {
-          fieldId: 'endDate',
-          fieldLabel: 'Last day',
-          fieldType: 'powerDatePicker',
-          dateTimeFormat: 'YYYY-MM-DD HH:mm:ss',
-          defaultTime: '23:59:59',
-          closeDatePickerOnSelect: true,
-          dateRangeSettings: {
-            rangePosition: 'end',
-            rangePartnerFieldId: 'startDate',
-          },
-        },
-      ],
-    };
-    // END-SNIPPET
-    // BEGIN-SNIPPET power-datepicker-example-3.js
-    this.powerDatapickerExample3FormSchema = {
-      formSettings: {
-        formName: 'powerDatapickerExample3',
-        hideSubmitButton: true,
       },
-      fields: [
-        {
-          fieldId: 'startDate',
-          fieldLabel: 'First day',
-          fieldType: 'powerDatePicker',
-          dateTimeFormat: 'YYYY-MM-DD HH:mm:ss.SSS',
-          closeDatePickerOnSelect: true,
-          showTimeSelector: true,
-          defaultValue: moment(
-            '2022-11-03 14:42:19.23456',
-            'YYYY-MM-DD HH:mm:ss.SSS',
-          ),
-        },
-      ],
-    };
-    // END-SNIPPET
+    ],
+  };
+  // END-SNIPPET
+  // BEGIN-SNIPPET power-datepicker-example-3.js
+  powerDatapickerExample3FormSchema = {
+    formSettings: {
+      formName: 'powerDatapickerExample3',
+      hideSubmitButton: true,
+    },
+    fields: [
+      {
+        fieldId: 'startDate',
+        fieldLabel: 'First day',
+        fieldType: 'powerDatePicker',
+        dateTimeFormat: 'YYYY-MM-DD HH:mm:ss.SSS',
+        closeDatePickerOnSelect: true,
+        showTimeSelector: true,
+        defaultValue: moment(
+          '2022-11-03 14:42:19.23456',
+          'YYYY-MM-DD HH:mm:ss.SSS',
+        ),
+      },
+    ],
+  };
+  // END-SNIPPET
 
-    // BEGIN-SNIPPET power-datepicker-example-3a.js
-    this.powerDatapickerExample3aFormSchema = {
-      formSettings: {
-        formName: 'powerDatapickerExample3a',
-        hideSubmitButton: true,
+  // BEGIN-SNIPPET power-datepicker-example-3a.js
+  powerDatapickerExample3aFormSchema = {
+    formSettings: {
+      formName: 'powerDatapickerExample3a',
+      hideSubmitButton: true,
+    },
+    fields: [
+      {
+        fieldId: 'startDate',
+        fieldLabel: 'First day',
+        fieldType: 'powerDatePicker',
+        dateTimeFormat: 'YYYY-MM-DD HH:mm',
+        closeDatePickerOnSelect: true,
+        showTimeSelector: true,
+        timeSelectorFields: 'HH,mm',
+        defaultValue: moment('2022-11-03 14:42', 'YYYY-MM-DD HH:mm'),
       },
-      fields: [
-        {
-          fieldId: 'startDate',
-          fieldLabel: 'First day',
-          fieldType: 'powerDatePicker',
-          dateTimeFormat: 'YYYY-MM-DD HH:mm',
-          closeDatePickerOnSelect: true,
-          showTimeSelector: true,
-          timeSelectorFields: 'HH,mm',
-          defaultValue: moment('2022-11-03 14:42', 'YYYY-MM-DD HH:mm'),
+    ],
+  };
+  // END-SNIPPET
+  // BEGIN-SNIPPET power-datepicker-example-4.js
+  powerDatapickerExample4FormSchema = {
+    formSettings: {
+      formName: 'powerDatapickerExample4',
+      hideSubmitButton: true,
+    },
+    fields: [
+      {
+        fieldId: 'startDate',
+        fieldLabel: 'First day',
+        fieldType: 'powerDatePicker',
+        dateTimeFormat: 'YYYY-MM-DD h:mm:ss a',
+        closeDatePickerOnSelect: true,
+        showTimeSelector: true,
+        timeSelectorFields: 'h,mm,ss',
+        defaultValue: moment('2022-11-03 14:42:19 p', 'YYYY-MM-DD h:mm:ss a'),
+      },
+    ],
+  };
+  // END-SNIPPET
+  // BEGIN-SNIPPET power-datepicker-example-5.js
+  powerDatapickerExample5FormSchema = {
+    formSettings: {
+      formName: 'powerDatapickerExample5',
+      hideSubmitButton: true,
+    },
+    fields: [
+      {
+        fieldId: 'startDate',
+        fieldLabel: 'First day',
+        fieldType: 'powerDatePicker',
+        dateTimeFormat: 'HH:mm:ss.SSSSS DD.MM.YYYY',
+        dateTimeDisplayFormat: 'DD/MM/YYYY HH:mm:ss.SSSS',
+        closeDatePickerOnSelect: true,
+        showTimeSelector: true,
+        timeSelectorFields: 'HH,mm,ss,SS',
+        defaultValue: '14:42:19.14223 03.11.2022',
+        // defaultValue: moment(
+        //   '14:42:19.14223 03.11.2022',
+        //   'HH:mm:ss.SSSSS DD.MM.YYYY'
+        // ),
+        // defaultValue: new Date(2022, 10, 3, 14, 42, 19, 142),
+        // TODO docs
+      },
+    ],
+  };
+  // END-SNIPPET
+  // BEGIN-SNIPPET clicker-example-1.js
+  clickerExample1FormSchema = {
+    formSettings: {
+      formName: 'clickerExample1',
+      hideSubmitButton: true,
+    },
+    fields: [
+      {
+        fieldId: 'toggleAdvanced',
+        fieldType: 'clicker',
+        classNames: {
+          clickerElement: ['$inherited', 'btn', 'btn-primary'],
         },
-      ],
-    };
-    // END-SNIPPET
-    // BEGIN-SNIPPET power-datepicker-example-4.js
-    this.powerDatapickerExample4FormSchema = {
-      formSettings: {
-        formName: 'powerDatapickerExample4',
-        hideSubmitButton: true,
+        clickerText: 'Advanced options',
       },
-      fields: [
-        {
-          fieldId: 'startDate',
-          fieldLabel: 'First day',
-          fieldType: 'powerDatePicker',
-          dateTimeFormat: 'YYYY-MM-DD h:mm:ss a',
-          closeDatePickerOnSelect: true,
-          showTimeSelector: true,
-          timeSelectorFields: 'h,mm,ss',
-          defaultValue: moment('2022-11-03 14:42:19 p', 'YYYY-MM-DD h:mm:ss a'),
+      {
+        fieldId: 'advanced',
+        fieldType: 'input',
+        fieldLabel: 'Advanced setting',
+        hidden: true,
+        advancedSetting: true,
+      },
+    ],
+  };
+  // END-SNIPPET
+  // BEGIN-SNIPPET clicker-example-2.js
+  clickerExample2FormSchema = {
+    formSettings: {
+      formName: 'clickerExample2',
+      hideSubmitButton: true,
+    },
+    fields: [
+      {
+        fieldId: 'toggleAdvanced',
+        fieldType: 'clicker',
+        classNames: {
+          clickerElement: ['$inherited', 'btn'],
         },
-      ],
-    };
-    // END-SNIPPET
-    // BEGIN-SNIPPET power-datepicker-example-5.js
-    this.powerDatapickerExample5FormSchema = {
-      formSettings: {
-        formName: 'powerDatapickerExample5',
-        hideSubmitButton: true,
-      },
-      fields: [
-        {
-          fieldId: 'startDate',
-          fieldLabel: 'First day',
-          fieldType: 'powerDatePicker',
-          dateTimeFormat: 'HH:mm:ss.SSSSS DD.MM.YYYY',
-          dateTimeDisplayFormat: 'DD/MM/YYYY HH:mm:ss.SSSS',
-          closeDatePickerOnSelect: true,
-          showTimeSelector: true,
-          timeSelectorFields: 'HH,mm,ss,SS',
-          defaultValue: '14:42:19.14223 03.11.2022',
-          // defaultValue: moment(
-          //   '14:42:19.14223 03.11.2022',
-          //   'HH:mm:ss.SSSSS DD.MM.YYYY'
-          // ),
-          // defaultValue: new Date(2022, 10, 3, 14, 42, 19, 142),
-          // TODO docs
-        },
-      ],
-    };
-    // END-SNIPPET
-    // BEGIN-SNIPPET clicker-example-1.js
-    this.clickerExample1FormSchema = {
-      formSettings: {
-        formName: 'clickerExample1',
-        hideSubmitButton: true,
-      },
-      fields: [
-        {
-          fieldId: 'toggleAdvanced',
-          fieldType: 'clicker',
-          classNames: {
-            clickerElement: ['$inherited', 'btn', 'btn-primary'],
+        clickerText: 'Advanced options',
+        displayComponent: {
+          path: 'forms/custom-clicker-component',
+          props: {
+            buttonType: 'danger',
           },
-          clickerText: 'Advanced options',
         },
-        {
-          fieldId: 'advanced',
-          fieldType: 'input',
-          fieldLabel: 'Advanced setting',
-          hidden: true,
-          advancedSetting: true,
-        },
-      ],
-    };
-    // END-SNIPPET
-    // BEGIN-SNIPPET clicker-example-2.js
-    this.clickerExample2FormSchema = {
-      formSettings: {
-        formName: 'clickerExample2',
-        hideSubmitButton: true,
       },
-      fields: [
-        {
-          fieldId: 'toggleAdvanced',
-          fieldType: 'clicker',
-          classNames: {
-            clickerElement: ['$inherited', 'btn'],
-          },
-          clickerText: 'Advanced options',
-          displayComponent: {
-            path: 'forms/custom-clicker-component',
-            props: {
-              buttonType: 'danger',
-            },
-          },
-        },
-        {
-          fieldId: 'advanced',
-          fieldType: 'input',
-          fieldLabel: 'Advanced setting',
-          hidden: true,
-          advancedSetting: true,
-        },
-      ],
-    };
-    // END-SNIPPET
-  }
+      {
+        fieldId: 'advanced',
+        fieldType: 'input',
+        fieldLabel: 'Advanced setting',
+        hidden: true,
+        advancedSetting: true,
+      },
+    ],
+  };
+  // END-SNIPPET
 
   // BEGIN-SNIPPET after-datetime-updated-action.js
   @action
   afterDatetimeUpdated(prop, formField, ChangesetWebform) {
     const dateTime = ChangesetWebform.changeset.get('startDate');
-    this.set(`dateTimeOutput${prop}`, {
+    this[`dateTimeOutput${prop}`] = new DateOutput({
       nativeJSFormat: moment(dateTime, formField.dateTimeFormat).toDate(),
       fieldValue: dateTime,
     });

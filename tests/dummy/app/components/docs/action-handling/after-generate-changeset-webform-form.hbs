@@ -27,13 +27,13 @@
         class="btn btn-outline-gray-medium margin-top-lg"
         data-test-id="previous-button"
         type="button"
-        {{action "prev"}}
+        {{on "click" this.prev}}
       >Previous step</button>
       <button
         class="btn btn-outline-gray-medium margin-top-lg"
         data-test-id="next-button"
         type="button"
-        {{action "next"}}
+        {{on "click" this.next}}
       >Next step</button>
     </div>
   </demo.example>

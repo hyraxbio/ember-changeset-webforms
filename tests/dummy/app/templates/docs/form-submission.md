@@ -57,7 +57,7 @@ Then the internal `castAllowedFields` action is triggered. This action runs the 
 
 <DocsDemo as |demo|>
   <demo.example @name="clear-form-form-schema.hbs">
-    <ChangesetWebform @formSchema={{this.clearFormSchema}} @submitAction={{action "doSubmit"}} />
+    <ChangesetWebform @formSchema={{this.clearFormSchema}} @submitAction={{this.doSubmit}} />
   </demo.example>
   <demo.snippet @name="clear-form-form-schema.js" @label="component js" @language="javascript" />
   <demo.snippet @name="clear-form-form-schema.hbs" @label="template" @language="htmlbars" />

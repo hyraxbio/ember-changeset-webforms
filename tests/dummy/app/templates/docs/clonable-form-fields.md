@@ -28,7 +28,7 @@ The example below allows the user to add email addresses, with a minimum of 2 an
 <demo.example @name="clone-group-form.hbs">
 <ChangesetWebform
 @formSchema={{this.formSchema}}
-@submitAction={{action "submit"}}
+@submitAction={{this.submit}}
 data-test-id="clonable-field-basics"
 />
 </demo.example>
@@ -51,7 +51,7 @@ In order to validate on the length of the array, add the `validateLength` valida
 <ChangesetWebform
 @formSchema={{this.formSchema}}
 @data={{this.data}}
-@submitAction={{action "submit"}}
+@submitAction={{this.submit}}
 data-test-id="clonable-field-with-data"
 />
 </demo.example>
@@ -68,7 +68,7 @@ Note that when the array of data passed to a `clone-group` field is longer than 
 <demo.example @name="clone-group-form-with-keyup.hbs">
 <ChangesetWebform
 @formSchema={{this.formSchema2}}
-@submitAction={{action "submit"}}
+@submitAction={{this.submit}}
 data-test-id="clonable-field-countries"
 />
 </demo.example>

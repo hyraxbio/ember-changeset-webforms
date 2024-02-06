@@ -19,8 +19,8 @@ The component can also accept POJO, Ember object or Ember model as its `@data` p
         email="tobias@bluthcompany.com"
         recoveryEmail="test"
       }}
-      @submitAction={{action "submit"}}
-      @submitSuccess={{action "submitSuccess"}}
+      @submitAction={{this.submit}}
+      @submitSuccess={{this.submitSuccess}}
     />
   </demo.example>
   <demo.snippet @name="signup-form.js" @label="component js" @language="javascript" />

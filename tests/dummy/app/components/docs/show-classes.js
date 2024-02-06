@@ -1,8 +1,5 @@
-import { layout as templateLayout } from '@ember-decorators/component';
-import Component from '@ember/component';
-import layout from '../../templates/components/docs/show-classes';
+import Component from '@glimmer/component';
 
-@templateLayout(layout)
 export default class ShowClasses extends Component {
   didInsertElement() {
     super.didInsertElement(...arguments);

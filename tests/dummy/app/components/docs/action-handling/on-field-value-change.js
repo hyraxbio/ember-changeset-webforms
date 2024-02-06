@@ -1,53 +1,48 @@
 import { action } from '@ember/object';
-import Component from '@ember/component';
-
+import Component from '@glimmer/component';
+import { tracked } from '@glimmer/tracking';
 export default class OnFieldValueChange extends Component {
-  init() {
-    super.init(...arguments);
-    // BEGIN-SNIPPET after-field-edit-action-form.js
-    this.userNamesFormSchema = {
-      formSettings: {
-        formName: 'names',
-        submitButtonText: 'Submit', // TODO default setting
-        hideLabels: true,
+  @tracked fullName;
+  // BEGIN-SNIPPET after-field-edit-action-form.js
+  userNamesFormSchema = {
+    formSettings: {
+      formName: 'names',
+      submitButtonText: 'Submit', // TODO default setting
+      hideLabels: true,
+    },
+    fields: [
+      {
+        fieldId: 'firstName',
+        fieldLabel: 'First name',
+        fieldType: 'input',
+        validationRules: [
+          {
+            validationMethod: 'validatePresence',
+            arguments: true,
+          },
+        ],
+        inputType: 'text',
       },
-      fields: [
-        {
-          fieldId: 'firstName',
-          fieldLabel: 'First name',
-          fieldType: 'input',
-          validationRules: [
-            {
-              validationMethod: 'validatePresence',
-              arguments: true,
-            },
-          ],
-          inputType: 'text',
-        },
-        {
-          fieldId: 'lastName',
-          fieldLabel: 'Last name',
-          fieldType: 'input',
-          validationRules: [
-            {
-              validationMethod: 'validatePresence',
-              arguments: true,
-            },
-          ],
-          inputType: 'text',
-        },
-      ],
-    };
-  }
+      {
+        fieldId: 'lastName',
+        fieldLabel: 'Last name',
+        fieldType: 'input',
+        validationRules: [
+          {
+            validationMethod: 'validatePresence',
+            arguments: true,
+          },
+        ],
+        inputType: 'text',
+      },
+    ],
+  };
 
   @action
   onFieldValueChange(formField, changesetWebform) {
-    this.set(
-      'fullName',
-      `${changesetWebform.changeset.get('firstName') || ''} ${changesetWebform.changeset.get('lastName') || ''}`,
-    );
-    this.set('lastUpdateField', formField.fieldLabel);
-    this.set('formName', changesetWebform.formSettings.formName);
+    this.fullName = `${changesetWebform.changeset.get('firstName') || ''} ${changesetWebform.changeset.get('lastName') || ''}`;
+    this.lastUpdateField = formField.fieldLabel;
+    this.formName = changesetWebform.formSettings.formName;
   }
 }
 //END-SNIPPET

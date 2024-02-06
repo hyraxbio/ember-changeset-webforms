@@ -1,56 +1,54 @@
 import { action } from '@ember/object';
 // BEGIN-SNIPPET after-generate-changeset-webform-form.js
-import Component from '@ember/component';
+import Component from '@glimmer/component';
 import validateFields from 'ember-changeset-webforms/utils/validate-fields';
+import { tracked } from '@glimmer/tracking';
 
 export default class AfterGenerateChangesetWebformForm extends Component {
-  step = 1;
+  @tracked step = 1;
 
-  init() {
-    super.init(...arguments);
-    this.formSchema = {
-      formSettings: {
-        formName: 'nameAndEmail',
-        hideSubmitButton: true,
-        hideLabels: true,
+  formSchema = {
+    formSettings: {
+      formName: 'nameAndEmail',
+      hideSubmitButton: true,
+      hideLabels: true,
+    },
+    fields: [
+      {
+        fieldId: 'name',
+        fieldLabel: 'Name',
+        fieldType: 'input',
+        validationRules: [
+          {
+            validationMethod: 'validatePresence',
+            arguments: true,
+          },
+        ],
+        inputType: 'text',
       },
-      fields: [
-        {
-          fieldId: 'name',
-          fieldLabel: 'Name',
-          fieldType: 'input',
-          validationRules: [
-            {
-              validationMethod: 'validatePresence',
-              arguments: true,
-            },
-          ],
-          inputType: 'text',
-        },
-        {
-          fieldId: 'email',
-          fieldLabel: 'Email',
-          fieldType: 'input',
-          validationEvents: ['insert'],
-          validationRules: [
-            {
-              validationMethod: 'validatePresence',
-              arguments: true,
-            },
-            {
-              validationMethod: 'validateFormat',
-              arguments: { type: 'email' },
-            },
-          ],
-          inputType: 'email',
-        },
-      ],
-    };
-  }
+      {
+        fieldId: 'email',
+        fieldLabel: 'Email',
+        fieldType: 'input',
+        validationEvents: ['insert'],
+        validationRules: [
+          {
+            validationMethod: 'validatePresence',
+            arguments: true,
+          },
+          {
+            validationMethod: 'validateFormat',
+            arguments: { type: 'email' },
+          },
+        ],
+        inputType: 'email',
+      },
+    ],
+  };
 
   @action
   afterGenerateChangesetWebform(changesetWebform) {
-    this.set('changesetWebform', changesetWebform);
+    this.changesetWebform = changesetWebform;
   }
 
   @action
@@ -59,7 +57,7 @@ export default class AfterGenerateChangesetWebformForm extends Component {
     const changesetWebform = this.changesetWebform;
     validateFields(changesetWebform).then(() => {
       if (changesetWebform.changeset.isValid) {
-        this.set('step', currentStep + 1);
+        this.step = currentStep + 1;
       }
     });
   }
@@ -67,7 +65,7 @@ export default class AfterGenerateChangesetWebformForm extends Component {
   @action
   prev() {
     const currentStep = this.step;
-    this.set('step', currentStep - 1);
+    this.step = currentStep - 1;
   }
 }
 //END-SNIPPET

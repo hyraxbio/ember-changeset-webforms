@@ -1,9 +1,6 @@
-import { layout as templateLayout } from '@ember-decorators/component';
 import { computed } from '@ember/object';
-import Component from '@ember/component';
-import layout from '../templates/components/interpolated-simple-js-snippet';
+import Component from '@glimmer/component';
 
-@templateLayout(layout)
 export default class InterpolatedSimpleJsSnippet extends Component {
   @computed('object', 'excludeKeys')
   get string() {

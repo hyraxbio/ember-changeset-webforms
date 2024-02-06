@@ -18,7 +18,7 @@ The underlying classes for `formSettings`, and `fields` (as well as cloned field
   <demo.example @name="external-props-form.hbs">
     <ChangesetWebform 
       @formSchema={{this.formSchema}} 
-      @onUserInteraction={{action "updateExternalProps"}} 
+      @onUserInteraction={{this.updateExternalProps}} 
      />
   </demo.example>
   <demo.snippet @name="external-props-form.js" @label="component js" @language="javascript" />

@@ -388,7 +388,7 @@ When the field is inersted, it will parse the supplied datetime into the format 
       <FormattedDatetimes @data={{this.dateTimeOutput1}} />
       <ChangesetWebform 
         @formSchema={{this.powerDatapickerExample1FormSchema}}
-        @onFieldValueChange={{action "afterDatetimeUpdated" "1"}} />
+        @onFieldValueChange={{fn this.afterDatetimeUpdated "1"}} />
     </div>
   </demo.example>
   <demo.snippet @name="power-datepicker-example-1.js" @label="component js" @language="javascript" />
@@ -410,7 +410,7 @@ Note that setting `showTimeSelector` to`true` will have no effect if `fixedTime`
       <FormattedDatetimes @data={{this.dateTimeOutput1b}} />
       <ChangesetWebform 
         @formSchema={{this.powerDatapickerExample1bFormSchema}}
-        @onFieldValueChange={{action "afterDatetimeUpdated" "1b"}} />
+        @onFieldValueChange={{fn this.afterDatetimeUpdated "1b"}} />
     </div>
   </demo.example>
   <demo.snippet @name="power-datepicker-example-1b.js" @label="component js" @language="javascript" />
@@ -430,7 +430,7 @@ If the user types a date into the trigger input which is before `minDate` or aft
       <FormattedDatetimes @data={{this.dateTimeOutput1c}} />
       <ChangesetWebform 
         @formSchema={{this.powerDatapickerExample1cFormSchema}}
-        @onFieldValueChange={{action "afterDatetimeUpdated" "1c"}} />
+        @onFieldValueChange={{fn this.afterDatetimeUpdated "1c"}} />
     </div>
   </demo.example>
   <demo.snippet @name="power-datepicker-example-1c.js" @label="component js" @language="javascript" />
@@ -458,7 +458,7 @@ If the user input is lower than the minimum value for the relevant time unit, th
       <FormattedDatetimes @data={{this.dateTimeOutput3}} />
       <ChangesetWebform 
         @formSchema={{this.powerDatapickerExample3FormSchema}}
-        @onFieldValueChange={{action "afterDatetimeUpdated" "3"}} />
+        @onFieldValueChange={{fn this.afterDatetimeUpdated "3"}} />
     </div> 
   </demo.example>
   <demo.snippet @name="power-datepicker-example-3.js" @label="component js" @language="javascript" />
@@ -480,7 +480,7 @@ The example below shows a time selector component with just hours and minutes.
       <FormattedDatetimes @data={{this.dateTimeOutput3a}} />
       <ChangesetWebform 
         @formSchema={{this.powerDatapickerExample3aFormSchema}}
-        @onFieldValueChange={{action "afterDatetimeUpdated" "3a"}} />
+        @onFieldValueChange={{fn this.afterDatetimeUpdated "3a"}} />
     </div> 
   </demo.example>
   <demo.snippet @name="power-datepicker-example-3a.js" @label="component js" @language="javascript" />
@@ -500,7 +500,7 @@ The AM/PM input can be updated wither by typing in the input, or using arrow up 
       <FormattedDatetimes @data={{this.dateTimeOutput4}} />
       <ChangesetWebform 
         @formSchema={{this.powerDatapickerExample4FormSchema}}
-        @onFieldValueChange={{action "afterDatetimeUpdated" "4"}} />
+        @onFieldValueChange={{fn this.afterDatetimeUpdated "4"}} />
     </div>
   </demo.example>
   <demo.snippet @name="power-datepicker-example-4.js" @label="component js" @language="javascript" />
@@ -522,7 +522,7 @@ This could be useful where your server requires one date format, but your users 
       <FormattedDatetimes @data={{this.dateTimeOutput5}} />
       <ChangesetWebform 
         @formSchema={{this.powerDatapickerExample5FormSchema}}
-        @onFieldValueChange={{action "afterDatetimeUpdated" "5"}}
+        @onFieldValueChange={{fn this.afterDatetimeUpdated "5"}}
        />
     </div> 
   </demo.example>
@@ -548,7 +548,7 @@ Renders a `div` element with `role="button"` the classNames provided. The inner 
     <div data-test-id="clicker-example-1">
       <ChangesetWebform 
         @formSchema={{this.clickerExample1FormSchema}} 
-        @onUserInteraction={{action "onUserInteractionClicker1"}}/>
+        @onUserInteraction={{this.onUserInteractionClicker1}}/>
     </div> 
   </demo.example>
   <demo.snippet @name="clicker-example-1.js" @label="component js" @language="javascript" />
@@ -589,7 +589,7 @@ If using a `button` element in your custom clicker component, bear in mind that 
     <div data-test-id="clicker-example-2">
       <ChangesetWebform 
         @formSchema={{this.clickerExample2FormSchema}} 
-        @onUserInteraction={{action "onUserInteractionClicker1"}}/>
+        @onUserInteraction={{this.onUserInteractionClicker1}}/>
     </div> 
   </demo.example>
   <demo.snippet @name="clicker-example-2.js" @label="component js" @language="javascript" />

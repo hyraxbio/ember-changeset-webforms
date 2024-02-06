@@ -1,9 +1,6 @@
-import { layout as templateLayout } from '@ember-decorators/component';
 import { computed } from '@ember/object';
-import Component from '@ember/component';
-import layout from '../../templates/components/forms/power-select-selected-item-component';
+import Component from '@glimmer/component';
 
-@templateLayout(layout)
 export default class PowerSelectSelectedItemComponent extends Component {
   init() {
     super.init(arguments);

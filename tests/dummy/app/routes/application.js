@@ -7,9 +7,9 @@ export default Route.extend({
   actions: {
     loading(transition) {
       var self = this;
-      this.set('session.hideContent', true);
+      this.session.hideContent = true;
       transition.promise.finally(function () {
-        self.set('session.hideContent', false);
+        self.session.hideContent = false;
       });
     },
     refreshModel() {
