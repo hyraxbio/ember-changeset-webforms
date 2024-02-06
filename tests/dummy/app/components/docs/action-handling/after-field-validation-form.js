@@ -65,4 +65,4 @@ export default class AfterFieldValidationForm extends Component {
     this.formName = changesetWebform.formSettings.formName;
   }
 }
-//END-SNIPPET
+// END-SNIPPET

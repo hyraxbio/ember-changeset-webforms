@@ -1,4 +1,4 @@
-//BEGIN-SNIPPET uniqueness-validator.js
+// BEGIN-SNIPPET uniqueness-validator.js
 // validators/uniqueness.js
 export default function validateUniqueness(opts = {}) {
   return (key, newValue, _oldValue, changes, content) => {
@@ -15,4 +15,4 @@ export default function validateUniqueness(opts = {}) {
     return response;
   };
 }
-//END-SNIPPET
+// END-SNIPPET

@@ -45,5 +45,5 @@ export default class OnFieldValueChange extends Component {
     this.formName = changesetWebform.formSettings.formName;
   }
 }
-//END-SNIPPET
+// END-SNIPPET
 // TODO formSettings should be editable- ie should pass the class.

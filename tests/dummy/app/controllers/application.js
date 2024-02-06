@@ -58,4 +58,4 @@ export default class Application extends Controller {
   }
 }
 
-//END-SNIPPET
+// END-SNIPPET
