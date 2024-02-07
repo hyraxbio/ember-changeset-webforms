@@ -1,7 +1,6 @@
 import Component from '@glimmer/component';
-
-  export default class InputExampleOneComponent extends Component {
-  
+import { action } from '@ember/object';
+export default class InputExampleOneComponent extends Component {
   // BEGIN-SNIPPET input-example-1.js
   inputExample1FormSchema = {
     formSettings: {
@@ -16,7 +15,12 @@ import Component from '@glimmer/component';
       },
     ],
   };
+
+  @action
+  onUserInteraction(...args) {
+    console.log(args);
+  }
   // END-SNIPPET
 
-// end-of-conent 
+  // end-of-conent
 }

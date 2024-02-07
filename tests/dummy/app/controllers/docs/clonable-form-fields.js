@@ -10,9 +10,6 @@ export default class ClonableFormFields extends Controller {
     );
   }
 
-
-
-
   @action
   submit() {}
 }

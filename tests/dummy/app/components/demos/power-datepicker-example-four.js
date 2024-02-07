@@ -1,8 +1,9 @@
-import Component from '@glimmer/component';
+import PowerDatePickerExampleGeneric from './power-datepicker-example-generic';
+import moment from 'moment';
 
-export default class PowerDateickerExampleFourComponent extends Component {
+export default class PowerDateickerExampleFourComponent extends PowerDatePickerExampleGeneric {
   // BEGIN-SNIPPET power-datepicker-example-4.js
-  powerDatapickerExample4FormSchema = {
+  formSchema = {
     formSettings: {
       formName: 'powerDatapickerExample4',
       hideSubmitButton: true,

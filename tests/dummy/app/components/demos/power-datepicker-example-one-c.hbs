@@ -1,13 +1,26 @@
 <DocsDemo as |demo|>
   <demo.example @name="power-datepicker-example-1c.hbs">
     <div data-test-id="power-datepicker-min-max-date">
-      <FormattedDatetimes @data={{this.dateTimeOutput1c}} />
-      <ChangesetWebform 
-        @formSchema={{this.powerDatapickerExample1cFormSchema}}
-        @onFieldValueChange={{fn this.afterDatetimeUpdated "1c"}} />
+      <FormattedDatetimes @data={{this.dateTimeOutput}} />
+      <ChangesetWebform
+        @formSchema={{this.formSchema}}
+        @onFieldValueChange={{this.afterDatetimeUpdated}}
+      />
     </div>
   </demo.example>
-  <demo.snippet @name="power-datepicker-example-1c.js" @label="component js" @language="javascript" />
-  <demo.snippet @name="power-datepicker-example-1c.hbs" @label="template" @language="htmlbars" />
-  <demo.snippet @name="after-datetime-updated-action.js" @label="action handing" @language="javascript" />
+  <demo.snippet
+    @name="power-datepicker-example-1c.js"
+    @label="component js"
+    @language="javascript"
+  />
+  <demo.snippet
+    @name="power-datepicker-example-1c.hbs"
+    @label="template"
+    @language="htmlbars"
+  />
+  <demo.snippet
+    @name="after-datetime-updated-action.js"
+    @label="action handing"
+    @language="javascript"
+  />
 </DocsDemo>

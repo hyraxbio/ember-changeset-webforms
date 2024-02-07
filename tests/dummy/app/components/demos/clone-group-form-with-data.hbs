@@ -1,13 +1,25 @@
 <DocsDemo as |demo|>
-<demo.example @name="clone-group-form-with-data.hbs">
-<ChangesetWebform
-@formSchema={{this.formSchema}}
-@data={{this.data}}
-@submitAction={{this.submit}}
-data-test-id="clonable-field-with-data"
-/>
-</demo.example>
-<demo.snippet @name="clone-group-form-data.js" @label="data" @language="javascript" />
-<demo.snippet @name="clone-group-form-with-data.hbs" @label="template" @language="htmlbars" />
-<demo.snippet @name="clone-group-form.js" @label="component js" @language="javascript" />
+  <demo.example @name="clone-group-form-with-data.hbs">
+    <ChangesetWebform
+      @formSchema={{this.formSchema}}
+      @data={{this.data}}
+      @submitAction={{this.submit}}
+      data-test-id="clonable-field-with-data"
+    />
+  </demo.example>
+  <demo.snippet
+    @name="clone-group-form-data.js"
+    @label="data"
+    @language="javascript"
+  />
+  <demo.snippet
+    @name="clone-group-form-with-data.hbs"
+    @label="template"
+    @language="htmlbars"
+  />
+  <demo.snippet
+    @name="clone-group-form.js"
+    @label="component js"
+    @language="javascript"
+  />
 </DocsDemo>

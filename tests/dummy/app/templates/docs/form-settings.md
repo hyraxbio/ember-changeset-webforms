@@ -10,8 +10,6 @@ The only required setting is `formName` which must be unique from that of any ot
 
 <Demos::SignupForm />
 
-
-
 <Demos::ClearAfterSubmitFormSchema />
 
 ## Tracked form settings

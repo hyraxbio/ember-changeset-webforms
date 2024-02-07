@@ -272,8 +272,6 @@ When the field is inersted, it will parse the supplied datetime into the format 
 
 <Demos::PowerDatepickerExampleOne />
 
-
-
 ### With fixed time
 
 `fixedTime` can be passed in the format `HH:mm:ss.SSS`. When present, the time portion of the field values will be fixed to this value.
@@ -374,7 +372,7 @@ Pass `displayComponent` as an object containing:
 If using a `button` element in your custom clicker component, bear in mind that the default `type` of a button is `submit`. Thus, if you don't add a type to your button, clicking it will result in a form submission. Setting `type="button"` is recommended.
 
 {{#docs-snippet name="custom-clicker-component.hbs"}}
-<button data-test-class="cwf-clicker-element" type="button" onclick={{action this.onClick}} class={{this.classNames}}><b>{{this.formField.clickerText}}</b> {{component this.icon}}</button>
+<button data-test-class="cwf-clicker-element" type="button" {{on "click" this.onClick}} class={{this.classNames}}><b>{{this.formField.clickerText}}</b> {{component this.icon}}</button>
 {{/docs-snippet}}
 
 <Forms::ClickerExampleTwoFormSchema />

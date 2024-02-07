@@ -10,9 +10,7 @@
         <h2>Step 1</h2>
         <ChangesetWebform
           @formSchema={{this.formSchema}}
-          @afterGenerateChangesetWebform={{action
-            "afterGenerateChangesetWebform"
-          }}
+          @afterGenerateChangesetWebform={{this.afterGenerateChangesetWebform}}
           data-test-id="after-generate-changeset-webform-form"
         />
       </div>

@@ -1,13 +1,26 @@
 <DocsDemo as |demo|>
   <demo.example @name="power-datepicker-example-3a.hbs">
     <div data-test-id="power-datepicker-custom-time-select">
-      <FormattedDatetimes @data={{this.dateTimeOutput3a}} />
-      <ChangesetWebform 
-        @formSchema={{this.powerDatapickerExample3aFormSchema}}
-        @onFieldValueChange={{fn this.afterDatetimeUpdated "3a"}} />
-    </div> 
+      <FormattedDatetimes @data={{this.dateTimeOutput}} />
+      <ChangesetWebform
+        @formSchema={{this.formSchema}}
+        @onFieldValueChange={{this.afterDatetimeUpdated}}
+      />
+    </div>
   </demo.example>
-  <demo.snippet @name="power-datepicker-example-3a.js" @label="component js" @language="javascript" />
-  <demo.snippet @name="power-datepicker-example-3a.hbs" @label="template" @language="htmlbars" />
-  <demo.snippet @name="after-datetime-updated-action.js" @label="action handing" @language="javascript" />
+  <demo.snippet
+    @name="power-datepicker-example-3a.js"
+    @label="component js"
+    @language="javascript"
+  />
+  <demo.snippet
+    @name="power-datepicker-example-3a.hbs"
+    @label="template"
+    @language="htmlbars"
+  />
+  <demo.snippet
+    @name="after-datetime-updated-action.js"
+    @label="action handing"
+    @language="javascript"
+  />
 </DocsDemo>
