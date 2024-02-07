@@ -1,9 +1,8 @@
 import Component from '@glimmer/component';
 
-  export default class ClearAfterSubmitFormSchemaComponent extends Component {
-  
+export default class ClearAfterSubmitFormComponent extends Component {
   // BEGIN-SNIPPET clear-after-submit-form-schema.js
-  clearFormSchema = {
+  formSchema = {
     formSettings: {
       formName: 'clearAfterSubmitForm',
       clearFormAfterSubmit: true,
@@ -27,5 +26,5 @@ import Component from '@glimmer/component';
   };
   // END-SNIPPET
 
-// end-of-conent 
+  // end-of-conent
 }

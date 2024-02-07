@@ -1,9 +1,8 @@
 import Component from '@glimmer/component';
 
-  export default class ValidationClassSettingsComponent extends Component {
-  
+export default class ValidationClassSettingsComponent extends Component {
   // BEGIN-SNIPPET validation-class-settings.js"
-  validationClassesFormSchema = {
+  formSchema = {
     formSettings: {
       formName: 'validationClassNames',
       hideSubmitButton: true,
@@ -28,5 +27,5 @@ import Component from '@glimmer/component';
   };
   // END-SNIPPET
 
-// end-of-conent 
+  // end-of-conent
 }

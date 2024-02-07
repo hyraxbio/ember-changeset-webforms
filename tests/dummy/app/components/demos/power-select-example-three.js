@@ -1,9 +1,8 @@
 import Component from '@glimmer/component';
 
-  export default class PowerSelectExampleThreeComponent extends Component {
-  
+export default class PowerSelectExampleThreeComponent extends Component {
   // BEGIN-SNIPPET power-select-example-3.js
-  powerSelectExample3FormSchema = {
+  formSchema = {
     formSettings: {
       formName: 'powerSelectExample3',
       hideSubmitButton: true,
@@ -21,5 +20,5 @@ import Component from '@glimmer/component';
   };
   // END-SNIPPET
 
-// end-of-conent 
+  // end-of-conent
 }

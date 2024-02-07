@@ -1,9 +1,8 @@
 import Component from '@glimmer/component';
 
-  export default class FieldSpecificClassSettingsComponent extends Component {
-  
+export default class FieldSpecificClassSettingsComponent extends Component {
   // BEGIN-SNIPPET field-specific-class-settings.js"
-  fieldSpecificClassesFormSchema = {
+  formSchema = {
     formSettings: {
       formName: 'fieldClassNames',
       hideSubmitButton: true,
@@ -39,5 +38,5 @@ import Component from '@glimmer/component';
   };
   // END-SNIPPET
 
-// end-of-conent 
+  // end-of-conent
 }

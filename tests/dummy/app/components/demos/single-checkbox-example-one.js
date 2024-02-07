@@ -1,9 +1,8 @@
 import Component from '@glimmer/component';
 
-  export default class SingleCheckboxExampleOneComponent extends Component {
-  
+export default class SingleCheckboxExampleOneComponent extends Component {
   // BEGIN-SNIPPET single-checkbox-example-1.js
-  singleCheckboxExample1FormSchema = {
+  formSchema = {
     formSettings: {
       formName: 'singleCheckboxExample1',
       hideSubmitButton: true,
@@ -18,5 +17,5 @@ import Component from '@glimmer/component';
   };
   // END-SNIPPET
 
-// end-of-conent 
+  // end-of-conent
 }

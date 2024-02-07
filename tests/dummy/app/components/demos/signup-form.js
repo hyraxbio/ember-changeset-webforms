@@ -2,7 +2,7 @@ import Component from '@glimmer/component';
 
 export default class SignupFormComponent extends Component {
   // BEGIN-SNIPPET signup-form.js
-  signupFormSchema = {
+  formSchema = {
     formSettings: {
       formName: 'signup',
       submitSuccessMessage: 'Thank you for signing up.',

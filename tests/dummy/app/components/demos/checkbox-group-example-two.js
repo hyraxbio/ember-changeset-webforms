@@ -1,9 +1,8 @@
 import Component from '@glimmer/component';
 
-  export default class CheckboxGroupExampleTwoComponent extends Component {
-  
+export default class CheckboxGroupExampleTwoComponent extends Component {
   // BEGIN-SNIPPET checkbox-group-example-2.js
-  checkboxGroupExample2FormSchema = {
+  formSchema = {
     formSettings: {
       formName: 'checkboxGroupExample2',
       hideSubmitButton: true,
@@ -44,5 +43,5 @@ import Component from '@glimmer/component';
   };
   // END-SNIPPET
 
-// end-of-conent 
+  // end-of-conent
 }

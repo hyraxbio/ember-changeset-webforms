@@ -2,7 +2,7 @@ import Component from '@glimmer/component';
 import { action } from '@ember/object';
 export default class InputExampleOneComponent extends Component {
   // BEGIN-SNIPPET input-example-1.js
-  inputExample1FormSchema = {
+  formSchema = {
     formSettings: {
       formName: 'inputExample1',
       hideSubmitButton: true,

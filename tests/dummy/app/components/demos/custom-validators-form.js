@@ -5,7 +5,7 @@ import customValidators from '../../validators';
 export default class IntegratingCustomValidators extends Component {
   customValidators = customValidators;
 
-  uniquenessFormSchema = {
+  formSchema = {
     formSettings: {
       formName: 'unique',
       submitButtonText: 'Submit',

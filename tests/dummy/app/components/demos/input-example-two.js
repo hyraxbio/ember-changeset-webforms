@@ -1,9 +1,8 @@
 import Component from '@glimmer/component';
 
-  export default class InputExampleTwoComponent extends Component {
-  
+export default class InputExampleTwoComponent extends Component {
   // BEGIN-SNIPPET input-example-2.js
-  inputExample2FormSchema = {
+  formSchema = {
     formSettings: {
       formName: 'inputExample2',
       hideSubmitButton: true,
@@ -20,5 +19,5 @@ import Component from '@glimmer/component';
   };
   // END-SNIPPET
 
-// end-of-conent 
+  // end-of-conent
 }

@@ -1,9 +1,8 @@
 import Component from '@glimmer/component';
 
-  export default class InheritClassSettingsComponent extends Component {
-  
+export default class InheritClassSettingsComponent extends Component {
   // BEGIN-SNIPPET inherit-class-settings.js"
-  inheritClassesFormSchema = {
+  formSchema = {
     formSettings: {
       formName: 'inheritClassNames',
       hideSubmitButton: true,
@@ -21,5 +20,5 @@ import Component from '@glimmer/component';
   };
   // END-SNIPPET
 
-// end-of-conent 
+  // end-of-conent
 }

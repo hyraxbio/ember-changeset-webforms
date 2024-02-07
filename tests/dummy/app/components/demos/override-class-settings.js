@@ -1,9 +1,8 @@
 import Component from '@glimmer/component';
 
-  export default class OverrideClassSettingsComponent extends Component {
-  
+export default class OverrideClassSettingsComponent extends Component {
   // BEGIN-SNIPPET override-class-settings.js"
-  overrideClassesFormSchema = {
+  formSchema = {
     formSettings: {
       formName: 'overrideClassNames',
       hideSubmitButton: true,
@@ -21,5 +20,5 @@ import Component from '@glimmer/component';
   };
   // END-SNIPPET
 
-// end-of-conent 
+  // end-of-conent
 }

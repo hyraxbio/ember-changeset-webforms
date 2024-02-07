@@ -2,7 +2,7 @@ import Component from '@glimmer/component';
 
 export default class RadioButtonGroupExampleOneComponent extends Component {
   // BEGIN-SNIPPET radio-button-group-example-1.js
-  radioButtonGroupExample1FormSchema = {
+  formSchema = {
     formSettings: {
       formName: 'radioButtonGroupExample1',
       hideSubmitButton: true,

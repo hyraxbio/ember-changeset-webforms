@@ -1,12 +1,16 @@
 <DocsDemo as |demo|>
   <demo.example @name="login-form-2.hbs">
-    <ChangesetWebform 
-      @formSchema={{this.formSchema}} 
+    <ChangesetWebform
+      @formSchema={{this.formSchema}}
       @data={{hash email="andrew.paterson@test.com"}}
-      @submitAction={{this.submit}} 
-      @submitSuccess={{this.submitSuccess}} 
-     />
+      @submitAction={{this.submit}}
+      @submitSuccess={{this.submitSuccess}}
+    />
   </demo.example>
-  <demo.snippet @name="login-form.js" @label="component js" @language="javascript" />
+  <demo.snippet
+    @name="login-form.js"
+    @label="component js"
+    @language="javascript"
+  />
   <demo.snippet @name="login-form.hbs" @label="template" @language="htmlbars" />
 </DocsDemo>

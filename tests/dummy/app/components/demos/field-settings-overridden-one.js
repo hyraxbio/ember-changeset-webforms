@@ -1,7 +1,6 @@
 import Component from '@glimmer/component';
 
-  export default class FieldSettingsOverriddenOneComponent extends Component {
-  
+export default class FieldSettingsOverriddenOneComponent extends Component {
   // BEGIN-SNIPPET field-settings-overridden.js
   formSchema = {
     formSettings: {
@@ -33,5 +32,5 @@ import Component from '@glimmer/component';
   };
   // END-SNIPPET
 
-// end-of-conent 
+  // end-of-conent
 }

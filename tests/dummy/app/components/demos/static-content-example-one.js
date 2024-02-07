@@ -1,9 +1,8 @@
 import Component from '@glimmer/component';
 
-  export default class StaticContentExampleOneComponent extends Component {
-  
+export default class StaticContentExampleOneComponent extends Component {
   // BEGIN-SNIPPET static-content-example-1.js
-  staticContentExample1FormSchema = {
+  formSchema = {
     formSettings: {
       formName: 'staticContentExample1',
       hideSubmitButton: true,
@@ -20,5 +19,5 @@ import Component from '@glimmer/component';
   };
   // END-SNIPPET
 
-// end-of-conent 
+  // end-of-conent
 }

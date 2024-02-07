@@ -1,7 +1,6 @@
 import Component from '@glimmer/component';
 
-  export default class CloneGroupFormWithKeyupComponent extends Component {
-  
+export default class CloneGroupFormWithKeyupComponent extends Component {
   // BEGIN-SNIPPET clone-group-form-keyup.js
   formSchema2 = {
     formSettings: {
@@ -37,5 +36,5 @@ import Component from '@glimmer/component';
   };
   // END-SNIPPET
 
-// end-of-conent 
+  // end-of-conent
 }

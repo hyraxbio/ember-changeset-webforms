@@ -1,9 +1,8 @@
 import Component from '@glimmer/component';
 
-  export default class TextareaExampleOneComponent extends Component {
-  
+export default class TextareaExampleOneComponent extends Component {
   // BEGIN-SNIPPET textarea-example-1.js
-  textareaExample1FormSchema = {
+  formSchema = {
     formSettings: {
       formName: 'textareaExample1',
       hideSubmitButton: true,
@@ -19,5 +18,5 @@ import Component from '@glimmer/component';
   };
   // END-SNIPPET
 
-// end-of-conent 
+  // end-of-conent
 }

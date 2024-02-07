@@ -2,7 +2,7 @@ import Component from '@glimmer/component';
 
 export default class FieldSettingsOverriddenComponent extends Component {
   // BEGIN-SNIPPET app-wide-class-settings.js"
-  appWideClassesFormSchema = {
+  formSchema = {
     formSettings: {
       formName: 'appClassNames',
       hideSubmitButton: true,
