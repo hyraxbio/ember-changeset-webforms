@@ -91,7 +91,6 @@ export default class ValidatingField extends Component {
       this.setFieldValue(value, formField); // this.send
     } else if (eventType === 'focusOut') {
       formField.focussed = false;
-      formField.eventLog.pushObject('focusOut');
       if (
         value &&
         formField.trim &&

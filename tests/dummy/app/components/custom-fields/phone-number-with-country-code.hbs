@@ -1,0 +1,39 @@
+{{@displayValue}}
+<div class="flex">
+  <PowerSelect
+    @triggerClass={{concat
+      "validation-area "
+      (ember-changeset-webforms/dynamic-class-names
+        "countryCodeSelect" @changesetWebform @formField
+      )
+    }}
+    @options={{this.countryCodes}}
+    @selected={{this.selectedCountryCode}}
+    @allowClear={{false}}
+    @searchEnabled={{false}}
+    @placeholder="Country code"
+    @onChange={{fn this.codeSelected @formField}}
+    @disabled={{@formField.disabled}}
+    as |option|
+  >
+    {{option.code}}
+    -
+    {{option.name}}
+  </PowerSelect>
+  <input
+    class="{{ember-changeset-webforms/dynamic-class-names
+        'inputElement'
+        @changesetWebform
+        @formField
+      }}"
+    {{on "focusout" this.inputFocusOut}}
+    {{on "focusin" this.inputFocusIn}}
+    {{on "keyup" this.inputKeyUp}}
+    {{on "change" this.inputChange}}
+    value={{readonly this.displayObject.phoneNumber}}
+    type="text"
+    readonly={{@formField.readonly}}
+    disabled={{@formField.disabled}}
+    name={{concat @formField.name "-phone-number-input"}}
+  />
+</div>

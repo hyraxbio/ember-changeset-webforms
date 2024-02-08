@@ -39,6 +39,17 @@ module.exports = function (environment) {
         labelElement: ['$inherited', 'radio-button-group-label'],
       },
     },
+    {
+      fieldType: 'phoneNumberWithCountryCode',
+      componentPath: 'custom-fields/phone-number-with-country-code',
+      classNames: {
+        countryCodeSelect: [
+          '$validationClassNames',
+          'form-control',
+          'country-code-select',
+        ],
+      },
+    },
   ];
   // END-SNIPPET
 

@@ -11,6 +11,7 @@ export default class FormField {
   // BEGIN-SNIPPET field-settings-tracked-props.js
   @tracked hidden;
   @tracked disabled;
+  @tracked hideValidation;
   // END-SNIPPET
   constructor(args) {
     for (const key in args) {
@@ -35,6 +36,11 @@ export default class FormField {
     if (!this.validates) {
       return null;
     }
+
+    if (this.hideValidation) {
+      return null;
+    }
+
     if (!validationEventObj(this.validationEvents, 'keyUp') && this.focussed) {
       return null;
     }

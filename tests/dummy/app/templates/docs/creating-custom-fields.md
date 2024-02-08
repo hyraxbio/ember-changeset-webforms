@@ -1,5 +1,7 @@
 # Creating custom fields
 
+<Demos::CustomField />
+
 Creating custom fields content
 
 ** Make sure it knows what to do if disabled.

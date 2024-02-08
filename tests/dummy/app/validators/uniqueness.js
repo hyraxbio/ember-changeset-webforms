@@ -15,4 +15,4 @@ export default function validateUniqueness(opts = {}) {
     return response;
   };
 }
-// END-SNIPPET
+//END-SNIPPET

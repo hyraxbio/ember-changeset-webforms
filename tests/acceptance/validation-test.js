@@ -20,7 +20,7 @@ module('Acceptance | Field validation', function (hooks) {
 
   test('Validation events', async function (assert) {
     await visit('/docs/field-validation');
-    assert.notOk(
+    await assert.notOk(
       cth.wasValidated(`${dummyEls.nameField}`),
       'Field with validation event "insert" is not validated when empty on insert.',
     );
