@@ -30,7 +30,7 @@ export default class AfterGenerateChangesetWebformForm extends Component {
         fieldId: 'email',
         fieldLabel: 'Email',
         fieldType: 'input',
-        validationEvents: ['insert'],
+        validatesOn: ['insert'],
         validationRules: [
           {
             validationMethod: 'validatePresence',

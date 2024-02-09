@@ -1,8 +1,5 @@
-export default function validationEventLog(formField) {
-  const validationEventNames = formField.validationEvents.map(
-    (item) => item.event,
+export default function eventLogValidated(formField) {
+  return formField.validatesOn.filter((eventName) =>
+    formField.eventLog.includes(eventName),
   );
-  return validationEventNames.filter((validationEventName) => {
-    return formField.eventLog.indexOf(validationEventName) > -1;
-  });
 }

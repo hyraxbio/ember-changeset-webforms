@@ -1,7 +1,7 @@
 import { action } from '@ember/object';
 import Component from '@glimmer/component';
 import FormFieldClone from 'ember-changeset-webforms/utils/form-field-clone';
-import validationEventLog from 'ember-changeset-webforms/utils/validation-event-log';
+import eventLogValidated from 'ember-changeset-webforms/utils/validation-event-log';
 import { tracked } from '@glimmer/tracking';
 
 export default class ValidatingCloneGroup extends Component {
@@ -25,7 +25,7 @@ export default class ValidatingCloneGroup extends Component {
       return null;
     }
     if (
-      !validationEventLog(formField).filter((item) => !item.endsWith('Clone'))
+      !formField.eventLogValidated.filter((item) => !item.endsWith('Clone'))
         .length
     ) {
       return null;

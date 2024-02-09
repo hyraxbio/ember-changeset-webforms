@@ -20,7 +20,8 @@ export default class CloneGroupFormWithKeyupComponent extends Component {
           fieldType: 'input',
           inputType: 'text',
           hideLabel: true,
-          validationEvents: ['keyUp'],
+          showValidationWhenFocussed: true,
+          // validatesOn: ['keyUp'],
           validationRules: [
             {
               validationMethod: 'validateLength',

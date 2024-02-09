@@ -13,7 +13,7 @@ export default class DemosCustomFieldComponent extends Component {
         fieldType: 'input',
         fieldLabel: 'Name',
         inputType: 'text',
-        // validationEvents: [],
+        // validatesOn: [],
         validationRules: [
           {
             validationMethod: 'validatePresence',
@@ -33,7 +33,8 @@ export default class DemosCustomFieldComponent extends Component {
         fieldType: 'phoneNumberWithCountryCode',
         fieldLabel: 'Phone number',
         defaultValue: '93 1234567890',
-        validationEvents: ['focusOutPhoneInput', 'keyUpPhoneNumberInput'],
+        showValidationWhenFocussed: false,
+        validatesOn: ['focusOutPhoneNumberInput'],
         validationRules: [
           {
             validationMethod: 'validateFormat',

@@ -116,14 +116,15 @@ const addonDefaults = {
     name: null, // String - defaults to the fieldId
     // BEGIN-SNIPPET generic-field-settings.js
     validationRules: [], // Array of objects defining validation rules. See "Validation".
-    validationEvents: [], // Array of strings, possible values include focusOut, keyUp, onChange // TODO check onChanger as validation event
+    validatesOn: [], // Array of strings, possible values include focusOut, keyUp, onChange // TODO check onChanger as validation event
     alwaysValidateOn: [
       'focusOut',
       'change',
       'submit',
       'removeClone',
       'optionSelected',
-    ], // Array of strings, possible values include focusOut, keyUp, onChange // TODO check onChange as validation event
+    ], // Array of strings
+    showValidationWhenFocussed: null, // Boolean - unless this is tru, validation colours, icons and messages will be hidden for as long as the "focussed" prop of a field is true. The build in input and textarea fields set focussed to true when the user focuesses the element.
     hideSuccessValidation: null, // Boolean - only show validation colours when field validation fails
     hidden: null, // Boolean - if true, the field is hidden and also ignored when validating or submitting the form
     castOut: null, // Boolean - exclude the field from validation and submission

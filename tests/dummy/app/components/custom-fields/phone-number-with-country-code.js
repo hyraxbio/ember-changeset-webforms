@@ -68,14 +68,14 @@ export default class PhonerNumberWithCountryCodeComponent extends Component {
       'keyUpPhoneNumberInput',
       updatedFieldValue,
     );
-    console.log(this.args.formField.eventLog);
+    console.log(event.target.value);
     if (event.target.value !== '') {
       this.args.onChange(this.args.formField, updatedFieldValue);
     }
   }
-
   @action
   inputChange(event) {
+    console.log('change', event.target.value);
     const updatedFieldValue = this.updatedFieldvalue(
       'phoneNumber',
       event.target.value,
@@ -85,20 +85,16 @@ export default class PhonerNumberWithCountryCodeComponent extends Component {
 
   @action
   inputFocusIn() {
-    console.log(this.args.formField.validationEvents);
-    if (
-      this.args.formField.validationEvents.indexOf('keyUpPhoneNumberInput') ===
-      -1
-    ) {
-      this.args.formField.hideValidation = true;
-    }
-    // this.args.onUserInteraction(this.args.formField, 'focusIn'); // TODO should these have formField included here?
+    this.args.formField.focussed = true;
   }
 
   @action
   inputFocusOut() {
-    this.args.onUserInteraction(this.args.formField, 'focusOutPhoneInput'); // TODO should these have formField included here?
-    this.args.formField.hideValidation = false;
+    this.args.formField.focussed = false;
+    this.args.onUserInteraction(
+      this.args.formField,
+      'focusOutPhoneNumberInput',
+    ); // TODO should these have formField included here?
   }
 
   @action

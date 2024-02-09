@@ -15,7 +15,9 @@ export default class ValidationClassSettingsComponent extends Component {
         fieldId: 'name',
         fieldType: 'input',
         fieldLabel: 'Name',
-        validationEvents: ['keyUp'],
+        showValidationWhenFocussed: true,
+
+        // validatesOn: ['keyUp'],
         validationRules: [
           {
             validationMethod: 'validatePresence',

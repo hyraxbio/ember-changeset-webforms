@@ -62,29 +62,30 @@ function parse(fieldSchema, customValidators, formSettings) {
         customValidators: customValidators,
       },
     });
-    field.clonedFieldBlueprint.validationEvents.forEach((item) => {
+    field.clonedFieldBlueprint.validatesOn.forEach((event) => {
       const skip = ['submit', 'removeClone'];
-      if (skip.indexOf(item.event) > -1) {
+      if (skip.indexOf(event) > -1) {
         return;
       }
-      const newObj = { ...item };
-      newObj.event = `${item.event}Clone`;
-      if (!field.validationEvents.find((item) => item.event === newObj.event)) {
-        field.validationEvents.pushObject(newObj);
+      if (
+        !field.validatesOn.find((fieldEvent) => fieldEvent === `${event}Clone`)
+      ) {
+        field.validatesOn.pushObject(`${event}Clone`);
       }
     });
   }
   field.validates = field.validationRules.length > 0 ? true : false;
 
-  field.validationEvents = (field.validationEvents || [])
-    .concat(field.alwaysValidateOn || [])
-    .map((item) => {
-      if (typeof item === 'string') {
-        return { event: item };
-      } else {
-        return item;
-      }
-    });
+  field.validatesOn = (field.validatesOn || []).concat(
+    field.alwaysValidateOn || [],
+  );
+  // .map((item) => {
+  //   if (typeof item === 'string') {
+  //     return { event: item };
+  //   } else {
+  //     return item;
+  //   }
+  // });
 
   field.name =
     field.name ||

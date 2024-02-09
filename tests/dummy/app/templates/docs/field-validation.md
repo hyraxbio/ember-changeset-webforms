@@ -6,11 +6,11 @@ A field will validate:
 
 - on focus out, if the field has a `fieldType` of `input` or `textarea`.
 - whenever the value of the field is changed by user interaction, except if the field has a `fieldType` of `input` or `textarea`, and the relevant `input` or `textarea` is currently focussed.
-- on key up, if the field has a `fieldType` of `input` or `textarea`, and the field has `keyUp` included in the `validationEvents` array (See the name field in the example below).
-- on insert, where the field has `insert` included in the `validationEvents` array, and the field is not empty (See the email field in the example below).
+- on key up, if the field has a `fieldType` of `input` or `textarea`, and the field has `keyUp` included in the `validatesOn` array (See the name field in the example below).
+- on insert, where the field has `insert` included in the `validatesOn` array, and the field is not empty (See the email field in the example below).
 - when the user submits the form, either by clicking the submit button, or by hitting th enter key when focussed into the `input` or `textarea` field (All fields with validation rules are validated in this instance).
 
-**Note that to validate on insert or key up, you must include the `validationEvents` array, and pass either or both of `['keyUp', 'insert']`.**
+**Note that to validate on insert or key up, you must include the `validatesOn` array, and pass either or both of `['keyUp', 'insert']`.**
 
 Note also that the forms submit function will not be fired if any fields fail validation.
 

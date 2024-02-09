@@ -1,6 +1,5 @@
 import { action } from '@ember/object';
 import Component from '@glimmer/component';
-// import validationEventLog from 'ember-changeset-webforms/utils/validation-event-log';
 
 export default class ValidatingField extends Component {
   get dataTestFieldId() {

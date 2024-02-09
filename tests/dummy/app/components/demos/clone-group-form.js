@@ -33,7 +33,7 @@ export default class CloneGroupFormComponent extends Component {
           fieldType: 'input',
           inputType: 'email',
           hideLabel: true,
-          validationEvents: ['insert'],
+          validatesOn: ['insert'],
           validationRules: [
             {
               validationMethod: 'validateFormat',

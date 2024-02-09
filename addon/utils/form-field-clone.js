@@ -1,11 +1,11 @@
-import validationEventLog from 'ember-changeset-webforms/utils/validation-event-log';
+// import eventLogValidated from 'ember-changeset-webforms/utils/validation-event-log';
 import { tracked } from '@glimmer/tracking';
 export default class FormFieldClone {
   @tracked index;
   @tracked eventLog = [];
   @tracked focussed;
   @tracked changeset;
-  @tracked validationEvents = [];
+  @tracked validatesOn = [];
   // BEGIN-SNIPPET cloned-field-settings-tracked-props.js
   @tracked hidden;
   @tracked disabled;
@@ -14,6 +14,12 @@ export default class FormFieldClone {
     for (const key in args) {
       this[key] = args[key];
     }
+  }
+
+  get eventLogValidated() {
+    return this.validatesOn.filter((eventName) =>
+      this.eventLog.includes(eventName),
+    );
   }
 
   get validationErrors() {
@@ -42,13 +48,15 @@ export default class FormFieldClone {
     if (!clonedFormField) {
       return null;
     }
+
     if (
-      !this.validationEventObj(clonedFormField.validationEvents, 'keyUp') &&
+      !clonedFormField.showValidationWhenFocussed &&
       clonedFormField.focussed
     ) {
       return null;
     }
-    if (!validationEventLog(clonedFormField).length) {
+
+    if (!this.eventLogValidated.length) {
       return null;
     }
     var clonedFieldValidationErrors = this.cloneValidationErrors || [];
@@ -59,15 +67,13 @@ export default class FormFieldClone {
     }
   }
 
-  validationEventObj(validationEvents, eventType) {
-    return validationEvents.find((validationEvent) => {
-      return validationEvent.event === eventType;
-    });
-  }
-
   updateValidationActivation(index, eventType) {
     const clonedFormField = this;
-    if (this.validationEventObj(clonedFormField.validationEvents, eventType)) {
+    if (
+      clonedFormField.validatesOn.find(
+        (validationEvent) => validationEvent === eventType,
+      )
+    ) {
       const validationRules = clonedFormField.validationRules[0];
       validationRules.activateValidation =
         validationRules.activateValidation || [];

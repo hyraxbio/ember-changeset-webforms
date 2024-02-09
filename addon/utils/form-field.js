@@ -1,4 +1,4 @@
-import validationEventLog from 'ember-changeset-webforms/utils/validation-event-log';
+// import eventLogValidated from 'ember-changeset-webforms/utils/validation-event-log';
 import { tracked } from '@glimmer/tracking';
 export default class FormField {
   @tracked cloneCountStatus;
@@ -6,7 +6,7 @@ export default class FormField {
   @tracked eventLog = [];
   @tracked focussed;
   @tracked changeset;
-  @tracked validationEvents = [];
+  @tracked validatesOn = [];
   @tracked wasValidated;
   // BEGIN-SNIPPET field-settings-tracked-props.js
   @tracked hidden;
@@ -32,6 +32,12 @@ export default class FormField {
     return masterFormFieldValidationErrors;
   }
 
+  get eventLogValidated() {
+    return this.validatesOn.filter((eventName) =>
+      this.eventLog.includes(eventName),
+    );
+  }
+
   get validationStatus() {
     if (!this.validates) {
       return null;
@@ -41,10 +47,11 @@ export default class FormField {
       return null;
     }
 
-    if (!validationEventObj(this.validationEvents, 'keyUp') && this.focussed) {
+    if (!this.showValidationWhenFocussed && this.focussed) {
       return null;
     }
-    if (!validationEventLog(this).length) {
+
+    if (!this.eventLogValidated.length) {
       return null;
     }
 
@@ -62,7 +69,7 @@ export default class FormField {
       if (!formField.validates) {
         return;
       }
-      if (!validationEventLog(formField).length) {
+      if (!this.eventLogValidated.length) {
         return;
       }
       changeset
@@ -77,10 +84,4 @@ export default class FormField {
         });
     });
   }
-}
-
-function validationEventObj(validationEvents, eventType) {
-  return validationEvents.find((validationEvent) => {
-    return validationEvent.event === eventType;
-  });
 }

@@ -45,7 +45,7 @@ export default class CloneGroupFormWithFormWithDataComponent extends Component {
           fieldType: 'input',
           inputType: 'email',
           hideLabel: true,
-          validationEvents: ['insert'],
+          validatesOn: ['insert'],
           validationRules: [
             {
               validationMethod: 'validateFormat',
