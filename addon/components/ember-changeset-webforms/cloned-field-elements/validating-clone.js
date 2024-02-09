@@ -69,11 +69,6 @@ export default class ValidatingClone extends Component {
     var groupValue =
       this.args.changesetWebform.changeset.get(masterFormField.propertyName) ||
       [];
-    masterFormField.lastUpdatedClone = {
-      index: index,
-      previousValue: groupValue[index],
-      previousLength: groupValue.length,
-    };
     groupValue[index] = value;
     return groupValue;
   }

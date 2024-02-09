@@ -7,6 +7,7 @@ const Router = AddonDocsRouter.extend({
 });
 
 Router.map(function () {
+  this.route('misc');
   docsRoute(this, function () {
     this.route('basic-usage');
     this.route('configuration-options');

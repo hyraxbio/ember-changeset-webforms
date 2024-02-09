@@ -1,4 +1,3 @@
-// import eventLogValidated from 'ember-changeset-webforms/utils/validation-event-log';
 import { tracked } from '@glimmer/tracking';
 export default class FormField {
   @tracked cloneCountStatus;

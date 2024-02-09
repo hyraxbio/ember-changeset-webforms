@@ -1,6 +1,11 @@
 <div
   data-test-class={{this.dataTestClass}}
   class="cwf-field-clone-wrapper"
+  data-test-id={{concat
+    @masterFormField.name
+    "-field-clone-"
+    @clonedFormField.cloneId
+  }}
   {{did-insert this.didInsert}}
   ...attributes
 >
@@ -22,12 +27,6 @@
     @changesetWebform={{@changesetWebform}}
     @typeClass={{@typeClass}}
     @validationErrorsArray={{@clonedFormField.cloneValidationErrors}}
-    data-test-id={{concat
-      @masterFormField.fieldId
-      "-clone-"
-      @clonedFormField.cloneId
-      "-field"
-    }}
     class="{{ember-changeset-webforms/dynamic-class-names
         'clonedFormField'
         @changesetWebform

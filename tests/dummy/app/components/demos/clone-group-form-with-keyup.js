@@ -4,7 +4,7 @@ export default class CloneGroupFormWithKeyupComponent extends Component {
   // BEGIN-SNIPPET clone-group-form-keyup.js
   formSchema2 = {
     formSettings: {
-      formName: 'addEmailsForm',
+      formName: 'Country ISO codes',
       submitButtonText: 'Submit',
       clearFormAfterSubmit: true,
     },

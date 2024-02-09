@@ -40,9 +40,6 @@ In order to validate on the length of the array, add the `validateLength` valida
 
 Note that when the array of data passed to a `clone-group` field is longer than the `maxClones` setting, the component will still insert one clone for each item in the array. In this case, the add clone button will not be available until the user has removed clones until the total is less than the `maxClones` setting.
 
-## Example 3 - misc TODO not required in docs
-
-<Demos::CloneGroupFormWithKeyup />
 
 ## Validation notes
 

@@ -9,6 +9,7 @@ export default function safeName(str) {
     .replace(/\s/g, '-')
     .replace(/-+/g, '-')
     .replace(/[^0-9a-zA-Z_-]/g, '')
+    .replace(/\./g, '_')
     .toLowerCase();
   return str;
 }

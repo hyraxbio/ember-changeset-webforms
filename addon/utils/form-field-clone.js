@@ -1,7 +1,7 @@
-// import eventLogValidated from 'ember-changeset-webforms/utils/validation-event-log';
 import { tracked } from '@glimmer/tracking';
 export default class FormFieldClone {
   @tracked index;
+  @tracked id;
   @tracked eventLog = [];
   @tracked focussed;
   @tracked changeset;

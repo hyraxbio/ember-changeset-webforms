@@ -1,9 +1,8 @@
 import { action } from '@ember/object';
 import Component from '@glimmer/component';
 import FormFieldClone from 'ember-changeset-webforms/utils/form-field-clone';
-import eventLogValidated from 'ember-changeset-webforms/utils/validation-event-log';
 import { tracked } from '@glimmer/tracking';
-
+import safeName from 'ember-changeset-webforms/utils/safe-name';
 export default class ValidatingCloneGroup extends Component {
   @tracked masterFormField;
 
@@ -42,7 +41,8 @@ export default class ValidatingCloneGroup extends Component {
     return `clone-group-${this.args.masterFormField.cloneGroupName}`;
   }
 
-  cloneId(clonedFields) {
+  cloneId(masterFormField) {
+    const clonedFields = masterFormField.clonedFields;
     if (!(clonedFields || []).length) {
       return 0;
     }
@@ -77,24 +77,17 @@ export default class ValidatingCloneGroup extends Component {
   @action
   cloneField(opts = {}) {
     var masterFormField = this.args.masterFormField;
-    // masterFormField.set('clonedFields', masterFormField.clonedFields || []);
     masterFormField.clonedFields = masterFormField.clonedFields || [];
     var newField = { ...masterFormField.clonedFieldBlueprint };
     newField.isClone = true;
-    newField.cloneId = this.cloneId(masterFormField.clonedFields);
+    newField.cloneId = this.cloneId(masterFormField);
     newField.eventLog = []; // BD must recreate this, otherwise all clones share the same instance of eventLog array.
     const clone = new FormFieldClone(newField);
     clone.changeset = this.args.changesetWebform.changeset;
     clone.masterFormField = masterFormField;
     masterFormField.clonedFields.pushObject(clone);
-    masterFormField.clonedFields = masterFormField.clonedFields;
+    // masterFormField.clonedFields = masterFormField.clonedFields;
     clone.index = masterFormField.clonedFields.indexOf(clone);
-    var lastIndex = masterFormField.clonedFields.length - 1;
-    masterFormField.lastUpdatedClone = {
-      // TODO does lastUpdatedClone do anything?
-      index: lastIndex,
-      previousValue: null,
-    };
     if (!opts.fromData) {
       var fieldValue =
         this.args.changesetWebform.changeset.get(
@@ -113,7 +106,7 @@ export default class ValidatingCloneGroup extends Component {
         this.args.changesetWebform,
       );
     }
-    // this.args.masterFormField = masterFormField; // TODO refactor
+    console.log();
   }
 
   @action

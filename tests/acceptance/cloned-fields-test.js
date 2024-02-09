@@ -20,12 +20,7 @@ module('Acceptance | Cloned fields', function (hooks) {
   test('Basics', async function (assert) {
     await visit('/docs/clonable-form-fields');
     assert.notOk(
-      cth.wasValidated(
-        `${dummyEls.clonableFieldBasics} ${els.cloneSelector({
-          fieldId: 'emails',
-          cloneId: 0,
-        })}`,
-      ),
+      cth.wasValidated('[data-test-id="add-emails-form-emails-field-clone-0"]'),
       'Clone is not validated on insert, when insert is a validationEvent, but the clone is empty.',
     );
     assert
@@ -47,33 +42,21 @@ module('Acceptance | Cloned fields', function (hooks) {
       );
 
     await focus(
-      `${dummyEls.clonableFieldBasics} ${els.cloneSelector({
-        fieldId: 'emails',
-        cloneId: 0,
-      })} input`,
+      `${dummyEls.clonableFieldBasics} [data-test-id="add-emails-form-emails-field-clone-0"] input`,
     );
 
     await blur(
-      `${dummyEls.clonableFieldBasics} ${els.cloneSelector({
-        fieldId: 'emails',
-        cloneId: 0,
-      })} input`,
+      `${dummyEls.clonableFieldBasics} [data-test-id="add-emails-form-emails-field-clone-0"] input`,
     );
     assert.ok(
       cth.failedValidation(
-        `${dummyEls.clonableFieldBasics} ${els.cloneSelector({
-          fieldId: 'emails',
-          cloneId: 0,
-        })}`,
+        `[data-test-id="add-emails-form-emails-field-clone-0"]`,
       ),
       'First clone fails validation when user focusses out and clone is empty.',
     );
     assert.notOk(
       cth.wasValidated(
-        `${dummyEls.clonableFieldBasics} ${els.cloneSelector({
-          fieldId: 'emails',
-          cloneId: 1,
-        })}`,
+        `${dummyEls.clonableFieldBasics} [data-test-id="add-emails-form-emails-field-clone-1"]`,
       ),
       'Second clone is not validated on focus out of first clone.',
     );
@@ -98,19 +81,13 @@ module('Acceptance | Cloned fields', function (hooks) {
       );
     assert.ok(
       cth.failedValidation(
-        `${dummyEls.clonableFieldBasics} ${els.cloneSelector({
-          fieldId: 'emails',
-          cloneId: 0,
-        })}`,
+        `${dummyEls.clonableFieldBasics} [data-test-id="add-emails-form-emails-field-clone-0"]`,
       ),
       'First clone validation status is not affected by clicking add clone button.',
     );
     assert.notOk(
       find(
-        `${dummyEls.clonableFieldBasics} ${els.cloneSelector({
-          fieldId: 'emails',
-          cloneId: 1,
-        })}`,
+        `${dummyEls.clonableFieldBasics} [data-test-id="add-emails-form-emails-field-clone-1"]`,
       ).classList.contains('valid'),
       'Second clone does not get class "valid" clicking add clone button.',
     );
@@ -125,64 +102,43 @@ module('Acceptance | Cloned fields', function (hooks) {
       .dom(`${dummyEls.clonableFieldBasics} ${els.cwfAddClone}`)
       .doesNotExist('Add clone button disappears when maxClones is reached.');
     await fillIn(
-      `${dummyEls.clonableFieldBasics} ${els.cloneSelector({
-        fieldId: 'emails',
-        cloneId: 1,
-      })} input`,
+      `${dummyEls.clonableFieldBasics} [data-test-id="add-emails-form-emails-field-clone-1"] input`,
       'lucille@bluthcompany.com',
     );
     await blur(
-      `${dummyEls.clonableFieldBasics} ${els.cloneSelector({
-        fieldId: 'emails',
-        cloneId: 1,
-      })} input`,
+      `${dummyEls.clonableFieldBasics} [data-test-id="add-emails-form-emails-field-clone-1"] input`,
     );
     assert.ok(
       cth.passedValidation(
-        `${dummyEls.clonableFieldBasics} ${els.cloneSelector({
-          fieldId: 'emails',
-          cloneId: 1,
-        })}`,
+        `${dummyEls.clonableFieldBasics} [data-test-id="add-emails-form-emails-field-clone-1"]`,
       ),
       'Second clone gets class "is-valid" when user focusses out and clone has a valid email.',
     );
     await fillIn(
-      `${dummyEls.clonableFieldBasics} ${els.cloneSelector({
-        fieldId: 'emails',
-        cloneId: 2,
-      })} input`,
+      `${dummyEls.clonableFieldBasics} [data-test-id="add-emails-form-emails-field-clone-2"] input`,
       'email',
     );
     await blur(
-      `${dummyEls.clonableFieldBasics} ${els.cloneSelector({
-        fieldId: 'emails',
-        cloneId: 2,
-      })} input`,
+      `${dummyEls.clonableFieldBasics} [data-test-id="add-emails-form-emails-field-clone-2"] input`,
     );
     assert.ok(
       cth.failedValidation(
-        `${dummyEls.clonableFieldBasics} ${els.cloneSelector({
-          fieldId: 'emails',
-          cloneId: 2,
-        })}`,
+        `${dummyEls.clonableFieldBasics} [data-test-id="add-emails-form-emails-field-clone-2"]`,
       ),
       'Third clone gets correct validation error messages when user focusses out and clone has invalid email in the input.',
     );
 
     await cth.removeClone(
-      `${dummyEls.clonableFieldBasics} ${els.cloneSelector({
-        fieldId: 'emails',
-        cloneId: 0,
-      })}`,
+      `${dummyEls.clonableFieldBasics} [data-test-id="add-emails-form-emails-field-clone-0"]`,
     );
     assert.strictEqual(
       findAll(els.cwfCloneWrapper)[0].getAttribute('data-test-id'),
-      'emails-clone-1-wrapper',
+      'add-emails-form-emails-field-clone-1',
       'Second clone correctly becomes first clone, after first clone is removed.',
     );
     assert.strictEqual(
       findAll(els.cwfCloneWrapper)[1].getAttribute('data-test-id'),
-      'emails-clone-2-wrapper',
+      'add-emails-form-emails-field-clone-2',
       'Third clone correctly becomes second clone, after first clone is removed.',
     );
   });
@@ -204,10 +160,7 @@ module('Acceptance | Cloned fields', function (hooks) {
     );
     assert.notOk(
       cth.wasValidated(
-        `${dummyEls.clonableFieldWithData} ${els.cloneSelector({
-          fieldId: 'emails',
-          cloneId: 2,
-        })}`,
+        `${dummyEls.clonableFieldWithData} [data-test-id="add-emails-form-emails-field-clone-2"]`,
       ),
       'Empty clone is not validated on insert, where [insert] is a clone validation method.',
     );
@@ -224,19 +177,13 @@ module('Acceptance | Cloned fields', function (hooks) {
     await cth.removeClone(dummyEls.clonableFieldWithData);
     assert.ok(
       cth.passedValidation(
-        `${dummyEls.clonableFieldWithData} ${els.cloneSelector({
-          fieldId: 'emails',
-          cloneId: 1,
-        })}`,
+        `${dummyEls.clonableFieldWithData} [data-test-id="add-emails-form-emails-field-clone-1"]`,
       ),
       'Previously validated clone is revalidated after another clone is removed.',
     );
     assert.notOk(
       cth.wasValidated(
-        `${dummyEls.clonableFieldWithData} ${els.cloneSelector({
-          fieldId: 'emails',
-          cloneId: 2,
-        })}`,
+        `${dummyEls.clonableFieldWithData} [data-test-id="add-emails-form-emails-field-clone-2"]`,
       ),
       'Previously un-validated clone is not revalidated after another clone is removed.',
     );
@@ -270,16 +217,14 @@ module('Acceptance | Cloned fields', function (hooks) {
       );
   });
 
-  test('Other', async function (assert) {
-    await visit('/docs/clonable-form-fields');
+  test('When validation is shown when focussed', async function (assert) {
+    await visit('/misc');
     assert
       .dom(`${dummyEls.clonableFieldCountries} ${els.cwfCloneWrapper}`)
       .exists({ count: 2 }, '2 clones exist on load.');
-    const firstCloneSelector = `${dummyEls.clonableFieldCountries} ${els.cloneSelector({ fieldId: 'countryCodes', cloneId: 0 })}`;
+    const firstCloneSelector = `${dummyEls.clonableFieldCountries} [data-test-id="country-iso-codes-country-codes-field-clone-0"]`;
     const firstCloneInputSelector = `${firstCloneSelector} input`;
-    const secondCloneSelector = `${
-      dummyEls.clonableFieldCountries
-    } ${els.cloneSelector({ fieldId: 'countryCodes', cloneId: 1 })}`;
+    const secondCloneSelector = `${dummyEls.clonableFieldCountries} [data-test-id="country-iso-codes-country-codes-field-clone-1"]`;
     await typeIn(firstCloneInputSelector, 'ZAFs');
     assert.ok(
       cth.failedValidation(firstCloneSelector),

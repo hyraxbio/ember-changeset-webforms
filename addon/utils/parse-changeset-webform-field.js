@@ -1,6 +1,7 @@
 import FormField from 'ember-changeset-webforms/utils/form-field';
 import { typeOf as emberTypeOf } from '@ember/utils';
 import Option from 'ember-changeset-webforms/utils/option-class';
+import safeName from 'ember-changeset-webforms/utils/safe-name';
 
 export default function parseChangesetWebformField(
   field,
@@ -79,18 +80,9 @@ function parse(fieldSchema, customValidators, formSettings) {
   field.validatesOn = (field.validatesOn || []).concat(
     field.alwaysValidateOn || [],
   );
-  // .map((item) => {
-  //   if (typeof item === 'string') {
-  //     return { event: item };
-  //   } else {
-  //     return item;
-  //   }
-  // });
-
   field.name =
-    field.name ||
-    `${formSettings.formName}-${field.fieldId.replace(/\./g, '-')}`;
-  field.id = `${formSettings.formName}-${field.fieldId.replace(/\./g, '-')}`;
+    field.name || safeName(`${formSettings.formName}-${field.fieldId}`);
+  field.id = safeName(`${formSettings.formName}-${field.fieldId}`);
   field.placeholder = field.placeholder || field.fieldLabel;
   field.propertyName = field.propertyName || field.fieldId;
   delete field.alwaysValidateOn;

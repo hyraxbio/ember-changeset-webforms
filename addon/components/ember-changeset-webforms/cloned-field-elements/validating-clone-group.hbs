@@ -36,12 +36,6 @@
         @clonedFormField={{clonedFormField}}
         @masterFormField={{@masterFormField}}
         @changesetWebform={{@changesetWebform}}
-        data-test-id={{concat
-          @masterFormField.fieldId
-          "-clone-"
-          clonedFormField.cloneId
-          "-wrapper"
-        }}
       />
     {{/each}}
   </div>
