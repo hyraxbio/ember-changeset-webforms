@@ -53,7 +53,6 @@ export default class FormField {
     if (!this.eventLogValidated.length) {
       return null;
     }
-
     if (this.validationErrors.length === 0) {
       return 'valid';
     } else {
@@ -72,7 +71,9 @@ export default class FormField {
         return;
       }
       changeset
-        .validate(formField.propertyName)
+        .validate()
+        // .validate(formField.propertyName)
+
         .then(() => {
           formField.wasValidated = true;
           const fieldValidationErrors = changeset.error[formField.propertyName];

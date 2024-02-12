@@ -34,11 +34,7 @@ const addonDefaults = {
     // Generic validation related classes - apply to all fields
     validClassNames: ['is-valid'],
     invalidClassNames: ['is-invalid'],
-    validationErrors: [
-      'cwf-field-errors',
-      'invalid-feedback',
-      '$validationClassNames',
-    ],
+    validationErrors: ['cwf-field-errors', 'invalid-feedback', 'form-text'],
     fieldValidates: ['validates'],
     validatedField: ['was-validated'],
     // Form wrapper

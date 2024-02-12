@@ -20,4 +20,9 @@
   id={{@formField.id}}
   ariaLabelledBy={{@ariaLabelledBy}}
   aria-label={{@ariaLabel}}
+  aria-errormessage="{{@formField.id}}-errors"
+  aria-describedby={{if
+    @formField.description
+    (concat @formField.id "-description")
+  }}
 />

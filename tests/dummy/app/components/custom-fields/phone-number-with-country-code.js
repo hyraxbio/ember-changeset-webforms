@@ -1,3 +1,4 @@
+// BEGIN-SNIPPET custom-field-component.js
 import { action } from '@ember/object';
 import Component from '@glimmer/component';
 
@@ -44,9 +45,10 @@ export default class PhonerNumberWithCountryCodeComponent extends Component {
     if (!this.args.displayValue) {
       return {};
     }
+    const test = this.args.displayValue.split(')');
     return {
-      countryCode: this.args.displayValue.split(' ')[0],
-      phoneNumber: this.args.displayValue.split(' ')[1],
+      countryCode: test[0].replace('(', ''),
+      phoneNumber: test[1],
     };
   }
 
@@ -68,14 +70,10 @@ export default class PhonerNumberWithCountryCodeComponent extends Component {
       'keyUpPhoneNumberInput',
       updatedFieldValue,
     );
-    console.log(event.target.value);
-    if (event.target.value !== '') {
-      this.args.onChange(this.args.formField, updatedFieldValue);
-    }
+    // this.args.onChange(this.args.formField, updatedFieldValue);
   }
   @action
   inputChange(event) {
-    console.log('change', event.target.value);
     const updatedFieldValue = this.updatedFieldvalue(
       'phoneNumber',
       event.target.value,
@@ -107,6 +105,7 @@ export default class PhonerNumberWithCountryCodeComponent extends Component {
   updatedFieldvalue(key, value) {
     const newObj = Object.assign({}, this.displayObject);
     newObj[key] = value;
-    return `${newObj.countryCode || ''} ${newObj.phoneNumber || ''}`;
+    return `(${newObj.countryCode || ''})${newObj.phoneNumber || ''}`;
   }
 }
+// END-SNIPPET

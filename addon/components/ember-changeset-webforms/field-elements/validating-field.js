@@ -102,6 +102,8 @@ export default class ValidatingField extends Component {
     } else if (eventType === 'focusIn') {
       formField.focussed = true;
     }
+    // console.log(formField);
+    this.validateField(formField.masterFormField || formField);
     this.args.onUserInteraction(formField, eventType, value, event);
   }
 

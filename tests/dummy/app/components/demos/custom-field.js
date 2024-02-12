@@ -1,6 +1,10 @@
 import Component from '@glimmer/component';
-
+import { action } from '@ember/object';
+import { tracked } from '@glimmer/tracking';
+import customValidators from '../../validators';
 export default class DemosCustomFieldComponent extends Component {
+  customValidators = customValidators;
+  @tracked phoneNumber;
   // BEGIN-SNIPPET custom-fields-demo.js
   formSchema = {
     formSettings: {
@@ -9,44 +13,46 @@ export default class DemosCustomFieldComponent extends Component {
     },
     fields: [
       {
-        fieldId: 'Name',
-        fieldType: 'input',
-        fieldLabel: 'Name',
-        inputType: 'text',
-        // validatesOn: [],
-        validationRules: [
-          {
-            validationMethod: 'validatePresence',
-            arguments: true,
-          },
-          {
-            validationMethod: 'validateFormat',
-            arguments: {
-              regex: /^[\d ]*$/,
-              message: 'Phone number may only contain numbers and spaces',
-            },
-          },
-        ],
-      },
-      {
         fieldId: 'phoneNumber',
         fieldType: 'phoneNumberWithCountryCode',
         fieldLabel: 'Phone number',
-        defaultValue: '93 1234567890',
         showValidationWhenFocussed: false,
         validatesOn: ['focusOutPhoneNumberInput'],
+        alwaysValidateOn: [],
         validationRules: [
           {
-            validationMethod: 'validateFormat',
-            arguments: {
-              regex: /^[\d -]*$/,
-              message:
-                'Phone number may only contain numbers, dashes and spaces',
-            },
+            validationMethod: 'validatePhoneNumber',
           },
+          // {
+          //   validationMethod: 'validateFormat',
+          //   arguments: {
+          //     regex: /^\(.+?\)/,
+          //     message: 'Please select a country code',
+          //   },
+          // },
+          // {
+          //   validationMethod: 'validateFormat',
+          //   arguments: {
+          //     regex: /^\(.*?\)[\d -]*$/,
+          //     message:
+          //       'Phone number may only contain numbers, dashes and spaces',
+          //   },
+          // },
         ],
       },
     ],
   };
   // END-SNIPPET
+
+  @action
+  updatePhoneNumber(formField, changesetWebform) {
+    changesetWebform.changeset.validate().then((fieldValidationErrors) => {
+      console.log(changesetWebform.changeset.isValid);
+    });
+    if (changesetWebform.changeset.isValid) {
+      this.phoneNumber = changesetWebform.changeset.get('phoneNumber');
+    } else {
+      this.phoneNumber = 'invalid';
+    }
+  }
 }

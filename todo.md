@@ -61,3 +61,8 @@ TODO allowed and disallowed char patterns for all fields.
 TOTO doc name prop for field
 
 [x] Document formField.customProps in it's own right, in relation tot neh clicker field.
+
+Document and test for <EmberChangesetWebforms::FieldElements::FieldDescription
+@description={{@formField.description}}
+@descriptionMarkdown={{@formField.descriptionMarkdown}}
+/>

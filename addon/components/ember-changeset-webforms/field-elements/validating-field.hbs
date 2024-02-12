@@ -46,6 +46,12 @@
           @isGroup={{this.isGroup}}
         />
       {{/let}}
+      {{#if @formField.description}}
+        <EmberChangesetWebforms::FieldElements::FieldDescription
+          @description={{@formField.description}}
+          @descriptionMarkdown={{@formField.descriptionMarkdown}}
+        />
+      {{/if}}
     </EmberChangesetWebforms::FieldElements::ValidatingFieldWrapper>
   {{/if}}
 {{/if}}
