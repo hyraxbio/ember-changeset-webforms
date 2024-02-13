@@ -76,36 +76,11 @@ export default class ValidatingField extends Component {
 
   @action
   onUserInteractionAction(eventType, value, event) {
-    const formField = this.args.formField;
     if (this.isDestroyed || this.isDestroying) {
       return;
     }
+    const formField = this.args.formField;
     formField.eventLog.pushObject(eventType);
-    if (eventType === 'keyUp') {
-      if (formField.fieldType === 'input' && event.keyCode === 13) {
-        if (this.args.submitForm) {
-          formField.focussed = false;
-          this.args.submitForm(this.args.changesetWebform.changeset);
-        }
-        return;
-      }
-      this.setFieldValue(value, formField); // this.send
-    } else if (eventType === 'focusOut') {
-      formField.focussed = false;
-      // TODO test that password fields don't trim
-      if (
-        value &&
-        formField.trim &&
-        formField.inputType !== 'password' &&
-        typeof value === 'string'
-      ) {
-        value = value.trim();
-      }
-      this.setFieldValue(value, formField); // this.send
-    } else if (eventType === 'focusIn') {
-      formField.focussed = true;
-    }
-    // console.log(formField);
     this.validateField(formField.masterFormField || formField);
     this.args.onUserInteraction(formField, eventType, value, event);
   }
