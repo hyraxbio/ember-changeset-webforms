@@ -135,7 +135,7 @@ const addonDefaults = {
       autofocus: null, // Boolean - whether to autofocus the input on insert
       placeholder: null, // String - placeholder text of the input
       trim: true, // Trim spaces from the beginning and end of the input after focus out. This is never applied to inputs with type password, even if true.
-      alwaysValidateOn: ['focusOut', 'change', 'foo'], // Array of strings
+      alwaysValidateOn: ['focusOut', 'valueUpdated'], // Array of strings
       // END-SNIPPET
       componentPath: 'ember-changeset-webforms/fields/input',
     },
@@ -161,7 +161,7 @@ const addonDefaults = {
       // BEGIN-SNIPPET textarea-field-options.js
       fieldType: 'textarea',
       autofocus: null, // Boolean - whether to autofocus the input on insert
-      alwaysValidateOn: ['focusOut', 'change'], // Array of strings
+      alwaysValidateOn: ['focusOut', 'valueUpdated'], // Array of strings
       // END-SNIPPET
       componentPath: 'ember-changeset-webforms/fields/textarea',
     },
@@ -175,7 +175,7 @@ const addonDefaults = {
       optionDisplayProp: null, // String - if options is an array of objects, provide the key to show in the list
       optionComponent: null,
       selectedItemComponent: null, // String - path to a component to replace what is displayed as the selected item.
-      alwaysValidateOn: ['change'], // Array of strings
+      alwaysValidateOn: ['valueUpdated'], // Array of strings
 
       // END-SNIPPET
       componentPath: 'ember-changeset-webforms/fields/power-select',
@@ -201,7 +201,7 @@ const addonDefaults = {
       dateRangeSettings: null,
       minDate: null, // String - the earliest day that the calendar will allow the user to select. Must be in the format YYYY-MM-DD.
       maxDate: null, // String - the latest day that the calendar will allow the user to select. Must be in the format YYYY-MM-DD.
-      alwaysValidateOn: ['change'], // Array of strings
+      alwaysValidateOn: ['valueUpdated'], // Array of strings
       // END-SNIPPET
       componentPath: 'ember-changeset-webforms/fields/power-datepicker',
     },
@@ -210,7 +210,7 @@ const addonDefaults = {
       fieldType: 'singleCheckbox',
       checkBoxLabelComponent: null, // String - path to the component to use as the checkbox label
       checkBoxLabelMarkdown: null, // Markdown string - a markdown string to render as HTML TODO doc what addon is needed to use this and add to all the other labels.
-      alwaysValidateOn: ['change'], // Array of strings
+      alwaysValidateOn: ['valueUpdated'], // Array of strings
       // END-SNIPPET
       componentPath: 'ember-changeset-webforms/fields/checkbox',
     },
@@ -219,7 +219,7 @@ const addonDefaults = {
       fieldType: 'radioButtonGroup',
       options: [], // Array of objects.
       optionLabelComponent: null, // Optional. // Component to replace the standard label element for each option.
-      alwaysValidateOn: ['change'], // Array of strings
+      alwaysValidateOn: ['valueUpdated'], // Array of strings
       // END-SNIPPET
       componentPath: 'ember-changeset-webforms/fields/radio-button-group',
     },
@@ -228,7 +228,7 @@ const addonDefaults = {
       fieldType: 'checkboxGroup',
       options: [], // Array of objects.
       optionLabelComponent: null, // Optional. Can be used to override the default label component used to render the radio button options, which simply displays the label of each option. Can either be string which is the path to the component or an object with a property called path being the path to the component and props, an object which will be passed to the component as "props".
-      alwaysValidateOn: ['change'], // Array of strings
+      alwaysValidateOn: ['valueUpdated'], // Array of strings
       // END-SNIPPET
       componentPath: 'ember-changeset-webforms/fields/checkbox-group',
     },

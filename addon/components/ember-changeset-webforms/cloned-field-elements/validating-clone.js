@@ -29,7 +29,7 @@ export default class ValidatingClone extends Component {
     if (eventType === 'focusOut') {
       clonedFormField.focussed = false;
       if (!this.isDestroyed && !this.isDestroying) {
-        this.onUpdateClone(value);
+        this.updateCloneValue(value);
       }
     } else if (eventType === 'focusIn') {
       clonedFormField.focussed = true;
@@ -44,13 +44,13 @@ export default class ValidatingClone extends Component {
   }
 
   @action
-  onUpdateClone(value, eventType = 'change') {
+  updateCloneValue(value) {
     const clonedFormField = this.args.clonedFormField;
-    this.args.clonedFormField.eventLog.pushObject(eventType);
-    this.args.masterFormField.eventLog.pushObject(`${eventType}Clone`);
+    this.args.clonedFormField.eventLog.pushObject('valueUpdated');
+    this.args.masterFormField.eventLog.pushObject(`valueUpdatedClone`);
     clonedFormField.updateValidationActivation(
       clonedFormField.index,
-      eventType,
+      'valueUpdated',
     );
     this.args.updateFieldValue(
       this.updatedGroupValue(

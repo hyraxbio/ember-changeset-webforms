@@ -63,15 +63,6 @@ export default class ValidatingField extends Component {
     });
   }
 
-  // @action
-  // onChange(value) {
-  //   const formField = this.args.formField;
-  //   if (this.isDestroyed || this.isDestroying) {
-  //     return;
-  //   }
-  //   formField.eventLog.pushObject('change');
-  //   this.setFieldValue(value, formField);
-  // }
   @action
   onUserInteraction(eventType, value, event) {
     if (this.isDestroyed || this.isDestroying) {
@@ -89,7 +80,7 @@ export default class ValidatingField extends Component {
       return;
     }
     const formField = this.args.formField;
-    formField.eventLog.pushObject('change');
+    formField.eventLog.pushObject('valueUpdated');
     var changeset = this.args.changesetWebform.changeset;
     formField.previousValue = changeset.get(formField.propertyName);
     changeset.set(formField.propertyName, value);
