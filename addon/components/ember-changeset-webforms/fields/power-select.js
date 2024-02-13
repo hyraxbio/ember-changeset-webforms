@@ -13,8 +13,8 @@ export default class PowerSelect extends Component {
     if ((value || []).length === 0) {
       value = null;
     }
-    this.args.onChange(formField, value);
-    this.args.onUserInteraction(formField, value, 'optionSelected', event);
+    this.args.onChange(value);
+    this.args.onUserInteraction(value, 'optionSelected', event);
   }
 
   @action
@@ -51,19 +51,13 @@ export default class PowerSelect extends Component {
         }
         value.push(newItem);
         this.args.onUserInteraction(
-          formField,
-          newItem,
           'keyDownEnterPowerSelectMultiple',
+          newItem,
           event,
         );
-        this.args.onChange(formField, value, 'keyDownPowerSelect', event);
+        this.args.onChange(value, 'keyDownPowerSelect', event);
       }
-      this.args.onUserInteraction(
-        formField,
-        newItem,
-        'keyDownPowerSelect',
-        event,
-      );
+      this.args.onUserInteraction('keyDownPowerSelect', newItem, event);
     }
   }
 }

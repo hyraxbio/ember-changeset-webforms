@@ -65,7 +65,8 @@ export default class ValidatingField extends Component {
   }
 
   @action
-  onChangeAction(formField, value) {
+  onChangeAction(value) {
+    const formField = this.args.formField;
     if (this.isDestroyed || this.isDestroying) {
       return;
     }
@@ -74,7 +75,8 @@ export default class ValidatingField extends Component {
   }
 
   @action
-  onUserInteractionAction(formField, eventType, value, event) {
+  onUserInteractionAction(eventType, value, event) {
+    const formField = this.args.formField;
     if (this.isDestroyed || this.isDestroying) {
       return;
     }
@@ -90,6 +92,7 @@ export default class ValidatingField extends Component {
       this.setFieldValue(value, formField); // this.send
     } else if (eventType === 'focusOut') {
       formField.focussed = false;
+      // TODO test that password fields don't trim
       if (
         value &&
         formField.trim &&
@@ -115,9 +118,10 @@ export default class ValidatingField extends Component {
     var changeset = this.args.changesetWebform.changeset;
     formField.previousValue = changeset.get(formField.propertyName);
     changeset.set(formField.propertyName, value);
+    this.validateField(formField); // this.send
+
     if (this.args.onFieldValueChange) {
       this.args.onFieldValueChange(formField, changeset);
     }
-    this.validateField(formField); // this.send
   }
 }

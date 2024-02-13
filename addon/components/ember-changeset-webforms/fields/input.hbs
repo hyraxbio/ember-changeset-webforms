@@ -6,11 +6,11 @@
       @formField.validationStatus
     }}"
   value={{@displayValue}}
-  {{on "keyup" (fn this.onUserInteractionAction @formField "keyUp")}}
-  {{on "keydown" (fn this.onUserInteractionAction @formField "keyDown")}}
-  {{on "blur" (fn this.onUserInteractionAction @formField "focusOut")}}
-  {{on "focus" (fn this.onUserInteractionAction @formField "focusIn")}}
-  {{on "change" (fn this.onChangeAction @formField)}}
+  {{on "keyup" (fn this.onUserInteractionAction "keyUp")}}
+  {{on "keydown" (fn this.onUserInteractionAction "keyDown")}}
+  {{on "blur" (fn this.onUserInteractionAction "focusOut")}}
+  {{on "focus" (fn this.onUserInteractionAction "focusIn")}}
+  {{on "change" this.onChangeAction}}
   placeholder={{@formField.placeholder}}
   autofocus={{@formField.autofocus}}
   type={{@formField.inputType}}

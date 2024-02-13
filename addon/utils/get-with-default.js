@@ -113,13 +113,7 @@ const addonDefaults = {
     // BEGIN-SNIPPET generic-field-settings.js
     validationRules: [], // Array of objects defining validation rules. See "Validation".
     validatesOn: [], // Array of strings, possible values include focusOut, keyUp, onChange // TODO check onChanger as validation event
-    alwaysValidateOn: [
-      'focusOut',
-      'change',
-      'submit',
-      'removeClone',
-      'optionSelected',
-    ], // Array of strings
+    alwaysValidateOn: ['submit'], // Array of strings
     showValidationWhenFocussed: null, // Boolean - unless this is tru, validation colours, icons and messages will be hidden for as long as the "focussed" prop of a field is true. The build in input and textarea fields set focussed to true when the user focuesses the element.
     hideSuccessValidation: null, // Boolean - only show validation colours when field validation fails
     hidden: null, // Boolean - if true, the field is hidden and also ignored when validating or submitting the form
@@ -141,6 +135,7 @@ const addonDefaults = {
       autofocus: null, // Boolean - whether to autofocus the input on insert
       placeholder: null, // String - placeholder text of the input
       trim: true, // Trim spaces from the beginning and end of the input after focus out. This is never applied to inputs with type password, even if true.
+      alwaysValidateOn: ['focusOut', 'change', 'foo'], // Array of strings
       // END-SNIPPET
       componentPath: 'ember-changeset-webforms/fields/input',
     },
@@ -156,6 +151,8 @@ const addonDefaults = {
       maxClones: null, // Number - maximum number of clones allowed.
       cloneButtonText: null, // String - text to show in the add clone button. Defaults to `Add ${clonedField.fieldLabel} field`
       cloneFieldSchema: {}, // Object - the field definition of the clones, defined in the same way that you would define the field as a one off field.
+      alwaysValidateOn: ['removeClone'], // Array of strings
+
       // END-SNIPPET
       componentPath:
         'ember-changeset-webforms/cloned-form-fields/validating-form-field-clone-group',
@@ -164,6 +161,7 @@ const addonDefaults = {
       // BEGIN-SNIPPET textarea-field-options.js
       fieldType: 'textarea',
       autofocus: null, // Boolean - whether to autofocus the input on insert
+      alwaysValidateOn: ['focusOut', 'change'], // Array of strings
       // END-SNIPPET
       componentPath: 'ember-changeset-webforms/fields/textarea',
     },
@@ -177,6 +175,8 @@ const addonDefaults = {
       optionDisplayProp: null, // String - if options is an array of objects, provide the key to show in the list
       optionComponent: null,
       selectedItemComponent: null, // String - path to a component to replace what is displayed as the selected item.
+      alwaysValidateOn: ['change'], // Array of strings
+
       // END-SNIPPET
       componentPath: 'ember-changeset-webforms/fields/power-select',
     },
@@ -201,6 +201,7 @@ const addonDefaults = {
       dateRangeSettings: null,
       minDate: null, // String - the earliest day that the calendar will allow the user to select. Must be in the format YYYY-MM-DD.
       maxDate: null, // String - the latest day that the calendar will allow the user to select. Must be in the format YYYY-MM-DD.
+      alwaysValidateOn: ['change'], // Array of strings
       // END-SNIPPET
       componentPath: 'ember-changeset-webforms/fields/power-datepicker',
     },
@@ -209,6 +210,7 @@ const addonDefaults = {
       fieldType: 'singleCheckbox',
       checkBoxLabelComponent: null, // String - path to the component to use as the checkbox label
       checkBoxLabelMarkdown: null, // Markdown string - a markdown string to render as HTML TODO doc what addon is needed to use this and add to all the other labels.
+      alwaysValidateOn: ['change'], // Array of strings
       // END-SNIPPET
       componentPath: 'ember-changeset-webforms/fields/checkbox',
     },
@@ -217,6 +219,7 @@ const addonDefaults = {
       fieldType: 'radioButtonGroup',
       options: [], // Array of objects.
       optionLabelComponent: null, // Optional. // Component to replace the standard label element for each option.
+      alwaysValidateOn: ['change'], // Array of strings
       // END-SNIPPET
       componentPath: 'ember-changeset-webforms/fields/radio-button-group',
     },
@@ -225,26 +228,9 @@ const addonDefaults = {
       fieldType: 'checkboxGroup',
       options: [], // Array of objects.
       optionLabelComponent: null, // Optional. Can be used to override the default label component used to render the radio button options, which simply displays the label of each option. Can either be string which is the path to the component or an object with a property called path being the path to the component and props, an object which will be passed to the component as "props".
+      alwaysValidateOn: ['change'], // Array of strings
       // END-SNIPPET
       componentPath: 'ember-changeset-webforms/fields/checkbox-group',
-    },
-    {
-      // BEGIN-SNIPPET dateRange-field-options.js
-      fieldType: 'dateRange',
-      triggerClasses: null, // String - classes to apply to the dropdown trigger element
-      calendarContainerClasses: null, // String - classes to apply to the calendar element that drops down then the trigger is clicked
-      minDate: null, // String in format 2021-06-01T12:19:39.174Z TODO check this exists
-      maxDate: null, // String in format 2021-06-01T12:19:39.174Z
-      startTime: null, // String in format 00:01
-      endTime: null, // String in format 23:59
-      // END-SNIPPET
-      componentPath: 'ember-changeset-webforms/fields/date-range',
-    },
-    {
-      // BEGIN-SNIPPET tagSelector-field-options.js
-      fieldType: 'tagSelector',
-      // END-SNIPPET
-      componentPath: 'ember-changeset-webforms/fields/tag-selector',
     },
     {
       // BEGIN-SNIPPET clicker-field-options.js
@@ -293,15 +279,53 @@ export default function getWithDefault(formSchema = {}) {
     const appConfigFieldTypeDefaults = (appDefaults.fieldTypes || []).find(
       (appConfigFieldType) => appConfigFieldType.fieldType === field.fieldType,
     );
-    const mergedField = _mergeWith(
+    function concatArrayCustomizer(objValue, srcValue, key) {
+      if (key === 'alwaysValidateOn' && Array.isArray(objValue)) {
+        return objValue.concat(srcValue);
+      }
+    }
+    function replaceArrayCustomizer(objValue, srcValue, key) {
+      if (key === 'alwaysValidateOn' && Array.isArray(objValue)) {
+        return srcValue;
+      }
+    }
+
+    const mergedAddonDefaults = _mergeWith(
       {},
       addonFieldDefaults,
       addonFieldTypeDefaults,
+      concatArrayCustomizer,
+    );
+
+    const mergedAppDefaults = _mergeWith(
+      {},
       appConfigFieldDefaults,
       appConfigFieldTypeDefaults,
+      concatArrayCustomizer,
+    );
+
+    const mergedInstanceDefaults = _mergeWith(
+      {},
       formSchema.fieldSettings,
       field,
+      concatArrayCustomizer,
     );
+
+    const mergedField = _mergeWith(
+      {},
+      mergedAddonDefaults,
+      mergedAppDefaults,
+      mergedInstanceDefaults,
+      replaceArrayCustomizer,
+    );
+
+    // console.log(mergedField);
+    // const mergedField = _mergeWith(
+    //   {},
+    //   mergedDefaults,
+    //   formSchema.fieldSettings,
+    //   field,
+    // );
     if (field.cloneFieldSchema) {
       const cloneAddonFieldTypeDefaults = addonDefaults.fieldTypes.find(
         (addonFieldType) =>

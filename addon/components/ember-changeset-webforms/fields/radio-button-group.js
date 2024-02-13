@@ -10,11 +10,7 @@ export default class RadioButtonGroup extends Component {
 
   @action
   onRadioChange(value) {
-    this.args.onUserInteraction(
-      this.args.formField,
-      'radioOptionChanged',
-      value,
-    );
-    this.args.onChange(this.args.formField, value);
+    this.args.onUserInteraction('radioOptionChanged', value);
+    this.args.onChange(value);
   }
 }

@@ -45,10 +45,10 @@ export default class PhonerNumberWithCountryCodeComponent extends Component {
     if (!this.args.displayValue) {
       return {};
     }
-    const test = this.args.displayValue.split(')');
+    const parts = this.args.displayValue.split(')');
     return {
-      countryCode: test[0].replace('(', ''),
-      phoneNumber: test[1],
+      countryCode: parts[0].replace('(', ''),
+      phoneNumber: parts[1],
     };
   }
 
@@ -65,12 +65,8 @@ export default class PhonerNumberWithCountryCodeComponent extends Component {
       event.target.value,
     );
 
-    this.args.onUserInteraction(
-      this.args.formField,
-      'keyUpPhoneNumberInput',
-      updatedFieldValue,
-    );
-    // this.args.onChange(this.args.formField, updatedFieldValue);
+    this.args.onUserInteraction('keyUpPhoneNumberInput', updatedFieldValue);
+    this.args.onChange(updatedFieldValue);
   }
   @action
   inputChange(event) {
@@ -78,7 +74,7 @@ export default class PhonerNumberWithCountryCodeComponent extends Component {
       'phoneNumber',
       event.target.value,
     );
-    this.args.onChange(this.args.formField, updatedFieldValue); // TODO should these have formField included here?
+    this.args.onChange(updatedFieldValue);
   }
 
   @action
@@ -89,17 +85,14 @@ export default class PhonerNumberWithCountryCodeComponent extends Component {
   @action
   inputFocusOut() {
     this.args.formField.focussed = false;
-    this.args.onUserInteraction(
-      this.args.formField,
-      'focusOutPhoneNumberInput',
-    ); // TODO should these have formField included here?
+    this.args.onUserInteraction('focusOutPhoneNumberInput');
   }
 
   @action
   codeSelected(formField, value) {
     const updatedFieldValue = this.updatedFieldvalue('countryCode', value.code);
-    this.args.onUserInteraction(formField, 'countryCodeSelected');
-    this.args.onChange(formField, updatedFieldValue);
+    this.args.onUserInteraction('countryCodeSelected');
+    this.args.onChange(updatedFieldValue);
   }
 
   updatedFieldvalue(key, value) {

@@ -24,11 +24,12 @@ export default class ValidatingClone extends Component {
   }
 
   @action
-  onUserInteractionClone(clonedFormField, eventType, value, event) {
+  onUserInteractionClone(eventType, value, event) {
+    const clonedFormField = this.args.clonedFormField;
     if (eventType === 'focusOut') {
       clonedFormField.focussed = false;
       if (!this.isDestroyed && !this.isDestroying) {
-        this.onChangeClone(clonedFormField, value); // this.send
+        this.onChangeClone(value); // this.send
       }
     } else if (eventType === 'focusIn') {
       clonedFormField.focussed = true;
@@ -39,17 +40,13 @@ export default class ValidatingClone extends Component {
       clonedFormField.index,
       eventType,
     );
-    this.args.onUserInteraction(
-      clonedFormField,
-      `${eventType}Clone`,
-      value,
-      event,
-    );
+    this.args.onUserInteraction(`${eventType}Clone`, value, event);
   }
 
   @action
-  onChangeClone(clonedFormField, value, eventType = 'change') {
-    clonedFormField.eventLog.pushObject(eventType);
+  onChangeClone(value, eventType = 'change') {
+    const clonedFormField = this.args.clonedFormField;
+    this.args.clonedFormField.eventLog.pushObject(eventType);
     this.args.masterFormField.eventLog.pushObject(`${eventType}Clone`);
     clonedFormField.updateValidationActivation(
       clonedFormField.index,

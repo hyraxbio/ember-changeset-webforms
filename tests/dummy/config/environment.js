@@ -43,8 +43,12 @@ module.exports = function (environment) {
       fieldType: 'phoneNumberWithCountryCode',
       componentPath: 'custom-fields/phone-number-with-country-code',
       classNames: {
-        fieldControls: ['$validationClassNames', 'form-control'],
-        countryCodeSelect: ['country-code-select'],
+        fieldControls: [
+          '$validationClassNames',
+          'form-control',
+          'p-0',
+          'bg-white',
+        ],
       },
     },
   ];

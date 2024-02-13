@@ -1,7 +1,7 @@
 {{! BEGIN-SNIPPET custom-field-component.hbs }}
-<div class="input-group">
+<div class="input-group padding-0">
   <PowerSelect
-    @triggerClass="input-group-text pe-5"
+    @triggerClass="input-group-text pe-5 border border-0"
     @options={{this.countryCodes}}
     @selected={{this.selectedCountryCode}}
     @allowClear={{false}}
@@ -16,7 +16,7 @@
     {{option.name}}
   </PowerSelect>
   <input
-    class="form-control"
+    class="form-control border border-0 border-start"
     {{on "focusout" this.inputFocusOut}}
     {{on "focusin" this.inputFocusIn}}
     {{on "keyup" this.inputKeyUp}}
@@ -30,6 +30,7 @@
     aria-label={{@ariaLabel}}
     aria-errormessage="{{@formField.id}}-errors"
     aria-describedby="{{@formField.id-description}}"
+    required
   />
 </div>
 {{! END-SNIPPET }}

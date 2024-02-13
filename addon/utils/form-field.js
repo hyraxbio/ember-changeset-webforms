@@ -71,9 +71,7 @@ export default class FormField {
         return;
       }
       changeset
-        .validate()
-        // .validate(formField.propertyName)
-
+        .validate(formField.propertyName)
         .then(() => {
           formField.wasValidated = true;
           const fieldValidationErrors = changeset.error[formField.propertyName];

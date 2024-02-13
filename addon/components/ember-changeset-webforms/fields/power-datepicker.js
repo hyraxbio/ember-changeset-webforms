@@ -30,6 +30,6 @@ export default class PowerDatepicker extends Component {
           )
           .toString()
       : null; // TODO this must default simply to moment(dateTime).toDate() to accommodate ember attr 'date', and allow user to specify output function to override this when defining field.
-    this.args.onChange(formField, formatted);
+    this.args.onChange(formatted);
   }
 }

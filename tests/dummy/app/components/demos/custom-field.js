@@ -9,7 +9,6 @@ export default class DemosCustomFieldComponent extends Component {
   formSchema = {
     formSettings: {
       formName: 'Phone number with country code',
-      hideSubmitButton: true,
     },
     fields: [
       {
@@ -18,26 +17,10 @@ export default class DemosCustomFieldComponent extends Component {
         fieldLabel: 'Phone number',
         showValidationWhenFocussed: false,
         validatesOn: ['focusOutPhoneNumberInput'],
-        alwaysValidateOn: [],
         validationRules: [
           {
             validationMethod: 'validatePhoneNumber',
           },
-          // {
-          //   validationMethod: 'validateFormat',
-          //   arguments: {
-          //     regex: /^\(.+?\)/,
-          //     message: 'Please select a country code',
-          //   },
-          // },
-          // {
-          //   validationMethod: 'validateFormat',
-          //   arguments: {
-          //     regex: /^\(.*?\)[\d -]*$/,
-          //     message:
-          //       'Phone number may only contain numbers, dashes and spaces',
-          //   },
-          // },
         ],
       },
     ],
@@ -46,13 +29,10 @@ export default class DemosCustomFieldComponent extends Component {
 
   @action
   updatePhoneNumber(formField, changesetWebform) {
-    changesetWebform.changeset.validate().then((fieldValidationErrors) => {
-      console.log(changesetWebform.changeset.isValid);
-    });
     if (changesetWebform.changeset.isValid) {
       this.phoneNumber = changesetWebform.changeset.get('phoneNumber');
     } else {
-      this.phoneNumber = 'invalid';
+      this.phoneNumber = null;
     }
   }
 }

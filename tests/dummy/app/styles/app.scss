@@ -87,8 +87,8 @@ $spacer-md: 16px;
 }
 
 .docs-rounded {
-  .docs-p-4 * {
-    @import 'ember-bootstrap/bootstrap';
+  .docs-p-4 {
+    // @import 'ember-bootstrap/bootstrap';
     @import '_power-datetime-picker';
     .clone-group {
       .form-field-clone {
@@ -109,5 +109,22 @@ $spacer-md: 16px;
         margin-top: 10px;
       }
     }
+  }
+}
+
+.no-validate {
+  background-image: none !important;
+  &:invalid {
+    border-color: inherit !important;
+  }
+  &:valid {
+    border-color: inherit !important;
+  }
+}
+
+.field-type-phone-number-with-country-code {
+  input {
+    background-image: none !important;
+    background: transparent !important;
   }
 }

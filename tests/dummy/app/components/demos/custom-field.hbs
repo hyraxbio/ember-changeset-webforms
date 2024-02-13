@@ -7,22 +7,12 @@
       @customValidators={{this.customValidators}}
     />
     {{#if this.phoneNumber}}
-      <div>
+      <div class="rounded bg-success p-2 text-white mt-3">
         The phone number entered is
         {{this.phoneNumber}}
       </div>
     {{/if}}
   </demo.example>
-  <demo.snippet
-    @name="custom-fields-demo.js"
-    @label="component js"
-    @language="javascript"
-  />
-  <demo.snippet
-    @name="custom-fields-demo.hbs"
-    @label="template"
-    @language="htmlbars"
-  />
   <demo.snippet
     @name="custom-field-component.hbs"
     @label="custom field template"
@@ -33,4 +23,20 @@
     @label="custom field component js"
     @language="javascript"
   />
+  <demo.snippet
+    @name="phone-number-validator.js"
+    @label="custom validator"
+    @language="javascript"
+  />
+  <demo.snippet
+    @name="custom-fields-demo.js"
+    @label="parent component js"
+    @language="javascript"
+  />
+  <demo.snippet
+    @name="custom-fields-demo.hbs"
+    @label="parent template"
+    @language="htmlbars"
+  />
+
 </DocsDemo>
