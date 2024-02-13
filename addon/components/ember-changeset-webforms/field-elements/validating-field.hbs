@@ -2,12 +2,12 @@
   {{#if @formField.cloneGroupName}}
     <EmberChangesetWebforms::ClonedFieldElements::ValidatingCloneGroup
       @masterFormField={{@formField}}
-      @setFieldValue={{this.setFieldValue}}
+      @updateFieldValue={{this.updateFieldValue}}
       @validateField={{this.validateField}}
       @afterAddClone={{@afterAddClone}}
       @afterRemoveClone={{@afterRemoveClone}}
       @afterClickAddCloneButton={{@afterClickAddCloneButton}}
-      @onUserInteraction={{this.onUserInteractionAction}}
+      @onUserInteraction={{this.onUserInteraction}}
       @dataTestFieldId={{this.dataTestFieldId}}
       @changesetWebform={{@changesetWebform}}
       {{did-insert this.didInsert}}
@@ -32,13 +32,10 @@
           @formField={{@formField}}
           @formFields={{@formFields}}
           @formSettings={{@formSettings}}
-          @onChange={{this.onChangeAction}}
-          @onUserInteraction={{this.onUserInteractionAction}}
+          @updateFieldValue={{this.updateFieldValue}}
+          @onUserInteraction={{this.onUserInteraction}}
           @changesetWebform={{@changesetWebform}}
-          @displayValue={{changeset-get
-            @changesetWebform.changeset
-            @formField.fieldId
-          }}
+          @displayValue={{@formField.displayValue}}
           @dataTestFieldId={{this.dataTestFieldId}}
           @labelId={{this.labelId}}
           @ariaLabelledBy={{this.ariaLabelledBy}}

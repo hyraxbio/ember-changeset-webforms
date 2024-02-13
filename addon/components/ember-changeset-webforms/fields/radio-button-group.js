@@ -2,7 +2,7 @@ import { action } from '@ember/object';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 export default class RadioButtonGroup extends Component {
-  @tracked displayValue;
+  @tracked displayValue; // TODO see if this does anything
 
   get groupValue() {
     return this.displayValue;
@@ -11,6 +11,6 @@ export default class RadioButtonGroup extends Component {
   @action
   onRadioChange(value) {
     this.args.onUserInteraction('radioOptionChanged', value);
-    this.args.onChange(value);
+    this.args.updateFieldValue(value);
   }
 }

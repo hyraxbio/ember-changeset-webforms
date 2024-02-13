@@ -18,6 +18,10 @@ export default class FormField {
     }
   }
 
+  get displayValue() {
+    return this.changeset.get(this.fieldId);
+  }
+
   get validationErrors() {
     return this.changeset.get(`error.${this.fieldId}.validation`) || [];
   }

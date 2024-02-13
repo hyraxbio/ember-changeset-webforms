@@ -6,16 +6,17 @@ You can create your own custom fields by simply creating a component will all th
 
 ## The onChange action
 
-In order to update the value of the field, you must call `this.args.onChange` passing the new field value as the only argument. This has several knock on effects, including triggering validation, as well as triggering external actions passed to the `ChangesetWebform` component, so it is important to do it this way, rather than by updating the chnageset property directly.
+In order to update the value of the field, you must call `this.args.onChange` passing the new field value as the only argument. This has several knock on effects, including 
+* updating the associated proeprty ont he changeset
+* triggering validation, 
+* triggering external `onFieldValueChange` action, if it was passed to the `ChangesetWebform` component.
 
 ## The onUserInteraction action
 
 Your custom field component can optionally also call `this.args.onUserInteraction` action. This will give you fine grained control over which events should trigger validation, and this control can be defined in your consuming `formSchema` object.
 
 
-also available as `this.args.onUserInteraction` when the user interacts with the form in a particular way. It takes the related `formField` class instance and `eventType` as arguments.
-
-`formField` is passed into the component as `this.args.formField`.
+also available as `this.args.onUserInteraction` when the user interacts with the form in a particular way. It takes `eventType` as its only argument.
 
 `eventType` is simply a string, and can be anything that you choose. The significance of `eventType` is that if the ssame string is included in the `validatesOn` array for the field definition in the form schema, then the field's validation will become active and visible when the `onUserInteraction` is fired.
 

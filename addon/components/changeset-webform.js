@@ -96,7 +96,7 @@ export default class ChangesetWebform extends Component {
   }
 
   @action
-  onUserInteractionAction(formField, eventType, value, event) {
+  onUserInteraction(formField, eventType, value, event) {
     if (this.args.onUserInteraction) {
       this.args.onUserInteraction(
         formField,

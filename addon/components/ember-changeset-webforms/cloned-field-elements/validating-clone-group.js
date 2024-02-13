@@ -94,7 +94,7 @@ export default class ValidatingCloneGroup extends Component {
           masterFormField.propertyName,
         ) || [];
       fieldValue.push(opts.newCloneValue || newField.defaultValue);
-      this.args.setFieldValue(fieldValue, masterFormField);
+      this.args.updateFieldValue(fieldValue, masterFormField);
     }
 
     this.checkMinMaxClones(masterFormField);
@@ -121,7 +121,7 @@ export default class ValidatingCloneGroup extends Component {
       []; //TODO check this.
     groupValue.splice(index, 1);
     masterFormField.eventLog.pushObject('removeClone');
-    this.args.setFieldValue(groupValue, masterFormField);
+    this.args.updateFieldValue(groupValue, masterFormField);
 
     masterFormField.clonedFields.forEach((clone, index) => {
       clone.index = index;

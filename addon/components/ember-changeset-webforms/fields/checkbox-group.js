@@ -39,7 +39,7 @@ export default class CheckboxGroup extends Component {
     } else {
       checkedItems = checkedItems.sort();
     }
-    this.args.onChange(checkedItems);
+    this.args.updateFieldValue(checkedItems);
     this.args.onUserInteraction('checkboxToggled', checkedItems, event);
   }
 

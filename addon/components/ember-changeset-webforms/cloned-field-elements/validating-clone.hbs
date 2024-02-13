@@ -40,14 +40,11 @@
         @clonedFormField={{@clonedFormField}}
         @masterFormField={{@masterFormField}}
         @onUserInteraction={{this.onUserInteractionClone}}
-        @onChange={{this.onChangeClone}}
+        @updateFieldValue={{this.onUpdateClone}}
         @cloneField={{@cloneField}}
         @removeClone={{@removeClone}}
         @changesetWebform={{@changesetWebform}}
-        @displayValue={{ember-changeset-webforms/cloned-form-field-display-value
-          (get @changesetWebform.changeset @masterFormField.propertyName)
-          @clonedFormField.index
-        }}
+        @displayValue={{@clonedFormField.displayValue}}
       />
     {{/let}}
   </EmberChangesetWebforms::FieldElements::ValidatingFieldWrapper>

@@ -16,6 +16,15 @@ export default class FormFieldClone {
     }
   }
 
+  get displayValue() {
+    var groupValue = this.masterFormField.displayValue;
+    var index = this.index;
+    if (!groupValue) {
+      return;
+    }
+    return groupValue[index];
+  }
+
   get eventLogValidated() {
     return this.validatesOn.filter((eventName) =>
       this.eventLog.includes(eventName),

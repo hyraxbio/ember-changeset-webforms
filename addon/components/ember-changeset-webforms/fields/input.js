@@ -3,12 +3,12 @@ import Component from '@glimmer/component';
 
 export default class Input extends Component {
   @action
-  onChangeAction(event) {
-    this.args.onChange(event.target.value);
+  onChange(event) {
+    this.args.updateFieldValue(event.target.value);
   }
 
   @action
-  onUserInteractionAction(eventType, event) {
+  onUserInteraction(eventType, event) {
     const formField = this.args.formField;
     let value = event.target.value;
     this.args.onUserInteraction(eventType, value, event);
@@ -20,7 +20,7 @@ export default class Input extends Component {
         }
         return;
       }
-      this.args.onChange(value);
+      this.args.updateFieldValue(value);
     } else if (eventType === 'focusOut') {
       formField.focussed = false;
       if (

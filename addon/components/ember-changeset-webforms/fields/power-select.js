@@ -9,11 +9,11 @@ export default class PowerSelect extends Component {
   }
 
   @action
-  onChangeAction(formField, value, _selectComponent, event) {
+  onChange(formField, value, _selectComponent, event) {
     if ((value || []).length === 0) {
       value = null;
     }
-    this.args.onChange(value);
+    this.args.updateFieldValue(value);
     this.args.onUserInteraction(value, 'optionSelected', event);
   }
 
@@ -55,7 +55,7 @@ export default class PowerSelect extends Component {
           newItem,
           event,
         );
-        this.args.onChange(value, 'keyDownPowerSelect', event);
+        this.args.updateFieldValue(value, 'keyDownPowerSelect', event);
       }
       this.args.onUserInteraction('keyDownPowerSelect', newItem, event);
     }

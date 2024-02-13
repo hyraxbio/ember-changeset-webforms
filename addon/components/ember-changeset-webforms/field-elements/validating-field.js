@@ -43,7 +43,6 @@ export default class ValidatingField extends Component {
 
   @action
   didInsert() {
-    //Code below will maintain validation colours when component is re-rendered.
     var formField = this.args.formField;
     const changeset = this.args.changesetWebform.changeset;
     if (changeset.get(formField.propertyName)) {
@@ -64,18 +63,17 @@ export default class ValidatingField extends Component {
     });
   }
 
+  // @action
+  // onChange(value) {
+  //   const formField = this.args.formField;
+  //   if (this.isDestroyed || this.isDestroying) {
+  //     return;
+  //   }
+  //   formField.eventLog.pushObject('change');
+  //   this.setFieldValue(value, formField);
+  // }
   @action
-  onChangeAction(value) {
-    const formField = this.args.formField;
-    if (this.isDestroyed || this.isDestroying) {
-      return;
-    }
-    formField.eventLog.pushObject('change');
-    this.setFieldValue(value, formField);
-  }
-
-  @action
-  onUserInteractionAction(eventType, value, event) {
+  onUserInteraction(eventType, value, event) {
     if (this.isDestroyed || this.isDestroying) {
       return;
     }
@@ -86,10 +84,12 @@ export default class ValidatingField extends Component {
   }
 
   @action
-  setFieldValue(value, formField) {
+  updateFieldValue(value) {
     if (this.isDestroyed || this.isDestroying) {
       return;
     }
+    const formField = this.args.formField;
+    formField.eventLog.pushObject('change');
     var changeset = this.args.changesetWebform.changeset;
     formField.previousValue = changeset.get(formField.propertyName);
     changeset.set(formField.propertyName, value);
