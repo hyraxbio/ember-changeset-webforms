@@ -58,17 +58,17 @@ export default class ValidatingCloneGroup extends Component {
     const changeset = this.args.changesetWebform.changeset;
     var groupValue = changeset.get(masterFormField.propertyName) || [];
     groupValue.forEach(() => {
-      this.cloneField({ fromData: true }); // this.send
+      this.cloneField({ fromData: true });
     });
     const emptyClones = masterFormField.minClones - groupValue.length;
     for (var i = 0; i < emptyClones; i++) {
-      this.cloneField(); // this.send
+      this.cloneField();
     }
   }
 
   @action
   onClickAddCloneButton() {
-    this.cloneField(); // this.send
+    this.cloneField();
     if (this.args.onUserInteraction) {
       this.args.onUserInteraction(this.args.masterFormField, 'addClone');
     }
@@ -97,7 +97,7 @@ export default class ValidatingCloneGroup extends Component {
       this.args.setFieldValue(fieldValue, masterFormField);
     }
 
-    this.checkMinMaxClones(masterFormField); // this.send
+    this.checkMinMaxClones(masterFormField);
     // onUserInteraction is not fired here, as this function can be run automatically when inserting clones to match initial field data.
     if (this.args.afterAddClone) {
       this.args.afterAddClone(
@@ -115,7 +115,7 @@ export default class ValidatingCloneGroup extends Component {
     var index = masterFormField.clonedFields.indexOf(clone);
 
     masterFormField.clonedFields.removeObject(clone);
-    this.checkMinMaxClones(masterFormField); // this.send
+    this.checkMinMaxClones(masterFormField);
     var groupValue =
       this.args.changesetWebform.changeset.get(masterFormField.propertyName) ||
       []; //TODO check this.

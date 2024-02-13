@@ -151,7 +151,7 @@ export default class ChangesetWebform extends Component {
                         if (
                           changesetWebform.formSettings.clearFormAfterSubmit
                         ) {
-                          this.clearForm(changesetWebform); // this.send
+                          this.clearForm(changesetWebform);
                         }
                       })
                       .catch((error) => {
@@ -170,7 +170,7 @@ export default class ChangesetWebform extends Component {
                       );
                     }
                     if (changesetWebform.formSettings.clearFormAfterSubmit) {
-                      this.clearForm(changesetWebform); // this.send
+                      this.clearForm(changesetWebform);
                     }
                   }
                 } catch (error) {
@@ -198,7 +198,7 @@ export default class ChangesetWebform extends Component {
                   );
                 }
                 if (changesetWebform.formSettings.clearFormAfterSubmit) {
-                  this.clearForm(changesetWebform); // this.send
+                  this.clearForm(changesetWebform);
                 }
               })
               .catch((error) => {
@@ -246,7 +246,7 @@ export default class ChangesetWebform extends Component {
       opts,
     );
     if (changesetWebform.formSettings.submitAfterClear) {
-      this.submitForm(this.changesetWebform); // this.send
+      this.submitForm(this.changesetWebform);
     }
   }
 }

@@ -48,7 +48,7 @@ export default class ValidatingField extends Component {
     const changeset = this.args.changesetWebform.changeset;
     if (changeset.get(formField.propertyName)) {
       formField.eventLog.pushObject('insert');
-      this.validateField(formField); // this.send
+      this.validateField(formField);
     }
     this.args.onFieldInserted(this.args.formField);
   }
@@ -71,7 +71,7 @@ export default class ValidatingField extends Component {
       return;
     }
     formField.eventLog.pushObject('change');
-    this.setFieldValue(value, formField); // this.send
+    this.setFieldValue(value, formField);
   }
 
   @action
@@ -81,7 +81,7 @@ export default class ValidatingField extends Component {
     }
     const formField = this.args.formField;
     formField.eventLog.pushObject(eventType);
-    this.validateField(formField.masterFormField || formField);
+    this.validateField(formField);
     this.args.onUserInteraction(formField, eventType, value, event);
   }
 
@@ -93,7 +93,7 @@ export default class ValidatingField extends Component {
     var changeset = this.args.changesetWebform.changeset;
     formField.previousValue = changeset.get(formField.propertyName);
     changeset.set(formField.propertyName, value);
-    this.validateField(formField); // this.send
+    this.validateField(formField);
 
     if (this.args.onFieldValueChange) {
       this.args.onFieldValueChange(formField, changeset);
