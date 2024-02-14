@@ -119,11 +119,11 @@ Fires after any individual field calls the `onUserInteraction` action in the `Va
 
 Examples include focussing in or out of an input, clicking a clicker element, or click the add clone or remove clone buttons for clonable fields.
 
-It provides `(formField, changesetWebform, eventType, event)` as arguments.
+It provides `(formField, changesetWebform, eventName, event)` as arguments.
 
-`eventType` is a string, which is the name of the event. This is not necessarily the name of an evenet defined in the JavaScript spec, it is simply chosen so that the particular type of user interaction can be reacted to.
+`eventName` is a string, which is the name of the event. This is not necessarily the name of an evenet defined in the JavaScript spec, it is simply chosen so that the particular type of user interaction can be reacted to.
 
-<!-- TODO add all exisitng eventTypes in built in fields -->
+<!-- TODO add all exisitng eventNames in built in fields -->
 
 `event` is the actual JavaScript event object, included where it exists.
 

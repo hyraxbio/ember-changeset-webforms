@@ -1,18 +1,4 @@
 <DocsDemo as |demo|>
-  <demo.example @name="custom-fields-demo.hbs">
-
-    <ChangesetWebform
-      @formSchema={{this.formSchema}}
-      @onFieldValueChange={{this.updatePhoneNumber}}
-      @customValidators={{this.customValidators}}
-    />
-    {{#if this.phoneNumber}}
-      <div class="rounded bg-success p-2 text-white mt-3">
-        The phone number entered is
-        {{this.phoneNumber}}
-      </div>
-    {{/if}}
-  </demo.example>
   <demo.snippet
     @name="custom-field-component.hbs"
     @label="custom field template"
@@ -28,15 +14,4 @@
     @label="custom validator"
     @language="javascript"
   />
-  <demo.snippet
-    @name="custom-fields-demo.js"
-    @label="parent component js"
-    @language="javascript"
-  />
-  <demo.snippet
-    @name="custom-fields-demo.hbs"
-    @label="parent template"
-    @language="htmlbars"
-  />
-
 </DocsDemo>

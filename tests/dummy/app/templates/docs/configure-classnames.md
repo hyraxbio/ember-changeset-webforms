@@ -30,7 +30,7 @@ App wide class name settings for a specific type of field can be set by adding a
 
 For example, the snippet below would add the class `radio-button-group-label` to label elements rendered in all `radioButtonGroup` fields throughout the app.
 
-<DocsSnippet @title="config/environment.js" @name="app-wide-field-specific-classes.js" />
+<DocsSnippet @title="config/environment.js" @name="app-wide-field-options.js" />
 
 The {{this.fieldTypes.length}} built in fields have the following `fieldTypes`:
 

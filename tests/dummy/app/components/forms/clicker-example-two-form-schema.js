@@ -39,8 +39,8 @@ export default class ClickerExampleTwoFormSchema extends Component {
   };
 
   @action
-  onUserInteractionClicker1(formField, changesetWebform, eventType) {
-    if (formField.fieldId === 'toggleAdvanced' && eventType === 'click') {
+  onUserInteractionClicker1(formField, changesetWebform, eventName) {
+    if (formField.fieldId === 'toggleAdvanced' && eventName === 'click') {
       formField.customProps.showAdvanced = !formField.customProps.showAdvanced;
       const advancedFields = changesetWebform.fields.filter(
         (field) => field.advancedSetting,

@@ -334,7 +334,7 @@ This could be useful where your server requires one date format, but your users 
 
 ## Clicker
 
-The field displays an element which emits the `onUserInteraction` action with the eventType `click` when clicked. You can bind this to an action in your component and then respond in any way.
+The field displays an element which emits the `onUserInteraction` action with the eventName `click` when clicked. You can bind this to an action in your component and then respond in any way.
 
 The examples below toggle the advanced field in a form.
 

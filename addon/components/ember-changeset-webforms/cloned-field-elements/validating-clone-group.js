@@ -106,7 +106,6 @@ export default class ValidatingCloneGroup extends Component {
         this.args.changesetWebform,
       );
     }
-    console.log();
   }
 
   @action

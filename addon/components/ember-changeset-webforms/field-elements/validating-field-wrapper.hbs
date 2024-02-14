@@ -61,6 +61,10 @@
   >
     {{yield}}
   </div>
+  <EmberChangesetWebforms::FieldElements::FieldDescription
+    @formField={{@formField}}
+    @changesetWebform={{@changesetWebform}}
+  />
   <EmberChangesetWebforms::FieldElements::FieldErrors
     @formField={{@formField}}
     @changesetWebform={{@changesetWebform}}

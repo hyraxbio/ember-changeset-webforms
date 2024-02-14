@@ -31,7 +31,8 @@ module.exports = function (environment) {
   };
   // END-SNIPPET
 
-  // BEGIN-SNIPPET app-wide-field-specific-classes.js
+  // BEGIN-SNIPPET app-wide-field-options.js
+  // config/environment.js
   ENV.changesetWebformsDefaults.fieldTypes = [
     {
       fieldType: 'radioButtonGroup',
@@ -48,6 +49,18 @@ module.exports = function (environment) {
           'form-control',
           'p-0',
           'bg-white',
+        ],
+        phoneNumberInput: [
+          'form-control ',
+          'border ',
+          'border-0 ',
+          'border-start',
+        ],
+        countryCodeTrigger: [
+          'input-group-text ',
+          'pe-5 ',
+          'border ',
+          'border-0',
         ],
       },
     },

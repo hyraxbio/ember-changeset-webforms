@@ -1,4 +1,5 @@
 // BEGIN-SNIPPET custom-field-component.js
+// components/custom-fields/phone-number-with-country-code.js
 import { action } from '@ember/object';
 import Component from '@glimmer/component';
 
@@ -66,7 +67,7 @@ export default class PhonerNumberWithCountryCodeComponent extends Component {
     );
 
     this.args.onUserInteraction('keyUpPhoneNumberInput', updatedFieldValue);
-    this.args.onChange(updatedFieldValue);
+    this.args.updateFieldValue(updatedFieldValue);
   }
   @action
   inputChange(event) {
@@ -74,7 +75,7 @@ export default class PhonerNumberWithCountryCodeComponent extends Component {
       'phoneNumber',
       event.target.value,
     );
-    this.args.onChange(updatedFieldValue);
+    this.args.updateFieldValue(updatedFieldValue);
   }
 
   @action
@@ -89,10 +90,10 @@ export default class PhonerNumberWithCountryCodeComponent extends Component {
   }
 
   @action
-  codeSelected(formField, value) {
+  codeSelected(value) {
     const updatedFieldValue = this.updatedFieldvalue('countryCode', value.code);
     this.args.onUserInteraction('countryCodeSelected');
-    this.args.onChange(updatedFieldValue);
+    this.args.updateFieldValue(updatedFieldValue);
   }
 
   updatedFieldvalue(key, value) {

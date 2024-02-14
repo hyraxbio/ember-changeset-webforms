@@ -8,11 +8,11 @@ export default class Input extends Component {
   }
 
   @action
-  onUserInteraction(eventType, event) {
+  onUserInteraction(eventName, event) {
     const formField = this.args.formField;
     let value = event.target.value;
-    this.args.onUserInteraction(eventType, value, event);
-    if (eventType === 'keyUp') {
+    this.args.onUserInteraction(eventName, value, event);
+    if (eventName === 'keyUp') {
       if (formField.fieldType === 'input' && event.keyCode === 13) {
         if (this.args.submitForm) {
           formField.focussed = false;
@@ -21,7 +21,7 @@ export default class Input extends Component {
         return;
       }
       this.args.updateFieldValue(value);
-    } else if (eventType === 'focusOut') {
+    } else if (eventName === 'focusOut') {
       formField.focussed = false;
       if (
         value &&
@@ -31,7 +31,7 @@ export default class Input extends Component {
       ) {
         value = value.trim();
       }
-    } else if (eventType === 'focusIn') {
+    } else if (eventName === 'focusIn') {
       formField.focussed = true;
     }
   }

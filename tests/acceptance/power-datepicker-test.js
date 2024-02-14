@@ -2136,9 +2136,9 @@ async function check(assert, opts) {
   const { keys } = keyCodesMap;
   const element = opts.inputToUpdate.element;
 
-  ['expectedInputValuesAfterKeyUp'].forEach((eventType) => {
-    opts[eventType] = opts[eventType] || [];
-    opts[eventType].forEach((item) => {
+  ['expectedInputValuesAfterKeyUp'].forEach((eventName) => {
+    opts[eventName] = opts[eventName] || [];
+    opts[eventName].forEach((item) => {
       if (item.input) {
         item.initialValue = item.input.value;
       } else if (item.textElement) {

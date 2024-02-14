@@ -37,6 +37,18 @@ export default class ValidatingField extends Component {
       : null;
   }
 
+  get ariaErrorMessage() {
+    return (this.args.formField.validationErrors || []).length
+      ? `${this.args.formField.id}-errors`
+      : null;
+  }
+
+  get ariaDescribedBy() {
+    return this.args.formField.fieldDescription
+      ? `${this.args.formField.id}-description`
+      : null;
+  }
+
   get isGroup() {
     return this.args.formField.options ? true : null;
   }
@@ -64,14 +76,14 @@ export default class ValidatingField extends Component {
   }
 
   @action
-  onUserInteraction(eventType, value, event) {
+  onUserInteraction(eventName, value, event) {
     if (this.isDestroyed || this.isDestroying) {
       return;
     }
     const formField = this.args.formField;
-    formField.eventLog.pushObject(eventType);
+    formField.eventLog.pushObject(eventName);
     this.validateField(formField);
-    this.args.onUserInteraction(formField, eventType, value, event);
+    this.args.onUserInteraction(formField, eventName, value, event);
   }
 
   @action
@@ -80,14 +92,13 @@ export default class ValidatingField extends Component {
       return;
     }
     const formField = this.args.formField;
-    formField.eventLog.pushObject('valueUpdated');
-    var changeset = this.args.changesetWebform.changeset;
-    formField.previousValue = changeset.get(formField.propertyName);
-    changeset.set(formField.propertyName, value);
+    formField.updateValue(value);
     this.validateField(formField);
-
     if (this.args.onFieldValueChange) {
-      this.args.onFieldValueChange(formField, changeset);
+      this.args.onFieldValueChange(
+        formField,
+        this.args.changesetWebform.changeset,
+      );
     }
   }
 }

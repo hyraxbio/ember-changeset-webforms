@@ -1,14 +1,23 @@
 {{! BEGIN-SNIPPET custom-field-component.hbs }}
+{{! components/custom-fields/phone-number-with-country-code.hbs }}
 <div class="input-group padding-0">
   <PowerSelect
-    @triggerClass="input-group-text pe-5 border border-0"
+    @triggerClass="{{ember-changeset-webforms/dynamic-class-names
+      'countryCodeTrigger'
+      @changesetWebform
+      @formField
+    }}"
     @options={{this.countryCodes}}
     @selected={{this.selectedCountryCode}}
     @allowClear={{false}}
     @searchEnabled={{false}}
     @placeholder="Country code"
-    @onChange={{fn this.codeSelected @formField}}
+    @onChange={{this.codeSelected}}
     @disabled={{@formField.disabled}}
+    ariaLabelledBy={{@ariaLabelledBy}}
+    aria-label={{@ariaLabel}}
+    aria-errormessage={{@ariaErrorMessage}}
+    aria-describedby={{@ariaDescribedBy}}
     as |option|
   >
     {{option.code}}
@@ -16,21 +25,25 @@
     {{option.name}}
   </PowerSelect>
   <input
-    class="form-control border border-0 border-start"
+    class="{{ember-changeset-webforms/dynamic-class-names
+        'phoneNumberInput'
+        @changesetWebform
+        @formField
+      }}"
     {{on "focusout" this.inputFocusOut}}
     {{on "focusin" this.inputFocusIn}}
     {{on "keyup" this.inputKeyUp}}
     {{on "change" this.inputChange}}
-    value={{readonly this.displayObject.phoneNumber}}
+    value={{this.displayObject.phoneNumber}}
     type="text"
     readonly={{@formField.readonly}}
     disabled={{@formField.disabled}}
+    required={{@formField.required}}
     name={{concat @formField.name "-phone-number-input"}}
     ariaLabelledBy={{@ariaLabelledBy}}
     aria-label={{@ariaLabel}}
-    aria-errormessage="{{@formField.id}}-errors"
-    aria-describedby="{{@formField.id-description}}"
-    required
+    aria-errormessage={{@ariaErrorMessage}}
+    aria-describedby={{@ariaDescribedBy}}
   />
 </div>
 {{! END-SNIPPET }}

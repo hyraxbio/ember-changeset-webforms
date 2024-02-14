@@ -76,17 +76,12 @@ export default class FormFieldClone {
     }
   }
 
-  updateValidationActivation(index, eventType) {
-    const clonedFormField = this;
-    if (
-      clonedFormField.validatesOn.find(
-        (validationEvent) => validationEvent === eventType,
-      )
-    ) {
-      const validationRules = clonedFormField.validationRules[0];
+  updateValidationActivation() {
+    if (this.eventLogValidated.length) {
+      const validationRules = this.validationRules[0];
       validationRules.activateValidation =
         validationRules.activateValidation || [];
-      validationRules.activateValidation.push(index); // clonedFormField.set()
+      validationRules.activateValidation.push(this.index);
     }
   }
 }

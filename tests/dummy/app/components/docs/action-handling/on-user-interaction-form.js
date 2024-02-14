@@ -45,8 +45,8 @@ export default class OnUserInteractionForm extends Component {
   };
 
   @action
-  onUserInteraction(formField, changesetWebform, eventType) {
-    if (eventType === 'click') {
+  onUserInteraction(formField, changesetWebform, eventName) {
+    if (eventName === 'click') {
       if (formField.fieldId === 'toggleNicknameField') {
         const nickNameField = changesetWebform.fields.findBy(
           'fieldId',
