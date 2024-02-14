@@ -41,7 +41,7 @@ export default class PowerSelect extends Component {
               .indexOf(event.target.value.toLowerCase()) > -1,
         )
       ) {
-        let value = this.displayValue || [];
+        let value = this.fieldValue || [];
         var newItem;
         if (this.args.formField.optionDisplayProp) {
           newItem = {};

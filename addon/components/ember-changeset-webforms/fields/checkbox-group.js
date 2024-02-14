@@ -6,7 +6,7 @@ export default class CheckboxGroup extends Component {
   @tracked value;
 
   get options() {
-    var checkedItems = this.stringToArray(this.args.displayValue);
+    var checkedItems = this.stringToArray(this.args.formField.fieldValue);
     var options = this.args.formField.options;
     options.forEach(function (option) {
       if (checkedItems.indexOf(option.key) > -1) {
@@ -26,7 +26,7 @@ export default class CheckboxGroup extends Component {
 
   @action
   checkboxToggled(formField, key, value, event) {
-    var checkedItems = this.stringToArray(this.args.displayValue);
+    var checkedItems = this.stringToArray(this.args.formField.fieldValue);
     if (value === true) {
       checkedItems = checkedItems.concat([key]); // TODO can pushObject work with tracked props?
     } else {

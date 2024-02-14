@@ -2,10 +2,10 @@ import { action } from '@ember/object';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 export default class RadioButtonGroup extends Component {
-  @tracked displayValue; // TODO see if this does anything
+  @tracked fieldValue; // TODO see if this does anything
 
   get groupValue() {
-    return this.displayValue;
+    return this.fieldValue;
   }
 
   @action

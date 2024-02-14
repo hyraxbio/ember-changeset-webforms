@@ -42,11 +42,11 @@ export default class PhonerNumberWithCountryCodeComponent extends Component {
       code: '1-268',
     },
   ];
-  get displayObject() {
-    if (!this.args.displayValue) {
+  get fieldValueObject() {
+    if (!this.args.formField.fieldValue) {
       return {};
     }
-    const parts = this.args.displayValue.split(')');
+    const parts = this.args.formField.fieldValue.split(')');
     return {
       countryCode: parts[0].replace('(', ''),
       phoneNumber: parts[1],
@@ -55,23 +55,23 @@ export default class PhonerNumberWithCountryCodeComponent extends Component {
 
   get selectedCountryCode() {
     return this.countryCodes.find(
-      (countryCode) => countryCode.code === this.displayObject.countryCode,
+      (countryCode) => countryCode.code === this.fieldValueObject.countryCode,
     );
   }
 
   @action
   inputKeyUp(event) {
-    const updatedFieldValue = this.updatedFieldvalue(
+    const updatedFieldValue = this.updatedFieldValue(
       'phoneNumber',
       event.target.value,
     );
 
-    this.args.onUserInteraction('keyUpPhoneNumberInput', updatedFieldValue);
+    this.args.onUserInteraction('keyUpPhoneNumberInput');
     this.args.updateFieldValue(updatedFieldValue);
   }
   @action
   inputChange(event) {
-    const updatedFieldValue = this.updatedFieldvalue(
+    const updatedFieldValue = this.updatedFieldValue(
       'phoneNumber',
       event.target.value,
     );
@@ -91,13 +91,13 @@ export default class PhonerNumberWithCountryCodeComponent extends Component {
 
   @action
   codeSelected(value) {
-    const updatedFieldValue = this.updatedFieldvalue('countryCode', value.code);
+    const updatedFieldValue = this.updatedFieldValue('countryCode', value.code);
     this.args.onUserInteraction('countryCodeSelected');
     this.args.updateFieldValue(updatedFieldValue);
   }
 
-  updatedFieldvalue(key, value) {
-    const newObj = Object.assign({}, this.displayObject);
+  updatedFieldValue(key, value) {
+    const newObj = Object.assign({}, this.fieldValueObject);
     newObj[key] = value;
     return `(${newObj.countryCode || ''})${newObj.phoneNumber || ''}`;
   }

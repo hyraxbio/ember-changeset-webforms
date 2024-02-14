@@ -35,7 +35,21 @@ For fine grained control of when the fields validation should become activated, 
 
 The component template simply inserts a [Power Select](https://ember-power-select.com) component for selecting the country code, and then a text input for entering the rest of the phone number. 
 
+### Accessing field value
 
+The value of the field, as derived from the underlying changeset property, can be accessed as the `fieldValue` property of ther form field. 
+
+In the example below, we use the getter `fieldValueObject` to create an object out of `this.args.formField.filedValue`, as different form elements contain different parts of the value. For example, the input's value is set to `this.fieldValueObject.phoneNumber`.
+
+### Handling browser events
+
+In response to the relevant browser events, the two power select and input call the following component actions:
+
+* `codeSelected`
+* `inputFocusOut`
+* `inputFocusIn`
+* `inputKeyUp`
+* `inputChange`
 
 ### Inserting dynamic class names
 
@@ -53,19 +67,22 @@ Of course you could hard code the class names into your template if you don't ca
 
 This is especially helpful if your creating your cusrtom fielsd in an addon, as the consuming app could then override these settings at at app wide level as well.
 
-### Handling browser events
+### Other attributes
 
-In response to the relevant browser events, the two power select and input call the following component actions:
+In some cases the attributes of a form element in your custom field may have corresponsing field properties. 
 
-* codeSelected
-* inputFocusOut
-* inputFocusIn
-* inputKeyUp
-* inputChange
+For example, the phone number input uses formField properties to set attribute sint he following way:
+
+```handlebars
+readonly={{@formField.readonly}}
+disabled={{@formField.disabled}}
+required={{@formField.required}}
+name={{concat @formField.name "-phone-number-input"}}
+```
 
 ### Accessibility
 
-Both the power select and the input have the following aria properties added.
+In our example, both the power select component and the input have the following aria properties added:
 
 ```handlebars
 ariaLabelledBy={{@ariaLabelledBy}}
@@ -76,7 +93,15 @@ aria-describedby={{@ariaDescribedBy}}
 
 These are passed into the component for you, and you only need to add them to the relevant elements in your custom field, exactly as they appear above. The field label, description and error elements of the field will automatically have the corresponding ids, allowing all the the above attrionutes to work correctly with screen readers.
 
-## The updateFieldValue action
+### Focussing and unfocussing the field
+
+At any point your component can set `this.args.formField.focussed` equal to `true` or `false`. Unless the fields `showValidationWhenFocussed` property is true, all validation UI will be hidden on the field for as long as the fields `focussed` property is `true`.
+
+In the example below, we set `focussed` to true when the text input is focussed.
+
+## Action handling
+
+### updateFieldValue
 
 In order to update the value of the field, you must call `this.args.updateFieldValue` passing the new field value as the only argument. This has several knock on effects, including 
 * updating the associated property on the changeset
@@ -84,7 +109,14 @@ In order to update the value of the field, you must call `this.args.updateFieldV
 * triggering field validation, 
 * triggering the external `onFieldValueChange` action. // TODO link
 
-## The onUserInteraction action
+In our example, we call this action from 3 different component actions:
+
+* `inputKeyUp`, and  `inputChange` which are in turn bound to the inherent "change" and "keyup" input event via the `on` modifer.
+* `codeSelected` which is bound to the `onChange` property of the power select component.
+
+In each case, the value sent as the only argument is the string returned by `updatedFieldValue`, which updates either the countryCode or phoneNumber and returns the concatenated string.
+
+### onUserInteraction
 
 Your custom field component can optionally also call `this.args.onUserInteraction` in response to any user events of your choosing. It takes the following arguments:
 * `eventName` - required - any string. This string will be added to the `eventLog` array of the field, and if the same event name is included in the fields `validatesOn` array, then validation will be activated for the field.
@@ -93,17 +125,19 @@ Your custom field component can optionally also call `this.args.onUserInteractio
 
 Calling `this.args.onUserInteraction` from your custom field will also trigger the external `onUserInteraction` action // TODO link.
 
+In our example `this.args.onUserInteraction` is called 3 times, with the only argument being one of `keyUpPhoneNumberInput`, `focusOutPhoneNumberInput`, or `countryCodeSelected`.
 
+This means that is any of `keyUpPhoneNumberInput`, `focusOutPhoneNumberInput`, or `countryCodeSelected` are include in the `validatesOn` array of the field definition where the field is added to a form schema, the fields validation will be activated as soon as `this.args.onUserInteraction` with the corrtesponding argument.
+
+In the usage example below, we see that `focusOutPhoneNumberInput` is the only string in the `validatesOn` array for the `phoneNumber` field. This means that:
+* the field does not validate if the user first selects a country code. This avoids an annoying validation error about requiring the phone number before the user has had a chance to fill it in.
+* the field validates when the user focusses out of the input, whether there is any text entered or not.
+* once a fields validation is activated by a focus out event, it will revalidate whenever it's value is changed, including when a new country code is selected.
+
+## Usage
+
+The new field can then be used as any other field, as in the example below.
 
 <Demos::CustomFieldUsage />
 
-Creating custom fields content
-
-** Make sure it knows what to do if disabled.
-
-Emit the userInteraction actions with eventName
-
-id={{this.formField.id}}
-ariaLabelledBy={{this.ariaLabelledBy}}
-aria-label={{this.ariaLabel}}
 

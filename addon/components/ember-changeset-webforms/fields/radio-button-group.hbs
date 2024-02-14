@@ -10,7 +10,7 @@
     <Background::LabelledRadioButton
       @dataTestId={{concat @dataTestFieldId "-radio-option-" option.value}}
       @value={{option.value}}
-      @groupValue={{@displayValue}}
+      @groupValue={{@formField.fieldValue}}
       @required={{false}}
       @name={{or @formField.name @formField.fieldId}}
       @disabled={{if @formField.disabled true option.disabled}}

@@ -6,7 +6,7 @@
       @formField
       @formField.validationStatus
     }}"
-  value={{@displayValue}}
+  value={{@formField.fieldValue}}
   {{on "keyup" (fn this.onUserInteraction @formField "keyUp")}}
   {{on "keyup" (fn this.onUserInteraction @formField "keyDown")}}
   {{on "blur" (fn this.onUserInteraction @formField "focusOut")}}

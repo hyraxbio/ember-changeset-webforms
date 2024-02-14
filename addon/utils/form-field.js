@@ -18,7 +18,7 @@ export default class FormField {
     }
   }
 
-  get displayValue() {
+  get fieldValue() {
     return this.changeset.get(this.fieldId);
   }
 

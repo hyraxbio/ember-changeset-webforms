@@ -16,8 +16,8 @@ export default class FormFieldClone {
     }
   }
 
-  get displayValue() {
-    var groupValue = this.masterFormField.displayValue;
+  get fieldValue() {
+    var groupValue = this.masterFormField.fieldValue;
     var index = this.index;
     if (!groupValue) {
       return;
