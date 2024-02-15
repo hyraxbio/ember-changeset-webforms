@@ -34,5 +34,17 @@ export default class Input extends Component {
     } else if (eventName === 'focusIn') {
       formField.focussed = true;
     }
+    if (this.args.formField.validationErrors) {
+      this.element.setCustomValidity(
+        this.args.formField.validationErrors.join(','),
+      );
+    } else {
+      this.element.setCustomValidity('');
+    }
+  }
+
+  @action
+  didInsert(element) {
+    this.element = element;
   }
 }

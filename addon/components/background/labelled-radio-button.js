@@ -6,6 +6,8 @@ export default class LabelledRadioButton extends Component {
     if (this.args.formField.fieldId === this.args.option.value) {
       return safeName(this.args.formField.id);
     }
-    return safeName(`${this.args.formField.id}-${this.args.option.value}`);
+    return safeName(
+      `${this.args.formField.id}-radio-option-${this.args.option.value}`,
+    );
   }
 }

@@ -9,7 +9,7 @@ export default class ValidatingFieldWrapper extends Component {
     if (!this.args.dataTestFieldId) {
       return null;
     }
-    return `${this.args.dataTestFieldId}-field`;
+    return `${this.args.dataTestFieldId}`;
   }
 
   get dataTestClass() {

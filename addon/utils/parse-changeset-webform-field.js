@@ -82,7 +82,7 @@ function parse(fieldSchema, customValidators, formSettings) {
   );
   field.name =
     field.name || safeName(`${formSettings.formName}-${field.fieldId}`);
-  field.id = safeName(`${formSettings.formName}-${field.fieldId}`);
+  field.id = safeName(`${formSettings.formName}-form-${field.fieldId}-field`);
   field.placeholder = field.placeholder || field.fieldLabel;
   field.propertyName = field.propertyName || field.fieldId;
   delete field.alwaysValidateOn;

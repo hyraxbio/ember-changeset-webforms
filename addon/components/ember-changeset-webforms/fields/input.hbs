@@ -6,6 +6,7 @@
       @formField.validationStatus
     }}"
   value={{@formField.fieldValue}}
+  {{did-insert this.didInsert}}
   {{on "keyup" (fn this.onUserInteraction "keyUp")}}
   {{on "keydown" (fn this.onUserInteraction "keyDown")}}
   {{on "blur" (fn this.onUserInteraction "focusOut")}}
@@ -25,4 +26,5 @@
     @formField.description
     (concat @formField.id "-description")
   }}
+  required={{@formField.required}}
 />

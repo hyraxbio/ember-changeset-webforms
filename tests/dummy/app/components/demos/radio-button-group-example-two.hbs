@@ -1,6 +1,16 @@
 <DocsDemo as |demo|>
-  <demo.example @name="radio-button-group-example-2.hbs">
-    <ChangesetWebform @formSchema={{this.formSchema}} />
+  <demo.example
+    @name="radio-button-group-example-2.hbs"
+    data-test-id="radio-button-group-example-2"
+  >
+    <ChangesetWebform
+      @formSchema={{this.formSchema}}
+      @onFieldValueChange={{this.onFieldValueChange}}
+    />
+    {{#if this.currentValue}}
+      <div data-test-id="current-value">Selected colour:
+        {{this.currentValue}}</div>
+    {{/if}}
   </demo.example>
   <demo.snippet
     @name="radio-button-group-example-2.js"

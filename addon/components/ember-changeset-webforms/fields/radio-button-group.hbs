@@ -8,7 +8,6 @@
 >
   {{#each @formField.options as |option|}}
     <Background::LabelledRadioButton
-      @dataTestId={{concat @dataTestFieldId "-radio-option-" option.value}}
       @value={{option.value}}
       @groupValue={{@formField.fieldValue}}
       @required={{false}}

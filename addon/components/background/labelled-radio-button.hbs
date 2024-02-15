@@ -6,7 +6,7 @@
       @formField.validationStatus
     }}
     {{if @disabled 'disabled'}}"
-  data-test-id={{@dataTestId}}
+  data-test-id={{this.radioId}}
 >
   <RadioButton
     @value={{@value}}
@@ -24,6 +24,7 @@
   />
   <Background::LabelComponent
     @labelComponent={{@labelComponent}}
+    @option={{@option}}
     @markdownLabel={{@markdownLabel}}
     @label={{@label}}
     @for={{this.radioId}}

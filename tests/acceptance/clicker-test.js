@@ -33,11 +33,15 @@ module('Acceptance | Clicker', function (hooks) {
     );
     await click(`${dummyEls.clickerExample1} ${dummyEls.cwfClickerElement} `);
     assert
-      .dom(`${dummyEls.clickerExample1} ${dummyEls.advancedField}`)
+      .dom(
+        `${dummyEls.clickerExample1} ${dummyEls.clickerExample1FormAdvancedField}`,
+      )
       .exists('Advanced field is present after clicking show advanced button.');
     await click(`${dummyEls.clickerExample1} ${dummyEls.cwfClickerElement} `);
     assert
-      .dom(`${dummyEls.clickerExample1} ${dummyEls.advancedField}`)
+      .dom(
+        `${dummyEls.clickerExample1} ${dummyEls.clickerExample1FormAdvancedField}`,
+      )
       .doesNotExist(
         'Advanced field is not present after clicking show advanced button again.',
       );
@@ -48,7 +52,9 @@ module('Acceptance | Clicker', function (hooks) {
     const el = find(dummyEls.clickerExample2);
     el.scrollIntoView();
     assert
-      .dom(`${dummyEls.clickerExample2} ${dummyEls.advancedField}`)
+      .dom(
+        `${dummyEls.clickerExample2} ${dummyEls.clickerExample2FormAdvancedField}`,
+      )
       .doesNotExist('Advanced field not present on load.');
     assert
       .dom(`${dummyEls.clickerExample2} ${dummyEls.cwfClickerElement}`)
@@ -70,11 +76,15 @@ module('Acceptance | Clicker', function (hooks) {
     );
     await click(`${dummyEls.clickerExample2} ${dummyEls.cwfClickerElement} `);
     assert
-      .dom(`${dummyEls.clickerExample2} ${dummyEls.advancedField}`)
+      .dom(
+        `${dummyEls.clickerExample2} ${dummyEls.clickerExample2FormAdvancedField}`,
+      )
       .exists('Advanced field is present after clicking show advanced button.');
     await click(`${dummyEls.clickerExample2} ${dummyEls.cwfClickerElement} `);
     assert
-      .dom(`${dummyEls.clickerExample2} ${dummyEls.advancedField}`)
+      .dom(
+        `${dummyEls.clickerExample2} ${dummyEls.clickerExample2FormAdvancedField}`,
+      )
       .doesNotExist(
         'Advanced field is not present after clicking show advanced button again.',
       );

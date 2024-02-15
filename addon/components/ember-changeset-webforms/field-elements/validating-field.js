@@ -1,17 +1,12 @@
 import { action } from '@ember/object';
 import Component from '@glimmer/component';
-
+import safeName from 'ember-changeset-webforms/utils/safe-name';
 export default class ValidatingField extends Component {
   get dataTestFieldId() {
     if (this.args.dataTestId) {
       return this.args.dataTestId;
     }
-    return [
-      this.args.dataTestFormName,
-      this.args.formField.dataTestFieldName || this.args.formField.fieldId,
-    ]
-      .filter((item) => item)
-      .join('-');
+    return safeName(this.args.formField.id);
   }
 
   get typeClass() {

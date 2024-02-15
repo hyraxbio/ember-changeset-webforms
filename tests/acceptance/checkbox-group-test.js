@@ -8,9 +8,13 @@ module('Acceptance | Checkbox group', function (hooks) {
 
   test('Basic', async function (assert) {
     await visit('/docs/built-in-fields');
-    await click(`${dummyEls.checkboxes1CheckboxOption1} input`);
+    await click(
+      `${dummyEls.checkboxGroupExample1FormCheckboxes1FieldCheckboxOption1} input`,
+    );
     assert
-      .dom(`${dummyEls.checkboxes1CheckboxOption1} input:checked`)
+      .dom(
+        `${dummyEls.checkboxGroupExample1FormCheckboxes1FieldCheckboxOption1} input:checked`,
+      )
       .exists('First checkbox is checked after being clicked');
     assert.strictEqual(
       findAll(`${dummyEls.checkboxGroupExample1} input:checked`).length,
@@ -22,12 +26,18 @@ module('Acceptance | Checkbox group', function (hooks) {
       2,
       'Two checkboxes are not clicked after first checkbox is clicked.',
     );
-    await click(`${dummyEls.checkboxes1CheckboxOption2} input`);
+    await click(
+      `${dummyEls.checkboxGroupExample1FormCheckboxes1FieldCheckboxOption2} input`,
+    );
     assert
-      .dom(`${dummyEls.checkboxes1CheckboxOption2} input:checked`)
+      .dom(
+        `${dummyEls.checkboxGroupExample1FormCheckboxes1FieldCheckboxOption2} input:checked`,
+      )
       .exists('Second checkbox is checked after being clicked');
     assert
-      .dom(`${dummyEls.checkboxes1CheckboxOption1} input:checked`)
+      .dom(
+        `${dummyEls.checkboxGroupExample1FormCheckboxes1FieldCheckboxOption1} input:checked`,
+      )
       .exists(
         'First checkbox remains checked after second checkbox is clicked',
       );
@@ -41,7 +51,9 @@ module('Acceptance | Checkbox group', function (hooks) {
       1,
       'One checkbox not checked after second checkbox is clicked.',
     );
-    await click(`${dummyEls.checkboxes1CheckboxOption3} input`);
+    await click(
+      `${dummyEls.checkboxGroupExample1FormCheckboxes1FieldCheckboxOption3} input`,
+    );
     assert.strictEqual(
       findAll(`${dummyEls.checkboxGroupExample1} input:checked`).length,
       3,

@@ -65,7 +65,6 @@ export default class FormField {
   }
 
   updateValue(value) {
-    console.log();
     this.eventLog.pushObject('valueUpdated');
     var changeset = this.changeset;
     this.previousValue = changeset.get(this.propertyName);
@@ -83,7 +82,6 @@ export default class FormField {
       if (!this.eventLogValidated.length) {
         return;
       }
-      console.log('validate');
       changeset
         .validate(formField.propertyName)
         .then(() => {

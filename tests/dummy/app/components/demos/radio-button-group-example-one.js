@@ -1,29 +1,31 @@
 import Component from '@glimmer/component';
-
+import { action } from '@ember/object';
+import { tracked } from '@glimmer/tracking';
 export default class RadioButtonGroupExampleOneComponent extends Component {
+  @tracked currentValue;
   // BEGIN-SNIPPET radio-button-group-example-1.js
   formSchema = {
     formSettings: {
-      formName: 'radioButtonGroupExample1',
+      formName: 'radioButtonGroupExample',
       hideSubmitButton: true,
     },
     fields: [
       {
-        fieldId: 'radioButtons1',
+        fieldId: 'rgbColours',
         fieldType: 'radioButtonGroup',
-        fieldLabel: 'Basic usage',
+        fieldLabel: 'Select colour',
         options: [
           {
-            label: 'Option 1',
-            value: '1',
+            label: 'Red',
+            value: 'ff0000',
           },
           {
-            label: 'Option 2',
-            value: '2',
+            label: 'Green',
+            value: '00ff00',
           },
           {
-            label: 'Option 3',
-            value: '3',
+            label: 'Blue',
+            value: '0000ff',
           },
         ],
       },
@@ -31,5 +33,8 @@ export default class RadioButtonGroupExampleOneComponent extends Component {
   };
   // END-SNIPPET
 
-  // end-of-conent
+  @action
+  onFieldValueChange(formField, _changesetWebform) {
+    this.currentValue = formField.fieldValue;
+  }
 }

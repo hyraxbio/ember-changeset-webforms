@@ -31,7 +31,9 @@ module('Acceptance | Power datepicker field', function (hooks) {
     const fieldValueElement = find(
       `${parentFieldSelector} ${dummyEls.outputFieldValue}`,
     );
-    await clickTrigger(`${parentFieldSelector} ${dummyEls.startDateField}`);
+    await clickTrigger(
+      `${parentFieldSelector} ${dummyEls.powerDatapickerExample1FormStartDateField}`,
+    );
     const calendarElement = find(dummyEls.ecwPowerDatepickerDropdown);
     await calendarSelect(
       parentFieldSelector,
@@ -88,7 +90,9 @@ module('Acceptance | Power datepicker field', function (hooks) {
     const fieldValueElement = find(
       `${parentFieldSelector} ${dummyEls.outputFieldValue}`,
     );
-    await clickTrigger(`${parentFieldSelector} ${dummyEls.startDateField}`);
+    await clickTrigger(
+      `${parentFieldSelector} ${dummyEls.powerDatapickerExample1cFormStartDateField}`,
+    );
     assert
       .dom(`${dummyEls.dataDate('2022-11-09')}:disabled`)
       .exists('2022-11-09 is disabled in the calendar');
@@ -167,7 +171,9 @@ module('Acceptance | Power datepicker field', function (hooks) {
     const fieldValueElement = find(
       `${parentFieldSelector} ${dummyEls.outputFieldValue}`,
     );
-    await clickTrigger(`${parentFieldSelector} ${dummyEls.startDateField}`);
+    await clickTrigger(
+      `${parentFieldSelector} ${dummyEls.powerDatapickerExample1bFormStartDateField}`,
+    );
     const calendarElement = find(dummyEls.ecwPowerDatepickerDropdown);
     await calendarSelect(
       parentFieldSelector,
@@ -220,7 +226,9 @@ module('Acceptance | Power datepicker field', function (hooks) {
     const rawDateTimeElement = find(
       `${parentFieldSelector} ${dummyEls.rawDateTime}`,
     );
-    await clickTrigger(`${parentFieldSelector} ${dummyEls.startDateField}`);
+    await clickTrigger(
+      `${parentFieldSelector} ${dummyEls.powerDatapickerExample3FormStartDateField}`,
+    );
     assert
       .dom(dummyEls.powerDatepickerAmPmInput)
       .doesNotExist(
@@ -607,7 +615,9 @@ module('Acceptance | Power datepicker field', function (hooks) {
     const rawDateTimeElement = find(
       `${parentFieldSelector} ${dummyEls.rawDateTime}`,
     );
-    await clickTrigger(`${parentFieldSelector} ${dummyEls.startDateField}`);
+    await clickTrigger(
+      `${parentFieldSelector} ${dummyEls.powerDatapickerExample4FormStartDateField}`,
+    );
     assert
       .dom(dummyEls.powerDatepickerAmPmInput)
       .exists('AM/PM input shown when h passed as the hour input format.');
@@ -996,7 +1006,9 @@ module('Acceptance | Power datepicker field', function (hooks) {
   test('Arrow keys - hour controls (24 hours format)', async function (assert) {
     await visit('/docs/built-in-fields');
     const parentFieldSelector = dummyEls.powerDatepicker24HourTimeSelect;
-    await clickTrigger(`${parentFieldSelector} ${dummyEls.startDateField}`);
+    await clickTrigger(
+      `${parentFieldSelector} ${dummyEls.powerDatapickerExample3FormStartDateField}`,
+    );
     const timeSelectorHourInput = find(dummyEls.timeSelectorFieldInputHour);
 
     await checkIncrements(assert, {
@@ -1032,7 +1044,9 @@ module('Acceptance | Power datepicker field', function (hooks) {
     const rawDateTimeElement = find(
       `${parentFieldSelector} ${dummyEls.rawDateTime}`,
     );
-    await clickTrigger(`${parentFieldSelector} ${dummyEls.startDateField}`);
+    await clickTrigger(
+      `${parentFieldSelector} ${dummyEls.powerDatapickerExample4FormStartDateField}`,
+    );
     const timeSelectorHourInput = find(dummyEls.timeSelectorFieldInputHour);
 
     await checkIncrements(assert, {
@@ -1088,8 +1102,10 @@ module('Acceptance | Power datepicker field', function (hooks) {
 
   test('Arrow keys - minute controls', async function (assert) {
     await visit('/docs/built-in-fields');
-    const parentFieldSelector = dummyEls.powerDatepicker24HourTimeSelect;
-    await clickTrigger(`${parentFieldSelector} ${dummyEls.startDateField}`);
+    const parentFieldSelector = dummyEls.powerDatepicker24HourTimeSelect; //
+    await clickTrigger(
+      `${parentFieldSelector} ${dummyEls.powerDatapickerExample3FormStartDateField}`,
+    );
     const timeSelectorMinuteInput = find(
       dummyEls.timeSelectorFieldInputMinutes,
     );
@@ -1126,7 +1142,9 @@ module('Acceptance | Power datepicker field', function (hooks) {
   test('Arrow keys - second controls', async function (assert) {
     await visit('/docs/built-in-fields');
     const parentFieldSelector = dummyEls.powerDatepicker24HourTimeSelect;
-    await clickTrigger(`${parentFieldSelector} ${dummyEls.startDateField}`);
+    await clickTrigger(
+      `${parentFieldSelector} ${dummyEls.powerDatapickerExample3FormStartDateField}`,
+    );
     const timeSelectorSecondsInput = find(
       dummyEls.timeSelectorFieldInputSeconds,
     );
@@ -1163,7 +1181,9 @@ module('Acceptance | Power datepicker field', function (hooks) {
   test('Arrow keys - millisecond controls', async function (assert) {
     await visit('/docs/built-in-fields');
     const parentFieldSelector = dummyEls.powerDatepicker24HourTimeSelect;
-    await clickTrigger(`${parentFieldSelector} ${dummyEls.startDateField}`);
+    await clickTrigger(
+      `${parentFieldSelector} ${dummyEls.powerDatapickerExample3FormStartDateField}`,
+    );
     const timeSelectorMillisecondsInput = find(
       dummyEls.timeSelectorFieldInputMilliseconds,
     );
@@ -1228,7 +1248,9 @@ module('Acceptance | Power datepicker field', function (hooks) {
     const rawDateTimeElement = find(
       `${parentFieldSelector} ${dummyEls.rawDateTime}`,
     );
-    await clickTrigger(`${parentFieldSelector} ${dummyEls.startDateField}`);
+    await clickTrigger(
+      `${parentFieldSelector} ${dummyEls.powerDatapickerExample4FormStartDateField}`,
+    );
     const timeSelectorHourInput = find(dummyEls.timeSelectorFieldInputHour);
 
     await check(assert, {
@@ -1322,7 +1344,9 @@ module('Acceptance | Power datepicker field', function (hooks) {
     const rawDateTimeElement = find(
       `${parentFieldSelector} ${dummyEls.rawDateTime}`,
     );
-    await clickTrigger(`${parentFieldSelector} ${dummyEls.startDateField}`);
+    await clickTrigger(
+      `${parentFieldSelector} ${dummyEls.powerDatapickerExample3FormStartDateField}`,
+    );
     const timeSelectorHourInput = find(dummyEls.timeSelectorFieldInputHour);
 
     await check(assert, {
@@ -1443,7 +1467,9 @@ module('Acceptance | Power datepicker field', function (hooks) {
     const rawDateTimeElement = find(
       `${parentFieldSelector} ${dummyEls.rawDateTime}`,
     );
-    await clickTrigger(`${parentFieldSelector} ${dummyEls.startDateField}`);
+    await clickTrigger(
+      `${parentFieldSelector} ${dummyEls.powerDatapickerExample3FormStartDateField}`,
+    );
     const timeSelectorMinutesInput = find(
       dummyEls.timeSelectorFieldInputMinutes,
     );
@@ -1539,7 +1565,9 @@ module('Acceptance | Power datepicker field', function (hooks) {
     const rawDateTimeElement = find(
       `${parentFieldSelector} ${dummyEls.rawDateTime}`,
     );
-    await clickTrigger(`${parentFieldSelector} ${dummyEls.startDateField}`);
+    await clickTrigger(
+      `${parentFieldSelector} ${dummyEls.powerDatapickerExample3FormStartDateField}`,
+    );
     const timeSelectorSecondsInput = find(
       dummyEls.timeSelectorFieldInputSeconds,
     );
@@ -1635,7 +1663,9 @@ module('Acceptance | Power datepicker field', function (hooks) {
     const rawDateTimeElement = find(
       `${parentFieldSelector} ${dummyEls.rawDateTime}`,
     );
-    await clickTrigger(`${parentFieldSelector} ${dummyEls.startDateField}`);
+    await clickTrigger(
+      `${parentFieldSelector} ${dummyEls.powerDatapickerExample3FormStartDateField}`,
+    );
     const timeSelectorMillisecondsInput = find(
       dummyEls.timeSelectorFieldInputMilliseconds,
     );
@@ -1731,7 +1761,9 @@ module('Acceptance | Power datepicker field', function (hooks) {
     const rawDateTimeElement = find(
       `${parentFieldSelector} ${dummyEls.rawDateTime}`,
     );
-    await clickTrigger(`${parentFieldSelector} ${dummyEls.startDateField}`);
+    await clickTrigger(
+      `${parentFieldSelector} ${dummyEls.powerDatapickerExample4FormStartDateField}`,
+    );
     await focus(dateTimeInput);
     const amPmInput = find(
       `${parentFieldSelector} ${dummyEls.powerDatepickerAmPmInput}`,
@@ -2014,7 +2046,9 @@ module('Acceptance | Power datepicker field', function (hooks) {
     const dateTimeInput = find(
       `${parentFieldSelector} ${dummyEls.powerDatepickerInput}`,
     );
-    await clickTrigger(`${parentFieldSelector} ${dummyEls.startDateField}`);
+    await clickTrigger(
+      `${parentFieldSelector} ${dummyEls.powerDatapickerExample5FormStartDateField}`,
+    );
     const timeSelectorMillisecondsInput = find(
       dummyEls.timeSelectorFieldInputMilliseconds,
     );
@@ -2034,7 +2068,9 @@ module('Acceptance | Power datepicker field', function (hooks) {
   test('Custom timeSelectorFields HH:mm', async function (assert) {
     await visit('/docs/built-in-fields');
     const parentFieldSelector = dummyEls.powerDatepickerCustomTimeSelect;
-    await clickTrigger(`${parentFieldSelector} ${dummyEls.startDateField}`);
+    await clickTrigger(
+      `${parentFieldSelector} ${dummyEls.powerDatapickerExample3aFormStartDateField}`,
+    );
     assert
       .dom(dummyEls.timeSelectorField)
       .exists({ count: 2 }, 'Two time selector inputs exist');
@@ -2061,7 +2097,9 @@ module('Acceptance | Power datepicker field', function (hooks) {
       const fieldValueElement = find(
         `${parentFieldSelector} ${dummyEls.outputFieldValue}`,
       );
-      await clickTrigger(`${parentFieldSelector} ${dummyEls.startDateField}`);
+      await clickTrigger(
+        `${parentFieldSelector} ${dummyEls.powerDatapickerExample5FormStartDateField}`,
+      );
       const timeSelectorMinutesInput = find(
         dummyEls.timeSelectorFieldInputMinutes,
       );

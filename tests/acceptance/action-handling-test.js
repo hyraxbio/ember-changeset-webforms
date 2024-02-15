@@ -18,7 +18,7 @@ module('Acceptance | Action handling', function (hooks) {
   test('onFieldValueChange', async function (assert) {
     await visit('/docs/action-handling');
     await fillIn(
-      `${dummyEls.onFieldValueChangeForm} ${dummyEls.firstNameField} input`,
+      `${dummyEls.onFieldValueChangeForm} ${dummyEls.namesFormFirstNameField} input`,
       'G',
     );
     assert
@@ -28,7 +28,7 @@ module('Acceptance | Action handling', function (hooks) {
         'All arguments are correctly sent with the onFieldValueChange action.',
       );
     await fillIn(
-      `${dummyEls.onFieldValueChangeForm} ${dummyEls.firstNameField} input`,
+      `${dummyEls.onFieldValueChangeForm} ${dummyEls.namesFormFirstNameField} input`,
       'Gene',
     );
     assert
@@ -42,10 +42,10 @@ module('Acceptance | Action handling', function (hooks) {
   test('afterFieldValidation', async function (assert) {
     await visit('/docs/action-handling');
     await focus(
-      `${dummyEls.afterFieldValidationForm} ${dummyEls.nameField} input`,
+      `${dummyEls.afterFieldValidationForm} ${dummyEls.nameAndEmailFormNameField} input`,
     );
     await blur(
-      `${dummyEls.afterFieldValidationForm} ${dummyEls.nameField} input`,
+      `${dummyEls.afterFieldValidationForm} ${dummyEls.nameAndEmailFormNameField} input`,
     );
     assert
       .dom(dummyEls.afterFieldValidationFeedback)
@@ -54,11 +54,11 @@ module('Acceptance | Action handling', function (hooks) {
         'All arguments are correctly sent with the afterFieldValidation action, after blur, where there is one validation error.',
       );
     await fillIn(
-      `${dummyEls.afterFieldValidationForm} ${dummyEls.nameField} input`,
+      `${dummyEls.afterFieldValidationForm} ${dummyEls.nameAndEmailFormNameField} input`,
       'Gene Parmesan',
     );
     await blur(
-      `${dummyEls.afterFieldValidationForm} ${dummyEls.nameField} input`,
+      `${dummyEls.afterFieldValidationForm} ${dummyEls.nameAndEmailFormNameField} input`,
     );
     assert
       .dom(dummyEls.afterFieldValidationFeedback)
@@ -67,10 +67,10 @@ module('Acceptance | Action handling', function (hooks) {
         'All arguments are correctly sent with the onFieldValueChange action when field has no validation errors.',
       );
     await focus(
-      `${dummyEls.afterFieldValidationForm} ${dummyEls.emailField} input`,
+      `${dummyEls.afterFieldValidationForm} ${dummyEls.nameAndEmailFormEmailField} input`,
     );
     await blur(
-      `${dummyEls.afterFieldValidationForm} ${dummyEls.emailField} input`,
+      `${dummyEls.afterFieldValidationForm} ${dummyEls.nameAndEmailFormEmailField} input`,
     );
     assert
       .dom(dummyEls.afterFieldValidationFeedback)
@@ -79,11 +79,11 @@ module('Acceptance | Action handling', function (hooks) {
         'All arguments are correctly sent with the afterFieldValidation action, after blur of the email input, where there are two validation errors.',
       );
     await fillIn(
-      `${dummyEls.afterFieldValidationForm} ${dummyEls.emailField} input`,
+      `${dummyEls.afterFieldValidationForm} ${dummyEls.nameAndEmailFormEmailField} input`,
       'geeeeeeeene@parmesan.com',
     );
     await blur(
-      `${dummyEls.afterFieldValidationForm} ${dummyEls.emailField} input`,
+      `${dummyEls.afterFieldValidationForm} ${dummyEls.nameAndEmailFormEmailField} input`,
     );
     assert
       .dom(dummyEls.afterFieldValidationFeedback)
@@ -100,27 +100,27 @@ module('Acceptance | Action handling', function (hooks) {
     );
     assert.strictEqual(
       findAll(
-        `${dummyEls.afterGenerateChangesetWebformForm} ${dummyEls.nameField} ${els.cwfFieldError}`,
+        `${dummyEls.afterGenerateChangesetWebformForm} ${dummyEls.nameAndEmailFormNameField} ${els.cwfFieldError}`,
       ).length,
       1,
       'One error message shows for empty name field after user clicks next button.',
     );
     assert.strictEqual(
       findAll(
-        `${dummyEls.afterGenerateChangesetWebformForm} ${dummyEls.nameField} ${els.cwfFieldError}`,
+        `${dummyEls.afterGenerateChangesetWebformForm} ${dummyEls.nameAndEmailFormNameField} ${els.cwfFieldError}`,
       )[0].textContent,
       `Name can't be blank`,
       'Correct default error message shows for empty name field after user clicks next button.',
     );
     assert.ok(
       cth.failedValidation(
-        `${dummyEls.afterGenerateChangesetWebformForm} ${dummyEls.nameField}`,
+        `${dummyEls.afterGenerateChangesetWebformForm} ${dummyEls.nameAndEmailFormNameField}`,
       ),
       'Empty name field gets fails validation when user clicks next button.',
     );
     assert.strictEqual(
       findAll(
-        `${dummyEls.afterGenerateChangesetWebformForm} ${dummyEls.emailField} ${els.cwfFieldError}`,
+        `${dummyEls.afterGenerateChangesetWebformForm} ${dummyEls.nameAndEmailFormEmailField} ${els.cwfFieldError}`,
       ).length,
       2,
       'Two error messages show for empty email field after user clicks next button.',
@@ -128,7 +128,7 @@ module('Acceptance | Action handling', function (hooks) {
     assert.strictEqual(
       cth
         .fieldErrorText(
-          `${dummyEls.afterGenerateChangesetWebformForm} ${dummyEls.emailField}`,
+          `${dummyEls.afterGenerateChangesetWebformForm} ${dummyEls.nameAndEmailFormEmailField}`,
         )
         .join('|'),
       `Email can't be blank|Email must be a valid email address`,
@@ -136,7 +136,7 @@ module('Acceptance | Action handling', function (hooks) {
     );
     assert.ok(
       cth.failedValidation(
-        `${dummyEls.afterGenerateChangesetWebformForm} ${dummyEls.emailField}`,
+        `${dummyEls.afterGenerateChangesetWebformForm} ${dummyEls.nameAndEmailFormEmailField}`,
       ),
       'Empty email field gets fails validation when user clicks next button.',
     );
@@ -152,11 +152,11 @@ module('Acceptance | Action handling', function (hooks) {
         'User not on step 2 after clicking next, and there are validation errors.',
       );
     await fillIn(
-      `${dummyEls.afterGenerateChangesetWebformForm} ${dummyEls.nameField} input`,
+      `${dummyEls.afterGenerateChangesetWebformForm} ${dummyEls.nameAndEmailFormNameField} input`,
       'Lindsay Bluth',
     );
     await fillIn(
-      `${dummyEls.afterGenerateChangesetWebformForm} ${dummyEls.emailField} input`,
+      `${dummyEls.afterGenerateChangesetWebformForm} ${dummyEls.nameAndEmailFormEmailField} input`,
       'lindsay@bluthcompany.com',
     );
     await click(

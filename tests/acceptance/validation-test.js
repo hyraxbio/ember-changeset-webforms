@@ -21,67 +21,79 @@ module('Acceptance | Field validation', function (hooks) {
   test('Validation events', async function (assert) {
     await visit('/docs/field-validation');
     await assert.notOk(
-      cth.wasValidated(`${dummyEls.nameField}`),
+      cth.wasValidated(`${dummyEls.signupFormNameField}`),
       'Field with validation event "insert" is not validated when empty on insert.',
     );
     assert.ok(
-      cth.failedValidation(`${dummyEls.recoveryEmailField}`),
+      cth.failedValidation(`${dummyEls.signupFormRecoveryEmailField}`),
       'Invalid field with validation event "insert" fails validation insert.',
     );
-    await focus(`${dummyEls.nameField} input`);
+    await focus(`${dummyEls.signupFormNameField} input`);
     assert.notOk(
-      cth.wasValidated(`${dummyEls.nameField}`),
+      cth.wasValidated(`${dummyEls.signupFormNameField}`),
       'Field without validation event "keyUp" loses validation when focussed.',
     );
-    await blur(`${dummyEls.nameField} input`);
+    await blur(`${dummyEls.signupFormNameField} input`);
     assert.strictEqual(
-      cth.fieldErrorText(`${dummyEls.nameField}`).join(''),
+      cth.fieldErrorText(`${dummyEls.signupFormNameField}`).join(''),
       `Name can't be blank`,
       'Correct default error message shows for empty name field after focus out.',
     );
-    await focus(`${dummyEls.nameField} input`);
+    await focus(`${dummyEls.signupFormNameField} input`);
     assert.ok(
-      cth.failedValidation(`${dummyEls.nameField}`),
+      cth.failedValidation(`${dummyEls.signupFormNameField}`),
       'Field with "keyUp" validation event does not lose  class "invalid" when focussed.',
     );
-    await fillIn(`${dummyEls.nameField} input`, 'T');
-    await triggerKeyEvent(find(`${dummyEls.nameField} input`), 'keyup', 1);
+    await fillIn(`${dummyEls.signupFormNameField} input`, 'T');
+    await triggerKeyEvent(
+      find(`${dummyEls.signupFormNameField} input`),
+      'keyup',
+      1,
+    );
     assert.ok(
-      cth.passedValidation(`${dummyEls.nameField}`),
+      cth.passedValidation(`${dummyEls.signupFormNameField}`),
       'Field with "keyUp" validation event passes validation on keyUp when user types single char.',
     );
-    await fillIn(`${dummyEls.nameField} input`, '');
-    await triggerKeyEvent(find(`${dummyEls.nameField} input`), 'keyup', 1);
+    await fillIn(`${dummyEls.signupFormNameField} input`, '');
+    await triggerKeyEvent(
+      find(`${dummyEls.signupFormNameField} input`),
+      'keyup',
+      1,
+    );
     assert.ok(
-      cth.failedValidation(`${dummyEls.nameField}`),
+      cth.failedValidation(`${dummyEls.signupFormNameField}`),
       'Required field with "keyUp" validation event gets class "invalid" on keyUp, when user deletes the final char.',
     );
     assert.ok(
-      cth.passedValidation(`${dummyEls.emailField}`),
+      cth.passedValidation(`${dummyEls.signupFormEmailField}`),
       'Valid field with validation event "insert" passes validation on insert.',
     );
-    await fillIn(`${dummyEls.emailField} input`, 'bluemangroup');
-    await blur(`${dummyEls.emailField} input`);
-    await focus(`${dummyEls.passwordField} input`);
-    await blur(`${dummyEls.passwordField} input`);
+    await fillIn(`${dummyEls.signupFormEmailField} input`, 'bluemangroup');
+    await blur(`${dummyEls.signupFormEmailField} input`);
+    await focus(`${dummyEls.signupFormPasswordField} input`);
+    await blur(`${dummyEls.signupFormPasswordField} input`);
     assert.ok(
-      cth.wasValidated(`${dummyEls.passwordField}`),
+      cth.wasValidated(`${dummyEls.signupFormPasswordField}`),
       'Validation runs on focus out of input field by default.',
     );
-    await click(`${dummyEls.acceptTermsTrueRadioButton} input[type="radio"]`);
+    await click(
+      `${dummyEls.signupFormAcceptTermsFieldRadioOptionTrue} input[type="radio"]`,
+    );
     assert.ok(
-      cth.passedValidation(`${dummyEls.acceptTermsField}`),
+      cth.passedValidation(`${dummyEls.signupFormAcceptTermsField}`),
       'Validation runs after selecting option in radio button group.',
     );
-    await click(`${dummyEls.confirmHumanField} input[type="checkbox"]`);
+    await click(
+      `${dummyEls.signupFormConfirmHumanField} input[type="checkbox"]`,
+    );
     assert.ok(
-      cth.passedValidation(`${dummyEls.confirmHumanField}`),
+      cth.passedValidation(`${dummyEls.signupFormConfirmHumanField}`),
       'Validation runs after checking single checkbox.',
     );
     await click('.ember-basic-dropdown-trigger');
-    await selectChoose(find(dummyEls.countryField), 'United States');
+    await selectChoose(find(dummyEls.signupFormCountryField), 'United States');
     assert.ok(
-      cth.passedValidation(`${dummyEls.countryField}`),
+      cth.passedValidation(`${dummyEls.signupFormCountryField}`),
       'Validation runs after selecting power select option.',
     );
     // TODO checkbox group and text area.
@@ -96,19 +108,19 @@ module('Acceptance | Field validation', function (hooks) {
       'All fields with validation rules are validated when user clicks submit button.',
     );
     assert.strictEqual(
-      cth.fieldErrorText(dummyEls.countryField).join(''),
+      cth.fieldErrorText(dummyEls.signupFormCountryField).join(''),
       `Nation of origin can't be blank`,
       'Passing "description" as an argument to validationRules replaces the default validation description ("Details.country) with the description provided.',
     );
     assert.strictEqual(
-      cth.fieldErrorText(dummyEls.acceptTermsField).join(''),
+      cth.fieldErrorText(dummyEls.signupFormAcceptTermsField).join(''),
       'You must accept the terms to continue.',
       'Passing "message" as an argument to validationRules replaces the default validation message with the message provided.',
     );
-    await fillIn(`${dummyEls.emailField} input`, '');
-    await blur(`${dummyEls.emailField} input`);
+    await fillIn(`${dummyEls.signupFormEmailField} input`, '');
+    await blur(`${dummyEls.signupFormEmailField} input`);
     assert.strictEqual(
-      findAll(`${dummyEls.emailField} ${els.cwfFieldError}`).length,
+      findAll(`${dummyEls.signupFormEmailField} ${els.cwfFieldError}`).length,
       2,
       'Multiple errors display where multiple exist.',
     );
