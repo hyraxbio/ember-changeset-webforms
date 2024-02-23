@@ -26,7 +26,7 @@ const addonDefaults = {
     // Generic field classes- apply to all fields
     disabledField: ['disabled'],
     focussedField: ['focussed'],
-    fieldWrapper: ['cwf-field', 'test', '$validationClassNames'],
+    fieldWrapper: ['cwf-field', '$validationClassNames'],
     fieldControls: ['field-controls', '$validationClassNames'],
     fieldLabel: null,
     requiredField: ['required'],

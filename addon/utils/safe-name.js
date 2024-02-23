@@ -4,12 +4,12 @@ export default function safeName(str) {
   if (!str) {
     return;
   }
-  str = dasherize(str);
+  str = dasherize(str).toLowerCase();
+
   str = str
     .replace(/\s/g, '-')
     .replace(/-+/g, '-')
-    .replace(/[^0-9a-zA-Z_-]/g, '')
     .replace(/\./g, '_')
-    .toLowerCase();
+    .replace(/[^0-9a-z_-]/g, '');
   return str;
 }

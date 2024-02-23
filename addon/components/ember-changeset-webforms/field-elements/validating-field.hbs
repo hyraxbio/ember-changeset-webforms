@@ -17,7 +17,7 @@
       @formField={{@formField}}
       @typeClass={{this.typeClass}}
       @dataTestFormName={{@dataTestFormName}}
-      @dataTestFieldId={{this.dataTestFieldId}}
+      @dataTestFieldId={{or @dataTestId @formField.id}}
       @changesetWebform={{@changesetWebform}}
       @labelId={{this.labelId}}
       @ariaLabelledBy={{this.ariaLabelledBy}}

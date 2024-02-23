@@ -1,14 +1,7 @@
 import { action } from '@ember/object';
 import Component from '@glimmer/component';
-import safeName from 'ember-changeset-webforms/utils/safe-name';
-export default class ValidatingField extends Component {
-  get dataTestFieldId() {
-    if (this.args.dataTestId) {
-      return this.args.dataTestId;
-    }
-    return safeName(this.args.formField.id);
-  }
 
+export default class ValidatingField extends Component {
   get typeClass() {
     var myStr = this.args.formField.fieldType;
     myStr = myStr.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
