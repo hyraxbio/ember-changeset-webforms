@@ -20,7 +20,7 @@ export default class FormFieldClone {
     var groupValue = this.masterFormField.fieldValue;
     var index = this.index;
     if (!groupValue) {
-      return;
+      return null;
     }
     return groupValue[index];
   }
@@ -77,7 +77,7 @@ export default class FormFieldClone {
   }
 
   updateValidationActivation() {
-    if (this.eventLogValidated.length) {
+    if (this.eventLogValidated.length && this.validationRules[0]) {
       const validationRules = this.validationRules[0];
       validationRules.activateValidation =
         validationRules.activateValidation || [];

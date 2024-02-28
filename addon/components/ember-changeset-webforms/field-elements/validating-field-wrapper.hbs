@@ -1,13 +1,19 @@
 <div
+  data-test-cwf-field-wrapper
   data-test-class={{this.dataTestClass}}
   data-test-cwf-field-validates={{this.formField.validates}}
   data-test-cwf-field-required={{this.formField.required}}
   data-test-id={{this.dataTestId}}
+  class="flex
     {{@typeClass}}
-    {{ember-changeset-webforms/dynamic-class-names
-      'fieldWrapper'
-      @changesetWebform
-      @formField
+    {{if
+      @formField.isClone
+      (ember-changeset-webforms/dynamic-class-names
+        'cloneWrapper' @changesetWebform @formField
+      )
+      (ember-changeset-webforms/dynamic-class-names
+        'fieldWrapper' @changesetWebform @formField
+      )
     }}
     {{if
       @formField.focussed
@@ -39,35 +45,60 @@
         'requiredField' @changesetWebform @formField
       )
     }}
-    {{if this.formField.readonly 'readonly'}}
-    {{if this.formField.hideSuccessValidation 'hide-success-validation'}}"
+    {{if @formField.readonly 'readonly'}}
+    {{if @formField.hideSuccessValidation 'hide-success-validation'}}"
+  {{did-insert (fn this.registerElementContainer "fieldWrapper")}}
   ...attributes
 >
-  <EmberChangesetWebforms::FieldElements::FieldLabel
-    @formField={{@formField}}
-    @changesetWebform={{@changesetWebform}}
-    @labelId={{@labelId}}
-  />
-  <div
-    class="{{ember-changeset-webforms/dynamic-class-names
-        'fieldControls'
-        @changesetWebform
-        @formField
-        @formField.validationStatus
-      }}"
-    role={{if @isGroup "group"}}
-    ariaLabelledBy={{if @isGroup @ariaLabelledBy}}
-    aria-label={{if @isGroup @ariaLabel}}
-  >
-    {{yield}}
-  </div>
-  <EmberChangesetWebforms::FieldElements::FieldDescription
-    @formField={{@formField}}
-    @changesetWebform={{@changesetWebform}}
-  />
-  <EmberChangesetWebforms::FieldElements::FieldErrors
-    @formField={{@formField}}
-    @changesetWebform={{@changesetWebform}}
-    @validationErrorsArray={{@validationErrorsArray}}
-  />
+  {{#if this.hasFieldActions}}
+    <div
+      data-field-actions
+      {{did-insert (fn this.registerElementContainer "fieldActions")}}
+    ></div>
+    <div
+      data-field-content
+      {{did-insert (fn this.registerElementContainer "fieldContents")}}
+    ></div>
+  {{/if}}
+  {{#if this.fieldContentsDestinationElement}}
+    {{#in-element this.fieldContentsDestinationElement insertBefore=null}}
+      <EmberChangesetWebforms::FieldElements::FieldLabel
+        @formField={{@formField}}
+        @changesetWebform={{@changesetWebform}}
+        @labelId={{@labelId}}
+      />
+      <div
+        class="{{ember-changeset-webforms/dynamic-class-names
+            'fieldControls'
+            @changesetWebform
+            @formField
+            @formField.validationStatus
+          }}"
+        role={{if @isGroup "group"}}
+        ariaLabelledBy={{if @isGroup @ariaLabelledBy}}
+        aria-label={{if @isGroup @ariaLabel}}
+      >
+        {{yield}}
+      </div>
+      <EmberChangesetWebforms::FieldElements::FieldDescription
+        @formField={{@formField}}
+        @changesetWebform={{@changesetWebform}}
+      />
+      <EmberChangesetWebforms::FieldElements::FieldErrors
+        @formField={{@formField}}
+        @changesetWebform={{@changesetWebform}}
+        @validationErrorsArray={{@validationErrorsArray}}
+      />
+    {{/in-element}}
+  {{/if}}
+  {{#if this.cloneActionsDestinationElement}}
+    {{#in-element this.cloneActionsDestinationElement insertBefore=null}}
+      <EmberChangesetWebforms::ClonedFieldElements::RemoveCloneButton
+        @formField={{@formField}}
+        @masterFormField={{@masterFormField}}
+        @removeClone={{@removeClone}}
+        @changesetWebform={{@changesetWebform}}
+      />
+    {{/in-element}}
+  {{/if}}
 </div>

@@ -5,13 +5,14 @@
       @formField
       @formField.validationStatus
     }}"
+  ...attributes
 >
   {{#each @formField.options as |option|}}
     <Background::LabelledRadioButton
       @value={{option.value}}
       @groupValue={{@formField.fieldValue}}
       @required={{false}}
-      @name={{or @formField.name @formField.fieldId}}
+      @name={{or @formField.name @formField.id}}
       @disabled={{if @formField.disabled true option.disabled}}
       @label={{option.label}}
       @labelComponent={{or

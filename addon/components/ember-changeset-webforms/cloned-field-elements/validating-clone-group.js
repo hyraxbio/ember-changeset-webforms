@@ -2,9 +2,17 @@ import { action } from '@ember/object';
 import Component from '@glimmer/component';
 import FormFieldClone from 'ember-changeset-webforms/utils/form-field-clone';
 import { tracked } from '@glimmer/tracking';
-import safeName from 'ember-changeset-webforms/utils/safe-name';
+
+class destinationElementClass {
+  @tracked cloneGroupActions;
+  @tracked cloneGroupWrapper;
+  @tracked preClones;
+  @tracked labelWrapper;
+}
+
 export default class ValidatingCloneGroup extends Component {
   @tracked masterFormField;
+  @tracked destinationElement = new destinationElementClass();
 
   get dataTestCwfFieldValidates() {
     return this.args.masterFormField.validates;
@@ -15,7 +23,7 @@ export default class ValidatingCloneGroup extends Component {
   }
 
   get dataTestId() {
-    return `clone-group-${this.args.masterFormField.fieldId}`;
+    return `clone-group-${this.args.masterFormField.id}`;
   }
 
   get validationStatus() {
@@ -41,6 +49,12 @@ export default class ValidatingCloneGroup extends Component {
     return `clone-group-${this.args.masterFormField.cloneGroupName}`;
   }
 
+  get cloneGroupActionsDestinationElement() {
+    return this.destinationElement[
+      this.args.masterFormField.cloneGroupActionsPosition
+    ];
+  }
+
   cloneId(masterFormField) {
     const clonedFields = masterFormField.clonedFields;
     if (!(clonedFields || []).length) {
@@ -53,7 +67,7 @@ export default class ValidatingCloneGroup extends Component {
   }
 
   @action
-  didInsert() {
+  didInsertWrapper(namespace, element) {
     var masterFormField = this.args.masterFormField;
     const changeset = this.args.changesetWebform.changeset;
     var groupValue = changeset.get(masterFormField.propertyName) || [];
@@ -64,6 +78,7 @@ export default class ValidatingCloneGroup extends Component {
     for (var i = 0; i < emptyClones; i++) {
       this.cloneField();
     }
+    this.registerElementContainer(namespace, element);
   }
 
   @action
@@ -79,6 +94,7 @@ export default class ValidatingCloneGroup extends Component {
     var masterFormField = this.args.masterFormField;
     masterFormField.clonedFields = masterFormField.clonedFields || [];
     var newField = { ...masterFormField.clonedFieldBlueprint };
+    newField.id = `${masterFormField.id}-clone-${this.cloneId(masterFormField)}`;
     newField.isClone = true;
     newField.cloneId = this.cloneId(masterFormField);
     newField.eventLog = []; // BD must recreate this, otherwise all clones share the same instance of eventLog array.
@@ -145,5 +161,10 @@ export default class ValidatingCloneGroup extends Component {
     } else {
       masterFormField.cloneCountStatus = null;
     }
+  }
+
+  @action
+  registerElementContainer(namespace, element) {
+    this.destinationElement[namespace] = element;
   }
 }

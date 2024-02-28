@@ -2,11 +2,24 @@
   class="{{ember-changeset-webforms/dynamic-class-names
       'buttonElement,addCloneButton'
       @changesetWebform
+      @formField
     }}"
   type="button"
   {{on "click" (fn @onClickAddCloneButton @formField.cloneGroupName)}}
   data-test-id="cwf-add-clone-button"
->{{or
+>
+  {{#let
+    (component @changesetWebform.formSettings.addCloneButtonIcon)
+    as |AddCloneButton|
+  }}
+    <AddCloneButton
+      class={{ember-changeset-webforms/dynamic-class-names
+        "buttonIcon,addCloneButtonIcon"
+        @changesetWebform
+      }}
+    />
+  {{/let}}
+  {{or
     @formField.cloneButtonText
     (concat "Add " @cloneFieldLabel " field")
   }}</button>

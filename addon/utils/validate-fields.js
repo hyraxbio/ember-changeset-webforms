@@ -8,9 +8,15 @@ export default function validateAllowedFields(changesetWebform) {
       if (allowedField.clonedFields) {
         // TODO does this really belong in a util.
         allowedField.clonedFields.forEach((clonedField, index) => {
-          clonedField.validationRules[0].activateValidation.push(index);
+          if (
+            clonedField.validationRules &&
+            clonedField.validationRules.length
+          ) {
+            clonedField.validationRules[0].activateValidation.push(index);
+          }
           clonedField.eventLog.pushObject('submit');
         });
+        // TODO test for cloned fields without any validation rules
       }
       return allowedField.propertyName;
     });

@@ -4,10 +4,15 @@ import defaultValidators from 'ember-changeset-validations/validators';
 export default function validateClone(options = {}) {
   return (key, newValue, oldValue, changes, content) => {
     var allCloneValidations = [];
+    options.validationRules = options.validationRules || [];
     newValue = newValue || [];
     newValue.forEach((item, index) => {
       if (
-        (options.validationRules[0].activateValidation || []).indexOf(index) < 0
+        (
+          (options.validationRules[0] &&
+            options.validationRules[0].activateValidation) ||
+          []
+        ).indexOf(index) < 0
       ) {
         allCloneValidations.push([]);
         return;

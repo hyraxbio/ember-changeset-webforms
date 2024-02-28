@@ -2,9 +2,6 @@ import { action } from '@ember/object';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 export default class ValidatingClone extends Component {
-  dataTestClass = 'cwf-field-clone-wrapper';
-  @tracked masterFormField;
-
   @action
   didInsert() {
     var changeset = this.args.changesetWebform.changeset;
@@ -57,6 +54,10 @@ export default class ValidatingClone extends Component {
     var groupValue =
       this.args.changesetWebform.changeset.get(masterFormField.propertyName) ||
       [];
+    if (groupValue[index] === value) {
+      return groupValue; // TODO tests // Because if groupValue is an array of models, and itself a model property, you get this error: "You can only 'replaceRelatedRecord' on a belongsTo relationship. *** is a hasMany". In the case, the field should have updated the value by now anyway.
+    }
+
     groupValue[index] = value;
     return groupValue;
   }

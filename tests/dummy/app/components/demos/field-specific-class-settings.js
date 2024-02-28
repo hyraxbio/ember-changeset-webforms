@@ -1,5 +1,6 @@
 import Component from '@glimmer/component';
 
+// TODO documnet that classnames does nothing on a clone-group field (Also, is this a bug?)
 export default class FieldSpecificClassSettingsComponent extends Component {
   // BEGIN-SNIPPET field-specific-class-settings.js"
   formSchema = {

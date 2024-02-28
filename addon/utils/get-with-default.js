@@ -4,6 +4,7 @@ import mergeWithDefaultClassNames from 'ember-changeset-webforms/utils/merge-wit
 
 const addonDefaults = {
   generalClassNames: {
+    // TODO form related classnames, like submit button must be configurable under formSettings.classNames?
     // BEGIN-SNIPPET configurable-classnames.js
     // Generic element classes
     inputElement: ['form-control', 'validation-area', '$validationClassNames'],
@@ -27,6 +28,7 @@ const addonDefaults = {
     disabledField: ['disabled'],
     focussedField: ['focussed'],
     fieldWrapper: ['cwf-field', '$validationClassNames'],
+    cloneWrapper: ['cwf-clone', '$validationClassNames'],
     fieldControls: ['field-controls', '$validationClassNames'],
     fieldLabel: null,
     requiredField: ['required'],
@@ -54,9 +56,15 @@ const addonDefaults = {
     fieldWrapperInput: ['cwf-field-input'],
     // fieldType === 'clonable'
     clonedFormField: ['cwf-clone-field-controls'],
+    cloneGroupActions: ['cwf-clone-group-actions', 'margin-y-lg'],
     maxClonesReached: ['cwf-max-clones-reached'],
-    addCloneButton: ['btn-secondary'],
-    removeClone: ['hover-pointer', 'remove-clone', 'clone-actions', 'width-xl'],
+    addCloneButton: ['btn-outline-secondary'],
+    removeCloneButton: [
+      'hover-pointer',
+      'remove-clone',
+      'clone-actions',
+      'width-xl',
+    ],
     // fieldType === 'powerSelect'
     powerSelectTrigger: ['form-control'],
     // fieldType === powerDatePicker
@@ -96,6 +104,7 @@ const addonDefaults = {
     hideSubmitButton: null, // Boolean - hides the submit button if true
     submitButtonText: 'Submit', // String - text to show on the submit form button
     submitButtonIcon: null, // String - path to the component icon to show on the submit form button. Note that if null, an empty element will still appear on the submit button, with the class names defined for submitButtonIcon. If false, the element will not appear on the submit button.
+    addCloneButtonIcon: null,
     clearFormAfterSubmit: null, // Boolean or string - if true, all fields are reset to their defaults after a the form submitAction returns successfully. If set to `suppressDefaultValues` all fields will br cleared.
     showClearFormButton: null, // Boolean - whether or not to show the button that will empty all fields TODO check if this works
     clearFormButtonText: 'Clear form', // String - text to show on the clear form button TODO implement
@@ -124,6 +133,7 @@ const addonDefaults = {
     hideLabel: null, // Hide the label from the user
     disabled: null, // Boolean - disable the field, but do not hide it. It will still be validated [TODO check] and included when the form is submitted
     classNames: {}, // Object - keys can correspond to those in the classNames settings. See /docs/configure-classnames
+    cloneActionsPosition: 'fieldActions', // String - where to place the remove clone button in relation to the cloned field. Can be [TODO]
     // END-SNIPPET
     eventLog: [],
   },
@@ -152,7 +162,7 @@ const addonDefaults = {
       cloneButtonText: null, // String - text to show in the add clone button. Defaults to `Add ${clonedField.fieldLabel} field`
       cloneFieldSchema: {}, // Object - the field definition of the clones, defined in the same way that you would define the field as a one off field.
       alwaysValidateOn: ['removeClone'], // Array of strings
-
+      cloneGroupActionsPosition: 'cloneGroupWrapper',
       // END-SNIPPET
       componentPath:
         'ember-changeset-webforms/cloned-form-fields/validating-form-field-clone-group',
@@ -319,13 +329,6 @@ export default function getWithDefault(formSchema = {}) {
       replaceArrayCustomizer,
     );
 
-    // console.log(mergedField);
-    // const mergedField = _mergeWith(
-    //   {},
-    //   mergedDefaults,
-    //   formSchema.fieldSettings,
-    //   field,
-    // );
     if (field.cloneFieldSchema) {
       const cloneAddonFieldTypeDefaults = addonDefaults.fieldTypes.find(
         (addonFieldType) =>

@@ -13,17 +13,40 @@
     {{if this.masterFormField.hideSuccessValidation 'hide-success-validation'}}
     {{if this.masterFormField.validates 'validates'}}
     {{if this.masterFormField.focussed 'focussed'}}"
-  {{did-insert this.didInsert}}
+  {{did-insert (fn this.didInsertWrapper "cloneGroupWrapper")}}
   ...attributes
 >
-  <EmberChangesetWebforms::FieldElements::FieldLabel
-    @formField={{@masterFormField}}
-  />
+  {{#if (eq @masterFormField.cloneGroupActionsPosition "labelWrapper")}}
+    <div
+      {{did-insert (fn this.registerElementContainer "labelWrapper")}}
+      class={{ember-changeset-webforms/dynamic-class-names
+        "labelWrapper"
+        @changesetWebform
+        @masterFormField
+        @masterFormField.validationStatus
+      }}
+    >
+      <EmberChangesetWebforms::FieldElements::FieldLabel
+        @formField={{@masterFormField}}
+        @changesetWebform={{@changesetWebform}}
+      />
+    </div>
+  {{else}}
+    <EmberChangesetWebforms::FieldElements::FieldLabel
+      @formField={{@masterFormField}}
+      @changesetWebform={{@changesetWebform}}
+    />
+  {{/if}}
+
   <EmberChangesetWebforms::FieldElements::FieldErrors
     @formField={{@masterFormField}}
     @validationErrorsArray={{@masterFormField.masterFormFieldValidationErrors}}
     class="clone-group-field-errors"
   />
+  <div
+    data-clone-group-pre-clones
+    {{did-insert (fn this.registerElementContainer "preClones")}}
+  ></div>
   <div class="clone-group-items">
     {{#each @masterFormField.clonedFields as |clonedFormField|}}
       <EmberChangesetWebforms::ClonedFieldElements::ValidatingClone
@@ -39,25 +62,38 @@
       />
     {{/each}}
   </div>
-  <div class="clone-group-actions">
-    {{#if (eq @masterFormField.cloneCountStatus "max")}}
-      <div
-        class={{ember-changeset-webforms/dynamic-class-names
-          "maxClonesReached"
-          @changesetWebform
-          @formField
-          @formField.validationStatus
-        }}
-        data-test-id="cwf-max-clones-reached"
-      >{{@masterFormField.maxClonesReachedText}}</div>
-    {{else}}
-      {{component
-        @masterFormField.addCloneButtonComponent
-        onClickAddCloneButton=this.onClickAddCloneButton
-        formField=@masterFormField
-        cloneFieldLabel=(get @masterFormField.clonedFields "0.fieldLabel")
-        changesetWebform=@changesetWebform
-      }}
-    {{/if}}
-  </div>
+
 </div>
+
+{{#if this.cloneGroupActionsDestinationElement}}
+  {{#in-element this.cloneGroupActionsDestinationElement insertBefore=null}}
+    <div
+      class={{ember-changeset-webforms/dynamic-class-names
+        "cloneGroupActions"
+        @changesetWebform
+        @formField
+        @formField.validationStatus
+      }}
+    >
+      {{#if (eq @masterFormField.cloneCountStatus "max")}}
+        <div
+          class={{ember-changeset-webforms/dynamic-class-names
+            "maxClonesReached"
+            @changesetWebform
+            @formField
+            @formField.validationStatus
+          }}
+          data-test-id="cwf-max-clones-reached"
+        >{{@masterFormField.maxClonesReachedText}}</div>
+      {{else}}
+        {{component
+          @masterFormField.addCloneButtonComponent
+          onClickAddCloneButton=this.onClickAddCloneButton
+          formField=@masterFormField
+          cloneFieldLabel=(get @masterFormField.clonedFields "0.fieldLabel")
+          changesetWebform=@changesetWebform
+        }}
+      {{/if}}
+    </div>
+  {{/in-element}}
+{{/if}}

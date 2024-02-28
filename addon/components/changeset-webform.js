@@ -120,11 +120,15 @@ export default class ChangesetWebform extends Component {
           if (this.args.formValidationPassed) {
             this.args.formValidationPassed(changesetWebform);
           }
-          if (this.args.beforeSubmitAction) {
-            this.args.beforeSubmitAction(changesetWebform);
+          try {
+            if (this.args.beforeSubmitAction) {
+              this.args.beforeSubmitAction(changesetWebform); // TODO how to make this await or not.
+            }
+          } catch (err) {
+            console.log(err);
           }
           try {
-            castAllowedFields(changesetWebform); // TODO must bring this back when cast is fixed.
+            castAllowedFields(changesetWebform); // TODO test this
           } catch (err) {
             console.log(err);
           }
