@@ -1,11 +1,14 @@
 <div
-  data-test-cwf-field-wrapper
+  data-test-cwf-field-wrapper={{not @formField.isClone}}
+  data-test-cwf-clone-wrapper={{@formField.isClone}}
   data-test-class={{this.dataTestClass}}
   data-test-cwf-field-validates={{this.formField.validates}}
   data-test-cwf-field-required={{this.formField.required}}
   data-test-id={{this.dataTestId}}
-  class="flex
-    {{@typeClass}}
+  data-test-validates={{@formField.validates}}
+  data-test-was-validated={{@formField.wasValidated}}
+  data-test-validation-status={{@formField.validationStatus}}
+  class="{{@typeClass}}
     {{if
       @formField.isClone
       (ember-changeset-webforms/dynamic-class-names

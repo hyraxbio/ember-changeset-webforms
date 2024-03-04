@@ -32,7 +32,7 @@ export default {
   cwfClickerElement: '[data-test-class="cwf-clicker-element"]',
   cwfFieldCloneWrapper: '[data-test-class="cwf-field-clone-wrapper"]',
   addEmailsForm: '[data-test-id="add-emails-form"]',
-  cloneGroupEmails: '[data-test-id="clone-group-emails"]',
+  cloneGroupEmails: '[data-test-id="clone-group-add-emails-form-emails-field"]',
   addEmailsFormFormEmailsFieldLabel:
     '[data-test-id="add-emails-form-form-emails-field-label"]',
   'addEmailsFormEmailsFieldClone-0':
@@ -112,7 +112,8 @@ export default {
   onFieldValueChangeFeedback: '[data-test-id="after-field-edit-feedback"]',
   afterFieldValidationFeedback:
     '[data-test-id="after-field-validation-feedback"]',
-  clonableFieldCountries: '[data-test-id="clonable-field-countries"]',
+  clonableFieldCountries:
+    '[data-test-id="clone-group-country-iso-codes-form-country-codes-field"]',
   powerDatepicker24HourTimeSelect:
     '[data-test-id="power-datepicker-24-hour-time-select"]',
   powerDatepicker12HourTimeSelect:
@@ -283,6 +284,7 @@ export default {
     '[data-test-id="checkbox-group-example1-form-checkboxes1-field-label"]',
   checkboxGroupExample1FormCheckboxes1FieldCheckboxOption1:
     '[data-test-id="checkbox-group-example1-form-checkboxes1-field-checkbox-option-1"]',
+
   checkboxGroupExample1FormCheckboxes1FieldCheckboxOption2:
     '[data-test-id="checkbox-group-example1-form-checkboxes1-field-checkbox-option-2"]',
   checkboxGroupExample1FormCheckboxes1FieldCheckboxOption3:

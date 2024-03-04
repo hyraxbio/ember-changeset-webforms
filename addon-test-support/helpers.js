@@ -123,4 +123,101 @@ export default {
     const element = this.getElement(arg);
     await click(element.querySelector(els.cwfSubmitButton));
   },
+
+  removeExtraSpaces(string, whiteSpaceReplacement = ' ') {
+    string = string.trim();
+    string = string
+      .replace(/\s\s+/g, whiteSpaceReplacement)
+      .replace(/\r?\n|\r/g, whiteSpaceReplacement);
+    return string;
+  },
+
+  changesetWebformStateAsJSON(parentSelector, customTransforms) {
+    const formElement = find(parentSelector);
+    return Array.from(
+      formElement.querySelectorAll('[data-test-cwf-field]'),
+    ).map((el) => {
+      const obj = {
+        'data-test-id': el.getAttribute('data-test-id'),
+        fieldType: el
+          .getAttribute('data-test-class')
+          .replace('cwf-field-type-', ''),
+      };
+      if (el.hasAttribute('data-test-validates')) {
+        obj.validates = true;
+        obj.wasValidated = el.hasAttribute('data-test-was-validated');
+      }
+
+      if (obj.wasValidated && el.hasAttribute('data-test-validation-status')) {
+        obj.validationStatus = el.getAttribute('data-test-validation-status');
+      }
+      const input = el.querySelector(
+        'input:not([type=checkbox]):not([type=radio]',
+      );
+      if (input) {
+        obj.inputText = input.value;
+      }
+      if (el.querySelector('label')) {
+        obj.label = this.removeExtraSpaces(
+          el.querySelector('label').textContent,
+        );
+      }
+      if (el.classList.contains('field-type-radio-button-group')) {
+        const items = Array.from(
+          el.querySelectorAll('.labelled-radio-button'),
+        ).map((item) => {
+          return {
+            label: this.removeExtraSpaces(
+              item.querySelector('label').textContent,
+            ),
+            checked: item.querySelector('input[type="radio"]').checked,
+          };
+        });
+        obj.radioButtons = {
+          label: el.querySelector('label').textContent.trim(),
+          items: items,
+        };
+      }
+      ['radio-button', 'checkbox'].forEach((elType) => {
+        if (obj.fieldType === `${elType}-group`) {
+          const items = Array.from(
+            el.querySelectorAll(`[data-test-labelled-${elType}]`),
+          ).map((item) => {
+            return {
+              label: this.removeExtraSpaces(
+                item.querySelector('label').textContent,
+              ),
+              checked: item.querySelector(`input[type="${elType}"]`).checked,
+            };
+          });
+          obj[`${elType}-options`] = {
+            label: el.querySelector('label').textContent.trim(),
+            items: items,
+          };
+        }
+        if (customTransforms) {
+          customTransforms(el, obj);
+        }
+      });
+
+      if (el.classList.contains('field-type-single-checkbox')) {
+        obj.singleCheckbox = {
+          label: el.querySelector('label').textContent.trim(),
+          checked: el.querySelector('input[type="checkbox"]').checked,
+        };
+      }
+      if (el.classList.contains('field-type-power-select')) {
+        obj.powerSelect = {
+          label: this.removeExtraSpaces(el.querySelector('label').textContent),
+          checked: el.querySelector('.ember-power-select-selected-item')
+            ? this.removeExtraSpaces(
+                el.querySelector('.ember-power-select-selected-item')
+                  .textContent,
+              )
+            : '',
+        };
+      }
+      return obj;
+    });
+  },
 };

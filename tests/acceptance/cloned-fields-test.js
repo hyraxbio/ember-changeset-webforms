@@ -188,7 +188,6 @@ module('Acceptance | Cloned fields', function (hooks) {
       'Previously un-validated clone is not revalidated after another clone is removed.',
     );
     await cth.submitForm(dummyEls.clonableFieldWithData);
-
     assert
       .dom(`${dummyEls.cloneGroupEmails} > ${els.cwfFieldErrors}`)
       .hasText(
@@ -222,9 +221,10 @@ module('Acceptance | Cloned fields', function (hooks) {
     assert
       .dom(`${dummyEls.clonableFieldCountries} ${els.cwfCloneWrapper}`)
       .exists({ count: 2 }, '2 clones exist on load.');
-    const firstCloneSelector = `${dummyEls.clonableFieldCountries} [data-test-id="country-iso-codes-country-codes-field-clone-0"]`;
+    const firstCloneSelector = `${dummyEls.clonableFieldCountries} [data-test-id="country-iso-codes-form-country-codes-field-clone-0"]`;
+
     const firstCloneInputSelector = `${firstCloneSelector} input`;
-    const secondCloneSelector = `${dummyEls.clonableFieldCountries} [data-test-id="country-iso-codes-country-codes-field-clone-1"]`;
+    const secondCloneSelector = `${dummyEls.clonableFieldCountries} [data-test-id="country-iso-codes-form-country-codes-field-clone-1"]`;
     await typeIn(firstCloneInputSelector, 'ZAFs');
     assert.ok(
       cth.failedValidation(firstCloneSelector),

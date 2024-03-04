@@ -4,7 +4,7 @@ export default class CloneGroupFormComponent extends Component {
   // BEGIN-SNIPPET clone-group-form.js
   formSchema = {
     formSettings: {
-      formName: 'addEmailsForm',
+      formName: 'addEmails',
       submitButtonText: 'Submit',
       clearFormAfterSubmit: true,
     },

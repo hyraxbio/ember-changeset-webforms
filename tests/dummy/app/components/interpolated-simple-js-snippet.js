@@ -1,14 +1,12 @@
-import { computed } from '@ember/object';
 import Component from '@glimmer/component';
 
 export default class InterpolatedSimpleJsSnippet extends Component {
-  @computed('object', 'excludeKeys')
   get string() {
-    if (!this.object) {
-      return;
+    if (!this.args.object) {
+      return null;
     }
-    const object = { ...this.object };
-    (this.excludeKeys || []).forEach((key) => {
+    const object = { ...this.args.object };
+    (this.args.excludeKeys || []).forEach((key) => {
       delete object[key];
     });
     const json = JSON.stringify(object || {}, null, 2);

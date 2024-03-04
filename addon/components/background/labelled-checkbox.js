@@ -7,7 +7,9 @@ export default class LabelledCheckbox extends Component {
     if (this.args.formField.fieldId === this.args.option.key) {
       return safeName(this.args.formField.id);
     }
-    return safeName(`${this.args.formField.id}-${this.args.option.key}`);
+    return safeName(
+      `${this.args.formField.id}-checkbox-option-${this.args.option.key}`,
+    );
   }
 
   @action

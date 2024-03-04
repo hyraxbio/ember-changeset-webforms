@@ -7,7 +7,7 @@ export default {
   cwfFieldRequired: '[data-test-cwf-field-required]',
   cwfFieldValidates: '[data-test-cwf-field-validates]',
 
-  cwfCloneWrapper: '[data-test-class="cwf-field-clone-wrapper"]',
+  cwfCloneWrapper: '[data-test-cwf-clone-wrapper]',
   cwfCloneField: '[data-test-cwf-clone-field]',
 
   cwfAddClone: '[data-test-id="cwf-add-clone-button"]',
