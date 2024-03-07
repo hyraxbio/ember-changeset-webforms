@@ -1,6 +1,7 @@
 .cwf-field {
   $cwf-field-power-select-max-width: 300px;
   .cwf-field-options.horizontal {
+    // TDOD ember 5 check this
     display: flex;
     .labelled-checkbox,
     .labelled-radio-button {

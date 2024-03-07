@@ -45,15 +45,12 @@ export default class FormField {
     if (!this.validates) {
       return null;
     }
-
     if (this.hideValidation) {
       return null;
     }
-
     if (!this.showValidationWhenFocussed && this.focussed) {
       return null;
     }
-
     if (!this.eventLogValidated.length) {
       return null;
     }

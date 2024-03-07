@@ -54,13 +54,16 @@ export default class ValidatingField extends Component {
 
   @action
   validateField(formField) {
-    formField.validate().then((fieldValidationErrors) => {
-      this.args.afterFieldValidation(
-        formField,
-        formField.changeset,
-        fieldValidationErrors,
-      );
-    });
+    formField
+      .validate()
+      .then((fieldValidationErrors) => {
+        this.args.afterFieldValidation(
+          formField,
+          formField.changeset,
+          fieldValidationErrors,
+        );
+      })
+      .catch((err) => console.log(err));
   }
 
   @action

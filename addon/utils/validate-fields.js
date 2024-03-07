@@ -12,6 +12,9 @@ export default function validateAllowedFields(changesetWebform) {
             clonedField.validationRules &&
             clonedField.validationRules.length
           ) {
+            // TODO DRY this up
+            clonedField.validationRules[0].activateValidation =
+              clonedField.validationRules[0].activateValidation || [];
             clonedField.validationRules[0].activateValidation.push(index);
           }
           clonedField.eventLog.pushObject('submit');

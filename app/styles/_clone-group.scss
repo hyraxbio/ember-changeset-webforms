@@ -1,9 +1,7 @@
 .cwf-clone-group {
-  .cwf-field-clone-wrapper {
+  .cwf-clone {
+    flex-grow: 1;
     display: flex;
-    .cwf-field {
-      flex-grow: 1;
-    }
   }
   .clone-actions {
     padding-top: $spacer-md;
@@ -18,7 +16,7 @@
   //   margin-top: 10px;
   // }
 
-  .cwf-clone {
-    display: flex;
-  }
+  // .cwf-clone {
+  //   display: flex;
+  // }
 }

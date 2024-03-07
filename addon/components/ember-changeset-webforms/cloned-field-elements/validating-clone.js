@@ -19,19 +19,22 @@ export default class ValidatingClone extends Component {
 
   @action
   onUserInteractionClone(eventName, value, event) {
+    if (this.isDestroyed || this.isDestroying) {
+      return;
+    }
     const clonedFormField = this.args.clonedFormField;
     if (eventName === 'focusOut') {
       clonedFormField.focussed = false;
-      if (!this.isDestroyed && !this.isDestroying) {
-        this.updateCloneValue(value);
-      }
+      // if (!this.isDestroyed && !this.isDestroying) {
+      //   this.updateCloneValue(value);
+      // }
     } else if (eventName === 'focusIn') {
       clonedFormField.focussed = true;
     }
     clonedFormField.eventLog.pushObject(eventName);
     this.args.masterFormField.eventLog.pushObject(`${eventName}Clone`);
     clonedFormField.updateValidationActivation();
-    this.args.onUserInteraction(`${eventName}Clone`, value, event);
+    this.args.onUserInteraction(`${eventName}Clone`);
   }
 
   @action
@@ -57,6 +60,11 @@ export default class ValidatingClone extends Component {
     if (groupValue[index] === value) {
       return groupValue; // TODO tests // Because if groupValue is an array of models, and itself a model property, you get this error: "You can only 'replaceRelatedRecord' on a belongsTo relationship. *** is a hasMany". In the case, the field should have updated the value by now anyway.
     }
+    masterFormField.lastUpdatedClone = {
+      index: index,
+      previousValue: groupValue[index],
+      previousLength: groupValue.length,
+    };
 
     groupValue[index] = value;
     return groupValue;

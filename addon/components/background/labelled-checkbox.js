@@ -5,7 +5,7 @@ import safeName from 'ember-changeset-webforms/utils/safe-name';
 export default class LabelledCheckbox extends Component {
   get checkboxId() {
     if (this.args.formField.fieldId === this.args.option.key) {
-      return safeName(this.args.formField.id);
+      return `${safeName(this.args.formField.id)}-checkbox`;
     }
     return safeName(
       `${this.args.formField.id}-checkbox-option-${this.args.option.key}`,

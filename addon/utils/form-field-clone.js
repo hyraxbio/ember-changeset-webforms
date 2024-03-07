@@ -9,6 +9,7 @@ export default class FormFieldClone {
   // BEGIN-SNIPPET cloned-field-settings-tracked-props.js
   @tracked hidden;
   @tracked disabled;
+  @tracked externalProps;
   // END-SNIPPET
   constructor(args) {
     for (const key in args) {

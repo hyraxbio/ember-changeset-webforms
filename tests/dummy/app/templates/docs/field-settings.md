@@ -20,7 +20,11 @@ The following field settings are tracked, and so updating them in an action will
 
 ## Custom tracked props
 
-If you need to add custom tracked properties to a field, you can add them to a class definition, and then add an instance of that class as a property of a field definition in your form schema.
+If you need to add custom tracked properties to a field, you can add them to a class definition, adding any tracked properties to that class definition.
+
+Then add an instance of that class as the `externalProps` property of a formField or formFieldClone.
+
+// TODO test and document this better.
 
 In the example below, we need a tracked property `showAdvanced` in ourt form field, so that we can update the custom clicker component to toggle between an up and down arrow when the button is clicked.
 

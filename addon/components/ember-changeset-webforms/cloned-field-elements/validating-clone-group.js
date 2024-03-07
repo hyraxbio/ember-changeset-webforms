@@ -104,6 +104,12 @@ export default class ValidatingCloneGroup extends Component {
     masterFormField.clonedFields.pushObject(clone);
     // masterFormField.clonedFields = masterFormField.clonedFields;
     clone.index = masterFormField.clonedFields.indexOf(clone);
+    var lastIndex = masterFormField.clonedFields.length - 1;
+    masterFormField.lastUpdatedClone = {
+      // Useful for something like swapping field values between clones.
+      index: lastIndex,
+      previousValue: null,
+    };
     if (!opts.fromData) {
       var fieldValue =
         this.args.changesetWebform.changeset.get(
