@@ -112,11 +112,12 @@ module('Acceptance | Action handling', function (hooks) {
       `Name can't be blank`,
       'Correct default error message shows for empty name field after user clicks next button.',
     );
-    assert.ok(
-      cth.failedValidation(
-        `${dummyEls.afterGenerateChangesetWebformForm} ${dummyEls.nameAndEmailFormNameField}`,
-      ),
-      'Empty name field gets fails validation when user clicks next button.',
+    await cth.failedValidation(
+      `${dummyEls.afterGenerateChangesetWebformForm} ${dummyEls.nameAndEmailFormNameField}`,
+      assert,
+      {
+        assertionSuffix: 'on empty name. field when user clicks next button',
+      },
     );
     assert.strictEqual(
       findAll(
@@ -134,11 +135,12 @@ module('Acceptance | Action handling', function (hooks) {
       `Email can't be blank|Email must be a valid email address`,
       'Correct default error messages  for empty email field after user clicks next button.',
     );
-    assert.ok(
-      cth.failedValidation(
-        `${dummyEls.afterGenerateChangesetWebformForm} ${dummyEls.nameAndEmailFormEmailField}`,
-      ),
-      'Empty email field gets fails validation when user clicks next button.',
+    await cth.failedValidation(
+      `${dummyEls.afterGenerateChangesetWebformForm} ${dummyEls.nameAndEmailFormEmailField}`,
+      assert,
+      {
+        assertionSuffix: 'on empty email field when user clicks next button',
+      },
     );
 
     assert

@@ -13,6 +13,8 @@ export default {
   cwfAddClone: '[data-test-id="cwf-add-clone-button"]',
   cwfRemoveClone: '[data-test-class="cwf-remove-clone-button"]',
   cwfMaxClonesReached: '[data-test-id="cwf-max-clones-reached"]',
+  datetimePickerClearDatetime:
+    '[data-test-id="datetime-picker-clear-datetime"]',
 
   cloneField(opts) {
     return `[data-test-id="${opts.fieldId}-clone-${opts.cloneId}-field"]`;

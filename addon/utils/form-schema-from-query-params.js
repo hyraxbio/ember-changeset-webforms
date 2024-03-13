@@ -77,8 +77,8 @@ export default function formSchemaFromQueryParams(
     }
 
     field.defaultValue = {
-      start: start.defaultvalue,
-      end: end.defaultvalue,
+      start: start.defaultValue,
+      end: end.defaultValue,
     };
     formSchema.fields.push(field);
   });

@@ -21,16 +21,20 @@ module('Acceptance | Field validation', function (hooks) {
   test('Validation events', async function (assert) {
     await visit('/docs/field-validation');
     await assert.notOk(
-      cth.wasValidated(`${dummyEls.signupFormNameField}`),
+      await cth.wasValidated(`${dummyEls.signupFormNameField}`),
       'Field with validation event "insert" is not validated when empty on insert.',
     );
-    assert.ok(
-      cth.failedValidation(`${dummyEls.signupFormRecoveryEmailField}`),
-      'Invalid field with validation event "insert" fails validation insert.',
+    await cth.failedValidation(
+      `${dummyEls.signupFormRecoveryEmailField}`,
+      assert,
+      {
+        assertionSuffix:
+          'Invalid field with validation event "insert" fails validation insert.',
+      },
     );
     await focus(`${dummyEls.signupFormNameField} input`);
     assert.notOk(
-      cth.wasValidated(`${dummyEls.signupFormNameField}`),
+      await cth.wasValidated(`${dummyEls.signupFormNameField}`),
       'Field without validation event "keyUp" loses validation when focussed.',
     );
     await blur(`${dummyEls.signupFormNameField} input`);
@@ -40,62 +44,68 @@ module('Acceptance | Field validation', function (hooks) {
       'Correct default error message shows for empty name field after focus out.',
     );
     await focus(`${dummyEls.signupFormNameField} input`);
-    assert.ok(
-      cth.failedValidation(`${dummyEls.signupFormNameField}`),
-      'Field with "keyUp" validation event does not lose  class "invalid" when focussed.',
-    );
+    await cth.failedValidation(`${dummyEls.signupFormNameField}`, assert, {
+      assertionSuffix:
+        'Field with "keyUp" validation event does not lose  class "invalid" when focussed.',
+    });
     await fillIn(`${dummyEls.signupFormNameField} input`, 'T');
     await triggerKeyEvent(
       find(`${dummyEls.signupFormNameField} input`),
       'keyup',
       1,
     );
-    assert.ok(
-      cth.passedValidation(`${dummyEls.signupFormNameField}`),
-      'Field with "keyUp" validation event passes validation on keyUp when user types single char.',
-    );
+    await cth.passedValidation(`${dummyEls.signupFormNameField}`, assert, {
+      assertionSuffix:
+        'Field with "keyUp" validation event passes validation on keyUp when user types single char.',
+    });
     await fillIn(`${dummyEls.signupFormNameField} input`, '');
     await triggerKeyEvent(
       find(`${dummyEls.signupFormNameField} input`),
       'keyup',
       1,
     );
-    assert.ok(
-      cth.failedValidation(`${dummyEls.signupFormNameField}`),
-      'Required field with "keyUp" validation event gets class "invalid" on keyUp, when user deletes the final char.',
-    );
-    assert.ok(
-      cth.passedValidation(`${dummyEls.signupFormEmailField}`),
-      'Valid field with validation event "insert" passes validation on insert.',
-    );
+    await cth.failedValidation(`${dummyEls.signupFormNameField}`, assert, {
+      assertionSuffix:
+        'Required field with "keyUp" validation event gets class "invalid" on keyUp, when user deletes the final char.',
+    });
+    await cth.passedValidation(`${dummyEls.signupFormEmailField}`, assert, {
+      assertionSuffix:
+        'Valid field with validation event "insert" passes validation on insert.',
+    });
     await fillIn(`${dummyEls.signupFormEmailField} input`, 'bluemangroup');
     await blur(`${dummyEls.signupFormEmailField} input`);
     await focus(`${dummyEls.signupFormPasswordField} input`);
     await blur(`${dummyEls.signupFormPasswordField} input`);
     assert.ok(
-      cth.wasValidated(`${dummyEls.signupFormPasswordField}`),
+      await cth.wasValidated(`${dummyEls.signupFormPasswordField}`),
       'Validation runs on focus out of input field by default.',
     );
     await click(
       `${dummyEls.signupFormAcceptTermsFieldRadioOptionTrue} input[type="radio"]`,
     );
-    assert.ok(
-      cth.passedValidation(`${dummyEls.signupFormAcceptTermsField}`),
-      'Validation runs after selecting option in radio button group.',
+
+    await cth.passedValidation(
+      `${dummyEls.signupFormAcceptTermsField}`,
+      assert,
+      {
+        assertionSuffix:
+          'Validation runs after selecting option in radio button group.',
+      },
     );
+
     await click(
       `${dummyEls.signupFormConfirmHumanField} input[type="checkbox"]`,
     );
-    assert.ok(
-      cth.passedValidation(`${dummyEls.signupFormConfirmHumanField}`),
-      'Validation runs after checking single checkbox.',
+    await cth.passedValidation(
+      `${dummyEls.signupFormConfirmHumanField}`,
+      assert,
+      { assertionSuffix: 'Validation runs after checking single checkbox.' },
     );
     await click('.ember-basic-dropdown-trigger');
     await selectChoose(find(dummyEls.signupFormCountryField), 'United States');
-    assert.ok(
-      cth.passedValidation(`${dummyEls.signupFormCountryField}`),
-      'Validation runs after selecting power select option.',
-    );
+    await cth.passedValidation(`${dummyEls.signupFormCountryField}`, assert, {
+      assertionSuffix: 'Validation runs after selecting power select option.',
+    });
     // TODO checkbox group and text area.
   });
 

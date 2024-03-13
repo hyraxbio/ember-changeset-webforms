@@ -14,17 +14,21 @@ class DateOutput {
 }
 
 export default class PowerDateickerExampleGenericComponent extends Component {
-  @tracked dateTimeOutput;
+  @tracked dateTimeOutput = new DateOutput({});
 
   // BEGIN-SNIPPET after-datetime-updated-action.js
   @action
-  afterDatetimeUpdated(formField, ChangesetWebform) {
-    const dateTime = ChangesetWebform.changeset.get('startDate');
-    this.dateTimeOutput = new DateOutput({
-      nativeJSFormat: moment(dateTime, formField.dateTimeFormat).toDate(),
-      fieldValue: dateTime,
-    });
+  afterDatetimeUpdated(formField) {
+    this.dateTimeOutput.nativeJSFormat = moment(
+      formField.fieldValue,
+      formField.dateTimeFormat,
+    ).toDate();
+    this.dateTimeOutput.fieldValue = formField.fieldValue;
   }
-
   // END-SNIPPET
+
+  @action
+  afterFieldInserted(formField) {
+    this.afterDatetimeUpdated(formField);
+  }
 }

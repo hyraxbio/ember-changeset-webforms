@@ -11,6 +11,7 @@
       ariaLabelledBy={{@ariaLabelledBy}}
       aria-label={{@ariaLabel}}
     >
+
       {{#if @value}}
         <button
           type="button"
@@ -23,13 +24,7 @@
       {{/if}}
       <input
         type="text"
-        value={{if
-          @value
-          (ember-changeset-webforms/moment-format
-            (ember-changeset-webforms/moment @value this.parsedDateTimeFormat)
-            this.parsedDateTimeDisplayFormat
-          )
-        }}
+        value={{this.dateInputValue}}
         placeholder={{this.parsedDatepickerPlaceholder}}
         {{on "change" this.onDateInputChange}}
         {{on "keyup" this.onDateInputKeyUp}}
@@ -76,7 +71,7 @@
           >
             <Background::TimePartInput
               @value={{@value}}
-              @parsedDateTimeFormat={{this.parsedDateTimeFormat}}
+              @dateTimeFormat={{@dateTimeFormat}}
               @timeInputLabelClass={{@timeInputLabelClass}}
               @keyupAction={{this.onKeyUpTimeUnitInput}}
               @keydownAction={{this.onKeyDownTimeUnitInput}}
@@ -85,7 +80,7 @@
             />
             <Background::TimePartInput
               @value={{@value}}
-              @parsedDateTimeFormat={{this.parsedDateTimeFormat}}
+              @dateTimeFormat={{@dateTimeFormat}}
               @timeInputLabelClass={{@timeInputLabelClass}}
               @keyupAction={{this.onKeyUpTimeUnitInput}}
               @keydownAction={{this.onKeyDownTimeUnitInput}}
@@ -94,7 +89,7 @@
             />
             <Background::TimePartInput
               @value={{@value}}
-              @parsedDateTimeFormat={{this.parsedDateTimeFormat}}
+              @dateTimeFormat={{@dateTimeFormat}}
               @timeInputLabelClass={{@timeInputLabelClass}}
               @keyupAction={{this.onKeyUpTimeUnitInput}}
               @keydownAction={{this.onKeyDownTimeUnitInput}}
@@ -103,7 +98,7 @@
             />
             <Background::TimePartInput
               @value={{@value}}
-              @parsedDateTimeFormat={{this.parsedDateTimeFormat}}
+              @dateTimeFormat={{@dateTimeFormat}}
               @timeInputLabelClass={{@timeInputLabelClass}}
               @keyupAction={{this.onKeyUpTimeUnitInput}}
               @keydownAction={{this.onKeyDownTimeUnitInput}}

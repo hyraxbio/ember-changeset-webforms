@@ -21,14 +21,15 @@
         (if
           @value
           (ember-changeset-webforms/moment-format
-            (ember-changeset-webforms/moment @value @parsedDateTimeFormat)
+            (ember-changeset-webforms/moment @value @dateTimeFormat)
             @timeFormatPart.formatChar
           )
         )
       }}
       {{on "keyup" (fn @keyupAction @timeFormatPart.formatChar)}}
       {{on "keydown" (fn @keydownAction @timeFormatPart.formatChar)}}
-      {{on "change" (fn @changeAction @timeFormatPart.formatChar)}} class="time-selector-field-input-{{@timeFormatPart.type}}
+      {{on "change" (fn @changeAction @timeFormatPart.formatChar)}}
+      class="time-selector-field-input-{{@timeFormatPart.type}}
         {{@timeInputClass}}"
     />
   </div>

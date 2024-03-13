@@ -31,7 +31,14 @@ export default class PowerDatetimePicker extends Component {
     if (!this.args.defaultTime) {
       return '00';
     }
-    return this.args.defaultTime.split(':')[2] || '00';
+    return this.args.defaultTime.replace('.', ':').split(':')[2] || '00';
+  }
+
+  get defaultMillisecond() {
+    if (!this.args.defaultTime) {
+      return '000';
+    }
+    return this.args.defaultTime.replace('.', ':').split('.')[3] || '000';
   }
 
   get fixedTimeParsed() {
@@ -59,14 +66,8 @@ export default class PowerDatetimePicker extends Component {
     };
   }
 
-  get parsedDateTimeFormat() {
-    return this.args.dateTimeFormat.replace(/S{1,}/, 'SSS'); // TODO this must be a global option
-  }
-
   get parsedDateTimeDisplayFormat() {
-    return this.args.dateTimeDisplayFormat
-      ? this.args.dateTimeDisplayFormat.replace(/S{1,}/, 'SSS')
-      : this.parsedDateTimeFormat; // TODO this must be a global option
+    return this.args.dateTimeDisplayFormat || this.args.dateTimeFormat;
   }
 
   get showAmPmInput() {
@@ -120,13 +121,22 @@ export default class PowerDatetimePicker extends Component {
     return this.args.datepickerPlaceholder || this.parsedDateTimeDisplayFormat;
   }
 
+  get dateInputValue() {
+    if (!this.args.value) {
+      return null;
+    }
+    return moment(this.args.value, this.args.dateTimeFormat).format(
+      this.parsedDateTimeDisplayFormat,
+    );
+  }
+
   validMoment(event) {
     var parsedDateTimeDisplayFormat = this.parsedDateTimeDisplayFormat;
     const value = event.target.value;
     const strictDateFormat = parsedDateTimeDisplayFormat.replace(
       /S{1,}/,
       'SSSS',
-    );
+    ); // Using SSSS for the milisecond part of the format means that the input will be a valid moment object if the user enters more than 3 digits. The field will all but the first three.
     if (!moment(value, strictDateFormat, true).isValid()) {
       return null;
     }
@@ -151,18 +161,21 @@ export default class PowerDatetimePicker extends Component {
     var currentHour = moment(currentDateTime).hour();
     var currentMinute = moment(currentDateTime).minute();
     var currentSecond = moment(currentDateTime).second();
+    var currentMillisecond = moment(currentDateTime).millisecond();
     var newDateTime;
     if (currentDateTime) {
       newDateTime = moment(selectedDate)
         .hour(currentHour)
         .minute(currentMinute)
         .second(currentSecond)
+        .millisecond(currentMillisecond)
         .toDate();
     } else {
       newDateTime = moment(selectedDate)
         .hour(this.defaultHour)
         .minute(this.defaultMinute)
         .second(this.defaultSecond)
+        .millisecond(this.defaultMillisecond)
         .toDate();
     }
     return newDateTime;
@@ -172,45 +185,45 @@ export default class PowerDatetimePicker extends Component {
     let newDateTime;
     if (unit.startsWith('h')) {
       if (
-        moment(currentDateTime, this.parsedDateTimeFormat).format('a') ===
+        moment(currentDateTime, this.args.dateTimeFormat).format('a') ===
           'pm' &&
         parseInt(value) < 12
       ) {
         value = parseInt(value) + 12;
       } else if (
-        moment(currentDateTime, this.parsedDateTimeFormat).format('a') ===
+        moment(currentDateTime, this.args.dateTimeFormat).format('a') ===
           'am' &&
         parseInt(value) === 12
       ) {
         value = 0;
       }
-      newDateTime = moment(currentDateTime, this.parsedDateTimeFormat).hour(
+      newDateTime = moment(currentDateTime, this.args.dateTimeFormat).hour(
         value,
       );
     } else if (unit.startsWith('H')) {
-      newDateTime = moment(currentDateTime, this.parsedDateTimeFormat).hour(
+      newDateTime = moment(currentDateTime, this.args.dateTimeFormat).hour(
         value,
       );
     } else if (unit.startsWith('m')) {
-      newDateTime = moment(currentDateTime, this.parsedDateTimeFormat).minute(
+      newDateTime = moment(currentDateTime, this.args.dateTimeFormat).minute(
         value,
       );
     } else if (unit.startsWith('s')) {
-      newDateTime = moment(currentDateTime, this.parsedDateTimeFormat).second(
+      newDateTime = moment(currentDateTime, this.args.dateTimeFormat).second(
         value,
       );
     } else if (unit.startsWith('S')) {
       newDateTime = moment(
         currentDateTime,
-        this.parsedDateTimeFormat,
+        this.args.dateTimeFormat,
       ).millisecond(value);
     } else if (unit.toLowerCase().startsWith('a')) {
       if (
-        moment(currentDateTime, this.parsedDateTimeFormat).format('a') !== value
+        moment(currentDateTime, this.args.dateTimeFormat).format('a') !== value
       ) {
         const currentHour = moment(
           currentDateTime,
-          this.parsedDateTimeFormat,
+          this.args.dateTimeFormat,
         ).hour();
         let newHour;
         if (value === 'am') {
@@ -218,11 +231,11 @@ export default class PowerDatetimePicker extends Component {
         } else if (value === 'pm') {
           newHour = currentHour + 12;
         }
-        newDateTime = moment(currentDateTime, this.parsedDateTimeFormat).hour(
+        newDateTime = moment(currentDateTime, this.args.dateTimeFormat).hour(
           newHour,
         );
       } else {
-        newDateTime = moment(currentDateTime, this.parsedDateTimeFormat);
+        newDateTime = moment(currentDateTime, this.args.dateTimeFormat);
       }
     }
     return newDateTime.toDate();
@@ -253,10 +266,10 @@ export default class PowerDatetimePicker extends Component {
     }
 
     if (moment.isDate(this.args.value)) {
-      this.updateDateTime(this.args.value);
+      this.insertWithValue(this.args.value);
     } else if (moment(this.args.value).isValid()) {
-      this.updateDateTime(
-        moment(this.args.value, this.parsedDateTimeFormat).toDate(),
+      this.insertWithValue(
+        moment(this.args.value, this.args.dateTimeFormat).toDate(),
       );
     }
 
@@ -268,17 +281,37 @@ export default class PowerDatetimePicker extends Component {
   }
 
   @action
+  insertWithValue(dateTime) {
+    this.center = dateTime;
+    if (this.fixedTimeParsed) {
+      for (const key in this.fixedTimeParsed) {
+        dateTime = this.updateTimeUnit(
+          key,
+          this.fixedTimeParsed[key],
+          dateTime,
+        );
+      }
+    }
+    this.selectedDate = dateTime;
+  }
+
+  @action
   onDateInputChange(event) {
     if (this.validMoment(event)) {
       this.updateDateTime(this.validMoment(event));
     } else {
-      event.target.value = this.args.value;
+      event.target.value = this.dateInputValue;
     }
   }
 
   @action
   onDateInputKeyUp(event) {
-    if (this.validMoment(event)) {
+    const { keys } = keyCodesMap;
+    if (
+      event.keyCode !== keys.backspace &&
+      event.keyCode !== keys.delete &&
+      this.validMoment(event)
+    ) {
       this.updateDateTime(this.validMoment(event));
     }
     if (this.args.onUserInteraction) {
@@ -442,7 +475,7 @@ export default class PowerDatetimePicker extends Component {
     if (value !== 'am' && value !== 'pm') {
       event.target.value = moment(
         currentDateTime,
-        this.parsedDateTimeFormat,
+        this.args.dateTimeFormat,
       ).format('a');
     }
     this.setTime('a', event);

@@ -1,6 +1,6 @@
 import PowerDatePickerExampleGeneric from './power-datepicker-example-generic';
 
-export default class PowerDateickerExampleFiveComponent extends PowerDatePickerExampleGeneric {
+export default class PowerDatePickerExampleFiveComponent extends PowerDatePickerExampleGeneric {
   // BEGIN-SNIPPET power-datepicker-example-5.js
   formSchema = {
     formSettings: {
@@ -13,17 +13,11 @@ export default class PowerDateickerExampleFiveComponent extends PowerDatePickerE
         fieldLabel: 'First day',
         fieldType: 'powerDatePicker',
         dateTimeFormat: 'HH:mm:ss.SSSSS DD.MM.YYYY',
-        dateTimeDisplayFormat: 'DD/MM/YYYY HH:mm:ss.SSSS',
+        dateTimeDisplayFormat: 'DD/MM/YYYY HH:mm:ss.SSSSS',
         closeDatePickerOnSelect: true,
         showTimeSelector: true,
-        timeSelectorFields: 'HH,mm,ss,SS',
+        timeSelectorFields: 'HH,mm,ss,SSSSS',
         defaultValue: '14:42:19.14223 03.11.2022',
-        // defaultValue: moment(
-        //   '14:42:19.14223 03.11.2022',
-        //   'HH:mm:ss.SSSSS DD.MM.YYYY'
-        // ),
-        // defaultValue: new Date(2022, 10, 3, 14, 42, 19, 142),
-        // TODO docs
       },
     ],
   };

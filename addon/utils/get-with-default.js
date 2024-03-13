@@ -1,6 +1,7 @@
 import config from 'ember-get-config';
 import _mergeWith from 'lodash.mergewith';
 import mergeWithDefaultClassNames from 'ember-changeset-webforms/utils/merge-with-default-class-names';
+import moment from 'moment';
 
 const addonDefaults = {
   generalClassNames: {
@@ -16,7 +17,7 @@ const addonDefaults = {
     labelElement: ['form-label'],
     checkboxElement: ['form-check-input', '$validationClassNames'],
     radioButtonElement: ['form-check-input', '$validationClassNames'],
-    buttonElement: ['btn', '$validationClassNames'],
+    buttonElement: ['btn'],
     buttonIcon: ['ms-1'],
     // Request in flight
     requestInFlight: [
@@ -27,9 +28,9 @@ const addonDefaults = {
     // Generic field classes- apply to all fields
     disabledField: ['disabled'],
     focussedField: ['focussed'],
-    fieldWrapper: ['cwf-field', '$validationClassNames'],
-    cloneWrapper: ['cwf-clone', '$validationClassNames'],
-    fieldControls: ['field-controls', '$validationClassNames'],
+    fieldWrapper: ['cwf-field'],
+    cloneWrapper: ['cwf-clone'],
+    fieldControls: ['field-controls'],
     fieldLabel: null,
     requiredField: ['required'],
     optionsWrapper: ['cwf-field-options'],
@@ -66,9 +67,13 @@ const addonDefaults = {
       'width-xl',
     ],
     // fieldType === 'powerSelect'
-    powerSelectTrigger: ['form-control'],
+    powerSelectTrigger: ['form-control', '$validationClassNames'],
     // fieldType === powerDatePicker
-    powerDatePickerTriggerWrapper: ['form-control', 'input'],
+    powerDatePickerTriggerWrapper: [
+      'form-control',
+      'input',
+      '$validationClassNames',
+    ],
     powerDatePickerTriggerInput: null,
     powerDatePickerDropdown: ['bg-transparent'],
     powerDatePickerDropdownInner: [
@@ -211,9 +216,24 @@ const addonDefaults = {
       dateRangeSettings: null,
       minDate: null, // String - the earliest day that the calendar will allow the user to select. Must be in the format YYYY-MM-DD.
       maxDate: null, // String - the latest day that the calendar will allow the user to select. Must be in the format YYYY-MM-DD.
-      alwaysValidateOn: ['valueUpdated'], // Array of strings
+      alwaysValidateOn: ['valueUpdated', 'blurDateTimeInput'], // Array of strings
       // END-SNIPPET
       componentPath: 'ember-changeset-webforms/fields/power-datepicker',
+      customParser(field) {
+        // TODO document this
+        field.dateTimeFormat = field.dateTimeFormat.replace(/S{1,}/, 'SSS');
+        field.dateTimeDisplayFormat = field.dateTimeDisplayFormat
+          ? field.dateTimeDisplayFormat.replace(/S{1,}/, 'SSS')
+          : field.dateTimeFormat;
+
+        if (field.defaultValue) {
+          field.defaultValue = moment(
+            field.defaultValue,
+            field.dateTimeFormat,
+          ).format(field.dateTimeFormat);
+        }
+        return field;
+      },
     },
     {
       // BEGIN-SNIPPET singleCheckbox-field-options.js

@@ -20,6 +20,15 @@ export default class PowerDateickerExampleThreeComponent extends PowerDatePicker
           '2022-11-03 14:42:19.23456',
           'YYYY-MM-DD HH:mm:ss.SSS',
         ),
+        validationRules: [
+          {
+            validationMethod: 'validatePresence',
+            arguments: true,
+          },
+          {
+            validationMethod: 'validatedDate',
+          },
+        ],
       },
     ],
   };

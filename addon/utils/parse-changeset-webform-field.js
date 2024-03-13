@@ -21,7 +21,7 @@ export default function parseChangesetWebformField(
 }
 
 function parse(fieldSchema, customValidators, formSettings) {
-  const field = { ...fieldSchema };
+  let field = { ...fieldSchema };
   if (field.validationRules) {
     var requiredRule = field.validationRules.find(function (rule) {
       return (
@@ -88,6 +88,7 @@ function parse(fieldSchema, customValidators, formSettings) {
     safeName(`${formSettings.formName}-form-${field.fieldId}-field`);
   field.placeholder = field.placeholder || field.fieldLabel;
   field.propertyName = field.propertyName || field.fieldId;
+  field = field.customParser ? field.customParser(field) : field;
   delete field.alwaysValidateOn;
   delete field.cloneFieldSchema;
   return field;

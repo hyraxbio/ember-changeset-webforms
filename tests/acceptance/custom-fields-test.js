@@ -13,11 +13,12 @@ module('Acceptance | Custom fields', function (hooks) {
     await visit('/docs/creating-custom-fields');
     await focus(`${dummyEls.cwfFieldTypePhoneNumberWithCountryCode} input`);
     await blur(`${dummyEls.cwfFieldTypePhoneNumberWithCountryCode} input`);
-    assert.ok(
-      cth.failedValidation(
-        `${dummyEls.cwfFieldTypePhoneNumberWithCountryCode}`,
-      ),
-      'Field fails validation on focusOutPhoneNumberInput.',
+    await cth.failedValidation(
+      `${dummyEls.cwfFieldTypePhoneNumberWithCountryCode}`,
+      assert,
+      {
+        assertionSuffix: 'Field fails validation on focusOutPhoneNumberInput.',
+      },
     );
     assert.strictEqual(
       cth
@@ -32,11 +33,13 @@ module('Acceptance | Custom fields', function (hooks) {
     );
     await blur(`${dummyEls.cwfFieldTypePhoneNumberWithCountryCode} input`);
 
-    assert.ok(
-      cth.failedValidation(
-        `${dummyEls.cwfFieldTypePhoneNumberWithCountryCode}`,
-      ),
-      'Field still fails validation on focusOutPhoneNumberInput when the phone number is filled in, but bthe country code is still empty.',
+    await cth.failedValidation(
+      `${dummyEls.cwfFieldTypePhoneNumberWithCountryCode}`,
+      assert,
+      {
+        assertionSuffix:
+          'Field still fails validation on focusOutPhoneNumberInput when the phone number is filled in, but the country code is still empty.',
+      },
     );
     assert.strictEqual(
       cth
@@ -51,7 +54,7 @@ module('Acceptance | Custom fields', function (hooks) {
       'Andorra',
     );
     assert.ok(
-      cth.passedValidation(
+      await cth.passedValidation(
         `${dummyEls.cwfFieldTypePhoneNumberWithCountryCode}`,
       ),
       'Field passes validation when country code is selected, after previously failing validation twice.',
@@ -62,11 +65,13 @@ module('Acceptance | Custom fields', function (hooks) {
     );
     await blur(`${dummyEls.cwfFieldTypePhoneNumberWithCountryCode} input`);
 
-    assert.ok(
-      cth.failedValidation(
-        `${dummyEls.cwfFieldTypePhoneNumberWithCountryCode}`,
-      ),
-      'Field still fails validation on focusOutPhoneNumberInput when the phone number is filled in, but bthe country code is still empty.',
+    await cth.failedValidation(
+      `${dummyEls.cwfFieldTypePhoneNumberWithCountryCode}`,
+      assert,
+      {
+        assertionSuffix:
+          'Field still fails validation on focusOutPhoneNumberInput when the phone number is filled in, but the country code is still empty.',
+      },
     );
     assert.strictEqual(
       cth
@@ -77,12 +82,16 @@ module('Acceptance | Custom fields', function (hooks) {
     );
     await focus(`${dummyEls.cwfFieldTypePhoneNumberWithCountryCode} input`);
     await assert.notOk(
-      cth.wasValidated(`${dummyEls.cwfFieldTypePhoneNumberWithCountryCode}`),
+      await cth.wasValidated(
+        `${dummyEls.cwfFieldTypePhoneNumberWithCountryCode}`,
+      ),
       'Validation is hidden on the field when the phone number input is focussed.',
     );
     await blur(`${dummyEls.cwfFieldTypePhoneNumberWithCountryCode} input`);
     await assert.ok(
-      cth.wasValidated(`${dummyEls.cwfFieldTypePhoneNumberWithCountryCode}`),
+      await cth.wasValidated(
+        `${dummyEls.cwfFieldTypePhoneNumberWithCountryCode}`,
+      ),
       'Validation is unhidden on the field when the phone number input is blurred.',
     );
   });
@@ -94,7 +103,9 @@ module('Acceptance | Custom fields', function (hooks) {
       'Andorra',
     );
     await assert.notOk(
-      cth.wasValidated(`${dummyEls.cwfFieldTypePhoneNumberWithCountryCode}`),
+      await cth.wasValidated(
+        `${dummyEls.cwfFieldTypePhoneNumberWithCountryCode}`,
+      ),
       'Field is not validated when the country code is been selected, but the field has the input has not been interacted with.',
     );
     await fillIn(
@@ -103,7 +114,7 @@ module('Acceptance | Custom fields', function (hooks) {
     );
     await blur(`${dummyEls.cwfFieldTypePhoneNumberWithCountryCode} input`);
     assert.ok(
-      cth.passedValidation(
+      await cth.passedValidation(
         `${dummyEls.cwfFieldTypePhoneNumberWithCountryCode}`,
       ),
       'Field passes validation when phone number input if blurred, when country code was selected.',
@@ -113,11 +124,13 @@ module('Acceptance | Custom fields', function (hooks) {
   test('Submit clicked', async function (assert) {
     await visit('/docs/creating-custom-fields');
     await click(els.cwfSubmitButton);
-    assert.ok(
-      cth.failedValidation(
-        `${dummyEls.cwfFieldTypePhoneNumberWithCountryCode}`,
-      ),
-      'Field still fails validation on focusOutPhoneNumberInput when the phone number is filled in, but bthe country code is still empty.',
+    await cth.failedValidation(
+      `${dummyEls.cwfFieldTypePhoneNumberWithCountryCode}`,
+      assert,
+      {
+        assertionSuffix:
+          'Field still fails validation on focusOutPhoneNumberInput when the phone number is filled in, but the country code is still empty.',
+      },
     );
     assert.strictEqual(
       cth

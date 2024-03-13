@@ -7,11 +7,14 @@ import {
   typeIn,
   fillIn,
   triggerKeyEvent,
+  click,
 } from '@ember/test-helpers';
 import { module, test } from 'qunit';
 import { clickTrigger } from 'ember-basic-dropdown/test-support/helpers';
 import { setupApplicationTest } from 'ember-qunit';
 import dummyEls from './test-selectors';
+import els from 'ember-changeset-webforms/test-support/element-selectors';
+import cth from 'ember-changeset-webforms/test-support/helpers';
 import keyCodesMap from 'ember-changeset-webforms/utils/keycodes-map';
 import { calendarSelect } from 'ember-power-calendar/test-support';
 import moment from 'moment';
@@ -489,7 +492,6 @@ module('Acceptance | Power datepicker field', function (hooks) {
         },
       ],
     });
-
     await check(assert, {
       parentFieldSelector: parentFieldSelector,
       inputToUpdate: {
@@ -629,9 +631,11 @@ module('Acceptance | Power datepicker field', function (hooks) {
     const timeSelectorSecondsInput = find(
       dummyEls.timeSelectorFieldInputSeconds,
     );
+
     const timeSelectorAmPmInput = find(dummyEls.powerDatepickerAmPmInput);
     await fillIn(dateTimeInput, '2022-11-03 03:42:19 pm');
     await triggerKeyEvent(dateTimeInput, 'keyup', 1);
+
     assert.strictEqual(
       find(dateTimeInput).value,
       '2022-11-03 2:42:19 pm',
@@ -2103,6 +2107,7 @@ module('Acceptance | Power datepicker field', function (hooks) {
       const timeSelectorMinutesInput = find(
         dummyEls.timeSelectorFieldInputMinutes,
       );
+
       assert
         .dom(`${parentFieldSelector} ${dummyEls.outputFieldValue}`)
         .hasText(
@@ -2168,9 +2173,200 @@ module('Acceptance | Power datepicker field', function (hooks) {
         ],
       });
     });
+
+  test('Misc zzz', async function (assert) {
+    // Main input (24 hour format)
+    // Filling in Msec value of more than 8 digits simply chops off all but the first three
+    await visit('/docs/built-in-fields');
+    const parentFieldSelector = dummyEls.powerDatepicker24HourTimeSelect;
+    const dateTimeInput = find(
+      `${parentFieldSelector} ${dummyEls.powerDatepickerInput}`,
+    );
+    const rawDateTimeElement = find(
+      `${parentFieldSelector} ${dummyEls.rawDateTime}`,
+    );
+    await clickTrigger(
+      `${parentFieldSelector} ${dummyEls.powerDatapickerExample3FormStartDateField}`,
+    );
+    const timeSelectorHourInput = find(dummyEls.timeSelectorFieldInputHour);
+    const timeSelectorMinutesInput = find(
+      dummyEls.timeSelectorFieldInputMinutes,
+    );
+    const timeSelectorSecondsInput = find(
+      dummyEls.timeSelectorFieldInputSeconds,
+    );
+    const timeSelectorMillisecondsInput = find(
+      dummyEls.timeSelectorFieldInputMilliseconds,
+    );
+    assert.notOk(
+      await cth.wasValidated(
+        `${parentFieldSelector} ${dummyEls.powerDatapickerExample3FormStartDateField}`,
+      ),
+      'Field is not validated on insert.',
+    );
+    await check(
+      assert,
+      {
+        header: 'Date time is updated correctly after filling in the input',
+        parentFieldSelector: parentFieldSelector,
+        inputToUpdate: {
+          element: dateTimeInput,
+          description: 'Datetime',
+        },
+        fillIn: '2022-11-03 16:42:19.234',
+        expectedInputValuesAfterKeyUp: [
+          {
+            textElement: rawDateTimeElement,
+            description: 'Native JS date format',
+            value:
+              'Thu Nov 03 2022 16:42:19 GMT+0200 (South Africa Standard Time)',
+          },
+          {
+            input: dateTimeInput,
+            description: 'Datetime',
+            value: '2022-11-03 16:42:19.234',
+          },
+          {
+            input: timeSelectorHourInput,
+            description: 'Hours',
+            value: '16',
+          },
+        ],
+      },
+      this,
+    );
+    await cth.passedValidation(
+      `${dummyEls.powerDatapickerExample3FormStartDateField}`,
+      assert,
+      { assertionSuffix: ' after typing a date in the input.' },
+    );
+    await click(els.datetimePickerClearDatetime);
+
+    await cth.failedValidation(
+      `${dummyEls.powerDatapickerExample3FormStartDateField}`,
+      assert,
+      {
+        assertionSuffix:
+          ' after clearing the date input by clicking the clear button.',
+      },
+    );
+    await clickTrigger(
+      `${parentFieldSelector} ${dummyEls.powerDatapickerExample3FormStartDateField}`,
+    );
+    await check(
+      assert,
+      {
+        header:
+          'Time is set to 00:00:00.000 when date is selected from calendar on an empty field',
+        parentFieldSelector: parentFieldSelector,
+        inputToUpdate: {
+          element: dateTimeInput,
+          description: 'Datetime',
+        },
+        dateSelect: '2022-11-14',
+        expectedInputValuesAfterDateSelect: [
+          {
+            textElement: rawDateTimeElement,
+            description: 'Native JS date format',
+            value:
+              'Mon Nov 14 2022 00:00:00 GMT+0200 (South Africa Standard Time)',
+          },
+          {
+            input: dateTimeInput,
+            description: 'Datetime',
+            value: '2022-11-14 00:00:00.000',
+          },
+        ],
+      },
+      this,
+    );
+    await clickTrigger(
+      `${parentFieldSelector} ${dummyEls.powerDatapickerExample3FormStartDateField}`,
+    );
+
+    await check(assert, {
+      header: 'Date time is updated correctly after filling in the input',
+      parentFieldSelector: parentFieldSelector,
+      inputToUpdate: {
+        element: dateTimeInput,
+        description: 'Datetime',
+      },
+      fillIn: '2022-11-03 16:42:19.555',
+      expectedInputValuesAfterKeyUp: [
+        {
+          textElement: rawDateTimeElement,
+          description: 'Native JS date format',
+          value:
+            'Thu Nov 03 2022 16:42:19 GMT+0200 (South Africa Standard Time)',
+        },
+        {
+          input: dateTimeInput,
+          description: 'Datetime',
+          value: '2022-11-03 16:42:19.555',
+        },
+      ],
+    });
+    await check(
+      assert,
+      {
+        header: `TIME IS REMEMBERED WHEN A NEW DATE IS SELECTED FROM THE CALENDAR`,
+        parentFieldSelector: parentFieldSelector,
+        inputToUpdate: {
+          element: dateTimeInput,
+          description: 'Datetime',
+        },
+        dateSelect: '2022-11-14',
+        expectedInputValuesAfterDateSelect: [
+          {
+            textElement: rawDateTimeElement,
+            description: 'Native JS date format',
+            value:
+              'Mon Nov 14 2022 16:42:19 GMT+0200 (South Africa Standard Time)',
+          },
+          {
+            input: dateTimeInput,
+            description: 'Datetime',
+            value: '2022-11-14 16:42:19.555',
+          },
+        ],
+      },
+      this,
+    );
+    await check(
+      assert,
+      {
+        header: `Milliseconds cut to three digits if longer, and result accepted as valid input`,
+        parentFieldSelector: parentFieldSelector,
+        inputToUpdate: {
+          element: dateTimeInput,
+          description: 'Datetime',
+        },
+        fillIn: '2022-11-03 16:42:19.12345678',
+        expectedInputValuesAfterKeyUp: [
+          {
+            textElement: rawDateTimeElement,
+            description: 'Native JS date format',
+            value:
+              'Thu Nov 03 2022 16:42:19 GMT+0200 (South Africa Standard Time)',
+          },
+          {
+            input: dateTimeInput,
+            description: 'Datetime',
+            value: '2022-11-03 16:42:19.123',
+          },
+        ],
+      },
+      this,
+    );
+    // Testing a backspace keypress in an input not possible
+    // https://github.com/emberjs/ember-test-helpers/issues/626
+  });
 });
 
 async function check(assert, opts) {
+  if (opts.header) {
+    assert.ok(true, `# ${opts.header.toUpperCase()}`);
+  }
   const { keys } = keyCodesMap;
   const element = opts.inputToUpdate.element;
 
@@ -2262,14 +2458,16 @@ async function check(assert, opts) {
       }
     }
   };
+
   if (!opts.dateSelect) {
     checkExpectedVals('KeyUp');
     await blur(element);
     checkExpectedVals('Blur');
+    assert.ok(true, '---------------------------------------');
   } else {
     checkExpectedVals('DateSelect');
+    assert.ok(true, '---------------------------------------');
   }
-  assert.ok(true, '---------------------------------------');
 }
 
 async function checkIncrements(assert, opts) {

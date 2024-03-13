@@ -13,6 +13,15 @@ export default class PowerDatePickerExampleOneComponent extends PowerDatePickerE
         fieldLabel: 'First day',
         fieldType: 'powerDatePicker',
         dateTimeFormat: 'YYYY-MM-DD',
+        validationRules: [
+          {
+            validationMethod: 'validatePresence',
+            arguments: true,
+          },
+          {
+            validationMethod: 'validatedDate',
+          },
+        ],
       },
     ],
   };
