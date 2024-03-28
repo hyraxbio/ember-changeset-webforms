@@ -9,10 +9,15 @@
   {{did-insert this.didInsert}}
   ...attributes
 >
-  {{! TODO implement this.formValidationClass with dynamic class names }}
   <form
     {{on "submit" this.submitForm}}
-    class={{this.formValidationClass}}
+    class={{concat
+      this.formValidationClass
+      " "
+      (ember-changeset-webforms/dynamic-class-names
+        "formElement" this.changesetWebform
+      )
+    }}
     novalidate={{this.formSettings.novalidate}}
     data-test-id={{ember-changeset-webforms/safe-name
       this.formSettings.formName

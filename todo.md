@@ -54,15 +54,10 @@ icons for next/prev month and year.
 define app wide icons for cross etc.
 Use svg for "ember-power-select-status-icon" (Override component)
 
-TODO - stop sending both fieldId and field from action hooks
 TODO - exclude fields from changeset altogether, bot just castOut on submit. Set this is form when using field, or on field definition as a default.
 TODO - disable single option where things have options.
-TODO allowed and disallowed char patterns for all fields.
-TOTO doc name prop for field
 
-[x] Document formField.customProps in it's own right, in relation tot neh clicker field.
-
-Document and test for <EmberChangesetWebforms::FieldElements::FieldDescription
+TODO Document and test for <EmberChangesetWebforms::FieldElements::FieldDescription
 @description={{@formField.description}}
 @descriptionMarkdown={{@formField.descriptionMarkdown}}
 />
@@ -71,3 +66,5 @@ Chnagelog
 
 default field names
 No longer force save even when submit action is provided
+
+Check if ember try

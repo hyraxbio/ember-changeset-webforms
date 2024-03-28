@@ -667,5 +667,3 @@ export default class PowerDatetimePicker extends Component {
     });
   }
 }
-// TODO
-// Bundle ember truth helpers or remove or statements

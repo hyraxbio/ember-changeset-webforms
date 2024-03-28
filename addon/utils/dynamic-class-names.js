@@ -9,7 +9,7 @@ export default function dynamicClassNames(
   let classNames = [];
   if (!changesetWebform) {
     console.warn(
-      `changesetWebform is not defined when trying to parse clasnames for ${elementTypesString}`,
+      `changesetWebform is not defined when trying to parse classnames for ${elementTypesString}`,
     );
     return;
   }

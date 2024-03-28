@@ -107,7 +107,7 @@ export default class ChangesetWebform extends Component {
       );
     }
   }
-
+  //  TODO allow action to completely replace this action
   @action
   submitForm(changesetWebform) {
     const changeset = changesetWebform.changeset;
@@ -219,7 +219,6 @@ export default class ChangesetWebform extends Component {
         }
       })
       .catch((err) => {
-        // TODO see how this is called
         changesetWebform.formSettings.requestInFlight = false;
         if (this.args.formValidationFailed) {
           this.args.formValidationFailed(changesetWebform, err);

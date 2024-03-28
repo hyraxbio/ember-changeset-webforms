@@ -42,6 +42,7 @@ const addonDefaults = {
     validatedField: ['was-validated'],
     // Form wrapper
     formWrapper: ['cwf-form-wrapper'],
+    formElement: ['cwf-form', '$validationClassNames'],
     // Form action element element classes
     formFields: ['form-fields'],
     formActions: ['form-actions', 'mt-4'],

@@ -16,7 +16,7 @@ export default class Input extends Component {
       if (formField.fieldType === 'input' && event.keyCode === 13) {
         if (this.args.submitForm) {
           formField.focussed = false;
-          this.args.submitForm(this.args.changesetWebform.changeset); // TODO test that this works
+          this.args.submitForm(this.args.changesetWebform.changeset); // TODO automated test that this works
         }
         return;
       }
