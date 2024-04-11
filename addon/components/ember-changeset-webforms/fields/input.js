@@ -10,16 +10,19 @@ export default class Input extends Component {
   @action
   onUserInteraction(eventName, event) {
     const formField = this.args.formField;
+    if (
+      eventName === 'keyUp' &&
+      formField.fieldType === 'input' &&
+      event.keyCode === 13 &&
+      this.args.submitForm
+    ) {
+      formField.focussed = false;
+      this.args.submitForm(this.args.changesetWebform.changeset);
+      return;
+    }
     let value = event.target.value;
     this.args.onUserInteraction(eventName, value, event);
     if (eventName === 'keyUp') {
-      if (formField.fieldType === 'input' && event.keyCode === 13) {
-        if (this.args.submitForm) {
-          formField.focussed = false;
-          this.args.submitForm(this.args.changesetWebform.changeset); // TODO automated test that this works
-        }
-        return;
-      }
       this.args.updateFieldValue(value);
     } else if (eventName === 'focusOut') {
       formField.focussed = false;
