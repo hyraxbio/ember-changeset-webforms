@@ -85,7 +85,7 @@ export default class ValidatingCloneGroup extends Component {
   onClickAddCloneButton() {
     this.cloneField();
     if (this.args.onUserInteraction) {
-      this.args.onUserInteraction(this.args.masterFormField, 'addClone');
+      this.args.onUserInteraction('addClone');
     }
   }
 
@@ -118,16 +118,7 @@ export default class ValidatingCloneGroup extends Component {
       fieldValue.push(opts.newCloneValue || newField.defaultValue);
       this.args.updateFieldValue(fieldValue, masterFormField);
     }
-
     this.checkMinMaxClones(masterFormField);
-    // onUserInteraction is not fired here, as this function can be run automatically when inserting clones to match initial field data.
-    if (this.args.afterAddClone) {
-      this.args.afterAddClone(
-        newField,
-        masterFormField,
-        this.args.changesetWebform,
-      );
-    }
   }
 
   @action
@@ -148,7 +139,7 @@ export default class ValidatingCloneGroup extends Component {
       clone.index = index;
     });
     if (this.args.onUserInteraction) {
-      this.args.onUserInteraction(this.args.masterFormField, 'removeClone');
+      this.args.onUserInteraction('removeClone');
     }
   }
 
