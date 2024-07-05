@@ -7,11 +7,12 @@
         name={{@name}}
         @radioId={{@radioId}}
         class={{@class}}
+        @for={{@for}}
       />
     {{/let}}
   {{else}}
     {{#let (component @labelComponent) as |LabelComponent|}}
-      <LabelComponent @option={{@option}} class={{@class}} />
+      <LabelComponent @option={{@option}} class={{@class}} @for={{@for}} />
     {{/let}}
   {{/if}}
 {{else if @markdownLabel}}

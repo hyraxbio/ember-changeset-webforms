@@ -25,9 +25,6 @@ export default class ValidatingClone extends Component {
     const clonedFormField = this.args.clonedFormField;
     if (eventName === 'focusOut') {
       clonedFormField.focussed = false;
-      // if (!this.isDestroyed && !this.isDestroying) {
-      //   this.updateCloneValue(value);
-      // }
     } else if (eventName === 'focusIn') {
       clonedFormField.focussed = true;
     }
