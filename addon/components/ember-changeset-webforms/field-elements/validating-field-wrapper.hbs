@@ -1,4 +1,5 @@
-<div
+<EmberChangesetWebforms::FieldElements::ValidatingFieldWrapperElement
+  @formField={{@formField}}
   data-test-cwf-field-wrapper={{not @formField.isClone}}
   data-test-cwf-clone-wrapper={{@formField.isClone}}
   data-test-class={{this.dataTestClass}}
@@ -104,4 +105,4 @@
       />
     {{/in-element}}
   {{/if}}
-</div>
+</EmberChangesetWebforms::FieldElements::ValidatingFieldWrapperElement>

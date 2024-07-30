@@ -1,0 +1,9 @@
+{{#if @formField.isFieldset}}
+  <fieldset ...attributes>
+    {{yield}}
+  </fieldset>
+{{else}}
+  <div ...attributes>
+    {{yield}}
+  </div>
+{{/if}}
