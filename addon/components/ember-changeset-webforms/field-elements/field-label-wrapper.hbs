@@ -1,0 +1,13 @@
+{{#if (eq this.labelType "legend")}}
+  <legend ...attributes>
+    {{yield}}
+  </legend>
+{{else if (eq this.labelType "div")}}
+  <div ...attributes>
+    {{yield}}
+  </div>
+{{else}}
+  <label for={{@formField.id}} ...attributes>
+    {{yield}}
+  </label>
+{{/if}}

@@ -17,6 +17,9 @@ dependencies:
   ember-cli-htmlbars:
     specifier: ^6.3.0
     version: 6.3.0
+  ember-test-selectors:
+    specifier: git+ssh://git@github.com/mainmatter/ember-test-selectors.git#cf1ce42fed939bb6a66634cb91dc77dc931b036a
+    version: github.com/mainmatter/ember-test-selectors/cf1ce42fed939bb6a66634cb91dc77dc931b036a
   flat:
     specifier: ^5.0.2
     version: 5.0.2
@@ -15542,3 +15545,16 @@ packages:
     transitivePeerDependencies:
       - supports-color
     dev: true
+
+  github.com/mainmatter/ember-test-selectors/cf1ce42fed939bb6a66634cb91dc77dc931b036a:
+    resolution: {tarball: https://codeload.github.com/mainmatter/ember-test-selectors/tar.gz/cf1ce42fed939bb6a66634cb91dc77dc931b036a}
+    name: ember-test-selectors
+    version: 6.0.0
+    engines: {node: 12.* || 14.* || >= 16.*}
+    dependencies:
+      calculate-cache-key-for-tree: 2.0.0
+      ember-cli-babel: 7.26.11
+      ember-cli-version-checker: 5.1.2
+    transitivePeerDependencies:
+      - supports-color
+    dev: false

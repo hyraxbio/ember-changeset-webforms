@@ -6,9 +6,19 @@ export default class FieldLabel extends Component {
     if (formField.hideLabel) {
       return true;
     }
-    if (!formField.fieldLabel && !formField.labelComponent) {
+    if (
+      !formField.fieldLabel &&
+      !formField.labelComponent &&
+      !formField.fieldLegend &&
+      !formField.legendComponent
+    ) {
       return true;
     }
     return null;
+  }
+
+  get includeForAtttribute() {
+    const nonFormElementFieldTypes = ['staticContent'];
+    return !nonFormElementFieldTypes.includes(this.args.formField.fieldType);
   }
 }

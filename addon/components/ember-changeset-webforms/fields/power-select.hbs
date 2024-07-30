@@ -19,7 +19,8 @@
     @onChange={{fn this.onChange @formField}}
     @onKeydown={{fn this.onKeydown @formField}}
     @onclose={{@onclose}}
-    @triggerId={{@formField.name}}
+    @triggerId={{@formField.id}}
+    @ariaLabelledBy={{@ariaLabelledBy}}
     @disabled={{@formField.disabled}}
     @matcher={{@formField.matcher}}
     @selectedItemComponent={{component @formField.selectedItemComponent}}

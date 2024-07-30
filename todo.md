@@ -70,3 +70,5 @@ default field names
 No longer force save even when submit action is provided
 
 Check if ember try
+
+Add input event to all input and textarea elements
