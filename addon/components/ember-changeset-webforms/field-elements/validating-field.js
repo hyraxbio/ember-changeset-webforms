@@ -68,10 +68,11 @@ export default class ValidatingField extends Component {
 
   @action
   onUserInteraction(eventName, value, event) {
-    if (this.isDestroyed || this.isDestroying) {
+    const formField = this.args.formField;
+
+    if (this.isDestroyed || this.isDestroying || formField.disabled) {
       return;
     }
-    const formField = this.args.formField;
     formField.eventLog.pushObject(eventName);
     this.validateField(formField);
     this.args.onUserInteraction(formField, eventName, value, event);
