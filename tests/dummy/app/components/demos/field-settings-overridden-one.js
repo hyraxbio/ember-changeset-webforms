@@ -31,6 +31,4 @@ export default class FieldSettingsOverriddenOneComponent extends Component {
     ],
   };
   // END-SNIPPET
-
-  // end-of-conent
 }

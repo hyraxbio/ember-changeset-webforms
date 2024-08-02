@@ -39,6 +39,4 @@ export default class PowerSelectExampleTwoComponent extends Component {
     ],
   };
   // END-SNIPPET
-
-  // end-of-conent
 }

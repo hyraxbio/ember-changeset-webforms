@@ -28,6 +28,4 @@ export default class ValidationClassSettingsComponent extends Component {
     ],
   };
   // END-SNIPPET
-
-  // end-of-conent
 }

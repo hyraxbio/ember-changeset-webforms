@@ -1,21 +1,21 @@
+{{! BEGIN-SNIPPET component-for-single-radio-option.hbs }}
+
 <div class="inline-flex flex-align-center">
-  <label for="{{@radioId}}">This is a custom component for the label of one
-    specific option</label>
+  <label id={{@labelId}} for={{@for}}><b>{{@option.label}}</b>
+    This is a custom component for the label of one specific radio option</label>
   <BasicDropdown @renderInPlace={{true}} as |Dropdown|>
     <Dropdown.Trigger>
       <button
-        class="btn btn-primary btn-sm"
+        class="btn btn-primary btn-sm ms-2"
         type="button"
         data-test-id="more-info-toggler"
       >More info</button>
     </Dropdown.Trigger>
-    <Dropdown.Content class="box-arrow p-2 border">
-      option.label =
-      {{@option.label}}<br />
-      option.value =
-      {{@option.value}}<br />
-      props.info =
+    <Dropdown.Content
+      class="rounded p-2 border border-primary box-arrow card-box-shadow"
+    >
       {{@props.info}}
     </Dropdown.Content>
   </BasicDropdown>
 </div>
+{{! END-SNIPPET }}

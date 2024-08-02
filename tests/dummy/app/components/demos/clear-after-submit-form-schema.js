@@ -25,6 +25,4 @@ export default class ClearAfterSubmitFormComponent extends Component {
     ],
   };
   // END-SNIPPET
-
-  // end-of-conent
 }

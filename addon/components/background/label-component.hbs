@@ -5,9 +5,10 @@
         @props={{@labelComponent.props}}
         @option={{@option}}
         name={{@name}}
-        @radioId={{@radioId}}
         class={{@class}}
         @for={{@for}}
+        @labelId={{@labelId}}
+        @checked={{@checked}}
       />
     {{/let}}
   {{else}}
@@ -16,10 +17,10 @@
     {{/let}}
   {{/if}}
 {{else if @markdownLabel}}
-  <label for="{{@for}}"><Background::MarkdownToHtml
+  <label for={{@for}} id={{@labelId}}><Background::MarkdownToHtml
       @source={{@markdownLabel}}
       class={{@class}}
     /></label>
 {{else if @label}}
-  <label for="{{@for}}" class={{@class}}>{{@label}}</label>
+  <label for={{@for}} id={{@labelId}} class={{@class}}>{{@label}}</label>
 {{/if}}

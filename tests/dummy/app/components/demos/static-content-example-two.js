@@ -12,15 +12,13 @@ export default class StaticContentExampleTwoComponent extends Component {
         fieldId: 'staticContent',
         fieldType: 'staticContent',
         contentComponent: {
-          path: 'forms/component-for-single-checkbox-option',
+          path: 'forms/component-for-static-content-field',
           props: {
-            info: 'Some additional info',
+            info: 'This text was passed to the label component dynamically for this option, via the contentComponent.props object',
           },
         },
       },
     ],
   };
   // END-SNIPPET
-
-  // end-of-conent
 }

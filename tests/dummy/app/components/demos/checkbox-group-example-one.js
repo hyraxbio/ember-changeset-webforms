@@ -30,6 +30,4 @@ export default class CheckboxGroupExampleOneComponent extends Component {
     ],
   };
   // END-SNIPPET
-
-  // end-of-conent
 }

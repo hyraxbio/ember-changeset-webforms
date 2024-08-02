@@ -10,4 +10,12 @@ export default class LabelledRadioButton extends Component {
       `${this.args.formField.id}-radio-option-${this.args.option.value}`,
     );
   }
+
+  get labelId() {
+    return this.radioId ? `${this.radioId}-label` : null;
+  }
+
+  get checked() {
+    return this.args.groupValue === this.args.value;
+  }
 }

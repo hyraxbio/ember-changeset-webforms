@@ -1,20 +1,34 @@
 body {
   position: relative;
 }
-$spacer-md: 16px;
 
 :root {
   --brand-primary: #806ca5;
 }
 
+@import '_variables';
+@import 'bootstrap';
+@import 'ember-power-select';
+
+.ember-power-select-trigger-multiple-input {
+  border-color: transparent !important;
+}
+
 .docs-rounded {
-  box-shadow:
-    0 1px 3px rgba(0, 0, 0, 0.12),
-    0 1px 2px rgba(0, 0, 0, 0.24);
+  .docs-p-4 {
+    @import '_power-datetime-picker';
+    .remove-clone-icon {
+      height: 18px;
+      fill: #999;
+      &:hover {
+        fill: $danger;
+      }
+    }
+  }
 }
 
 .docs-border-grey-lighter {
-  border-color: #666;
+  border-color: #bbb;
 }
 
 .hljs-tag {
@@ -61,10 +75,6 @@ $spacer-md: 16px;
   color: #fff;
 }
 
-// .cwf-field {
-//   margin-bottom: 30px;
-// }
-
 .width-lg {
   width: 24px;
 }
@@ -76,40 +86,6 @@ $spacer-md: 16px;
 .btn {
   align-items: center;
   justify-content: space-between;
-}
-
-@import '_variables';
-@import 'ember-bootstrap/bootstrap';
-@import 'ember-power-select';
-
-.ember-power-select-trigger-multiple-input {
-  border-color: transparent !important;
-}
-
-.docs-rounded {
-  .docs-p-4 {
-    // @import 'ember-bootstrap/bootstrap';
-    @import '_power-datetime-picker';
-    .clone-group {
-      .form-field-clone {
-        display: flex;
-        .ember-changeset-webforms-field {
-          flex-grow: 1;
-        }
-      }
-      .clone-actions {
-        padding-top: $spacer-md;
-        padding-right: $spacer-md;
-        svg {
-          height: 20px;
-        }
-      }
-      // .clone-group-actions {
-      //   width: 100%;
-      //   margin-top: 10px;
-      // }
-    }
-  }
 }
 
 .no-validate {
@@ -127,4 +103,10 @@ $spacer-md: 16px;
     background-image: none !important;
     background: transparent !important;
   }
+}
+
+.card-box-shadow {
+  box-shadow:
+    0 10px 20px rgba(0, 0, 0, 0.19),
+    0 6px 6px rgba(0, 0, 0, 0.23);
 }

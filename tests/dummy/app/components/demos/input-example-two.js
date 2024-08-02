@@ -18,6 +18,4 @@ export default class InputExampleTwoComponent extends Component {
     ],
   };
   // END-SNIPPET
-
-  // end-of-conent
 }

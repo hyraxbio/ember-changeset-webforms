@@ -33,7 +33,7 @@ export default class CheckboxGroupExampleTwoComponent extends Component {
             labelComponent: {
               path: 'forms/component-for-single-checkbox-option',
               props: {
-                info: 'Some additional info',
+                info: 'This text was passed to the label component dynamically for this option, via the labelComponent.props object.',
               },
             },
           },
@@ -42,6 +42,4 @@ export default class CheckboxGroupExampleTwoComponent extends Component {
     ],
   };
   // END-SNIPPET
-
-  // end-of-conent
 }

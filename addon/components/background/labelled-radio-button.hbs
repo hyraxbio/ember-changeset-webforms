@@ -17,6 +17,7 @@
     @changed={{@changedAction}}
     @radioId={{this.radioId}}
     @disabled={{@disabled}}
+    @ariaLabelledby={{this.labelId}}
     @radioClass="{{ember-changeset-webforms/dynamic-class-names
       'radioButtonElement'
       @changesetWebform
@@ -30,6 +31,8 @@
     @markdownLabel={{@markdownLabel}}
     @label={{@label}}
     @for={{this.radioId}}
+    @labelId={{this.labelId}}
+    @checked={{this.checked}}
     class={{ember-changeset-webforms/dynamic-class-names
       "radioButtonLabel"
       @changesetWebform

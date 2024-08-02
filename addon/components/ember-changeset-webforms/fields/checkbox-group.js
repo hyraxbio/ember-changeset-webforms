@@ -25,14 +25,16 @@ export default class CheckboxGroup extends Component {
   }
 
   @action
-  checkboxToggled(formField, key, value, event) {
+  checkboxToggled(option, value, event) {
     var checkedItems = this.stringToArray(this.args.formField.fieldValue);
     if (value === true) {
-      checkedItems = checkedItems.concat([key]); // TODO can pushObject work with tracked props?
+      checkedItems = checkedItems.concat([option.key]); // TODO can pushObject work with tracked props?
+      option.checked = true;
     } else {
       checkedItems = checkedItems.filter((item) => {
-        return item != key;
+        return item != option.key;
       });
+      option.checked = false;
     }
     if (checkedItems.length === 0) {
       checkedItems = null;

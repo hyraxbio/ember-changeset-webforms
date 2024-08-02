@@ -19,6 +19,4 @@ export default class OverrideClassSettingsComponent extends Component {
     ],
   };
   // END-SNIPPET
-
-  // end-of-conent
 }

@@ -16,6 +16,4 @@ export default class SingleCheckboxExampleOneComponent extends Component {
     ],
   };
   // END-SNIPPET
-
-  // end-of-conent
 }

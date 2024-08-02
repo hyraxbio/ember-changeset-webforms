@@ -21,6 +21,4 @@ export default class InputExampleOneComponent extends Component {
     console.log(args);
   }
   // END-SNIPPET
-
-  // end-of-conent
 }

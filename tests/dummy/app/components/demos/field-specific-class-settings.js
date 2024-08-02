@@ -38,6 +38,4 @@ export default class FieldSpecificClassSettingsComponent extends Component {
     ],
   };
   // END-SNIPPET
-
-  // end-of-conent
 }

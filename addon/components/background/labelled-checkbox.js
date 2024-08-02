@@ -12,6 +12,10 @@ export default class LabelledCheckbox extends Component {
     );
   }
 
+  get labelId() {
+    return this.checkboxId ? `${this.checkboxId}-label` : null;
+  }
+
   @action
   checkboxClicked(event) {
     if (this.args.changedAction) {

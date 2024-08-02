@@ -18,6 +18,4 @@ export default class StaticContentExampleOneComponent extends Component {
     ],
   };
   // END-SNIPPET
-
-  // end-of-conent
 }

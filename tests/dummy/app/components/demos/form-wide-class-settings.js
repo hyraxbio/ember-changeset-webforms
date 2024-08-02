@@ -34,6 +34,4 @@ export default class FormWideClassSettingsComponent extends Component {
     ],
   };
   // END-SNIPPET
-
-  // end-of-conent
 }

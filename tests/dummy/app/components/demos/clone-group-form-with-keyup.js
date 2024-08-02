@@ -36,6 +36,4 @@ export default class CloneGroupFormWithKeyupComponent extends Component {
     ],
   };
   // END-SNIPPET
-
-  // end-of-conent
 }

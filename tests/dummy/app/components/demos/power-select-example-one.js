@@ -20,6 +20,4 @@ export default class PowerSelectExampleOneComponent extends Component {
     ],
   };
   // END-SNIPPET
-
-  // end-of-conent
 }

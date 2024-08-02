@@ -1,0 +1,13 @@
+@import 'ember-bootstrap/functions';
+@import 'ember-bootstrap/variables';
+@import 'ember-bootstrap/variables-dark';
+@import 'ember-bootstrap/maps';
+@import 'ember-bootstrap/mixins';
+@import 'ember-bootstrap/utilities';
+@import 'ember-bootstrap/root';
+
+.docs-rounded {
+  .docs-p-4 {
+    @import 'ember-bootstrap/bootstrap';
+  }
+}

@@ -1,16 +1,10 @@
-<label for="{{@radioId}}">This is a custom component used for all the label of
-  all the options
-  <div style="padding-left: 30px">
-    <div>
-      option.label =
-      {{@option.label}}</div>
-    <div>
-      props.infoLink =
-      <a
-        href="{{@props.infoLink}}"
-        target="_blank"
-        rel="noopener noreferrer"
-      >{{@props.infoLink}}</a>
-    </div>
-  </div>
+{{! BEGIN-SNIPPET component-for-all-radio-options.hbs }}
+<label for={{@for}} id={{@labelId}}><b>
+    <a
+      href="{{@props.infoLink}}"
+      target="_blank"
+      rel="noopener noreferrer"
+    >{{@option.label}}</a>
+  </b>This is a custom label component applied all of the radio options
 </label>
+{{! END-SNIPPET}}

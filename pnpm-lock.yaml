@@ -17,6 +17,9 @@ dependencies:
   ember-cli-htmlbars:
     specifier: ^6.3.0
     version: 6.3.0
+  ember-cli-inline-content:
+    specifier: ^0.4.1
+    version: 0.4.1
   ember-test-selectors:
     specifier: git+ssh://git@github.com/mainmatter/ember-test-selectors.git#cf1ce42fed939bb6a66634cb91dc77dc931b036a
     version: github.com/mainmatter/ember-test-selectors/cf1ce42fed939bb6a66634cb91dc77dc931b036a
@@ -154,6 +157,9 @@ devDependencies:
   ember-source-channel-url:
     specifier: ^3.0.0
     version: 3.0.0
+  ember-sundries:
+    specifier: git+ssh://git@github.com/hyraxbio/ember-sundries.git#d9db9fd3bef6f47ddcd86357a42d56056760565b
+    version: link:../ember-sundries
   ember-template-lint:
     specifier: ^5.13.0
     version: 5.13.0
@@ -7012,6 +7018,10 @@ packages:
       clean-base-url: 1.0.0
       ember-cli-version-checker: 3.1.3
     dev: true
+
+  /ember-cli-inline-content@0.4.1:
+    resolution: {integrity: sha512-OZUG+GyRlVLlVMGR/cVAJxA5bqpGsmjVb7lxCy6GYyzhOYV+Bks6OrYjtjvp9p0pvLPA4HrZGGIh+ZFdswkucg==}
+    dev: false
 
   /ember-cli-is-package-missing@1.0.0:
     resolution: {integrity: sha512-9hEoZj6Au5onlSDdcoBqYEPT8ehlYntZPxH8pBKV0GO7LNel88otSAQsCfXvbi2eKE+MaSeLG/gNaCI5UdWm9g==}

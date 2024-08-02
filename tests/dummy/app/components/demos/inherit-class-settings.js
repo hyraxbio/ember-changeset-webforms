@@ -19,6 +19,4 @@ export default class InheritClassSettingsComponent extends Component {
     ],
   };
   // END-SNIPPET
-
-  // end-of-conent
 }

@@ -17,6 +17,4 @@ export default class SingleCheckboxExampleTwoComponent extends Component {
     ],
   };
   // END-SNIPPET
-
-  // end-of-conent
 }

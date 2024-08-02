@@ -28,8 +28,8 @@ const addonDefaults = {
     // Generic field classes- apply to all fields
     disabledField: ['disabled'],
     focussedField: ['focussed'],
-    fieldWrapper: ['cwf-field'],
-    cloneWrapper: ['cwf-clone'],
+    fieldWrapper: ['cwf-field', 'mb-3'],
+    cloneWrapper: ['cwf-clone', 'mb-3', 'd-flex'],
     fieldControls: ['field-controls'],
     fieldLabel: null,
     requiredField: ['required'],
@@ -66,7 +66,10 @@ const addonDefaults = {
       'remove-clone',
       'clone-actions',
       'width-xl',
+      'p-2',
+      'pb-0',
     ],
+    removeCloneButtonIcon: ['fill-gray-medium', 'remove-clone-icon'],
     // fieldType === 'powerSelect'
     powerSelectTrigger: ['form-control', '$validationClassNames'],
     // fieldType === powerDatePicker
@@ -172,6 +175,7 @@ const addonDefaults = {
       cloneFieldSchema: {}, // Object - the field definition of the clones, defined in the same way that you would define the field as a one off field.
       alwaysValidateOn: ['removeClone'], // Array of strings
       cloneGroupActionsPosition: 'cloneGroupWrapper',
+      isFieldset: true,
       // END-SNIPPET
       componentPath:
         'ember-changeset-webforms/cloned-form-fields/validating-form-field-clone-group',

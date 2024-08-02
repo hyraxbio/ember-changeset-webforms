@@ -58,7 +58,7 @@ The above props are in addition to the generic field props shown with their defa
 
 ### Single checkbox markdown checkbox label
 
-You can also pass a markdown string to the `checkboxLabelMarkdown` prop. This will bne rendered as HTML inside a `label` element.
+You can also pass a markdown string to the `checkboxLabelMarkdown` prop. This will be rendered as HTML inside a `label` element.
 
 <Demos::SingleCheckboxExampleTwo />
 
@@ -75,8 +75,10 @@ The object passed must take the following form.
 }
 ```
 
-* The component will also have access to an `option` prop, with the data for that option.
-* The component will also have access to the `checkboxId` property. Set the label elements `for` attribute to this value to match it to the related checkbox.
+* The component template will have access to the `{{@checked}}` boolean as well as the `{{@option}}` hash which includes the `label` and `key` props for that option.
+* Accessibility features
+  * Set `for={{@for}}` on the label element, to ensure that the browser knows which checkbox the label is for.
+  * Set `id={{@labelId}}` so that the `aria-labelledby` attribute on the checkbox works correctly.
 
 <Demos::SingleCheckboxExampleThree />
 
@@ -122,9 +124,10 @@ In both cases the following applies, the object passed must take the following f
   props: // Object, optional. This object that will be passed to the component as "props"
 }
 ```
-
-* The component will also have access to an `option` prop, with the data for that option.
-* The component will also have access to the `radioId` property. Set the label elements `for` attribute to this value to match it to the related checkbox.
+* The component template will have access to the `{{@checked}}` boolean as well as the `{{@option}}` hash which includes the `label` and  `value` props for that option.
+* Accessibility features
+  * Set `for={{@for}}` on the label element, to ensure that the browser knows which radio button the label is for.
+  * Set `id={{@labelId}}` so that the `aria-labelledby` attribute on the radio button works correctly.
 
 <Demos::RadioButtonGroupExampleTwo />
 
@@ -169,8 +172,10 @@ In both cases the following applies, the object passed must take the following f
 }
 ```
 
-* The component will also have access to an `option` prop, with the data for that option.
-* The component will also have access to the `checkboxId` property. Set the label elements `for` attribute to this value to match it to the related checkbox.
+* The component template will have access to the `{{@checked}}` boolean as well as the `{{@option}}` hash which includes the `label`, `key`, and `onlyCheckedOption` props for that option.
+* Accessibility features
+  * Set `for={{@for}}` on the label element, to ensure that the browser knows which checkbox the label is for.
+  * Set `id={{@labelId}}` so that the `aria-labelledby` attribute on the checkbox works correctly.
 
 <Demos::CheckboxGroupExampleTwo />
 

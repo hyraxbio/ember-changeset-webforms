@@ -1,11 +1,10 @@
-<label for="{{@radioId}}">This is a custom component used for all the label of
-  all the options
-  <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;option.label =
-  {{@option.label}}
-  <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;props.infoLink =
-  <a
-    href="{{@props.infoLink}}"
-    target="_blank"
-    rel="noopener noreferrer"
-  >{{@props.infoLink}}</a>
+{{! BEGIN-SNIPPET component-for-all-checkbox-options.hbs }}
+<label for={{@for}} id={{@labelId}}><b>
+    <a
+      href="{{@props.infoLink}}"
+      target="_blank"
+      rel="noopener noreferrer"
+    >{{@option.label}}</a>
+  </b>This is a custom label component applied all of the checkbox options
 </label>
+{{! END-SNIPPET}}

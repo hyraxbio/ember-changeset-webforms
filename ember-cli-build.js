@@ -1,6 +1,7 @@
 'use strict';
 
 const EmberAddon = require('ember-cli/lib/broccoli/ember-addon');
+const emberCliAddonDocsAutoScrolling = require('ember-sundries/node-utils/ember-cli-addon-docs-auto-scrolling');
 
 module.exports = function (defaults) {
   let app = new EmberAddon(defaults, {
@@ -14,6 +15,12 @@ module.exports = function (defaults) {
     'ember-bootstrap': {
       bootstrapVersion: 5,
       importBootstrapCSS: false,
+    },
+
+    inlineContent: {
+      'ember-cli-addon-docs/auto-scrolling': {
+        content: emberCliAddonDocsAutoScrolling,
+      },
     },
   });
 

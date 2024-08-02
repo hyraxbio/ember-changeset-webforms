@@ -36,7 +36,7 @@ module('Acceptance | Radio button group', function (hooks) {
     assert
       .dom(`${dummyEls.radioButtonGroupExample2FormRadioButtons2Field}`)
       .hasText(
-        'Custom label components This is a custom component used for all the label of all the options option.label = Option 1 props.infoLink = https://example.com This is a custom component used for all the label of all the options option.label = Option 2 props.infoLink = https://example.com This is a custom component for the label of one specific option More info',
+        'Custom label components Option 1 This is a custom label component applied all of the radio options Option 2 This is a custom label component applied all of the radio options Option 3 This is a custom component for the label of one specific radio option More info',
         'Both field.optionLabelComponent and option.labelComponent are loading correctly, and the option and props obejcts are passed in correctly to field.optionLabelComponent.',
       );
     await click(
@@ -45,8 +45,8 @@ module('Acceptance | Radio button group', function (hooks) {
     assert
       .dom(`${dummyEls.radioButtonGroupExample2FormRadioButtons2Field}`)
       .hasText(
-        'Custom label components This is a custom component used for all the label of all the options option.label = Option 1 props.infoLink = https://example.com This is a custom component used for all the label of all the options option.label = Option 2 props.infoLink = https://example.com This is a custom component for the label of one specific option More info option.label = Option 3 option.value = 3 props.info = Some additional info',
-        'The option and props obejcts are correctly passed in to option.labelConmponent.',
+        'Custom label components Option 1 This is a custom label component applied all of the radio options Option 2 This is a custom label component applied all of the radio options Option 3 This is a custom component for the label of one specific radio option More info This text was passed to the label component dynamically for this option, via the labelComponent.props object.',
+        'The option and props obejcts are correctly passed in to option.labelComponent.',
       );
   });
 });

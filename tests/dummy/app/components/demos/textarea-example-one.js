@@ -17,6 +17,4 @@ export default class TextareaExampleOneComponent extends Component {
     ],
   };
   // END-SNIPPET
-
-  // end-of-conent
 }
