@@ -61,6 +61,94 @@ export default class FormField {
     }
   }
 
+  get dynamicallyExcluded() {
+    if (!this.dynamicIncludeExclude) {
+      return null;
+    }
+    let result =
+      this.dynamicIncludeExclude.default === 'exclude' ? true : false;
+    if (
+      this.overrideConditionsFulfilled(
+        this.dynamicIncludeExclude.overrideDefault,
+        this.changeset,
+      )
+    ) {
+      result = !result;
+    }
+    return result;
+  }
+
+  checkCondition(changeset, condition) {
+    const value = changeset.get(condition.fieldId); // Needs to use propertyName or better yet, fieldValue
+
+    if (condition.valueEquals && (!value || value !== condition.valueEquals)) {
+      return false;
+    }
+    if (
+      condition.valueLengthEq &&
+      (!value || value.length !== condition.valueLengthEq)
+    ) {
+      return false;
+    }
+    if (
+      condition.valueLengthLt &&
+      (!value || !(value.length < condition.valueLengthLt))
+    ) {
+      return false;
+    }
+    if (
+      condition.valueLengthLte &&
+      (!value || !(value.length <= condition.valueLengthLte))
+    ) {
+      return false;
+    }
+    if (
+      condition.valueLengthGt &&
+      (!value || !(value.length > condition.valueLengthGt))
+    ) {
+      return false;
+    }
+    if (
+      condition.valueLengthGte &&
+      (!value || !(value.length >= condition.valueLengthGte))
+    ) {
+      return false;
+    }
+
+    if (
+      condition.valueIncludes &&
+      (!value || !value.includes(condition.valueIncludes))
+    ) {
+      return false;
+    }
+    if (
+      condition.valueExcludes &&
+      (!value || value.includes(condition.valueExcludes)) // Should valueExcludes be true if value is null or undefined?
+    ) {
+      return false;
+    }
+    return true;
+  }
+
+  checkConditions(ruleSet, changeset) {
+    const results = ruleSet.conditions.map((condition) => {
+      if (condition.conditions) {
+        return this.checkConditions(condition, changeset);
+      }
+      return this.checkCondition(changeset, condition);
+    });
+    if (ruleSet.ruleType === 'allConditionsTrue') {
+      return results.includes(false) ? false : true;
+    } else if (ruleSet.ruleType === 'anyConditionsTrue') {
+      return results.includes(true) ? true : false;
+    }
+  }
+
+  overrideConditionsFulfilled(ruleSet, changeset) {
+    const results = this.checkConditions(ruleSet, changeset);
+    return results;
+  }
+
   updateValue(value) {
     this.eventLog.pushObject('valueUpdated');
     var changeset = this.changeset;

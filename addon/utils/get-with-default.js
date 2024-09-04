@@ -138,7 +138,8 @@ const addonDefaults = {
     castOut: false, // Boolean - exclude the field from validation and submission
     defaultValue: null, // Any - auto set the changeset property for the field to this value when the ChangesetWebform component is rendered and the changeset is created. This value will be overridden by a corresponding property in the data object that is passed to the ChangesetWebform component.
     fieldLabel: null, // String - the label to show on the field
-    labelComponent: null, // Object - path to a component to use as the label. If set, takes the place of fieldLabel
+    labelComponent: null, // String - path to a component to use as the label. If set, takes the place of fieldLabel
+    labelMarkdown: null, // String - a markdown string to render as HTML within the label element.
     hideLabel: null, // Hide the label from the user
     disabled: false, // Boolean - disable the field, but do not hide it. It will still be validated [TODO check] and included when the form is submitted
     classNames: {}, // Object - keys can correspond to those in the classNames settings. See /docs/configure-classnames

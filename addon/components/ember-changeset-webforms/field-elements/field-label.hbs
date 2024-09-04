@@ -13,8 +13,11 @@
   >
     {{#if @formField.labelComponent}}
       {{component @formField.labelComponent}}
+    {{else if @formField.labelMarkdown}}
+      <Background::MarkdownToHtml @source={{@formField.labelMarkdown}} />
     {{else if @formField.fieldLabel}}
       {{@formField.fieldLabel}}
+
     {{/if}}
   </EmberChangesetWebforms::FieldElements::FieldLabelWrapper>
 {{/unless}}

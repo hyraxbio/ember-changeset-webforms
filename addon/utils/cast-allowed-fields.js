@@ -12,7 +12,11 @@ export default function castAllowedFields(changesetWebform) {
       changesetWebform.fields.find((field) => {
         return field.propertyName === key;
       }) || {};
-    return !(relatedField.hidden || relatedField.castOut);
+    return !(
+      relatedField.dynamicallyExcluded ||
+      relatedField.hidden ||
+      relatedField.castOut
+    );
   });
   return cast(changesetWebform.changeset, allowedKeys);
 }
