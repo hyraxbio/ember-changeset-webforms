@@ -69,7 +69,7 @@ export default class FormField {
       this.dynamicIncludeExclude.default === 'exclude' ? true : false;
     if (
       this.overrideConditionsFulfilled(
-        this.dynamicIncludeExclude.overrideDefault,
+        this.dynamicIncludeExclude.toggleDefault,
         this.changeset,
       )
     ) {
