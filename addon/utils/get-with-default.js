@@ -249,7 +249,7 @@ const addonDefaults = {
       // BEGIN-SNIPPET singleCheckbox-field-options.js
       fieldType: 'singleCheckbox',
       checkBoxLabelComponent: null, // String - path to the component to use as the checkbox label
-      checkBoxLabelMarkdown: null, // Markdown string - a markdown string to render as HTML TODO doc what addon is needed to use this and add to all the other labels.
+      checkboxLabelMarkdown: null, // Markdown string - a markdown string to render as HTML TODO doc what addon is needed to use this and add to all the other labels.
       alwaysValidateOn: ['valueUpdated'], // Array of strings
       // END-SNIPPET
       componentPath: 'ember-changeset-webforms/fields/checkbox',

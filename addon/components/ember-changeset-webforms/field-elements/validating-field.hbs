@@ -3,6 +3,7 @@
     @changesetWebform.changeset
     (not @formField.hidden)
     (not @formField.dynamicallyExcluded)
+    (not-eq @formField.fieldType "noDisplay")
   )
 }}
   {{#if @formField.cloneGroupName}}
