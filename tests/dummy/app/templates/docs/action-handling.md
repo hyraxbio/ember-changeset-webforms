@@ -52,7 +52,7 @@ changeset.save().then(saveChangesetResponse => {
 
 ## beforeSubmitAction
 
-Provides `(changesetWebform)` as the only argument. Runs after a user initiates form submission, but before `castAllowedFields` and `submitAction`.
+Provides `(changesetWebform)` as the only argument. Runs after a user initiates form submission, but before `nullifyExcludedFields` and `submitAction`.
 
 ## afterGenerateChangesetWebform 
 

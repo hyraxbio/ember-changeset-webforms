@@ -15,7 +15,7 @@ The following series of events occurs.
 
 * If an action was passed to the `ChangesetWebform` component as the `beforeSubmission` prop, that action is triggered with `(changesetWebform)` as the only argument.
 
-Then the internal `castAllowedFields` action is triggered. This action runs the `cast` method on the changeset ([See these docs](https://github.com/poteto/ember-changeset#cast)). Any fields which have either `hidden` or `castOut` set to true will not be included in the array of changeset properties passed to the `cast` method, and thus will not be included data which is submitted.
+Then the internal `nullifyExcludedFields` action is triggered. It finds all fields which are excluded, either explicity by setting `hidden` to `true`, or through `dynamicIncludeExclude` rules on the field. For each of these fields, if a changeset property exists witht he same name as `field.propertyName`, the changeset property is set to `null`.   
 
 * The property `ChangesetWebform.formSettings.requestInFlight` is then set to `true`.
 

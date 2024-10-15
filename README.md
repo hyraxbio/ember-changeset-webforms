@@ -1,19 +1,14 @@
-ember-changeset-webforms
-==============================================================================
+# ember-changeset-webforms
 
 [Short description of the addon.]
 
+## Compatibility
 
-Compatibility
-------------------------------------------------------------------------------
+- Ember.js v3.12 or below
+- Ember CLI v3.12 or above
+- Node.js v12 or below
 
-* Ember.js v3.12 or below
-* Ember CLI v3.12 or above
-* Node.js v12 or below
-
-
-Installation
-------------------------------------------------------------------------------
+## Installation
 
 ```
 ember install ember-changeset-webforms
@@ -30,7 +25,6 @@ The addon tries to remain as agnostic as possible about styling, however, there 
 There are some supporting addons which need to be installed, fpor various components/fieldTypes to work.
 
 See the [Contributing](CONTRIBUTING.md) guide for details.
-
 
 `ember install ember-power-select`
 
@@ -52,7 +46,7 @@ If the installation does not automatically add these line to your `app.scss` fil
 
 https://offirgolan.github.io/ember-validators/docs/modules/Validators.html
 
----------------
+---
 
 ## Form wide defaults
 
@@ -86,7 +80,7 @@ This is how you would create something like an edit account form, where the user
       formSettings: {
         formName: 'signup',
         modelName: 'user',
-      },     
+      },
       fields: [{
           fieldLabel: 'Name',
           fieldId: 'name',
@@ -120,7 +114,7 @@ The `propsHash` property exists for the edge case in which you need to update a 
       formSettings: {
         formName: 'signup',
         modelName: 'user',
-      },     
+      },
       fields: [{
           fieldLabel: 'Name',
           fieldId: 'name',
@@ -179,7 +173,7 @@ Initially, the the form will render with the value _**Little Sebastian**_ in the
 
 The value of the name field will now be _**Ron Swanson**_.
 
-Note that the keys and values of `propsHash` should correspond to `props`. 
+Note that the keys and values of `propsHash` should correspond to `props`.
 
 Note that `propsHash` can accept nested hashes.
 
@@ -189,7 +183,7 @@ Note that `propsHash` can accept nested hashes.
       data=model
       propHash=(
         name=model.name
-        info=(hash 
+        info=(hash
           phone_number=model.info.phone_number
         )
       )
@@ -206,7 +200,7 @@ In this case `this.set('model.info.phone_number', '555')` will update the value 
 
 ### input
 
-`notrim` Input fields are trimmed by default, unless they are type `password`, or you set `notrim` to true. 
+`notrim` Input fields are trimmed by default, unless they are type `password`, or you set `notrim` to true.
 
 ### checkbox group
 
@@ -219,7 +213,7 @@ Note `skipValidation` will skip validation even if rules are present. You would 
 
 `castOut` invokes `changeset.cast`. Note that this will revert any changes in your form to the value that was first given to the changeset. Note the implications for pre loaded models, eg in an edit account form- castOut will not remove the field altogether, it will just revert the value to what was originally loaded. This is technically correct, because not submitting that field should leave it alone, rather than overwrite it with null.
 
-`validateFields` and `castAllowedFields` are utils that user can incoke for special cases.
+`validateFields` and `nullifyExcludedFields` are utils that user can incoke for special cases.
 
 Note exactly how `customValidators` work.
 
@@ -235,7 +229,7 @@ Note `dataTestId` for form fields. First takes `dataTestId` in template, then `f
 
 `afterFieldValidation`
 
-Runs after any field is validated. 
+Runs after any field is validated.
 
 ```
 afterFieldValidation(validationResponse, formField, changeset, formFields, formSettings) {
@@ -278,6 +272,6 @@ afterFieldValidation(validationResponse, formField, changeset) {
 formField.datepickerPlaceholder for power-datetime-picker formfield.
 
 Default search placeholder for power select referenced in:
-  addon/templates/components/ember-changeset-webforms/form-field-power-select.hbs
+addon/templates/components/ember-changeset-webforms/form-field-power-select.hbs
 
-Test: castAllowedFields allows in changeset.set keys that are not in the formSchema, but still rejects those who have a related field which is hidden or castOut. Must take into accouhnt all keys in both changeset.data and changeset.changes.
+Test: nullifyExcludedFields allows in changeset.set keys that are not in the formSchema, but still rejects those who have a related field which is hidden or castOut. Must take into accouhnt all keys in both changeset.data and changeset.changes.

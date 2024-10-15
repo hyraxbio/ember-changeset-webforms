@@ -1,7 +1,7 @@
 import { action } from '@ember/object';
 import Component from '@glimmer/component';
 import validateFields from 'ember-changeset-webforms/utils/validate-fields';
-import castAllowedFields from 'ember-changeset-webforms/utils/cast-allowed-fields';
+import nullifyExcludedFields from 'ember-changeset-webforms/utils/nullify-excluded-fields';
 import createChangesetWebform from 'ember-changeset-webforms/utils/create-changeset-webform';
 import isPromise from 'ember-changeset-webforms/utils/is-promise';
 import { tracked } from '@glimmer/tracking';
@@ -128,7 +128,7 @@ export default class ChangesetWebform extends Component {
             console.log(err);
           }
           try {
-            castAllowedFields(changesetWebform); // TODO test this
+            nullifyExcludedFields(changesetWebform); // TODO test this
           } catch (err) {
             console.log(err);
           }

@@ -16,18 +16,17 @@ export default function createChangeset(
     validationsMap,
     { skipValidate: true },
   );
+
   formFields.forEach((formField) => {
     formField.propertyName = formField.propertyName || formField.fieldId;
-    if (changeset.get(formField.propertyName)) {
+    if (changeset.get(formField.propertyName) !== undefined) {
       return;
     }
     if (
-      (formField.defaultValue || formField.defaultValue === false) &&
+      Object.prototype.hasOwnProperty.call(formField, 'defaultValue') &&
       !opts.suppressDefaults
     ) {
       changeset.set(formField.propertyName, formField.defaultValue);
-    } else {
-      changeset.set(formField.propertyName, null);
     }
   });
   return changeset;
