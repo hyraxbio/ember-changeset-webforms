@@ -1,0 +1,11 @@
+{{#if @extra.fieldValue.length}}
+  <div class="ember-power-select-selected-item selected-items">
+    <div class="selected-items-count">{{@extra.fieldValue.length}}</div>
+    selected
+  </div>
+{{else}}
+  <div class="ember-power-select-placeholder">
+    {{@placeholder}}
+  </div>
+{{/if}}
+<span class="ember-power-select-status-icon"></span>

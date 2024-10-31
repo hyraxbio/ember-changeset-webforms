@@ -1,0 +1,14 @@
+$cwf-field-power-select-max-width: 300px;
+$cwf-field-power-select-option-with-checkbox-padding-y: 0px;
+
+.cwf-field {
+  &.power-select {
+    max-width: $cwf-field-power-select-max-width;
+  }
+}
+
+.power-select-option-with-checkbox {
+  font-size: 1em;
+  display: flex;
+  padding: $cwf-field-power-select-option-with-checkbox-padding-y 0;
+}

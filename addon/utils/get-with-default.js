@@ -201,7 +201,6 @@ const addonDefaults = {
       optionComponent: null,
       selectedItemComponent: null, // String - path to a component to replace what is displayed as the selected item.
       alwaysValidateOn: ['valueUpdated'], // Array of strings
-
       // END-SNIPPET
       componentPath: 'ember-changeset-webforms/fields/power-select',
     },
@@ -290,6 +289,21 @@ const addonDefaults = {
       contentComponent: null, // Can either be string which is the path to the component or an object with a property called path being the path to the component and props, an object which will be passed to the component as "props".
       // END-SNIPPET
       componentPath: 'ember-changeset-webforms/fields/static-content',
+    },
+    {
+      // BEGIN-SNIPPET powerSelectCheckboxes-field-options.js
+      fieldType: 'powerSelectCheckboxes',
+      allowClear: false, // Boolean. If true, the select box shows a clear icon which clears the value oif the field. See https://ember-power-select.com/docs/the-trigger for more.
+      searchEnabled: false, // Boolean. If true, a search box will display at the top of the select options, and will filter the options list then the user types. See https://ember-power-select.com/docs/the-search for more.
+      searchPlaceholder: 'Search', // String. If passed it will replace the default placeholder in the search box for the power select list.
+      options: [], // Array of items. Items ban be of any type, but they must all be the same type. If an array of objects ios passed, then optionDisplayProp can be passed to determine which property in the object should be shown as the label of the option in the list.
+      optionDisplayProp: null, // String - if options is an array of objects, provide the key to show in the list
+      optionComponent: null,
+      selectedItemComponent: null, // String - path to a component to replace what is displayed as the selected item.
+      alwaysValidateOn: ['valueUpdated'], // Array of strings
+      triggerComponent: 'background/power-select-checkboxes-trigger',
+      // END-SNIPPET
+      componentPath: 'ember-changeset-webforms/fields/power-select-checkboxes',
     },
   ],
 };

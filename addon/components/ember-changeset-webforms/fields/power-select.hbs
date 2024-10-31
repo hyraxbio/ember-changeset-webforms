@@ -7,10 +7,7 @@
       )
     }}
     @options={{@formField.options}}
-    @selected={{changeset-get
-      @changesetWebform.changeset
-      @formField.propertyName
-    }}
+    @selected={{@formField.fieldValue}}
     @searchPlaceholder={{or @formField.searchPlaceholder "Search"}}
     @searchField={{@formField.optionDisplayProp}}
     @allowClear={{@formField.allowClear}}
@@ -23,6 +20,7 @@
     @ariaLabelledBy={{@ariaLabelledBy}}
     @disabled={{@formField.disabled}}
     @matcher={{@formField.matcher}}
+    @closeOnSelect={{@formField.closeOnSelect}}
     @selectedItemComponent={{component @formField.selectedItemComponent}}
     as |option|
   >

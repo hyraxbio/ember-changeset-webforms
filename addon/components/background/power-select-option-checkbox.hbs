@@ -1,0 +1,9 @@
+<label
+  class="power-select-item power-select-option-with-checkbox
+    {{sanitise-classname @optionName}}
+    "
+  ...attributes
+>
+  <div class="checkbox {{if this.isSelected 'checked'}} margin-right-lg"></div>
+  {{@optionName}}
+</label>

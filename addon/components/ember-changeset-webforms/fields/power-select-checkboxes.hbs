@@ -1,0 +1,31 @@
+<PowerSelect
+  @searchField={{@formField.optionDisplayProp}}
+  @allowClear={{false}}
+  @searchEnabled={{true}}
+  @closeOnSelect={{false}}
+  @searchPlaceholder={{@formField.searchPlaceholder}}
+  @options={{this.orderedOptions}}
+  @selected={{@formField.fieldValue}}
+  @placeholder={{@formField.placeholder}}
+  @onChange={{this.optionClicked}}
+  @onKeydown={{this.onkeydown}}
+  @onClose={{this.onclose}}
+  @onOpen={{this.onOpen}}
+  @extra={{hash fieldValue=@formField.fieldValue}}
+  @triggerComponent={{@formField.triggerComponent}}
+  @triggerId={{@fieldId}}
+  as |option|
+>
+  <Background::PowerSelectOptionCheckbox
+    @option={{option}}
+    @options={{@formField.options}}
+    @selected={{@formField.fieldValue}}
+    @optionDisplayProp={{@formField.optionDisplayProp}}
+    @fieldId={{@formField.fieldId}}
+    @optionName={{if
+      @formField.optionDisplayProp
+      (get option @formField.optionDisplayProp)
+      option
+    }}
+  />
+</PowerSelect>
