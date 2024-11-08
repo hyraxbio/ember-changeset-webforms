@@ -1,5 +1,6 @@
 import { find, findAll, click, waitUntil } from '@ember/test-helpers';
 import els from 'ember-changeset-webforms/test-support/element-selectors';
+import { camelize } from '@ember/string';
 
 export default {
   fieldErrorText(arg) {
@@ -262,45 +263,24 @@ export default {
       formElement.querySelectorAll('[data-test-cwf-field]'),
     ).map((el) => {
       const obj = {
-        'data-test-id': el.getAttribute('data-test-id'),
+        name: el.getAttribute('data-test-id'),
         fieldType: el
           .getAttribute('data-test-class')
           .replace('cwf-field-type-', ''),
       };
-      if (el.hasAttribute('data-test-validates')) {
-        obj.validates = true;
-        obj.wasValidated = el.hasAttribute('data-test-was-validated');
-      }
-
-      if (obj.wasValidated && el.hasAttribute('data-test-validation-status')) {
-        obj.validationStatus = el.getAttribute('data-test-validation-status');
-      }
-      const input = el.querySelector(
-        'input:not([type=checkbox]):not([type=radio]',
-      );
+      obj.validationStatus = validationStatus(el);
+      const inputSelector = 'input:not([type=checkbox]):not([type=radio])';
+      const input = el.querySelector(inputSelector);
       if (input) {
         obj.inputText = input.value;
+        if (el.querySelector(`${inputSelector}:placeholder-shown`)) {
+          obj.placeholder = input.getAttribute('placeholder');
+        }
       }
-      if (el.querySelector('label')) {
+      if (el.querySelector('[data-test-class="cwf-field-label"]')) {
         obj.label = this.removeExtraSpaces(
-          el.querySelector('label').textContent,
+          el.querySelector('[data-test-class="cwf-field-label"]').textContent,
         );
-      }
-      if (el.classList.contains('field-type-radio-button-group')) {
-        const items = Array.from(
-          el.querySelectorAll('.labelled-radio-button'),
-        ).map((item) => {
-          return {
-            label: this.removeExtraSpaces(
-              item.querySelector('label').textContent,
-            ),
-            checked: item.querySelector('input[type="radio"]').checked,
-          };
-        });
-        obj.radioButtons = {
-          label: el.querySelector('label').textContent.trim(),
-          items: items,
-        };
       }
       ['radio-button', 'checkbox'].forEach((elType) => {
         if (obj.fieldType === `${elType}-group`) {
@@ -311,11 +291,12 @@ export default {
               label: this.removeExtraSpaces(
                 item.querySelector('label').textContent,
               ),
-              checked: item.querySelector(`input[type="${elType}"]`).checked,
+              checked: item.querySelector(
+                `input[type="${elType.replace('-button', '')}"]`,
+              ).checked,
             };
           });
-          obj[`${elType}-options`] = {
-            label: el.querySelector('label').textContent.trim(),
+          obj[camelize(`${elType}-options`)] = {
             items: items,
           };
         }
@@ -323,25 +304,41 @@ export default {
           customTransforms(el, obj);
         }
       });
-
-      if (el.classList.contains('field-type-single-checkbox')) {
-        obj.singleCheckbox = {
-          label: el.querySelector('label').textContent.trim(),
+      if (obj.fieldType === 'single-checkbox') {
+        obj[camelize(obj.fieldType)] = {
+          label: el.querySelector('label').textContent.trim(), // TODO better selector for this.
           checked: el.querySelector('input[type="checkbox"]').checked,
         };
       }
-      if (el.classList.contains('field-type-power-select')) {
-        obj.powerSelect = {
-          label: this.removeExtraSpaces(el.querySelector('label').textContent),
-          checked: el.querySelector('.ember-power-select-selected-item')
-            ? this.removeExtraSpaces(
-                el.querySelector('.ember-power-select-selected-item')
-                  .textContent,
-              )
-            : '',
+      if (['power-select', 'power-select-checkboxes'].includes(obj.fieldType)) {
+        const elObject = {
+          label: this.removeExtraSpaces(
+            el.querySelector('[data-test-class="cwf-field-label"]').textContent,
+          ),
         };
+        if (el.querySelector('.ember-power-select-placeholder')) {
+          elObject.placeholder = this.removeExtraSpaces(
+            el.querySelector('.ember-power-select-placeholder').textContent,
+          );
+        }
+        if (el.querySelector('.ember-power-select-selected-item')) {
+          elObject.selectedItemText = this.removeExtraSpaces(
+            el.querySelector('.ember-power-select-selected-item').textContent,
+          );
+        }
+        obj[camelize(obj.fieldType)] = elObject;
       }
       return obj;
     });
   },
 };
+
+function validationStatus(el) {
+  if (!el.hasAttribute('data-test-validates')) {
+    return 'not-applicable';
+  }
+  if (!el.hasAttribute('data-test-was-validated')) {
+    return 'not-validated';
+  }
+  return el.getAttribute('data-test-validation-status');
+}
