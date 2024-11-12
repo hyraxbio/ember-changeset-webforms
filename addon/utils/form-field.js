@@ -6,7 +6,7 @@ export default class FormField {
   @tracked focussed;
   @tracked changeset;
   @tracked validatesOn = [];
-  @tracked wasValidated;
+  // @tracked wasValidated;
   // BEGIN-SNIPPET field-settings-tracked-props.js
   @tracked hidden;
   @tracked disabled;
@@ -41,7 +41,7 @@ export default class FormField {
     );
   }
 
-  get validationStatus() {
+  get wasValidated() {
     if (!this.validates) {
       return null;
     }
@@ -52,6 +52,13 @@ export default class FormField {
       return null;
     }
     if (!this.eventLogValidated.length) {
+      return null;
+    }
+    return true;
+  }
+
+  get validationStatus() {
+    if (!this.wasValidated) {
       return null;
     }
     if (this.validationErrors.length === 0) {
@@ -170,7 +177,7 @@ export default class FormField {
       changeset
         .validate(formField.propertyName)
         .then(() => {
-          formField.wasValidated = true;
+          // formField.wasValidated = true;
           const fieldValidationErrors = changeset.error[formField.propertyName];
           resolve(fieldValidationErrors);
         })
